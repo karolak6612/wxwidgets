@@ -1,0 +1,13 @@
+id: LOGIC-05
+section: House System
+title: Implement House Management in Core
+input_files:
+- house.h/cpp
+dependencies:
+- CORE-01
+definition_of_done: |-
+  |
+  The `mapcore` library contains a `Houses` manager class that can add, remove, and query `House` objects. The `House` data model and its relationship with `Tile`s is fully implemented without UI dependencies.
+boilerplate_coder_ai_prompt: |-
+  |
+  Port the `House` and `Houses` classes to `mapcore`. Refactor the logic to operate solely on the core data models (`Map`, `Tile`). Ensure house data is correctly serialized and deserialized in the `.otbm` I/O tasks. Unit tests must verify house creation and tile assignment.

@@ -1,0 +1,16 @@
+id: CORE-05
+section: Core Migration Tasks
+title: Port Action, Selection, Copy/Paste
+input_files:
+- action.h/cpp
+- selection.h/cpp
+- copybuffer.h/cpp
+- threads.h
+dependencies:
+- CORE-04
+definition_of_done: |-
+  |
+  The Undo/Redo (`ActionQueue`), `Selection`, and `CopyBuffer` systems are ported to `mapcore`. All logic is decoupled from UI events and operates on core data models. `wxThread` is replaced by `std::thread`.
+boilerplate_coder_ai_prompt: |-
+  |
+  Port the `Action`, `ActionQueue`, `Selection`, and `CopyBuffer` classes. Rewrite `SelectionThread` using `std::thread`. These classes must compile within `mapcore` without any UI framework includes.

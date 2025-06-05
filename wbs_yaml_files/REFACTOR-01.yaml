@@ -1,0 +1,14 @@
+id: REFACTOR-01
+section: Post-Migration Refactoring & Optimization
+title: Decouple Systems from Global Managers
+input_files:
+- gui.cpp
+- all files that include gui.h
+dependencies:
+- FINAL-04
+definition_of_done: |-
+  |
+  The `GuiManager` singleton from `UI-03` is eliminated. Its responsibilities (e.g., managing the active brush) are moved into smaller, focused classes. A dependency injection or modern service locator pattern is used in `MainWindow` to provide these services to widgets that need them.
+boilerplate_coder_ai_prompt: |-
+  |
+  Refactor the `GuiManager` singleton. Move brush management logic to a `BrushManager` class. Move UI state logic to a `ViewStateManager` class. `MainWindow` will instantiate these managers and provide pointers or references to child widgets through their constructors, removing the need for a global accessor.

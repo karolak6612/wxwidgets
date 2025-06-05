@@ -1,0 +1,17 @@
+id: NET-03
+section: Core Migration Tasks
+title: Port Live Client & UI Integration
+input_files:
+- live_client.h/cpp
+- live_tab.h/cpp
+- live_action.h/cpp
+dependencies:
+- NET-01
+- UI-01
+- CORE-05
+definition_of_done: |-
+  |
+  The RME application can connect to the new server. All network communication is handled via `QTcpSocket`. UI updates from the network thread must be posted to the main thread's event loop.
+boilerplate_coder_ai_prompt: |-
+  |
+  Port `LiveClient` to the Qt application. Replace Boost.Asio with `QTcpSocket`. Use signals like `readyRead()` and `disconnected()`. For UI updates, emit a Qt signal from the network thread and connect it to a slot in a `MainWindow` object using `Qt::QueuedConnection`.

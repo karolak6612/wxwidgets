@@ -1,0 +1,18 @@
+id: CORE-02
+section: Core Migration Tasks
+title: Port Asset Database & Parsers
+input_files:
+- items.h/cpp
+- creatures.h/cpp
+- ext/pugixml.hpp
+- ext/pugixml.cpp
+- client_version.h/cpp
+- graphics.h/cpp
+dependencies:
+- CORE-01
+definition_of_done: |-
+  |
+  The `mapcore` library can parse `items.otb`, `items.xml`, `creatures.xml`, and client version data into memory. The `pugixml` dependency is replaced with `QXmlStreamReader`.
+boilerplate_coder_ai_prompt: |-
+  |
+  Implement `ItemDatabase`, `CreatureDatabase`, and `ClientVersion` classes within `mapcore`. Port the parsing logic from the input files. Replace `pugixml` usage with `QXmlStreamReader`. Replace C-style file I/O with `QFile`.
