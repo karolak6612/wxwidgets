@@ -1,0 +1,80 @@
+id: LOGIC-03
+section: Editor Behavior
+title: Port Cut, Copy, Paste & Move
+original_input_files: copybuffer.h/cpp, editor.cpp, main_menubar.cpp, selection.h/cpp
+analyzed_input_files:
+- wxwidgets/copybuffer.h
+- wxwidgets/copybuffer.cpp
+- wxwidgets/editor.h
+- wxwidgets/editor.cpp
+- wxwidgets/main_menubar.h
+- wxwidgets/main_menubar.cpp
+- wxwidgets/selection.h
+- wxwidgets/selection.cpp
+dependencies:
+- LOGIC-02
+current_functionality_summary: |-
+  `copybuffer.h/cpp` implements the `CopyBuffer` class, which handles the logic for copying, cutting, and pasting map regions using an internal `BaseMap` to store data. These operations create `Action` objects for undo/redo.
+  `editor.cpp` contains methods like `moveSelection` which orchestrates a move by copying, deleting the original, and pasting to the new location, all as undoable actions. It also has `destroySelection`.
+  `main_menubar.cpp` contains the UI event handlers (e.g., `OnCut`, `OnCopy`, `OnPaste`) that trigger these operations via the global `g_gui` which in turn calls `Editor` methods.
+  `selection.h/cpp` provides the `Selection` object used to determine what to copy/cut.
+qt6_migration_steps: |-
+  1. Ensure the `CopyBuffer` class (ported to `mapcore` in `CORE-05`) is fully functional. Its `copy`, `cut`, and `paste` methods should operate on `mapcore`'s `Map`, `Selection`, and `ActionQueue` objects and be UI-independent.
+  2. Implement corresponding methods in the `EditorController` class (application layer):
+     - `void EditCopy()`: Retrieves current floor and selection, then calls `mapcoreCopyBuffer->copy(map, selection, currentFloor)`.
+     - `void EditCut()`: Retrieves current floor and selection, then calls `mapcoreCopyBuffer->cut(map, selection, actionQueue, currentFloor)`. This `cut` method within `mapcoreCopyBuffer` should create and manage the deletion `Action`.
+     - `void EditPaste(const Position& targetMapPos)`: Calls `mapcoreCopyBuffer->paste(map, actionQueue, targetMapPos)`. This `paste` method within `mapcoreCopyBuffer` creates the paste `Action`.
+     - `void InitiateVisualPaste()`: Informs the `MapView` to enter a "pasting mode" where a preview of the `CopyBuffer` content is shown under the mouse.
+     - `void MoveSelection(const Position& offset)`: This method should create a `BatchAction`. It will:
+       a. Call `mapcoreCopyBuffer->copy(...)` to temporarily store the current selection.
+       b. Create and add an `Action` to the `BatchAction` to delete the items from their original selected positions.
+       c. Calculate new positions based on the `offset`.
+       d. Create and add another `Action` to the `BatchAction` to paste the items (from the temporary copy in `CopyBuffer`) to the new positions.
+       e. Add the `BatchAction` to the `actionQueue`.
+  3. In the `MainWindow` (from `UI-01`):
+     - Create `QAction` objects for "Cut", "Copy", and "Paste".
+     - Connect their `triggered()` signals to slots that call the appropriate `EditorController` methods (e.g., `EditCopy`, `EditCut`, `InitiateVisualPaste`).
+     - Dynamically enable/disable these `QAction`s based on context (e.g., "Paste" enabled if `mapcoreCopyBuffer->canPaste()` is true; "Cut"/"Copy" enabled if `selection->size() > 0`).
+  4. Implement the visual "pasting mode" in `MapView`:
+     - When `EditorController::InitiateVisualPaste()` is called, `MapView` should set a flag `isPastingMode = true`.
+     - In `MapView::paintGL` (or an overlay `paintEvent`): If `isPastingMode`, get the content preview from `mapcoreCopyBuffer` (it might need a method like `getPreviewData()`) and render it ghosted at the current mouse cursor's map position.
+     - In `MapView::mousePressEvent`: If `isPastingMode` and a valid placement click occurs, call `editorController->EditPaste(clickedMapPos)` and then exit pasting mode (`isPastingMode = false`).
+  5. Implement selection drag-and-move:
+     - In `MapView::mousePressEvent`: If clicking on an existing selection (and not in another mode like Shift-drag for bounding box), set `isDraggingSelection = true` and store `dragAnchorMapPos = clickedMapPos`.
+     - In `MapView::mouseMoveEvent`: If `isDraggingSelection`, calculate `currentOffset = currentMapPos - dragAnchorMapPos`. Trigger `MapView::update()` to repaint. In `paintGL`, draw a ghosted preview of the selected items moved by `currentOffset`.
+     - In `MapView::mouseReleaseEvent`: If `isDraggingSelection`, set `isDraggingSelection = false`. If `currentOffset` is significant, call `editorController->MoveSelection(currentOffset)`. Trigger repaint.
+  6. Ensure all operations correctly utilize `mapcore`'s `ActionQueue` by creating and adding `Action` or `BatchAction` objects.
+definition_of_done: |-
+  Cut, Copy, Paste, and selection drag-and-move operations are fully functional, integrated with the `mapcore ActionQueue`, and provide appropriate visual feedback.
+  Key requirements:
+  - "Copy" (e.g., Ctrl+C or menu action) correctly copies the selected map region into the `mapcore`'s `CopyBuffer`.
+  - "Cut" (e.g., Ctrl+X or menu action) copies the selection to `CopyBuffer` and creates an undoable `Action` to delete the original selection from the map.
+  - "Paste" (e.g., Ctrl+V or menu action) initiates a visual "pasting mode" where `MapView` shows a preview of the `CopyBuffer`'s content under the mouse cursor. A subsequent click on the map finalizes the paste operation at that position, creating an undoable `Action`.
+  - Dragging an existing selection on the `MapView` visually moves a preview (ghost image) of the selection. Releasing the mouse finalizes the move by creating an undoable `BatchAction` (effectively a cut from the old position and a paste to the new position).
+  - All these operations (Cut, Copy, Paste, Move) are correctly undoable and redoable via the `ActionQueue`.
+  - UI actions (menu items, toolbar buttons) for Cut, Copy, and Paste are correctly enabled or disabled based on the current selection state and the content of the `CopyBuffer`.
+boilerplate_coder_ai_prompt: |-
+  Implement Cut, Copy, Paste, and selection drag-and-move functionality. This involves `EditorController`, `MainWindow`, and `MapView`, interacting with `mapcore`'s `CopyBuffer` and `ActionQueue` (from `CORE-05`).
+  1.  **`EditorController` Methods:**
+      -   `void handleCopy()`: Gets current floor/selection. Calls `mapcoreCopyBuffer->copy(map, selection, floor)`.
+      -   `void handleCut()`: Gets floor/selection. Calls `mapcoreCopyBuffer->cut(map, selection, actionQueue, floor)`.
+      -   `void handleStartPaste()`: Sets a state in `MapView` to enter "pasting mode" (e.g., via a signal or direct call).
+      -   `void handleFinalizePaste(const Position& targetPos)`: Calls `mapcoreCopyBuffer->paste(map, actionQueue, targetPos)`. Exits "pasting mode" in `MapView`.
+      -   `void handleMoveSelection(const Position& offset)`: Creates a `BatchAction`. Adds an action for deleting items from original selected positions (after copying them to a temporary buffer or using `CopyBuffer`'s state). Adds another action for pasting items to new positions (original positions + offset). Pushes `BatchAction` to `actionQueue`.
+  2.  **`MainWindow` UI (`UI-01` & `UI-02` context):**
+      -   Ensure `QAction`s for "Cut", "Copy", "Paste" exist.
+      -   Connect their `triggered()` signals to slots calling `editorController->handleCut()`, `editorController->handleCopy()`, `editorController->handleStartPaste()`.
+      -   Update `QAction` enabled states: Copy/Cut if `selection->size() > 0`; Paste if `mapcoreCopyBuffer->canPaste()`.
+  3.  **`MapView` Enhancements (`UI-EVENT-01` context):**
+      -   Add a boolean state, e.g., `m_isPastingMode`.
+      -   `mousePressEvent`:
+          -   If `m_isPastingMode`: Call `editorController->handleFinalizePaste(clickedMapPos)`.
+          -   Else if clicking on an existing selection (and not Shift-dragging): Set `m_isDraggingSelection = true`; store `m_dragAnchorMapPos = clickedMapPos`.
+      -   `mouseMoveEvent`:
+          -   If `m_isPastingMode` or `m_isDraggingSelection`: Update preview position (e.g., `m_currentPastePreviewPos = mouseMapPos` or `m_currentDragOffset = mouseMapPos - m_dragAnchorMapPos`). Call `update()` for repaint.
+      -   `mouseReleaseEvent`:
+          -   If `m_isDraggingSelection`: Set `m_isDraggingSelection = false`. If `m_currentDragOffset` is significant, call `editorController->handleMoveSelection(m_currentDragOffset)`. Request repaint.
+      -   `paintGL` (or overlay `paintEvent`):
+          -   If `m_isPastingMode`: Draw a ghost preview of `mapcoreCopyBuffer`'s content at `m_currentPastePreviewPos`.
+          -   If `m_isDraggingSelection`: Draw a ghost preview of the current `selection` translated by `m_currentDragOffset`.
+  4.  Ensure all operations correctly use `mapcore`'s `ActionQueue` for undo/redo.
