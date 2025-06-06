@@ -1,0 +1,98 @@
+import yaml
+
+# Custom representer for multiline strings
+def str_presenter(dumper, data):
+    if len(data.splitlines()) > 1:  # check for multiline
+        return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
+    return dumper.represent_scalar('tag:yaml.org,2002:str', data)
+
+yaml.add_representer(str, str_presenter)
+
+# Using raw strings for CMake and C++ code blocks to avoid issues with backslashes and special chars
+cmake_command_example = (
+    "add_custom_target(docs_mapcore ALL COMMAND "
+    "${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile "  # No backslash needed before $
+    "WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} "
+    "COMMENT \"Generating mapcore API documentation with Doxygen\" VERBATIM)"
+)
+
+cpp_example = """\
+/**
+ * @brief A brief description of the class.
+ *
+ * More detailed description if needed.
+ */
+class MyClass {{  // Escaped curly braces
+public:
+  /**
+   * @brief Brief description of the method.
+   * @param paramName Description of the parameter.
+   * @return Description of the return value.
+   */
+  int myMethod(int paramName);
+}};"""
+
+
+yaml_content = {
+    "id": "DOCS-01",
+    "section": "Build, Deployment, & Documentation",
+    "title": "Generate Developer Documentation",
+    "original_input_files": "Entire `mapcore` library source",
+    "analyzed_input_files": [
+        "`mapcore` library headers and sources (post CORE-05 completion)"
+    ],
+    "dependencies": [
+        "CORE-05"
+    ],
+    "current_functionality_summary": """\
+This task introduces developer documentation generation for the `mapcore` library. No prior Doxygen setup exists. The goal is to document the `mapcore` API and integrate Doxygen into the build process.\
+""",
+    "qt6_migration_steps": """\
+1. Ensure Doxygen and Graphviz (for dot diagrams) are installed or can be installed in the development/build environment.
+2. Create a Doxygen configuration file (`Doxyfile`) at the root of the `mapcore` library or project.
+3. Configure the `Doxyfile`:
+   - Set `PROJECT_NAME` (e.g., "mapcore Library").
+   - Set `INPUT` to point to the `mapcore` source directories (headers and optionally sources).
+   - Set `OUTPUT_DIRECTORY` (e.g., `docs/mapcore_api`).
+   - Enable `EXTRACT_ALL`, `EXTRACT_PRIVATE`, `EXTRACT_STATIC`.
+   - Enable `HAVE_DOT` and configure desired diagrams (e.g., `CLASS_DIAGRAMS`, `CALL_GRAPHS`).
+   - Set `GENERATE_HTML = YES`.
+   - Configure other options as needed (e.g., `JAVADOC_AUTOBRIEF`, `QT_AUTOBRIEF`).
+4. Add Doxygen-style comments to all public classes, methods, enums, and member variables in the `mapcore` library's header files (`.h`). Focus on documenting the API for other developers. Comments should cover purpose, parameters, return values.
+5. Integrate Doxygen with the main CMake build system:
+   - Use `find_package(Doxygen REQUIRED dot)` to find Doxygen and the dot executable from Graphviz.
+   - Add a custom target (e.g., `doxygen_mapcore` or `docs_mapcore`) that executes Doxygen with the configured `Doxyfile`.
+6. Build the documentation using the new CMake target (e.g., `make doxygen_mapcore`) and verify the HTML output is generated correctly and is comprehensive.\
+""",
+    "definition_of_done": """\
+Developer API documentation for the `mapcore` library is generated using Doxygen and integrated into the CMake build.
+Key requirements:
+- A `Doxyfile` is configured for the `mapcore` library.
+- All public classes, methods, enums, and members in `mapcore` headers are documented using Doxygen-style comments.
+- CMake provides a target (e.g., `docs_mapcore`) that runs Doxygen to generate HTML documentation.
+- The generated HTML documentation is accurate, well-formatted, and includes class diagrams and member details.
+- The process is documented for other developers to generate documentation.\
+""",
+    "boilerplate_coder_ai_prompt": f"""\
+Your task is to set up Doxygen documentation for the `mapcore` static library (created in CORE-01 to CORE-05).
+1. Create a `Doxyfile` in the project or `mapcore` subdirectory. Configure it for `mapcore`'s C++ source files (primarily headers). Key settings: `PROJECT_NAME`, `INPUT` (path to mapcore sources), `OUTPUT_DIRECTORY` (e.g., `build/docs/mapcore_api`), `EXTRACT_ALL=YES`, `HAVE_DOT=YES`, `CLASS_DIAGRAMS=YES`, `GENERATE_HTML=YES`.
+2. Go through all public header files (`.h`) within the `mapcore` library source. Add Doxygen-style comments for all classes, public methods, enums, and public member variables. Document purpose, parameters, and return values.
+   Example:
+   ```cpp
+{cpp_example}
+   ```
+3. In the main `CMakeLists.txt` (or `mapcore`'s `CMakeLists.txt`):
+   - Use `find_package(Doxygen REQUIRED dot)` to locate Doxygen and dot. If not found, Doxygen should be installed.
+   - Add a custom target, for example:
+     `{cmake_command_example}`
+     (Adjust `${{CMAKE_CURRENT_SOURCE_DIR}}` to the directory containing the Doxyfile and where Doxygen should run).
+4. Ensure `make docs_mapcore` (or your custom target name) generates the HTML documentation successfully in the specified output directory.\
+"""
+}
+
+output_file_path = "enhanced_wbs_yaml_files/DOCS-01.yaml"
+
+with open(output_file_path, 'w') as f:
+    yaml.dump(yaml_content, f, sort_keys=False, width=1000)
+
+print(f"Generated {output_file_path}")

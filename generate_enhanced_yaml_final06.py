@@ -1,0 +1,69 @@
+import yaml
+
+# Custom representer for multiline strings
+def str_presenter(dumper, data):
+    if len(data.splitlines()) > 1:  # check for multiline
+        return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
+    return dumper.represent_scalar('tag:yaml.org,2002:str', data)
+
+yaml.add_representer(str, str_presenter)
+
+yaml_content = {
+    "id": "FINAL-06",
+    "section": "Final Polish",
+    "title": "Implement Status & Progress UI",
+    "original_input_files": "gui.cpp (`CreateLoadBar`, `SetStatusText`)",
+    "analyzed_input_files": [
+        "wxwidgets/gui.cpp"
+    ],
+    "dependencies": [
+        "UI-01"
+    ],
+    "current_functionality_summary": """\
+The application currently uses a `wxStatusBar` in the main window for status messages, accessed via `g_gui.SetStatusText` or `MainFrame::SetStatusText`. For long-running tasks, it uses a `wxProgressDialog`, typically created and managed via `g_gui.CreateLoadBar`, `g_gui.SetLoadDone`, and `g_gui.DestroyLoadBar` methods found in `gui.cpp`.\
+""",
+    "qt6_migration_steps": """\
+1. Ensure the `MainWindow` class (developed in task `UI-01`) has a `QStatusBar`. This is usually available by default when inheriting from `QMainWindow`.
+2. Implement a public method in `MainWindow` for updating status messages, e.g., `void showStatusMessage(const QString& message, int timeout = 0)`. This method should use `statusBar()->showMessage(message, timeout)` for temporary messages.
+3. For persistent status information (like mouse coordinates or editor mode), add `QLabel` widgets to the `QStatusBar` using `statusBar()->addPermanentWidget()` or `statusBar()->addWidget()`. Update these labels directly.
+4. Globally refactor all existing calls to `g_gui.SetStatusText` and any direct `wxStatusBar::SetStatusText` calls to use the new `MainWindow::showStatusMessage` method or update the appropriate status bar `QLabel`s.
+5. For long-running operations (e.g., map loading/saving, complex calculations), replace the usage of the old progress bar system (`CreateLoadBar`, etc.) with `QProgressDialog`.
+6. Design and implement a helper function or a small wrapper class to simplify the creation, updating, and management of `QProgressDialog` instances. This helper should handle:
+   - Setting the dialog's title, label text, minimum and maximum range, and parent widget.
+   - Updating the progress value (`setValue()`) and label text (`setLabelText()`).
+   - Checking for user cancellation (`wasCanceled()`).
+   - Properly closing/destroying the dialog.
+7. Identify all code sections in the application that perform lengthy operations (these might be in map I/O classes, editor action processing, etc.) and integrate the new `QProgressDialog` helper.
+8. If any long-running operations are performed in worker threads, ensure that all updates to `QProgressDialog` (which is a UI element) are executed in the main UI thread. This is typically achieved by emitting signals from the worker thread and connecting them to slots in the main thread that call the dialog's update methods (using `Qt::QueuedConnection` for cross-thread signals).\
+""",
+    "definition_of_done": """\
+The application effectively uses QStatusBar in MainWindow for status messages and QProgressDialog for indicating progress of long-running operations.
+Key requirements:
+- The `MainWindow` displays relevant information (e.g., mouse coordinates, editor mode, brief messages) in its `QStatusBar`.
+- Long-running tasks (such as map loading/saving, extensive computations) display a non-modal `QProgressDialog` that accurately reflects the progress of the task.
+- The progress dialog provides a way for the user to cancel the operation where appropriate, and the application handles such cancellations gracefully.
+- All previous uses of `wxStatusBar` (whether via `g_gui` or `MainFrame`) and the `wxProgressDialog`-based system (`CreateLoadBar`) are replaced by their Qt equivalents.
+- Progress updates from worker threads are safely marshaled to the main UI thread to update the `QProgressDialog`.\
+""",
+    "boilerplate_coder_ai_prompt": """\
+1. In the `MainWindow` class (from `UI-01`), utilize its `statusBar()` method (which returns a `QStatusBar*`) to display status messages.
+   - Implement a public method like `MainWindow::showStatusMessage(const QString& text, int timeout = 0)` that calls `statusBar()->showMessage(text, timeout)`.
+   - For persistent status sections (e.g., mouse coordinates, current tool), add `QLabel` widgets to the status bar using `statusBar()->addPermanentWidget(myLabel);` or `statusBar()->addWidget(myLabel);` and update these labels directly.
+   - Replace all calls from the old system (e.g., `g_gui.SetStatusText`) with appropriate calls to the new status bar methods or direct QLabel updates.
+2. For long-running operations (identify these in map I/O, editor actions, etc.):
+   - Use `QProgressDialog`.
+   - Consider creating a helper class or utility functions to manage `QProgressDialog` instances. This helper should handle:
+     - Creation: `new QProgressDialog(labelText, cancelButtonText, minimum, maximum, parentWidget)`.
+     - Setting properties: `setWindowTitle()`, `setLabelText()`, `setMinimumDuration()` (to prevent flicker for short tasks).
+     - Updating: `setValue(int progress)`.
+     - Cancellation: Connect to its `canceled()` signal.
+   - Ensure dialog updates from worker threads are posted to the main thread (e.g., via Qt signals and slots using `Qt::QueuedConnection`).\
+"""
+}
+
+output_file_path = "enhanced_wbs_yaml_files/FINAL-06.yaml"
+
+with open(output_file_path, 'w') as f:
+    yaml.dump(yaml_content, f, sort_keys=False, width=1000)
+
+print(f"Generated {output_file_path}")

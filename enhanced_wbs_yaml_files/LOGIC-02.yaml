@@ -1,0 +1,68 @@
+id: LOGIC-02
+section: Editor Behavior
+title: Implement Bounding-Box Selection
+original_input_files: selection.h/cpp, map_display.cpp
+analyzed_input_files:
+- wxwidgets/selection.h
+- wxwidgets/selection.cpp
+- wxwidgets/map_display.h
+- wxwidgets/map_display.cpp
+dependencies:
+- UI-EVENT-01
+- CORE-05
+current_functionality_summary: When the user Shift-drags the mouse in selection mode, `MapCanvas` (in `map_display.cpp`) tracks the drag rectangle. `MapDrawer` is responsible for visually rendering this rectangle. Upon mouse release, `MapCanvas` calculates the map area covered. It then iterates through these tiles, potentially using `SelectionThread` (a `wxThread` from `selection.h/cpp`) for large areas, and adds the contents of these tiles to the `Selection` object. This entire operation is wrapped in an `Action` for undo/redo capability.
+qt6_migration_steps: |-
+  1. In the `MapView` class (from `UI-EVENT-01`), implement mouse event handlers (`mousePressEvent`, `mouseMoveEvent`, `mouseReleaseEvent`) to manage bounding box selection. This typically involves:
+     - On `mousePressEvent` (with Shift key in SELECTION_MODE): Record the starting map coordinate (`dragStartMapPoint`). If Ctrl is not also pressed, instruct `EditorController` to clear the current selection. Set a boolean flag like `isBoundingBoxSelecting = true`.
+     - On `mouseMoveEvent`: If `isBoundingBoxSelecting` is true, update the current mouse map coordinate (`currentDragMapPoint`) and call `MapView::update()` to schedule a repaint (for drawing the visual rectangle).
+     - On `mouseReleaseEvent`: If `isBoundingBoxSelecting` was true, set it to false. Get the final `currentDragMapPoint` and call a method in `EditorController` (e.g., `editorController->performBoundingBoxSelection(dragStartMapPoint, currentDragMapPoint, selectionSettings)`). Trigger a repaint to clear the temporary visual rectangle.
+  2. In `MapView::paintGL` (or an overlay `paintEvent` if using `QPainter` on `QOpenGLWidget`): If `isBoundingBoxSelecting` is true, draw a 2D rectangle on the screen. The rectangle's corners are derived from `dragStartMapPoint` and `currentDragMapPoint` after converting them to screen/OpenGL coordinates.
+  3. Implement the `EditorController::performBoundingBoxSelection(const Position& p1, const Position& p2, const SelectionSettings& settings)` method:
+     - Determine the actual rectangular region of map coordinates from `p1` and `p2`.
+     - Consult `AppSettings` (via `EditorController`) for selection behavior (e.g., current floor only, all floors, visible floors, compensated selection logic as per `Config::SELECTION_TYPE` and `Config::COMPENSATED_SELECT`).
+     - Create an `Action*` using the `mapcore` `ActionQueue`.
+     - Iterate through all tiles within the calculated rectangle and across the relevant floor(s) based on settings.
+     - For each `Tile` to be selected:
+       - Create a `Change` object capturing the tile's state *before* selection (for undo).
+       - Call the `mapcore` `Selection::add(tile)` method (from `CORE-05`). This method should handle the logic of selecting the tile and its relevant contents (items, creatures, spawns based on current tool/filter settings, though bounding box usually selects all).
+       - The `Action` system will use the tile's state *after* `Selection::add` has modified it for the 'redo' state.
+     - If the selection area is large (many tiles), this iteration and `Change` object creation should be offloaded to a `std::thread` (using the refactored `SelectionThread` logic from `CORE-05`). The thread would populate the `Action` object.
+     - Once all changes are collected (either synchronously or after the thread completes), push the `Action` to the `ActionQueue`.
+  4. Ensure that `mapcore`'s `Selection::add(Tile* tile)` method correctly updates the selection state of the tile and its contents (items, creatures, spawns as applicable).
+  5. After the `Action` is committed by `ActionQueue`, `MapView` must be notified to repaint itself to reflect the new selection.
+definition_of_done: |-
+  Bounding-box selection in SELECTION_MODE is functional, visually represented, and undoable.
+  Key requirements:
+  - When the user Shift-drags the mouse in SELECTION_MODE on the MapView, a visual rectangle is drawn on the screen indicating the selection area.
+  - Upon mouse release, all tiles (and their relevant contents, such as items, creatures, and spawns, according to current selection rules/filters) within the drawn rectangle and on appropriate floors (respecting selection settings like current floor, all floors, or visible floors) are added to the `mapcore` Selection object.
+  - This entire selection operation is encapsulated in an `Action` and pushed to the `ActionQueue`, making it undoable and redoable.
+  - The `SelectionThread` logic (refactored to use `std::thread` as per CORE-05) is utilized for processing large selection areas to prevent UI freezes.
+  - The `MapView` correctly updates to visually reflect the new selection state (e.g., highlighting selected tiles/items).
+boilerplate_coder_ai_prompt: |-
+  Implement bounding-box selection logic, coordinated between `MapView` (UI) and `EditorController` (application logic).
+  1.  **In `MapView` (from `UI-EVENT-01`):**
+      -   `mousePressEvent`: If Shift is down (and in `SELECTION_MODE`):
+          -   Store `dragStartMapPoint` (map coordinates from event).
+          -   If Ctrl is NOT pressed, call `editorController->clearSelection()` (this method in `EditorController` should create an undoable action for clearing selection).
+          -   Set a boolean flag `isPerformingBoundingBoxSelection = true`.
+      -   `mouseMoveEvent`: If `isPerformingBoundingBoxSelection`:
+          -   Update `currentMouseMapPoint`.
+          -   Call `update()` on `MapView` to trigger a repaint (for the visual rectangle).
+      -   `mouseReleaseEvent`: If `isPerformingBoundingBoxSelection`:
+          -   Set `isPerformingBoundingBoxSelection = false`.
+          -   Call `editorController->performBoundingBoxSelection(dragStartMapPoint, currentMouseMapPoint)`.
+          -   Call `update()` on `MapView` to clear the visual rectangle.
+  2.  **In `MapView::paintGL` (or overlay `paintEvent`):**
+      -   If `isPerformingBoundingBoxSelection` is true, draw a 2D rectangle using `QPainter` or OpenGL lines, from screen coordinates of `dragStartMapPoint` to screen coordinates of `currentMouseMapPoint`.
+  3.  **In `EditorController::performBoundingBoxSelection(const Position& p1, const Position& p2)`:**
+      a.  Determine the min/max map coordinates (x, y) from `p1` and `p2`.
+      b.  Consult `AppSettings` for selection depth rules (current floor, all floors, visible compensated).
+      c.  Create an `Action* action = actionQueue->createAction(ACTION_SELECT_AREA_IDENTIFIER);`.
+      d.  Iterate through all tiles (x, y, z) within the defined rectangle and floor range:
+          i.  `Tile* tile = map->getTile(currentPos); if (!tile) continue;`
+          ii. `action->addChange(new Change(tile->deepCopy()));` // Capture 'before' state.
+          iii. `selection->add(tile);` // This method in `mapcore`'s `Selection` class should update the tile's and its contents' selection state.
+          iv. `action->addChange(new Change(tile->deepCopy()));` // Capture 'after' state. (Or ensure Action system correctly captures the 'after' state post-modification by `selection->add()`).
+      e.  For large selections, consider using the `std::thread`-based `SelectionThread` (from `CORE-05`) to populate the `Action` with `Change` objects.
+      f.  `actionQueue->addAction(action);` // This will commit the action and make it undoable.
+  4.  Ensure `MapView` is updated/repainted after the selection action is committed to reflect changes.

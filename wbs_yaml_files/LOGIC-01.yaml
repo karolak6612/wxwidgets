@@ -1,0 +1,15 @@
+id: LOGIC-01
+section: Editor Behavior
+title: Implement Core Drawing & Deletion Logic
+input_files:
+- editor.h/cpp
+- brush.h/cpp (and all specific *_brush.cpp files)
+dependencies:
+- UI-EVENT-01
+- CORE-05
+definition_of_done: |-
+  |
+  In `DRAWING_MODE`, left-clicking on the map canvas with an active brush executes the brush's `draw()` method, creates an `Action` containing the tile changes, and pushes it to the `ActionQueue`. The `MapView` updates immediately. CTRL+Click executes the `undraw()` method.
+boilerplate_coder_ai_prompt: |-
+  |
+  Create a controller class (`EditorController`) to manage editor state. In `MapView::mousePressEvent`, if in drawing mode, call a method on the controller (e.g., `controller->performDraw(position, brush)`). This controller method must create an `Action`, execute the appropriate `brush->draw()` or `brush->undraw()`, and push the completed `Action` to the `ActionQueue`.

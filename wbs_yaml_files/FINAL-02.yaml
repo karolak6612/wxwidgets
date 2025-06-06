@@ -1,0 +1,12 @@
+id: FINAL-02
+section: Core Migration Tasks
+title: Create Final CMake Build System
+input_files:
+- (all files)
+dependencies: ALL
+definition_of_done: |-
+  |
+  A root `CMakeLists.txt` is created that correctly builds the `mapcore` static library and the final `RME-Qt` executable. It must locate and link all dependencies (Qt6, OpenGL).
+boilerplate_coder_ai_prompt: |-
+  |
+  Write a top-level `CMakeLists.txt`. Add `mapcore` as a subdirectory library. Create an executable target for the main application and link it against `Qt6::Widgets`, `Qt6::OpenGL`, and `mapcore`.

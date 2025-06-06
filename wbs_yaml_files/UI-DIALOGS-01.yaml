@@ -1,0 +1,13 @@
+id: UI-DIALOGS-01
+section: Core Migration Tasks
+title: Port All Modal Dialogs
+input_files:
+- All *_window.h/cpp and *_dialog.h/cpp files.
+dependencies:
+- UI-01
+definition_of_done: |-
+  |
+  All modal dialogs (Properties, Find Item, Replace, Preferences, etc.) are recreated as `QDialog` subclasses. The UI layout and functionality are replicated using `QtWidgets`.
+boilerplate_coder_ai_prompt: |-
+  |
+  For each dialog in the input files, create a new class inheriting `QDialog`. Replicate the layout using `QLayout` (e.g., `QFormLayout`, `QVBoxLayout`). Connect signals from buttons (`clicked()`) to slots.

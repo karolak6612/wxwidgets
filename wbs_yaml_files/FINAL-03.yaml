@@ -1,0 +1,14 @@
+id: FINAL-03
+section: Finalization
+title: Port Application Settings Logic
+input_files:
+- settings.h/cpp
+- preferences.h/cpp
+dependencies:
+- UI-DIALOGS-02
+definition_of_done: |-
+  |
+  The application fully replaces `g_settings` with a new `Settings` singleton class that uses `QSettings` for persistence. All editor options from the legacy system are migrated and functional.
+boilerplate_coder_ai_prompt: |-
+  |
+  Create a new singleton class, `AppSettings`. Use `QSettings` as the storage backend. Port all key-value pairs from `Config::Key` enum. Replace all calls to `g_settings` throughout the new codebase with calls to the `AppSettings` singleton.

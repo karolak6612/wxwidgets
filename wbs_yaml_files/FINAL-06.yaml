@@ -1,0 +1,14 @@
+id: FINAL-06
+section: Final Polish
+title: Implement Status & Progress UI
+input_files:
+- gui.cpp (CreateLoadBar
+- SetStatusText)
+dependencies:
+- UI-01
+definition_of_done: |-
+  |
+  A `QStatusBar` in `MainWindow` correctly displays mouse coordinates and other info. Long-running operations trigger a non-modal `QProgressDialog` that accurately reflects the progress of the task.
+boilerplate_coder_ai_prompt: |-
+  |
+  In `MainWindow`, use the `QStatusBar` to display messages. Create a wrapper class for long-running operations that shows a `QProgressDialog` and updates it via Qt signals emitted from the worker thread.

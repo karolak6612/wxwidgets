@@ -1,0 +1,14 @@
+id: REFACTOR-03
+section: Post-Migration Refactoring & Optimization
+title: Optimize Rendering Hotspots
+input_files:
+- MapView and TextureManager implementation
+- Profiling Report from REFACTOR-02
+dependencies:
+- REFACTOR-02
+definition_of_done: |-
+  |
+  The identified rendering bottlenecks are addressed. This may include implementing more advanced culling (frustum, occlusion), optimizing shader code, and refining the texture atlas management strategy to reduce state changes.
+boilerplate_coder_ai_prompt: |-
+  |
+  Based on the profiling report, optimize the `MapView::paintGL` method. Implement chunk-based frustum culling to avoid iterating over off-screen map areas. If fill-rate is an issue, batch sprite rendering into as few draw calls as possible.

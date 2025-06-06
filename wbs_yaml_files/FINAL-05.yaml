@@ -1,0 +1,14 @@
+id: FINAL-05
+section: Finalization
+title: Port About and Welcome Dialogs
+input_files:
+- about_window.h/cpp
+- welcome_dialog.h/cpp
+dependencies:
+- UI-01
+definition_of_done: |-
+  |
+  The "About" and "Welcome" dialogs are re-implemented using `QDialog`. The easter-egg games in `about_window.cpp` (`Tetris`, `Snake`) are to be ported as simple `QWidget`-based games.
+boilerplate_coder_ai_prompt: |-
+  |
+  Re-create the `AboutDialog` and `WelcomeDialog` as Qt dialogs. The embedded games should be re-implemented within simple `QWidget`s using `QPainter` for rendering and `QTimer` for the game loop.

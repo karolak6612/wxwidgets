@@ -1,0 +1,17 @@
+id: TOOLS-02
+section: Core Migration Tasks
+title: Port Find/Replace & Cleanup Tools
+input_files:
+- find_item_window.h/cpp
+- replace_items_window.h/cpp
+- result_window.h/cpp
+- map.cpp (clean*)
+dependencies:
+- UI-01
+- CORE-03
+definition_of_done: |-
+  |
+  The Find/Replace Items dialog is ported to `QDialog`, and its "Execute" functionality correctly searches and replaces items via the `ActionQueue`. The Map Cleanup and Remove Items dialogs are functional.
+boilerplate_coder_ai_prompt: |-
+  |
+  Re-create the `FindItemDialog`, `ReplaceItemsDialog`, and `SearchResultWindow` as Qt widgets. `SearchResultWindow` should be a dockable widget. Connect all UI signals and slots to port the complex find/replace logic.

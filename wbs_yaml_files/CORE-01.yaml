@@ -1,0 +1,25 @@
+id: CORE-01
+section: Core Migration Tasks
+title: Isolate Core Data Models
+input_files:
+- position.h
+- tile.h
+- item.h
+- item_attributes.h
+- complexitem.h
+- creature.h
+- outfit.h
+- spawn.h
+- house.h
+- town.h
+- waypoints.h
+- basemap.h
+- map_region.h
+- map.h
+dependencies: null
+definition_of_done: |-
+  |
+  A static library (`mapcore`) compiles via CMake. Contains all data model classes. All `wxWidgets` includes and dependencies are removed. All classes must use `std::string` instead of `wxString`.
+boilerplate_coder_ai_prompt: |-
+  |
+  Refactor the C++ classes from the input files into a new CMake static library named `mapcore`. Remove all `wxWidgets` dependencies, replacing types like `wxString` with `std::string`. Ensure the library compiles cleanly as a self-contained unit.
