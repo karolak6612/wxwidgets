@@ -1,9 +1,0 @@
-id: DOCS-01
-section: Build, Deployment, & Documentation
-title: Generate Developer Documentation
-input_files:
-- Entire mapcore library source
-dependencies:
-- CORE-05
-definition_of_done: Doxygen is integrated into the CMake build. All public classes and methods in the `mapcore` library have Doxygen-style comments. An HTML documentation set can be generated with a `make docs` command.
-boilerplate_coder_ai_prompt: '*This is a documentation task. The prompt would be:* "Add Doxygen-style comments to all public headers in the `mapcore` library. Document the purpose of each class, method, and all parameters. Integrate Doxygen with CMake to generate HTML output."'

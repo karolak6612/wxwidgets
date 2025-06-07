@@ -1,6 +1,8 @@
 wbs_item_id: UI-09
 name: Port Live Server Control Panel
-description: Recreate the UI for managing a live editing server. This includes displaying connected clients, server logs/chat, server settings (port, password), and controls to start/stop the server.
+description: Recreate the UI for managing a live editing server. This includes displaying
+  connected clients, server logs/chat, server settings (port, password), and controls
+  to start/stop the server.
 dependencies:
 - 'NET-02 # LiveServerQt logic that this UI will control and interact with.'
 - 'UI-01  # Main window might host this as a dock widget or dialog.'
@@ -10,118 +12,103 @@ input_files:
 - 'wxwidgets/main_menubar.cpp # Contains dialog logic for initiating server hosting.'
 analyzed_input_files:
 - file_path: wxwidgets/live_server.cpp
-  description: Implements `LiveServer` class using Boost.Asio for network communication, client management, message broadcasting, and creating a `LiveLogTab` for UI feedback.
-  md5_hash: 2784baa3b687296052476f7f75707b3a
-  content_lite: "//////////////////////////////////////////////////////////////////////\\n// This file is part of Remere's Map Editor\\n//////////////////////////////////////////////////////////////////////\\n// Remere's Map Editor is free software: you can redistribute it and/or modify\\n// it under the terms of the GNU General Public License as published by\\n// the Free Software Foundation, either version 3 of the License, or\\n// (at your option) any later version.\\n//\\n// Remere's Map Editor is distributed in the hope that it will be useful,\\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\\n// GNU General Public License for more details.\\n//\\n// You should have received a copy of the GNU General Public License\\n// along with this program. If not, see <http://www.gnu.org/licenses/>.\\n//////////////////////////////////////////////////////////////////////\\n\\n#include \"main.h\"\\n\\n#include \"\
-    live_server.h\"\\n#include \"live_peer.h\"\\n#include \"live_tab.h\"\\n#include \"live_action.h\"\\n\\n#include \"editor.h\"\\n\\n#include <fstream>\\n#include <wx/filename.h>\\n\\nLiveServer::LiveServer(Editor& editor) :\\n\tLiveSocket(),\\n\tclients(), acceptor(nullptr), socket(nullptr), editor(&editor),\\n\tclientIds(0), port(0), stopped(false), drawingReady(false) {\\n\t// Initialize with a safe color\\n\tusedColor = wxColor(255, 0, 0); // Red for host\\n\t\\n\t// Log server initialization to file\\n\tstd::ofstream logFile((GetAppDir() + wxFileName::GetPathSeparator() + \"server_init.log\").ToStdString(), std::ios::app);\\n\tif (logFile.is_open()) {\\n\t\twxDateTime now = wxDateTime::Now();\\n\t\tlogFile << now.FormatISOCombined() << \": LiveServer initialized\\n\";\\n\t\tlogFile.close();\\n\t}\\n\t\\n\t// Set the drawing ready flag after a short delay to ensure all initialization is complete\\n\twxTheApp->CallAfter([this]() {\\n\t\tdrawingReady = true;\\n\t\t\\n\t\t// Log to file\\\
-    n\t\tstd::ofstream logFile((GetAppDir() + wxFileName::GetPathSeparator() + \"server_status.log\").ToStdString(), std::ios::app);\\n\t\tif (logFile.is_open()) {\\n\t\t\twxDateTime now = wxDateTime::Now();\\n\t\t\tlogFile << now.FormatISOCombined() << \": Server drawing ready flag set\\n\";\\n\t\t\tlogFile.close();\\n\t\t}\\n\t});\\n}\\n\\nLiveServer::~LiveServer() {\\n\t//\\n}\\n\\nbool LiveServer::bind() {\\n\t// Ensure we're on the main thread for initialization\\n\tif (!wxThread::IsMain()) {\\n\t\tbool success = false;\\n\t\twxTheApp->CallAfter([this, &success]() {\\n\t\t\tsuccess = this->bind();\\n\t\t});\\n\t\treturn success;\\n\t}\\n\\n\tNetworkConnection& connection = NetworkConnection::getInstance();\\n\tif (!connection.start()) {\\n\t\tsetLastError(\"The previous connection has not been terminated yet.\");\\n\t\treturn false;\\n\t}\\n\\n\tauto& service = connection.get_service();\\n\tacceptor = std::make_shared<boost::asio::ip::tcp::acceptor>(service);\\n\\n\t// Try to bind to\
-    \ the specified port, if that fails, try the next port\\n\t// This allows multiple instances to host simultaneously\\n\tuint16_t originalPort = port;\\n\tuint16_t maxPortRetries = 10; // Try up to 10 ports in sequence\\n\tboost::system::error_code bindError;\\n\t\\n\tfor (uint16_t retry = 0; retry < maxPortRetries; ++retry) {\\n\t\tboost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::tcp::v4(), port);\\n\t\t\\n\t\t// Close acceptor if it was previously opened\\n\t\tif (acceptor->is_open()) {\\n\t\t\tacceptor->close();\\n\t\t}\\n\t\t\\n\t\t// Try to open and bind\\n\t\tacceptor->open(endpoint.protocol());\\n\t\t\\n\t\tboost::system::error_code error;\\n\t\tacceptor->set_option(boost::asio::ip::tcp::no_delay(true), error);\\n\t\tif (error) {\\n\t\t\tlogMessage(wxString::Format(\"Warning: Could not set no_delay option: %s\", error.message()));\\n\t\t}\\n\t\t\\n\t\t// Try binding to endpoint\\n\t\tbindError.clear();\\n\t\tacceptor->bind(endpoint, bindError);\\n\t\t\\n\t\tif (!bindError)\
-    \ {\\n\t\t\t// Binding successful\\n\t\t\tif (port != originalPort) {\\n\t\t\t\t// Log that we're using a different port\\n\t\t\t\tlogMessage(wxString::Format(\"Port %d was in use, using port %d instead\", originalPort, port));\\n\t\t\t}\\n\t\t\tbreak;\\n\t\t}\\n\t\t\\n\t\t// If binding failed, try next port\\n\t\tport++;\\n\t}\\n\t\\n\tif (bindError) {\\n\t\tsetLastError(\"Error binding socket: \" + bindError.message() + \\n\t\t\t\"\\nTried ports \" + std::to_string(originalPort) + \" to \" + \\n\t\t\tstd::to_string(originalPort + maxPortRetries - 1));\\n\t\treturn false;\\n\t}\\n\\n\tacceptor->listen();\\n\tacceptClient();\\n\treturn true;\\n}\\n\\nvoid LiveServer::close() {\\n\t// Set stopped flag first to prevent any new operations\\n\tstopped = true;\\n\t\\n\t// Also disable drawing operations\\n\tdrawingReady = false;\\n\t\\n\t// Log server shutdown to file\\n\tstd::ofstream logFile((GetAppDir() + wxFileName::GetPathSeparator() + \"server_status.log\").ToStdString(), std::ios::app);\\\
-    n\tif (logFile.is_open()) {\\n\t\twxDateTime now = wxDateTime::Now();\\n\t\tlogFile << now.FormatISOCombined() << \": Server shutting down\\n\";\\n\t\tlogFile.close();\\n\t}\\n\t\\n\t// Then proceed with normal shutdown\\n\tfor (auto& clientEntry : clients) {\\n\t\tdelete clientEntry.second;\\n\t}\\n\tclients.clear();\\n\\n\tif (log) {\\n\t\tlog->Message(\"Server was shutdown.\");\\n\t\tlog->Disconnect();\\n\t\tlog = nullptr;\\n\t}\\n\\n\tif (acceptor) {\\n\t\tacceptor->close();\\n\t}\\n\\n\tif (socket) {\\n\t\tsocket->close();\\n\t}\\n}\\n\\nvoid LiveServer::acceptClient() {\\n\t// Ensure we're on the main thread\\n\tif (!wxThread::IsMain()) {\\n\t\twxTheApp->CallAfter([this]() {\\n\t\t\tthis->acceptClient();\\n\t\t});\\n\t\treturn;\\n\t}\\n\\n\tstatic uint32_t id = 0;\\n\tif (stopped) {\\n\t\treturn;\\n\t}\\n\\n\tif (!socket) {\\n\t\tsocket = std::make_shared<boost::asio::ip::tcp::socket>(\\n\t\t\tNetworkConnection::getInstance().get_service()\\n\t\t);\\n\t}\\n\\n\tacceptor->async_accept(*socket,\
-    \ [this](const boost::system::error_code& error) -> void {\\n\t\t// Queue the client handling on the main thread\\n\t\twxTheApp->CallAfter([this, error]() {\\n\t\t\tif (!error) {\\n\t\t\t\tstatic uint32_t nextId = 0;\\n\t\t\t\tLivePeer* peer = new LivePeer(this, std::move(*socket));\\n\t\t\t\tpeer->log = log;\\n\t\t\t\tpeer->receiveHeader();\\n\\n\t\t\t\tclients.insert(std::make_pair(nextId++, peer));\\n\t\t\t\t"
+  description: Implements `LiveServer` class using Boost.Asio for network communication,
+    client management, message broadcasting, and creating a `LiveLogTab` for UI feedback.
 - file_path: wxwidgets/live_server.h
-  description: Header for `LiveServer`, defining its interface for binding, closing, accepting clients, and broadcasting data.
-  md5_hash: 8690d38ad74a19bdc6556d8cda4a7fbc
-  content_lite: "//////////////////////////////////////////////////////////////////////\\n// This file is part of Remere's Map Editor\\n//////////////////////////////////////////////////////////////////////\\n// Remere's Map Editor is free software: you can redistribute it and/or modify\\n// it under the terms of the GNU General Public License as published by\\n// the Free Software Foundation, either version 3 of the License, or\\n// (at your option) any later version.\\n//\\n// Remere's Map Editor is distributed in the hope that it will be useful,\\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\\n// GNU General Public License for more details.\\n//\\n// You should have received a copy of the GNU General Public License\\n// along with this program. If not, see <http://www.gnu.org/licenses/>.\\n//////////////////////////////////////////////////////////////////////\\n\\n#ifndef _RME_LIVE_SERVER_H_\\n#define\
-    \ _RME_LIVE_SERVER_H_\\n\\n#include \"live_socket.h\"\\n#include \"net_connection.h\"\\n#include \"action.h\"\\n\\nclass LivePeer;\\nclass LiveLogTab;\\nclass QTreeNode;\\n\\nclass LiveServer : public LiveSocket {\\npublic:\\n\tLiveServer(Editor& editor);\\n\t~LiveServer();\\n\\n\t//\\n\tbool bind();\\n\tvoid close();\\n\\n\tvoid acceptClient();\\n\tvoid removeClient(uint32_t id);\\n\\n\t//\\n\tvoid receiveHeader() override { }\\n\tvoid receive(uint32_t packetSize) override { }\\n\tvoid send(NetworkMessage& message) override { }\\n\tvoid sendChat(const wxString& chatMessage) override;\\n\\n\t//\\n\tvoid updateCursor(const Position& position) override;\\n\tvoid updateClientList() const;\\n\\n\t//\\n\tLiveLogTab* createLogWindow(wxWindow* parent);\\n\\n\t//\\n\tuint16_t getPort() const;\\n\tbool setPort(int32_t newPort);\\n\\n\tEditor* getEditor() const {\\n\t\treturn editor;\\n\t}\\n\\n\tuint32_t getFreeClientId();\\n\tstd::string getHostName() const;\\n\\n\t//\\n\tvoid broadcastNodes(DirtyList&\
-    \ dirtyList);\\n\tvoid broadcastChat(const wxString& speaker, const wxString& chatMessage);\\n\tvoid broadcastCursor(const LiveCursor& cursor);\\n\tvoid broadcastColorChange(uint32_t clientId, const wxColor& color);\\n\\n\tvoid startOperation(const wxString& operationMessage);\\n\tvoid updateOperation(int32_t percent);\\n\\n\t// Override socket type check\\n\tbool IsServer() const override { return true; }\\n\\n\tvoid setUsedColor(const wxColor& color);\\n\twxColor getUsedColor() const { return usedColor; }\\n\t\\n\tconst std::unordered_map<uint32_t, LivePeer*>& getClients() const { return clients; }\\n\\n\t// Helper method for writing cursor data to messages\\n\tvoid writeCursorToMessage(NetworkMessage& message, const LiveCursor& cursor) {\\n\t\twriteCursor(message, cursor);\\n\t}\\n\\nprotected:\\n\tstd::unordered_map<uint32_t, LivePeer*> clients;\\n\\n\tstd::shared_ptr<boost::asio::ip::tcp::acceptor> acceptor;\\n\tstd::shared_ptr<boost::asio::ip::tcp::socket> socket;\\n\\n\tEditor*\
-    \ editor;\\n\\n\tuint32_t clientIds;\\n\tuint16_t port;\\n\\n\tbool stopped;\\n\tbool drawingReady;  // Flag indicating server is ready for drawing operations\\n\\n\twxColor usedColor;\\n};\\n\\n#endif"
+  description: Header for `LiveServer`, defining its interface for binding, closing,
+    accepting clients, and broadcasting data.
 - file_path: wxwidgets/main_menubar.cpp
-  description: (Partially relevant) Contains event handlers like `OnStartLive` and `onServerHost` which create wxDialogs to get server configuration (name, port, password) before starting the LiveServer. (Content likely analyzed in UI-01).
-  md5_hash: fac99527edef938ea119fb17d6cd1806
-  content_lite: "//////////////////////////////////////////////////////////////////////\\n// This file is part of Remere's Map Editor\\n//////////////////////////////////////////////////////////////////////\\n// Remere's Map Editor is free software: you can redistribute it and/or modify\\n// it under the terms of the GNU General Public License as published by\\n// the Free Software Foundation, either version 3 of the License, or\\n// (at your option) any later version.\\n//\\n// Remere's Map Editor is distributed in the hope that it will be useful,\\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\\n// GNU General Public License for more details.\\n//\\n// You should have received a copy of the GNU General Public License\\n// along with this program. If not, see <http://www.gnu.org/licenses/>.\\n//////////////////////////////////////////////////////////////////////\\n\\n\t/*\\n\t * AUTOMAGIC SYSTEM OVERVIEW\\\
-    n\t * -------------------------\\n\t * The Automagic system in Remere's Map Editor provides automatic border and wall handling.\\n\t * \\n\t * Files involved:\\n\t * - settings.h/cpp: Defines USE_AUTOMAGIC, BORDERIZE_PASTE, BORDERIZE_DRAG settings\\n\t * - main_menubar.h/cpp: Implements menu options for toggling Automagic and borderizing\\n\t * - tile.h/cpp: Contains borderize() and wallize() methods that apply automatic borders/walls\\n\t * - ground_brush.cpp: Implements GroundBrush::doBorders() which handles automatic borders\\n\t * - wall_brush.cpp: Implements WallBrush::doWalls() which handles automatic walls\\n\t * - borderize_window.cpp: UI for borderizing large selections or the entire map\\n\t * - editor.cpp: Contains borderizeSelection() and borderizeMap() methods\\n\t * - copybuffer.cpp: Applies borderize to pasted content\\n\t * \\n\t * How it works:\\n\t * 1. When enabled (via Config::USE_AUTOMAGIC), the editor automatically applies borders\\n\t *    and wall connections\
-    \ when tiles are placed, moved, or modified.\\n\t * 2. Borderizing examines neighboring tiles to determine appropriate borders between\\n\t *    different terrain types.\\n\t * 3. Wallizing connects wall segments automatically based on adjacent walls.\\n\t * 4. The system can be triggered:\\n\t *    - Automatically during editing when Automagic is enabled\\n\t *    - Manually via Map > Borderize Selection (Ctrl+B)\\n\t *    - Manually via Map > Borderize Map (processes the entire map)\\n\t * \\n\t * Settings:\\n\t * - BORDERIZE_PASTE: Automatically borderize after pasting\\n\t * - BORDERIZE_DRAG: Automatically borderize after drag operations\\n\t * - BORDERIZE_DRAG_THRESHOLD: Maximum selection size for auto-borderizing during drag\\n\t * - BORDERIZE_PASTE_THRESHOLD: Maximum selection size for auto-borderizing during paste\\n\t * \\n\t * The BorderizeWindow provides a UI for processing large maps in chunks to avoid\\n\t * performance issues when borderizing extensive areas.\\n\t */\\\
-    n\\n#include \"main.h\"\\n\\n#include \"main_menubar.h\"\\n#include \"application.h\"\\n#include \"preferences.h\"\\n#include \"about_window.h\"\\n#include \"minimap_window.h\"\\n#include \"dat_debug_view.h\"\\n#include \"result_window.h\"\\n#include \"extension_window.h\"\\n#include \"find_item_window.h\"\\n#include \"settings.h\"\\n#include \"automagic_settings.h\"\\n#include \"find_creature_window.h\"\\n#include \"map.h\"\\n#include \"editor.h\"\\n#include \"gui.h\"\\n#include \"border_editor_window.h\"\\n\\n#include <wx/chartype.h>\\n\\n#include \"editor.h\"\\n#include \"materials.h\"\\n#include \"live_client.h\"\\n#include \"live_server.h\"\\n#include \"string_utils.h\"\\n#include \"hotkey_manager.h\"\\n\\nconst wxEventType EVT_MENU = wxEVT_COMMAND_MENU_SELECTED;\\n\\nBEGIN_EVENT_TABLE(MainMenuBar, wxEvtHandler)\\n\tEVT_MENU(MenuBar::NEW, MainMenuBar::OnNew)\\n\tEVT_MENU(MenuBar::OPEN, MainMenuBar::OnOpen)\\n\tEVT_MENU(MenuBar::SAVE, MainMenuBar::OnSave)\\n\tEVT_MENU(MenuBar::SAVE_AS,\
-    \ MainMenuBar::OnSaveAs)\\n\tEVT_MENU(MenuBar::GENERATE_MAP, MainMenuBar::OnGenerateMap)\\n\tEVT_MENU(MenuBar::MAP_MENU_GENERATE_ISLAND, MainMenuBar::OnGenerateIsland)\\n\tEVT_MENU(MenuBar::FIND_CREATURE, MainMenuBar::OnSearchForCreature)\\nEND_EVENT_TABLE()\\n\\nMainMenuBar::MainMenuBar(MainFrame* frame) :\\n\tframe(frame) {\\n\tusing namespace MenuBar;\\n\tchecking_programmaticly = false;\\n\\n#define MAKE_ACTION(id, kind, handler) actions[#id] = new MenuBar::Action(#id, id, kind, wxCommandEventFunction(&MainMenuBar::handler))\\n#define MAKE_SET_ACTION(id, kind, setting_, handler)                                                  \\\\n\tactions[#id] = new MenuBar::Action(#id, id, kind, wxCommandEventFunction(&MainMenuBar::handler)); \\\\n\tactions[#id].setting = setting_\\n\\n\tMAKE_ACTION(NEW, wxITEM_NORMAL, OnNew);\\n\tMAKE_ACTION(OPEN, wxITEM_NORMAL, OnOpen);\\n\tMAKE_ACTION(SAVE, wxITEM_NORMAL, OnSave);\\n\tMAKE_ACTION(SAVE_AS, wxITEM_NORMAL, OnSaveAs);\\n\tMAKE_ACTION(GENERATE_MAP,\
-    \ wxITEM_NORMAL, OnGenerateMap);\\n\tMAKE_ACTION(CLOSE, wxITEM_NORMAL, OnClose);\\n\\n\tMAKE_ACTION(IMPORT_MAP, wxITEM_NORMAL, OnImportMap);\\n\tMAKE_ACTION(IMPORT_MONSTERS, wxITEM_NORMAL, OnImportMonsterData);\\n\tMAKE_ACTION(IMPORT_MINIMAP, wxITEM_NORMAL, OnImportMinimap);\\n\tMAKE_ACTION(EXPORT_MINIMAP, wxITEM_NORMAL, OnExportMinimap);\\n\tMAKE_ACTION(EXPORT_TILESETS, wxITEM_NORMAL, OnExportTilesets);\\n\\n\tMAKE_ACTION(RELOAD_DATA, wxITEM_NORMAL, OnReloadDataFiles);\\n\t// MAKE_ACTION(RECENT_FILES, wxITEM_NORMAL, OnRecent);\\n\tMAKE_ACTION(PREFERENCES, wxITEM_NORMAL, OnPreferences);\\n\tMAKE_ACTION(EXIT, wxITEM_NORMAL, OnQuit);\\n\\n\tMAKE_ACTION(UNDO, wxITEM_NORMAL, OnUndo);\\n\tMAKE_ACTION(REDO, wxITEM_NORMAL, OnRedo);\\n\\n\tMAKE_ACTION(FIND_ITEM, wxITEM_NORMAL, OnSearchForItem);\\n\tMAKE_ACTION(REPLACE_ITEMS, wxITEM_NORMAL, OnReplaceItems);\\n\tMAKE_ACTION(SEARCH_ON_MAP_EVERYTHING, wxITEM_NORMAL, OnSearchForStuffOnMap);\\n\tMAKE_ACTION(SEARCH_ON_MAP_ZONES, wxITEM_NORMAL, OnSearchForZonesOnMap);\\\
-    n\tMAKE_ACTION(SEARCH_ON_MAP_UNIQUE, wxITEM_NORMAL, OnSearchForUniqueOnMap);\\n\tMAKE_ACTION(SEARCH_ON_MAP_ACTION, wxITEM_NORMAL, OnSearchForActionOnMap);\\n\tMAKE_ACTION(SEARCH_ON_MAP_CONTAINER, wxITEM_NORMAL, OnSearchForContainerOnMap);\\n\tMAKE_ACTION(SEARCH_ON_MAP_WRITEABLE, wxITEM_NORMAL, OnSearchForWriteableOnMap);\\n\tMAKE_ACTION(SEARCH_ON_SELECTION_EVERYTHING, wxITEM_NORMAL, OnSearchForStuffOnSelection);\\n\tMAKE_ACTION(SEARCH_ON_SELECTION_ZONES, wxITEM_NORMAL, OnSearchForZonesOnSelection);\\n\tMAKE_ACTION(SEARCH_ON_SELECTION_UNIQUE, wxITEM_NORMAL, OnSearchForUniqueOnSelection);\\n\tMAKE_ACTION(SEARCH_ON_SELECTION_ACTION, wxITEM_NORMAL, OnSearchForActionOnSelection);\\n\tMAKE_ACTION(SEARCH_ON_SELECTION_CONTAINER, wxITEM_NORMAL, OnSearchForContainerOnSelection);\\n\tMAKE_ACTION(SEARCH_ON_SELECTION_WRITEABLE, wxITEM_NORMAL, OnSearchForWriteableOnSelection);\\n\tMAKE_ACTION(SEARCH_ON_SELECTION_ITEM, wxITEM_NORMAL, OnSearchForItemOnSelection);\\n\tMAKE_ACTION(REPLACE_ON_SELECTION_ITEMS,\
-    \ wxITEM_NORMAL, OnReplaceItemsOnSelection);\\n\tMAKE_ACTION(REMOVE_ON_SELECTION_ITEM, wxITEM_NORMAL, OnRemoveItemOnSelection);\\n\tMAKE_ACTION(SELECT_MODE_COMPENSATE, wxITEM_RADIO, OnSelectionTypeChange);\\n\tMAKE_ACTION(SELECT_MODE_LOWER, wxITEM_RADIO, OnSelectionTypeChange);\\n\tMAKE_ACTION(SELECT_MODE_CURRENT, wxITEM_RADIO, OnSelectionTypeChange);\\n\tMAKE_ACTION(SELECT_MODE_VISIBLE, wxITEM_RADIO, OnSelectionTypeChange);\\n\\n\t// Remove the AUTOMAGIC action as it's now handled by 'A' hotkey\\n\t// MAKE_ACTION(AUTOMAGIC, wxITEM_CHECK, OnToggleAutomagic);\\n\t\\n\tMAKE_ACTION(BORDERIZE_SELECTION, wxITEM_NORMAL, OnBorderizeSelection);\\n\tMAKE_ACTION(BORDERIZE_MAP, wxITEM_NORMAL, OnBorderizeMap);\\n\tMAKE_ACTION(RANDOMIZE_SELECTION, wxITEM_NORMAL, OnRandomizeSelection);\\n\tMAKE_ACTION(RANDOMIZE_MAP, wxITEM_NORMAL, OnRandomizeMap);\\n\tMAKE_ACTION(GOTO_PREVIOUS_POSITION, wxITEM_NORMAL, OnGotoPreviousPosition);\\n\tMAKE_ACTION(GOTO_POSITION, wxITEM_NORMAL, OnGotoPosition);\\n\tMAKE_ACTION(JUMP_TO_BRUSH,\
-    \ wxITEM_NORMAL, OnJumpToBrush);\\n\tMAKE_ACTION(JUMP_TO_ITEM_BRUSH, wxITEM_NORMAL, OnJumpToItemBrush);\\n\\n\tMAKE_ACTION(CUT, wxITEM_NORMAL, OnCut);\\n\tMAKE_ACTION(COPY, wxITEM_NORMAL, OnCopy);\\n\tMAKE_ACTION(PASTE, wxITEM_NORMAL, OnPaste);\\n\\n\tMAKE_ACTION(EDIT_TOWNS, wxITEM_NORMAL, OnMapEditTowns);\\n\tMAKE_ACTION(EDIT_ITEMS, wxITEM_NORMAL, OnMapEditItems);\\n\tMAKE_ACTION(EDIT_MONSTERS, wxITEM_NORMAL, OnMapEditMonsters);\\n\\n\tMAKE_ACTION(CLEAR_INVALID_HOUSES, wxITEM_NORMAL, OnClearHouseTiles);\\n\tMAKE_ACTION(CLEAR_MODIFIED_STATE, wxITEM_NORMAL, OnClearModifiedState);\\n\tMAKE_ACTION(MAP_REMOVE_ITEMS, wxITEM_NORMAL, OnMapRemoveItems);\\n\tMAKE_ACTION(MAP_REMOVE_CORPSES, wxITEM_NORMAL, OnMapRemoveCorpses);\\n\tMAKE_ACTION(MAP_REMOVE_DUPLICATES, wxITEM_NORMAL, OnMapRemoveDuplicates);\\n\tMAKE_ACTION(MAP_VALIDATE_GROUND, wxITEM_NORMAL, OnMapValidateGround);\\n\tMAKE_ACTION(MAP_REMOVE_UNREACHABLE_TILES, wxITEM_NORMAL, OnMapRemoveUnreachable);\\n\tMAKE_ACTION(MAP_CLEANUP, wxITEM_NORMAL,\
-    \ OnMapCleanup);\\n\tMAKE_ACTION(MAP_CLEAN_HOUSE_ITEMS, wxITEM_NORMAL, OnMapCleanHouseItems);\\n\tMAKE_ACTION(MAP_PROPERTIES, wxITEM_NORMAL, OnMapProperties);\\n\tMAKE_ACTION(MAP_STATISTICS, wxITEM_NORMAL, OnMapStatistics);\\n\\n\tMAKE_ACTION(VIEW_TOOLBARS_BRUSHES, wxITEM_CHECK, OnToolbars);\\n\tMAKE_ACTION(VIEW_TOOLBARS_POSITION, wxITEM_CHECK, OnToolbars);\\n\tMAKE_ACTION(VIEW_TOOLBARS_SIZES, wxITEM_CHECK, OnToolbars);\\n\tMAKE_ACTION(VIEW_TOOLBARS_STANDARD, wxITEM_CHECK, OnToolbars);\\n\tMAKE_ACTION(NEW_VIEW, wxITEM_NORMAL, OnNewView);\\n\tMAKE_ACTION(NEW_DETACHED_VIEW, wxITEM_NORMAL, OnNewDetachedView);\\n\tMAKE_ACTION(TOGGLE_FULLSCREEN, wxITEM_NORMAL, OnToggleFullscreen);\\n\\n\tMAKE_ACTION(ZOOM_IN, wxITEM_NORMAL, OnZoomIn);\\n\tMAKE_ACTION(ZOOM_OUT, wxITEM_NORMAL, OnZoomOut);\\n\tMAKE_ACTION(ZOOM_NORMAL, wxITEM_NORMAL, OnZoomNormal);\\n\\n\tMAKE_ACTION(SHOW_SHADE, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(SHOW_ALL_FLOORS, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(GHOST_ITEMS,\
-    \ wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(GHOST_HIGHER_FLOORS, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(HIGHLIGHT_ITEMS, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(HIGHLIGHT_LOCKED_DOORS, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(SHOW_EXTRA, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(SHOW_INGAME_BOX, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(SHOW_LIGHTS, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(SHOW_LIGHT_STR, wxITEM_CHECK, OnChangeViewSettings);"
+  description: (Partially relevant) Contains event handlers like `OnStartLive` and
+    `onServerHost` which create wxDialogs to get server configuration (name, port,
+    password) before starting the LiveServer. (Content likely analyzed in UI-01).
 documentation_references:
 - 'QDialog: https://doc.qt.io/qt-6/qdialog.html'
 - 'QDockWidget: https://doc.qt.io/qt-6/qdockwidget.html'
 - 'QTcpServer: https://doc.qt.io/qt-6/qtcpserver.html'
 - 'QTextEdit: https://doc.qt.io/qt-6/qtextedit.html (for logs/chat)'
-- 'QListView / QStringListModel: https://doc.qt.io/qt-6/qlistview.html (for client list)'
+- 'QListView / QStringListModel: https://doc.qt.io/qt-6/qlistview.html (for client
+  list)'
 - QSpinBox, QLineEdit, QPushButton for controls.
-current_functionality_summary: |-
-  The wxWidgets version initiates live server hosting via dialogs launched from the `MainMenuBar`. These dialogs collect server name (cosmetic), port, and password.
-  The `LiveServer` class then handles binding to a port (with logic to try subsequent ports if the initial one is busy), accepting client connections (each managed as a `LivePeer`), and broadcasting map changes, cursor updates, and chat messages.
-  A `LiveLogTab` is created by the `LiveServer` to display server messages, chat, and a list of connected clients. This tab is likely added to the main application's tabbed interface.
+current_functionality_summary: 'The wxWidgets version initiates live server hosting
+  via dialogs launched from the `MainMenuBar`. These dialogs collect server name (cosmetic),
+  port, and password.
+
+  The `LiveServer` class then handles binding to a port (with logic to try subsequent
+  ports if the initial one is busy), accepting client connections (each managed as
+  a `LivePeer`), and broadcasting map changes, cursor updates, and chat messages.
+
+  A `LiveLogTab` is created by the `LiveServer` to display server messages, chat,
+  and a list of connected clients. This tab is likely added to the main application''s
+  tabbed interface.'
 definition_of_done:
-- A `LiveServerControlPanel` widget (e.g., a `QDialog` or a `QDockWidget`) is implemented in Qt6.
+- A `LiveServerControlPanel` widget (e.g., a `QDialog` or a `QDockWidget`) is implemented
+  in Qt6.
 - 'The panel includes UI elements for:'
-- '  - Inputting server port (`QSpinBox`) and password (`QLineEdit` with `Password` echo mode).'
+- '  - Inputting server port (`QSpinBox`) and password (`QLineEdit` with `Password`
+  echo mode).'
 - '  - A `QPushButton` to ''Start Server'' and another to ''Stop Server''.'
-- '  - A `QTextEdit` (read-only) to display server logs, chat messages, and client connection/disconnection events.'
-- '  - A `QListView` (with `QStringListModel` or custom model) to display names/IDs of currently connected clients.'
+- '  - A `QTextEdit` (read-only) to display server logs, chat messages, and client
+  connection/disconnection events.'
+- '  - A `QListView` (with `QStringListModel` or custom model) to display names/IDs
+  of currently connected clients.'
 - '  - A `QLineEdit` and `QPushButton` for the server host to type and send chat messages.'
 - 'The ''Start Server'' button action:'
 - '  - Retrieves port and password from the UI controls.'
 - '  - Instantiates and configures the `LiveServerQt` (from `NET-02`).'
-- '  - Calls the `LiveServerQt`''s method to bind and start listening (replicating logic to try subsequent ports if initial one fails).'
-- '  - Updates UI to reflect server running state (e.g., disable ''Start'', enable ''Stop'', log success/failure).'
+- '  - Calls the `LiveServerQt`''s method to bind and start listening (replicating
+  logic to try subsequent ports if initial one fails).'
+- '  - Updates UI to reflect server running state (e.g., disable ''Start'', enable
+  ''Stop'', log success/failure).'
 - 'The ''Stop Server'' button action:'
 - '  - Calls the `LiveServerQt`''s method to close connections and stop listening.'
 - '  - Updates UI to reflect server stopped state.'
-- The server log/chat `QTextEdit` is updated dynamically with messages from the `LiveServerQt` (e.g., via signals for log messages, received chat, client join/leave).
-- The connected clients `QListView` is dynamically updated when clients connect or disconnect, based on signals from `LiveServerQt`.
+- The server log/chat `QTextEdit` is updated dynamically with messages from the `LiveServerQt`
+  (e.g., via signals for log messages, received chat, client join/leave).
+- The connected clients `QListView` is dynamically updated when clients connect or
+  disconnect, based on signals from `LiveServerQt`.
 - The host can send chat messages, which are then broadcast by `LiveServerQt`.
-boilerplate_coder_ai_prompt: |
-  Your task is to create the Qt6 UI for a Live Server Control Panel. This panel will allow the user to configure, start, and stop a live editing server, as well as monitor connected clients and server activity/chat.
-
-  **Reference Files:**
-  - `wxwidgets/live_server.cpp` & `wxwidgets/live_server.h`: For understanding `LiveServer`'s existing functionalities (port binding, client management, logging, chat broadcasting).
-  - `wxwidgets/main_menubar.cpp`: For the dialogs used to gather server settings (`OnStartLive`, `onServerHost`).
-
-  **1. `LiveServerControlPanel` Widget (e.g., `QDialog` or `QDockWidget`):**
-
-     **Layout:**
-     - **Server Configuration GroupBox:**
-       - `QLabel` "Port:", `QSpinBox* portSpinBox;` (Range: 1-65535, Default: 31313).
-       - `QLabel` "Password:", `QLineEdit* passwordEdit;` (Set `setEchoMode(QLineEdit::Password)`).
-     - **Controls:**
-       - `QPushButton* startServerButton;` (Text: "Start Server")
-       - `QPushButton* stopServerButton;` (Text: "Stop Server", initially disabled)
-     - **Client List GroupBox:**
-       - `QLabel` "Connected Clients:"
-       - `QListView* clientListView;` (Use `QStringListModel` or a custom model if more client info is needed).
-     - **Log & Chat GroupBox:**
-       - `QTextEdit* logTextEdit;` (Set read-only: `setReadOnly(true)`).
-       - `QLineEdit* chatInputEdit;`
-       - `QPushButton* sendChatButton;` (Text: "Send")
-
-     **Functionality:**
-     - **Initialization:**
-       - Load default/last used port and password into `portSpinBox` and `passwordEdit` (e.g., from `QSettings`).
-     - **"Start Server" Button Clicked:**
-       1. Retrieve `port` and `password` from UI controls.
-       2. Store these settings (e.g., using `QSettings`).
-       3. Create/access the `LiveServerQt` instance (from `NET-02`).
-       4. Call a method like `liveServer->startListening(port, password);`. This method in `LiveServerQt` should encapsulate the logic from `LiveServer::bind()` including trying subsequent ports if the chosen one is busy.
-       5. If successful:
-          - Disable `startServerButton`, `portSpinBox`, `passwordEdit`.
-          - Enable `stopServerButton`.
-          - Append "Server started on [actual_host:actual_port]..." to `logTextEdit`.
-       6. If failed: Show a `QMessageBox::warning` with the error from `LiveServerQt`.
-     - **"Stop Server" Button Clicked:**
-       1. Call `liveServer->closeServer();`.
-       2. Enable `startServerButton`, `portSpinBox`, `passwordEdit`.
-       3. Disable `stopServerButton`.
-       4. Append "Server stopped." to `logTextEdit`.
-     - **`LiveServerQt` Signals -> Panel Slots:**
-       - `LiveServerQt::logMessage(const QString& message)` -> Slot to append `message` to `logTextEdit`.
-       - `LiveServerQt::clientConnected(const QString& clientName, int clientId)` -> Slot to add `clientName (ID: clientId)` to `clientListView` and log.
-       - `LiveServerQt::clientDisconnected(const QString& clientName, int clientId)` -> Slot to remove client from `clientListView` and log.
-       - `LiveServerQt::chatReceived(const QString& speaker, const QString& message)` -> Slot to append `"[speaker]: message"` to `logTextEdit`.
-       - `LiveServerQt::serverStatusChanged(bool running, quint16 actualPort)` -> Slot to update button enabled states and potentially the port display if it auto-incremented.
-     - **"Send Chat" Button Clicked (or Enter in `chatInputEdit`):**
-       1. Get text from `chatInputEdit`.
-       2. If not empty, call `liveServer->broadcastChatMessageAsHost(text);` (or similar method on `LiveServerQt`).
-       3. Append "[HOST]: text" to `logTextEdit`.
-       4. Clear `chatInputEdit`.
-
-  This UI panel will provide the primary interface for the user acting as the host of a live editing session.
+boilerplate_coder_ai_prompt: "Your task is to create the Qt6 UI for a Live Server\
+  \ Control Panel. This panel will allow the user to configure, start, and stop a\
+  \ live editing server, as well as monitor connected clients and server activity/chat.\n\
+  \n**Reference Files:**\n- `wxwidgets/live_server.cpp` & `wxwidgets/live_server.h`:\
+  \ For understanding `LiveServer`'s existing functionalities (port binding, client\
+  \ management, logging, chat broadcasting).\n- `wxwidgets/main_menubar.cpp`: For\
+  \ the dialogs used to gather server settings (`OnStartLive`, `onServerHost`).\n\n\
+  **1. `LiveServerControlPanel` Widget (e.g., `QDialog` or `QDockWidget`):**\n\n \
+  \  **Layout:**\n   - **Server Configuration GroupBox:**\n     - `QLabel` \"Port:\"\
+  , `QSpinBox* portSpinBox;` (Range: 1-65535, Default: 31313).\n     - `QLabel` \"\
+  Password:\", `QLineEdit* passwordEdit;` (Set `setEchoMode(QLineEdit::Password)`).\n\
+  \   - **Controls:**\n     - `QPushButton* startServerButton;` (Text: \"Start Server\"\
+  )\n     - `QPushButton* stopServerButton;` (Text: \"Stop Server\", initially disabled)\n\
+  \   - **Client List GroupBox:**\n     - `QLabel` \"Connected Clients:\"\n     -\
+  \ `QListView* clientListView;` (Use `QStringListModel` or a custom model if more\
+  \ client info is needed).\n   - **Log & Chat GroupBox:**\n     - `QTextEdit* logTextEdit;`\
+  \ (Set read-only: `setReadOnly(true)`).\n     - `QLineEdit* chatInputEdit;`\n  \
+  \   - `QPushButton* sendChatButton;` (Text: \"Send\")\n\n   **Functionality:**\n\
+  \   - **Initialization:**\n     - Load default/last used port and password into\
+  \ `portSpinBox` and `passwordEdit` (e.g., from `QSettings`).\n   - **\"Start Server\"\
+  \ Button Clicked:**\n     1. Retrieve `port` and `password` from UI controls.\n\
+  \     2. Store these settings (e.g., using `QSettings`).\n     3. Create/access\
+  \ the `LiveServerQt` instance (from `NET-02`).\n     4. Call a method like `liveServer->startListening(port,\
+  \ password);`. This method in `LiveServerQt` should encapsulate the logic from `LiveServer::bind()`\
+  \ including trying subsequent ports if the chosen one is busy.\n     5. If successful:\n\
+  \        - Disable `startServerButton`, `portSpinBox`, `passwordEdit`.\n       \
+  \ - Enable `stopServerButton`.\n        - Append \"Server started on [actual_host:actual_port]...\"\
+  \ to `logTextEdit`.\n     6. If failed: Show a `QMessageBox::warning` with the error\
+  \ from `LiveServerQt`.\n   - **\"Stop Server\" Button Clicked:**\n     1. Call `liveServer->closeServer();`.\n\
+  \     2. Enable `startServerButton`, `portSpinBox`, `passwordEdit`.\n     3. Disable\
+  \ `stopServerButton`.\n     4. Append \"Server stopped.\" to `logTextEdit`.\n  \
+  \ - **`LiveServerQt` Signals -> Panel Slots:**\n     - `LiveServerQt::logMessage(const\
+  \ QString& message)` -> Slot to append `message` to `logTextEdit`.\n     - `LiveServerQt::clientConnected(const\
+  \ QString& clientName, int clientId)` -> Slot to add `clientName (ID: clientId)`\
+  \ to `clientListView` and log.\n     - `LiveServerQt::clientDisconnected(const QString&\
+  \ clientName, int clientId)` -> Slot to remove client from `clientListView` and\
+  \ log.\n     - `LiveServerQt::chatReceived(const QString& speaker, const QString&\
+  \ message)` -> Slot to append `\"[speaker]: message\"` to `logTextEdit`.\n     -\
+  \ `LiveServerQt::serverStatusChanged(bool running, quint16 actualPort)` -> Slot\
+  \ to update button enabled states and potentially the port display if it auto-incremented.\n\
+  \   - **\"Send Chat\" Button Clicked (or Enter in `chatInputEdit`):**\n     1. Get\
+  \ text from `chatInputEdit`.\n     2. If not empty, call `liveServer->broadcastChatMessageAsHost(text);`\
+  \ (or similar method on `LiveServerQt`).\n     3. Append \"[HOST]: text\" to `logTextEdit`.\n\
+  \     4. Clear `chatInputEdit`.\n\nThis UI panel will provide the primary interface\
+  \ for the user acting as the host of a live editing session.\n"
