@@ -1,0 +1,93 @@
+import yaml
+
+# Custom representer for multiline strings
+def str_presenter(dumper, data):
+    if len(data.splitlines()) > 1:  # check for multiline
+        return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
+    return dumper.represent_scalar('tag:yaml.org,2002:str', data)
+
+yaml.add_representer(str, str_presenter)
+
+yaml_content = {
+    "id": "REFACTOR-02",
+    "section": "Post-Migration Refactoring & Optimization",
+    "title": "Performance & Memory Profiling",
+    "original_input_files": "The new, fully functional Qt application.",
+    "analyzed_input_files": [
+        "The complete RME-Qt application executable and its source code (conceptual input for profiling tools)."
+    ],
+    "dependencies": [
+        "FINAL-04", # Theme and style management complete
+        "TEST-04"  # Manual regression testing complete, implying application is largely functional
+    ],
+    "current_functionality_summary": """\
+This is an analysis task to be performed on the nearly complete Qt6-based RME application. It does not correspond to porting existing wxWidgets functionality but rather to evaluating the performance and memory characteristics of the new application. The goal is to identify bottlenecks using platform-specific profiling tools.\
+""",
+    "qt6_migration_steps": """\
+1. Select and prepare appropriate profiling tools for each target operating system:
+   - **Windows:** Visual Studio Profiler (CPU Usage, Memory Usage tools), Intel VTune Profiler, or similar.
+   - **Linux:** Valgrind (specifically `callgrind` for CPU and `massif` for heap memory), `perf`, `gprof`.
+   - **macOS:** Xcode Instruments (Time Profiler for CPU, Allocations and Leaks for memory).
+2. Define a comprehensive set of profiling scenarios that cover typical and demanding user interactions. These should include:
+   - Application startup and loading of small, medium, and very large/complex maps.
+   - Intensive rendering scenarios: Rapid panning and zooming in dense map areas, display with all visual features (lights, shades, creatures, items) enabled.
+   - Memory-intensive operations: Performing large copy-paste operations, executing many undo/redo cycles, extended editing sessions to observe memory growth over time, opening and closing multiple maps.
+   - CPU-intensive tools: Using area fill tools on large regions, applying complex doodad brushes, running map cleanup utilities.
+3. Execute the RME-Qt application under the chosen profiler for each defined scenario on each target platform.
+   - For CPU profiling: Collect data on function execution times, call trees, and identify hotspots.
+   - For memory profiling: Collect data on memory allocations, deallocations, heap usage over time, and run leak detection tools.
+4. Analyze the collected profiling data thoroughly:
+   - **CPU Analysis**: Identify specific functions, methods, or algorithms that consume a disproportionate amount of CPU time, especially in interactive scenarios like rendering or tool usage.
+   - **Memory Analysis**: Pinpoint any memory leaks (objects allocated but never deallocated). Identify objects or data structures that contribute most significantly to high memory usage. Look for patterns of excessive allocation/deallocation or inefficient memory management.
+5. Compile all findings into a detailed profiling report. This report should:
+   - List all identified CPU bottlenecks, including function names, percentage of execution time, and call stacks where relevant.
+   - List all identified memory issues, such as leaks (with backtraces if available from the tool), areas of high memory consumption, and potential causes.
+   - Prioritize the identified issues based on their impact on application performance and stability.
+   - Provide initial hypotheses or specific areas to investigate for optimization, which will serve as input for task `REFACTOR-03`.\
+""",
+    "definition_of_done": """\
+A comprehensive profiling report is produced, detailing major performance (CPU) and memory usage bottlenecks within the RME-Qt application.
+Key requirements:
+- The application has been profiled on representative target platforms (e.g., Windows, Linux, macOS) using suitable native or third-party profiling tools.
+- Profiling has covered a range of key scenarios, including data loading, intensive rendering, memory-heavy operations, and CPU-intensive tools.
+- The report clearly identifies specific functions, modules, or code sections responsible for significant CPU hotspots.
+- The report clearly identifies any memory leaks, areas of excessive memory consumption, or inefficient memory usage patterns.
+- All findings are documented with supporting data obtained from the profiling tools (e.g., call graphs, allocation timelines, heap summaries).
+- The report provides a prioritized list of identified bottlenecks, guiding subsequent optimization efforts (task `REFACTOR-03`).\
+""",
+    "boilerplate_coder_ai_prompt": """\
+*This is an analysis task for a senior developer/architect, not a direct coding task for a Coder AI.*
+
+**Task: Performance & Memory Profiling of RME-Qt Application**
+
+**Input:**
+- The fully functional RME-Qt application (output of preceding tasks, dependent on `FINAL-04` for theming and `TEST-04` for manual regression testing indicating stability).
+- Access to and familiarity with profiling tools for target platforms:
+  - Windows: Visual Studio Profiler (recommended), Intel VTune.
+  - Linux: Valgrind (callgrind for CPU, massif for heap), perf.
+  - macOS: Xcode Instruments (Time Profiler, Allocations, Leaks).
+
+**Procedure:**
+1.  **Define Profiling Scenarios:** Create a list of test cases covering:
+    - Map Loading: Small, medium, large/complex maps.
+    - Rendering Stress: Rapid navigation (pan/zoom) in dense areas; all visual effects enabled.
+    - Memory Stress: Large copy/paste; many successive undo/redo operations; opening/closing multiple map tabs.
+    - CPU-Intensive Tools: Large area fill; complex doodad/brush application; map-wide cleanup operations.
+2.  **Execute Profiling on Each Platform (Windows, Linux, macOS):**
+    a.  **CPU Profiling:** For each scenario, run the application under a CPU profiler. Collect data to identify functions/methods consuming the most execution time.
+    b.  **Memory Profiling:** For each scenario, run under a memory profiler and leak detector. Monitor overall memory usage, track allocations/deallocations, and identify any leaks.
+3.  **Compile Profiling Report:**
+    - Document the tools used and methodology for each platform.
+    - For CPU bottlenecks: List top offending functions, their percentage of CPU time, and relevant call stacks.
+    - For memory issues: Detail any detected memory leaks (with allocation backtraces). Identify objects/data structures responsible for high memory consumption. Describe patterns of inefficient memory use.
+    - Prioritize all findings based on their impact on performance and stability.
+    - Provide initial recommendations or areas of focus for the optimization task (`REFACTOR-03`).\
+"""
+}
+
+output_file_path = "enhanced_wbs_yaml_files/REFACTOR-02.yaml"
+
+with open(output_file_path, 'w') as f:
+    yaml.dump(yaml_content, f, sort_keys=False, width=1000)
+
+print(f"Generated {output_file_path}")
