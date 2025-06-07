@@ -1,0 +1,83 @@
+import yaml
+
+# Custom representer for multiline strings
+def str_presenter(dumper, data):
+    if len(data.splitlines()) > 1:  # check for multiline
+        return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
+    return dumper.represent_scalar('tag:yaml.org,2002:str', data)
+
+yaml.add_representer(str, str_presenter)
+
+yaml_content = {
+    "id": "REFACTOR-03",
+    "section": "Post-Migration Refactoring & Optimization",
+    "title": "Optimize Rendering Hotspots",
+    "original_input_files": "MapView and TextureManager implementation, Profiling Report from `REFACTOR-02`",
+    "analyzed_input_files": [
+        "Qt6 `MapView` class source code (conceptual, from RENDER-01 and subsequent tasks)",
+        "Qt6 `TextureManager` class source code (conceptual, from RENDER-03 and subsequent tasks)",
+        "Profiling Report document (output of REFACTOR-02)"
+    ],
+    "dependencies": [
+        "REFACTOR-02" # Depends on the profiling report being available
+    ],
+    "current_functionality_summary": """\
+This task focuses on addressing performance bottlenecks specifically within the rendering pipeline of the new Qt6 application, primarily in the `MapView` and `TextureManager` classes. The optimizations will be guided by the findings documented in the Profiling Report generated in task `REFACTOR-02`.\
+""",
+    "qt6_migration_steps": """\
+1. Thoroughly study the Profiling Report from `REFACTOR-02` to pinpoint the exact functions, code paths, or rendering stages in `MapView` (especially `paintGL` or equivalent) and `TextureManager` that were identified as major performance or memory bottlenecks.
+2. Based on the report's findings and suggestions, implement targeted optimizations. These may include, but are not limited to:
+   a. **Culling Techniques:**
+      - Implement or enhance frustum culling in `MapView::paintGL` to ensure only map elements (tiles, items, creatures) strictly visible within the current camera's view frustum are processed and sent for rendering. Utilize the map's spatial index (quadtree, from `CORE-01` data structures) for efficient querying of visible map regions.
+      - If severe overdraw was identified as an issue (many objects drawn on top of each other unnecessarily), investigate and potentially implement basic occlusion culling techniques (e.g., depth pre-pass, or simpler software methods if hardware occlusion queries are too complex for the current scope).
+   b. **Rendering Batching and State Change Reduction:**
+      - Modify `TextureManager` if its current atlas strategy leads to frequent texture swaps. The goal is to ensure commonly co-rendered sprites are part of the same texture atlas page.
+      - Refactor `MapView::paintGL` to group rendering of sprites, tiles, or other elements that share the same texture, shader, and other OpenGL states. This involves accumulating vertex data for multiple objects and issuing fewer, larger draw calls (e.g., using `glDrawArrays` or `glDrawElements` with instancing if appropriate).
+   c. **Shader Optimization (if custom GLSL shaders are used, e.g., for lighting from `RENDER-04`):**
+      - Analyze any shader code identified as a bottleneck using GPU-specific profiling tools if available (e.g., RenderDoc, platform-specific vendor tools).
+      - Simplify complex shader calculations, reduce the number of texture lookups per fragment, and optimize conditional branching and loops within the shaders.
+   d. **OpenGL Call Efficiency:**
+      - Ensure that Vertex Buffer Objects (VBOs) and Vertex Array Objects (VAOs) are used efficiently for all rendered geometry. Data should be uploaded to VBOs appropriately (e.g., static data once, dynamic data when it changes).
+      - Minimize redundant OpenGL state changes (e.g., `glEnable`/`glDisable`, `glBindBuffer`, shader program switches) within the main rendering loop.
+   e. **Data Access and Iteration Optimization:**
+      - Review how `MapView` accesses and iterates through map data from `mapcore` during rendering. Optimize any loops or data access patterns identified as inefficient by the profiler.
+3. After implementing each significant optimization, re-profile the specific scenario that highlighted the original bottleneck to measure the performance improvement (e.g., FPS increase, CPU usage reduction, memory footprint decrease).
+4. Conduct thorough visual testing to ensure that no rendering artifacts, incorrect visuals, or other regressions have been introduced as a side effect of the optimizations.\
+""",
+    "definition_of_done": """\
+Identified rendering bottlenecks in `MapView` and `TextureManager` are addressed, resulting in measurable performance improvements in the RME-Qt application.
+Key requirements:
+- Specific optimizations, guided by the `REFACTOR-02` profiling report (e.g., improved culling, batched rendering, shader optimizations, texture atlas refinements), are implemented in the `MapView` and/or `TextureManager` classes.
+- Measurable improvements in key metrics such as frame rate (FPS), CPU usage during rendering, or memory efficiency related to textures are demonstrated in the previously identified bottleneck scenarios.
+- No visual rendering errors or functional regressions are introduced as a result of the implemented optimizations.
+- The codebase of `MapView` and `TextureManager` remains clean, maintainable, and well-documented after the optimization changes.\
+""",
+    "boilerplate_coder_ai_prompt": """\
+Based on the detailed findings in the Profiling Report from task `REFACTOR-02`, implement optimizations in the Qt6 `MapView` and `TextureManager` classes to address identified rendering hotspots.
+1.  **Review Profiling Report:** Carefully analyze the report to understand which specific functions or operations within `MapView::paintGL` (or related rendering methods) and `TextureManager` are causing performance issues (CPU or GPU bound) or excessive memory usage.
+2.  **Implement Frustum Culling (if identified as needed):**
+    - If not already sufficiently implemented, ensure `MapView::paintGL` only processes and attempts to draw map elements (tiles, items, creatures) that are actually visible within the current camera's view frustum.
+    - This may involve querying the map's spatial index (quadtree data from `mapcore`) for visible regions.
+3.  **Optimize Draw Calls via Batching (if identified as needed):**
+    - If the profiler indicated excessive draw calls or state changes:
+        - Modify `MapView` to group geometry that shares the same texture atlas page, shader program, and other OpenGL states.
+        - Accumulate vertex data for these grouped objects and issue fewer, larger draw calls (e.g., one `glDrawArrays` or `glDrawElements` for multiple sprites from the same atlas page).
+        - Review `TextureManager` to ensure its atlas strategy supports efficient batching.
+4.  **Shader Code Optimization (if custom GLSL shaders are identified as bottlenecks):**
+    - Analyze the specific shader(s) flagged by the profiler.
+    - Simplify complex calculations, reduce texture fetches if possible, and optimize conditional logic or loops within the GLSL code.
+5.  **Efficient OpenGL Usage:**
+    - Double-check that VBOs and VAOs are used for all dynamic and static geometry.
+    - Minimize redundant OpenGL state changes (e.g., `glBindTexture`, `glUseProgram`) inside tight rendering loops.
+6.  **Test and Verify:**
+    - After applying optimizations, re-run the relevant profiling scenarios to confirm measurable performance improvements (e.g., higher FPS, lower CPU/GPU load).
+    - Perform thorough visual testing to ensure no rendering artifacts or regressions have been introduced.\
+"""
+}
+
+output_file_path = "enhanced_wbs_yaml_files/REFACTOR-03.yaml"
+
+with open(output_file_path, 'w') as f:
+    yaml.dump(yaml_content, f, sort_keys=False, width=1000)
+
+print(f"Generated {output_file_path}")

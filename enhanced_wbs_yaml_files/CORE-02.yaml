@@ -13,52 +13,69 @@ analyzed_input_files:
 - wxwidgets/client_version.cpp
 - wxwidgets/graphics.h
 - wxwidgets/graphics.cpp
-- items.xml (Not Found via URL)
-- creatures.xml (Not Found via URL)
-- clients.xml (Not Found via URL)
+- XML/760/items.xml (Fetched via URL)
+- XML/760/creatures.xml (Fetched via URL)
+- XML/clients.xml (Fetched via URL)
 dependencies:
 - CORE-01
 current_functionality_summary: |-
   The input files manage critical game asset data:
-  - `ItemDatabase` (from `items.h/cpp`): Loads item definitions (type, flags, attributes) from `.otb` or legacy XML files (which would have been parsed by pugixml). Populates `g_items`.
-  - `CreatureDatabase` (from `creatures.h/cpp`): Loads creature/NPC definitions (name, outfit) from XML files (custom editor and OT server formats, which would have been parsed by pugixml). Populates `g_creatures`.
-  - `ClientVersion` (from `client_version.h/cpp`): Parses `clients.xml` (which would have been parsed by pugixml) for client compatibility data.
+  - `ItemDatabase` (from `items.h/cpp`): Loads item definitions from `.otb` or `items.xml` (using pugixml). Populates `g_items`.
+  - `CreatureDatabase` (from `creatures.h/cpp`): Loads creature/NPC definitions from `creatures.xml` and OT server `monsters/`/`npcs/` directories (using pugixml). Populates `g_creatures`.
+  - `ClientVersion` (from `client_version.h/cpp`): Parses `clients.xml` (using pugixml) for client compatibility data.
   - `GraphicManager` (from `graphics.h/cpp`): Loads sprite metadata from `.dat` and image data from `.spr` files.
   - `pugixml`: The XML parsing library to be replaced.
-  Note: The specific XML files (`items.xml`, `creatures.xml`, `clients.xml`) were not directly accessible for analysis during task generation; understanding of their expected structure is inferred from the C++ parsing code and `prompt.md`.
 qt6_migration_steps: |-
-  1. Port the `ItemDatabase`, `ItemType`, `CreatureDatabase`, `CreatureType`, `ClientVersion`, `GraphicManager`, `GameSprite`, and `Animator` classes to the `mapcore` library. These should be structured as individual .h/.cpp files within the library's source tree.
-  2. Replace all XML parsing functionality currently using `pugixml` (in `ItemDatabase` for items.xml, `CreatureDatabase` for creatures.xml, `ClientVersion` for clients.xml) with `QXmlStreamReader` from the Qt XML module. The Coder AI will need to infer the XML structure from the existing C++ parsing logic or define a new one if necessary.
-  3. Update all file I/O operations (for `.otb`, `.dat`, `.spr`, and XML files if not handled by `QXmlStreamReader` directly) to use `QFile` and `QDataStream` (for binary) or `QTextStream` (for text).
-  4. Remove wxWidgets dependencies: Replace `wxString` with `std::string` (as per CORE-01 guidelines), `wxArrayString` with `std::vector<std::string>`, and remove any wx-specific logging or utility functions.
-  5. Refactor `GraphicManager` and `GameSprite`:
-     - The core logic for parsing `.dat` and `.spr` files should be retained, using Qt file I/O classes.
-     - `GameSprite` should primarily store raw pixel data and metadata. Methods like `getDC` that rely on `wxMemoryDC` should be removed from `mapcore`. The responsibility of creating `QImage` or `QPixmap` from this raw data will fall to the UI layer or utility functions outside/above `mapcore`.
-     - The OpenGL texture ID aspect (`getHardwareID`) can be kept if `mapcore` is to provide data directly consumable by an OpenGL renderer, but abstract any direct GL calls.
-  6. Manage `ItemDatabase`, `CreatureDatabase`, and `GraphicManager` instances within `mapcore` (e.g., as library-internal singletons or through a dedicated context class), removing reliance on `g_gui` for `GraphicManager`.
-  7. Ensure the ported classes correctly use the data model classes (e.g., `Item`, `Creature`) isolated in `CORE-01`.
-  8. Verify that the `mapcore` library, now including these asset systems, compiles cleanly without wxWidgets or pugixml dependencies.
+  1. Port the `ItemDatabase`, `ItemType`, `CreatureDatabase`, `CreatureType`, `ClientVersion`, `ClientProfile`, `ClientExtension`, `GraphicManager`, `GameSprite`, and `Animator` classes to the `mapcore` library. These should be structured as individual .h/.cpp files.
+  2. Replace all XML parsing (pugixml) with a suitable, modern C++ XML parsing library like TinyXML2 or RapidXML (QXmlStreamReader might be too low-level for complex structures if not careful, but is an option if no external libs allowed).
+     - For `items.xml`: Parse `<item id="..." name="...">` and all its attributes (`type`, `article`, `plural`, `description`, `looktype`, `lookhead`, `lookbody`, `looklegs`, `lookfeet`, `light`, `stackable`, `corpse`, `ground`, `speed`, `slot`, `maxitems`, `weapon`, `armor`, `charges`, `decay`, `container_size`, etc.) and flags (`blockprojectile`, `blockpath`, etc.).
+     - For `creatures.xml`: Parse `<creature name="..." type="..." looktype="..."/>` and optional `lookhead/body/legs/feet` attributes.
+     - For `clients.xml`: Parse `<client id="..." name="..." version="..." description="..." signature="..." extensions="...">` and nested `<extension file="..." name="..."/>` elements.
+  3. Update file I/O for `.otb`, `.dat`, `.spr` to use `QFile`, `QDataStream` (binary), or `QTextStream` (text) if these were not already covered by CORE-03 for OTB.
+  4. Remove wxWidgets dependencies: `wxString` to `std::string`, `wxArrayString` to `std::vector<std::string>`, etc.
+  5. Refactor `GraphicManager` and `GameSprite` as per original plan (raw pixel data, no wxMemoryDC).
+  6. Create an `AssetManager` or `DatabaseManager` class within `mapcore` to orchestrate loading of items, creatures, and client profiles. This manager will own instances of `ItemDatabase`, `CreatureDatabase`, and `ClientVersionManager`.
+     - Provide methods like `AssetManager::loadAssets(const std::string& dataPath)` which would then look for `items.xml`, `creatures.xml`, `clients.xml` in expected subdirectories or based on `clients.xml` extension data.
+     - Ensure these managers provide public const access to the loaded data (e.g., `const ItemType* getItem(uint16_t id) const;`).
+  7. Ensure ported classes correctly use data models from `CORE-01` (e.g., `Item` class might use `ItemType` for its definition).
+  8. `mapcore` library must compile cleanly without wxWidgets or pugixml dependencies.
 definition_of_done: |-
-  The `mapcore` library, structured as a collection of modular source files, can successfully parse and manage game asset definitions.
+  The `mapcore` library can successfully parse and manage game asset definitions from XML files (items, creatures, clients) and binary formats (.otb, .dat, .spr).
   Key requirements:
-  - `ItemDatabase` loads item definitions from `.otb` files and from the legacy XML format (if applicable, structure inferred from code) using Qt XML.
-  - `CreatureDatabase` loads creature/NPC definitions from XML files (structure inferred from code) using Qt XML.
-  - `ClientVersion` loads client configuration from `clients.xml` (structure inferred from code) using Qt XML.
-  - `GraphicManager` loads sprite metadata from `.dat` and sprite pixel data from `.spr` files using Qt file I/O.
-  - `GameSprite` stores sprite data; wxWidgets specific rendering methods (like getDC) are removed.
-  - All pugixml dependencies are replaced with Qt XML.
+  - `ItemDatabase` loads item definitions from `items.xml` (or OTB if specified by client profile), correctly parsing all attributes and flags.
+  - `CreatureDatabase` loads creature/NPC definitions from `creatures.xml` using the chosen XML parser.
+  - `ClientVersion` (or a `ClientProfileManager`) loads client configurations from `clients.xml`, including data file extensions.
+  - `GraphicManager` loads sprite metadata from `.dat` and sprite pixel data from `.spr` files using Qt file I/O (or standard C++ I/O if preferred).
+  - `GameSprite` stores sprite data; wxWidgets specific rendering methods are removed.
+  - All pugixml dependencies are replaced.
   - All wxWidgets dependencies are removed.
+  - An `AssetManager` (or similar) orchestrates the loading and provides access to these databases.
+  - Parsed asset data is accessible through the respective database/manager classes (e.g., `ItemDatabase::getItem(id)`).
+  - Error handling is robust during parsing of asset files.
   - The `mapcore` library remains self-contained and compiles successfully.
-  - Parsed data (items, creatures, client versions, sprites) is accessible through the respective database/manager classes.
 boilerplate_coder_ai_prompt: |-
-  Your task is to port asset loading classes (`ItemDatabase`, `CreatureDatabase`, `ClientVersion`, `GraphicManager`, `GameSprite`, `Animator`) into the `mapcore` static library, building upon `CORE-01`.
-  These classes should be added as separate, modular `.h/.cpp` files within the `mapcore` library's source structure, NOT merged into a single file.
-  1.  Replace all `pugixml` XML parsing logic with `QXmlStreamReader` (from Qt XML module) for `items.xml`, `creatures.xml`, and `clients.xml`. Since the exact XML files might not be available to you directly, infer the structure from the existing C++ parsing code that uses pugixml.
-  2.  Replace all file I/O (for `.otb`, `.dat`, `.spr`, XMLs) with `QFile`, `QDataStream`, and `QTextStream`.
-  3.  Remove wxWidgets types (`wxString` to `std::string`, etc.) and functions.
-  4.  Refactor `GraphicManager`/`GameSprite`:
-      - Sprite data loading from `.dat`/`.spr` should use Qt I/O.
-      - `GameSprite` should hold raw sprite data. Remove `wxMemoryDC` methods; UI-specific image creation from this data is outside `mapcore`'s direct responsibility.
-  5.  Ensure these systems use the data models from `CORE-01`.
-  6.  The classes `ItemDatabase`, `CreatureDatabase`, `GraphicManager` should be instantiable and usable within `mapcore` without UI dependencies.
-  7.  The `mapcore` library, now including these asset systems, must compile cleanly without wxWidgets or pugixml.
+  Your task is to implement asset loading classes (`ItemDatabase`, `CreatureDatabase`, `ClientVersionManager`, `GraphicManager`, and their associated data classes like `ItemData`/`ItemType`, `CreatureData`/`CreatureType`, `ClientProfile`) within the `mapcore` static library. This depends on `CORE-01`.
+  1.  **Define Data Structures:**
+      -   Create C++ structs/classes (e.g., `ItemData`, `CreatureData`, `ClientProfile`, `ClientExtension`) to hold the data parsed from `items.xml`, `creatures.xml`, and `clients.xml` respectively. These should store all relevant attributes and flags (e.g., for `ItemData`: id, name, type, looktype, light, stackable, flags like `blockprojectile`, etc.). These structures are distinct from the `Item`/`Creature` classes in `CORE-01` which represent instances on the map.
+  2.  **Implement Parsers:**
+      -   Create parser classes (e.g., `ItemParser`, `CreatureParser`, `ClientParser`).
+      -   Use a lightweight XML parsing library like TinyXML2 or RapidXML (if allowed, otherwise use `QXmlStreamReader` carefully).
+      -   `ItemParser::parseItemsXML(const std::string& filePath, ItemDatabase& db)`: Parses `items.xml`. For each `<item>`, populate an `ItemData` object and add it to `ItemDatabase`.
+      -   `CreatureParser::parseCreaturesXML(const std::string& filePath, CreatureDatabase& db)`: Parses `creatures.xml`. For each `<creature>`, populate a `CreatureData` object.
+      -   `ClientParser::parseClientsXML(const std::string& filePath, ClientVersionManager& cvManager)`: Parses `clients.xml`, populating `ClientProfile` and `ClientExtension` objects.
+  3.  **Implement Database/Manager Classes:**
+      -   `ItemDatabase`: Stores `std::map<uint16_t, ItemData>`. Provides `const ItemData* getItem(uint16_t id) const`.
+      -   `CreatureDatabase`: Stores `std::map<std::string, CreatureData>`. Provides `const CreatureData* getCreature(const std::string& name) const`.
+      -   `ClientVersionManager`: Stores `std::vector<ClientProfile>`. Provides methods to find profiles by version or name.
+      -   `GraphicManager` (from `CORE-02` skeleton): Ensure it loads `.dat`/`.spr` files correctly using `QFile` or standard C++ I/O.
+  4.  **Create `AssetManager` (Singleton or context class in `mapcore`):**
+      -   Owns instances of `ItemDatabase`, `CreatureDatabase`, `ClientVersionManager`, `GraphicManager`.
+      -   `bool loadPrimaryAssets(const std::string& basePath)`:
+          -   Calls `ClientParser` to load `clients.xml` (e.g., from `basePath + "/XML/clients.xml"`).
+          -   Based on a selected or default `ClientProfile`, determine paths/extensions for other assets.
+          -   Calls `ItemParser` to load `items.xml` (or OTB, e.g., from `basePath + "/" + clientProfile.getExtension("OTBItems").file`).
+          -   Calls `CreatureParser` to load `creatures.xml` (e.g., from `basePath + "/" + clientProfile.getExtension("OTCreatures").file`).
+          -   Calls `GraphicManager` to load sprite data (e.g., from `basePath + "/" + clientProfile.getExtension("OTDAT").file`).
+      -   Provide public accessors like `getItemDatabase()`, `getCreatureDatabase()`, etc.
+  5.  Replace all pugixml usage. Remove wxWidgets types. Use standard C++ file I/O or `QFile` for non-XML files.
+  6.  The `mapcore` library must compile cleanly.

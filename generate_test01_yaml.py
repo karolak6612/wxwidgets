@@ -1,0 +1,131 @@
+import yaml
+import hashlib
+
+# Custom representer for multiline strings
+def str_presenter(dumper, data):
+    if len(data.splitlines()) > 1:  # check for multiline
+        return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
+    return dumper.represent_scalar('tag:yaml.org,2002:str', data)
+
+yaml.add_representer(str, str_presenter)
+
+yaml_data = {
+    "wbs_item_id": "TEST-01",
+    "name": "Unit Test Core Data Structures",
+    "description": "Develop unit tests for the core data structures ported or created in Qt6. This includes testing functionalities of classes like Item, Container, Creature, Tile, Map, Waypoint, Spawn, etc., focusing on their methods, data integrity, and edge cases.",
+    "dependencies": [
+        "CORE-01", # Assumed to define initial data model structures
+        "CORE-02", # For ItemDatabase, ItemData, CreatureData, ClientProfile
+        "CORE-03", # For understanding how map data (including spawns, waypoints on tiles) is structured if tests involve mock loading.
+        "LOGIC-04", # For Waypoint, WaypointManager
+        "LOGIC-07", # For SpawnProperties, Tile's spawn data, SpawnManager registry
+    ],
+    "input_files": [], # No direct wxWidgets C++ files are ported for this task.
+    "analyzed_input_files": [], # No specific files to analyze for porting; tests are new.
+    "documentation_references": [
+        "Qt Test Framework: https://doc.qt.io/qt-6/qttest-index.html",
+        "Qt Test Tutorial: https://doc.qt.io/qt-6/qttestlib-tutorial1.html"
+    ],
+    "current_functionality_summary": """\
+This task is about creating new unit tests for the Qt6 version of the application's core data structures. There are no existing wxWidgets unit tests to port directly for these specific low-level data classes. The tests will verify the correctness of the newly implemented or ported Qt6 data structures.\
+""",
+    "definition_of_done": [
+        "A comprehensive suite of unit tests using the Qt Test framework is created for each core Qt6 data structure (e.g., `ItemData`, `CreatureData`, `Tile`, `Map`, `Waypoint`, `SpawnProperties`, `ItemDatabase`, `WaypointManager`, `SpawnManager`).",
+        "Tests cover various aspects including: object construction (default, copy, parameterized), attribute access (getters/setters), method logic, data integrity under operations, and handling of boundary conditions or invalid inputs.",
+        "For container/manager classes (like `ItemDatabase`, `WaypointManager`, `Map`), tests verify correct addition, removal, lookup, and iteration of elements.",
+        "Tests for `Tile` verify item stack manipulation, property updates (e.g., ground, borders), and correct association/disassociation of waypoint/spawn metadata.",
+        "Tests for `Map` cover tile creation/access, dimension management, and interactions with its aggregated managers if applicable (though managers should also be tested independently).",
+        "Mock data or simplified versions of dependent systems (like XML parsers or file I/O) are used where necessary to isolate the data structure being tested.",
+        "All unit tests pass successfully.",
+        "The tests are integrated into the CMake build system (e.g., using `qt_add_test`) and can be run automatically.",
+        "A report on code coverage for the tested data structures is generated, aiming for a reasonable level of coverage for their public APIs."
+    ],
+    "boilerplate_coder_ai_prompt": """\
+Your task is to create a comprehensive suite of unit tests for the core data structures of the Qt6 Remere's Map Editor, using the Qt Test framework. These tests will ensure the reliability and correctness of the fundamental classes that will underpin the editor.
+
+**General Guidelines for All Test Classes:**
+1.  For each core data structure (class/struct), create a corresponding test class that inherits from `QObject`.
+2.  Use private slots for individual test functions (e.g., `void testConstructor();`, `void testAddCreature();`).
+3.  Utilize Qt Test macros like `QCOMPARE`, `QVERIFY`, `QTEST_ASSERT`, `QFAIL`, etc., for assertions.
+4.  Employ data-driven testing (`QTest::addColumn()`, `QTest::newRow()`) when testing methods with various inputs and expected outputs.
+5.  Include `QTEST_MAIN(TestClassName)` or set up a main function to run all test suites.
+6.  Ensure tests are added to the CMake build system.
+
+**Core Data Structures to Test (and examples of what to test):**
+
+1.  **`Position` / `QVector3D` (if used directly):**
+    - Constructors (default, x/y/z).
+    - Equality/inequality operators.
+    - Methods for string conversion, hashing (if custom).
+
+2.  **`ItemData` (and any related attribute/flag structures - based on `CORE-02`):**
+    - Construction with various attributes (ID, name, flags, properties like weight, light, etc.).
+    - Getters for all attributes.
+    - Correct interpretation and querying of flags (e.g., `isStackable()`, `isPickupable()`).
+
+3.  **`CreatureData` (based on `CORE-02`):**
+    - Construction with name, looktype, outfit components.
+    - Getters for these attributes.
+
+4.  **`ClientProfile` (based on `CORE-02`):**
+    - Storing and retrieving client ID, name, version, extensions.
+
+5.  **`ItemDatabase` / `AssetManager` (responsible for loading/managing `ItemData`, `CreatureData` - based on `CORE-02`):**
+    - Loading from a mock data source (e.g., a small, predefined XML string or structure).
+    - `getItem(id)`: Test retrieval of existing and non-existing items.
+    - `getCreature(name)`: Test retrieval.
+    - Handling of duplicate IDs/names during loading (if applicable).
+    - Error handling for malformed data (if parsing is part of this class directly).
+
+6.  **`Tile` (Core map tile object):**
+    - Constructors.
+    - `addItem(Item*)`, `removeItem(Item*)`, `getTopItem()`, `getItems()`. Test stack order, limits.
+    - Setting/getting ground item.
+    - Managing `Waypoint` association (e.g., `hasWaypoint()`, `setWaypointInfo()`, `clearWaypointInfo()`).
+    - Managing `Spawn` information:
+        - Setting/getting `SpawnProperties` (radius).
+        - Adding/removing creatures from its `creature_list`.
+        - Setting/getting `spawn_time_seconds`.
+        - `isSpawn()` flag.
+    - Pathfinding flags, properties like `isPathable()`, `isBlocking()`.
+
+7.  **`Map` (Main map data structure):**
+    - `getTile(Position)` / `createTile(Position)`: Test for valid and invalid positions, floor limits.
+    - Dimension management (width, height, floors).
+    - Iterating over tiles (if applicable).
+    - (High-level tests for operations that might involve waypoints or spawns, but detailed manager logic is tested separately).
+
+8.  **`Waypoint` (from `LOGIC-04`):**
+    - Storing/retrieving name and position.
+
+9.  **`WaypointManager` (from `LOGIC-04`):**
+    - `addWaypoint()`: Verify waypoint is added, tile's waypoint count/flag is updated. Test name collision handling.
+    - `removeWaypoint()`: Verify waypoint is removed, tile's waypoint count/flag is updated.
+    - `getWaypoint(name)` and `getWaypoint(position)` for existing and non-existing waypoints.
+
+10. **`SpawnProperties` (radius holder, from `LOGIC-07`):**
+    - Storing/retrieving radius.
+
+11. **`SpawnManager` (registry of spawn locations, from `LOGIC-07`):**
+    - `registerSpawnLocation()`: Verify position is added to internal set.
+    - `unregisterSpawnLocation()`: Verify position is removed.
+    - `isSpawnLocation()`.
+
+**Testing Approach for Dependencies:**
+- When testing a class, if it depends on another complex class, consider if mocking the dependency is appropriate to isolate the unit under test. For simple data structures, direct instantiation is usually fine.
+- For classes like `ItemDatabase`, you might provide it with a small, controlled set of data (e.g., from a test-specific XML string or by directly populating its internal structures) rather than relying on full XML file parsing in the unit test itself.
+
+Focus on creating robust and maintainable tests for these foundational components.\
+"""
+}
+
+output_file_path = "enhanced_wbs_yaml_files/TEST-01.yaml"
+
+with open(output_file_path, 'w') as f:
+    yaml.dump(yaml_data, f, sort_keys=False, width=1000)
+
+print(f"Generated {output_file_path}")
+
+# Clean up the temporary file contents from variables (optional, good practice)
+# (No file contents were stored in variables for this script)
+del yaml_data

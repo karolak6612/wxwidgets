@@ -1,0 +1,128 @@
+import yaml
+
+# Custom representer for multiline strings
+def str_presenter(dumper, data):
+    if len(data.splitlines()) > 1:  # check for multiline
+        return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
+    return dumper.represent_scalar('tag:yaml.org,2002:str', data)
+
+yaml.add_representer(str, str_presenter)
+
+core_04_data = {
+    "id": "CORE-04",
+    "section": "Core Migration Tasks",
+    "title": "Port Brush & Materials System",
+    "original_input_files": "brush.h/cpp (and all `*_brush.*`), materials.h/cpp, tileset.h/cpp",
+    "analyzed_input_files": [
+        "wxwidgets/brush.h",
+        "wxwidgets/brush.cpp",
+        "wxwidgets/materials.h",
+        "wxwidgets/materials.cpp",
+        "wxwidgets/tileset.h",
+        "wxwidgets/tileset.cpp",
+        "wxwidgets/ground_brush.h",
+        "wxwidgets/ground_brush.cpp",
+        "wxwidgets/wall_brush.h",
+        "wxwidgets/wall_brush.cpp",
+        "wxwidgets/doodad_brush.h",
+        "wxwidgets/doodad_brush.cpp",
+        "wxwidgets/creature_brush.h",
+        "wxwidgets/creature_brush.cpp",
+        "wxwidgets/house_brush.h",
+        "wxwidgets/house_brush.cpp",
+        "wxwidgets/spawn_brush.h",
+        "wxwidgets/spawn_brush.cpp",
+        "wxwidgets/raw_brush.h",
+        "wxwidgets/raw_brush.cpp",
+        "wxwidgets/carpet_brush.h",
+        "wxwidgets/carpet_brush.cpp",
+        "wxwidgets/table_brush.h",
+        "wxwidgets/table_brush.cpp",
+        "wxwidgets/waypoint_brush.h",
+        "wxwidgets/waypoint_brush.cpp",
+        "XML/760/materials.xml (Fetched via URL and its includes like grounds.xml, walls.xml, etc.)"
+    ],
+    "dependencies": [
+        "CORE-02"
+    ],
+    "current_functionality_summary": """\
+The `materials.xml` (and its included files like `grounds.xml`, `walls.xml`, `doodads.xml`, `borders.xml`, various palette XMLs, `tilesets.xml`, `collections.xml`) defines the comprehensive structure of all map editor brushes and their organization.
+- `brush.h/cpp` files define the base `Brush` class and derived types.
+- `materials.h/cpp` defines `Materials` (`g_materials`) which parses these XMLs (using pugixml) to load brush properties, item associations, border rules (`AutoBorder`), multi-tile doodad compositions, and palette groupings.
+- `tileset.h/cpp` defines `Tileset` and `TilesetCategory` for palette organization.
+These systems depend on `CORE-01` data models and `CORE-02` asset definitions (`ItemDatabase`).\
+""",
+    "qt6_migration_steps": """\
+1. Port all brush classes (`Brush` hierarchy, `Brushes` manager, `AutoBorder`), `Materials` manager, `Tileset`, and `TilesetCategory` classes to the `mapcore` library.
+2. In `Materials::loadMaterials` and its helper methods, replace all `pugixml` XML parsing logic with a suitable C++ XML library like TinyXML2 or RapidXML (or `QXmlStreamReader` if external libs are not allowed, though it may be more complex for these structures).
+   - Parse `materials.xml` and recursively load all included XML files (e.g., `grounds.xml`, `walls.xml`, `doodads.xml`, `borders.xml`, `creature_palette.xml`, `raw_palette.xml`, `item_palette.xml`, `tilesets.xml`, `collections.xml`).
+   - For `grounds.xml`: Parse `<ground>` elements, their item variations (`<item>`), z-order, `<border>` references (linking to `borders.xml`), and `<friend>` brush names.
+   - For `walls.xml`: Parse `<wall>` elements, their orientations (horizontal, vertical, pole, T-junctions, corners, diagonals - attributes like `type`, `horiz_s`, `vert_e`, etc.), and embedded door/window items (`<door>`, `<window>`). Handle `redirect` attributes.
+   - For `doodads.xml`: Parse `<doodad>` elements, their multi-tile item compositions (`<item x=".." y=".." z=".." id="..."/>`), alternates (`<alternate>`), and properties (`draggable`, `on_blocking`).
+   - For `borders.xml`: Parse `<border id="...">` and their edge item definitions (`<n>`, `<s>`, `<e>`, `<w>`, `<ne>`, etc.).
+   - For palette XMLs (`creature_palette.xml`, `raw_palette.xml`, `item_palette.xml`): Parse `<item>` or `<creature>` entries with `id` or `name` ranges.
+   - For `tilesets.xml`: Parse `<tileset name="...">` and its content elements like `<item id=.../>`, `<doodad itemid=... brush=.../>`, `<raw id=.../>`, `<terrain brush=.../>`.
+   - For `collections.xml`: Parse `<collection name="...">` and its `<brush name=.../>` references.
+3. Remove all wxWidgets dependencies (wxString, wxArrayString, wxFileName, logging).
+4. Ensure brush implementations correctly use data models from `CORE-01` and asset definitions from `CORE-02`.
+5. Manage `g_brushes` and `g_materials` instances within `mapcore`.
+6. Port `Tileset` and `TilesetCategory` data structures, removing UI-specific logic.
+7. Update path handling for loading XMLs and extensions to use `std::filesystem::path` or `QDir`/`QFileInfo`.
+8. Verify `mapcore` compiles cleanly without wxWidgets or pugixml.\
+""",
+    "definition_of_done": """\
+The `mapcore` library's brush and materials system can parse `materials.xml` (and all its includes) and correctly represent all brush types and palette structures.
+Key requirements:
+- `Materials` class successfully parses `materials.xml` and all included XML files (grounds, walls, doodads, borders, palettes, tilesets, collections) using the chosen XML library.
+- All brush types (ground, wall, doodad, etc.) are instantiated with their properties, including multi-tile item compositions for doodads, and complex border/connection logic for ground/wall brushes.
+- Border definitions from `borders.xml` are correctly loaded and associated with ground brushes.
+- Wall brush orientations and embedded door/window items are correctly parsed.
+- `Tileset` and `TilesetCategory` structures are populated based on `tilesets.xml` and palette XMLs, organizing brushes and items for editor use.
+- The system correctly handles "friend" brushes and wall "redirects".
+- All wxWidgets and pugixml dependencies are removed.
+- The `mapcore` library compiles successfully.\
+""",
+    "boilerplate_coder_ai_prompt": """\
+Port the brush system (all `Brush` derived classes, `Brushes` manager, `AutoBorder`) and the `Materials` system (including `Tileset`, `TilesetCategory`) to the `mapcore` library. This relies on `CORE-01` (data models) and `CORE-02` (ItemDatabase).
+1.  **XML Parsing Strategy**: Choose a C++ XML parsing library (e.g., TinyXML2, RapidXML, or QXmlStreamReader if mandated). Replace all `pugixml` code.
+2.  **`Materials::loadMaterials(const std::string& mainMaterialsFile)`:**
+    -   Parse `materials.xml`. For each `<include file="..."/>`, recursively parse the included XML.
+    -   **`grounds.xml` parsing:**
+        -   For each `<ground>`: Store its attributes (name, id, type).
+        -   Parse `<item id="..." variation="..." zorder="..."/>` sub-elements.
+        -   Parse `<border id="..."/>` and store the ID. This ID will be used to look up actual border items from the parsed `borders.xml`.
+        -   Parse `<friend name="..."/>`.
+    -   **`walls.xml` parsing:**
+        -   For each `<wall>`: Store attributes (name, id).
+        -   Parse item IDs for different orientations (e.g., `horiz_e`, `vert_s`, `pole`, `corner_sw`, `tdoor_e`).
+        -   Parse `<door id="..." chance="..."/>` and `<window id="..." chance="..."/>` sub-elements associated with wall parts.
+        -   Handle `redirect` attributes.
+    -   **`doodads.xml` parsing:**
+        -   For each `<doodad>`: Store attributes (name, id, type).
+        -   Parse `<item x="..." y="..." z="..." id="..."/>` for multi-tile compositions.
+        -   Parse `<alternate>` doodad IDs.
+        -   Parse properties like `draggable`, `on_blocking`.
+    -   **`borders.xml` parsing:**
+        -   For each `<border id="...">`: Store a map of edge type (e.g., "n", "s", "ne") to item ID.
+    -   **Palette XMLs (`creature_palette.xml`, `raw_palette.xml`, `item_palette.xml`) parsing:**
+        -   Parse `<item id="..." range_to="..."/>` or `<creature name="..."/>` into palette groups.
+    -   **`tilesets.xml` parsing:**
+        -   For each `<tileset name="...">`: Parse `<item id=.../>`, `<doodad itemid=... brush=.../>`, `<raw id=.../>`, `<terrain brush=.../>` to link to actual items or brush definitions.
+    -   **`collections.xml` parsing:**
+        -   For each `<collection name="...">`: Parse `<brush name=.../>` references.
+3.  **Brush Classes (`mapcore`):**
+    -   Ensure `GroundBrush`, `WallBrush`, `DoodadBrush`, etc., have members to store their specific parsed properties (e.g., `DoodadBrush` stores a list of its composite items and their relative positions).
+    -   The `AutoBorder` class should store the parsed border definitions from `borders.xml`.
+4.  **Data Structures for Palettes (`mapcore`):**
+    -   `Tileset` and `TilesetCategory` should store the loaded palette information, linking names to lists of item IDs or brush names.
+5.  Remove all wxWidgets dependencies. Manage `g_brushes` and `g_materials` within `mapcore`.
+6.  Ensure `mapcore` compiles cleanly.\
+"""
+}
+
+output_file_path = "enhanced_wbs_yaml_files/CORE-04.yaml"
+
+with open(output_file_path, 'w') as f:
+    yaml.dump(core_04_data, f, sort_keys=False, width=1000)
+
+print(f"Generated/Updated {output_file_path}")
