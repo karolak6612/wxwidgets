@@ -1,0 +1,9 @@
+id: UI-03
+section: UI Polish & Completeness
+title: Implement Application Global State Manager
+input_files:
+- gui.h/cpp
+dependencies:
+- UI-01
+definition_of_done: A new singleton class, `GuiManager`, is created to manage global UI state such as the active brush, brush shape/size, and action ID. It replaces the role of the `g_gui` global object. `QObject`-based signals are used for state changes.
+boilerplate_coder_ai_prompt: Create a `GuiManager` class inheriting from `QObject`. Move all state-related members from the legacy `GUI` class into it (e.g., `current_brush`, `brush_size`, `action_id`). Convert state changes into Qt signals (e.g., `activeBrushChanged(Brush*)`). Create a global instance.

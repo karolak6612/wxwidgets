@@ -1,0 +1,9 @@
+id: BUILD-01
+section: Build, Deployment, & Documentation
+title: Finalize CMake Build System
+input_files:
+- CMakeLists.txt from FINAL-02
+dependencies:
+- FINAL-02
+definition_of_done: The root CMake build system is finalized. It includes platform-specific logic, dependency finding (`find_package` for Qt6, zlib), setting rpaths for macOS/Linux, and defines build configurations (Debug, Release, RelWithDebInfo).
+boilerplate_coder_ai_prompt: Refine the root `CMakeLists.txt`. Use `find_package(Qt6 REQUIRED Widgets Gui OpenGL)` to locate Qt. Add conditional logic for platform-specific compiler flags and library paths. Implement `CMAKE_INSTALL_RPATH` for macOS and Linux builds.

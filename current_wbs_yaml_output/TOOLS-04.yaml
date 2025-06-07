@@ -1,0 +1,12 @@
+id: TOOLS-04
+section: Core Migration Tasks
+title: Port Generator Dialogs
+input_files:
+- island_generator_dialog.h/cpp
+- monster_generator_dialog.h/cpp
+- border_editor_window.h/cpp
+dependencies:
+- UI-01
+- CORE-04
+definition_of_done: The Island Generator, Monster Generator, and Border Editor dialogs are ported to Qt. Their "Generate" or "Save" actions correctly modify the in-memory map data via the `ActionQueue`.
+boilerplate_coder_ai_prompt: For each dialog, create a new `QDialog` subclass. Replicate the UI layout using `QGridLayout` and `QVBoxLayout`. Port the generation logic and connect it to the dialog's `accepted()` signal, ensuring the changes are wrapped in an `Action`.

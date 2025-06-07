@@ -1,0 +1,12 @@
+id: LOGIC-04
+section: Editor Behavior
+title: Port Waypoint System
+input_files:
+- waypoints.h/cpp
+- editor.cpp (for waypoint brush logic)
+- map_display.cpp (for rendering)
+dependencies:
+- UI-EVENT-01
+- CORE-01
+definition_of_done: The `Waypoint` and `Waypoints` classes are ported to `mapcore`. The `WaypointBrush` is functional. Waypoints are rendered on the `MapView`.
+boilerplate_coder_ai_prompt: Port the `Waypoint` and `Waypoints` classes to `mapcore`. Implement rendering of waypoints in `MapView::paintGL`. Port the `WaypointBrush` logic, ensuring it creates an `Action` when waypoints are added or removed.

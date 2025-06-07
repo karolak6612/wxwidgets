@@ -1,0 +1,91 @@
+wbs_item_id: UI-08
+name: Port Spawn & Group Tools
+description: Recreate UI components for placing spawns and managing their creature lists and properties (radius, interval). "Group Management" refers to managing creatures within a single spawn.
+dependencies:
+- 'UI-02   # Creature palette (hosting spawn creation tools) is part of the main palette system.'
+- 'UI-06   # Creature palette functionality itself, and creature finder for adding to spawns.'
+- 'LOGIC-07 # Defines SpawnProperties and how spawn data is stored on Tiles.'
+- 'CORE-02 # For creature definitions.'
+input_files:
+- wxwidgets/palette_creature.cpp
+- wxwidgets/palette_creature.h
+- wxwidgets/old_properties_window.cpp
+- wxwidgets/old_properties_window.h
+analyzed_input_files:
+- file_path: wxwidgets/palette_creature.cpp
+  description: (Already analyzed for UI-06) Implements `CreaturePalettePanel` which includes controls for spawn time and radius when the "Spawn Brush" mode is active, used for creating new spawns.
+  md5_hash: f6814cf0dd67c3af33c5d235fbfde7a7
+  content_lite: "//////////////////////////////////////////////////////////////////////\\n// This file is part of Remere's Map Editor\\n//////////////////////////////////////////////////////////////////////\\n// Remere's Map Editor is free software: you can redistribute it and/or modify\\n// it under the terms of the GNU General Public License as published by\\n// the Free Software Foundation, either version 3 of the License, or\\n// (at your option) any later version.\\n//\\n// Remere's Map Editor is distributed in the hope that it will be useful,\\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\\n// GNU General Public License for more details.\\n//\\n// You should have received a copy of the GNU General Public License\\n// along with this program. If not, see <http://www.gnu.org/licenses/>.\\n//////////////////////////////////////////////////////////////////////\\n\\n#include \"main.h\"\\n\\n#include \"\
+    settings.h\"\\n#include \"brush.h\"\\n#include \"gui.h\"\\n#include \"palette_creature.h\"\\n#include \"creature_brush.h\"\\n#include \"spawn_brush.h\"\\n#include \"materials.h\"\\n#include <wx/dir.h>\\n#include <wx/filefn.h>\\n#include <wx/textdlg.h>\\n#include \"creature_sprite_manager.h\"\\n\\n// Define the new event ID for the Load NPCs button\\n#define PALETTE_LOAD_NPCS_BUTTON 1952\\n#define PALETTE_LOAD_MONSTERS_BUTTON 1953\\n#define PALETTE_PURGE_CREATURES_BUTTON 1954\\n#define PALETTE_SEARCH_BUTTON 1955\\n#define PALETTE_SEARCH_FIELD 1956\\n#define PALETTE_VIEW_TOGGLE_BUTTON 1957\\n#define PALETTE_CREATURE_LARGE_SPRITES_TOGGLE 1958\\n#define PALETTE_CREATURE_ZOOM_BUTTON 1959\\n\\n// ============================================================================\\n// Creature palette\\n\\nBEGIN_EVENT_TABLE(CreaturePalettePanel, PalettePanel)\\nEVT_CHOICE(PALETTE_CREATURE_TILESET_CHOICE, CreaturePalettePanel::OnTilesetChange)\\nEVT_LISTBOX(PALETTE_CREATURE_LISTBOX, CreaturePalettePanel::OnListBoxChange)\\\
+    nEVT_COMMAND(wxID_ANY, wxEVT_COMMAND_LISTBOX_SELECTED, CreaturePalettePanel::OnSpriteSelected)\\nEVT_TOGGLEBUTTON(PALETTE_CREATURE_BRUSH_BUTTON, CreaturePalettePanel::OnClickCreatureBrushButton)\\nEVT_TOGGLEBUTTON(PALETTE_SPAWN_BRUSH_BUTTON, CreaturePalettePanel::OnClickSpawnBrushButton)\\nEVT_TOGGLEBUTTON(PALETTE_VIEW_TOGGLE_BUTTON, CreaturePalettePanel::OnClickViewToggle)\\nEVT_TOGGLEBUTTON(PALETTE_CREATURE_VIEW_STYLE_TOGGLE, CreaturePalettePanel::OnClickViewStyleToggle)\\nEVT_TOGGLEBUTTON(PALETTE_CREATURE_LARGE_SPRITES_TOGGLE, CreaturePalettePanel::OnClickLargeSpritesToggle)\\nEVT_BUTTON(PALETTE_CREATURE_ZOOM_BUTTON, CreaturePalettePanel::OnClickZoomButton)\\nEVT_BUTTON(PALETTE_LOAD_NPCS_BUTTON, CreaturePalettePanel::OnClickLoadNPCsButton)\\nEVT_BUTTON(PALETTE_LOAD_MONSTERS_BUTTON, CreaturePalettePanel::OnClickLoadMonstersButton)\\nEVT_BUTTON(PALETTE_PURGE_CREATURES_BUTTON, CreaturePalettePanel::OnClickPurgeCreaturesButton)\\nEVT_BUTTON(PALETTE_SEARCH_BUTTON, CreaturePalettePanel::OnClickSearchButton)\\\
+    nEVT_TEXT(PALETTE_SEARCH_FIELD, CreaturePalettePanel::OnSearchFieldText)\\nEVT_SPINCTRL(PALETTE_CREATURE_SPAWN_TIME, CreaturePalettePanel::OnChangeSpawnTime)\\nEVT_SPINCTRL(PALETTE_CREATURE_SPAWN_SIZE, CreaturePalettePanel::OnChangeSpawnSize)\\nEND_EVENT_TABLE()\\n\\nCreaturePalettePanel::CreaturePalettePanel(wxWindow* parent, wxWindowID id) :\\n\tPalettePanel(parent, id),\\n\ttileset_choice(nullptr),\\n\tcreature_list(nullptr),\\n\tsprite_panel(nullptr),\\n\tseamless_panel(nullptr),\\n\tview_toggle(nullptr),\\n\tview_style_toggle(nullptr),\\n\tlarge_sprites_toggle(nullptr),\\n\tzoom_button(nullptr),\\n\tview_sizer(nullptr),\\n\tuse_sprite_view(false),\\n\tuse_seamless_view(true), // Seamless is now the default\\n\tuse_large_sprites(false),\\n\tzoom_factor(1),\\n\thandling_event(false),\\n\tsearch_field(nullptr),\\n\tsearch_button(nullptr),\\n\tload_npcs_button(nullptr),\\n\tload_monsters_button(nullptr),\\n\tpurge_creatures_button(nullptr),\\n\tcreature_spawntime_spin(nullptr),\\n\t\
+    spawn_size_spin(nullptr),\\n\tcreature_brush_button(nullptr),\\n\tspawn_brush_button(nullptr) {\\n\t\\n\t// Create the controls\\n\twxSizer* topsizer = newd wxBoxSizer(wxVERTICAL);\\n\t\\n\twxSizer* sidesizer = newd wxStaticBoxSizer(wxVERTICAL, this, \"Creatures\");\\n\t\\n\t// Tileset choice\\n\ttileset_choice = newd wxChoice(this, PALETTE_CREATURE_TILESET_CHOICE, wxDefaultPosition, wxDefaultSize, 0, nullptr, wxCB_READONLY);\\n\tsidesizer->Add(tileset_choice, 0, wxEXPAND | wxALL, 5);\\n\t\\n\t// Search field\\n\twxBoxSizer* searchSizer = newd wxBoxSizer(wxHORIZONTAL);\\n\tsearchSizer->Add(newd wxStaticText(this, wxID_ANY, \"Search:\"), 0, wxCENTER | wxLEFT, 5);\\n\tsearch_field = newd wxTextCtrl(this, wxID_ANY, \"\", wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);\\n\tsearchSizer->Add(search_field, 1, wxCENTER | wxLEFT, 5);\\n\tsearch_button = newd wxButton(this, PALETTE_SEARCH_BUTTON, \"Go\", wxDefaultPosition, wxDefaultSize, wxBU_EXACTFIT);\\n\tsearchSizer->Add(search_button,\
+    \ 0, wxLEFT, 5);\\n\tsidesizer->Add(searchSizer, 0, wxEXPAND | wxTOP, 5);\\n\t\\n\t// Connect the focus events to disable hotkeys during typing\\n\tsearch_field->Connect(wxEVT_SET_FOCUS, wxFocusEventHandler(CreaturePalettePanel::OnSearchFieldFocus), nullptr, this);\\n\tsearch_field->Connect(wxEVT_KILL_FOCUS, wxFocusEventHandler(CreaturePalettePanel::OnSearchFieldKillFocus), nullptr, this);\\n\t// Connect key down event to handle key presses in the search field\\n\tsearch_field->Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(CreaturePalettePanel::OnSearchFieldKeyDown), nullptr, this);\\n\\n\t// Create view container that will hold both list and sprite views\\n\tview_sizer = newd wxBoxSizer(wxVERTICAL);\\n\t\\n\t// Create both views\\n\tcreature_list = newd SortableListBox(this, PALETTE_CREATURE_LISTBOX);\\n\tsprite_panel = newd CreatureSpritePanel(this);\\n\tseamless_panel = newd CreatureSeamlessGridPanel(this);\\n\t\\n\t// Add views to sizer (only one will be shown at a time)\\n\tview_sizer->Add(creature_list,\
+    \ 1, wxEXPAND);\\n\tview_sizer->Add(sprite_panel, 1, wxEXPAND);\\n\tview_sizer->Add(seamless_panel, 1, wxEXPAND);\\n\tsprite_panel->Hide(); // Initially hide the sprite view\\n\tseamless_panel->Hide(); // Initially hide the seamless view\\n\t\\n\tsidesizer->Add(view_sizer, 1, wxEXPAND | wxTOP, 5);\\n\t\\n\t// Add buttons for loading NPCs, monsters, and purging creatures\\n\twxSizer* buttonSizer = newd wxBoxSizer(wxHORIZONTAL);\\n\t\\n\tload_npcs_button = newd wxButton(this, PALETTE_LOAD_NPCS_BUTTON, \"Load NPCs Folder\");\\n\tbuttonSizer->Add(load_npcs_button, 1, wxEXPAND | wxRIGHT, 5);\\n\t\\n\tload_monsters_button = newd wxButton(this, PALETTE_LOAD_MONSTERS_BUTTON, \"Load Monsters Folder\");\\n\tbuttonSizer->Add(load_monsters_button, 1, wxEXPAND | wxLEFT, 5);\\n\t\\n\tsidesizer->Add(buttonSizer, 0, wxEXPAND | wxTOP, 5);\\n\t\\n\tpurge_creatures_button = newd wxButton(this, PALETTE_PURGE_CREATURES_BUTTON, \"Purge Creatures\");\\n\tsidesizer->Add(purge_creatures_button, 0, wxEXPAND |\
+    \ wxTOP, 5);\\n\t\\n\t// View mode toggle\\n\twxBoxSizer* viewModeSizer = newd wxBoxSizer(wxHORIZONTAL);\\n\tview_toggle = newd wxToggleButton(this, PALETTE_VIEW_TOGGLE_BUTTON, \"Sprite View\");\\n\tviewModeSizer->Add(view_toggle, 1, wxEXPAND);\\n\t\\n\t// Large sprites toggle\\n\tlarge_sprites_toggle = newd wxToggleButton(this, PALETTE_CREATURE_LARGE_SPRITES_TOGGLE, \"64x64\");\\n\tlarge_sprites_toggle->Enable(false); // Only enabled in sprite view\\n\tviewModeSizer->Add(large_sprites_toggle, 1, wxEXPAND | wxLEFT, 5);\\n\t\\n\t// Zoom button\\n\tzoom_button = newd wxButton(this, PALETTE_CREATURE_ZOOM_BUTTON, \"Zoom 2x\");\\n\tzoom_button->Enable(false); // Only enabled in sprite view with large sprites\\n\tviewModeSizer->Add(zoom_button, 1, wxEXPAND | wxLEFT, 5);\\n\t\\n\tsidesizer->Add(viewModeSizer, 0, wxEXPAND | wxTOP, 5);\\n\t\\n\t// Add brush radio buttons\\n\twxToggleButton* creature_radio = newd wxToggleButton(this, PALETTE_CREATURE_BRUSH_BUTTON, \"Creature\");\\n\twxToggleButton*\
+    \ spawn_radio = newd wxToggleButton(this, PALETTE_SPAWN_BRUSH_BUTTON, \"Spawn\");\\n\t\\n\twxBoxSizer* radiosizer = newd wxBoxSizer(wxHORIZONTAL);\\n\tradiosizer->Add(creature_radio, 1, wxEXPAND);\\n\tradiosizer->Add(spawn_radio, 1, wxEXPAND);\\n\t\\n\tsidesizer->Add(radiosizer, 0, wxEXPAND | wxTOP, 5);\\n\t\\n\t// Store references to the radio buttons\\n\tcreature_brush_button = creature_radio;\\n\tspawn_brush_button = spawn_radio;\\n\t\\n\t// Add spawn settings\\n\twxFlexGridSizer* settings_sizer = newd wxFlexGridSizer(2, 5, 5);\\n\tsettings_sizer->AddGrowableCol(1);\\n\tsettings_sizer->Add(newd wxStaticText(this, wxID_ANY, \"Spawntime\"));\\n\t\\n\tcreature_spawntime_spin = newd wxSpinCtrl(this, PALETTE_CREATURE_SPAWN_TIME, i2ws(g_settings.getInteger(Config::DEFAULT_SPAWNTIME)), \\n\t\t\t\t\t\t\t\t\t\t\twxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0, 3600, g_settings.getInteger(Config::DEFAULT_SPAWNTIME));\\n\t\\n\tsettings_sizer->Add(creature_spawntime_spin, 0, wxEXPAND);\\\
+    n\tsettings_sizer->Add(newd wxStaticText(this, wxID_ANY, \"Size\"));\\n\t\\n\tspawn_size_spin = newd wxSpinCtrl(this, PALETTE_CREATURE_SPAWN_SIZE, i2ws(5), \\n\t\t\t\t\t\t\t\t\t  wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 1, 10, 5);\\n\t\\n\tsettings_sizer->Add(spawn_size_spin, 0, wxEXPAND);\\n\t\\n\tsidesizer->Add(settings_sizer, 0, wxEXPAND | wxTOP, 5);\\n\ttopsizer->Add(sidesizer, 1, wxEXPAND | wxALL, 5);\\n\t\\n\tSetSizerAndFit(topsizer);\\n\t\\n\t// Load all creatures\\n\tTilesetContainer tilesets;\\n\t\\n\t// Create a list of all creature tilesets"
+documentation_references:
+- 'QDialog: https://doc.qt.io/qt-6/qdialog.html'
+- 'QSpinBox: https://doc.qt.io/qt-6/qspinbox.html'
+- 'QListWidget: https://doc.qt.io/qt-6/qlistwidget.html'
+- 'QLineEdit: https://doc.qt.io/qt-6/qlineedit.html'
+current_functionality_summary: |-
+  In the wxWidgets version:
+  - The `CreaturePalettePanel` provides UI elements (spin controls for spawn time and radius, a toggle for spawn brush mode) to define parameters when *creating* a new spawn by applying a creature brush in spawn mode.
+  - The `OldPropertiesWindow`, when invoked for a `Spawn*` object, only allows editing the spawn's radius (`size`).
+  - There isn't a dedicated UI to edit the list of creatures or the overall respawn time for an *existing* spawn point directly; these are attributes of the Tile.
+  - "Group Management" in this context means managing the list of creatures that belong to a single spawn point.
+definition_of_done:
+- The Creature Palette (defined in `UI-06`, part of `UI-02`) correctly uses its 'Spawn Time' and 'Spawn Radius' controls to configure new spawns when the 'Place Spawn Area' mode is active and a creature brush is applied to the map.
+- A new `EditSpawnDialogQt` (subclass of `QDialog`) is implemented for editing properties of an *existing* spawn point on a selected map tile.
+- The `EditSpawnDialogQt` is invokable (e.g., via a map context menu when a spawn tile is selected).
+- 'The `EditSpawnDialogQt` allows viewing and modifying:'
+- '  - The spawn radius (`QSpinBox`), updating the `SpawnProperties` associated with the tile.'
+- '  - The list of creature names within the spawn (`QListWidget` with Add/Remove buttons). ''Add'' uses a creature selection dialog (from `UI-06`). This modifies the tile''s `creature_list`.'
+- '  - The overall respawn time for that specific spawn point/tile (`QSpinBox`), updating the tile''s `spawn_time_seconds`.'
+- Changes made in `EditSpawnDialogQt` are applied to a copy of the `Tile`'s spawn-related data, and upon 'OK', the main editor creates an undoable action to update the actual map tile.
+- The dialog correctly loads the existing spawn properties from the selected tile when opened.
+boilerplate_coder_ai_prompt: |
+  Your task is to implement the Qt6 UI components for creating and editing creature spawns. This involves utilizing controls on the Creature Palette for new spawns and creating a dedicated dialog for editing existing spawns.
+
+  **Reference Files:** `wxwidgets/palette_creature.cpp`/`.h` (for new spawn settings in palette) and `wxwidgets/old_properties_window.cpp`/`.h` (for the limited existing spawn radius editing).
+
+  **1. Creature Palette Spawn Settings (Enhancements to `UI-06`):**
+     - Ensure the 'Creature' tab in the main palette system (from `UI-02`, with functionality from `UI-06`) has:
+       - `QSpinBox* spawnTimeSpin;` (Label: "Spawn Time (s)")
+       - `QSpinBox* spawnRadiusSpin;` (Label: "Spawn Radius")
+       - `QRadioButton* placeSpawnAreaRadio;` (Text: "Place Spawn Area")
+     - When `placeSpawnAreaRadio` is checked and a creature is selected, applying the brush to a map tile should:
+       1. Retrieve `radius = spawnRadiusSpin->value()` and `time = spawnTimeSpin->value()`.
+       2. Get the selected `CreatureType*` (or its name) from the palette.
+       3. On the target `Tile` object:
+          - Set/update its `SpawnProperties` with the `radius`.
+          - Clear its existing `creature_list` for spawns and add the selected creature's name.
+          - Set its `spawn_time_seconds` to `time`.
+       4. Call `SpawnManager::registerSpawnLocation(tile->getPosition())`.
+       5. This entire operation should be an undoable `Action`.
+
+  **2. `EditSpawnDialogQt` (New `QDialog` class):**
+     - This dialog is for editing an *existing* spawn on a specific tile.
+     - Constructor: `EditSpawnDialogQt(QWidget* parent, Tile* tileToEditCopy)` (operates on a copy of the tile or its relevant spawn data).
+     - **Layout:**
+       - `QLabel` displaying "Editing Spawn at [Tile Position]".
+       - `QSpinBox* radiusEdit;` (Label: "Radius:"). Load from `tileToEditCopy->getSpawnProperties()->radius`.
+       - `QSpinBox* respawnTimeEdit;` (Label: "Respawn Time (sec):"). Load from `tileToEditCopy->getSpawnTimeSeconds()`.
+       - `QListWidget* creatureListWidget;` (Label: "Creatures in Spawn:").
+         - Populate with names from `tileToEditCopy->getCreatureSpawnList()`.
+         - Make items selectable.
+       - `QPushButton* addCreatureButton;` (Text: "Add Creature...").
+       - `QPushButton* removeCreatureButton;` (Text: "Remove Selected Creature").
+       - Standard "OK" and "Cancel" buttons.
+     - **Functionality:**
+       - `addCreatureButton`: Opens a creature finder/selector dialog (from `UI-06`). Adds the selected creature's name to `creatureListWidget` and an internal list representing the modified state of `tileToEditCopy.creature_list`.
+       - `removeCreatureButton`: Removes the selected creature(s) from `creatureListWidget` and the internal list.
+       - On "OK" click:
+         - Validate inputs (radius > 0, time > 0).
+         - Update `tileToEditCopy`'s `spawn_props.radius`, `creature_list`, and `spawn_time_seconds` with the values from the dialog.
+         - `accept()` the dialog. The calling code (e.g., map context menu handler) will then create an `Action` to apply these changes to the actual map tile.
+
+  **Integration:**
+  - The `MapCanvas` context menu (right-click on a tile) should have an "Edit Spawn..." option if the tile is a spawn point. This option will instantiate and show `EditSpawnDialogQt`, passing a copy of the relevant tile data.

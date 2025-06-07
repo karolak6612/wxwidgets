@@ -1,0 +1,10 @@
+id: UI-04
+section: UI Polish & Completeness
+title: Port Minimap Window
+input_files:
+- minimap_window.h/cpp
+dependencies:
+- UI-01
+- RENDER-02
+definition_of_done: A `Minimap` widget is created as a `QDockWidget`. It renders a top-down view of the current floor using the same sprite data as `MapView`. Clicks on the minimap navigate the main `MapView`. Caching must be implemented for performance.
+boilerplate_coder_ai_prompt: Create a `MinimapWidget` (`QWidget`). In its `paintEvent`, render a scaled-down representation of the `Map` by drawing colored pixels for each tile based on its `minimapColor`. Override `mousePressEvent` to calculate the clicked map coordinate and emit a signal to navigate `MapView`.

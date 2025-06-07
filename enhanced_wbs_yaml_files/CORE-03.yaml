@@ -1,54 +1,95 @@
-id: CORE-03
-section: Core Migration Tasks
-title: Port OTBM/OTMM File I/O
-original_input_files: iomap_otbm.h/cpp, iomap_otmm.h/cpp, filehandle.h/cpp, iomap.h/cpp
-analyzed_input_files:
-- wxwidgets/iomap_otbm.h
-- wxwidgets/iomap_otbm.cpp
-- wxwidgets/iomap_otmm.h
-- wxwidgets/iomap_otmm.cpp
-- wxwidgets/filehandle.h
-- wxwidgets/filehandle.cpp
-- wxwidgets/iomap.h
-- wxwidgets/iomap.cpp
+wbs_item_id: CORE-03
+name: Port Action & History System
+description: Migrate the action recording and history (undo/redo) mechanisms from `mapcore` (likely within `action.cpp`/`.h`) to a robust Qt6/C++ implementation. This should support various editor operations and provide a reliable undo/redo stack.
 dependencies:
 - CORE-02
+input_files:
+- wxwidgets/action.cpp
+- wxwidgets/action.h
+analyzed_input_files:
+- file_path: wxwidgets/action.cpp
+  description: Implementation of Action, Change, BatchAction, and ActionQueue classes for managing undo/redo history and specific editor operations.
+  md5_hash: 9c66fc1b65fdd900b53ca7786859bc06
+  content_lite: "//////////////////////////////////////////////////////////////////////\\n// This file is part of Remere's Map Editor\\n//////////////////////////////////////////////////////////////////////\\n// Remere's Map Editor is free software: you can redistribute it and/or modify\\n// it under the terms of the GNU General Public License as published by\\n// the Free Software Foundation, either version 3 of the License, or\\n// (at your option) any later version.\\n//\\n// Remere's Map Editor is distributed in the hope that it will be useful,\\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\\n// GNU General Public License for more details.\\n//\\n// You should have received a copy of the GNU General Public License\\n// along with this program. If not, see <http://www.gnu.org/licenses/>.\\n//////////////////////////////////////////////////////////////////////\\n\\n#include \"main.h\"\\n\\n#include \"\
+    action.h\"\\n#include \"settings.h\"\\n#include \"map.h\"\\n#include \"editor.h\"\\n#include \"gui.h\"\\n\\n// Add necessary includes for exception handling and file operations\\n#include <exception>\\n#include <fstream>\\n#include <wx/filename.h>\\n#include <wx/datetime.h>\\n#include <wx/stdpaths.h>\\n\\nChange::Change() :\\n\ttype(CHANGE_NONE), data(nullptr) {\\n\t////\\n}\\n\\nChange::Change(Tile* t) :\\n\ttype(CHANGE_TILE) {\\n\tASSERT(t);\\n\tdata = t;\\n}\\n\\nChange* Change::Create(House* house, const Position& where) {\\n\tChange* c = newd Change();\\n\tc->type = CHANGE_MOVE_HOUSE_EXIT;\\n\tstd::pair<uint32_t, Position>* p = newd std::pair<uint32_t, Position>;\\n\tp->first = house->getID();\\n\tp->second = where;\\n\tc->data = p;\\n\treturn c;\\n}\\n\\nChange* Change::Create(Waypoint* wp, const Position& where) {\\n\tChange* c = newd Change();\\n\tc->type = CHANGE_MOVE_WAYPOINT;\\n\tstd::pair<std::string, Position>* p = newd std::pair<std::string, Position>;\\n\tp->first = wp->name;\\\
+    n\tp->second = where;\\n\tc->data = p;\\n\treturn c;\\n}\\n\\nChange::~Change() {\\n\tclear();\\n}\\n\\nvoid Change::clear() {\\n\tswitch (type) {\\n\t\tcase CHANGE_TILE:\\n\t\t\tASSERT(data);\\n\t\t\tdelete reinterpret_cast<Tile*>(data);\\n\t\t\tbreak;\\n\t\tcase CHANGE_MOVE_HOUSE_EXIT:\\n\t\t\tASSERT(data);\\n\t\t\tdelete reinterpret_cast<std::pair<uint32_t, Position>*>(data);\\n\t\t\tbreak;\\n\t\tcase CHANGE_MOVE_WAYPOINT:\\n\t\t\tASSERT(data);\\n\t\t\tdelete reinterpret_cast<std::pair<std::string, Position>*>(data);\\n\t\t\tbreak;\\n\t\tcase CHANGE_NONE:\\n\t\t\tbreak;\\n\t\tdefault:\\n#ifdef __DEBUG_MODE__\\n\t\t\tif (data) {\\n\t\t\t\tprintf(\"UNHANDLED CHANGE TYPE! Leak!\");\\n\t\t\t}\\n#endif\\n\t\t\tbreak;\\n\t}\\n\ttype = CHANGE_NONE;\\n\tdata = nullptr;\\n}\\n\\nuint32_t Change::memsize() const {\\n\tuint32_t mem = sizeof(*this);\\n\tswitch (type) {\\n\t\tcase CHANGE_TILE:\\n\t\t\tASSERT(data);\\n\t\t\tmem += reinterpret_cast<Tile*>(data)->memsize();\\n\t\t\tbreak;\\n\t\t\
+    default:\\n\t\t\tbreak;\\n\t}\\n\treturn mem;\\n}\\n\\nAction::Action(Editor& editor, ActionIdentifier ident) :\\n\tcommited(false),\\n\teditor(editor),\\n\ttype(ident) {\\n}\\n\\nAction::~Action() {\\n\tChangeList::const_reverse_iterator it = changes.rbegin();\\n\twhile (it != changes.rend()) {\\n\t\tdelete *it;\\n\t\t++it;\\n\t}\\n}\\n\\nsize_t Action::approx_memsize() const {\\n\tuint32_t mem = sizeof(*this);\\n\tmem += changes.size() * (sizeof(Change) + sizeof(Tile) + sizeof(Item) + 6 /* approx overhead*/);\\n\treturn mem;\\n}\\n\\nsize_t Action::memsize() const {\\n\tuint32_t mem = sizeof(*this);\\n\tmem += sizeof(Change*) * 3 * changes.size();\\n\tChangeList::const_iterator it = changes.begin();\\n\twhile (it != changes.end()) {\\n\t\tChange* c = *it;\\n\t\tswitch (c->type) {\\n\t\t\tcase CHANGE_TILE: {\\n\t\t\t\tASSERT(c->data);\\n\t\t\t\tmem += reinterpret_cast<Tile*>(c->data)->memsize();\\n\t\t\t\tbreak;\\n\t\t\t}\\n\\n\t\t\tdefault:\\n\t\t\t\tbreak;\\n\t\t}\\n\t\t++it;\\n\t\
+    }\\n\treturn mem;\\n}\\n\\nvoid Action::commit(DirtyList* dirty_list) {\\n\teditor.selection.start(Selection::INTERNAL);\\n\tChangeList::const_iterator it = changes.begin();\\n\twhile (it != changes.end()) {\\n\t\tChange* c = *it;\\n\t\tswitch (c->type) {\\n\t\t\tcase CHANGE_TILE: {\\n\t\t\t\tvoid** data = &c->data;\\n\t\t\t\tTile* newtile = reinterpret_cast<Tile*>(*data);\\n\t\t\t\tASSERT(newtile);\\n\t\t\t\tPosition pos = newtile->getPosition();\\n\\n\t\t\t\tif (editor.IsLiveClient()) {\\n\t\t\t\t\tQTreeNode* nd = editor.map.getLeaf(pos.x, pos.y);\\n\t\t\t\t\tif (!nd || !nd->isVisible(pos.z > GROUND_LAYER)) {\\n\t\t\t\t\t\t// Delete all changes that affect tiles outside our view\\n\t\t\t\t\t\tc->clear();\\n\t\t\t\t\t\t++it;\\n\t\t\t\t\t\tcontinue;\\n\t\t\t\t\t}\\n\t\t\t\t}\\n\\n\t\t\t\tTile* oldtile = editor.map.swapTile(pos, newtile);\\n\t\t\t\tTileLocation* location = newtile->getLocation();\\n\\n\t\t\t\t// Update other nodes in the network\\n\t\t\t\tif (editor.IsLiveServer() &&\
+    \ dirty_list) {\\n\t\t\t\t\tdirty_list->AddPosition(pos.x, pos.y, pos.z);\\n\t\t\t\t}\\n\\n\t\t\t\tnewtile->update();\\n\\n\t\t\t\t// std::cout << \"\\tSwitched tile at \" << pos.x << \";\" << pos.y << \";\" << pos.z << \" from \" << (void*)oldtile << \" to \" << *data <<  std::endl;\\n\t\t\t\tif (newtile->isSelected()) {\\n\t\t\t\t\teditor.selection.addInternal(newtile);\\n\t\t\t\t}\\n\\n\t\t\t\tif (oldtile) {\\n\t\t\t\t\tif (newtile->getHouseID() != oldtile->getHouseID()) {\\n\t\t\t\t\t\t// oooooomggzzz we need to add it to the appropriate house!\\n\t\t\t\t\t\tHouse* house = editor.map.houses.getHouse(oldtile->getHouseID());\\n\t\t\t\t\t\tif (house) {\\n\t\t\t\t\t\t\thouse->removeTile(oldtile);\\n\t\t\t\t\t\t}\\n\\n\t\t\t\t\t\thouse = editor.map.houses.getHouse(newtile->getHouseID());\\n\t\t\t\t\t\tif (house) {\\n\t\t\t\t\t\t\thouse->addTile(newtile);\\n\t\t\t\t\t\t}\\n\t\t\t\t\t}\\n\t\t\t\t\tif (oldtile->spawn) {"
+- file_path: wxwidgets/action.h
+  description: Header file for the action and history system, defining interfaces for Action, Change, BatchAction, and ActionQueue.
+  md5_hash: 5f2392eaf1282858187991162fb624be
+  content_lite: "//////////////////////////////////////////////////////////////////////\\n// This file is part of Remere's Map Editor\\n//////////////////////////////////////////////////////////////////////\\n// Remere's Map Editor is free software: you can redistribute it and/or modify\\n// it under the terms of the GNU General Public License as published by\\n// the Free Software Foundation, either version 3 of the License, or\\n// (at your option) any later version.\\n//\\n// Remere's Map Editor is distributed in the hope that it will be useful,\\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\\n// GNU General Public License for more details.\\n//\\n// You should have received a copy of the GNU General Public License\\n// along with this program. If not, see <http://www.gnu.org/licenses/>.\\n//////////////////////////////////////////////////////////////////////\\n\\n#ifndef RME_ACTION_H_\\n#define RME_ACTION_H_\\\
+    n\\n#include \"position.h\"\\n\\n#include <deque>\\n\\nclass Editor;\\nclass Tile;\\nclass House;\\nclass Waypoint;\\nclass Change;\\nclass Action;\\nclass BatchAction;\\nclass ActionQueue;\\n\\nenum ChangeType {\\n\tCHANGE_NONE,\\n\tCHANGE_TILE,\\n\tCHANGE_MOVE_HOUSE_EXIT,\\n\tCHANGE_MOVE_WAYPOINT,\\n};\\n\\nclass Change {\\nprivate:\\n\tChangeType type;\\n\tvoid* data;\\n\\n\tChange();\\n\\npublic:\\n\tChange(Tile* tile);\\n\tstatic Change* Create(House* house, const Position& where);\\n\tstatic Change* Create(Waypoint* wp, const Position& where);\\n\t~Change();\\n\tvoid clear();\\n\\n\tChangeType getType() const {\\n\t\treturn type;\\n\t}\\n\tvoid* getData() const {\\n\t\treturn data;\\n\t}\\n\\n\t// Get memory footprint\\n\tuint32_t memsize() const;\\n\\n\tfriend class Action;\\n};\\n\\ntypedef std::vector<Change*> ChangeList;\\n\\n// A dirty list represents a list of all tiles that was changed in an action\\nclass DirtyList {\\npublic:\\n\tDirtyList();\\n\t~DirtyList();\\n\\n\t\
+    struct ValueType {\\n\t\tuint32_t pos;\\n\t\tuint32_t floors;\\n\t};\\n\\n\tuint32_t owner;\\n\\nprotected:\\n\tstruct Comparator {\\n\t\tbool operator()(const ValueType& a, const ValueType& b) const {\\n\t\t\treturn a.pos < b.pos;\\n\t\t}\\n\t};\\n\\npublic:\\n\ttypedef std::set<ValueType, Comparator> SetType;\\n\\n\tvoid AddPosition(int x, int y, int z);\\n\tvoid AddChange(Change* c);\\n\tbool Empty() const {\\n\t\treturn iset.empty() && ichanges.empty();\\n\t}\\n\tSetType& GetPosList();\\n\tChangeList& GetChanges();\\n\\nprotected:\\n\tSetType iset;\\n\tChangeList ichanges;\\n};\\n\\nenum ActionIdentifier {\\n\tACTION_MOVE,\\n\tACTION_REMOTE,\\n\tACTION_SELECT,\\n\tACTION_DELETE_TILES,\\n\tACTION_CUT_TILES,\\n\tACTION_PASTE_TILES,\\n\tACTION_RANDOMIZE,\\n\tACTION_BORDERIZE,\\n\tACTION_DRAW,\\n\tACTION_SWITCHDOOR,\\n\tACTION_ROTATE_ITEM,\\n\tACTION_REPLACE_ITEMS,\\n\tACTION_CHANGE_PROPERTIES,\\n};\\n\\nclass Action {\\npublic:\\n\tvirtual ~Action();\\n\\n\tvoid addChange(Change* t)\
+    \ {\\n\t\tchanges.push_back(t);\\n\t}\\n\\n\t// Get memory footprint\\n\tsize_t approx_memsize() const;\\n\tsize_t memsize() const;\\n\tsize_t size() const {\\n\t\treturn changes.size();\\n\t}\\n\tActionIdentifier getType() const {\\n\t\treturn type;\\n\t}\\n\\n\tvoid commit(DirtyList* dirty_list);\\n\tbool isCommited() const {\\n\t\treturn commited;\\n\t}\\n\tvoid undo(DirtyList* dirty_list);\\n\tvoid redo(DirtyList* dirty_list) {\\n\t\tcommit(dirty_list);\\n\t}\\n\\nprotected:\\n\tAction(Editor& editor, ActionIdentifier ident);\\n\\n\tbool commited;\\n\tChangeList changes;\\n\tEditor& editor;\\n\tActionIdentifier type;\\n\\n\tfriend class ActionQueue;\\n};\\n\\ntypedef std::vector<Action*> ActionVector;\\n\\nclass BatchAction {\\npublic:\\n\tvirtual ~BatchAction();\\n\\n\tvoid resetTimer() {\\n\t\ttimestamp = 0;\\n\t}\\n\\n\t// Get memory footprint\\n\tsize_t memsize(bool resize = false) const;\\n\tsize_t size() const {\\n\t\treturn batch.size();\\n\t}\\n\tActionIdentifier getType()\
+    \ const {\\n\t\treturn type;\\n\t}\\n\\n\tvirtual void addAction(Action* action);\\n\tvirtual void addAndCommitAction(Action* action);\\n\\nprotected:\\n\tBatchAction(Editor& editor, ActionIdentifier ident);\\n\\n\tvirtual void commit();\\n\tvirtual void undo();\\n\tvirtual void redo();\\n\\n\tvoid merge(BatchAction* other);\\n\\n\tEditor& editor;\\n\tint timestamp;\\n\tuint32_t memory_size;\\n\tActionIdentifier type;\\n\tActionVector batch;\\n\\n\tfriend class ActionQueue;\\n};\\n\\nclass ActionQueue {"
+documentation_references:
+- 'Qt Command Pattern: https://doc.qt.io/qt-6/qtwidgets-mainwindows-application-example.html#command-pattern'
+- 'QUndoStack: https://doc.qt.io/qt-6/qundostack.html'
+- 'QUndoCommand: https://doc.qt.io/qt-6/qundocommand.html'
+- 'std::unique_ptr: https://en.cppreference.com/w/cpp/memory/unique_ptr'
 current_functionality_summary: |-
-  These files provide the framework for serializing and deserializing map data.
-  - `filehandle.h/cpp`: Defines low-level classes for binary file I/O, including a node-based system (e.g., `NodeFileReadHandle`, `BinaryNode`) for structured data with nesting, used by OTBM/OTMM. Uses `FILE*`.
-  - `iomap.h/cpp`: Defines `IOMap` as an abstract base class for map I/O, handling errors/warnings (using wxWidgets types).
-  - `iomap_otbm.h/cpp`: Implements OTBM (OpenTibia Binary Map) format I/O. Parses the main `.otbm` and can load auxiliary XML spawn/house files (using pugixml) and decompress `.otgz` archives (using libarchive).
-  - `iomap_otmm.h/cpp`: Implements OTMM (OpenTibia Map Mapped) format I/O.
-qt6_migration_steps: |-
-  1. Integrate all listed I/O classes (`FileHandle`, `NodeFileReadHandle`, `IOMap`, `IOMapOTBM`, `IOMapOTMM`, etc.) into the `mapcore` library. These classes should be added as separate, modular `.h/.cpp` files within the `mapcore` library's source structure.
-  2. Refactor `FileHandle` and its derivatives: Replace all `FILE*` based operations with `QFile` methods (`open`, `close`, `read`, `write`, `seek`, `pos`). Use appropriate `QIODevice` open modes.
-  3. In `IOMapOTBM`, replace `pugixml` usage for parsing/writing external XML spawn/house files with `QXmlStreamReader` and `QXmlStreamWriter`.
-  4. For `.otgz` handling in `IOMapOTBM`, retain `libarchive` usage. Ensure `mapcore`'s CMake configuration correctly finds and links `libarchive`. Remove any wxWidgets types from the libarchive integration code.
-  5. Remove all wxWidgets dependencies:
-     - Replace `wxString` with `std::string`.
-     - Replace `wxArrayString` (e.g., for `IOMap::warnings`) with `std::vector<std::string>`.
-     - Replace `wxFileName` with `std::filesystem::path` or `QFileInfo`/`QDir`.
-     - Eliminate UI interaction calls (`IOMap::queryUser`, `g_gui.PopupDialog`, progress bar updates). Errors/warnings should be stored in `IOMap` members (e.g., `std::string errorstr`, `std::vector<std::string> warnings`).
-  6. Preserve the core logic of `NodeFileReadHandle`, `NodeFileWriteHandle`, and `BinaryNode` for handling the OTBM/OTMM node structure, adapting it to use the new `QFile`-based stream backend.
-  7. Ensure the I/O classes correctly interact with the data models from `CORE-01` and asset information from `CORE-02` as needed during serialization/deserialization.
-  8. Compile `mapcore` and rigorously test loading and saving for OTBM (including `.otgz` and external XMLs) and OTMM formats to ensure data integrity and format compliance.
-definition_of_done: |-
-  The `mapcore` library can fully serialize and deserialize maps in OTBM and OTMM formats.
-  Key requirements:
-  - All file operations (reading/writing OTBM, OTMM, auxiliary XMLs) use Qt classes (`QFile`, `QXmlStreamReader/Writer`) instead of C-style FILE* or wxFile.
-  - Pugixml dependency is removed and replaced with Qt XML for spawn/house XML files.
-  - Libarchive usage for .otgz is maintained and correctly linked (if retained).
-  - All wxWidgets dependencies (wxString, wxArrayString, wxFileName, UI dialogs for errors/progress) are removed from these I/O classes. Error reporting is done via member strings/vectors.
-  - The node-based binary format handling (`NodeFileReadHandle`, `BinaryNode`) is preserved and functional with the new file stream backend.
-  - The I/O system correctly interacts with data models from CORE-01 and asset databases from CORE-02.
-  - Map saving and loading for both OTBM (including .otgz and external XMLs) and OTMM formats are verified to be functional and produce byte-identical or logically equivalent files to the original system (where format specifics allow).
-boilerplate_coder_ai_prompt: |-
-  Your task is to port the map file I/O systems (OTBM, OTMM, and underlying `FileHandle` hierarchy) to the `mapcore` library. This builds on `CORE-01` and `CORE-02`. The ported classes should maintain a modular file structure within `mapcore`.
-  1.  Refactor `FileHandle` and its derivatives (`NodeFileReadHandle`, `NodeFileWriteHandle`, etc.) to use `QFile` instead of `FILE*` for all disk operations.
-  2.  In `IOMapOTBM.cpp`, replace `pugixml` calls for reading/writing spawn and house XML data with `QXmlStreamReader` and `QXmlStreamWriter`.
-  3.  For `.otgz` support in `IOMapOTBM.cpp`, continue using `libarchive`. Ensure it can be linked by `mapcore`.
-  4.  Remove all wxWidgets types (`wxString` to `std::string`, `wxArrayString` to `std::vector<std::string>`, `wxFileName` to `std::filesystem::path` or `QFileInfo`).
-  5.  Eliminate UI calls (popups, progress bars). Error messages should be stored in `IOMap` member variables.
-  6.  The core logic of `NodeFileReadHandle`, `BinaryNode` (node start/end markers, escaping) must be preserved over the new `QFile`-based backend.
-  7.  Ensure the code correctly uses data models from `CORE-01` and asset data from `CORE-02`.
-  8.  Verify `mapcore` compiles and can successfully load/save OTBM and OTMM maps.
+  The wxWidgets-based action system consists of:
+  - `Change`: Encapsulates data for a modification (e.g., a copy of a `Tile` before changes).
+  - `Action`: Represents an operation that can be undone/redone. It holds a list of `Change` objects. Key methods are `commit()` (apply changes) and `undo()`.
+  - `BatchAction`: Groups multiple related `Action` instances, often of the same type, if they occur close in time (stacking delay). It manages a list of sub-actions.
+  - `ActionQueue`: Manages a list of `BatchAction` objects, providing `undo()` and `redo()` capabilities. It also handles memory limits for the undo stack.
+definition_of_done:
+- 'A Qt6/C++ Command pattern is implemented, including:'
+- '  - An abstract `Action` (or `Command`) base class with virtual `execute()`, `undo()`, and potentially `redo()` methods.'
+- '  - A mechanism equivalent to the `Change` class to encapsulate the actual data/state modification for undo/redo purposes.'
+- '  - An `ActionQueue` (or `UndoStack`) class capable of managing a list of `Action` objects.'
+- 'The `ActionQueue` supports:'
+- '  - Adding new actions to the stack.'
+- '  - Performing undo operations, which revert the last executed action.'
+- '  - Performing redo operations, which re-apply the last undone action.'
+- '  - Clearing actions that are undone when a new action is added.'
+- '  - Limits on undo stack size (memory or count) as per original settings (e.g., `UNDO_MEM_SIZE`, `UNDO_SIZE`).'
+- '`Action` objects correctly store the necessary context or `Change` objects to perform and revert their specific operations.'
+- Memory management for `Action` objects and their associated `Change` data is handled using modern C++ practices (e.g., smart pointers).
+- The system is designed to be extensible for various editor operations (drawing, deleting, pasting, etc.) by creating new classes derived from the `Action` base class.
+- 'Basic unit tests are created for the `ActionQueue` to verify:'
+- '  - Adding actions.'
+- '  - Correct execution of undo and redo.'
+- '  - Stack limits and clearing behavior.'
+- Unit tests for a sample concrete `Action` implementation to verify its execute/undo logic and interaction with `Change` objects.
+- The ported code compiles successfully within a Qt6 project structure.
+- A brief report detailing the mapping from the old action system to the new Command pattern, highlighting design choices.
+boilerplate_coder_ai_prompt: |
+  The user wants to migrate an action and history (undo/redo) system from an old C++/wxWidgets application to Qt6/modern C++.
+  Analyze the provided C++ header and source file snippets for `Action`, `Change`, `BatchAction`, and `ActionQueue` (from `wxwidgets/action.cpp` and `wxwidgets/action.h`).
+
+  **1. Change Object Equivalent:**
+     - Design a class or struct (e.g., `ChangeData` or use `QVariant` / `std::any` for flexibility) to encapsulate the information needed to undo/redo a specific modification. The original `Change` class stores a `type` and `void* data` (pointing to old `Tile*`, `std::pair` for moves, etc.). The new system should be more type-safe.
+     - For example, a `TileChangeData` might store a copy of the `Tile` before modification, or pointers/references to the old and new states.
+
+  **2. Action (Command) Class:**
+     - Create an abstract base class `Action` (or `Command`) with pure virtual methods:
+       - `virtual void execute() = 0;`
+       - `virtual void undo() = 0;`
+       - (Optional: a `redo()` method, which might simply call `execute()`, if redo is always a re-execution).
+     - Concrete action classes (e.g., `DrawTileAction`, `MoveItemAction`) will derive from this and implement these methods.
+     - Each concrete action will be responsible for creating and storing the necessary `ChangeData` objects during its `execute()` method to allow `undo()` to function.
+     - The constructor for a concrete action should take all necessary parameters to perform the operation (e.g., target position, item data).
+
+  **3. ActionQueue (UndoStack) Class:**
+     - Implement an `ActionQueue` class to manage the undo/redo history.
+     - It should use a container (e.g., `QList<std::unique_ptr<Action>>` or `std::vector<std::unique_ptr<Action>>`) to store executed actions.
+     - Maintain an index to the current position in the list (top of the undo stack).
+     - `push(std::unique_ptr<Action> action)`: Adds a new action. This should execute the action. If there are actions in the "redo" part of the stack (i.e., current index < list size - 1), they should be cleared.
+     - `undo()`: If possible, calls `undo()` on the action at the current index and decrements the index.
+     - `redo()`: If possible, calls `execute()` (or `redo()`) on the action at the next index and increments the index.
+     - `canUndo()`: Returns true if actions can be undone.
+     - `canRedo()`: Returns true if actions can be redone.
+     - Implement logic for limiting the stack size (e.g., based on item count or estimated memory, similar to `UNDO_MEM_SIZE` and `UNDO_SIZE` from `Config`). When the limit is reached, the oldest actions are discarded.
+     - The `BatchAction` concept from the original code allowed grouping multiple `Action` instances, often of the same type, if they occurred close in time (stacking delay). Consider if this is a requirement for the initial port. If so, the `ActionQueue::push` logic would need to check the last action and potentially merge the new one if it meets the criteria, or a `BatchAction` itself could be an `Action` subclass that manages a list of sub-actions. For simplicity, individual actions might be sufficient for a first pass.
+
+  **General Porting Instructions:**
+     - Replace wxWidgets specific types or utilities with Qt/STL equivalents.
+     - Ensure robust memory management using smart pointers (`std::unique_ptr` is highly recommended for actions in the queue).
+     - The `Action` classes will need to interact with the map data. This interaction should ideally be through well-defined interfaces or references to map manipulation services, passed into the actions or accessible globally (though direct global access is less ideal).
+     - The `ActionIdentifier` enum can be reused or adapted.
+     - The `DirtyList` from the original code seems related to notifying other parts of the system about changes. This can be handled by having actions emit signals (if using Qt's signal/slot mechanism) or by calling a notification service after execution/undo.
+     - Provide header (.h) and source (.cpp) files for the `Action` base class, the `ActionQueue`, and any example concrete action(s).
+     - Include basic unit tests (e.g., using Qt Test framework) for `ActionQueue` functionality and a sample action.
