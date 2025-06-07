@@ -10,20 +10,55 @@ dependencies:
 input_files:
 - wxwidgets/border_editor_window.cpp
 - wxwidgets/border_editor_window.h
-- '# Conceptually also:'
-- '# - wxwidgets/palette_brushlist.cpp (for AddTileset/AddItemToTileset dialog invocation
-  logic)'
-- '# - XML files like materials.xml, grounds.xml, walls.xml, doodads.xml, borders.xml,
-  tilesets.xml (as their structure defines what needs to be edited)'
+- wxwidgets/add_item_window.cpp
+- wxwidgets/add_item_window.h
+- wxwidgets/add_tileset_window.cpp
+- wxwidgets/add_tileset_window.h
+- wxwidgets/palette_brushlist.cpp # For context on how editor/dialogs are invoked
 analyzed_input_files:
 - file_path: wxwidgets/border_editor_window.cpp
-  description: Implements `BorderEditorDialog`, a wxDialog with a notebook for editing
-    "Border" definitions (visual grid for assigning items to border parts, saved to
-    borders.xml) and "Ground" brush definitions (items with chances, border associations,
-    saved to grounds.xml and tilesets.xml).
+  description: |-
+    Implements `BorderEditorDialog`, a wxDialog with a wxNotebook.
+    - **Border Tab:** Edits auto-border configurations (saved to `borders.xml`).
+      Features `BorderGridPanel` (custom wxPanel for visual assignment of item IDs to 12 border positions: N, E, S, W, CNW, CNE, CSE, CSW, DNW, DNE, DSE, DSW) and `BorderPreviewPanel` (custom wxPanel for preview).
+      Allows setting border ID (wxSpinCtrl), name (wxTextCtrl, stored as XML comment), group ID (wxSpinCtrl), and type (wxCheckBox for "Optional", "Ground").
+      Loads existing borders from `borders.xml` into a wxComboBox. Uses `FindItemDialog` for item selection.
+    - **Ground Tab:** Edits ground brush definitions (saved to `grounds.xml`, with a reference added to `tilesets.xml`).
+      Features inputs for brush name (wxTextCtrl), server look ID (wxSpinCtrl), Z-order (wxSpinCtrl).
+      A wxChoice allows selecting the target tileset category.
+      A wxListBox (`m_groundItemsList`) manages items (ID and chance) for the brush.
+      Associates a Border ID (from the "Common Properties" ID control, also used by Border Tab) with alignment properties (wxChoice for "outer"/"inner") and options (wxCheckBox for "To None", "Inner Border").
+      Loads existing ground brushes from `grounds.xml` into a wxComboBox. Uses `FindItemDialog` for item selection.
+    Saves configurations by parsing and rewriting `borders.xml` and `grounds.xml` using pugixml, and also updates `tilesets.xml`.
 - file_path: wxwidgets/border_editor_window.h
-  description: Header for `BorderEditorDialog` and related custom controls like `BorderGridPanel`
-    and `BorderPreviewPanel`. Defines enums for border edge positions.
+  description: |-
+    Header for `BorderEditorDialog`. Defines the dialog class, `BorderItem` struct (position, itemId), `GroundItem` struct (itemId, chance), and enums like `BorderEdgePosition`.
+    Declares custom controls: `BorderGridPanel` (manages the 12-position grid for border item assignment) and `BorderPreviewPanel` (shows a 5x5 preview of the border).
+- file_path: wxwidgets/add_item_window.cpp
+  description: |-
+    Implements `AddItemWindow`, a wxDialog for adding one or a range of items to a specific tileset category.
+    Features an item ID input (wxSpinCtrl `item_id_field`) with a preview (DCButton `item_button`), and a wxChoice (`tileset_choice`) populated with existing tileset categories relevant to the `category_type` passed in the constructor.
+    A wxCheckBox (`range_checkbox`) enables range mode, revealing wxSpinCtrl inputs for range start and end (`range_start_field`, `range_end_field`).
+    Includes helper buttons like "Quick +10 Range" and "Use Current Item" (sets range end from `item_id_field`).
+    The "Add Selection from Palette" button is present but its specific multi-selection logic from palette isn't fully detailed here.
+    On OK, it retrieves the selected tileset name, and either adds the single item ID or iterates through the range, calling `g_materials.addToTileset()` for each valid item. Finally, calls `g_materials.modify()` to save changes to `tilesets.xml`.
+- file_path: wxwidgets/add_item_window.h
+  description: Header for `AddItemWindow`. Declares the dialog class and its UI elements, including controls for single item ID, range selection, and tileset choice.
+- file_path: wxwidgets/add_tileset_window.cpp
+  description: |-
+    Implements `AddTilesetWindow`, a wxDialog for creating a new tileset category.
+    Features a wxTextCtrl (`tileset_name_field`) for the new tileset name and a wxSpinCtrl (`item_id_field`) to specify the ID of the first item to be added to this new tileset, along with a DCButton (`item_button`) for preview.
+    On OK, it retrieves the tileset name and item ID, then calls `g_materials.addToTileset()` (which handles creation if the tileset doesn't exist) and `g_materials.modify()` to save to `tilesets.xml`.
+- file_path: wxwidgets/add_tileset_window.h
+  description: Header for `AddTilesetWindow`. Declares the dialog class and its UI elements for tileset name and initial item ID.
+- file_path: wxwidgets/palette_brushlist.cpp
+  description: |-
+    Defines `BrushPalettePanel` which hosts the wxChoicebook of tilesets and `BrushPanel` for displaying brushes within each tileset.
+    Key relevance to UI-05:
+    - `BrushPalettePanel::OnClickAddTileset`: Creates and shows an `AddTilesetWindow`.
+    - `BrushPalettePanel::OnClickAddItemTileset`: Creates and shows an `AddItemWindow`, passing the selected tileset context.
+    - `BrushPalettePanel::OnClickCreateBorder`: Creates and shows a `BorderEditorDialog`.
+    The detailed brush display mechanisms (like `SeamlessGridPanel`, `DirectDrawBrushPanel`) within `BrushPanel` are more directly related to UI-02 (Palette System).
 documentation_references:
 - 'QDialog: https://doc.qt.io/qt-6/qdialog.html'
 - 'QTabWidget: https://doc.qt.io/qt-6/qtabwidget.html'
@@ -35,21 +70,12 @@ documentation_references:
 current_functionality_summary: 'The wxWidgets version has a `BorderEditorDialog` which
   is a tabbed dialog:
 
-  - **Border Tab:** Edits auto-border configurations. Users can assign item IDs to
-  12 border positions (N, S, E, W, corners, diagonals) using a visual grid and an
-  item ID input/browser. It includes a preview. Saves to `borders.xml`.
-
-  - **Ground Tab:** Edits ground brush definitions. Users set a name, server look
-  ID, Z-order, and can add multiple items with chances to the brush. It allows associating
-  a Border ID (defined in the Border tab) with alignment properties ("outer"/"inner",
-  "to none"). Saves to `grounds.xml` and adds a reference to the brush in `tilesets.xml`
-  under a user-selected tileset category.
-
-  Functionality for adding new tileset categories or adding items to existing tilesets
-  is handled by simpler dialogs invoked from the main palettes (`palette_brushlist.cpp`).
-
-  There isn''t a dedicated comprehensive editor for Wall or Doodad brush compositions
-  in the provided files beyond basic property editing via `PropertiesWindow`.'
+  - **Border Tab:** Edits auto-border configurations (items assigned to 12 border positions N, E, S, W, CNW, CNE, CSE, CSW, DNW, DNE, DSE, DSW). Includes a visual grid editor (`BorderGridPanel`) and preview (`BorderPreviewPanel`). Saves to `borders.xml`.
+  - **Ground Tab:** Edits ground brush definitions (name, server look ID, Z-order, list of items with chances). Associates a Border ID (from common properties) with alignment options. Saves to `grounds.xml` and adds a reference to the selected tileset category in `tilesets.xml`.
+  Functionality for creating new tileset categories is handled by `AddTilesetWindow`.
+  Functionality for adding new items (single or range) to existing tileset categories is handled by `AddItemWindow`.
+  These dialogs are invoked from `BrushPalettePanel` (defined in `palette_brushlist.cpp`).
+  The legacy editor does not have dedicated UI within `BorderEditorDialog` for Wall or Doodad brush compositions beyond what `PropertiesWindow` might offer; the WBS implies these will be new tabs in the Qt version.
 definition_of_done:
 - A Qt6 'Brush & Material Editor' (e.g., a `QDialog` or dockable `QWidget`) is implemented.
 - 'The editor uses a `QTabWidget` for separate sections: ''Borders'', ''Ground Brushes'',

@@ -4,110 +4,107 @@ description: Migrate the waypoint data structures, storage, and editing logic fr
   wxWidgets to Qt6. This includes how waypoints are created, modified, displayed on
   the map, and saved/loaded.
 dependencies:
-- CORE-03
-- RENDER-02
-- UI-07
-input_files:
+- CORE-03 # Map structure and tile access
+- RENDER-02 # For displaying waypoints on the map
+- UI-07 # For any UI elements related to waypoint listing/editing (e.g., a waypoint palette or editor dialog)
+# - CORE-04 # Action system, if waypoint changes are to be undoable (highly likely)
+# - CORE-01 # Base Tile/Item definitions, if Waypoints interact directly with specific item types (less likely for basic waypoints)
+original_input_files:
 - wxwidgets/waypoints.cpp
 - wxwidgets/waypoints.h
 analyzed_input_files:
-- file_path: wxwidgets/waypoints.cpp
-  description: Contains the implementation of the `Waypoints` class, which manages
-    a collection of waypoints. Includes logic for adding, getting, and removing waypoints,
-    and interacting with the map tiles to update waypoint counts.
 - file_path: wxwidgets/waypoints.h
-  description: Defines the `Waypoint` class (name, position) and the `Waypoints` manager
-    class (using `std::map` to store waypoints by name).
+  description: "Defines the core data structures for the waypoint system. It includes:\n\
+    - `Waypoint` struct: Stores `name` (std::string) and `pos` (Position).\n\
+    - `Waypoints` class: Manages all waypoints. It holds a `std::map<std::string, Waypoint*>`\
+    \ (keyed by lowercase waypoint name) and takes a `Map&` reference to interact\
+    \ with map tiles. The destructor handles deletion of `Waypoint` objects. Declares\
+    \ methods for adding, retrieving (by name, by `TileLocation*`), and removing\
+    \ waypoints, and provides iterators."
+- file_path: wxwidgets/waypoints.cpp
+  description: "Implements the `Waypoints` class methods:\n- `addWaypoint(Waypoint* wp)`:\
+    \ Ensures name uniqueness (case-insensitive by converting name to lowercase).\
+    \ If waypoint has a valid position, it ensures the tile exists (creating if needed)\
+    \ and calls `tile->getLocation()->increaseWaypointCount()`.\n- `getWaypoint(std::string name)`:\
+    \ Case-insensitive name lookup.\n- `getWaypoint(TileLocation* location)`: Iterates\
+    \ all waypoints to find one at the given position (has a TODO for optimization).\n\
+    - `removeWaypoint(std::string name)`: Deletes the waypoint object and removes\
+    \ it from the map. Does not currently call `decreaseWaypointCount()` on the tile."
 documentation_references:
-- 'Qt Data Structures: https://doc.qt.io/qt-6/qtcore-containers.html (e.g., QMap,
-  QHash, QList)'
+- 'Qt Data Structures: https://doc.qt.io/qt-6/qtcore-containers.html (QHash for name-based lookup, QMap if sorted iteration is needed)'
 - 'QVector3D for positions: https://doc.qt.io/qt-6/qvector3d.html'
+- 'QString for names: https://doc.qt.io/qt-6/qstring.html'
 current_functionality_summary: "The waypoint system is managed by the `Waypoints`\
-  \ class, which holds `Waypoint` objects (containing a name and `Position`).\n- Waypoints\
-  \ are stored in a `std::map` keyed by their lowercase name.\n- Adding a waypoint\
-  \ (`addWaypoint`):\n  - Removes any existing waypoint with the same name.\n  - If\
-  \ the waypoint has a valid position, it ensures the tile exists at that position.\n\
-  \  - It calls `tile->getLocation()->increaseWaypointCount()` to mark the tile.\n\
-  - Retrieving waypoints:\n  - `getWaypoint(std::string name)`: Case-insensitive lookup\
-  \ by name.\n  - `getWaypoint(TileLocation* location)`: Iterates all waypoints to\
-  \ find one at the given position (has a TODO for optimization).\n- Removing a waypoint\
-  \ (`removeWaypoint`): Deletes the waypoint object and removes it from the map. (Does\
-  \ not appear to decrease tile waypoint count in the provided snippet).\n- The `Waypoint`\
-  \ class itself is a simple structure defined in `waypoints.h`.\n- Saving/loading\
-  \ of waypoints is not detailed in these files but is expected to be part of the\
-  \ map's OTBM serialization."
+  \ class, which holds `Waypoint` objects (defined in `waypoints.h`, containing a\
+  \ `std::string name` and a `Position pos`).\n- Waypoints are stored in a `std::map<std::string, Waypoint*>`,\
+  \ keyed by their lowercase name for case-insensitive lookup.\n- `addWaypoint`:\
+  \ Ensures name uniqueness. If the waypoint has a valid position, it ensures the\
+  \ tile exists at that map coordinate and calls `tile->getLocation()->increaseWaypointCount()`.\n\
+  - `getWaypoint(std::string name)`: Retrieves by name (case-insensitively).\n- `getWaypoint(TileLocation* location)`:\
+  \ Iterates through all waypoints to find one matching the tile's position (marked\
+  \ with a TODO for optimization).\n- `removeWaypoint(std::string name)`: Deletes\
+  \ the waypoint object and removes it from the internal map. It does not currently\
+  \ decrement the waypoint count on the associated tile."
 definition_of_done:
-- A Qt6 `Waypoint` class (or struct) is defined, storing a `QString name` and a 3D
-  position (e.g., using `QVector3D` or a custom `Position` class).
-- A Qt6 `WaypointManager` class is implemented to manage a collection of `Waypoint`
-  objects.
-- The `WaypointManager` uses an efficient Qt container for storing waypoints, keyed
-  by name (e.g., `QHash<QString, Waypoint*>` or `QMap<QString, Waypoint*>`), ensuring
-  case-insensitive name lookups.
-- Methods for adding, retrieving (by name and by 3D position), and removing waypoints
-  are implemented in `WaypointManager`.
-- The logic for associating waypoints with map tiles is ported. When a waypoint is
-  added or removed, the corresponding `Tile` object (or its equivalent in the Qt6
-  map structure) must have its waypoint count (or similar flag) updated (both incremented
-  on add and decremented on remove).
-- Memory management for `Waypoint` objects is handled correctly by the `WaypointManager`
-  (e.g., deletion on removal or when the manager is destroyed).
-- The system ensures waypoint names are unique (case-insensitively) within the map.
-- The `WaypointManager` is designed to integrate with the OTBM map saving/loading
-  mechanism (CORE-03), allowing waypoint data to be serialized and deserialized with
-  the map.
-- Consideration is given to efficient position-based lookup of waypoints (e.g., if
-  the original TODO for a position hash is to be addressed, perhaps using `QHash<Position,
-  Waypoint*>` if `Position` is hashable, or other spatial indexing if needed for large
-  numbers of waypoints).
-boilerplate_coder_ai_prompt: "Your task is to port the core logic for managing waypoints\
-  \ from the wxWidgets-based Remere's Map Editor to Qt6. The reference C++ files are\
-  \ `wxwidgets/waypoints.cpp` and `wxwidgets/waypoints.h` (which also contains the\
-  \ `Waypoint` class definition).\n\n**1. Waypoint Data Structure:**\n   - Define\
-  \ a `Waypoint` class or struct in Qt6.\n   - It should store:\n     - `QString name;`\n\
-  \     - `QVector3D position;` (or a custom `Position` class if a more complex one\
-  \ is used throughout the application, ensure it holds x, y, z coordinates).\n\n\
-  **2. WaypointManager Class:**\n   - Create a `WaypointManager` class responsible\
-  \ for all waypoint operations.\n   - It should hold a collection of `Waypoint` objects,\
-  \ for instance, using `QHash<QString, Waypoint*> m_waypoints;` for efficient name-based\
-  \ lookup. Remember to handle waypoint name case-insensitivity for lookups and insertions\
-  \ (e.g., by always storing/querying lowercase names).\n   - **Constructor:** Should\
-  \ take a reference to the main `Map` object (or its Qt6 equivalent) to interact\
-  \ with tiles.\n   - **Destructor:** Ensure all dynamically allocated `Waypoint`\
-  \ objects are deleted.\n   - **`void addWaypoint(Waypoint* waypoint);`**\n     -\
-  \ Convert waypoint name to lowercase for consistent storage and lookup.\n     -\
-  \ Remove/delete any existing waypoint with the same name before adding the new one.\n\
-  \     - If `waypoint->position` is valid:\n       - Get the `Tile` (or Qt6 equivalent)\
-  \ at `waypoint->position`.\n       - If the tile doesn't exist, it should be created\
-  \ (this might be a responsibility of the `Map` class).\n       - Call a method on\
-  \ the tile or its location data to signify a waypoint is present (e.g., `tile->increaseWaypointCount();`).\n\
-  \     - Add the waypoint to `m_waypoints`.\n   - **`Waypoint* getWaypoint(const\
-  \ QString& name);`**\n     - Perform a case-insensitive lookup in `m_waypoints`.\
-  \ Return `nullptr` if not found.\n   - **`Waypoint* getWaypoint(const Position&\
-  \ pos);` (or `const QVector3D& pos`)**\n     - Implement lookup by position. The\
-  \ original code iterated through all waypoints. If performance is a concern for\
-  \ many waypoints, consider optimizing this (e.g., using a `QHash<PositionKey, Waypoint*>`\
-  \ if a suitable `PositionKey` can be derived and made hashable, or a simpler iteration\
-  \ if waypoint counts are typically low).\n     - Return `nullptr` if not found.\n\
-  \   - **`void removeWaypoint(const QString& name);`**\n     - Find the waypoint\
-  \ by its (case-insensitive) name.\n     - If found:\n       - If the waypoint has\
-  \ a valid position, get the `Tile` at its position and call a method to decrease\
-  \ its waypoint count (e.g., `tile->decreaseWaypointCount();`). This part was missing\
-  \ in the original `removeWaypoint` and is important.\n       - Delete the `Waypoint`\
-  \ object.\n       - Remove the waypoint from `m_waypoints`.\n   - Provide `begin()`\
-  \ and `end()` iterators if direct iteration over waypoints is needed externally.\n\
-  \n**3. Integration with Map and Tile System:**\n   - The `WaypointManager` will\
-  \ need a reference to the main map object to access and modify tile data related\
-  \ to waypoints.\n   - Ensure that the `Tile` class (or its Qt6 equivalent) has a\
-  \ mechanism to track associated waypoints (e.g., a counter or a flag). This is crucial\
-  \ for rendering waypoints on the map and for other tools that might interact with\
-  \ waypoints on tiles.\n\n**4. File I/O (Conceptual):**\n   - This task focuses on\
-  \ in-memory management. The actual saving and loading of waypoints with the map\
-  \ file (likely OTBM format) will be handled by the `CORE-03` (Port OTBM/OTMM File\
-  \ I/O) task.\n   - Your `WaypointManager` should be designed to easily expose its\
-  \ data for serialization (e.g., providing access to the waypoint list) and to be\
-  \ populated from deserialized data.\n\n**Note:** The original `waypoints.cpp` did\
-  \ not show `waypoint.cpp` and `waypoint.h` as separate files, as the `Waypoint`\
-  \ struct was defined within `waypoints.h`.\nPopulate the `analyzed_input_files`\
-  \ section by reading the first 200 lines of `wxwidgets/waypoints.cpp` and `wxwidgets/waypoints.h`\
-  \ and calculating their MD5 hashes."
+- A Qt6 `Waypoint` class or struct is defined, storing `QString name` and a 3D position
+  (e.g., `QVector3D` or a custom `Position` class).
+- A Qt6 `WaypointManager` class is implemented for managing `Waypoint` objects.
+- `WaypointManager` uses `QHash<QString, Waypoint*>` (or `QMap`) for storing waypoints,
+  ensuring case-insensitive name lookups by normalizing names (e.g., to lowercase)
+  before storage and retrieval.
+- `WaypointManager::addWaypoint(Waypoint* waypoint)`:
+  - Normalizes waypoint name.
+  - Removes/deletes any existing waypoint with the same normalized name.
+  - If `waypoint->position` is valid and the associated `Tile` (or Qt6 equivalent)
+    exists (or can be created), calls a method like `tile->increaseWaypointCount()`.
+  - Stores the waypoint.
+- `WaypointManager::getWaypoint(const QString& name)`: Performs case-insensitive lookup.
+- `WaypointManager::getWaypoint(const Position& pos)`: Implements efficient position-based
+  lookup if feasible (e.g., spatial hash or secondary `QHash<PositionKey, Waypoint*>`).
+  If not, initial port can use iteration with a note for future optimization.
+- `WaypointManager::removeWaypoint(const QString& name)`:
+  - Finds waypoint by normalized name.
+  - If found, and it has a valid position, calls `tile->decreaseWaypointCount()` on
+    the associated tile.
+  - Deletes the `Waypoint` object and removes it from the collection.
+- `WaypointManager` correctly handles memory management for `Waypoint` objects.
+- Waypoint data is successfully serialized to and deserialized from OTBM files via
+  integration with the `IOMapOTBM` (or equivalent Qt6 I/O) class. This implies adding
+  new OTBM node types for waypoints if they don't exist, or adapting existing ones.
+- Unit tests are created to verify adding, retrieving by name/position, removing waypoints,
+  and ensuring tile waypoint counts are updated correctly.
+boilerplate_coder_ai_prompt: "Port the waypoint management system from wxWidgets to\
+  \ Qt6. Analyze `wxwidgets/waypoints.h` (defines `Waypoint` struct and `Waypoints`\
+  \ class) and `wxwidgets/waypoints.cpp` (implements `Waypoints` methods).\n\n1.  **`Waypoint`\
+  \ Class/Struct (Qt6):**\n    *   Store `QString name;`\n    *   Store 3D position\
+  \ (e.g., `QVector3D position;` or a custom `Position` class).\n\n2.  **`WaypointManager`\
+  \ Class (Qt6):**\n    *   Manages a collection of `Waypoint*` objects (e.g., using\
+  \ `QHash<QString, Waypoint*> m_waypoints;`). Names should be stored and looked\
+  \ up case-insensitively (normalize to lowercase).\n    *   Constructor: Takes `Map*`\
+  \ (or Qt6 equivalent) reference.\n    *   Destructor: Deletes all managed `Waypoint`\
+  \ objects.\n    *   `void addWaypoint(Waypoint* waypoint);`:\n        - Normalize\
+  \ name.\n        - Delete existing waypoint with same normalized name.\n        -\
+  \ If `waypoint->position` is valid, get/create `Tile` and call `tile->increaseWaypointCount()`.\n\
+  \        - Add to collection.\n    *   `Waypoint* getWaypoint(const QString& name) const;`\n\
+  \    *   `Waypoint* getWaypoint(const Position& pos) const;` (Consider optimization\
+  \ for position lookup if many waypoints are expected, otherwise iterate).\n    *   `void removeWaypoint(const QString& name);`\n\
+  \        - Normalize name.\n        - If found and position valid, call `tile->decreaseWaypointCount()`.\n\
+  \        - Delete `Waypoint` object and remove from collection.\n    *   Provide iterators\
+  \ (`begin()`, `end()`) for the waypoint collection.\n\n3.  **Tile Interaction:**\n\
+  \    *   The `Tile` class (or Qt6 equivalent) must have methods like `increaseWaypointCount()`\
+  \ and `decreaseWaypointCount()` to track waypoint presence.\n\n4.  **OTBM Integration\
+  \ (Conceptual):**\n    *   The `WaypointManager` should be designed for easy serialization/deserialization\
+  \ with OTBM files. This might involve adding `OTBM_WAYPOINTS` and `OTBM_WAYPOINT`\
+  \ node types if not already present in `wxwidgets/iomap_otbm.h`."
+qt_object_notes: "Consider using QPointF for 2D screen coordinates if needed for UI,
+  but QVector3D for 3D map coordinates. Use QString for all text handling. QHash
+  is generally preferred over QMap for non-ordered key-value storage due to better
+  average-case performance."
+additional_notes: "The original `removeWaypoint` in `waypoints.cpp` does not decrement
+  the waypoint count on the tile; this should be corrected in the Qt6 version.
+  The optimization for `getWaypoint(TileLocation*)` (now `getWaypoint(const Position& pos)`)
+  should be considered: if many waypoints are typical, a spatial index or a secondary
+  hash map (e.g., `QHash<PositionKey, Waypoint*>`) might be beneficial. For now,
+  an iteration-based approach is acceptable for the initial port if clearly commented."
+
+[end of enhanced_wbs_yaml_files/LOGIC-04.yaml]

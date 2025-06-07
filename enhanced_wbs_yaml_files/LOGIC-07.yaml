@@ -1,103 +1,150 @@
 wbs_item_id: LOGIC-07
-name: Port Spawn & Group Management
-description: Migrate the logic for creating, managing, and storing creature/item spawns
-  and group definitions. This includes spawn areas, spawn times, creature/item lists
-  within spawns, and how groups of spawns are defined and managed.
+name: Port Creature & Spawn System (Data and Brushes)
+description: Migrate the logic for creating, managing, and storing creature spawns
+  (including spawn areas/radius, creature lists, and spawn times) and the functionality
+  of the Creature and Spawn brushes.
 dependencies:
-- CORE-03
-- RENDER-02
-- UI-08
-input_files:
-- wxwidgets/spawn.cpp
+- CORE-01 # Tile class
+- CORE-03 # Map structure, OTBM I/O for spawn data on tiles
+- CORE-04 # Action system for undo/redo
+- CORE-CREATURES # Creature type definitions from creatures.xml
+- BRUSH-FRAMEWORK-CORE # Base brush class
+- UI-CREATURE-SPAWN-PALETTE # UI for selecting creatures and setting spawn properties
+original_input_files:
 - wxwidgets/spawn.h
+- wxwidgets/spawn.cpp
+- wxwidgets/creature_brush.h
+- wxwidgets/creature_brush.cpp
+- wxwidgets/spawn_brush.h
+- wxwidgets/spawn_brush.cpp
 analyzed_input_files:
-- file_path: wxwidgets/spawn.cpp
-  description: Implements the `Spawns` class, which manages a set of tile positions
-    that are designated as spawn points.
 - file_path: wxwidgets/spawn.h
-  description: Defines the `Spawn` class (primarily for spawn radius/size on a tile)
-    and the `Spawns` class (a manager for `SpawnPositionList`). The actual list of
-    creatures and spawn time are typically stored directly on the Tile object in RME.
+  description: "Defines `Spawn` class and `Spawns` manager class.\n- `Spawn` class:\
+    \ Stores `size` (radius of the spawn area, default 3) and a boolean `selected`\
+    \ state. Provides methods for deep copy, selection, comparison (by size), and\
+    \ getting/setting size. Does not store creature lists or spawn times.\n- `Spawns`\
+    \ class: Manages a `SpawnPositionList` (which is a `std::set<Position>`) to keep\
+    \ track of all tile positions that are designated as spawn points. Provides methods\
+    \ for adding and removing positions from this set."
+- file_path: wxwidgets/spawn.cpp
+  description: "Implements the `Spawns` class methods.\n- `Spawns::addSpawn(Tile* tile)`:\
+    \ Asserts `tile->spawn` exists, then inserts the `tile->getPosition()` into its\
+    \ set of spawn locations.\n- `Spawns::removeSpawn(Tile* tile)`: Asserts `tile->spawn`\
+    \ exists, then erases the `tile->getPosition()` from its set."
+- file_path: wxwidgets/creature_brush.h
+  description: "Defines the `CreatureBrush` class, inheriting from `Brush`. It's\
+    \ used to place specific creatures on the map.\n- Stores `CreatureType* creature_type`\
+    \ representing the creature to be placed.\n- `canDraw()`: Checks if a creature\
+    \ can be placed (tile exists, not blocking, is a spawn area or auto-create spawn\
+    \ is enabled, considers PZ for NPCs).\n- `draw()`: Calls `draw_creature()`.\n\
+    - `draw_creature()`: Places the creature on the tile, potentially creating a basic\
+    \ spawn if `AUTO_CREATE_SPAWN` is on.\n- `undraw()`: Removes the creature from\
+    \ the tile.\n- Supports smearing, does not support dragging, one size fits all."
+- file_path: wxwidgets/creature_brush.cpp
+  description: "Implements `CreatureBrush` methods.\n- Constructor: Takes `CreatureType*`,\
+    \ links brush to type.\n- `getName()`: Returns `creature_type->name`.\n- `canDraw()`:\
+    \ Logic as described in header. Checks `tile->getLocation()->getSpawnCount()`\
+    \ or `g_settings.getInteger(Config::AUTO_CREATE_SPAWN)`.\n- `undraw()`: Sets\
+    \ `tile->creature` to `nullptr` after deleting it.\n- `draw_creature()`: If `canDraw`,\
+    \ calls `undraw`. If `tile->spawn` is null and no existing spawn area covers the\
+    \ tile (`tile->getLocation()->getSpawnCount() == 0`), it creates a new `Spawn(1)`\
+    \ for the tile. Creates a new `Creature(creature_type)`, sets its spawntime from\
+    \ `g_gui.GetSpawnTime()`, and assigns it to `tile->creature`."
+- file_path: wxwidgets/spawn_brush.h
+  description: "Defines the `SpawnBrush` class, inheriting from `Brush`. Used to\
+    \ designate tiles as spawn points and set their radius.\n- Does not store specific\
+    \ data itself; radius is typically taken from global GUI settings at the time\
+    \ of use.\n- `canDraw()`: Checks if a tile can be made a spawn point.\n- `draw()`:\
+    \ Creates a `Spawn` object on the tile with a given radius.\n- `undraw()`: Removes\
+    \ the `Spawn` object from a tile.\n- Supports dragging, does not support smearing,\
+    \ one size fits all (radius is a parameter)."
+- file_path: wxwidgets/spawn_brush.cpp
+  description: "Implements `SpawnBrush` methods.\n- `getName()`: Returns \"Spawn\
+    \ Brush\".\n- `canDraw()`: Returns true if `map->getTile(position)` exists and\
+    \ does not already have a `tile->spawn` object.\n- `undraw()`: Deletes `tile->spawn`\
+    \ and sets it to `nullptr`.\n- `draw()`: If `tile->spawn` is null, it creates\
+    \ a `new Spawn(radius)` where radius is from `*(int*)parameter` (typically `g_gui.GetBrushSize()`)."
 documentation_references:
-- 'Qt Data Structures: https://doc.qt.io/qt-6/qtcore-containers.html (e.g., QSet for
-  positions)'
-current_functionality_summary: 'The provided `spawn.h` defines a `Spawn` class that
-  mainly stores a `size` (radius) and selection state. It does not store the list
-  of creatures or spawn timings.
-
-  The `Spawns` class manages a `std::set<Position>` (`SpawnPositionList`), effectively
-  keeping track of which tile positions are considered spawn points.
-
-  - `Spawns::addSpawn(Tile* tile)` adds a tile''s position to this set, assuming `tile->spawn`
-  (the Spawn object with radius) is already set on the tile.
-
-  - `Spawns::removeSpawn(Tile* tile)` removes a tile''s position from the set.
-
-  The actual list of creatures to spawn and the spawn interval are typically attributes
-  of the `Tile` object itself in the OTBM map format, rather than being managed by
-  these specific `Spawn` or `Spawns` classes.
-
-  "Group Management" in this context likely refers to managing the group of creatures
-  within a single spawn definition on a tile.'
+- 'Qt Data Structures: https://doc.qt.io/qt-6/qtcore-containers.html (QSet for spawn
+  locations, QList for creature names in a spawn)'
+- 'std::optional (C++17): https://en.cppreference.com/w/cpp/utility/optional (For
+  wrapping SpawnProperties on a Tile)'
+current_functionality_summary: "The `Spawn` class (`spawn.h`) primarily defines the\
+  \ radius of a spawn area on a tile. The `Spawns` class (`spawn.h/.cpp`) is a manager\
+  \ that tracks the `Position` of all tiles that have a `Spawn` object associated\
+  \ with them (i.e., are spawn points).\nActual spawn data, such as the list of creatures\
+  \ to spawn and the spawn interval (spawntime), are not stored within these `Spawn`\
+  \ or `Spawns` classes. Instead, this information is typically an attribute of the\
+  \ `Tile` object itself, managed by the `CreatureBrush` when placing creatures or\
+  \ modified through UI dialogs.\n- `CreatureBrush` (`creature_brush.h/.cpp`): Places\
+  \ a specific type of creature on a tile. If `AUTO_CREATE_SPAWN` is enabled in settings\
+  \ and the tile isn't part of an existing spawn area, it will also create a `Spawn`\
+  \ object (radius 1) on that tile. It sets the creature's spawntime based on a global\
+  \ GUI setting.\n- `SpawnBrush` (`spawn_brush.h/.cpp`): Designates a tile as a spawn\
+  \ point by creating a `Spawn` object on it. The radius of this spawn is determined\
+  \ by the current brush size selected in the GUI."
 definition_of_done:
-- A Qt6 `SpawnProperties` class/struct is defined (e.g., in `spawn.h` or `tile.h`)
-  to store the spawn radius (integer) associated with a tile. (The original `Spawn`
-  class mostly served this purpose).
-- 'The main `Tile` class (or its Qt6 equivalent) is augmented to store:'
-- '  - An optional `SpawnProperties` object (or `std::optional<SpawnProperties>`).'
-- '  - A `QList<QString>` to hold the names of creatures in this tile''s spawn list.'
-- '  - An `int` for the spawn time/interval in seconds.'
-- A Qt6 `SpawnManager` class is implemented to maintain a registry of all tile positions
-  that function as spawn points (e.g., using `QSet<Position>`).
-- The `SpawnManager` provides methods `void registerSpawnTile(const Position& pos);`
-  and `void unregisterSpawnTile(const Position& pos);` to update its registry.
-- The logic for creating, reading, updating, and deleting the spawn radius, creature
-  list, and spawn time is primarily handled by direct modifications to the `Tile`
-  object's properties. The `SpawnManager` serves as a central point to quickly identify
-  all spawn locations.
-- The system is prepared for integration with OTBM loading/saving (CORE-03), where
-  the tile attributes (radius, creature list, spawn time) will be read/written.
-boilerplate_coder_ai_prompt: "Your task is to port the conceptual system for managing\
-  \ spawn points to Qt6, based on the provided `wxwidgets/spawn.cpp` and `wxwidgets/spawn.h`.\
-  \ The original system had a `Spawn` class for radius and a `Spawns` class to track\
-  \ positions of spawn tiles. In OTBM, detailed spawn data (creatures, interval) is\
-  \ typically stored directly on the tile.\n\n**1. `SpawnProperties` Data Structure\
-  \ (e.g., in `spawn.h` or `tile.h`):**\n   - Define a simple C++ class or struct,\
-  \ possibly named `SpawnProperties`.\n   - It should store: `int radius;` (the spawn\
-  \ area size).\n   - (The `selected` member from the original `Spawn` class is more\
-  \ of a UI concern and might be handled differently, e.g., by the selection system).\n\
-  \n**2. Augmenting the `Tile` Class (Conceptual - actual changes in Tile's own task):**\n\
-  \   - The main `Tile` class (or its Qt6 equivalent) will be the primary owner of\
-  \ spawn data. Ensure it can store:\n     - `std::optional<SpawnProperties> spawn_props;`\
-  \ (or a pointer `SpawnProperties* spawn_props = nullptr;`). This will hold the radius\
-  \ if the tile is a spawn point.\n     - `QList<QString> creature_list;` // List\
-  \ of creature names for this spawn.\n     - `int spawn_time_seconds;` // Respawn\
-  \ interval.\n   - The `Tile` class should have methods like `bool isSpawn() const\
-  \ { return spawn_props.has_value(); }`, `void setSpawn(int radius, const QList<QString>&\
-  \ creatures, int time_secs)`, `void clearSpawn()`.\n\n**3. `SpawnManager` Class\
-  \ (Registry of Spawn Locations):**\n   - Create a `SpawnManager` class.\n   - Its\
-  \ main role is to keep a fast lookup of all tiles that are spawn points.\n   - Internally,\
-  \ use `QSet<Position> m_spawn_locations;` (assuming `Position` is defined and hashable).\n\
-  \   - **`void registerSpawnLocation(const Position& pos);`**: Adds `pos` to `m_spawn_locations`.\
-  \ This would be called when a tile at `pos` is configured as a spawn (e.g., its\
-  \ `spawn_props` are set).\n   - **`void unregisterSpawnLocation(const Position&\
-  \ pos);`**: Removes `pos` from `m_spawn_locations`. This is called when a tile at\
-  \ `pos` is no longer a spawn (e.g., `tile->clearSpawn()` is called).\n   - **`bool\
-  \ isSpawnLocation(const Position& pos) const;`**: Checks if `pos` is in `m_spawn_locations`.\n\
-  \   - Provide methods to iterate over all registered spawn locations (`const QSet<Position>&\
-  \ getSpawnLocations() const;`).\n\n**4. Core Logic for Modifying Spawns:**\n   -\
-  \ Creating a spawn on a tile: Set the `spawn_props` (radius), `creature_list`, and\
-  \ `spawn_time_seconds` on the `Tile` object, then call `spawnManager.registerSpawnLocation(tile->getPosition())`.\n\
-  \   - Modifying a spawn: Directly modify the properties on the `Tile` object.\n\
-  \   - Removing a spawn from a tile: Clear the spawn properties on the `Tile` object\
-  \ (e.g., `tile->clearSpawn()`) and then call `spawnManager.unregisterSpawnLocation(tile->getPosition())`.\n\
-  \n**5. Group Management:**\n   - \"Group Management\" in this context refers to\
-  \ managing the `QList<QString> creature_list` on each `Tile` that is a spawn point.\
-  \ There's no indication of a system for grouping multiple distinct spawn areas together\
-  \ under a common name in `spawn.cpp`/`.h`.\n\n**6. File I/O:**\n   - The `SpawnManager`\
-  \ itself doesn't handle file I/O. The OTBM loader/saver (task `CORE-03`) will read/write\
-  \ the spawn radius, creature list, and spawn time directly from/to each tile's attributes.\
-  \ When a map is loaded, and tiles with spawn data are created, they should register\
-  \ their positions with the `SpawnManager`.\n\nPopulate the `analyzed_input_files`\
-  \ section by reading the first 200 lines of `wxwidgets/spawn.cpp` and `wxwidgets/spawn.h`\
-  \ and calculating their MD5 hashes."
+- A Qt6 `SpawnProperties` class/struct is defined (e.g., in `map/spawn_properties.h`)
+  to store the spawn radius.
+- The main `Tile` class (Qt6) is augmented to store:
+  - `std::optional<SpawnProperties> spawnProperties;` (or a pointer).
+  - `QList<QString> creatureSpawnList;`
+  - `int spawnTimeSeconds;`
+- `Tile` class has methods like `bool isSpawnPoint() const`, `void setSpawnData(int
+  radius, const QList<QString>& creatures, int timeSecs)`, `void clearSpawnData()`,
+  `int getSpawnRadius() const`, etc.
+- A Qt6 `SpawnManager` class (e.g., in `map/spawn_manager.h`) uses `QSet<Position>`
+  to register/unregister tile positions that are spawn points. This is updated when
+  `Tile::setSpawnData` or `Tile::clearSpawnData` is called.
+- `QtCreatureBrush` (inheriting `BaseBrush`):
+  - Allows selection of a `CreatureType*` (from `CORE-CREATURES`).
+  - On `apply()`: Places the selected creature on the target `Tile`. If settings dictate
+    auto-creation of spawns, and the tile is not already a spawn point (checked via
+    `SpawnManager` or `Tile::isSpawnPoint`), it calls `tile->setSpawnData()` with a
+    default radius (e.g., 1), adds the placed creature's name to `creatureSpawnList`,
+    and sets a default `spawnTimeSeconds`. Updates `SpawnManager`.
+- `QtSpawnBrush` (inheriting `BaseBrush`):
+  - On `apply()`: Calls `tile->setSpawnData()` with the current brush radius. If the
+    tile was not previously a spawn, `creatureSpawnList` would be empty and `spawnTimeSeconds`
+    defaulted. Updates `SpawnManager`.
+- All spawn-modifying operations (placing creature with auto-spawn, placing spawn
+  point, modifying spawn properties via UI) are undoable via `QUndoCommand`s that
+  encapsulate changes to `Tile` properties and `SpawnManager` updates.
+- OTBM loading/saving (CORE-03) correctly populates/persists `Tile`'s spawn radius,
+  creature list, and spawn time. `SpawnManager` is rebuilt after map load.
+boilerplate_coder_ai_prompt: "Port the spawn system and associated brushes (CreatureBrush,\
+  \ SpawnBrush) to Qt6.\n\n1.  **`SpawnProperties` (New Data Structure):**\n    *   `int radius;`\n\
+  \n2.  **`Tile` Class Augmentation (Conceptual - changes belong to Tile's task but\
+  \ inform this design):\n    *   `std::optional<SpawnProperties> spawnProperties;`\n\
+  \    *   `QList<QString> creatureSpawnList;`\n    *   `int spawnTimeSeconds;`\n\
+  \    *   Methods: `setSpawnData(radius, list, time)`, `clearSpawnData()`, `addCreatureToSpawnList(name)`,\
+  \ `getSpawnRadius()` etc.\n\n3.  **`SpawnManager` Class (New):**\n    *   `QSet<Position>\
+  \ m_spawn_locations;`\n    *   `void registerSpawnLocation(const Position& pos);`\n\
+  \    *   `void unregisterSpawnLocation(const Position& pos);`\n    *   `bool isSpawnLocation(const\
+  \ Position& pos) const;`\n\n4.  **`QtCreatureBrush` (Inherits `BaseBrush`):\n\
+  \    *   Member: `CreatureType* m_creatureType;`\n    *   `void apply(EditorController*\
+  \ controller, const Position& pos);`\n        - Get `Tile* tile = map->getOrCreateTile(pos);`\n\
+  \        - Create `QUndoCommand`.\n        - **redo()**: Store old creature/spawn\
+  \ data. Create `Creature` object. `tile->setCreature(newCreature)`. If `AUTO_CREATE_SPAWN`\
+  \ and `!tile->isSpawnPoint() && !spawnManager->isSpawnLocation(pos)`: `tile->setSpawnData(1,\
+  \ {m_creatureType->name}, defaultSpawnTime); spawnManager->registerSpawnLocation(pos);`.\
+  \ Else if `tile->isSpawnPoint()`: `tile->addCreatureToSpawnList(m_creatureType->name)`\
+  \ (if not already present).\n        - **undo()**: Restore old state.\n\n5.  **`QtSpawnBrush`\
+  \ (Inherits `BaseBrush`):\n    *   `void apply(EditorController* controller, const\
+  \ Position& pos);`\n        - Get `Tile* tile = map->getOrCreateTile(pos);`\n   \
+  \     - `int radius = editorController->getCurrentBrushSize();`\n        - Create\
+  \ `QUndoCommand`.\n        - **redo()**: Store old spawn data. `tile->setSpawnData(radius,\
+  \ existingOrEmptyList, existingOrDefaultTime); spawnManager->registerSpawnLocation(pos);`\n\
+  \        - **undo()**: Restore old state (if was spawn, else `tile->clearSpawnData();\
+  \ spawnManager->unregisterSpawnLocation(pos);`).\n\n6.  Ensure OTBM I/O reads/writes\
+  \ spawn radius, creature list, and interval from/to Tile attributes. `SpawnManager`\
+  \ should be populated after map load by iterating tiles."
+qt_object_notes: "Use `std::optional` for `spawnProperties` on `Tile`. `QSet<Position>`
+  for `SpawnManager` (ensure `Position` is hashable via `qHash`). `QList<QString>`
+  for creature names on `Tile`."
+additional_notes: "The core logic is that a `Tile` *is* a spawn point if it has spawn\
+  \ properties (radius, creature list, time). The `SpawnManager` is a helper to quickly\
+  \ find all such tiles. The `SpawnBrush` makes a tile a spawn point and sets its\
+  \ radius. The `CreatureBrush` places creatures and, if settings allow, can also\
+  \ make a tile a basic spawn point if it isn't one already."
+[end of enhanced_wbs_yaml_files/LOGIC-07.yaml]

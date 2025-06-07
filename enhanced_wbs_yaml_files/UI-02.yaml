@@ -21,82 +21,124 @@ input_files:
 - wxwidgets/palette_waypoints.cpp
 - wxwidgets/palette_waypoints.h
 analyzed_input_files:
-- file_path: wxwidgets/main_toolbar.cpp
-  description: Implements `MainToolBar` which creates and manages several `wxAuiToolBar`
-    instances (standard, brushes, position, sizes) with various controls and actions.
-    Handles their layout and updates their state.
-- file_path: wxwidgets/main_toolbar.h
-  description: Header for `MainToolBar`.
-- file_path: wxwidgets/palette_window.cpp
-  description: Implements `PaletteWindow`, a `wxPanel` containing a `wxChoicebook`
-    to switch between different palette types (Terrain, Doodad, Item, Creature, House,
-    Waypoint, RAW). Manages creation and state of these individual palette panels.
-- file_path: wxwidgets/palette_window.h
-  description: Header for `PaletteWindow`.
-- file_path: wxwidgets/palette_brushlist.cpp
-  description: Implements `BrushPalettePanel` (generic panel for Terrain, Doodad,
-    Item, etc., palettes, containing another `wxChoicebook` for tilesets) and `BrushPanel`
-    (displays brushes from a specific tileset category using different view modes
-    like lists or icon grids, including `DirectDrawBrushPanel` and `SeamlessGridPanel`).
-- file_path: wxwidgets/palette_brushlist.h
-  description: Header for `BrushPalettePanel`, `BrushPanel`, and various brush display
-    interfaces/classes (`BrushBoxInterface`, `BrushListBox`, `BrushIconBox`, `DirectDrawBrushPanel`,
-    `SeamlessGridPanel`).
-- file_path: wxwidgets/palette_creature.cpp
-  description: Implements `CreaturePalettePanel`, specialized for selecting creature
-    brushes and spawn settings. Includes search, view toggles (list/sprite), and NPC/Monster
-    file loading.
-- file_path: wxwidgets/palette_creature.h
-  description: Header for `CreaturePalettePanel`, `CreatureSpritePanel`, and `CreatureSeamlessGridPanel`.
-- file_path: wxwidgets/palette_house.cpp
-  description: Implements `HousePalettePanel` for managing house brushes, selecting
-    towns, and house exits. Includes an `EditHouseDialog`.
-- file_path: wxwidgets/palette_house.h
-  description: Header for `HousePalettePanel` and `EditHouseDialog`.
-- file_path: wxwidgets/palette_waypoints.cpp
-  description: Implements `WaypointPalettePanel` for listing, adding, removing, and
-    renaming waypoints.
-- file_path: wxwidgets/palette_waypoints.h
-  description: Header for `WaypointPalettePanel`.
+  - filepath: "wxwidgets/main_toolbar.h"
+    description: "Declares `MainToolBar` class (derived from `wxEvtHandler`). It defines constants for toolbar names (`STANDARD_BAR_NAME`, `BRUSHES_BAR_NAME`, etc.) and IDs (`TOOLBAR_STANDARD`, etc.). Holds pointers to four `wxAuiToolBar` instances (`standard_toolbar`, `brushes_toolbar`, `position_toolbar`, `sizes_toolbar`) and specific controls within them, like `NumberTextCtrl` for X,Y,Z inputs (`x_control`, `y_control`, `z_control`) and a `wxButton` (`go_button`) for the position toolbar."
+  - filepath: "wxwidgets/main_toolbar.cpp"
+    description: |-
+      Implements `MainToolBar`.
+      - Constructor: Initializes four `wxAuiToolBar`s:
+        1.  `standard_toolbar`: Standard operations (New, Open, Save, Undo, Redo, Cut, Copy, Paste) using `wxArtProvider` icons. Event IDs like `wxID_NEW`, `wxID_OPEN`.
+        2.  `brushes_toolbar`: Toggle buttons for specialized brushes (Optional Border, Eraser, PZ, NoPVP, NoLogout, PvPZone, Zone, various Door types, Window types) using `wxArtProvider` and custom PNGs loaded via `_wxGetBitmapFromMemory`. Event IDs like `PALETTE_TERRAIN_OPTIONAL_BORDER_TOOL`.
+        3.  `position_toolbar`: Contains `NumberTextCtrl`s for X, Y, Z coordinates and a 'Go' button (`TOOLBAR_POSITION_GO`) with an icon.
+        4.  `sizes_toolbar`: Toggle buttons for brush shape (Rectangular, Circular - `TOOLBAR_SIZES_RECTANGULAR`, `TOOLBAR_SIZES_CIRCULAR`) and predefined brush sizes (1-7, e.g., `TOOLBAR_SIZES_1`).
+      - Toolbars are added to `wxAuiManager` with names, docking positions, and properties.
+      - Event handlers (`OnStandardButtonClick`, `OnBrushesButtonClick`, etc.) translate toolbar interactions into calls to `g_gui` methods (e.g., `g_gui.NewMap()`, `g_gui.SelectBrush()`, `g_gui.SetBrushShape()`, `g_gui.SetBrushSize()`, `g_gui.SetScreenCenterPosition()`).
+      - `UpdateButtons()`: Enables/disables tools based on editor state.
+      - `UpdateBrushButtons()`: Toggles brush tools based on `g_gui.GetCurrentBrush()`.
+      - `UpdateBrushSize()`: Updates size/shape toggles based on `g_gui.GetBrushShape()` and `g_gui.GetBrushSize()`.
+      - `LoadPerspective()`/`SavePerspective()`: Manages toolbar visibility and layout using `g_settings` and `wxAuiManager`.
+  - filepath: "wxwidgets/palette_window.h"
+    description: "Declares `PaletteWindow` (derived from `wxPanel`). This class is the main container for all palettes. It uses a `wxChoicebook` (`choicebook`) to switch between palette categories (Terrain, Doodad, Item, Collection, Creature, House, Waypoint, RAW). Includes `wxTextCtrl` (`action_id_input`) and `wxCheckBox` (`action_id_checkbox`) for a global Action ID. Holds pointers to each specific palette panel (e.g., `BrushPalettePanel* terrain_palette`, `CreaturePalettePanel* creature_palette`). Defines event IDs like `PALETTE_CHOICEBOOK`."
+  - filepath: "wxwidgets/palette_window.cpp"
+    description: |-
+      Implements `PaletteWindow`.
+      - Constructor: Initializes `action_id` and `action_id_enabled`. Creates the main `wxChoicebook`. Calls static `Create...Palette` methods (e.g., `CreateTerrainPalette`) to instantiate each palette panel type and adds them as pages to the `choicebook`.
+      - `Create...Palette` static methods: Each one news up the specific palette panel (e.g., `BrushPalettePanel` for Terrain, `CreaturePalettePanel` for Creature) and potentially adds tool panels (like `BrushToolPanel`, `BrushSizePanel`) to them.
+      - Event handling: `OnSwitchingPage`/`OnPageChanged` for `PALETTE_CHOICEBOOK` call `OnSwitchIn`/`OnSwitchOut` on the relevant panels and notify `g_gui` of brush changes. `OnActionIDChange`/`OnActionIDToggle` update `action_id` and `action_id_enabled`.
+      - `GetSelectedBrush()`: Delegates to the current palette page's `GetSelectedBrush()`.
+      - `ReloadSettings()`: Updates child palettes' settings (list style, icon sizes).
+      - `InvalidateContents()`: Calls `InvalidateContents()` on all child palettes.
+      - `OnSelectBrush()`: Programmatically changes active page and brush.
+      - `OnUpdateBrushSize()`/`OnUpdate()`: Forwards updates to the current palette page.
+  - filepath: "wxwidgets/palette_brushlist.h"
+    description: |-
+      Declares core classes for brush display in palettes.
+      - `BrushBoxInterface`: Abstract base class defining an interface for various brush display views (e.g., `SelectFirstBrush`, `GetSelectedBrush`, `SelectBrush`).
+      - `BrushListBox`: `wxVListBox`-based implementation of `BrushBoxInterface` for a simple list view with icons and text.
+      - `BrushIconBox`: `wxScrolledWindow`-based `BrushBoxInterface` displaying brushes as a grid of `BrushButton`s (custom `wxToggleButton`s).
+      - `BrushGridBox`: Another `wxScrolledWindow`-based `BrushBoxInterface` using `wxFlexGridSizer` for a dynamic grid of `BrushButton`s.
+      - `DirectDrawBrushPanel`: `wxScrolledWindow`-based `BrushBoxInterface` with custom drawing for RAW items, featuring progressive loading.
+      - `SeamlessGridPanel`: Advanced `wxScrolledWindow`-based `BrushBoxInterface` with direct sprite rendering, zooming, item ID display, progressive loading, sprite caching, and chunking for very large tilesets. Declares `CachedSprite` struct.
+      - `BrushPanel`: A `wxPanel` that hosts one of the `BrushBoxInterface` implementations. It allows switching view modes (list vs. grid via `view_mode_toggle`, direct draw for RAW via `view_type_choice`, show item IDs via `show_ids_toggle`). It uses `g_brush_panel_cache` (a `std::map<const TilesetCategory*, BrushPanelState>`) to cache `BrushBoxInterface` instances and their states (grid view, list view, zoom controls) to improve performance when switching between tilesets or view modes.
+      - `BrushPalettePanel`: Derived from `PalettePanel`. This is the main panel for generic categories (Terrain, Doodad, Item, RAW, Collection). It contains an inner `wxChoicebook` to select a `TilesetCategory` (e.g., a specific group of ground sprites). Each page of this inner choicebook is a `BrushPanel`. It also manages adding tool panels (e.g., `BrushToolPanel`, `BrushSizePanel`, `BrushThicknessPanel`, `ZoneBrushPanel`) and provides UI buttons ("Add new Tileset", "Add new Item", "Quick Add Item", "Create Border") that invoke dialogs (like `AddTilesetWindow`, `AddItemWindow` from UI-05, `BorderEditorDialog` from UI-05).
+  - filepath: "wxwidgets/palette_brushlist.cpp"
+    description: |-
+      Implements classes from `palette_brushlist.h`.
+      - `BrushPalettePanel`: Constructor sets up the inner `wxChoicebook` and populates it with `BrushPanel` instances for each `TilesetCategory` of the palette's type. Handles events for its buttons, invoking dialogs as needed (e.g., `AddTilesetWindow`, `AddItemWindow`, `BorderEditorDialog`). `OnClickQuickAddItemTileset` adds the current `RAWBrush` to the last used tileset.
+      - `BrushPanel`: Constructor initializes view mode toggles (`view_mode_toggle`, `show_ids_toggle`, `view_type_choice`). `LoadViewMode()` dynamically creates or retrieves from `g_brush_panel_cache` the appropriate `BrushBoxInterface` (e.g., `BrushListBox`, `SeamlessGridPanel`) based on settings and view mode. `OnViewModeToggle` handles switching between cached list and grid views, creating them if not cached, and managing zoom controls for `SeamlessGridPanel`.
+      - `SeamlessGridPanel`: Implements sophisticated rendering (`DrawSpriteAt` with caching, scaling based on `zoom_level`), scroll handling, mouse interaction (selection, hover), keyboard navigation (`OnKeyDown`), progressive loading (`StartProgressiveLoading`, `OnTimer`), and chunk navigation for large tilesets (`CreateNavigationPanel`, `UpdateNavigationPanel`, `OnNavigationButtonClicked`). `ManageSpriteCache` implements logic to limit cache size.
+      - Other `BrushBoxInterface` views (`BrushListBox`, `BrushIconBox`, `BrushGridBox`, `DirectDrawBrushPanel`) implement their specific rendering and interaction logic.
+  - filepath: "wxwidgets/palette_creature.h"
+    description: "Declares `CreaturePalettePanel` (derived from `PalettePanel`) for creature selection and spawn settings. Declares `CreatureSpritePanel` (basic sprite grid) and `CreatureSeamlessGridPanel` (advanced sprite grid, similar to the generic `SeamlessGridPanel` but tailored for creatures). UI controls include `wxChoice` for creature categories, `SortableListBox` for list view, search field, spin controls for spawn time/radius, toggles for brush mode (Creature/Spawn) and view preferences (list/sprite, sprite size, zoom), and buttons for loading NPC/Monster XML data and purging creatures."
+  - filepath: "wxwidgets/palette_creature.cpp"
+    description: |-
+      Implements `CreaturePalettePanel`.
+      - Constructor: Sets up UI elements including tileset choice, search field, view mode toggles (list vs. sprite, large sprites, zoom), creature/spawn brush toggles, spawn time/radius spin controls, and load/purge buttons.
+      - Populates creature categories from `g_materials.tilesets` (type `TILESET_CREATURE`).
+      - `FilterCreatures()`: Filters the displayed creature list by name or looktype ID based on `search_field` input.
+      - `SetViewMode()`: Handles switching between `creature_list` (list view), `sprite_panel` (basic grid), and `seamless_panel` (advanced grid). Manages visibility and content loading for these views. `CreatureSeamlessGridPanel` has its own zooming and sprite sizing logic.
+      - Event Handlers:
+        - Tileset/list/sprite selection: Updates the current brush by calling `g_gui.SelectBrush()`.
+        - Brush mode toggles (`OnClickCreatureBrushButton`, `OnClickSpawnBrushButton`): Switch between `CreatureBrush` and `SpawnBrush`.
+        - Spawn settings (`OnChangeSpawnTime`, `OnChangeSpawnSize`): Update global spawn settings via `g_gui`.
+        - Load/Purge buttons (`OnClickLoadNPCsButton`, `OnClickLoadMonstersButton`, `OnClickPurgeCreaturesButton`): Use `wxDirDialog` to get folders, call `g_creatures.importXMLFromOT()` for loading, or `g_creatures.clear()` and `g_materials` updates for purging. Refreshes palettes afterwards.
+      - `OnUpdate()`: Reloads creature categories and refreshes the display.
+  - filepath: "wxwidgets/palette_house.h"
+    description: "Declares `HousePalettePanel` (derived from `PalettePanel`) for the 'Houses' palette tab. Manages UI for house selection, town filtering, and house brush/exit brush mode. Declares `wxChoice` for towns (`town_choice`), `SortableListBox` for houses (`house_list`), buttons for Add/Edit/Remove house, and toggle buttons for House/Exit brush mode. Also declares `EditHouseDialog` for modifying house properties (name, rent, town, guildhall status, ID)."
+  - filepath: "wxwidgets/palette_house.cpp"
+    description: |-
+      Implements `HousePalettePanel` and `EditHouseDialog`.
+      - `HousePalettePanel`:
+        - `SetMap()`: Initializes/updates the panel with data from the current map.
+        - `OnUpdate()`: Populates `town_choice` from `map->towns`.
+        - `SelectTown()`: Populates `house_list` based on the selected town.
+        - `OnClickAddHouse`: Adds a new `House` object to `map->houses`.
+        - `OnClickEditHouse`: Shows an `EditHouseDialog` for the selected house.
+        - `OnClickRemoveHouse`: Removes selected house(s) from `map->houses`.
+        - `OnClickHouseBrushButton`/`OnClickSelectExitButton`: Toggle between `HouseBrush` and `HouseExitBrush`.
+        - `OnListBoxContextMenu`/`OnMoveHouseToTown`: Handles moving a house to a different town.
+      - `EditHouseDialog`: A `wxDialog` with `wxTextCtrl` for name/rent, `wxChoice` for town, `wxSpinCtrl` for ID, and `wxCheckBox` for guildhall. Validates input (e.g., unique house ID if changed, non-empty name) and updates the `House` object. Warns about consequences of changing existing house IDs.
+  - filepath: "wxwidgets/palette_waypoints.h"
+    description: "Declares `WaypointPalettePanel` (derived from `PalettePanel`) for the 'Waypoints' palette tab. Uses a `wxListCtrl` (`waypoint_list`) in report view (single column) for displaying and allowing in-place editing of waypoint names."
+  - filepath: "wxwidgets/palette_waypoints.cpp"
+    description: "Implements `WaypointPalettePanel`. Populates `waypoint_list` from `map->waypoints`. Handles adding new waypoints (`OnClickAddWaypoint`), removing selected waypoints (`OnClickRemoveWaypoint`), and renaming waypoints directly in the `wxListCtrl` (`OnEditWaypointLabel`). Selecting a waypoint in the list sets it for the `WaypointBrush` (via `g_gui.waypoint_brush->setWaypoint()`) and navigates the map view to the waypoint's location."
 documentation_references:
-- 'QToolBar: https://doc.qt.io/qt-6/qtoolbar.html'
-- 'QAction: https://doc.qt.io/qt-6/qaction.html'
-- 'QDockWidget: https://doc.qt.io/qt-6/qdockwidget.html'
-- 'QTabWidget: https://doc.qt.io/qt-6/qtabwidget.html'
-- 'QListView / QListWidget: https://doc.qt.io/qt-6/qlistview.html'
-- 'QAbstractItemModel / QStyledItemDelegate: for custom list/grid views.'
-- QSpinBox, QLineEdit, QPushButton, QComboBox for various controls.
-current_functionality_summary: 'The wxWidgets version has a `MainToolBar` class that
-  creates and manages four dockable `wxAuiToolBar` instances:
+  - 'QToolBar: https://doc.qt.io/qt-6/qtoolbar.html'
+  - 'QAction: https://doc.qt.io/qt-6/qaction.html'
+  - 'QDockWidget: https://doc.qt.io/qt-6/qdockwidget.html'
+  - 'QTabWidget: https://doc.qt.io/qt-6/qtabwidget.html'
+  - 'QListView / QListWidget: https://doc.qt.io/qt-6/qlistview.html & https://doc.qt.io/qt-6/qlistwidget.html'
+  - 'QComboBox: https://doc.qt.io/qt-6/qcombobox.html'
+  - 'QSpinBox, QLineEdit, QPushButton, QRadioButton: Standard input widgets.'
+  - 'QAbstractItemModel / QStyledItemDelegate: For custom views in QListView/QTreeView if needed for advanced brush display.'
+  - 'QGridLayout / QVBoxLayout / QHBoxLayout: For arranging widgets within palettes.'
+  - 'QStackedWidget: https://doc.qt.io/qt-6/qstackedwidget.html (For managing different brush views within a BrushPanel)'
+current_functionality_summary: |
+  The wxWidgets application features a set of dockable toolbars and a comprehensive, multi-category palette system.
+  **Toolbars (`MainToolBar`):** Four `wxAuiToolBar` instances provide quick access:
+  1.  *Standard Toolbar:* File operations (New, Open, Save, Save As), Undo/Redo, Clipboard (Cut, Copy, Paste). Icons from `wxArtProvider`.
+  2.  *Brushes Toolbar:* Toggle buttons for specialized brushes like Optional Border, Eraser, various Zone types (PZ, NoPVP, NoLogout, PvPZone, generic Zone), Door types (Normal, Locked, Magic, Quest, Alt, Archway), and Window types (Hatch, Normal). Icons from `wxArtProvider` or custom PNGs.
+  3.  *Position Toolbar:* `NumberTextCtrl`s for X, Y, Z coordinate input and a "Go" button.
+  4.  *Sizes Toolbar:* Toggle buttons for brush shape (Rectangular, Circular) and a set of predefined brush sizes (1x1 up to 7x7 or equivalent). Icons from `wxArtProvider`.
+  Toolbar button states (enabled/disabled, toggled) are dynamically updated based on application context (e.g., map loaded, current brush) via `UpdateButtons()`, `UpdateBrushButtons()`, and `UpdateBrushSize()`. Layout and visibility are managed by `wxAuiManager` and persisted using `g_settings`.
 
-  1.  Standard Toolbar: File operations, Undo/Redo, Cut/Copy/Paste.
-
-  2.  Brushes Toolbar: Toggle buttons for specialized brushes like Eraser, Zone brushes,
-  Door types, Window types.
-
-  3.  Position Toolbar: X, Y, Z coordinate inputs and a "Go" button.
-
-  4.  Sizes Toolbar: Toggles for brush shape (circular/square) and predefined brush
-  sizes.
-
-  Toolbars use `wxArtProvider` or PNGs for icons. Their state (enabled/disabled, toggled)
-  is updated based on application context.
-
-
-  The `PaletteWindow` is a `wxPanel` hosting a `wxChoicebook` to switch between different
-  palette types (Terrain, Doodad, Item, Collection, Creature, House, Waypoint, RAW).
-
-  - `BrushPalettePanel` is a generic base for several palette types, itself containing
-  a `wxChoicebook` for different tilesets/categories. Each page of this inner choicebook
-  is a `BrushPanel`.
-
-  - `BrushPanel` displays brushes using various view modes (list, icon grid, direct
-  draw, seamless grid).
-
-  - Specialized palettes (`CreaturePalettePanel`, `HousePalettePanel`, `WaypointPalettePanel`)
-  have custom UIs for their specific functionalities, including search, settings inputs,
-  and dedicated brush types. Palettes are populated based on loaded XML asset data
-  (`tilesets.xml`, `items.xml`, etc.) or map-specific data (houses, waypoints).'
+  **Palette System (`PaletteWindow`):** A central `wxPanel` hosts a `wxChoicebook` for switching between main palette categories: Terrain, Doodad, Item, Collection, Creature, House, Waypoint, and RAW. It also includes global controls for setting an Action ID.
+  -   **Generic Brush Palettes** (`BrushPalettePanel` serves Terrain, Doodad, Item, RAW, Collection):
+      -   These contain an inner `wxChoicebook` for selecting "tilesets" (sub-categories of brushes/items, e.g., 'Forest Grounds', 'Cave Walls').
+      -   Each selected tileset's content is displayed in a `BrushPanel`.
+      -   `BrushPanel` itself is a container that dynamically instantiates one of several `BrushBoxInterface` implementations for the actual display, based on user settings or palette type:
+          -   `BrushListBox`: Simple `wxVListBox` showing brush names and icons.
+          -   `BrushIconBox`: `wxScrolledWindow` with a grid of `BrushButton`s (toggle buttons with icons).
+          -   `BrushGridBox`: `wxScrolledWindow` with a `wxFlexGridSizer` of `BrushButton`s.
+          -   `DirectDrawBrushPanel`: Custom-drawn `wxScrolledWindow` optimized for RAW items, with progressive loading.
+          -   `SeamlessGridPanel`: Advanced custom-drawn `wxScrolledWindow` for dense grids, featuring zooming (1x-4x), item ID display (optional), progressive loading for large lists, sprite caching, and chunking navigation for very large datasets (10k+ items).
+      -   `BrushPalettePanel` can also embed specific tool panels (e.g., `BrushToolPanel`, `BrushSizePanel`, `BrushThicknessPanel`, `ZoneBrushPanel`) alongside the brush display.
+      -   Functionality to "Add new Tileset", "Add new Item" (to a tileset), "Quick Add Item", and "Create Border" is provided, invoking dialogs like `AddTilesetWindow`, `AddItemWindow` (from UI-05), and `BorderEditorDialog` (from UI-05).
+  -   **Specialized Palettes:**
+      -   `CreaturePalettePanel`: Lists creature types, allows search by name or looktype. Provides view toggles (list vs. sprite grid). The sprite grid can be a basic `CreatureSpritePanel` or the advanced `CreatureSeamlessGridPanel` with zooming and sprite sizing options. Manages spawn brush settings (time, radius). Includes functionality to load creature definitions from external NPC/Monster XML folders and to purge all loaded creatures.
+      -   `HousePalettePanel`: Allows selection of a town via `wxChoice`. Lists houses for the selected town in a `SortableListBox`. Supports adding, editing (via `EditHouseDialog`), and removing houses. Toggles between House brush and House Exit brush modes. Context menu allows moving houses between towns.
+      -   `WaypointPalettePanel`: Uses a `wxListCtrl` (report view) to display waypoints. Supports adding, removing, and in-place renaming of waypoints. Selecting a waypoint sets the `WaypointBrush` and navigates the map.
+  Palettes populate their content from `g_materials` (loaded from XML files), `g_creatures`, and map-specific data (houses, waypoints). User selections within palettes update the global brush state via `g_gui.SelectBrush()`.
 definition_of_done:
 - The four main application toolbars (Standard, Brushes, Position, Sizes) are recreated
   as `QToolBar` objects within the `QMainWindow`.
