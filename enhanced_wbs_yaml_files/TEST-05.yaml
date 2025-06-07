@@ -1,0 +1,106 @@
+wbs_item_id: TEST-05
+name: Unit Test Action & Selection Logic
+description: Develop unit tests for map action and selection functionalities. This includes testing actions like cut, copy, paste, delete, fill, and selection mechanisms (rectangle, magic wand), ensuring they correctly modify map data or selection state.
+dependencies:
+- CORE-05
+- LOGIC-02
+- LOGIC-03
+- TEST-01
+- CORE-04
+input_files: []
+analyzed_input_files: []
+documentation_references:
+- 'Qt Test Framework: https://doc.qt.io/qt-6/qttest-index.html'
+- 'State-Based Testing: Principles for verifying state changes after actions.'
+current_functionality_summary: This task is for creating new unit tests for the Qt6 implementation of map editing actions (cut, copy, paste, delete, fill) and selection logic. These tests will ensure that these interactive editor functionalities correctly manipulate map data, manage the selection state, handle the copy buffer, and integrate with the undo/redo system.
+definition_of_done:
+- Unit tests using the Qt Test framework are created for core map actions and selection types.
+- 'Selection logic tests verify:'
+- '  - Correct tile/object identification for rectangular selections.'
+- '  - Correct tile/object identification for magic wand selections (if implemented), including behavior with different tile types/items.'
+- '  - Proper state changes after selection modifications (add to selection, subtract from selection, clear selection).'
+- 'Copy/Cut action tests verify:'
+- '  - The internal `CopyBuffer` is accurately populated with all selected map elements (ground, items with full attributes, creatures, waypoints, spawn data, house data) and their relative positions.'
+- '  - The `Cut` action correctly clears the selected area on the map after copying to the buffer.'
+- 'Paste action tests verify:'
+- '  - Accurate placement of `CopyBuffer` contents at a specified map location.'
+- '  - Correct merging or replacement behavior when pasting over existing map elements (e.g., item stacking, ground tile replacement).'
+- '  - Handling of pasting partially or fully out-of-bounds.'
+- Delete action tests confirm that all selected elements (items, creatures, waypoints, spawns, house assignments from tiles) are properly removed from the map, and tile properties are appropriately updated.
+- Fill action tests (using mock brushes) verify that the selected area is correctly modified according to the brush being used (e.g., ground type changes, item placement), including border updates for ground fills.
+- 'For actions that support undo/redo (most modification actions):'
+- '  - Tests confirm that an appropriate undo state is pushed onto an undo stack after the action is performed.'
+- '  - Tests verify that performing ''undo'' reverts the map to its state before the action.'
+- '  - Tests verify that performing ''redo'' after an ''undo'' re-applies the action correctly.'
+- Tests utilize programmatically created `Map` objects with specific pre-action states to ensure predictable and verifiable outcomes.
+- All created unit tests pass successfully.
+- Tests are integrated into the CMake build system for automated execution.
+boilerplate_coder_ai_prompt: |-
+  Your task is to create unit tests for the map action and selection logic in the Qt6 Remere's Map Editor, using the Qt Test framework. These tests will target functionalities such as selections (rectangular, magic wand), and actions (Cut, Copy, Paste, Delete, Fill) and their interaction with the map data, copy buffer, and undo/redo system.
+
+  **General Test Setup for Each Test Function:**
+  1.  Create a `Map` object.
+  2.  Populate the map with a specific, known configuration of tiles, items, creatures, waypoints, spawns, and houses relevant to the test case.
+  3.  Instantiate `Selection` and `CopyBuffer` objects.
+  4.  Instantiate or access the `ActionManager` or specific action classes.
+  5.  If testing undo/redo, ensure an `UndoStack` is available.
+
+  **I. Selection Logic Tests:**
+     - **Test Rectangular Selection:**
+       - Create a map area, select a rectangle.
+       - Assert that `Selection::getSelectedTiles()` (or equivalent) returns the correct set of tile positions.
+       - Test selections at map edges and corners.
+     - **Test Magic Wand Selection (if applicable):**
+       - Create areas of similar and dissimilar tiles/items.
+       - Perform a magic wand selection.
+       - Assert that only the contiguous, similar elements are selected.
+     - **Test Selection Modifications:**
+       - `Selection::add(anotherSelection)`: Verify union of selections.
+       - `Selection::subtract(anotherSelection)`: Verify difference.
+       - `Selection::clear()`: Verify selection becomes empty.
+
+  **II. Action Logic Tests:**
+
+  *   **Copy Action:**
+      - Select a region containing diverse elements (ground with specific borders, multiple items with different attributes on a tile, a creature, a spawn definition, a waypoint, part of a house).
+      - Execute the Copy action.
+      - Assert:
+          - The `CopyBuffer` contains an accurate representation of all selected elements, including their attributes and relative spatial layout.
+          - The original map data remains unchanged.
+
+  *   **Cut Action:**
+      - Similar setup to Copy.
+      - Execute the Cut action.
+      - Assert:
+          - `CopyBuffer` content is correct (as per Copy).
+          - The original selected area on the map is cleared (e.g., items removed, ground tiles reverted to a default/void state, creature/spawn/waypoint info removed from tiles, house tile associations cleared). Tile borders of adjacent tiles should update if ground was cleared.
+
+  *   **Paste Action:**
+      - Populate `CopyBuffer` (e.g., via a Copy/Cut operation in test setup).
+      - **Paste to Empty Area:** Assert exact replication of buffered content at the new location.
+      - **Paste Overlapping Existing Content:**
+          - Define clear rules for merging (e.g., items stack if possible, ground is overwritten, creatures/spawns might overwrite or be blocked). Test these rules.
+      - **Paste Partially Out-of-Bounds:** Assert how this is handled (e.g., clipped paste, or action disallowed).
+      - **Paste Special Data:** Ensure waypoints, spawn definitions, and house tile associations are correctly applied to the new tiles.
+
+  *   **Delete Action:**
+      - Select a region with diverse elements.
+      - Execute Delete action.
+      - Assert that all selected elements are removed from the `Map` and `Tile` objects. For example, items are removed from tile stacks, creature/spawn/waypoint data is cleared from tiles, house tile associations are removed. Adjacent tile borders should update if ground was affected.
+
+  *   **Fill Action:**
+      - Select a region.
+      - **Fill with Ground Brush:** Use a mock ground brush. Assert all selected tiles change to the new ground type and that auto-bordering logic (interacting with `borders.xml` definitions) correctly updates borders within the selection and with adjacent, unselected tiles.
+      - **Fill with Item Brush:** Use a mock item brush. Assert the item is placed on all selected tiles according to item placement rules (e.g., stacking, on top of existing items).
+
+  **III. Undo/Redo Tests (for each relevant action):**
+  - For each action (Cut, Paste, Delete, Fill):
+    1.  Capture map state (or key parts of it).
+    2.  Perform the action.
+    3.  Verify an undo command was pushed to the `UndoStack`.
+    4.  Perform `UndoStack::undo()`.
+    5.  Assert the map state is restored to the pre-action state.
+    6.  Perform `UndoStack::redo()`.
+    7.  Assert the map state is restored to the post-action state.
+
+  Use Qt Test data-driven features (`QTest::addColumn`, `QTest::newRow`) to test actions with various map configurations and selection shapes. Ensure all tests are added to the CMake build.

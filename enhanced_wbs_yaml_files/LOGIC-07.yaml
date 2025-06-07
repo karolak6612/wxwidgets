@@ -1,39 +1,77 @@
-id: LOGIC-07
-section: Editor Behavior
-title: Port Map & Selection Context Menus
-original_input_files: map_display.h/cpp (`MapPopupMenu`), main_menubar.cpp
-analyzed_input_files:
-- wxwidgets/map_display.h
-- wxwidgets/map_display.cpp
-- wxwidgets/main_menubar.h
-- wxwidgets/main_menubar.cpp
+wbs_item_id: LOGIC-07
+name: Port Spawn & Group Management
+description: Migrate the logic for creating, managing, and storing creature/item spawns and group definitions. This includes spawn areas, spawn times, creature/item lists within spawns, and how groups of spawns are defined and managed.
 dependencies:
-- LOGIC-01
-- LOGIC-02
-current_functionality_summary: In the original application, `MapCanvas::OnMouseRightRelease` (from `map_display.cpp`) triggers a `MapPopupMenu`. The `MapPopupMenu::Update()` method dynamically builds this menu with context-sensitive actions based on what's under the cursor or currently selected (e.g., item type, house tile status). These menu actions are mapped to `MenuBar::ActionID` enums (defined in `main_menubar.h`), and their corresponding event handlers are typically found in `main_menubar.cpp` or `MainFrame`, performing operations via `g_gui` and the `Editor`.
-qt6_migration_steps: |-
-  1. In the `MapView` class (developed in `UI-EVENT-01`), override the `contextMenuEvent(QContextMenuEvent *event)` method. This method will be responsible for constructing and displaying the context menu.
-  2. Inside `MapView::contextMenuEvent`:
-     a. Create a `QMenu` instance (e.g., `QMenu contextMenu(this);`).
-     b. Convert the event position (`event->pos()`) to map coordinates (`mapClickedPosition`).
-     c. Through the `EditorController`, get the `Tile* clickedTile` at `mapClickedPosition` and the current `Selection* currentSelection` from `mapcore`.
-     d. Replicate the logic from the original `MapPopupMenu::Update()` method to dynamically populate the `contextMenu`. This involves:
-        i.  Checking the properties of `clickedTile` (its ground item, top items, creature, spawn, house status, etc.) and the state of `currentSelection`.
-        ii. Conditionally creating `QAction` objects for relevant operations (e.g., "Rotate Item", "Edit Properties", "Select Ground Brush", "Copy", "Paste", "Delete", "Switch Door", "Go To Destination").
-        iii.Setting the text for each `QAction` (e.g., `rotateAction = contextMenu.addAction("Rotate Item");`).
-        iv. Setting the enabled/disabled state of each `QAction` based on the current context (e.g., `rotateAction->setEnabled(canRotateSelectedItem);`).
-        v.  Connecting the `triggered()` signal of each `QAction` to an appropriate slot. These slots will typically reside in `MainWindow` or `EditorController` and will execute the logic corresponding to the original `MenuBar::ActionID` handlers.
-        vi. Adding `QAction`s and `addSeparator()` calls to the `contextMenu` to build its structure.
-     e. Display the context menu at the global mouse position: `contextMenu.exec(event->globalPos());`.
-  3. Ensure that the action-handling slots (in `MainWindow` or `EditorController`) perform the intended operations correctly, using `mapcore`'s `ActionQueue` for any operations that modify the map state to ensure they are undoable.
-definition_of_done: |-
-  Right-clicking on the `MapView` displays a context-sensitive `QMenu` with actions relevant to the clicked map element or current selection, and these actions function correctly.
-  Key requirements:
-  - The `MapView::contextMenuEvent` method is correctly implemented.
-  - The `QMenu` is dynamically populated with appropriate `QAction`s based on the context of the right-click (e.g., clicked tile content, selected items), mirroring the logic of the original `MapPopupMenu::Update`.
-  - Menu actions are correctly enabled or disabled based on the context (e.g., "Rotate" is enabled only if a rotatable item is relevant).
-  - Selecting an action from the context menu triggers the corresponding application logic (e.g., opening a properties dialog, rotating an item, selecting a brush, performing cut/copy/paste).
-  - All map-modifying operations initiated from the context menu are correctly added to the `ActionQueue` and are undoable/redoable.
-boilerplate_coder_ai_prompt: "Implement a context menu for the `MapView` widget that appears on right-click.\n1.  **In `MapView.h/.cpp` (from `UI-EVENT-01`):**\n    -   Override `void contextMenuEvent(QContextMenuEvent *event) override;`.\n2.  **Inside `MapView::contextMenuEvent(QContextMenuEvent *event)`:**\n    a.  `QMenu contextMenu(this);`\n    b.  Convert `event->pos()` to `mapClickedPosition` (map coordinates).\n    c.  Obtain `Tile* clickedTile = editorController->getTileAt(mapClickedPosition);` (assuming `EditorController` provides this).\n    d.  Obtain `Selection* selection = editorController->getCurrentSelection();`.\n    e.  **Dynamically add `QAction`s to `contextMenu` based on `clickedTile` and `selection`. This logic should mirror the conditions found in the original `MapPopupMenu::Update()` from `wxwidgets/map_display.cpp`.**\n        -   Example for \"Rotate Item\":\n            ```cpp\n// Item* relevantItem = determine_relevant_item_for_rotation(clickedTile, selection);\n\
-  // bool canRotate = relevantItem && relevantItem->isRotatable(); // Assuming Item has isRotatable()\n// QAction* rotateAction = contextMenu.addAction(\"Rotate Item\");\n// rotateAction->setEnabled(canRotate);\n// if (canRotate) {{\n//   connect(rotateAction, &QAction::triggered, this, [=]() {{ \n//     editorController->rotateItem(relevantItem); // This method in EditorController would create an Action\n//   }});\n// }}\n            ```\n        -   Add actions for \"Properties\", \"Cut\", \"Copy\", \"Paste\", \"Delete\".\n        -   Add actions to \"Select Brush\" (e.g., \"Select Ground Brush\") if `clickedTile`'s ground has an associated brush.\n        -   Add any other actions present in the original `MapPopupMenu` logic, such as \"Switch Door\", \"Go To Destination\" for teleports, etc.\n    f.  `contextMenu.exec(event->globalPos());`\n3.  Ensure that the slots or lambda functions connected to these `QAction`s correctly call methods in `EditorController` or `MainWindow`. These methods\
-  \ should encapsulate the actual logic for the operation and use `mapcore`'s `ActionQueue` if the operation modifies the map."
+- CORE-03
+- RENDER-02
+- UI-08
+input_files:
+- wxwidgets/spawn.cpp
+- wxwidgets/spawn.h
+analyzed_input_files:
+- file_path: wxwidgets/spawn.cpp
+  description: Implements the `Spawns` class, which manages a set of tile positions that are designated as spawn points.
+  md5_hash: 4cbb8c6149ad4b8a8f07e61f26bef66a
+  content_lite: "//////////////////////////////////////////////////////////////////////\\n// This file is part of Remere's Map Editor\\n//////////////////////////////////////////////////////////////////////\\n// Remere's Map Editor is free software: you can redistribute it and/or modify\\n// it under the terms of the GNU General Public License as published by\\n// the Free Software Foundation, either version 3 of the License, or\\n// (at your option) any later version.\\n//\\n// Remere's Map Editor is distributed in the hope that it will be useful,\\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\\n// GNU General Public License for more details.\\n//\\n// You should have received a copy of the GNU General Public License\\n// along with this program. If not, see <http://www.gnu.org/licenses/>.\\n//////////////////////////////////////////////////////////////////////\\n\\n#include \"main.h\"\\n\\n#include \"\
+    tile.h\"\\n#include \"spawn.h\"\\n\\nSpawns::Spawns() {\\n\t////\\n}\\n\\nSpawns::~Spawns() {\\n\t////\\n}\\n\\nvoid Spawns::addSpawn(Tile* tile) {\\n\tASSERT(tile->spawn);\\n\\n\tauto it = spawns.insert(tile->getPosition());\\n\tASSERT(it.second);\\n}\\n\\nvoid Spawns::removeSpawn(Tile* tile) {\\n\tASSERT(tile->spawn);\\n\tspawns.erase(tile->getPosition());\\n#if 0\\n\tSpawnPositionList::iterator iter = begin();\\n\twhile(iter != end()) {\\n\t\tif(*iter == tile->getPosition()) {\\n\t\t\tspawns.erase(iter);\\n\t\t\treturn;\\n\t\t}\\n\t\t++iter;\\n\t}\\n\tASSERT(false);\\n#endif\\n}\\n\\nstd::ostream& operator<<(std::ostream& os, const Spawn& spawn) {\\n\tos << &spawn << \":: -> \" << spawn.getSize() << std::endl;\\n\treturn os;\\n}"
+- file_path: wxwidgets/spawn.h
+  description: Defines the `Spawn` class (primarily for spawn radius/size on a tile) and the `Spawns` class (a manager for `SpawnPositionList`). The actual list of creatures and spawn time are typically stored directly on the Tile object in RME.
+  md5_hash: 44bbd378cec5d376ed7e990d3e347c19
+  content_lite: "//////////////////////////////////////////////////////////////////////\\n// This file is part of Remere's Map Editor\\n//////////////////////////////////////////////////////////////////////\\n// Remere's Map Editor is free software: you can redistribute it and/or modify\\n// it under the terms of the GNU General Public License as published by\\n// the Free Software Foundation, either version 3 of the License, or\\n// (at your option) any later version.\\n//\\n// Remere's Map Editor is distributed in the hope that it will be useful,\\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\\n// GNU General Public License for more details.\\n//\\n// You should have received a copy of the GNU General Public License\\n// along with this program. If not, see <http://www.gnu.org/licenses/>.\\n//////////////////////////////////////////////////////////////////////\\n\\n#ifndef RME_SPAWN_H_\\n#define RME_SPAWN_H_\\\
+    n\\nclass Tile;\\n\\nclass Spawn {\\npublic:\\n\tSpawn(int size = 3) :\\n\t\tsize(0), selected(false) {\\n\t\tsetSize(size);\\n\t}\\n\t~Spawn() { }\\n\\n\tSpawn* deepCopy() {\\n\t\tSpawn* copy = newd Spawn(size);\\n\t\tcopy->selected = selected;\\n\t\treturn copy;\\n\t}\\n\\n\tbool isSelected() const {\\n\t\treturn selected;\\n\t}\\n\tvoid select() {\\n\t\tselected = true;\\n\t}\\n\tvoid deselect() {\\n\t\tselected = false;\\n\t}\\n\\n\t// Does not compare selection!\\n\tbool operator==(const Spawn& other) {\\n\t\treturn size == other.size;\\n\t}\\n\tbool operator!=(const Spawn& other) {\\n\t\treturn size != other.size;\\n\t}\\n\\n\tvoid setSize(int newsize) {\\n\t\tASSERT(size < 100);\\n\t\tsize = newsize;\\n\t}\\n\tint getSize() const {\\n\t\treturn size;\\n\t}\\n\\nprotected:\\n\tint size;\\n\tbool selected;\\n};\\n\\ntypedef std::set<Position> SpawnPositionList;\\ntypedef std::list<Spawn*> SpawnList;\\n\\nclass Spawns {\\npublic:\\n\tSpawns();\\n\t~Spawns();\\n\\n\tvoid addSpawn(Tile*\
+    \ tile);\\n\tvoid removeSpawn(Tile* tile);\\n\\n\tSpawnPositionList::iterator begin() {\\n\t\treturn spawns.begin();\\n\t}\\n\tSpawnPositionList::const_iterator begin() const {\\n\t\treturn spawns.begin();\\n\t}\\n\tSpawnPositionList::iterator end() {\\n\t\treturn spawns.end();\\n\t}\\n\tSpawnPositionList::const_iterator end() const {\\n\t\treturn spawns.end();\\n\t}\\n\tvoid erase(SpawnPositionList::iterator iter) {\\n\t\tspawns.erase(iter);\\n\t}\\n\tSpawnPositionList::iterator find(Position& pos) {\\n\t\treturn spawns.find(pos);\\n\t}\\n\\nprivate:\\n\tSpawnPositionList spawns;\\n};\\n\\n#endif"
+documentation_references:
+- 'Qt Data Structures: https://doc.qt.io/qt-6/qtcore-containers.html (e.g., QSet for positions)'
+current_functionality_summary: |-
+  The provided `spawn.h` defines a `Spawn` class that mainly stores a `size` (radius) and selection state. It does not store the list of creatures or spawn timings.
+  The `Spawns` class manages a `std::set<Position>` (`SpawnPositionList`), effectively keeping track of which tile positions are considered spawn points.
+  - `Spawns::addSpawn(Tile* tile)` adds a tile's position to this set, assuming `tile->spawn` (the Spawn object with radius) is already set on the tile.
+  - `Spawns::removeSpawn(Tile* tile)` removes a tile's position from the set.
+  The actual list of creatures to spawn and the spawn interval are typically attributes of the `Tile` object itself in the OTBM map format, rather than being managed by these specific `Spawn` or `Spawns` classes.
+  "Group Management" in this context likely refers to managing the group of creatures within a single spawn definition on a tile.
+definition_of_done:
+- A Qt6 `SpawnProperties` class/struct is defined (e.g., in `spawn.h` or `tile.h`) to store the spawn radius (integer) associated with a tile. (The original `Spawn` class mostly served this purpose).
+- 'The main `Tile` class (or its Qt6 equivalent) is augmented to store:'
+- '  - An optional `SpawnProperties` object (or `std::optional<SpawnProperties>`).'
+- '  - A `QList<QString>` to hold the names of creatures in this tile''s spawn list.'
+- '  - An `int` for the spawn time/interval in seconds.'
+- A Qt6 `SpawnManager` class is implemented to maintain a registry of all tile positions that function as spawn points (e.g., using `QSet<Position>`).
+- The `SpawnManager` provides methods `void registerSpawnTile(const Position& pos);` and `void unregisterSpawnTile(const Position& pos);` to update its registry.
+- The logic for creating, reading, updating, and deleting the spawn radius, creature list, and spawn time is primarily handled by direct modifications to the `Tile` object's properties. The `SpawnManager` serves as a central point to quickly identify all spawn locations.
+- The system is prepared for integration with OTBM loading/saving (CORE-03), where the tile attributes (radius, creature list, spawn time) will be read/written.
+boilerplate_coder_ai_prompt: |-
+  Your task is to port the conceptual system for managing spawn points to Qt6, based on the provided `wxwidgets/spawn.cpp` and `wxwidgets/spawn.h`. The original system had a `Spawn` class for radius and a `Spawns` class to track positions of spawn tiles. In OTBM, detailed spawn data (creatures, interval) is typically stored directly on the tile.
+
+  **1. `SpawnProperties` Data Structure (e.g., in `spawn.h` or `tile.h`):**
+     - Define a simple C++ class or struct, possibly named `SpawnProperties`.
+     - It should store: `int radius;` (the spawn area size).
+     - (The `selected` member from the original `Spawn` class is more of a UI concern and might be handled differently, e.g., by the selection system).
+
+  **2. Augmenting the `Tile` Class (Conceptual - actual changes in Tile's own task):**
+     - The main `Tile` class (or its Qt6 equivalent) will be the primary owner of spawn data. Ensure it can store:
+       - `std::optional<SpawnProperties> spawn_props;` (or a pointer `SpawnProperties* spawn_props = nullptr;`). This will hold the radius if the tile is a spawn point.
+       - `QList<QString> creature_list;` // List of creature names for this spawn.
+       - `int spawn_time_seconds;` // Respawn interval.
+     - The `Tile` class should have methods like `bool isSpawn() const { return spawn_props.has_value(); }`, `void setSpawn(int radius, const QList<QString>& creatures, int time_secs)`, `void clearSpawn()`.
+
+  **3. `SpawnManager` Class (Registry of Spawn Locations):**
+     - Create a `SpawnManager` class.
+     - Its main role is to keep a fast lookup of all tiles that are spawn points.
+     - Internally, use `QSet<Position> m_spawn_locations;` (assuming `Position` is defined and hashable).
+     - **`void registerSpawnLocation(const Position& pos);`**: Adds `pos` to `m_spawn_locations`. This would be called when a tile at `pos` is configured as a spawn (e.g., its `spawn_props` are set).
+     - **`void unregisterSpawnLocation(const Position& pos);`**: Removes `pos` from `m_spawn_locations`. This is called when a tile at `pos` is no longer a spawn (e.g., `tile->clearSpawn()` is called).
+     - **`bool isSpawnLocation(const Position& pos) const;`**: Checks if `pos` is in `m_spawn_locations`.
+     - Provide methods to iterate over all registered spawn locations (`const QSet<Position>& getSpawnLocations() const;`).
+
+  **4. Core Logic for Modifying Spawns:**
+     - Creating a spawn on a tile: Set the `spawn_props` (radius), `creature_list`, and `spawn_time_seconds` on the `Tile` object, then call `spawnManager.registerSpawnLocation(tile->getPosition())`.
+     - Modifying a spawn: Directly modify the properties on the `Tile` object.
+     - Removing a spawn from a tile: Clear the spawn properties on the `Tile` object (e.g., `tile->clearSpawn()`) and then call `spawnManager.unregisterSpawnLocation(tile->getPosition())`.
+
+  **5. Group Management:**
+     - "Group Management" in this context refers to managing the `QList<QString> creature_list` on each `Tile` that is a spawn point. There's no indication of a system for grouping multiple distinct spawn areas together under a common name in `spawn.cpp`/`.h`.
+
+  **6. File I/O:**
+     - The `SpawnManager` itself doesn't handle file I/O. The OTBM loader/saver (task `CORE-03`) will read/write the spawn radius, creature list, and spawn time directly from/to each tile's attributes. When a map is loaded, and tiles with spawn data are created, they should register their positions with the `SpawnManager`.
+
+  Populate the `analyzed_input_files` section by reading the first 200 lines of `wxwidgets/spawn.cpp` and `wxwidgets/spawn.h` and calculating their MD5 hashes.
