@@ -1,0 +1,11 @@
+id: UI-PALETTE-01
+section: Core Migration Tasks
+title: Create Base Palette & Brush Panels
+input_files:
+- palette_window.h/cpp
+- palette_common.h/cpp
+dependencies:
+- UI-01
+- CORE-04
+definition_of_done: A dockable palette is created with a `QTabWidget`. A base `BrushPanel` class using `QListView` with a custom delegate (`QStyledItemDelegate`) is implemented to display brush icons and names.
+boilerplate_coder_ai_prompt: Create a `PaletteDock` (`QDockWidget`) in `MainWindow`. Add a `QTabWidget`. Create a base `BrushPaletteWidget` containing a `QListView`. Implement a `QStyledItemDelegate` to custom-draw brush entries.

@@ -1,0 +1,10 @@
+id: FINAL-04
+section: Finalization
+title: Implement Theme and Style Management
+input_files:
+- dark_mode_manager.h/cpp
+- application.h/cpp (FixVersionDiscrapencies)
+dependencies:
+- UI-01
+definition_of_done: The application supports light and dark themes using Qt Style Sheets (`.qss`). A "Dark Mode" checkbox in the preferences dialog toggles the active theme. Custom colors must be supported.
+boilerplate_coder_ai_prompt: 'Implement a `ThemeManager` class. Create two `.qss` files: `light.qss` and `dark.qss`. In `ThemeManager`, add a method `applyTheme(ThemeType)` that loads a QSS file and applies it to the `QApplication` instance. Connect the preferences dialog to this manager.'

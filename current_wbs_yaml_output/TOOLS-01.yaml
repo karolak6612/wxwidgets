@@ -1,0 +1,11 @@
+id: TOOLS-01
+section: Core Migration Tasks
+title: Port Borderize & Randomize Tools
+input_files:
+- editor.cpp (borderize*
+- randomize*)
+- borderize_window.h/cpp
+dependencies:
+- LOGIC-02
+definition_of_done: Menu actions for "Borderize" and "Randomize" (on both selection and full map) are functional. The `BorderizeWindow` is recreated as a `QDialog` and successfully orchestrates the operation in chunks.
+boilerplate_coder_ai_prompt: Create a `BorderizeDialog` class inheriting from `QDialog`, replicating the UI of `BorderizeWindow` with Qt widgets. Connect the `Map > Borderize` `QAction` to a slot that shows this dialog. Implement the tile iteration and brush application logic from `editor.cpp`.

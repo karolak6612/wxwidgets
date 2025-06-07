@@ -1,0 +1,9 @@
+id: LOGIC-09
+section: Brush Functionality
+title: Finalize All Tool Implementations
+input_files:
+- editor.cpp
+dependencies:
+- LOGIC-08
+definition_of_done: All remaining tools not explicitly covered, such as "Fill" and the full suite of "Map Cleanup" operations, are fully functional and accessible through the main menu.
+boilerplate_coder_ai_prompt: Port the logic for each remaining tool from `editor.cpp` and `main_menubar.cpp`. Implement each tool's functionality as a method in `EditorController`. Connect the corresponding `QAction` from the main menu to a slot that invokes the controller method.

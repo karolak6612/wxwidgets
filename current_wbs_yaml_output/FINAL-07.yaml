@@ -1,0 +1,11 @@
+id: FINAL-07
+section: Final Polish
+title: Re-implement Drag-and-Drop and IPC
+input_files:
+- application.cpp (MacOpenFiles)
+- process_com.h/cpp
+dependencies:
+- UI-01
+- CORE-03
+definition_of_done: The application can open `.otbm` files by dragging them onto the main window. If another instance is running, the file path is passed to the existing instance for it to open (inter-process communication).
+boilerplate_coder_ai_prompt: Override `dragEnterEvent` and `dropEvent` on `MainWindow`. For IPC, use `QLocalServer` and `QLocalSocket` to create a single-instance lock and pass command-line arguments to the running instance.

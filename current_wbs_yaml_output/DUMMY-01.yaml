@@ -1,0 +1,8 @@
+id: DUMMY-01
+section: Dummy Section
+title: Dummy Title
+input_files:
+- dummy_input.txt
+dependencies: null
+definition_of_done: This is a dummy task.
+boilerplate_coder_ai_prompt: Write dummy code.

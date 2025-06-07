@@ -1,49 +1,98 @@
-id: CORE-05
-section: Core Migration Tasks
-title: Port Action, Selection, Copy/Paste
-original_input_files: action.h/cpp, selection.h/cpp, copybuffer.h/cpp, threads.h
-analyzed_input_files:
-- wxwidgets/action.h
-- wxwidgets/action.cpp
-- wxwidgets/selection.h
-- wxwidgets/selection.cpp
-- wxwidgets/copybuffer.h
-- wxwidgets/copybuffer.cpp
-- wxwidgets/threads.h
+wbs_item_id: CORE-05
+name: Port Selection & Clipboard
+description: Migrate selection management (map objects, items) and clipboard operations (cut, copy, paste) from `mapcore` (likely `selection.cpp`/`.h` and potentially missing `clipboard.cpp`/`.h`) to Qt6/C++. This includes handling complex selections and serializing/deserializing data for the clipboard.
 dependencies:
 - CORE-04
-current_functionality_summary: |-
-  These files implement essential editor functionalities:
-  - `action.h/cpp`: Provides the Undo/Redo system (`ActionQueue`, `BatchAction`, `Action`, `Change`) by storing deep copies of modified tiles or entity states. `DirtyList` tracks changes for optimized updates.
-  - `selection.h/cpp`: Manages user selections (`Selection`) on the map. Selection changes are themselves undoable actions. `SelectionThread` uses `wxThread` for backgrounded area selection.
-  - `copybuffer.h/cpp`: Handles copy, cut, and paste operations for map segments, using an internal `BaseMap` to store copied data and leveraging the action system.
-  - `threads.h`: Contains simple C++ wrappers around `wxThread`.
-  These systems are currently coupled with an `Editor` class and wxWidgets.
-qt6_migration_steps: |-
-  1. Integrate `Action`, `BatchAction`, `ActionQueue`, `Change`, `DirtyList`, `Selection`, and `CopyBuffer` classes into the `mapcore` library, maintaining them as separate `.h/.cpp` files.
-  2. Refactor `SelectionThread`: Replace `wxThread` with `std::thread`. This includes updating thread creation, management, and the mechanism for communicating results (e.g., selected tiles or the completed selection `Action`) back to the main thread (consider `std::promise`/`std::future` or a thread-safe queue).
-  3. Evaluate `threads.h`: Remove the `wxThread` wrappers. If a similar abstraction over `std::thread` is desired for `mapcore`, reimplement it; otherwise, remove `threads.h` and use `std::thread` directly in `SelectionThread`.
-  4. Decouple from `Editor` class and UI:
-     - Modify constructors and methods in `ActionQueue`, `BatchAction`, `Action`, `Selection`, etc., to operate on `Map&` (from `CORE-01`) and other necessary `mapcore` components (like a `Selection*` object if passed) instead of an `Editor&` reference.
-     - Remove all direct calls to UI elements or global UI managers (e.g., `g_gui` for status updates). If `mapcore` needs to signal such state changes, this should be done via callbacks or an event system for the UI layer to subscribe to.
-  5. Ensure consistent use of standard C++ containers (`std::vector`, `std::deque`, `std::set`) and types (`std::string`).
-  6. Verify that the deep copying mechanisms (`Tile::deepCopy`, `Item::deepCopy`, etc.) used by `Action` and `CopyBuffer` correctly utilize the methods from the `mapcore` data models (from `CORE-01`).
-  7. Confirm that these systems operate correctly within the `mapcore` library, are fully decoupled from wxWidgets and specific UI logic, and compile cleanly.
-definition_of_done: |-
-  The Undo/Redo (`ActionQueue`), `Selection`, and `CopyBuffer` systems are successfully ported to the `mapcore` library and are UI-independent.
-  Key requirements:
-  - All specified classes are part of `mapcore`, structured as modular `.h/.cpp` files.
-  - `SelectionThread` uses `std::thread` instead of `wxThread`, with appropriate mechanisms for thread communication.
-  - `wxThread` wrappers from `threads.h` are removed or adapted for `std::thread`.
-  - Direct dependencies on any `Editor` class (if it implies UI coupling) and UI singletons (like `g_gui`) are removed. Operations utilize `Map&` and other `mapcore` data structures.
-  - All wxWidgets types are replaced with standard C++ equivalents.
-  - The systems correctly use data models from `CORE-01` and their `deepCopy` mechanisms.
-  - The `mapcore` library, including these ported systems, compiles successfully.
-boilerplate_coder_ai_prompt: |-
-  Your task is to port the Action/Undo-Redo system (`ActionQueue`, `BatchAction`, `Action`, `Change`, `DirtyList`), Selection system (`Selection`, `SelectionThread`), and Copy/Paste system (`CopyBuffer`) into the `mapcore` static library. These classes should be maintained as separate `.h/.cpp` files within `mapcore`. This task depends on `CORE-04`.
-  1. For `SelectionThread`: Replace `wxThread` with `std::thread`. Adapt thread management (creation, joining) and how results are passed back to the caller (e.g., use `std::promise` and `std::future`).
-  2. Remove or refactor `threads.h`: If these wrappers are thin, consider using `std::thread` directly in `SelectionThread`. If a generic thread wrapper is needed for `mapcore`, ensure it's based on `std::thread`.
-  3. Decouple from UI: Remove dependencies on any `Editor` class that might be UI-coupled. These systems should operate on `Map&` (from `CORE-01`) and other relevant `mapcore` data. Remove any calls to `g_gui` or UI update functions (e.g., status bar text).
-  4. Replace any remaining wxWidgets types with standard C++ types (`std::string`, `std::vector`, etc.).
-  5. Verify that deep copying logic (e.g., `Tile::deepCopy()`) from `CORE-01` data models is correctly used.
-  6. Ensure all ported classes compile cleanly within `mapcore` and are independent of wxWidgets.
+input_files:
+- wxwidgets/selection.cpp
+- wxwidgets/selection.h
+analyzed_input_files:
+- file_path: wxwidgets/selection.cpp
+  description: Implementation of the Selection class, managing selected tiles and objects, and integrating with an ActionQueue for undo/redo. Includes a SelectionThread for background selection operations.
+  md5_hash: b9df54cf1938369c5d34babcea8530c4
+  content_lite: "//////////////////////////////////////////////////////////////////////\\n// This file is part of Remere's Map Editor\\n//////////////////////////////////////////////////////////////////////\\n// Remere's Map Editor is free software: you can redistribute it and/or modify\\n// it under the terms of the GNU General Public License as published by\\n// the Free Software Foundation, either version 3 of the License, or\\n// (at your option) any later version.\\n//\\n// Remere's Map Editor is distributed in the hope that it will be useful,\\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\\n// GNU General Public License for more details.\\n//\\n// You should have received a copy of the GNU General Public License\\n// along with this program. If not, see <http://www.gnu.org/licenses/>.\\n//////////////////////////////////////////////////////////////////////\\n\\n#include \"main.h\"\\n\\n#include \"\
+    selection.h\"\\n#include \"tile.h\"\\n#include \"creature.h\"\\n#include \"item.h\"\\n#include \"editor.h\"\\n#include \"gui.h\"\\n\\nSelection::Selection(Editor& editor) :\\n\tbusy(false),\\n\teditor(editor),\\n\tsession(nullptr),\\n\tsubsession(nullptr) {\\n\t////\\n}\\n\\nSelection::~Selection() {\\n\tdelete subsession;\\n\tdelete session;\\n}\\n\\nPosition Selection::minPosition() const {\\n\tPosition minPos(0x10000, 0x10000, 0x10);\\n\tfor (TileSet::const_iterator tile = tiles.begin(); tile != tiles.end(); ++tile) {\\n\t\tPosition pos((*tile)->getPosition());\\n\t\tif (minPos.x > pos.x) {\\n\t\t\tminPos.x = pos.x;\\n\t\t}\\n\t\tif (minPos.y > pos.y) {\\n\t\t\tminPos.y = pos.y;\\n\t\t}\\n\t\tif (minPos.z > pos.z) {\\n\t\t\tminPos.z = pos.z;\\n\t\t}\\n\t}\\n\treturn minPos;\\n}\\n\\nPosition Selection::maxPosition() const {\\n\tPosition maxPos(0, 0, 0);\\n\tfor (TileSet::const_iterator tile = tiles.begin(); tile != tiles.end(); ++tile) {\\n\t\tPosition pos((*tile)->getPosition());\\\
+    n\t\tif (maxPos.x < pos.x) {\\n\t\t\tmaxPos.x = pos.x;\\n\t\t}\\n\t\tif (maxPos.y < pos.y) {\\n\t\t\tmaxPos.y = pos.y;\\n\t\t}\\n\t\tif (maxPos.z < pos.z) {\\n\t\t\tmaxPos.z = pos.z;\\n\t\t}\\n\t}\\n\treturn maxPos;\\n}\\n\\nvoid Selection::add(Tile* tile, Item* item) {\\n\tASSERT(subsession);\\n\tASSERT(tile);\\n\tASSERT(item);\\n\\n\tif (item->isSelected()) {\\n\t\treturn;\\n\t}\\n\\n\t// Make a copy of the tile with the item selected\\n\titem->select();\\n\tTile* new_tile = tile->deepCopy(editor.map);\\n\titem->deselect();\\n\\n\tif (g_settings.getInteger(Config::BORDER_IS_GROUND)) {\\n\t\tif (item->isBorder()) {\\n\t\t\tnew_tile->selectGround();\\n\t\t}\\n\t}\\n\\n\tsubsession->addChange(newd Change(new_tile));\\n}\\n\\nvoid Selection::add(Tile* tile, Spawn* spawn) {\\n\tASSERT(subsession);\\n\tASSERT(tile);\\n\tASSERT(spawn);\\n\\n\tif (spawn->isSelected()) {\\n\t\treturn;\\n\t}\\n\\n\t// Make a copy of the tile with the item selected\\n\tspawn->select();\\n\tTile* new_tile = tile->deepCopy(editor.map);\\\
+    n\tspawn->deselect();\\n\\n\tsubsession->addChange(newd Change(new_tile));\\n}\\n\\nvoid Selection::add(Tile* tile, Creature* creature) {\\n\tASSERT(subsession);\\n\tASSERT(tile);\\n\tASSERT(creature);\\n\\n\tif (creature->isSelected()) {\\n\t\treturn;\\n\t}\\n\\n\t// Make a copy of the tile with the item selected\\n\tcreature->select();\\n\tTile* new_tile = tile->deepCopy(editor.map);\\n\tcreature->deselect();\\n\\n\tsubsession->addChange(newd Change(new_tile));\\n}\\n\\nvoid Selection::add(Tile* tile) {\\n\tASSERT(subsession);\\n\tASSERT(tile);\\n\\n\tTile* new_tile = tile->deepCopy(editor.map);\\n\tnew_tile->select();\\n\\n\tsubsession->addChange(newd Change(new_tile));\\n}\\n\\nvoid Selection::remove(Tile* tile, Item* item) {\\n\tASSERT(subsession);\\n\tASSERT(tile);\\n\tASSERT(item);\\n\\n\tbool tmp = item->isSelected();\\n\titem->deselect();\\n\tTile* new_tile = tile->deepCopy(editor.map);\\n\tif (tmp) {\\n\t\titem->select();\\n\t}\\n\tif (item->isBorder() && g_settings.getInteger(Config::BORDER_IS_GROUND))\
+    \ {\\n\t\tnew_tile->deselectGround();\\n\t}\\n\\n\tsubsession->addChange(newd Change(new_tile));\\n}\\n\\nvoid Selection::remove(Tile* tile, Spawn* spawn) {\\n\tASSERT(subsession);\\n\tASSERT(tile);\\n\tASSERT(spawn);\\n\\n\tbool tmp = spawn->isSelected();\\n\tspawn->deselect();\\n\tTile* new_tile = tile->deepCopy(editor.map);\\n\tif (tmp) {\\n\t\tspawn->select();\\n\t}\\n\\n\tsubsession->addChange(newd Change(new_tile));\\n}\\n\\nvoid Selection::remove(Tile* tile, Creature* creature) {\\n\tASSERT(subsession);\\n\tASSERT(tile);\\n\tASSERT(creature);\\n\\n\tbool tmp = creature->isSelected();\\n\tcreature->deselect();\\n\tTile* new_tile = tile->deepCopy(editor.map);\\n\tif (tmp) {\\n\t\tcreature->select();\\n\t}\\n\\n\tsubsession->addChange(newd Change(new_tile));\\n}\\n\\nvoid Selection::remove(Tile* tile) {\\n\tASSERT(subsession);\\n\\n\tTile* new_tile = tile->deepCopy(editor.map);\\n\tnew_tile->deselect();\\n\\n\tsubsession->addChange(newd Change(new_tile));\\n}\\n\\nvoid Selection::addInternal(Tile*\
+    \ tile) {\\n\tASSERT(tile);\\n"
+- file_path: wxwidgets/selection.h
+  description: Header file for the Selection and SelectionThread classes, defining interfaces for managing selections of map objects.
+  md5_hash: 6c8189c6d51d28ad26bb3f987ed00bca
+  content_lite: "//////////////////////////////////////////////////////////////////////\\n// This file is part of Remere's Map Editor\\n//////////////////////////////////////////////////////////////////////\\n// Remere's Map Editor is free software: you can redistribute it and/or modify\\n// it under the terms of the GNU General Public License as published by\\n// the Free Software Foundation, either version 3 of the License, or\\n// (at your option) any later version.\\n//\\n// Remere's Map Editor is distributed in the hope that it will be useful,\\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\\n// GNU General Public License for more details.\\n//\\n// You should have received a copy of the GNU General Public License\\n// along with this program. If not, see <http://www.gnu.org/licenses/>.\\n//////////////////////////////////////////////////////////////////////\\n\\n#ifndef RME_SELECTION_H\\n#define RME_SELECTION_H\\\
+    n\\n#include \"position.h\"\\n\\nclass Action;\\nclass Editor;\\nclass BatchAction;\\n\\nclass SelectionThread;\\n\\nclass Selection {\\npublic:\\n\tSelection(Editor& editor);\\n\t~Selection();\\n\\n\t// Selects the items on the tile/tiles\\n\t// Won't work outside a selection session\\n\tvoid add(Tile* tile, Item* item);\\n\tvoid add(Tile* tile, Spawn* spawn);\\n\tvoid add(Tile* tile, Creature* creature);\\n\tvoid add(Tile* tile);\\n\tvoid remove(Tile* tile, Item* item);\\n\tvoid remove(Tile* tile, Spawn* spawn);\\n\tvoid remove(Tile* tile, Creature* creature);\\n\tvoid remove(Tile* tile);\\n\\n\t// The tile will be added to the list of selected tiles, however, the items on the tile won't be selected\\n\tvoid addInternal(Tile* tile);\\n\tvoid removeInternal(Tile* tile);\\n\\n\t// Clears the selection completely\\n\tvoid clear();\\n\\n\t// Returns true when inside a session\\n\tbool isBusy() {\\n\t\treturn busy;\\n\t}\\n\\n\t//\\n\tPosition minPosition() const;\\n\tPosition maxPosition()\
+    \ const;\\n\\n\t// This manages a \"selection session\"\\n\t// Internal session doesn't store the result (eg. no undo)\\n\t// Subthread means the session doesn't create a complete\\n\t// action, just part of one to be merged with the main thread\\n\t// later.\\n\tenum SessionFlags {\\n\t\tNONE,\\n\t\tINTERNAL = 1,\\n\t\tSUBTHREAD = 2,\\n\t};\\n\\n\tvoid start(SessionFlags flags = NONE);\\n\tvoid commit();\\n\tvoid finish(SessionFlags flags = NONE);\\n\\n\t// Joins the selection instance in this thread with this instance\\n\t// This deletes the thread\\n\tvoid join(SelectionThread* thread);\\n\\n\tsize_t size() {\\n\t\treturn tiles.size();\\n\t}\\n\tsize_t size() const {\\n\t\treturn tiles.size();\\n\t}\\n\tvoid updateSelectionCount();\\n\tTileSet::iterator begin() {\\n\t\treturn tiles.begin();\\n\t}\\n\tTileSet::iterator end() {\\n\t\treturn tiles.end();\\n\t}\\n\tTileSet& getTiles() {\\n\t\treturn tiles;\\n\t}\\n\tTile* getSelectedTile() {\\n\t\tASSERT(size() == 1);\\n\t\treturn *tiles.begin();\\\
+    n\t}\\n\\nprivate:\\n\tbool busy;\\n\tEditor& editor;\\n\tBatchAction* session;\\n\tAction* subsession;\\n\\n\tTileSet tiles;\\n\\n\tfriend class SelectionThread;\\n};\\n\\nclass SelectionThread : public wxThread {\\npublic:\\n\tSelectionThread(Editor& editor, Position start, Position end);\\n\tvirtual ~SelectionThread();\\n\\n\tvoid Execute(); // Calls \"Create\" and then \"Run\"\\nprotected:\\n\tvirtual ExitCode Entry();\\n\tEditor& editor;\\n\tPosition start, end;\\n\tSelection selection;\\n\tAction* result;\\n\\n\tfriend class Selection;\\n};\\n\\n#endif"
+documentation_references:
+- 'QClipboard: https://doc.qt.io/qt-6/qclipboard.html'
+- 'QMimeData: https://doc.qt.io/qt-6/qmimedata.html'
+- 'QDataStream: https://doc.qt.io/qt-6/qdatastream.html'
+- 'QSet: https://doc.qt.io/qt-6/qset.html'
+- 'Qt Undo Framework: https://doc.qt.io/qt-6/qundostack.html'
+current_functionality_summary: The wxWidgets `Selection` class manages a set of selected `Tile` objects. It uses a session-based approach (`start`, `commit`, `finish`) to group selection changes into `Action` objects for an `ActionQueue`. Methods like `add` and `remove` create deep copies of tiles with modified selection states and add these as `Change` objects to the current action. A `SelectionThread` allows performing selection operations in a separate thread. Clipboard logic (cut/copy/paste) is not explicitly detailed in these files but would typically involve serializing/deserializing the selected tiles and their contents.
+definition_of_done:
+- A `SelectionManager` class is implemented in Qt6/C++ to manage selected map objects (Tiles, Items, Creatures, Spawns).
+- 'The `SelectionManager` supports:'
+- '  - Adding objects (individual items, creatures, spawns, or entire tiles) to the current selection.'
+- '  - Removing objects from the current selection.'
+- '  - Clearing the entire selection.'
+- All selection modifications are integrated with the `ActionQueue` (from CORE-03) to ensure undo/redo functionality.
+- 'Clipboard operations are implemented:'
+- '  - `copySelection()`: Serializes the currently selected objects into a well-defined clipboard format. Data can be placed on `QClipboard` or an internal buffer.'
+- '  - `cutSelection()`: Performs a copy operation and then creates an action to delete the selected objects from the map.'
+- '  - `pasteSelection(Position target_position)`: Deserializes objects from the clipboard data format and creates an action to add them to the map at the specified target position, maintaining relative placements.'
+- A clear data format for clipboard content is defined and documented (e.g., custom binary structure, XML, or JSON representation of tiles and their contents).
+- The system correctly handles selection of various map elements (ground, items on tile, creatures, spawns).
+- Memory management for selected objects and clipboard data is handled using modern C++ practices.
+- 'Basic unit tests are created for:'
+- '  - `SelectionManager`: add, remove, clear selection operations.'
+- '  - Clipboard: copy and paste of a simple selection (e.g., a few tiles with items).'
+- The ported code compiles successfully within a Qt6 project structure.
+- A brief report outlines the design of the selection and clipboard system and the chosen clipboard data format.
+boilerplate_coder_ai_prompt: |
+  The user wants to migrate a selection and clipboard system from an old C++/wxWidgets application to Qt6/modern C++.
+  Analyze the provided C++ header and source file snippets for `Selection` (from `wxwidgets/selection.cpp` and `wxwidgets/selection.h`). Assume clipboard logic might have been in separate, currently unavailable files (`clipboard.cpp`/`.h`) or integrated/handled by UI code.
+
+  **1. SelectionManager Class:**
+     - Design a `SelectionManager` class.
+     - It should maintain a collection of currently selected objects. This could be a `QSet<Tile*>` if selection is tile-based, or a more complex structure if individual items/creatures within unselected tiles can be selected (the provided code suggests tile-based selection primarily, where operations on items within a tile lead to a modified copy of the tile being part of the action). The original `Selection::tiles` is a `TileSet`.
+     - Implement methods like:
+       - `void add(Tile* tile, Item* item = nullptr, Creature* creature = nullptr, Spawn* spawn = nullptr)`: Adds the specified object(s) to the selection. If an item/creature/spawn is specified, the containing tile is effectively part of the selection context. This should create an `Action` (see CORE-03) that, when executed, marks the objects as selected and updates the tile state.
+       - `void remove(Tile* tile, Item* item = nullptr, Creature* creature = nullptr, Spawn* spawn = nullptr)`: Removes object(s) from selection, also via an `Action`.
+       - `void clearSelection()`: Clears the current selection, via an `Action`.
+       - `const QSet<Tile*>& getSelectedTiles() const;` (or equivalent for your chosen representation).
+       - `bool isSelected(Tile* tile, Item* item = nullptr, ...) const;`
+     - The original `Selection` class uses `start()`, `commit()`, `finish()` methods to batch selection changes into `Action` objects submitted to an `ActionQueue`. Adapt this pattern. An `Action` for selection might store copies of tiles in their pre-selected and post-selected states.
+
+  **2. Clipboard Functionality (to be integrated or a separate ClipboardHandler):**
+     - **Data Format:** Define a data format for storing copied map data. This could be:
+       - A list of `Tile` objects (deep copies).
+       - A custom structure like `ClipboardContent { Position offset; QList<TileData> tiles; }`.
+       - Serialized data (e.g., using `QDataStream` for binary, or XML/JSON).
+       This format must capture all necessary information: items, ground, creatures, spawns, tile flags, relative positions.
+     - `void copySelection()`:
+       - Get the current selection from `SelectionManager`.
+       - Determine the bounding box or reference point (e.g., minPosition from original code).
+       - Create deep copies of the selected tiles and their contents.
+       - Serialize this data into the defined clipboard format.
+       - Place the serialized data onto `QApplication::clipboard()` using a custom MIME type, or store it in an internal buffer.
+     - `void cutSelection()`:
+       - Perform `copySelection()`.
+       - Create and execute an `Action` (via `ActionQueue`) to delete the selected objects/tiles from the map.
+     - `void pasteSelection(const Position& target_paste_position)`:
+       - Retrieve data from `QApplication::clipboard()` or the internal buffer.
+       - Deserialize it back into a list of `Tile` objects or the intermediate structure.
+       - Create and execute an `Action` to add these tiles/objects to the map at `target_paste_position`, applying appropriate offsets so their relative arrangement is preserved.
+
+  **3. Integration with Actions (CORE-03):**
+     - All operations that modify selection state or map data (cut, paste) must be performed through `Action` objects pushed to the `ActionQueue` to ensure undo/redo capability.
+     - A `SelectAction` might store the state of selection before and after.
+     - A `PasteAction` would store the data being pasted to allow its removal on undo.
+
+  **General Porting Instructions:**
+     - Replace wxWidgets types (e.g., `wxThread` for `SelectionThread`) with Qt equivalents (`QThread`, `QtConcurrent::run`, or handle synchronously if `SelectionThread`'s complexity is initially too high).
+     - Use smart pointers for managing dynamically allocated objects like `Tile` copies for clipboard or actions.
+     - Interactions with `Editor`, `Map`, `Tile`, `Item`, `ActionQueue` are key. Define clear interfaces or pass necessary references.
+     - The concept of `SessionFlags` (INTERNAL, SUBTHREAD) in the original code might be simplified or re-evaluated based on how actions are batched.
+     - Provide header (.h) and source (.cpp) files for the `SelectionManager` and any clipboard-specific helper classes or data structures.
+     - Include basic unit tests for selection changes and copy/paste operations.

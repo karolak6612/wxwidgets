@@ -1,0 +1,12 @@
+id: UI-PALETTE-02
+section: Core Migration Tasks
+title: Port Specific Palettes
+input_files:
+- palette_brushlist.h/cpp
+- palette_creature.h/cpp
+- palette_house.h/cpp
+- palette_waypoints.h/cpp
+dependencies:
+- UI-PALETTE-01
+definition_of_done: All individual palettes (Terrain, Doodad, Creature, etc.) are ported as separate widgets and added as tabs to the main palette `QTabWidget`. UI elements for each are replicated with Qt equivalents.
+boilerplate_coder_ai_prompt: For each palette type, create a new `QWidget` inheriting from `BrushPaletteWidget`. Replicate the specific UI controls (e.g., sliders, checkboxes) from the legacy files using Qt widgets.
