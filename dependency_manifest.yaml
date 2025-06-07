@@ -1,0 +1,184 @@
+dependencies:
+  - name: wxWidgets
+    version: "Unknown"  # Version detection for wxWidgets is complex from includes alone
+    purpose: "Core UI Framework, Event Loop, Main Window"
+    integration_files:
+      - "wxwidgets/about_window.cpp"
+      - "wxwidgets/about_window.h"
+      - "wxwidgets/action.cpp"
+      - "wxwidgets/action.h"
+      - "wxwidgets/add_item_window.cpp"
+      - "wxwidgets/add_item_window.h"
+      - "wxwidgets/add_tileset_window.cpp"
+      - "wxwidgets/add_tileset_window.h"
+      - "wxwidgets/application.cpp"
+      - "wxwidgets/application.h"
+      - "wxwidgets/artprovider.cpp"
+      - "wxwidgets/artprovider.h"
+      - "wxwidgets/automagic_settings.cpp"
+      - "wxwidgets/automagic_settings.h"
+      - "wxwidgets/border_editor_window.cpp"
+      - "wxwidgets/border_editor_window.h"
+      - "wxwidgets/borderize_window.cpp"
+      - "wxwidgets/borderize_window.h"
+      - "wxwidgets/browse_tile_window.cpp"
+      - "wxwidgets/browse_tile_window.h"
+      - "wxwidgets/common_windows.cpp"
+      - "wxwidgets/common_windows.h"
+      - "wxwidgets/container_properties_window.cpp"
+      - "wxwidgets/container_properties_window.h"
+      - "wxwidgets/dat_debug_view.cpp"
+      - "wxwidgets/dat_debug_view.h"
+      - "wxwidgets/dcbutton.cpp"
+      - "wxwidgets/dcbutton.h"
+      - "wxwidgets/editor_tabs.cpp"
+      - "wxwidgets/editor_tabs.h"
+      - "wxwidgets/extension_window.cpp"
+      - "wxwidgets/extension_window.h"
+      - "wxwidgets/find_creature_window.cpp"
+      - "wxwidgets/find_creature_window.h"
+      - "wxwidgets/find_item_window.cpp"
+      - "wxwidgets/find_item_window.h"
+      - "wxwidgets/ground_validation_dialog.cpp"
+      - "wxwidgets/ground_validation_dialog.h"
+      - "wxwidgets/gui.cpp"
+      - "wxwidgets/gui.h"
+      - "wxwidgets/gui_ids.h"
+      - "wxwidgets/hotkey_manager.cpp"
+      - "wxwidgets/hotkey_manager.h"
+      - "wxwidgets/island_generator_dialog.cpp"
+      - "wxwidgets/island_generator_dialog.h"
+      - "wxwidgets/item_attributes.cpp"
+      - "wxwidgets/item_attributes.h"
+      - "wxwidgets/live_tab.cpp"
+      - "wxwidgets/live_tab.h"
+      - "wxwidgets/main.h"
+      - "wxwidgets/main_menubar.cpp"
+      - "wxwidgets/main_menubar.h"
+      - "wxwidgets/main_toolbar.cpp"
+      - "wxwidgets/main_toolbar.h"
+      - "wxwidgets/map_display.cpp"
+      - "wxwidgets/map_display.h"
+      - "wxwidgets/map_drawer.cpp"
+      - "wxwidgets/map_drawer.h"
+      - "wxwidgets/map_tab.cpp"
+      - "wxwidgets/map_tab.h"
+      - "wxwidgets/map_window.cpp"
+      - "wxwidgets/map_window.h"
+      - "wxwidgets/minimap_window.cpp"
+      - "wxwidgets/minimap_window.h"
+      - "wxwidgets/monster_generator_dialog.cpp"
+      - "wxwidgets/monster_generator_dialog.h"
+      - "wxwidgets/numbertextctrl.cpp"
+      - "wxwidgets/numbertextctrl.h"
+      - "wxwidgets/old_properties_window.cpp"
+      - "wxwidgets/old_properties_window.h"
+      - "wxwidgets/palette_common.cpp"
+      - "wxwidgets/palette_common.h"
+      - "wxwidgets/palette_creature.cpp"
+      - "wxwidgets/palette_creature.h"
+      - "wxwidgets/palette_house.cpp"
+      - "wxwidgets/palette_house.h"
+      - "wxwidgets/palette_waypoints.cpp"
+      - "wxwidgets/palette_waypoints.h"
+      - "wxwidgets/palette_window.cpp"
+      - "wxwidgets/palette_window.h"
+      - "wxwidgets/palette_brushlist.cpp"
+      - "wxwidgets/palette_brushlist.h"
+      - "wxwidgets/positionctrl.cpp"
+      - "wxwidgets/positionctrl.h"
+      - "wxwidgets/preferences.cpp"
+      - "wxwidgets/preferences.h"
+      - "wxwidgets/properties_window.cpp"
+      - "wxwidgets/properties_window.h"
+      - "wxwidgets/replace_items_window.cpp"
+      - "wxwidgets/replace_items_window.h"
+      - "wxwidgets/result_window.cpp"
+      - "wxwidgets/result_window.h"
+      - "wxwidgets/tileset_window.cpp"
+      - "wxwidgets/tileset_window.h"
+      - "wxwidgets/updater.cpp"
+      - "wxwidgets/updater.h"
+      - "wxwidgets/welcome_dialog.cpp"
+      - "wxwidgets/welcome_dialog.h"
+      - "wxwidgets/dark_mode_manager.cpp"
+      - "wxwidgets/dark_mode_manager.h"
+      - "wxwidgets/process_com.cpp"
+      - "wxwidgets/process_com.h"
+
+  - name: SFML
+    version: "Unknown" # SFML version not typically in headers
+    purpose: "2D Hardware-Accelerated Rendering for the Map Viewport"
+    integration_files:
+      # SFML is likely used within graphics.cpp/h and map_display.cpp/h if used for rendering
+      # but the provided patterns are only for include directives.
+      # Actual drawing calls would confirm usage.
+      - "wxwidgets/graphics.cpp"
+      - "wxwidgets/graphics.h"
+      - "wxwidgets/map_display.cpp"
+      - "wxwidgets/map_display.h"
+
+  - name: pugixml
+    version: "1.11" # Extracted from pugixml.cpp (<!-- version 1.11 -->)
+    purpose: "Parsing of .xml files (items.xml, creatures.xml, materials.xml, clients.xml, etc.)"
+    integration_files:
+      - "wxwidgets/ext/pugixml.cpp"
+      - "wxwidgets/ext/pugixml.hpp"
+      - "wxwidgets/materials.cpp" # Uses pugixml for XML parsing
+      - "wxwidgets/items.cpp" # Uses pugixml for items.xml
+      - "wxwidgets/creatures.cpp" # Uses pugixml for creatures.xml
+      - "wxwidgets/iomap_otbm.cpp" # Likely uses pugixml for house/spawn XML
+      - "wxwidgets/client_version.cpp" # Uses pugixml for clients.xml
+      - "wxwidgets/main_menubar.cpp" # Uses pugixml for menubar.xml
+      - "wxwidgets/automagic_settings.cpp" # Uses pugixml for automagic_settings.xml
+      - "wxwidgets/hotkey_manager.cpp" # Uses pugixml for hotkey config
+      - "wxwidgets/island_generator_dialog.cpp" # Uses pugixml for border.xml
+      - "wxwidgets/monster_generator_dialog.cpp" # Uses pugixml for monster files
+      - "wxwidgets/replace_items_window.cpp" # Uses pugixml for replace presets
+      - "wxwidgets/border_editor_window.cpp" # Uses pugixml for border definitions
+      - "wxwidgets/main_toolbar.cpp" # Uses pugixml for hotkey definitions in menubar.xml
+
+  - name: zlib
+    version: "Unknown" # zlib version not typically in headers
+    purpose: "Decompression of .otbm map data streams"
+    integration_files:
+      - "wxwidgets/iomap_otbm.cpp" # OTBM loading involves zlib decompression
+
+  - name: Boost.Asio
+    version: "Unknown" # Boost version not typically in headers
+    purpose: "Asynchronous network operations for Live Server/Client"
+    integration_files:
+      - "wxwidgets/live_client.cpp"
+      - "wxwidgets/live_peer.cpp"
+      - "wxwidgets/live_server.cpp"
+      - "wxwidgets/live_socket.cpp"
+      - "wxwidgets/net_connection.cpp"
+      - "wxwidgets/otml.h" # Includes boost/algorithm/string.hpp, boost/tokenizer.hpp, boost/shared_ptr.hpp, boost/enable_shared_from_this.hpp
+                            # These are not Asio but other Boost libraries.
+                            # Boost.Asio usage is confirmed by live_*.cpp files.
+  - name: OpenSSL
+    version: "Unknown" # OpenSSL version not typically in headers, and no direct usage found
+    purpose: "TLS/SSL for secure network communication (if direct usage is observed)"
+    integration_files: [] # No direct includes like <openssl/ssl.h> found in the provided files.
+                          # If Boost.Asio uses it internally, it's not direct integration here.
+
+  - name: json_spirit
+    version: "4.03" # From json_spirit_reader.h
+    purpose: "Parsing of JSON data (potentially for configuration or data exchange)"
+    integration_files:
+      - "wxwidgets/json/json_spirit.h"
+      - "wxwidgets/json/json_spirit_error_position.h"
+      - "wxwidgets/json/json_spirit_reader.cpp"
+      - "wxwidgets/json/json_spirit_reader.h"
+      - "wxwidgets/json/json_spirit_reader_template.h"
+      - "wxwidgets/json/json_spirit_stream_reader.h"
+      - "wxwidgets/json/json_spirit_utils.h"
+      - "wxwidgets/json/json_spirit_value.cpp"
+      - "wxwidgets/json/json_spirit_value.h"
+      - "wxwidgets/json/json_spirit_writer.cpp"
+      - "wxwidgets/json/json_spirit_writer.h"
+      - "wxwidgets/json/json_spirit_writer_template.h"
+      - "wxwidgets/json.h" # Likely an aggregator or wrapper for json_spirit
+      - "wxwidgets/client_version.cpp" # Might use JSON for some client configurations
+      - "wxwidgets/updater.cpp" # Update checks might involve JSON
+      - "wxwidgets/settings.cpp" # Settings might be stored/read in JSON

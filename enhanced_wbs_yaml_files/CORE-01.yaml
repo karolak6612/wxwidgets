@@ -1,132 +1,163 @@
-wbs_item_id: CORE-01
-name: Port Core Data Structures
-description: Migrate fundamental data structures like Tile, Item, Position, and related
-  container classes from `mapcore` to Qt6 equivalents or modern C++. This involves
-  ensuring data integrity, compatibility, and performance.
-dependencies: []
-input_files:
-- wxwidgets/tile.cpp
-- wxwidgets/tile.h
-- wxwidgets/item.cpp
-- wxwidgets/item.h
-- wxwidgets/position.h
+id: CORE-01
+section: Core Migration Tasks
+title: Port Core Data Structures - Position, Item, Tile
+original_input_files:
+  - wxwidgets/position.h
+  - wxwidgets/item.h
+  - wxwidgets/item.cpp
+  - wxwidgets/tile.h
+  - wxwidgets/tile.cpp
 analyzed_input_files:
-- file_path: wxwidgets/tile.cpp
-  description: Implementation of the Tile class, managing items, ground, creatures,
-    spawns, and house information for a map location.
-- file_path: wxwidgets/tile.h
-  description: Header file for the Tile class, defining its structure and interface
-    for managing map tile data.
-- file_path: wxwidgets/item.cpp
-  description: Implementation of the Item class and its derived classes (Container,
-    Teleport, Door, Podium), including attribute management and factory methods.
-- file_path: wxwidgets/item.h
-  description: Header file for the Item class and related enums/structs, defining
-    the base item properties and interface.
-- file_path: wxwidgets/position.h
-  description: Header file for the Position struct, defining 3D coordinates and related
-    operators.
-documentation_references:
-- 'Qt Core Data Types: https://doc.qt.io/qt-6/qtcore-module.html'
-- 'QList: https://doc.qt.io/qt-6/qlist.html'
-- 'QVector: https://doc.qt.io/qt-6/qvector.html'
-- 'QMap: https://doc.qt.io/qt-6/qmap.html'
-- 'QString: https://doc.qt.io/qt-6/qstring.html'
-- 'QVariant: https://doc.qt.io/qt-6/qvariant.html'
-- 'Qt Test Framework: https://doc.qt.io/qt-6/qttest-module.html'
-current_functionality_summary: 'The wxWidgets-based `Tile` class manages a ground
-  item, a list of other items, an optional creature, an optional spawn object, and
-  house ID, along with various flags. It handles item addition logic, selection, and
-  property queries (like blocking status).
+  - file_path: wxwidgets/position.h
+    description: |
+      Defines the `Position` struct, a fundamental data type representing a 3D coordinate (x, y, z) within the map.
+      It includes constructors, comparison operators (`<`, `==`, `!=`, `>`), arithmetic operators (`+`, `-`, `+=`),
+      an `isValid()` method to check if the position is within map boundaries (MAP_MAX_WIDTH, MAP_MAX_HEIGHT, MAP_MAX_LAYER),
+      and stream insertion/extraction operators. An `abs()` function for positions is also provided.
+      This structure is critical for locating any element or area on the map.
+  - file_path: wxwidgets/item.h
+    description: |
+      Header for the `Item` class, the base class for all game items, and its related enumerations and helper structures.
+      `Item` itself inherits from `ItemAttributes` (defined elsewhere, but provides the mechanism for storing custom attributes like UID, AID, text, description, tier via a map-like structure).
+      This header declares item properties (e.g., blocking, moveable, light emission), specific item types (e.g., splash, container, door, podium, depot), and enumerations like `ITEMPROPERTY` and `SplashType`.
+      It includes methods for managing item ID and subtype (count/charges/fluid type), accessing attributes, handling selection state, and querying properties which often rely on `g_items` (a global item metadata store/manager).
+      Key virtual methods like `deepCopy()` and serialization methods (for OTBM format) are declared.
+      A static factory method `Item::Create` is also declared for instantiating items.
+  - file_path: wxwidgets/item.cpp
+    description: |
+      Implementation of the `Item` class and its static factory `Item::Create(uint16_t type, uint16_t subtype)`.
+      The factory method is responsible for instantiating the correct derived item types (e.g., `Container`, `Teleport`, `Door`, `Podium`, `Depot`) based on the item ID's properties fetched from `g_items`. If no specific derived type matches, a base `Item` object is created.
+      The file implements methods for attribute management (getting/setting UID, AID, text, description, tier via the `ItemAttributes` base), weight calculation (stackable items have weight multiplied by subtype/count), subtype handling, and property checks (which often delegate to `g_items`).
+      It also includes static helper methods for converting between liquid type IDs and names.
+      Serialization methods for OTBM format are implemented here, handling various item attributes.
+  - file_path: wxwidgets/tile.h
+    description: |
+      Header for the `Tile` class, representing a single map tile at a specific `Position`.
+      A `Tile` is associated with a `TileLocation` (which holds the `Position` and potentially other location-specific data like house exits).
+      It manages a collection of `Item` objects (a `ground` item pointer and an `ItemVector` for other items), a `Creature*` pointer, a `Spawn*` pointer, a `house_id` (uint32_t), and various flags.
+      Flags are split into `mapflags` (e.g., `TILESTATE_PROTECTIONZONE`, `TILESTATE_NOPVP`) and `statflags` (internal states like `TILESTATE_SELECTED`, `TILESTATE_BLOCKING`, `TILESTATE_MODIFIED`, `TILESTATE_HAS_TABLE`).
+      Defines methods for adding/removing/querying items, managing selection state of the tile and its contents, handling house properties, and accessing linked objects like creatures or spawns.
+      Declares methods for "auto-magic" operations like `borderize`, `wallize`, `tableize`, `carpetize`.
+  - file_path: wxwidgets/tile.cpp
+    description: |
+      Implementation of the `Tile` class.
+      Includes constructors (one taking x,y,z and another taking `TileLocation&`), and a destructor that correctly cleans up owned objects (items, creature, spawn).
+      The `deepCopy` method creates a new Tile with copies of all its contents.
+      Item management methods like `addItem(Item* item)` include logic for handling ground items (replacing existing ground), items with ground equivalents, and always-on-bottom items, maintaining correct stacking order.
+      Selection methods (`select`, `deselect`, `selectGround`, `popSelectedItems`, `getSelectedItems`) manage the selection state of the tile and its individual contents.
+      Property query methods like `isBlocking()`, `getMiniMapColor()`, `hasProperty()` aggregate information from contained items and tile flags.
+      Implements complex "auto-magic" logic for `borderize`, `wallize`, `tableize`, `carpetize` which often interact with specific brush types and global settings (`g_settings`) via a `BaseMap*` parent (typically the main `Map` object).
+      House management includes setting `house_id` and interacting with `HouseExitList` via `TileLocation`.
+dependencies:
+  - BUILD-01 # Depends on CMake project setup to compile these core classes
+current_functionality_summary: |
+  The existing core data structures are C++ classes tightly integrated with the Remere's Map Editor (RME) architecture.
+  - `Position`: A simple struct for 3D coordinates (x,y,z) with basic arithmetic and comparison operators.
+  - `Item`: Base class for all map items. Uses `ItemAttributes` (likely a base or member) to store a map of custom attributes (UID, AID, text, description, tier). Item properties (stackable, blocking, etc.) are often looked up from a global `g_items` manager based on item ID. Derived classes like `Container`, `Teleport`, `Door`, `Podium` handle specific behaviors. Memory for items is manually managed.
+  - `Tile`: Represents a map square. Contains a `ground` item pointer, a vector of other `Item` pointers (`ItemVector`), a `Creature` pointer, a `Spawn` pointer, and `house_id`. Manages item stacking order, selection state, and tile-wide properties (e.g., `TILESTATE_PROTECTIONZONE`). Associated with a `TileLocation`. Memory for contained objects is managed by the `Tile`.
+qt6_migration_steps: |
+  1.  **Position Class/Struct (`Position.h`, `Position.cpp`):**
+      - Define a new `Position` class or struct in a dedicated header/source file (e.g., `core/position.h`).
+      - It should store `int x, y, z`.
+      - Implement constructors: default, `Position(int x, int y, int z)`.
+      - Implement comparison operators: `operator<`, `operator==`, `operator!=`.
+      - Implement arithmetic operators: `operator+`, `operator-`, `operator+=`.
+      - Implement `isValid()` based on new map dimension constants if they change, otherwise retain logic.
+      - Consider making it QObject-compatible if it needs to be used directly in Qt models or signals/slots (though likely not necessary for a simple struct). For now, keep it as a plain C++ struct/class.
+      - Create basic unit tests (e.g., using Qt Test) for construction, comparison, and arithmetic.
 
-  The `Item` class, along with `ItemAttributes`, stores item ID, subtype, and custom
-  attributes (UID, AID, text, description). It includes a factory `Item::Create` for
-  different item types (Container, Teleport, Door, Podium derive from Item).
+  2.  **Item Class (`Item.h`, `Item.cpp`):**
+      - Define a new `Item` class (e.g., `core/item.h`).
+      - Store `uint16_t id` and `uint16_t subtype`.
+      - For attributes (UID, AID, text, description, tier):
+          - Option A: Create a compatible `ItemAttributes` class/struct, possibly using `QMap<QString, QVariant>` or `std::map<std::string, std::any>` for flexible attribute storage.
+          - Option B: Integrate attribute storage directly into `Item` using a similar map.
+      - Implement a static factory method `Item::create(uint16_t id, uint16_t subtype = 0xFFFF)`. Initially, this can return base `Item` objects. Placeholder derived classes (`ContainerItem`, `TeleportItem`, `DoorItem`, `PodiumItem`) can be defined later or as separate tasks.
+      - Implement `virtual Item* deepCopy() const`.
+      - Port methods like `getID()`, `getSubtype()`, `setSubtype()`, `hasSubtype()`.
+      - For item properties (e.g., `isBlocking`, `isStackable`, `getName`):
+          - Define an interface (e.g., `IItemTypeProvider`) that the `Item` class can use to query these properties based on its `id`. This interface will later be implemented by a class that loads item metadata (equivalent to `g_items`).
+          - Methods in `Item` will call `itemTypeProvider->isBlocking(id)`.
+      - Port attribute accessors: `setUniqueID()`, `getActionID()`, `setText()`, `getDescription()`, `setTier()`, and their getters.
+      - Manage memory: If `ItemAttributes` is a pointer, `Item` should own it (e.g., `std::unique_ptr`).
+      - Create unit tests for item creation, attribute handling, subtype logic, and property querying (mocking the `IItemTypeProvider`).
 
-  The `Position` struct is a simple 3D coordinate (x, y, z) with comparison and arithmetic
-  operators.'
+  3.  **Tile Class (`Tile.h`, `Tile.cpp`):**
+      - Define a new `Tile` class (e.g., `core/tile.h`).
+      - Store its `Position` by value or const reference if `Tile` is always accessed via a `TileLocation` equivalent.
+      - Manage `Item* ground` (consider `std::unique_ptr<Item>`).
+      - Manage `QList<Item*> items` (or `std::vector<std::unique_ptr<Item>>`). `QList` is convenient if item order changes frequently.
+      - Manage `Creature* creature` and `Spawn* spawn` (consider `std::unique_ptr` or define these classes in later tasks and use forward declarations for now).
+      - Store `uint32_t house_id` and flags (`mapflags`, `statflags`). Use `enum class` for typed flags if possible.
+      - Implement constructor, destructor (ensure cleanup of all owned `Item`, `Creature`, `Spawn` objects).
+      - Implement `Tile* deepCopy() const`.
+      - Port item management: `addItem(std::unique_ptr<Item> item)`, `getTopItem()`, `getItemAt()`, `popSelectedItems()`, `getSelectedItems()`. Retain logic for ground item handling and stacking order.
+      - Port selection logic.
+      - Port accessors for `ground`, `creature`, `spawn`, `house_id`, flags.
+      - Port property queries like `isPZ()`, `isBlocking()`.
+      - For "auto-magic" methods (`borderize`, `wallize`, etc.): Create stubs. Their full implementation will depend on ported Brush and Settings systems.
+      - Create unit tests for tile construction, item management (add, remove, order), property queries, and flag management.
 definition_of_done:
-- Qt6/C++ equivalent classes for `Tile`, `Item`, and `Position` are implemented.
-- All significant methods and properties from the original `Tile`, `Item`, and `Position`
-  classes (as seen in the provided snippets) are ported or have clear equivalents
-  in the new Qt6/C++ classes.
-- 'Data integrity for core attributes is maintained:'
-- '  - `Tile` correctly manages its list of `Item` objects, `ground` item, `Creature*`,
-  `Spawn*`, and `house_id`.'
-- '  - `Item` correctly manages its `id`, `subtype`, and attributes (like UID, AID,
-  text, description) based on `ItemAttributes`.'
-- '  - `Position` accurately stores x, y, z coordinates.'
-- Memory management for objects created and managed by these classes (especially items
-  within tiles) is handled using modern C++ practices (e.g., smart pointers where
-  appropriate).
-- The new classes are designed to be largely self-contained or rely on well-defined
-  interfaces for external dependencies (e.g., `g_items` for item properties, `TileLocation`).
-- 'Basic unit tests are created for the new `Tile`, `Item`, and `Position` classes,
-  covering:'
-- '  - Object construction and initialization.'
-- '  - Correct handling of attributes and data members.'
-- '  - Key functionalities like adding/removing items from a tile, item creation,
-  position manipulation.'
-- The ported code compiles successfully within a Qt6 project structure.
-- A brief report is provided detailing the mapping from the old class structures to
-  the new ones, highlighting any significant design changes or assumptions made.
-boilerplate_coder_ai_prompt: "The user wants to migrate core data structures from\
-  \ an old C++/wxWidgets application to Qt6/modern C++.\nAnalyze the provided C++\
-  \ header and source file snippets for `Tile` (from `wxwidgets/tile.cpp` and `wxwidgets/tile.h`),\
-  \ `Item` (from `wxwidgets/item.cpp` and `wxwidgets/item.h`), and `Position` (from\
-  \ `wxwidgets/position.h`).\n\n**1. Position Class/Struct:**\n   - Create a simple\
-  \ Qt-idiomatic or modern C++ class/struct for `Position` based on `position.h`.\
-  \ It should store `x`, `y`, and `z` coordinates.\n   - Implement comparison operators\
-  \ (`<`, `==`, `!=`) and arithmetic operators (`+`, `-`, `+=`) as seen in `position.h`.\n\
-  \   - Ensure it's lightweight and efficient.\n\n**2. Item Class:**\n   - Design\
-  \ a Qt-idiomatic or modern C++ class for `Item` based on `item.h` and `item.cpp`.\n\
-  \   - The class should store the item's `id` and `subtype`.\n   - It should inherit\
-  \ from or incorporate a mechanism similar to `ItemAttributes` to manage custom attributes\
-  \ (e.g., `uid`, `aid`, `text`, `desc`, `tier`). Consider using a `QVariantMap` or\
-  \ a similar structure for attributes if a direct port of `ItemAttributeMap` is too\
-  \ complex for this task.\n   - Implement a static factory method `Item::Create(uint16_t\
-  \ id, uint16_t subtype)` that constructs an Item. For complex item types (like `Container`,\
-  \ `Teleport`, `Door`, `Podium` which are mentioned in `Item::Create` but whose definitions\
-  \ are not provided), the factory can return a base `Item` object for now, or you\
-  \ can define placeholder derived classes if simple.\n   - Implement a `deepCopy()`\
-  \ method.\n   - Port methods like `getID()`, `getSubtype()`, `setSubtype()`, `hasSubtype()`,\
-  \ `getWeight()`, `getName()`, `getFullName()`, selection status (`isSelected`, `select`,\
-  \ `deselect`).\n   - For item properties (e.g., `isBlocking()`, `isStackable()`,\
-  \ `isGroundTile()`), these often depend on a global item metadata store (`g_items`).\
-  \ For the ported `Item` class, assume such a store will be available (e.g., via\
-  \ a singleton or a passed-in service). You can define an interface for this (e.g.,\
-  \ `ItemMetadataService::getItemType(uint16_t id)`).\n   - Address how item attributes\
-  \ like UID, AID, text, description, and tier are set and retrieved (e.g., `setUniqueID`,\
-  \ `getActionID`, `setText`).\n\n**3. Tile Class:**\n   - Design a Qt-idiomatic or\
-  \ modern C++ class for `Tile` based on `tile.h` and `tile.cpp`.\n   - A `Tile` should\
-  \ be associated with a `Position` (either by composition or by reference/pointer\
-  \ if `TileLocation` is complex).\n   - It must manage:\n     - A `ground` item (pointer\
-  \ to `Item`).\n     - A collection of `Item` objects (e.g., `QList<Item*>`).\n \
-  \    - A pointer to a `Creature` object (`Creature* creature`).\n     - A pointer\
-  \ to a `Spawn` object (`Spawn* spawn`).\n     - A `house_id` (uint32_t).\n     -\
-  \ Tile flags (`mapflags`, `statflags`).\n   - Implement constructors, destructor\
-  \ (ensure proper cleanup of items, creature, spawn), and a `deepCopy()` method.\n\
-  \   - Port methods like `addItem(Item* item)`, `getTopItem()`, `getItemAt(int index)`,\
-  \ `popSelectedItems()`, `getSelectedItems()`. Pay close attention to the logic for\
-  \ adding items, especially how ground items and items with ground equivalents are\
-  \ handled.\n   - Port methods related to selection (`select()`, `deselect()`, `isSelected()`).\n\
-  \   - Port methods for accessing `ground`, `creature`, `spawn`, `house_id`.\n  \
-  \ - Port methods related to tile properties (`isPZ()`, `isBlocking()`, `hasProperty()`).\n\
-  \   - The various `*ize` methods (`borderize`, `wallize`, `tableize`, `carpetize`)\
-  \ and `clean*` methods (`cleanBorders`, `cleanWalls`) involve complex logic tied\
-  \ to specific brush types and global settings (`g_settings`). For this task, you\
-  \ can provide stubs for these methods, noting that their full implementation will\
-  \ depend on the porting of brushes and settings systems. Focus on the core data\
-  \ management aspects of the `Tile` class.\n\n**General Porting Instructions:**\n\
-  \   - Replace wxWidgets types (like `wxNOT_FOUND`) with Qt or C++ STL equivalents\
-  \ (e.g., `-1` or a suitable constant, `std::vector` or `QList` for `ItemVector`).\n\
-  \   - Handle memory management carefully. Use smart pointers (e.g., `std::unique_ptr`,\
-  \ `std::shared_ptr` or Qt's equivalents like `QScopedPointer`, `QSharedPointer`)\
-  \ where appropriate, especially for objects owned by `Tile` (like items, creature,\
-  \ spawn).\n   - Dependencies like `g_items`, `g_settings`, `BaseMap`, `TileLocation`,\
-  \ `Creature`, `Spawn`, `Brush` subclasses are external. For the purpose of these\
-  \ data structure classes, you can assume interfaces or stubs for them. The focus\
-  \ is on the structure and internal logic of `Tile`, `Item`, and `Position`.\n  \
-  \ - Ensure the ported classes are well-encapsulated.\n   - Provide header (.h) and\
-  \ source (.cpp) files for each class.\n   - Include basic unit tests (e.g., using\
-  \ Qt Test framework) to verify the functionality of the ported classes.\n"
+- Qt6/C++ equivalent classes for `Position`, `Item`, and `Tile` are implemented in dedicated `.h` and `.cpp` files.
+- All significant methods and properties from the original classes are ported or have clear equivalents.
+- Data integrity for core attributes (IDs, subtypes, custom attributes for Item; item lists, ground, creature/spawn pointers, house_id, flags for Tile; coordinates for Position) is maintained.
+- Memory management for objects created and managed by these classes (especially items within tiles, and attributes within items) uses modern C++ practices (e.g., `std::unique_ptr` or Qt smart pointers where appropriate).
+- The new classes are designed to minimize direct global dependencies, using interfaces (like `IItemTypeProvider`) for external data like item definitions.
+- Basic unit tests using the Qt Test framework are created for the new `Position`, `Item`, and `Tile` classes, covering:
+  - Object construction, initialization, and destruction (checking for memory leaks).
+  - Correct handling of attributes and data members.
+  - Key functionalities: adding/removing items from a tile, item creation via factory, position manipulation and comparison.
+- The ported code (new classes and unit tests) compiles successfully within the CMake project structure established in `BUILD-01`.
+- A brief report is provided detailing the mapping from the old class structures to the new ones, highlighting any significant design changes (e.g., attribute storage in Item, collection types in Tile), assumptions made (e.g., availability of `IItemTypeProvider`), and reasons for them.
+boilerplate_coder_ai_prompt: |
+  You are tasked with migrating core data structures (`Position`, `Item`, `Tile`) from an old C++ codebase (snippets from `position.h`, `item.h`, `item.cpp`, `tile.h`, `tile.cpp` will be provided) to a modern C++/Qt6 environment.
+
+  **1. Position Class/Struct:**
+     - Create `Position.h` and `Position.cpp`.
+     - Define a class/struct `Position` to store `int x, y, z`.
+     - Implement constructors, comparison operators (`<`, `==`, `!=`), arithmetic operators (`+`, `-`, `+=`), and `isValid()`.
+     - Ensure it's lightweight and efficient.
+
+  **2. Item Class:**
+     - Create `Item.h` and `Item.cpp`.
+     - Define class `Item`. Store `uint16_t id`, `uint16_t subtype`.
+     - Manage custom attributes (UID, AID, text, description, tier) using `QMap<QString, QVariant>` or `std::map<std::string, std::any>`.
+     - Implement `static Item* Item::create(uint16_t id, uint16_t subtype = 0xFFFF)`. For now, this factory can return base `Item` objects; derived types (`ContainerItem`, etc.) can be placeholder classes or handled later.
+     - Implement `virtual Item* deepCopy() const`.
+     - Implement accessors for ID, subtype, and custom attributes.
+     - For properties like `isBlocking()`, `getName()`, assume an interface `IItemTypeProvider* itemTypeProvider;` member will be set externally, and call methods like `itemTypeProvider->getName(id)`. Define this simple interface.
+     - Handle memory for attributes appropriately (e.g., if attributes map stores pointers).
+
+  **3. Tile Class:**
+     - Create `Tile.h` and `Tile.cpp`.
+     - Define class `Tile`. Store its `Position` (by value or const reference).
+     - Manage `std::unique_ptr<Item> ground;`.
+     - Manage `QList<std::unique_ptr<Item>> items;` (or `std::vector`).
+     - Manage `std::unique_ptr<Creature> creature;` and `std::unique_ptr<Spawn> spawn;` (Creature and Spawn can be forward-declared stubs for now).
+     - Store `uint32_t house_id;` and tile flags (consider `enum class` for typed flags).
+     - Implement constructor, destructor (ensure `std::unique_ptr` handles cleanup).
+     - Implement `Tile* deepCopy() const`.
+     - Implement `addItem(std::unique_ptr<Item> item)`, ensuring correct logic for ground items and stacking order.
+     - Implement `getTopItem()`, item accessors, selection logic (for the tile itself).
+     - Implement accessors for `ground`, `creature`, `spawn`, `house_id`, flags.
+     - Create stubs for complex methods like `borderize()`, `wallize()`.
+
+  **General Instructions:**
+     - Use C++17 features where appropriate.
+     - Replace wxWidgets types with Qt/STL equivalents.
+     - Ensure proper memory management using smart pointers.
+     - Minimize direct global dependencies; use interfaces for external data.
+     - Provide header (.h) and source (.cpp) files for each class.
+     - Create basic Qt Test unit tests for each class covering construction, core data manipulation, and key methods.
+documentation_references:
+  - 'Qt Core Data Types: https://doc.qt.io/qt-6/qtcore-module.html'
+  - 'QList: https://doc.qt.io/qt-6/qlist.html'
+  - 'QVector: https://doc.qt.io/qt-6/qvector.html'
+  - 'QMap: https://doc.qt.io/qt-6/qmap.html'
+  - 'QString: https://doc.qt.io/qt-6/qstring.html'
+  - 'QVariant: https://doc.qt.io/qt-6/qvariant.html'
+  - 'Qt Test Framework: https://doc.qt.io/qt-6/qttest-module.html'
+  - 'std::unique_ptr: https://en.cppreference.com/w/cpp/memory/unique_ptr'
+  - 'std::vector: https://en.cppreference.com/w/cpp/container/vector'
+  - 'std::map: https://en.cppreference.com/w/cpp/container/map'
+  - 'std::any: https://en.cppreference.com/w/cpp/utility/any'

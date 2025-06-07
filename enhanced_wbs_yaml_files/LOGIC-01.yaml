@@ -1,84 +1,165 @@
 id: LOGIC-01
-section: Editor Behavior
-title: Implement Core Drawing & Deletion Logic
-original_input_files: editor.h/cpp, brush.h/cpp (and all specific `*_brush.cpp` files)
+section: Editor Behavior & Logic
+title: Implement Core Drawing, Deletion, and Modification Logic Controller
+original_input_files:
+  - wxwidgets/editor.h
+  - wxwidgets/editor.cpp
+  - wxwidgets/brush.h     # For Brush interface
+  - wxwidgets/action.h    # For Action/Change interaction pattern
+  - wxwidgets/action.cpp  # For Action/Change interaction pattern
+  # Specific brush files (e.g., ground_brush.cpp) are not direct inputs for *porting* here,
+  # but their interfaces are what this controller will call. Their internal logic
+  # is assumed to be ported by other BRUSH-LOGIC-* tasks.
 analyzed_input_files:
-- wxwidgets/editor.h
-- wxwidgets/editor.cpp
-- wxwidgets/brush.h
-- wxwidgets/brush.cpp
-- wxwidgets/ground_brush.h/cpp
-- wxwidgets/wall_brush.h/cpp
-- wxwidgets/doodad_brush.h/cpp
-- wxwidgets/creature_brush.h/cpp
-- wxwidgets/house_brush.h/cpp
-- wxwidgets/spawn_brush.h/cpp
-- wxwidgets/raw_brush.h/cpp
-- wxwidgets/carpet_brush.h/cpp
-- wxwidgets/table_brush.h/cpp
-- wxwidgets/waypoint_brush.h/cpp
+  - file_path: wxwidgets/editor.h
+    description: |
+      Declares the `Editor` class, which serves as a central point for map editing operations.
+      Key methods relevant to this task include `drawInternal` (and its public `draw`/`undraw` wrappers for various scenarios),
+      `destroySelection()`, and `moveSelection()`. It holds references to the `Map`, `ActionQueue`, `Selection`, and `CopyBuffer`.
+  - file_path: wxwidgets/editor.cpp
+    description: |
+      Implements the `Editor` class methods.
+      - The `drawInternal` methods are crucial: they take a `Position` or `PositionVector`, the active brush (implicitly via `g_gui.GetCurrentBrush()`), and parameters (like `alt` key state). They then:
+        1. Create an `Action` (or `BatchAction`).
+        2. For each affected tile, create a `Change` object by deep-copying the tile *before* modification.
+        3. Call the appropriate `brush->draw()` or `brush->undraw()` method on the live tile in the map.
+        4. Create another `Change` object by deep-copying the tile *after* modification. (Actually, the original `Action::commit` swaps tile pointers, so the `Change` stores the *original* tile, and the new tile becomes live).
+        5. Add these `Change` objects to the `Action`.
+        6. Push the `Action` to the `ActionQueue`.
+      - `destroySelection()` and `moveSelection()` follow similar patterns of creating actions and changes to ensure undoability.
+      This file demonstrates the pattern of wrapping map modifications into undoable actions.
+  - file_path: wxwidgets/brush.h
+    description: |
+      Defines the abstract base `Brush` class with pure virtual `draw()` and `undraw()` methods.
+      Specific brush types (GroundBrush, WallBrush, etc.) derive from this and implement the actual logic for how a tile is modified.
+      The `EditorController` will interact with this Brush interface.
+  - file_path: wxwidgets/action.h
+    description: |
+      (Also analyzed for CORE-04) Defines `Action`, `Change`, `BatchAction`, and `ActionQueue`.
+      Relevant here because `Editor` methods extensively create and use these classes to make operations undoable.
+      `Change` stores the state of a tile (or other data) before modification.
+      `Action` groups `Change`s for a single logical operation.
+      `ActionQueue` manages the history of actions.
+  - file_path: wxwidgets/action.cpp
+    description: |
+      (Also analyzed for CORE-04) Implements the action system.
+      Shows how `Action::commit()` applies changes by swapping tile data and how `Action::undo()` reverts them.
+      This implementation detail is key to how the ported `EditorController` should interact with the new undo system (`QUndoStack` and `QUndoCommand`).
 dependencies:
-- UI-EVENT-01
-- CORE-05
-current_functionality_summary: The `Editor::drawInternal` methods in `editor.cpp` serve as the main interface for applying brush strokes. These methods receive target positions and an active brush (obtained from `g_gui`). They then call the appropriate `draw()` or `undraw()` method on the brush instance. Crucially, these operations are wrapped in `Action` objects, with `Change` objects storing deep copies of tiles before and after modification, which are then pushed to the `ActionQueue` to enable undo/redo. The various `*_brush.cpp` files contain the specific logic for how each brush type modifies a tile.
-qt6_migration_steps: |-
-  1. Create an `EditorController` class (this will be part of the application layer, not `mapcore`).
-  2. The `EditorController` will hold references or pointers to essential `mapcore` components: the current `Map`, the `ActionQueue`, and the `Selection` object. It will also interact with a `BrushManager` (from `UI-03` or `REFACTOR-01`) which is responsible for providing the currently active brush and its settings (size, shape, specific item/creature type for specialized brushes, etc.).
-  3. Implement a central method in `EditorController`, for example, `void processBrushAction(const Position& targetPos, bool isUndoOperation, const BrushActiveSettings& brushSettings)`.
-  4. Inside `processBrushAction`:
-     a. Retrieve the active `Brush*` from the `BrushManager` based on `brushSettings`.
-     b. Obtain the `Tile*` at `targetPos` from the `Map`. If no tile exists, create a temporary empty one for the operation.
-     c. Create a new `Action*` using `actionQueue->createAction(...)`.
-     d. Add a `Change` to the `Action` representing the tile's state *before* modification (e.g., `action->addChange(new Change(tile->deepCopy()));`).
-     e. Based on `isUndoOperation`:
-        i. If true, call `activeBrush->undraw(map, tileToModify);`.
-        ii. If false, call `activeBrush->draw(map, tileToModify, &brushSettings);` (pass relevant parameters like specific item ID for RAWBrush, etc., contained in `brushSettings`).
-        (`tileToModify` is the actual tile in the map that will be changed by the brush methods).
-     f. Add another `Change` to the `Action` representing the tile's state *after* modification. The `Action::commit` mechanism (from `CORE-05`) will handle the actual swap of tile data in the map.
-     g. Push the completed `Action` to the `ActionQueue` (e.g., `actionQueue->addAction(action);` which should also commit it).
-  5. The `MapView::mousePressEvent` (from task `UI-EVENT-01`) will be responsible for:
-     a. Translating mouse click coordinates to a map `Position`.
-     b. Determining if it's a draw or undraw operation (e.g., based on left-click vs. Ctrl+left-click or a separate undraw tool mode).
-     c. Fetching current brush settings from the `BrushManager`.
-     d. Calling the `EditorController::processBrushAction(...)` method.
-  6. Ensure that after an `Action` is committed by the `ActionQueue`, the `MapView` is appropriately notified to repaint the affected region(s). This might involve the `ActionQueue` or `EditorController` emitting a signal that `MapView` connects to.
-definition_of_done: |-
-  Core drawing and deletion logic is implemented via an `EditorController`, connecting UI events from `MapView` to `mapcore`'s brush and action systems.
-  Key requirements:
-  - An `EditorController` class exists and correctly mediates drawing/undrawing operations.
-  - When in "DRAWING_MODE" and the map canvas is left-clicked:
-    - The `EditorController` identifies the target tile and active brush (with its settings from `BrushManager`).
-    - It invokes the active brush's `draw()` method on the target tile.
-    - An `Action` containing the tile's before and after states is created using `mapcore`'s `Change` objects.
-    - This `Action` is pushed to the `mapcore` `ActionQueue` and committed to the map.
-  - If CTRL+Left-Click (or a similar undraw gesture) occurs:
-    - The active brush's `undraw()` method is invoked.
-    - An appropriate `Action` is created and processed.
-  - The `MapView` updates immediately to reflect the changes after an action is committed by the `ActionQueue`.
-  - All drawing/undrawing operations performed via this mechanism are undoable/redoable through the `ActionQueue`.
-boilerplate_coder_ai_prompt: |-
-  Implement the core drawing logic by creating an `EditorController` class that connects `MapView` UI events to the `mapcore` brush and action systems.
-  1.  Define `EditorController.h` and `EditorController.cpp`. This class is part of the application, not `mapcore`.
-  2.  `EditorController` should have access to:
-      - The main `Map*` object (from `mapcore`).
-      - The `ActionQueue*` (from `mapcore`).
-      - A `BrushManager*` (assume this class exists, providing `Brush* getCurrentBrush()` and `BrushSettings getCurrentBrushSettings()`).
-  3.  Implement a method like `void EditorController::handleMapClick(const Position& mapPos, bool isCtrlPressed)`:
-      a.  `Brush* activeBrush = brushManager->getCurrentBrush();`
-      b.  `if (!activeBrush) return;`
-      c.  `Tile* tile = map->getOrCreateTile(mapPos);` // Ensures tile exists for modification
-      d.  `Action* action = actionQueue->createAction(ACTION_DRAW);` // Or a more specific ID
-      e.  `action->addChange(new Change(tile->deepCopy()));` // Save 'before' state for undo
-      f.  `BrushSettings params = brushManager->getCurrentBrushSettings();` // Get current size, shape, specific item for RAW, etc.
-      g.  If `isCtrlPressed` (undraw operation):
-          `activeBrush->undraw(map, tile);`
-      h.  Else (draw operation):
-          `activeBrush->draw(map, tile, &params);` // Pass params to brush
-      i.  `action->addChange(new Change(tile->deepCopy()));` // Save 'after' state
-      j.  `actionQueue->addAction(action);` // This should also commit the action
-  4.  The `MapView::mousePressEvent` (task `UI-EVENT-01`) should:
-      - Check if in `DRAWING_MODE`.
-      - Convert event coordinates to `mapPos`.
-      - Determine `isCtrlPressed` from event modifiers.
-      - Call `editorController->handleMapClick(mapPos, isCtrlPressed)`.
-  5.  Ensure `MapView` redraws tiles affected by actions from `ActionQueue` (e.g., via signals/slots).
+  - BUILD-01                # CMake project setup
+  - CORE-01                 # Ported Position, Item, Tile structures
+  - CORE-03                 # Ported Map data structure
+  - CORE-04                 # Ported Action & History system (QUndoStack, QUndoCommand base)
+  - CORE-05                 # Ported Selection system (for destroySelection, moveSelection)
+  - UI-EVENT-MAPVIEW        # For map view mouse events that trigger drawing/selection
+  - BRUSH-FRAMEWORK-CORE    # Ported base Brush class and BrushManager
+  - BRUSH-LOGIC-ALL         # Meta-task representing porting of all specific brush logic
+current_functionality_summary: |
+  In the legacy codebase, `Editor::drawInternal` methods (and similar methods like `destroySelection`) serve as the central point for applying modifications to the map.
+  These methods take the target position(s) and implicitly use the currently active brush (via `g_gui.GetCurrentBrush()`).
+  The core pattern is:
+  1. An `Action` (or `BatchAction`) is created.
+  2. For each tile to be affected, its state *before* modification is captured in a `Change` object (usually by a deep copy).
+  3. The brush's `draw()` or `undraw()` method (or a direct map manipulation for operations like delete) is called, modifying the live tile.
+  4. The `Change` object (now holding the tile's previous state) is added to the `Action`. The `Action::commit()` logic then swaps the live tile with the one in the `Change` object, effectively making the change live and storing the undo state.
+  5. The `Action` is pushed to the `ActionQueue`.
+  This ensures that all significant map-altering operations are undoable.
+qt6_migration_steps: |
+  1.  **Define `EditorController` Class (Application Layer):**
+      -   Create `EditorController.h` and `EditorController.cpp`.
+      -   It will hold references/pointers to `AppContext` members: `mapcore::Map& map`, `QUndoStack& undoStack`, `mapcore::SelectionManager& selectionManager`, and a `mapcore::BrushManager& brushManager` (from `BRUSH-FRAMEWORK-CORE`).
+  2.  **Implement Drawing/Undrawing Logic:**
+      -   Create a primary method, e.g., `void EditorController::applyBrushStroke(const QList<Position>& positions, const BrushSettings& settings, bool isEraseOperation)`.
+      -   Inside this method:
+          -   Retrieve the active `mapcore::Brush*` from `brushManager` based on `settings.activeBrushName` (or similar).
+          -   Create a new concrete `QUndoCommand` (e.g., `BrushStrokeCommand` from `CORE-04`). This command's constructor will take the list of `positions`, a copy of `brushSettings`, and `isEraseOperation`.
+          -   The `BrushStrokeCommand::redo()` method will:
+              -   Iterate over the `positions`.
+              -   For each `Position`, get or create the `mapcore::Tile*`.
+              -   Store the tile's state *before* modification (e.g., by deep copying it or storing necessary delta info).
+              -   Call `activeBrush->draw(map, tile, settings)` or `activeBrush->undraw(map, tile)` on the live tile.
+          -   The `BrushStrokeCommand::undo()` method will:
+              -   Restore the stored "before" state for each affected tile.
+          -   Push the command onto the `undoStack`: `undoStack.push(new BrushStrokeCommand(...))`.
+  3.  **Implement Deletion Logic:**
+      -   Create `void EditorController::deleteSelection()`.
+      -   Get selected tiles/objects from `selectionManager`.
+      -   Create a `DeleteCommand` (a `QUndoCommand` subclass).
+          -   `redo()`: Iterates selected objects, removes them from the `map`, and stores data needed for undo (e.g., deep copies of deleted tiles/items).
+          -   `undo()`: Re-inserts the stored objects back into the `map`.
+      -   Push the command onto `undoStack`.
+  4.  **Implement Selection Movement Logic (Conceptual for now, details in a dedicated move tool task):**
+      -   `void EditorController::moveSelection(const Position& offset)` would create a `MoveSelectionCommand`.
+          -   `redo()`: Moves selected items by offset, storing original positions and states.
+          -   `undo()`: Moves items back.
+      -   Push to `undoStack`.
+  5.  **Connect to UI Events (from `UI-EVENT-MAPVIEW`):**
+      -   Slots in `MainWindow` or `MapViewport` that handle mouse events (press, drag, release) will:
+          -   Determine the target `Position`(s) on the map.
+          -   Gather current `BrushSettings` from `BrushManager`.
+          -   Determine if it's a draw or erase operation.
+          -   Call the appropriate `EditorController` method (e.g., `applyBrushStroke`).
+  6.  **Map Updates/Notifications:**
+      -   After a command is pushed and executed by `QUndoStack` (or when undone/redone), the `QUndoStack::indexChanged()` signal (or custom signals from commands) should trigger `MapViewport` to repaint the affected map regions.
+definition_of_done: |
+  - An `EditorController` class is implemented and acts as the intermediary for applying brush actions and other modifications to the map.
+  - Core drawing operations (triggered by UI events like mouse clicks/drags in `MapViewport`):
+    - Correctly identify the active brush and its settings from `BrushManager`.
+    - Invoke the appropriate `draw()` method of the active (ported) brush on the target `Tile`(s).
+    - Wrap these operations in `QUndoCommand`s, storing necessary state for undo/redo.
+    - Successfully push these commands to the `QUndoStack`.
+  - Core erase operations (e.g., Ctrl+Click or dedicated erase tool):
+    - Invoke the `undraw()` method of the active brush or a specific eraser brush.
+    - These operations are also wrapped in `QUndoCommand`s and are undoable.
+  - `EditorController::deleteSelection()` functionality:
+    - Creates a `QUndoCommand` to remove currently selected elements (from `SelectionManager`) from the `Map`.
+    - This deletion is undoable.
+  - All drawing, erasing, and deletion operations are correctly reflected in the `MapViewport` after execution, undo, or redo.
+  - The system correctly interacts with the ported `Map`, `Tile`, `Item`, `Brush`, and `QUndoStack` components.
+boilerplate_coder_ai_prompt: |
+  Implement an `EditorController` class to manage core drawing, erasing, and deletion logic, integrating with `mapcore` components.
+  This controller will be called by UI event handlers (e.g., from `MapViewport`).
+  Assume `mapcore::Map*`, `QUndoStack*`, `mapcore::SelectionManager*`, and `mapcore::BrushManager*` are accessible (e.g., via an `AppContext`).
+  Ported brush classes (derived from `mapcore::Brush`) with `draw()` and `undraw()` methods are available via `BrushManager`.
+  The `QUndoCommand` pattern (from `CORE-04`) should be used for all map modifications.
+
+  **1. `EditorController` Class (`editor/EditorController.h/cpp`):**
+     -   Constructor takes `AppContext*` or individual manager pointers.
+     -   `void applyBrushStroke(const QList<Position>& positions, const BrushSettings& settings, bool isErase)`:
+         -   Retrieves `Brush* currentBrush = brushManager->getActiveBrush(settings.brushName);`.
+         -   Creates a `BrushStrokeCommand : QUndoCommand`.
+         -   `BrushStrokeCommand::BrushStrokeCommand(Map* map, Brush* brush, QList<Position> positions, BrushSettings settings, bool isErase, QUndoCommand* parent = nullptr)`: Stores these parameters.
+         -   `BrushStrokeCommand::redo()`:
+             -   For each `Position` in `positions`:
+                 -   `Tile* tile = map->getOrCreateTile(pos);`
+                 -   Store state of `tile` for undo (e.g., `originalTiles[pos] = tile->deepCopy();`).
+                 -   If `isErase`, call `currentBrush->undraw(map, tile);`.
+                 -   Else, call `currentBrush->draw(map, tile, &settings);` (pass relevant parts of `settings`).
+                 -   `map->notifyTileChanged(pos);` (or emit signal for UI update).
+         -   `BrushStrokeCommand::undo()`:
+             -   For each `Position` in `originalTiles.keys()`:
+                 -   Restore `map->setTile(pos, std::move(originalTiles.take(pos)));`
+                 -   `map->notifyTileChanged(pos);`
+         -   `undoStack->push(new BrushStrokeCommand(...));`.
+     -   `void deleteSelectedObjects()`:
+         -   `QList<SelectedObject> selection = selectionManager->getCurrentSelection();` (define `SelectedObject`).
+         -   Creates `DeleteCommand : QUndoCommand`.
+         -   `redo()`: Removes objects from map, stores copies for undo.
+         -   `undo()`: Restores objects to map.
+         -   Push to `undoStack`.
+
+  **2. Integration with `MapViewport` (Conceptual - actual calls from `UI-EVENT-MAPVIEW` task):**
+     -   Mouse press/drag handlers in `MapViewport` will gather `Position(s)` and current `BrushSettings`.
+     -   They will call `editorController->applyBrushStroke(...)`.
+     -   A "Delete" key press or menu action will call `editorController->deleteSelectedObjects()`.
+
+  **3. Important Considerations:**
+     -   `BrushSettings` should contain all parameters a brush might need (e.g., specific item ID for RAW brush, size/shape for area brushes).
+     -   `Tile::deepCopy()` is essential for storing undo state.
+     -   Ensure `QUndoCommand::setText()` is called with a user-friendly description of the action.
+     -   Map notifications for UI updates are critical after `redo()`/`undo()`.
+documentation_references:
+  - "QUndoStack: https://doc.qt.io/qt-6/qundostack.html"
+  - "QUndoCommand: https://doc.qt.io/qt-6/qundocommand.html"
+  - "Model-View-Controller (MVC) Pattern (for context on EditorController's role)"
+  - "Command Pattern: https://en.wikipedia.org/wiki/Command_pattern"

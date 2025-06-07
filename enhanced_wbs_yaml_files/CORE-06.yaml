@@ -1,40 +1,115 @@
 id: CORE-06
-section: Data I/O & Management
-title: Port Creature XML & OTB Integration
-original_input_files: creatures.h/cpp, creature_brush.h/cpp
+section: Configuration
+title: Port Settings & Preferences System
+original_input_files:
+  - wxwidgets/settings.h
+  - wxwidgets/settings.cpp
 analyzed_input_files:
-- wxwidgets/creatures.h
-- wxwidgets/creatures.cpp
-- wxwidgets/creature_brush.h
-- wxwidgets/creature_brush.cpp
+  - file_path: wxwidgets/settings.h
+    description: |
+      Defines the `Config::Key` enumeration, which lists all available application settings. These cover a wide range of options including view preferences, editor behavior, graphics options, UI customizations, window layouts, hotkeys, network settings, dark mode, LOD controls, and more.
+      Also declares the `Settings` class interface (global instance `g_settings`). This class is responsible for managing all application settings, providing methods to get and set values by their `Config::Key`. It uses an internal `DynamicValue` helper class to store settings of different types (int, float, string).
+  - file_path: wxwidgets/settings.cpp
+    description: |
+      Implements the `Settings` class.
+      - Settings are stored internally in a `std::vector<DynamicValue>`.
+      - The core `IO(IOMode mode)` method uses macros to define each setting's key name, data type, and default value. This method handles three modes: `DEFAULT` (populating with defaults), `LOAD` (reading from `wxConfig`), and `SAVE` (writing to `wxConfig`).
+      - `load()` method initializes `wxConfigBase` (either `wxFileConfig` for a local `editor.cfg` or `wxConfig` for platform-native storage like Windows Registry or Linux/macOS user config files) and then calls `IO(LOAD)`.
+      - `save()` method calls `IO(SAVE)` and flushes the `wxConfig` data to disk/registry.
+      - Provides typed getters (`getBoolean`, `getInteger`, `getFloat`, `getString`) and setters for accessing settings by their `Config::Key`.
 dependencies:
-- CORE-02
-- CORE-04
-current_functionality_summary: |-
-  - `CreatureDatabase` (in `creatures.h/cpp`): Loads creature and NPC definitions from various XML sources (custom editor `creatures.xml`, and OT server `monsters/` and `npcs/` directories) using pugixml. It stores these as `CreatureType` objects (name, outfit, NPC status). It also supports saving custom creature data back to its own `creatures.xml`.
-  - `CreatureBrush` (in `creature_brush.h/cpp`): Uses these `CreatureType` definitions to allow placement of creatures on the map.
-  The "OTB Integration" aspect likely refers to resolving creature names from loaded OTB maps against this database to get full type information.
-qt6_migration_steps: |-
-  1. Within the `mapcore` library, enhance the `CreatureDatabase` (ported in `CORE-02`).
-  2. Implement recursive directory scanning logic in `CreatureDatabase` using `QDirIterator` to locate all monster and NPC XML files within specified game data directory structures (e.g., `data/Tibia/monsters/`, `data/Tibia/npcs/`).
-  3. Ensure all XML parsing for these files (and the custom `creatures.xml`) uses `QXmlStreamReader` to populate the `CreatureDatabase` with `CreatureType` objects.
-  4. Implement the functionality for `CreatureDatabase` to save its current state (particularly custom or editor-modified creature types) to a `creatures.xml` file using `QXmlStreamWriter`. This file should also be loadable by `CreatureDatabase` at startup.
-  5. Verify that `CreatureBrush` (ported in `CORE-04`) correctly queries the `mapcore`-internal `CreatureDatabase` to obtain `CreatureType` information for placing creatures.
-  6. Ensure that creature instances loaded from OTB maps (which typically store only the creature's name) can have their full `CreatureType` details (e.g., outfit data for rendering) resolved by looking up their name in the `mapcore`'s `CreatureDatabase`.
-definition_of_done: |-
-  The `CreatureDatabase` within `mapcore` is fully functional for managing creature and NPC definitions from various XML sources and its own persisted custom data.
-  Key requirements:
-  - `CreatureDatabase` can recursively scan specified directories to find and parse all standard monster and NPC XML files using `QXmlStreamReader`.
-  - `CreatureDatabase` can save its current state (custom/modified creatures) to a `creatures.xml` file using `QXmlStreamWriter`.
-  - `CreatureDatabase` can load data from this custom `creatures.xml` file upon initialization.
-  - `CreatureBrush` correctly utilizes the `mapcore`-internal `CreatureDatabase`.
-  - Creature instances loaded from OTB maps can have their types successfully resolved against the `CreatureDatabase` to retrieve properties like outfits.
-  - All functionality is contained within `mapcore` and exclusively uses Qt classes for XML and file I/O operations.
-boilerplate_coder_ai_prompt: |-
-  Your task is to finalize the `CreatureDatabase` system within the `mapcore` static library (this builds on `CORE-02` and `CORE-04`). The classes should remain as modular files within `mapcore`.
-  1. Implement recursive directory scanning in `CreatureDatabase` using `QDirIterator` to find and parse all monster and NPC XML files from typical OT server directory structures. All XML parsing must use `QXmlStreamReader`.
-  2. Implement methods in `CreatureDatabase` to save its current data (especially any custom or editor-modified creatures) to a `creatures.xml` file. Use `QXmlStreamWriter` for this.
-  3. Implement logic in `CreatureDatabase` to load data from this `creatures.xml` file during its initialization.
-  4. Confirm that `CreatureBrush` (already ported) correctly interacts with this enhanced `CreatureDatabase`.
-  5. Ensure that creature names stored in loaded OTB maps can be effectively used to query the `CreatureDatabase` for complete `CreatureType` information (e.g., for rendering outfits). This primarily involves ensuring the database is robustly populated and queryable.
-  6. All code must reside within `mapcore` and use Qt types for file/XML I/O. No wxWidgets or pugixml dependencies.
+  - BUILD-01 # For CMake project structure, and for QSettings to know OrganizationName and ApplicationName
+current_functionality_summary: |
+  The application's settings are managed by the global `g_settings` object, an instance of the `Settings` class.
+  - Settings keys are defined in the `Config::Key` enum.
+  - Values are stored in memory in a vector of `DynamicValue` (a union-like struct for int, float, string).
+  - Persistence is handled by the `wxConfigBase` system (part of wxWidgets). On Windows, it attempts to use a local `editor.cfg` file first, then falls back to the registry. On Linux/macOS, it attempts a local `editor.cfg` then a user-specific configuration file (e.g., `~/.config/rme/editor.cfg`).
+  - The `Settings::IO()` method, through a macro system, defines all settings, their types, default values, and handles reading from/writing to `wxConfig`.
+qt6_migration_steps: |
+  1.  **Define `AppSettings` Class (in `core/settings/` or similar):**
+      -   Create `AppSettings.h` and `AppSettings.cpp`.
+      -   This class will be responsible for managing all application settings. It can be a singleton or a service class.
+      -   Replicate the `Config::Key` enum from `wxwidgets/settings.h` within this new system, possibly as `AppSettings::Key` or in a separate namespace.
+
+  2.  **Choose Qt Storage Mechanism:**
+      -   The primary Qt replacement for `wxConfig` is `QSettings`. It provides platform-native storage (registry on Windows, .plist on macOS, .ini files on Linux) and can also be configured to use INI files on all platforms for portability.
+      -   Initialize `QSettings` with organization name (e.g., "RMEditor") and application name (e.g., "RME-Qt"). This is typically done once, e.g., in `main.cpp` by setting `QCoreApplication::setOrganizationName()` and `QCoreApplication::setApplicationName()`.
+
+  3.  **Implement Settings Accessors:**
+      -   In `AppSettings`, create typed getter methods for each setting key (e.g., `bool getBool(Key key, bool defaultValue) const;`, `int getInt(Key key, int defaultValue) const;`, `QString getString(Key key, const QString& defaultValue) const;`, `double getDouble(Key key, double defaultValue) const;`).
+      -   These getters will use `QSettings::value(const QString& key, const QVariant& defaultValue = QVariant())` internally. The key for `QSettings` will be a string version of the enum key (e.g., "View/TransparentFloors").
+      -   Create typed setter methods (e.g., `void setValue(Key key, const QVariant& value)` or individual `setInt`, `setString`, etc.). These will use `QSettings::setValue(const QString& key, const QVariant& value)`.
+
+  4.  **Handle Default Values:**
+      -   The `QSettings::value()` method takes a `defaultValue` parameter. This should be used to provide the default for each setting when it's first accessed or not found in the storage.
+      -   The extensive list of defaults in the original `Settings::IO()` with `mode == DEFAULT` needs to be mapped to these `defaultValue` parameters.
+
+  5.  **Loading and Saving:**
+      -   `QSettings` typically handles immediate saving or caches writes and flushes them at appropriate times (e.g., when `QSettings` object is destructed or `sync()` is called). Explicit loading is generally not needed as values are read on demand. An explicit `save()` method in `AppSettings` might call `QSettings::sync()` if immediate persistence is desired after bulk changes.
+
+  6.  **Refactor Settings Usage:**
+      -   Replace all calls to `g_settings.getInteger(Config::SOME_KEY)` etc., with calls to the new `AppSettings` instance's methods (e.g., `appSettings->getInt(AppSettings::Key::SOME_KEY, defaultValue)`).
+      -   Use `QString` for string settings if interfacing heavily with other Qt APIs, or `std::string` if preferred for core logic (with conversions where necessary).
+
+  7.  **Configuration File Path:**
+      -   `QSettings` will automatically determine the path based on organization/application names. If a portable `editor.ini` in the application directory is preferred, `QSettings` can be constructed with `QSettings::IniFormat` and `QSettings::UserScope` (or `SystemScope`) and a specific file path. For user-specific settings, `QSettings::UserScope` is standard.
+
+  8.  **Unit Tests:**
+      -   Test setting and getting various data types (int, bool, string, float/double).
+      -   Test that default values are correctly returned if a setting is not present.
+      -   Test that settings are persisted and reloaded correctly (by creating a `QSettings` object, writing values, destroying it, creating a new one, and reading values).
+definition_of_done: |
+  - An `AppSettings` class (or equivalent) is implemented using `QSettings` for backend storage.
+  - All existing application settings defined in `Config::Key` are mapped and accessible via the new `AppSettings` class.
+  - Typed getters are provided for all settings, including appropriate default values.
+  - Typed setters allow modification of settings.
+  - Settings are persisted correctly across application sessions using `QSettings` (e.g., to registry, .plist, or .ini files).
+  - The system for defining default settings from the original codebase is replicated.
+  - Code that previously accessed `g_settings` is updated to use the new `AppSettings` system.
+  - Unit tests verify the functionality of setting, getting, and persisting various types of settings and the correct application of default values.
+  - The new settings system compiles successfully within the `mapcore` library or application core.
+boilerplate_coder_ai_prompt: |
+  You are to port an application settings system from an old C++/wxWidgets codebase (based on `settings.h` and `settings.cpp`) to a modern C++/Qt6 environment. The new system should use `QSettings`.
+
+  **1. `AppSettings` Class Design:**
+     - Create `AppSettings.h` and `AppSettings.cpp`.
+     - Define an enum `Key` that mirrors the original `Config::Key` enum for all settings.
+     - The `AppSettings` class should manage access to settings. It can be a singleton or a service.
+     - It will internally use a `QSettings` object. Ensure `QCoreApplication::setOrganizationName()` and `QCoreApplication::setApplicationName()` are called in `main()` so `QSettings` has a default storage path. (e.g., "RMEditor", "RME-Qt").
+
+  **2. Implement Getters and Setters:**
+     - For each group of settings (e.g., "View", "Editor", "Graphics"), create string constants for group names (e.g., `QString VIEW_GROUP = "View";`).
+     - For each setting, create:
+       - A `QString` constant for its key name (e.g., `QString TRANSPARENT_FLOORS_KEY = "TransparentFloors";`).
+       - A getter: e.g., `bool isTransparentFloorsEnabled() const { return qsettings.value(QString("%1/%2").arg(VIEW_GROUP, TRANSPARENT_FLOORS_KEY), DEFAULT_TRANSPARENT_FLOORS).toBool(); }`. Define `DEFAULT_TRANSPARENT_FLOORS` constants.
+       - A setter: e.g., `void setTransparentFloorsEnabled(bool enabled) { qsettings.setValue(QString("%1/%2").arg(VIEW_GROUP, TRANSPARENT_FLOORS_KEY), enabled); }`.
+     - Handle `int`, `bool`, `double` (for float), and `QString` (for string) types.
+
+  **3. Default Values:**
+     - Ensure each getter provides the correct default value as the second argument to `qsettings.value()`. These defaults should match those in the original `Settings::IO()` method.
+
+  **4. Initialization and Persistence:**
+     - `QSettings` handles most persistence automatically. If explicit saving is needed after many changes, a `sync()` method in `AppSettings` can call `qsettings.sync()`.
+     - No explicit "load" method is typically needed as `QSettings` reads values on demand.
+
+  **5. Example Usage (Conceptual):**
+     ```cpp
+     // In main.cpp (or app setup)
+     // QCoreApplication::setOrganizationName("RMEditor");
+     // QCoreApplication::setApplicationName("RME-Qt");
+     // AppSettings settingsManager; // if singleton, or get instance
+
+     // Elsewhere
+     // bool showGrid = settingsManager.getShowGrid();
+     // settingsManager.setShowGrid(true);
+     ```
+
+  **General Requirements:**
+     - Provide `AppSettings.h` and `AppSettings.cpp`.
+     - List all settings from the original `Config::Key` enum and implement their accessors with correct default values.
+     - Use `QSettings` for storage.
+     - Write basic Qt Test unit tests for setting/getting a few representative settings of different types and verifying default value logic.
+documentation_references:
+  - "QSettings: https://doc.qt.io/qt-6/qsettings.html"
+  - "QVariant: https://doc.qt.io/qt-6/qvariant.html"
+  - "QCoreApplication (for org/app name): https://doc.qt.io/qt-6/qcoreapplication.html#setOrganizationName"

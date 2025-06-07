@@ -1,122 +1,138 @@
-wbs_item_id: CORE-05
-name: Port Selection & Clipboard
-description: Migrate selection management (map objects, items) and clipboard operations
-  (cut, copy, paste) from `mapcore` (likely `selection.cpp`/`.h` and potentially missing
-  `clipboard.cpp`/`.h`) to Qt6/C++. This includes handling complex selections and
-  serializing/deserializing data for the clipboard.
-dependencies:
-- CORE-04
-input_files:
-- wxwidgets/selection.cpp
-- wxwidgets/selection.h
+id: CORE-05
+section: Core Migration Tasks
+title: Port Selection & Copy/Paste System
+original_input_files:
+  - wxwidgets/selection.h
+  - wxwidgets/selection.cpp
+  - wxwidgets/copybuffer.h
+  - wxwidgets/copybuffer.cpp
 analyzed_input_files:
-- file_path: wxwidgets/selection.cpp
-  description: Implementation of the Selection class, managing selected tiles and
-    objects, and integrating with an ActionQueue for undo/redo. Includes a SelectionThread
-    for background selection operations.
-- file_path: wxwidgets/selection.h
-  description: Header file for the Selection and SelectionThread classes, defining
-    interfaces for managing selections of map objects.
-documentation_references:
-- 'QClipboard: https://doc.qt.io/qt-6/qclipboard.html'
-- 'QMimeData: https://doc.qt.io/qt-6/qmimedata.html'
-- 'QDataStream: https://doc.qt.io/qt-6/qdatastream.html'
-- 'QSet: https://doc.qt.io/qt-6/qset.html'
-- 'Qt Undo Framework: https://doc.qt.io/qt-6/qundostack.html'
-current_functionality_summary: The wxWidgets `Selection` class manages a set of selected
-  `Tile` objects. It uses a session-based approach (`start`, `commit`, `finish`) to
-  group selection changes into `Action` objects for an `ActionQueue`. Methods like
-  `add` and `remove` create deep copies of tiles with modified selection states and
-  add these as `Change` objects to the current action. A `SelectionThread` allows
-  performing selection operations in a separate thread. Clipboard logic (cut/copy/paste)
-  is not explicitly detailed in these files but would typically involve serializing/deserializing
-  the selected tiles and their contents.
+  - file_path: wxwidgets/selection.h
+    description: |
+      Defines the `Selection` class and `SelectionThread` class for managing user selections on the map.
+      - `Selection`: Manages a `TileSet` (a set of `Tile*`) representing the currently selected tiles. It provides methods like `add()` and `remove()` which operate on tiles or specific objects within tiles (Items, Spawns, Creatures). These methods typically work within a "session" (`start()`, `commit()`, `finish()`) that groups changes into `Action` objects for the undo/redo system. `addInternal()`/`removeInternal()` modify the selection set directly without creating actions. Also includes methods to get selection bounds (`minPosition`, `maxPosition`).
+      - `SelectionThread`: A `wxThread` subclass designed to perform selection operations over an area in a background thread, presumably to prevent UI freezes for large selections. The main thread can then merge the result of this background selection.
+  - file_path: wxwidgets/selection.cpp
+    description: |
+      Implements the `Selection` and `SelectionThread` classes.
+      - `Selection`: The `add()` and `remove()` methods create deep copies of the affected `Tile` objects, modify the selection state of the target objects within these copies (e.g., `item->select()`), and then add `Change` objects (containing these modified tile copies) to the current `Action` (`subsession`). The `start()`, `commit()`, and `finish()` methods manage the lifecycle of `Action` and `BatchAction` objects that record these selection changes for the `ActionQueue`.
+      - `SelectionThread::Entry()`: Implements the logic to iterate over a range of map coordinates, get the tiles, and add them to a local `Selection` object by calling its `add(Tile*)` method within a thread-local session. The resulting action data is then made available to the main thread.
+  - file_path: wxwidgets/copybuffer.h
+    description: |
+      Defines the `CopyBuffer` class, which acts as an internal clipboard for map data.
+      It contains a `BaseMap* tiles` to store deep copies of `Tile` objects that have been cut or copied.
+      Declares methods `copy(Editor&, int floor)`, `cut(Editor&, int floor)`, `paste(Editor&, const Position& toPosition)`, `canPaste()`, and `clear()`.
+      `copyPos` stores the top-left reference position of the copied data.
+  - file_path: wxwidgets/copybuffer.cpp
+    description: |
+      Implements the `CopyBuffer` class.
+      - `copy()`: Iterates the current selection from the source `Editor`. For each selected `Tile`, it creates a deep copy containing only the selected elements (items, creatures, spawns) from that tile. These partial or full tile copies are stored in the `CopyBuffer`'s internal `BaseMap`, and `copyPos` is set to the top-leftmost position of the selection.
+      - `cut()`: Performs a `copy()` operation and then creates an `Action` (via `editor.actionQueue`) to delete the selected elements from the source map. This involves creating `Change` objects representing the tiles after deletion.
+      - `paste()`: Takes a target `Position`. It iterates through the tiles stored in its internal `BaseMap`. For each tile, it creates a deep copy, offsets its position relative to `copyPos` and the `target_paste_position`, and then creates an `Action` to add/merge these tiles into the target `Editor`'s map. It handles merging with existing tiles or placing new tiles based on `Config::MERGE_PASTE` setting. Automagic border updates can also be triggered.
+dependencies:
+  - BUILD-01  # For CMake project structure
+  - CORE-01  # For Position, Item, Tile class definitions
+  - CORE-03  # For Map data structure and operations
+  - CORE-04  # For Action & History system integration
+current_functionality_summary: |
+  The current system uses:
+  - `Selection` class: Manages a `TileSet` of selected tiles. Operations like adding/removing items or entire tiles from selection are recorded as `Action` objects via a session mechanism (`start`, `commit`, `finish`). This ensures selection changes are undoable. It supports selecting individual items/creatures/spawns on a tile, or entire tiles. A `SelectionThread` is used for potentially long-running area selections.
+  - `CopyBuffer` class: Acts as an internal clipboard. It stores deep copies of selected tiles (including only the selected elements on those tiles) in an internal `BaseMap`. `cut()` operations also generate an action to delete the original selection. `paste()` reconstructs the copied tiles at a new location, generating an action for this modification.
+qt6_migration_steps: |
+  1.  **Design `SelectionManager` Class (in `mapcore/selection/`):**
+      -   This class will be responsible for managing the current selection state.
+      -   It needs to store selected objects. Consider if selection is primarily tile-based or if individual items/creatures on unselected tiles can be selected. The current system seems to operate on `Tile` granularity for selection storage, with selected sub-elements flagged within those tiles. A `QSet<Tile*>` (pointing to live tiles in the `Map`) along with a mechanism to know which sub-elements are selected might work. Alternatively, a list of `SelectionElement { Tile* tile; Item* item; Creature* creature; Spawn* spawn; }` could be used.
+      -   Implement methods:
+          -   `void startSelectionChange()`: Begins a logical selection operation (like original `start()`).
+          -   `void addToSelection(Tile* tile, Item* item = nullptr, Creature* creature = nullptr, Spawn* spawn = nullptr)`: Modifies the tile state to mark objects as selected.
+          -   `void removeFromSelection(Tile* tile, Item* item = nullptr, Creature* creature = nullptr, Spawn* spawn = nullptr)`: Modifies tile state to unmark objects.
+          -   `void clear()`: Clears all selection.
+          -   `void finishSelectionChange(const QString& commandText)`: Commits the accumulated selection changes as a single `QUndoCommand` to the `QUndoStack`. The command should store the "before" and "after" selection states or the set of tiles whose selection flags changed.
+      -   Expose selection data: `const QSet<Tile*>& getSelectedTiles() const;`, `bool isSelected(Tile* tile, Item* item = nullptr) const;`.
+      -   Handle bounding box calculation (`minPosition`, `maxPosition`).
+
+  2.  **Design `ClipboardManager` (or integrate into `Map` or `EditorContext`):**
+      -   **Clipboard Data Format:** Define a robust format. Serializing deep copies of `Tile` objects (including only selected elements) using `QDataStream` into a `QByteArray` with a custom MIME type is a good approach. This format must store relative positions, item IDs, subtypes, attributes, creature/spawn data, and tile flags.
+      -   Implement `void copySelection(const SelectionManager& selectionManager, const Map& map)`:
+          -   Gets selected tiles and their relevant contents from `selectionManager` and `map`.
+          -   Calculates a reference point (e.g., top-left of selection bounding box).
+          -   Serializes deep copies of these selected elements (with relative positions) into the defined format.
+          -   Puts the `QByteArray` onto `QApplication::clipboard()` with the custom MIME type.
+      -   Implement `void cutSelection(SelectionManager& selectionManager, Map& map, QUndoStack* undoStack)`:
+          -   Calls `copySelection()`.
+          -   Creates and pushes a `DeleteSelectionCommand` (see `CORE-04`) onto `undoStack` to remove the selected elements from the `map`.
+      -   Implement `void paste(Map& map, const Position& targetPosition, QUndoStack* undoStack)`:
+          -   Retrieves data from `QApplication::clipboard()`. Checks for the custom MIME type.
+          -   Deserializes the data back into a list of `Tile` data (or equivalent structures).
+          -   Creates and pushes a `PasteCommand` onto `undoStack`. This command, when executed, will add/merge the pasted tiles and their contents into the `map` at the `targetPosition`, adjusting for relative offsets from the clipboard data.
+
+  3.  **Integrate with `QUndoStack` (from `CORE-04`):**
+      -   All operations that change selection state (`addToSelection`, `removeFromSelection`, `clearSelection`) or modify map data (`cutSelection`, `paste`) must be implemented as `QUndoCommand` subclasses and pushed onto the `QUndoStack`.
+      -   A `SelectionCommand` would store the set of changes to selection flags on tiles.
+      -   A `PasteCommand` would store the data being pasted to allow its removal on undo.
+
+  4.  **Replace `SelectionThread`:**
+      -   For large area selections, if performance becomes an issue, use `QtConcurrent::run` or a `QThread` to gather the list of affected tiles/objects, then apply the selection change as a single command on the main thread.
+
+  5.  **Unit Tests:**
+      -   Test `SelectionManager`: adding various object types, removing, clearing, checking selection state.
+      -   Test clipboard data serialization and deserialization.
+      -   Test `copy`, `cut`, `paste` operations with mock map data and `QUndoStack`, ensuring correct data transfer and command creation.
 definition_of_done:
-- A `SelectionManager` class is implemented in Qt6/C++ to manage selected map objects
-  (Tiles, Items, Creatures, Spawns).
-- 'The `SelectionManager` supports:'
-- '  - Adding objects (individual items, creatures, spawns, or entire tiles) to the
-  current selection.'
-- '  - Removing objects from the current selection.'
-- '  - Clearing the entire selection.'
-- All selection modifications are integrated with the `ActionQueue` (from CORE-03)
-  to ensure undo/redo functionality.
-- 'Clipboard operations are implemented:'
-- '  - `copySelection()`: Serializes the currently selected objects into a well-defined
-  clipboard format. Data can be placed on `QClipboard` or an internal buffer.'
-- '  - `cutSelection()`: Performs a copy operation and then creates an action to delete
-  the selected objects from the map.'
-- '  - `pasteSelection(Position target_position)`: Deserializes objects from the clipboard
-  data format and creates an action to add them to the map at the specified target
-  position, maintaining relative placements.'
-- A clear data format for clipboard content is defined and documented (e.g., custom
-  binary structure, XML, or JSON representation of tiles and their contents).
-- The system correctly handles selection of various map elements (ground, items on
-  tile, creatures, spawns).
-- Memory management for selected objects and clipboard data is handled using modern
-  C++ practices.
-- 'Basic unit tests are created for:'
-- '  - `SelectionManager`: add, remove, clear selection operations.'
-- '  - Clipboard: copy and paste of a simple selection (e.g., a few tiles with items).'
-- The ported code compiles successfully within a Qt6 project structure.
-- A brief report outlines the design of the selection and clipboard system and the
-  chosen clipboard data format.
-boilerplate_coder_ai_prompt: "The user wants to migrate a selection and clipboard\
-  \ system from an old C++/wxWidgets application to Qt6/modern C++.\nAnalyze the provided\
-  \ C++ header and source file snippets for `Selection` (from `wxwidgets/selection.cpp`\
-  \ and `wxwidgets/selection.h`). Assume clipboard logic might have been in separate,\
-  \ currently unavailable files (`clipboard.cpp`/`.h`) or integrated/handled by UI\
-  \ code.\n\n**1. SelectionManager Class:**\n   - Design a `SelectionManager` class.\n\
-  \   - It should maintain a collection of currently selected objects. This could\
-  \ be a `QSet<Tile*>` if selection is tile-based, or a more complex structure if\
-  \ individual items/creatures within unselected tiles can be selected (the provided\
-  \ code suggests tile-based selection primarily, where operations on items within\
-  \ a tile lead to a modified copy of the tile being part of the action). The original\
-  \ `Selection::tiles` is a `TileSet`.\n   - Implement methods like:\n     - `void\
-  \ add(Tile* tile, Item* item = nullptr, Creature* creature = nullptr, Spawn* spawn\
-  \ = nullptr)`: Adds the specified object(s) to the selection. If an item/creature/spawn\
-  \ is specified, the containing tile is effectively part of the selection context.\
-  \ This should create an `Action` (see CORE-03) that, when executed, marks the objects\
-  \ as selected and updates the tile state.\n     - `void remove(Tile* tile, Item*\
-  \ item = nullptr, Creature* creature = nullptr, Spawn* spawn = nullptr)`: Removes\
-  \ object(s) from selection, also via an `Action`.\n     - `void clearSelection()`:\
-  \ Clears the current selection, via an `Action`.\n     - `const QSet<Tile*>& getSelectedTiles()\
-  \ const;` (or equivalent for your chosen representation).\n     - `bool isSelected(Tile*\
-  \ tile, Item* item = nullptr, ...) const;`\n   - The original `Selection` class\
-  \ uses `start()`, `commit()`, `finish()` methods to batch selection changes into\
-  \ `Action` objects submitted to an `ActionQueue`. Adapt this pattern. An `Action`\
-  \ for selection might store copies of tiles in their pre-selected and post-selected\
-  \ states.\n\n**2. Clipboard Functionality (to be integrated or a separate ClipboardHandler):**\n\
-  \   - **Data Format:** Define a data format for storing copied map data. This could\
-  \ be:\n     - A list of `Tile` objects (deep copies).\n     - A custom structure\
-  \ like `ClipboardContent { Position offset; QList<TileData> tiles; }`.\n     - Serialized\
-  \ data (e.g., using `QDataStream` for binary, or XML/JSON).\n     This format must\
-  \ capture all necessary information: items, ground, creatures, spawns, tile flags,\
-  \ relative positions.\n   - `void copySelection()`:\n     - Get the current selection\
-  \ from `SelectionManager`.\n     - Determine the bounding box or reference point\
-  \ (e.g., minPosition from original code).\n     - Create deep copies of the selected\
-  \ tiles and their contents.\n     - Serialize this data into the defined clipboard\
-  \ format.\n     - Place the serialized data onto `QApplication::clipboard()` using\
-  \ a custom MIME type, or store it in an internal buffer.\n   - `void cutSelection()`:\n\
-  \     - Perform `copySelection()`.\n     - Create and execute an `Action` (via `ActionQueue`)\
-  \ to delete the selected objects/tiles from the map.\n   - `void pasteSelection(const\
-  \ Position& target_paste_position)`:\n     - Retrieve data from `QApplication::clipboard()`\
-  \ or the internal buffer.\n     - Deserialize it back into a list of `Tile` objects\
-  \ or the intermediate structure.\n     - Create and execute an `Action` to add these\
-  \ tiles/objects to the map at `target_paste_position`, applying appropriate offsets\
-  \ so their relative arrangement is preserved.\n\n**3. Integration with Actions (CORE-03):**\n\
-  \   - All operations that modify selection state or map data (cut, paste) must be\
-  \ performed through `Action` objects pushed to the `ActionQueue` to ensure undo/redo\
-  \ capability.\n   - A `SelectAction` might store the state of selection before and\
-  \ after.\n   - A `PasteAction` would store the data being pasted to allow its removal\
-  \ on undo.\n\n**General Porting Instructions:**\n   - Replace wxWidgets types (e.g.,\
-  \ `wxThread` for `SelectionThread`) with Qt equivalents (`QThread`, `QtConcurrent::run`,\
-  \ or handle synchronously if `SelectionThread`'s complexity is initially too high).\n\
-  \   - Use smart pointers for managing dynamically allocated objects like `Tile`\
-  \ copies for clipboard or actions.\n   - Interactions with `Editor`, `Map`, `Tile`,\
-  \ `Item`, `ActionQueue` are key. Define clear interfaces or pass necessary references.\n\
-  \   - The concept of `SessionFlags` (INTERNAL, SUBTHREAD) in the original code might\
-  \ be simplified or re-evaluated based on how actions are batched.\n   - Provide\
-  \ header (.h) and source (.cpp) files for the `SelectionManager` and any clipboard-specific\
-  \ helper classes or data structures.\n   - Include basic unit tests for selection\
-  \ changes and copy/paste operations.\n"
+  - A `SelectionManager` class is implemented in `mapcore` using Qt/C++ to manage selected map objects (Tiles, and specific Items, Creatures, Spawns within them).
+  - `SelectionManager` supports adding objects to selection, removing objects, and clearing the selection.
+  - All selection modifications are integrated with the `QUndoStack` (from `CORE-04`) via specific `SelectionCommand` objects, ensuring undo/redo functionality for selection changes.
+  - Clipboard operations (`copy`, `cut`, `paste`) are implemented:
+    - `copySelection()`: Serializes the currently selected map elements (tiles and their relevant contents) into a well-defined internal format (e.g., using `QDataStream` and `QByteArray`) and places it on `QApplication::clipboard()` with a custom MIME type.
+    - `cutSelection()`: Performs a copy, then creates and pushes a command to delete the selected elements from the map.
+    - `pasteSelection(Position target_position)`: Deserializes data from the clipboard and creates/pushes a command to add the elements to the map, maintaining relative positions.
+  - The clipboard data format correctly captures all necessary information (items, ground, creatures, spawns, tile flags, relative positions).
+  - Memory for copied data and command objects is managed correctly (e.g., via `std::unique_ptr` or Qt's ownership).
+  - Basic unit tests are created for `SelectionManager` operations and for copy/cut/paste functionality, verifying data integrity and undo/redo integration.
+  - The ported code compiles successfully within the `mapcore` library.
+boilerplate_coder_ai_prompt: |
+  You are to port the selection and copy/paste system from an old C++ codebase (based on `selection.h/cpp` and `copybuffer.h/cpp`) to a modern C++/Qt6 environment within a `mapcore` library. This system should use the `QUndoStack` and `QUndoCommand` (from `CORE-04`) for undo/redo, and interact with `Map`, `Tile`, `Item` classes (from `CORE-01`/`CORE-03`).
+
+  **1. `SelectionManager` Class (`mapcore/selection/SelectionManager.h/cpp`):**
+     -   Manages a collection of selected objects. The primary selected unit is `Tile*`, but individual items/creatures/spawns on those tiles can have a selected state.
+     -   `void startSelectionChange()`: Prepares for a series of selection modifications that will become one undo command.
+     -   `void add(Tile* tile, Item* item = nullptr, Creature* creature = nullptr, Spawn* spawn = nullptr)`: Marks the specified object(s) as selected within the `tile`.
+     -   `void remove(Tile* tile, Item* item = nullptr, Creature* creature = nullptr, Spawn* spawn = nullptr)`: Unmarks object(s).
+     -   `void clear()`: Clears all selection.
+     -   `void finishSelectionChange(const QString& commandText)`: Creates a `SelectionCommand` (see below) encapsulating all changes made since `startSelectionChange()` and pushes it to the `QUndoStack`.
+     -   `const QSet<Tile*>& getSelectedTiles() const;` (returns tiles that have any selected element).
+     -   `bool isSelected(const Tile* tile, const Item* item = nullptr, ...) const;`.
+
+  **2. `SelectionCommand` (derived from `QUndoCommand`):**
+     -   Stores a list of `Tile*` and their selection state *before* and *after* the command.
+     -   `redo()`: Applies the "after" selection state to the tiles.
+     -   `undo()`: Applies the "before" selection state to the tiles.
+
+  **3. Clipboard Data Format & `ClipboardManager` (or integrated logic):**
+     -   Define a format for clipboard data: Use `QDataStream` to serialize a `QList` of lightweight `TileData` objects (containing relative position, items, creatures, spawns, flags of selected elements only) into a `QByteArray`.
+     -   `void copySelection(const SelectionManager& selMgr, const Map& map)`:
+         -   Gets selected tiles/elements.
+         -   Calculates a reference `Position` (e.g., top-left).
+         -   Creates `TileData` for each selected tile, storing only selected elements and their data relative to the reference position.
+         -   Serializes this `QList<TileData>` to a `QByteArray`.
+         -   Puts it on `QApplication::clipboard()->setMimeData()` with a custom MIME type.
+     -   `void cutSelection(SelectionManager& selMgr, Map& map, QUndoStack* undoStack)`: Calls `copySelection`, then creates and pushes a `DeleteCommand` for the selection.
+     -   `void paste(Map& map, const Position& targetPos, QUndoStack* undoStack)`:
+         -   Retrieves `QByteArray` from clipboard, deserializes `QList<TileData>`.
+         -   Creates a `PasteCommand`.
+             -   `redo()`: Adds/merges the `TileData` into the `map` at `targetPos` (adjusting for relative positions).
+             -   `undo()`: Removes the pasted elements.
+         -   Pushes the `PasteCommand` to `undoStack`.
+
+  **4. General:**
+     -   Replace wxWidgets types. Use smart pointers for temporary `Tile` copies if needed.
+     -   Focus on data management and command structure. UI interaction is separate.
+     -   Provide necessary headers and source files.
+     -   Write basic Qt Test unit tests.
+documentation_references:
+  - 'QClipboard: https://doc.qt.io/qt-6/qclipboard.html'
+  - 'QMimeData: https://doc.qt.io/qt-6/qmimedata.html'
+  - 'QDataStream: https://doc.qt.io/qt-6/qdatastream.html'
+  - 'QSet: https://doc.qt.io/qt-6/qset.html'
+  - 'QUndoStack: https://doc.qt.io/qt-6/qundostack.html'
+  - 'QUndoCommand: https://doc.qt.io/qt-6/qundocommand.html'

@@ -1,43 +1,134 @@
 id: FINAL-06
-section: Final Polish
-title: Implement Status & Progress UI
-original_input_files: gui.cpp (`CreateLoadBar`, `SetStatusText`)
+section: UI Polish & Finalization
+title: Implement About Dialog & Welcome Screen
+original_input_files:
+  - wxwidgets/about_window.h
+  - wxwidgets/about_window.cpp
+  - wxwidgets/welcome_dialog.h
+  - wxwidgets/welcome_dialog.cpp
+  - wxwidgets/application.cpp # For context on how WelcomeDialog is shown and editor_icon.xpm hue shift
 analyzed_input_files:
-- wxwidgets/gui.cpp
+  - file_path: wxwidgets/about_window.h
+    description: |
+      Declares the `AboutWindow` class, a `wxDialog` subclass.
+      It's designed to display application information (version, license).
+      Declares event handlers for OK, License buttons, and for launching embedded "Tetris" and "Snake" games.
+      Forward-declares `GamePanel` for these easter-egg games.
+  - file_path: wxwidgets/about_window.cpp
+    description: |
+      Implements the `AboutWindow` class.
+      Constructs the dialog with static text displaying application name, version, wxWidgets/OpenGL versions, license summary, and compile-time info.
+      Includes an abstract `GamePanel` base class and concrete `TetrisPanel` and `SnakePanel` implementations using `wxDC` for drawing and `wxStopWatch`/`wxIdleEvent` for game loops. These games are triggered via keyboard shortcuts ('t', 's') from the About dialog.
+  - file_path: wxwidgets/welcome_dialog.h
+    description: |
+      Declares the `WelcomeDialog` class (a `wxDialog` subclass) and several custom helper classes for its UI:
+      `WelcomeDialogPanel`, `WelcomeDialogButton`, `RecentMapsPanel`, `WhatsNewPanel`, `RecentItem`.
+      This dialog is intended for startup, offering actions like New Map, Open Map, Preferences, listing recent files,
+      and displaying "What's New" information. Declares a custom event `WELCOME_DIALOG_ACTION`.
+  - file_path: wxwidgets/welcome_dialog.cpp
+    description: |
+      Implements `WelcomeDialog` and its custom UI component classes.
+      - `WelcomeDialogPanel`: Arranges the logo, title, version, action buttons, recent files list, "What's New" text area (loaded from `whatsnew.txt`), and a "Show this dialog on startup" checkbox.
+      - `WelcomeDialogButton`: A custom `wxPanel` styled as a button with hover effects.
+      - `RecentMapsPanel` & `RecentItem`: Display clickable recent file entries.
+      Event handlers trigger `WELCOME_DIALOG_ACTION` for New/Open/Preferences or opening a recent file. The checkbox state is saved to `g_settings`.
+  - file_path: wxwidgets/application.cpp
+    description: |
+      (Relevant parts for this task) Contains logic in `Application::OnInit()` for potentially showing the `WelcomeDialog` based on settings and command-line arguments.
+      It also loads `editor_icon.xpm` and applies a random hue shift to it, which is then used in the `WelcomeDialog`.
 dependencies:
-- UI-01
-current_functionality_summary: The application currently uses a `wxStatusBar` in the main window for status messages, accessed via `g_gui.SetStatusText` or `MainFrame::SetStatusText`. For long-running tasks, it uses a `wxProgressDialog`, typically created and managed via `g_gui.CreateLoadBar`, `g_gui.SetLoadDone`, and `g_gui.DestroyLoadBar` methods found in `gui.cpp`.
+  - BUILD-01 # For CMake project structure
+  - UI-01    # For MainWindow context if dialogs are parented to it or if they trigger main window actions
+  - CORE-06  # For AppSettings (storing "show welcome on startup" preference, recent files list)
+  - FINAL-02 # For File Menu Operations (New, Open, Recent Files functionality invoked by Welcome Dialog)
+current_functionality_summary: |
+  - `AboutDialog` (`about_window.h/cpp`): A wxDialog displaying application name, version (hardcoded/macro `__W_RME_VERSION__`), wxWidgets/OpenGL versions, license summary from `COPYING.txt`, and compile-time info. It includes hidden Tetris and Snake games implemented with `wxDC`.
+  - `WelcomeDialog` (`welcome_dialog.h/cpp`): A custom wxDialog shown on startup (if enabled in settings). It displays a logo (color-shifted `editor_icon.xpm`), application title/version, action buttons ("New", "Open", "Preferences"), a list of recent files, and a "What's New" section loaded from `whatsnew.txt`. The "Show on startup" preference is stored via `g_settings`.
 qt6_migration_steps: |-
-  1. Ensure the `MainWindow` class (developed in task `UI-01`) has a `QStatusBar`. This is usually available by default when inheriting from `QMainWindow`.
-  2. Implement a public method in `MainWindow` for updating status messages, e.g., `void showStatusMessage(const QString& message, int timeout = 0)`. This method should use `statusBar()->showMessage(message, timeout)` for temporary messages.
-  3. For persistent status information (like mouse coordinates or editor mode), add `QLabel` widgets to the `QStatusBar` using `statusBar()->addPermanentWidget()` or `statusBar()->addWidget()`. Update these labels directly.
-  4. Globally refactor all existing calls to `g_gui.SetStatusText` and any direct `wxStatusBar::SetStatusText` calls to use the new `MainWindow::showStatusMessage` method or update the appropriate status bar `QLabel`s.
-  5. For long-running operations (e.g., map loading/saving, complex calculations), replace the usage of the old progress bar system (`CreateLoadBar`, etc.) with `QProgressDialog`.
-  6. Design and implement a helper function or a small wrapper class to simplify the creation, updating, and management of `QProgressDialog` instances. This helper should handle:
-     - Setting the dialog's title, label text, minimum and maximum range, and parent widget.
-     - Updating the progress value (`setValue()`) and label text (`setLabelText()`).
-     - Checking for user cancellation (`wasCanceled()`).
-     - Properly closing/destroying the dialog.
-  7. Identify all code sections in the application that perform lengthy operations (these might be in map I/O classes, editor action processing, etc.) and integrate the new `QProgressDialog` helper.
-  8. If any long-running operations are performed in worker threads, ensure that all updates to `QProgressDialog` (which is a UI element) are executed in the main UI thread. This is typically achieved by emitting signals from the worker thread and connecting them to slots in the main thread that call the dialog's update methods (using `Qt::QueuedConnection` for cross-thread signals).
-definition_of_done: |-
-  The application effectively uses QStatusBar in MainWindow for status messages and QProgressDialog for indicating progress of long-running operations.
-  Key requirements:
-  - The `MainWindow` displays relevant information (e.g., mouse coordinates, editor mode, brief messages) in its `QStatusBar`.
-  - Long-running tasks (such as map loading/saving, extensive computations) display a non-modal `QProgressDialog` that accurately reflects the progress of the task.
-  - The progress dialog provides a way for the user to cancel the operation where appropriate, and the application handles such cancellations gracefully.
-  - All previous uses of `wxStatusBar` (whether via `g_gui` or `MainFrame`) and the `wxProgressDialog`-based system (`CreateLoadBar`) are replaced by their Qt equivalents.
-  - Progress updates from worker threads are safely marshaled to the main UI thread to update the `QProgressDialog`.
-boilerplate_coder_ai_prompt: |-
-  1. In the `MainWindow` class (from `UI-01`), utilize its `statusBar()` method (which returns a `QStatusBar*`) to display status messages.
-     - Implement a public method like `MainWindow::showStatusMessage(const QString& text, int timeout = 0)` that calls `statusBar()->showMessage(text, timeout)`.
-     - For persistent status sections (e.g., mouse coordinates, current tool), add `QLabel` widgets to the status bar using `statusBar()->addPermanentWidget(myLabel);` or `statusBar()->addWidget(myLabel);` and update these labels directly.
-     - Replace all calls from the old system (e.g., `g_gui.SetStatusText`) with appropriate calls to the new status bar methods or direct QLabel updates.
-  2. For long-running operations (identify these in map I/O, editor actions, etc.):
-     - Use `QProgressDialog`.
-     - Consider creating a helper class or utility functions to manage `QProgressDialog` instances. This helper should handle:
-       - Creation: `new QProgressDialog(labelText, cancelButtonText, minimum, maximum, parentWidget)`.
-       - Setting properties: `setWindowTitle()`, `setLabelText()`, `setMinimumDuration()` (to prevent flicker for short tasks).
-       - Updating: `setValue(int progress)`.
-       - Cancellation: Connect to its `canceled()` signal.
-     - Ensure dialog updates from worker threads are posted to the main thread (e.g., via Qt signals and slots using `Qt::QueuedConnection`).
+  1.  **Create `AboutDialog.h/.cpp` (Qt Version):**
+      -   Inherit from `QDialog`.
+      -   Use `QLabel`s for application name, version (pass as argument or retrieve from `QApplication`), Qt version (`QT_VERSION_STR`), credits, and license summary. Consider loading license from a resource file into a `QTextBrowser`.
+      -   **Easter Egg Games (Optional, can be deferred):**
+          -   If porting, create a base `GameWidget : QWidget` handling `paintEvent` (for `QPainter`), `keyPressEvent`, and `QTimer` for game logic.
+          -   Implement `TetrisWidget : GameWidget` and `SnakeWidget : GameWidget`, porting logic from `about_window.cpp` to use `QPainter`.
+          -   Integrate into `AboutDialog`, perhaps making them visible via `QShortcut`.
+  2.  **Create `WelcomeDialog.h/.cpp` (Qt Version):**
+      -   Inherit from `QDialog`.
+      -   Use Qt layouts (`QVBoxLayout`, `QHBoxLayout`, `QGridLayout`) for structure.
+      -   Display logo: `QLabel` with a `QPixmap` (e.g., `editor_icon.png` as a resource). If hue shift is desired, implement `QImage` manipulation before creating `QPixmap`.
+      -   Display title and version: `QLabel`s.
+      -   Action Buttons: `QPushButton` for "New", "Open", "Preferences". Connect `clicked()` signals to slots that will:
+          -   For "New": Emit a signal to be caught by `MainWindow` to trigger `slotFileNew()`.
+          -   For "Open": Emit a signal for `MainWindow` to trigger `slotFileOpen()`. Alternatively, directly invoke `QFileDialog` and then emit a signal with the chosen path.
+          -   For "Preferences": Create and `exec()` the `PreferencesDialog` (from `CORE-06`).
+      -   Recent Files: Use `QListWidget`. Populate from `AppSettings::getRecentFiles()`. Connect `itemDoubleClicked(QListWidgetItem*)` to a slot that emits a signal for `MainWindow` to open the selected file path.
+      -   "What's New": Use `QTextBrowser` to load and display `whatsnew.txt` (from Qt resources or a standard path).
+      -   "Show this dialog on startup" `QCheckBox`: Connect `stateChanged(int)` to a slot that updates the corresponding setting in `AppSettings`. Load initial state from `AppSettings`.
+  3.  **Application Startup Logic (in `main.cpp` or `Application` class):**
+      -   After `AppSettings` are loaded (from `CORE-06`):
+          -   Check the "show welcome on startup" setting.
+          -   If true, and no map file is specified on the command line, instantiate and `exec()` the `WelcomeDialog`.
+          -   Handle signals emitted by `WelcomeDialog` (e.g., to open a file or create a new one in `MainWindow` after the welcome dialog closes).
+  4.  **Menu Integration:**
+      -   Ensure "Help > About" menu action in `MainWindow` instantiates and shows the new `AboutDialog`.
+  5.  **Resource Management:**
+      -   Add `editor_icon.png` (converted from XPM), `whatsnew.txt`, and any license files to the Qt Resource system (`.qrc`).
+definition_of_done: |
+  - A Qt-based `AboutDialog` is implemented and accessible (e.g., via "Help > About" menu). It correctly displays application name, version, Qt version, and license information.
+  - (Optional, if pursued) The Tetris and Snake easter egg games are ported to `QWidget`-based implementations using `QPainter` and are accessible from the `AboutDialog`.
+  - A Qt-based `WelcomeDialog` is implemented.
+  - `WelcomeDialog` correctly displays the application logo, title, version, "New", "Open", "Preferences" actions, a list of recent files, and "What's New" content.
+  - Actions in `WelcomeDialog` (New, Open, Open Recent, Preferences) correctly trigger the corresponding application functionalities (interacting with `MainWindow` or `AppSettings`).
+  - The "Show welcome dialog on startup" checkbox in `WelcomeDialog` correctly reads and writes its state via `AppSettings`.
+  - The application shows the `WelcomeDialog` on startup if the setting is enabled and no specific map file is opened via command line.
+boilerplate_coder_ai_prompt: |
+  Implement Qt6 versions of the "About" dialog and "Welcome" dialog/screen.
+
+  **1. `AboutDialog` (`qtui/dialogs/AboutDialog.h/cpp`):**
+     -   Inherit `QDialog`.
+     -   Display:
+         -   Application Name (`QApplication::applicationName()`).
+         -   Application Version (`QApplication::applicationVersion()`).
+         -   Qt Version (`QT_VERSION_STR`).
+         -   Credits/Authors.
+         -   License summary (load from a resource text file into a `QTextBrowser` or `QLabel`).
+     -   (Optional Easter Egg Games - If time permits, can be a separate sub-task):
+         -   Port `TetrisPanel` and `SnakePanel` from `wxwidgets/about_window.cpp` to `QWidget`-based classes using `QPainter` for drawing in `paintEvent` and `QTimer` for game loops.
+         -   Make them accessible from `AboutDialog` (e.g., via hidden shortcuts or buttons).
+
+  **2. `WelcomeDialog` (`qtui/dialogs/WelcomeDialog.h/cpp`):**
+     -   Inherit `QDialog`.
+     -   Layout:
+         -   Left: Logo (`QLabel` with `QPixmap` from resource), App Title (`QLabel`), Version (`QLabel`), Action `QPushButton`s ("New Map", "Open Map", "Preferences").
+         -   Center: "What's New" (`QTextBrowser` loading `whatsnew.txt` from resource).
+         -   Right: "Recent Files" (`QListWidget`).
+         -   Bottom: "Show this dialog on startup" `QCheckBox`.
+     -   Functionality:
+         -   "New Map" button: Emits a signal `createNewMapRequested()`.
+         -   "Open Map" button: Emits a signal `openMapRequested()`. (Alternatively, can directly use `QFileDialog::getOpenFileName` and emit `openSpecificMapRequested(QString path)`).
+         -   "Preferences" button: Creates and `exec()`s the `PreferencesDialog` (from `CORE-06`).
+         -   Recent Files `QListWidget`: Populate from `AppSettings::getRecentFiles()`. On `itemDoubleClicked`, emit `openSpecificMapRequested(QString path)`.
+         -   "Show on startup" `QCheckBox`: Load initial state from `AppSettings::getShowWelcomeDialog()`. On `stateChanged`, save to `AppSettings::setShowWelcomeDialog()`.
+
+  **3. Application Startup Logic (modify `main.cpp` or `Application` class):**
+     -   After `AppSettings` are loaded:
+     -   If `AppSettings::getShowWelcomeDialog()` is true AND no map file is given on command line:
+         -   Create and `exec()` `WelcomeDialog`.
+         -   Connect its signals (`createNewMapRequested`, `openMapRequested`, `openSpecificMapRequested`) to appropriate slots in `MainWindow` or `Application` class to handle these actions after the dialog closes.
+
+  **4. Menu Integration (in `MainWindow`):**
+     -   Ensure "Help > About" menu action creates and shows the `AboutDialog`.
+
+  Use Qt layouts for responsive design. Ensure dialogs are visually clean.
+documentation_references:
+  - "QDialog: https://doc.qt.io/qt-6/qdialog.html"
+  - "QLabel: https://doc.qt.io/qt-6/qlabel.html"
+  - "QPushButton: https://doc.qt.io/qt-6/qpushbutton.html"
+  - "QListWidget: https://doc.qt.io/qt-6/qlistwidget.html"
+  - "QTextBrowser: https://doc.qt.io/qt-6/qtextbrowser.html"
+  - "QCheckBox: https://doc.qt.io/qt-6/qcheckbox.html"
+  - "QPixmap: https://doc.qt.io/qt-6/qpixmap.html"
+  - "QSettings (for recent files, show on startup pref): https://doc.qt.io/qt-6/qsettings.html"
+  - "Qt Resource System: https://doc.qt.io/qt-6/resources.html"
+  - "QPainter (for optional games): https://doc.qt.io/qt-6/qpainter.html"
+  - "QTimer (for optional games): https://doc.qt.io/qt-6/qtimer.html"

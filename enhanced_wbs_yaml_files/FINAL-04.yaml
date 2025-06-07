@@ -1,54 +1,135 @@
 id: FINAL-04
-section: Finalization
-title: Implement Theme and Style Management
-original_input_files: dark_mode_manager.h/cpp, application.h/cpp (`FixVersionDiscrapencies`)
+section: Integration & Finalization
+title: Implement View Menu & Common Tools Menu Operations
+original_input_files:
+  - "Integrated `MapViewport` and `MainWindow` (with `AppContext`) from `FINAL-01`"
+  - "`AppSettings` from `CORE-06`"
+  - "View and Tools menu `QAction`s from `UI-02` (Toolbar & Menubar Setup)"
+  - "Dockable palette widgets (e.g., TerrainPalette, ItemPalette) from `UI-PALETTES-ALL`"
+  - "`MapDrawingOptions` or similar structure controlling map rendering flags (from `RENDER-01` or `MapViewport`)"
 analyzed_input_files:
-- wxwidgets/dark_mode_manager.h
-- wxwidgets/dark_mode_manager.cpp
-- wxwidgets/application.h
-- wxwidgets/application.cpp
+  - file_path: "qtui::MapViewport (from FINAL-01/RENDER-01)"
+    description: |
+      The Qt widget responsible for rendering the map. It needs methods to:
+      - Adjust zoom level (e.g., `setZoom(double)`, `zoomIn()`, `zoomOut()`).
+      - Change current floor being viewed (`setCurrentFloor(int)`).
+      - Toggle visibility of various map elements (grid, creatures, spawns, lights, etc.), likely by updating a `MapDrawingOptions` struct which it uses during rendering.
+      These methods will be called by slots connected to View menu actions.
+  - file_path: "qtui::MainWindow (from FINAL-01/UI-01)"
+    description: |
+      The main application window containing the View and Tools menus, toolbars, and dock widgets for palettes.
+      It needs to:
+      - Connect View/Tools menu `QAction`s to handler slots.
+      - Manage the visibility of toolbars (`QToolBar`) and dock widgets (`QDockWidget` containing palettes) based on View menu actions.
+      - Potentially host dialogs launched from the Tools menu (e.g., Map Properties).
+  - file_path: "core::AppSettings (from CORE-06)"
+    description: |
+      The application's settings manager. Many View menu options (e.g., show/hide states for UI elements, default visibility flags for map elements)
+      should be persisted as application settings using `AppSettings` so they are remembered across sessions.
+  - file_path: "View & Tools Menu QActions (from UI-02)"
+    description: |
+      The `QAction` objects for various View menu items (Zoom In/Out/Normal, Floor navigation, Show/Hide Grid, Lights, Creatures, Spawns, Toolbars, Palettes)
+      and common Tools menu items (e.g., Map Properties, Find Item). Their `triggered()` signals need to be connected to implementing slots.
+      Checkable actions should have their state synced with `AppSettings`.
+  - file_path: "Palette Widgets (from UI-PALETTES-ALL)"
+    description: |
+      The actual QDockWidget instances containing the different palettes (Terrain, Item, Doodad, etc.).
+      Their visibility will be toggled by actions in the View > Palettes submenu.
 dependencies:
-- UI-01
-current_functionality_summary: The existing `DarkModeManager` (`dark_mode_manager.h/cpp`) programmatically sets background and foreground colors of `wxWindow` objects to switch between a light and a dark theme. The dark theme can use default hardcoded dark colors or a user-defined custom base color fetched from `g_settings`. It does not use external stylesheet files. The `FixVersionDiscrapencies` method in `application.cpp` is for settings migration and not directly for theming logic.
-qt6_migration_steps: |-
-  1. Create a new C++ class `ThemeManager` (e.g., in `ThemeManager.h` and `ThemeManager.cpp`). This class will be responsible for managing theme application.
-  2. Design `ThemeManager` to load and apply Qt Style Sheets (.qss files). It should support at least 'light' and 'dark' themes.
-  3. Create `light.qss` and `dark.qss` files. These should be included as Qt resources or placed in a discoverable application directory. `dark.qss` must define styles for common Qt widgets to achieve a comprehensive dark theme. `light.qss` can be minimal if the default Qt styling is acceptable for the light theme.
-  4. To support the original feature of a user-defined custom base color for the dark theme:
-     - `ThemeManager` should read this custom base color preference from `AppSettings` (from `FINAL-03`).
-     - If a custom color is set and enabled, `ThemeManager` might need to dynamically generate the final `dark.qss` content. This could involve loading a `dark_template.qss` file with placeholders (e.g., `@backgroundColor`, `@textColor`) and replacing these placeholders with the user's custom color values before applying the stylesheet.
-  5. Implement a method in `ThemeManager` (e.g., `void applyCurrentTheme()`) that:
-     - Determines the current theme (light/dark) and custom color settings from `AppSettings`.
-     - Loads (and potentially processes for custom colors) the appropriate `.qss` file content.
-     - Applies the stylesheet globally to the application using `qApp->setStyleSheet(qssString)`.
-  6. In the application's main function or main window constructor, after `AppSettings` are loaded, instantiate/initialize `ThemeManager` and call its method to apply the initially configured theme.
-  7. Modify the `PreferencesDialog` (from `UI-DIALOGS-02` / `FINAL-01`):
-     - The 'Dark Mode' checkbox, when its state changes, should update the relevant setting in `AppSettings`.
-     - The custom dark color picker (if implemented) should update its setting in `AppSettings`.
-     - After any theme-related setting is changed in `AppSettings` via the dialog, the `ThemeManager` should be invoked to re-apply the theme to reflect changes immediately.
-  8. Remove the old `wxwidgets/dark_mode_manager.h` and `wxwidgets/dark_mode_manager.cpp` files and ensure no part of the codebase attempts to use `g_darkMode`.
-definition_of_done: |-
-  The application supports light and dark themes using Qt Style Sheets (.qss), configurable via the preferences dialog.
-  Key requirements:
-  - A `ThemeManager` class is implemented for managing theme loading and application.
-  - At least `light.qss` and `dark.qss` files are created and provide distinct visual styles for common application widgets.
-  - The application applies the selected theme (and custom color if that feature is retained) on startup, based on settings from `AppSettings`.
-  - The "Dark Mode" checkbox (and custom color picker, if retained) in the `PreferencesDialog` correctly updates settings in `AppSettings` and triggers `ThemeManager` to apply the theme changes live.
-  - The old wxWidgets-based `DarkModeManager` is completely removed and no longer used.
-  - The visual appearance of the application consistently and correctly reflects the selected theme across all windows and dialogs.
-boilerplate_coder_ai_prompt: |-
-  Implement a `ThemeManager` class and Qt Style Sheet (`.qss`) based theming.
-  1. Create `ThemeManager.h` and `ThemeManager.cpp`.
-  2. The `ThemeManager` will read theme preferences (light/dark, and optionally a custom dark base color) from `AppSettings` (task `FINAL-03`).
-  3. Create `light.qss` (can be minimal for default Qt look) and `dark.qss`. `dark.qss` should style common widgets (windows, buttons, inputs, lists, menus, toolbars, statusbar etc.) for a dark appearance. Store these as Qt resources or in an accessible directory.
-  4. Implement `ThemeManager::applyCurrentTheme()`:
-     - Fetches theme settings from `AppSettings`.
-     - If dark theme + custom color: Consider loading a `dark_template.qss` with placeholders (e.g., `@bgColor: {{backgroundColor}};`) and replacing them with actual color values from `AppSettings` to form the final QSS string. (Note: {{backgroundColor}} is a placeholder example, actual QSS syntax for variables might differ or require string replacement).
-     - Otherwise, load the content of `light.qss` or the standard `dark.qss`.
-     - Call `qApp->setStyleSheet(finalQssString)`.
-  5. Integrate `ThemeManager`:
-     - Call `applyCurrentTheme()` after `AppSettings` are loaded during application startup.
-     - In `PreferencesDialog`, when theme-related settings are changed:
-       - Update `AppSettings`.
-       - Call `ThemeManager::instance()->applyCurrentTheme()` (if ThemeManager is a singleton).
-  6. Remove the old `wxwidgets/dark_mode_manager.h/cpp` and its usages.
+  - FINAL-01  # Core-UI integration, AppContext, MainWindow, MapViewport
+  - CORE-06  # AppSettings for persisting view preferences
+  - UI-01    # MainWindow structure for managing toolbars/docks
+  - UI-02    # View and Tools Menu QAction definitions
+  - UI-PALETTES-ALL # For palette QDockWidget instances to show/hide
+  - RENDER-01 # For MapViewport's drawing options and zoom/floor capabilities
+current_functionality_summary: |
+  Following `FINAL-03`, the application has integrated core logic, file operations, edit operations, and a preferences dialog.
+  The View and Tools menus exist in the UI (from `UI-02`) but their actions are not yet functional.
+  The `MapViewport` can display the map, but zoom, floor navigation, and visibility toggles for map elements (grid, creatures, etc.) are not yet controllable through the UI menus.
+  Toolbars and dockable palettes exist but their visibility cannot be toggled via the View menu.
+  View-related settings might be defined in `AppSettings` but are not yet connected to UI actions.
+qt6_migration_steps: |
+  1.  **Zoom Functionality (`MainWindow` and `MapViewport`):**
+      -   Connect "View > Zoom > Zoom In", "Zoom Out", "Zoom Normal" `QAction`s to slots in `MainWindow`.
+      -   These slots will call methods on the `MapViewport` instance (e.g., `mapViewport->zoomIn()`, `mapViewport->zoomOut()`, `mapViewport->setZoom(1.0)`).
+      -   `MapViewport` needs to implement the actual zoom logic, update its internal zoom factor, and trigger a redraw.
+      -   The current zoom level could be displayed in the status bar.
+  2.  **Floor Navigation (`MainWindow` and `MapViewport`):**
+      -   Connect "Navigate > Floor > Floor X" `QAction`s (or a floor selection widget like `QSpinBox` if `UI-02` created one) to a slot in `MainWindow`.
+      -   This slot calls `mapViewport->setCurrentFloor(floorNum)`.
+      -   `MapViewport` updates its current floor and triggers a redraw.
+      -   The current floor should be displayed in the status bar.
+  3.  **Show/Hide Toolbars (`MainWindow`):**
+      -   For each toolbar (e.g., Standard, Brushes, Position), connect its corresponding "View > Toolbars > [Toolbar Name]" checkable `QAction::toggled(bool)` signal to a slot.
+      -   This slot will call `toolbarInstance->setVisible(bool)` and save the state to `AppSettings`.
+      -   Load initial visibility states from `AppSettings` on startup.
+  4.  **Show/Hide Palettes (Dock Widgets in `MainWindow`):**
+      -   For each palette (e.g., Terrain, Item, Creature - hosted in `QDockWidget`s), connect its "View > Palettes > [Palette Name]" checkable `QAction::toggled(bool)` signal to the `QDockWidget::setVisible(bool)` slot.
+      -   Connect the `QDockWidget::visibilityChanged(bool)` signal back to the `QAction::setChecked(bool)` slot to keep them in sync if closed via the dock widget's 'X' button.
+      -   Save/load palette visibility states using `AppSettings` (potentially using `QMainWindow::saveState()` and `restoreState()` for the overall dock layout).
+  5.  **Map Element Visibility Toggles (`MainWindow` and `MapViewport`):**
+      -   For each "View > Show > [Element]" or "Show > [Element]" checkable `QAction` (e.g., Grid, Creatures, Spawns, Lights, Houses, Pathing):
+          -   Connect its `toggled(bool)` signal to a slot in `MainWindow`.
+          -   This slot updates the corresponding boolean flag in a `MapDrawingOptions` struct (managed by `MapViewport` or `AppContext`).
+          -   The slot then calls `mapViewport->updateDrawingOptionsAndRefresh()` or similar to apply changes and trigger a redraw.
+          -   The initial checked state of these actions should be loaded from `AppSettings`. The new state should be saved to `AppSettings` when toggled.
+  6.  **Common Tools Menu Actions (`MainWindow`):**
+      -   **Map Properties:** Connect "Tools > Map Properties" (or "File > Map Properties") to a slot that opens a `MapPropertiesDialog`. This dialog would display information from `AppContext::map()` (description, dimensions) and allow modification, saving changes back to the `Map` object (and making it an undoable action if changes are significant). (Full dialog implementation might be a separate `UI-DIALOGS` task).
+      -   **Find Item:** Connect "Tools > Find Item" (or "Search > Find Item") to a slot that opens a `FindItemDialog`. (Full dialog and search logic in `LOGIC-FIND` or similar).
+      -   **Other Tools:** Connect other general-purpose tools defined in `menubar.xml` under "Tools" or "Map" to their respective handler slots. These might involve opening dialogs or directly invoking logic on the `AppContext::map()`.
+  7.  **Persist View Settings:**
+      -   Ensure all toggleable view options (toolbar visibility, palette visibility, map element visibility flags) are saved to `AppSettings` when changed and loaded from `AppSettings` on application startup to restore user preferences.
+definition_of_done: |
+  - All View menu operations are functional:
+    - Zoom In, Zoom Out, Zoom Normal correctly control the map viewport's zoom level.
+    - Floor navigation via menu/widget updates the map viewport's current floor.
+    - Show/Hide actions for all defined toolbars correctly toggle their visibility and persist state.
+    - Show/Hide actions for all defined palettes (dock widgets) correctly toggle their visibility and persist state.
+    - Show/Hide actions for map visual elements (Grid, Lights, Creatures, Spawns, Houses, Pathing, etc.) correctly update the map viewport's rendering and persist state.
+  - Selected common Tools menu operations are functional:
+    - "Map Properties" action opens a dialog displaying basic map information.
+    - "Find Item" action opens the Find Item dialog.
+  - Relevant view settings (toolbar/palette visibility, map element visibility flags) are persisted using `AppSettings` and restored on application startup.
+  - UI elements (e.g., checkable menu items) correctly reflect the current state of these settings.
+boilerplate_coder_ai_prompt: |
+  Implement the View menu operations and common Tools menu operations for the Qt6 map editor.
+  Assume `AppContext` provides `MapViewport& mapViewport`, `AppSettings& appSettings`, and `MainWindow* mainWindow`.
+  Menu `QAction`s are already created in `MainWindow` as per `UI-02`. Palette `QDockWidget`s are created as per `UI-PALETTES-ALL`.
+
+  **1. Zoom and Floor Navigation (in `MainWindow` slots, calling `MapViewport` methods):**
+     - Implement slots for `zoomInAction`, `zoomOutAction`, `zoomNormalAction` to call `mapViewport.zoomIn()`, `mapViewport.zoomOut()`, `mapViewport.setZoom(1.0)`.
+     - Implement a slot for floor change actions/widget to call `mapViewport.setCurrentFloor(newFloor)`.
+     - `MapViewport` must implement these methods and refresh itself.
+
+  **2. Toolbar Visibility (in `MainWindow`):**
+     - For each toolbar `QAction` (e.g., `viewStandardToolbarAction`):
+       - Connect `toggled(bool)` to a slot `onViewToolbarToggled(bool visible, QToolBar* toolbar, AppSettings::Key key)`.
+       - Slot: `toolbar->setVisible(visible); appSettings.setBool(key, visible);`.
+       - On startup, load visibility from `AppSettings` and apply to toolbars and check actions.
+
+  **3. Palette Visibility (in `MainWindow`):**
+     - For each palette `QAction` (e.g., `viewTerrainPaletteAction` pointing to `terrainPaletteDockWidget`):
+       - Connect `toggled(bool)` to `paletteDockWidget->setVisible(bool)`.
+       - Connect `paletteDockWidget->visibilityChanged(bool)` to `paletteAction->setChecked(bool)`.
+       - On startup, load visibility from `AppSettings` (or `QMainWindow::restoreState`) and apply. Save state on close.
+
+  **4. Map Element Visibility Toggles (in `MainWindow` slots, affecting `MapViewport`):**
+     - For each `QAction` (e.g., `showGridAction`):
+       - Connect `toggled(bool)` to a slot `onShowElementToggled(bool visible, AppSettings::Key key, MapDrawingOptionFlag flag)`.
+       - Slot: `appSettings.setBool(key, visible); mapViewport.setDrawingFlag(flag, visible); mapViewport.update();`.
+       - `MapViewport` needs a `setDrawingFlag(MapDrawingOptionFlag, bool)` method and use these flags in its paint event.
+       - On startup, load settings and apply to actions and `MapViewport`.
+
+  **5. Tools Menu Actions (in `MainWindow`):**
+     - `mapPropertiesAction`: Connect `triggered()` to a slot that creates and `exec()`s a `MapPropertiesDialog` (dialog needs to take `AppContext::map()` to display data).
+     - `findItemAction`: Connect `triggered()` to a slot that creates and `exec()`s a `FindItemDialog`.
+
+  **6. Settings Persistence:**
+     - All toggleable view states (toolbar visibility, palette visibility, map element visibility) must be saved to `AppSettings` when changed and loaded on startup.
+documentation_references:
+  - "QAction: https://doc.qt.io/qt-6/qaction.html"
+  - "QToolBar: https://doc.qt.io/qt-6/qtoolbar.html"
+  - "QDockWidget: https://doc.qt.io/qt-6/qdockwidget.html"
+  - "QMainWindow::addToolBar, QMainWindow::addDockWidget, QMainWindow::saveState, QMainWindow::restoreState"
+  - "QSettings: https://doc.qt.io/qt-6/qsettings.html"
+  - "Customizing OpenGL rendering (for MapViewport flags): No direct Qt link, depends on MapViewport's implementation."
