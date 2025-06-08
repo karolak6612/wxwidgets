@@ -13,38 +13,41 @@ original_input_files:
 analyzed_input_files:
   - file_path: wxwidgets/editor.h
     description: |
-      Declares the `Editor` class, which serves as a central point for map editing operations.
-      Key methods relevant to this task include `drawInternal` (and its public `draw`/`undraw` wrappers for various scenarios),
-      `destroySelection()`, and `moveSelection()`. It holds references to the `Map`, `ActionQueue`, `Selection`, and `CopyBuffer`.
+      Declares the `Editor` class, a central hub for map editing operations.
+      Key methods: `drawInternal` (and public wrappers `draw`/`undraw`), `destroySelection()`, `moveSelection()`.
+      Holds references to `Map`, `ActionQueue`, `Selection`, `CopyBuffer`.
+      Implicitly uses `g_gui.GetCurrentBrush()` to get the active brush for operations.
   - file_path: wxwidgets/editor.cpp
     description: |
-      Implements the `Editor` class methods.
-      - The `drawInternal` methods are crucial: they take a `Position` or `PositionVector`, the active brush (implicitly via `g_gui.GetCurrentBrush()`), and parameters (like `alt` key state). They then:
-        1. Create an `Action` (or `BatchAction`).
-        2. For each affected tile, create a `Change` object by deep-copying the tile *before* modification.
-        3. Call the appropriate `brush->draw()` or `brush->undraw()` method on the live tile in the map.
-        4. Create another `Change` object by deep-copying the tile *after* modification. (Actually, the original `Action::commit` swaps tile pointers, so the `Change` stores the *original* tile, and the new tile becomes live).
-        5. Add these `Change` objects to the `Action`.
-        6. Push the `Action` to the `ActionQueue`.
-      - `destroySelection()` and `moveSelection()` follow similar patterns of creating actions and changes to ensure undoability.
-      This file demonstrates the pattern of wrapping map modifications into undoable actions.
+      Implements `Editor` methods.
+      - `drawInternal` (various overloads): This is the core drawing logic.
+        - It typically creates an `Action` (or `BatchAction`).
+        - For each affected position, it prepares a `Change` object. The `Change` object is usually initialized with a deep copy of the tile *after* the brush operation has been applied to it.
+        - The brush's `draw(map, tile, parameter)` or `undraw(map, tile)` method is called. The `parameter` varies based on brush type (e.g., alt-key state, specific brush settings like radius).
+        - Special logic exists for different brush categories:
+            - Doodad brushes use a temporary `g_gui.doodad_buffer_map` for staging.
+            - Ground/Wall brushes might trigger a secondary action for border updates if `USE_AUTOMAGIC` is enabled.
+            - HouseExit/Waypoint brushes create `Change` objects with specialized data (ID/name and old position).
+        - The `Action::commit()` method then swaps the tile in the `Change` object (now the "new" state) with the tile on the map, making the `Change` object hold the "original/undo" state.
+      - `destroySelection()`: Creates an `Action` to remove selected elements. Also handles potential border updates.
+      - `moveSelection()`: A complex operation creating a `BatchAction` with multiple sub-actions for removing elements from old positions, updating old borders, adding elements to new positions, and updating new borders.
+      All modifications are wrapped in actions pushed to `ActionQueue`.
   - file_path: wxwidgets/brush.h
     description: |
-      Defines the abstract base `Brush` class with pure virtual `draw()` and `undraw()` methods.
-      Specific brush types (GroundBrush, WallBrush, etc.) derive from this and implement the actual logic for how a tile is modified.
-      The `EditorController` will interact with this Brush interface.
+      Defines the abstract base `Brush` class with `virtual void draw(BaseMap* map, Tile* tile, void* parameter = nullptr) = 0;` and `virtual void undraw(BaseMap* map, Tile* tile) = 0;`.
+      The `void* parameter` in `draw` is used by different brush types to pass specific data (e.g., alt-key state for ground brushes, radius for spawn brushes).
+      The `EditorController` will call these methods on `Brush` instances obtained from a `BrushManager`.
   - file_path: wxwidgets/action.h
     description: |
       (Also analyzed for CORE-04) Defines `Action`, `Change`, `BatchAction`, and `ActionQueue`.
-      Relevant here because `Editor` methods extensively create and use these classes to make operations undoable.
-      `Change` stores the state of a tile (or other data) before modification.
-      `Action` groups `Change`s for a single logical operation.
-      `ActionQueue` manages the history of actions.
+      Crucial for understanding how `Editor` makes operations undoable.
+      `Change` objects are key: they are initially populated with the "new" state of a tile (or other data).
+      `Action` groups `Change`s. `ActionQueue` manages history.
   - file_path: wxwidgets/action.cpp
     description: |
       (Also analyzed for CORE-04) Implements the action system.
-      Shows how `Action::commit()` applies changes by swapping tile data and how `Action::undo()` reverts them.
-      This implementation detail is key to how the ported `EditorController` should interact with the new undo system (`QUndoStack` and `QUndoCommand`).
+      `Action::commit(DirtyList* dirty_list)` is central: it iterates its `Change` objects. For `CHANGE_TILE`, it swaps the `Tile*` in `Change::data` with the tile on the map using `editor.map.swapTile()`. After this, `Change::data` holds the *original* tile from the map (the undo state), and the new tile (which was in `Change::data`) is now live on the map.
+      This "swap" mechanism is fundamental to how undo states are captured.
 dependencies:
   - BUILD-01                # CMake project setup
   - CORE-01                 # Ported Position, Item, Tile structures
@@ -163,3 +166,4 @@ documentation_references:
   - "QUndoCommand: https://doc.qt.io/qt-6/qundocommand.html"
   - "Model-View-Controller (MVC) Pattern (for context on EditorController's role)"
   - "Command Pattern: https://en.wikipedia.org/wiki/Command_pattern"
+estimation_effort: X-Large

@@ -1,140 +1,154 @@
-wbs_item_id: UI-07
-name: Port House & Waypoint Tools
-description: Recreate UI components for managing houses (palette, editor dialog) and
-  waypoints (palette).
+id: UI-07
+section: UI Elements
+title: "Port House Palette, Waypoint Palette, and EditHouseDialog"
+original_task_id: UI-07
+description: Recreate UI components for managing houses (palette tab, editor dialog for properties) and waypoints (palette tab) using Qt6.
 dependencies:
-- 'UI-02   # House and Waypoint palettes are tabs in the main palette system.'
-- 'CORE-03 # For map saving/loading which includes house and waypoint data.'
-- 'LOGIC-04 # For Waypoint and WaypointManager data structures.'
-- 'LOGIC-05 # For House and Town data structures and management.'
+  - "UI-02"        # Main Palette System (hosts these palette tabs)
+  - "CORE-01"      # For mapcore::House, mapcore::Town, mapcore::Waypoint data structures
+  - "LOGIC-04"     # For mapcore::WaypointManager
+  - "LOGIC-05"     # For mapcore::HouseManager, mapcore::TownManager
+  - "BUILD-01"     # CMake setup
 input_files:
-- wxwidgets/palette_house.cpp
-- wxwidgets/palette_house.h
-- wxwidgets/palette_waypoints.cpp
-- wxwidgets/palette_waypoints.h
+  - "wxwidgets/palette_house.cpp"
+  - "wxwidgets/palette_house.h"
+  - "wxwidgets/palette_waypoints.cpp"
+  - "wxwidgets/palette_waypoints.h"
 analyzed_input_files:
-- file_path: wxwidgets/palette_house.cpp
-  description: Implements `HousePalettePanel` using wxChoice for towns, SortableListBox
-    for houses, buttons for Add/Edit/Remove, and toggles for House/Exit brushes. Defines
-    `EditHouseDialog` for house properties.
-- file_path: wxwidgets/palette_house.h
-  description: Header for `HousePalettePanel` and `EditHouseDialog`.
-- file_path: wxwidgets/palette_waypoints.cpp
-  description: Implements `WaypointPalettePanel` using wxListCtrl for displaying and
-    editing waypoint names, with Add/Remove buttons.
-- file_path: wxwidgets/palette_waypoints.h
-  description: Header for `WaypointPalettePanel`.
+  - filepath: "wxwidgets/palette_house.h"
+    description: "Declares `HousePalettePanel` (derived from `PalettePanel`) and `EditHouseDialog`. `HousePalettePanel` manages UI for house selection, town filtering, and house brush/exit brush mode. It includes `wxChoice` for towns (`town_choice`), `SortableListBox` for houses (`house_list`), `wxButton`s for Add/Edit/Remove house (`add_house_button`, `edit_house_button`, `remove_house_button`), and `wxToggleButton`s for House/Exit brush mode (`house_brush_button`, `select_position_button`). `EditHouseDialog` is for modifying house properties like name, rent, town ID, and guildhall status, using controls like `wxTextCtrl` for name/rent, `wxChoice` for town, `wxSpinCtrl` for ID, and `wxCheckBox` for guildhall."
+  - filepath: "wxwidgets/palette_house.cpp"
+    description: "Implements `HousePalettePanel` and `EditHouseDialog`. `HousePalettePanel::OnUpdate` populates the `town_choice` from `map->towns`. `HousePalettePanel::SelectTown` filters the `house_list` based on the selected town. Event handlers `OnClickAddHouse`, `OnClickEditHouse`, and `OnClickRemoveHouse` manage house data by interacting with `map->houses` and invoking `EditHouseDialog` for editing. `OnClickHouseBrushButton` and `OnClickSelectExitButton` toggle the active house-related brush (`g_gui.house_brush`, `g_gui.house_exit_brush`). `OnListBoxContextMenu` and `OnMoveHouseToTown` handle moving selected houses to a different town. `EditHouseDialog::OnClickOK` validates inputs (name, unique ID if changed, rent) and updates the `House` object copy."
+  - filepath: "wxwidgets/palette_waypoints.h"
+    description: "Declares `WaypointPalettePanel` (derived from `PalettePanel`). It uses a `wxListCtrl` (`waypoint_list`) in report view with a single column to display waypoint names and allow in-place editing. It includes `wxButton`s for adding (`add_waypoint_button`) and removing (`remove_waypoint_button`) waypoints."
+  - filepath: "wxwidgets/palette_waypoints.cpp"
+    description: "Implements `WaypointPalettePanel`. `OnUpdate` populates the `waypoint_list` from `map->waypoints`. `OnClickWaypoint` (list item selection) sets the selected waypoint for `g_gui.waypoint_brush` and navigates the map view to its position. `OnBeginEditWaypointLabel` and `OnEditWaypointLabel` handle in-place renaming of waypoints, including validation for unique names. `OnClickAddWaypoint` creates a new `Waypoint` object, adds it to `map->waypoints` and the list, then initiates editing of its name. `OnClickRemoveWaypoint` removes the selected waypoint(s) from the map and list after confirmation."
 documentation_references:
-- 'QComboBox: https://doc.qt.io/qt-6/qcombobox.html'
-- 'QListWidget: https://doc.qt.io/qt-6/qlistwidget.html'
-- 'QDialog: https://doc.qt.io/qt-6/qdialog.html'
-- QRadioButton / QActionGroup for brush mode selection.
-current_functionality_summary: 'The `HousePalettePanel` provides a UI to:
-
-  - Select a town using a `wxChoice` control.
-
-  - List houses within that town in a `SortableListBox`.
-
-  - Add, Edit (via `EditHouseDialog`), and Remove houses.
-
-  - Implement a context menu for moving houses to different towns.
-
-  - Toggle between a "House Tile Brush" and a "Set House Exit" brush mode, configuring
-  a global house brush with the selected house.
-
-  The `EditHouseDialog` allows editing a house''s name, town, rent, ID, and guildhall
-  status.
-
-
-  The `WaypointPalettePanel` provides a UI to:
-
-  - List all waypoints in a `wxListCtrl` (names are editable).
-
-  - Add new waypoints (name becomes editable).
-
-  - Remove selected waypoints.
-
-  - Selecting a waypoint sets a global waypoint brush.'
+  - 'QDialog: https://doc.qt.io/qt-6/qdialog.html'
+  - 'QListWidget: https://doc.qt.io/qt-6/qlistwidget.html'
+  - 'QComboBox: https://doc.qt.io/qt-6/qcombobox.html'
+  - 'QLineEdit: https://doc.qt.io/qt-6/qlineedit.html'
+  - 'QSpinBox: https://doc.qt.io/qt-6/qspinbox.html'
+  - 'QCheckBox: https://doc.qt.io/qt-6/qcheckbox.html'
+  - 'QRadioButton: https://doc.qt.io/qt-6/qradiobutton.html'
+  - 'QActionGroup: https://doc.qt.io/qt-6/qactiongroup.html'
+  - 'QMenu (for context menu): https://doc.qt.io/qt-6/qmenu.html'
+current_functionality_summary: |
+  The legacy application provides UI for managing houses and waypoints primarily through dedicated palette tabs:
+  1.  **`HousePalettePanel`**:
+      *   Allows users to select a town from a `wxChoice` dropdown, which then populates a `SortableListBox` with houses belonging to that town. A "(No Town)" option lists houses not assigned to any town.
+      *   Provides "Add", "Edit", and "Remove" buttons. "Add" and "Edit" open the `EditHouseDialog`. "Remove" deletes selected houses.
+      *   A context menu on the house list allows moving selected house(s) to a different town.
+      *   Features `wxToggleButton`s to switch between "Draw House Tiles" mode (using `HouseBrush`) and "Set House Exit" mode (using `HouseExitBrush`), configuring the active brush with the currently selected house.
+  2.  **`EditHouseDialog`**: A modal dialog for editing properties of a single `House` object. It includes fields for:
+      *   House Name (`wxTextCtrl`).
+      *   Town (`wxChoice`, populated with existing towns).
+      *   Rent (`wxTextCtrl`, numeric input).
+      *   House ID (`wxSpinCtrl`, with warnings if changing an existing ID might cause conflicts).
+      *   Guildhall status (`wxCheckBox`).
+      Input validation is performed on OK.
+  3.  **`WaypointPalettePanel`**:
+      *   Displays all waypoints from the current map in a `wxListCtrl` (report view, single column).
+      *   Waypoint names can be edited directly in the list.
+      *   "Add Waypoint" button creates a new waypoint with a default name and initiates in-place editing of the name.
+      *   "Remove Waypoint" button deletes the selected waypoint(s) after confirmation.
+      *   Selecting a waypoint in the list sets it as the active `WaypointBrush` and centers the map view on its location.
+qt6_migration_steps:
+  - "Create `HousePaletteTab : QWidget` for the 'Houses' tab in the main palette system (`UI-02`)."
+  - "  In `HousePaletteTab`, add a `QComboBox` (`townCombo`) to list towns (from `TownManager`) plus a '(No Town)' entry."
+  - "  Add a `QListWidget` (`houseList`) to display houses. Items should show house name, ID, and size. Set selection mode to `QAbstractItemView::ExtendedSelection`."
+  - "  Populate `houseList` based on `townCombo`'s selection, filtering houses from `HouseManager`."
+  - "  Add `QPushButton`s: `addHouseButton`, `editHouseButton`, `removeHouseButton`."
+  - "  Implement a context menu for `houseList` with a 'Move to Town...' action, which will open a `QInputDialog::getItem` to select a new town."
+  - "  Add `QRadioButton`s (in a `QButtonGroup`) for 'Draw House Tiles' and 'Set House Exit' brush modes."
+  - "  Connect signals: `townCombo` changes filter `houseList`. Button clicks trigger corresponding actions (opening `EditHouseDialogQt`, removing houses, initiating move). List selection and radio button changes update `BrushStateService` with `HouseBrush` or `HouseExitBrush` and the selected house ID."
+  - "Create `EditHouseDialogQt : QDialog`."
+  - "  Add controls: `QLineEdit` for name, `QComboBox` for town (populated from `TownManager`), `QSpinBox` for rent (non-negative), `QSpinBox` for ID (1-65535), `QCheckBox` for guildhall."
+  - "  Implement `loadHouse(const mapcore::House* house)` to populate dialog from a `House` object copy."
+  - "  Implement `applyChanges(mapcore::House* house)` to validate inputs and save changes back to the `House` object copy. Show `QMessageBox` for validation errors (e.g., duplicate ID if changed, empty name)."
+  - "Create `WaypointPaletteTab : QWidget` for the 'Waypoints' tab."
+  - "  Add a `QListWidget` (`waypointList`). Set `Qt::ItemIsEditable` flag on items for in-place renaming."
+  - "  Add `QPushButton`s: `addWaypointButton`, `removeWaypointButton`."
+  - "  Populate `waypointList` from `WaypointManager`. Store waypoint name or ID with items."
+  - "  Connect signals: `addWaypointButton` creates a new waypoint in `WaypointManager`, adds to list, and calls `waypointList->editItem()`. `removeWaypointButton` confirms and removes selected waypoints from `WaypointManager` and list. `waypointList::itemChanged` validates new name (unique, not empty) and updates `WaypointManager`. `waypointList::currentItemChanged` updates `BrushStateService` with `WaypointBrush` and selected waypoint."
+  - "Ensure all lists update if underlying `HouseManager`, `TownManager`, or `WaypointManager` data changes."
 definition_of_done:
-- 'The ''House'' tab in the main palette system (`UI-02`) is fully implemented:'
-- '  - A `QComboBox` lists towns from the current map (plus a ''(No Town)'' option).
-  Selecting a town filters the `QListWidget` of houses.'
-- '  - The `QListWidget` displays houses for the selected town, showing house name,
-  ID, and size. It supports multi-selection for removal or moving.'
-- '  - An ''Add House'' `QPushButton` opens the `EditHouseDialogQt` for defining a
-  new house.'
-- '  - An ''Edit House'' `QPushButton` opens the `EditHouseDialogQt` for the single
-  selected house.'
-- '  - A ''Remove House'' `QPushButton` removes all selected house(s) after confirmation.'
-- '  - A context menu on the house list offers ''Move to Town...'', which opens a
-  dialog to select a new town for the selected house(s).'
-- '  - `QRadioButton`s or a `QActionGroup` allows switching between ''Draw House Tiles''
-  and ''Set House Exit'' brush modes, configuring the global house brush accordingly.'
-- 'The `EditHouseDialogQt` (subclass of `QDialog`) is implemented:'
-- '  - Allows editing/setting house name (`QLineEdit`), town (`QComboBox`), rent (`QSpinBox`),
-  ID (`QSpinBox` with warnings for changes/duplicates), and guildhall status (`QCheckBox`).'
-- '  - Loads data from a `House` object copy and applies validated changes back to
-  the copy on ''OK''.'
-- 'The ''Waypoint'' tab in the main palette system (`UI-02`) is fully implemented:'
-- '  - A `QListWidget` displays all waypoints from the map. Waypoint names are editable
-  in-place (`Qt::ItemIsEditable`).'
-- '  - An ''Add Waypoint'' `QPushButton` creates a new waypoint with a default unique
-  name in the map data and list, then initiates editing of the new item''s name.'
-- '  - A ''Remove Waypoint'' `QPushButton` removes the selected waypoint(s) from the
-  map data and list after confirmation.'
-- Selecting a house (and brush mode) or a waypoint in their respective palettes correctly
-  configures and activates the corresponding global brush (`HouseBrush`, `HouseExitBrush`,
-  `WaypointBrush`) for use on the map canvas.
-- All palette lists and controls are updated when the underlying map data (houses,
-  towns, waypoints) changes.
-boilerplate_coder_ai_prompt: "Your task is to implement the Qt6 UI components for\
-  \ managing Houses and Waypoints, specifically their palette tabs and the House editing\
-  \ dialog.\n\n**Reference Files:** `wxwidgets/palette_house.cpp`, `wxwidgets/palette_house.h`,\
-  \ `wxwidgets/palette_waypoints.cpp`, `wxwidgets/palette_waypoints.h`.\n\n**1. House\
-  \ Palette Tab (within main `paletteTabWidget` from `UI-02`):**\n   - **Controls:**\n\
-  \     - `QComboBox* townCombo;`\n     - `QListWidget* houseList;` (Set `SelectionMode`\
-  \ to `ExtendedSelection` for multi-delete/move)\n     - `QPushButton* addHouseButton;`\n\
-  \     - `QPushButton* editHouseButton;`\n     - `QPushButton* removeHouseButton;`\n\
-  \     - `QRadioButton* drawHouseTilesRadio;` (Text: \"Draw House Tiles\")\n    \
-  \ - `QRadioButton* setHouseExitRadio;` (Text: \"Set House Exit\")\n     - (Group\
-  \ the radio buttons)\n   - **Functionality:**\n     - Populate `townCombo` from\
-  \ `g_map.towns`. Add a \"(No Town)\" item.\n     - When `townCombo` changes, filter\
-  \ `houseList` to show houses matching `selectedTownId`. Display \"Name (ID: X, Size:\
-  \ Y sqm)\". Store `House*` or ID with `QListWidgetItem::setData`.\n     - `addHouseButton`:\
-  \ Create a new `House` object, open `EditHouseDialogQt` (pass it the new house object\
-  \ and map). If dialog accepted, add house to `g_map.houses`, refresh `houseList`.\n\
-  \     - `editHouseButton`: For selected house in `houseList`, create a copy, open\
-  \ `EditHouseDialogQt`. If accepted, apply changes to original house (create Undo\
-  \ action), refresh `houseList`. Disable if no selection or multiple selections.\n\
-  \     - `removeHouseButton`: Confirm and remove selected house(s) from `g_map.houses`.\
-  \ Refresh `houseList`. Create Undo action.\n     - `houseList` Context Menu: Action\
-  \ \"Move to Town...\". Opens a `QInputDialog::getItem` to select a new town from\
-  \ `g_map.towns`. Update `townid` for all selected houses. Refresh `houseList`. Create\
-  \ Undo action.\n     - Radio buttons/selection in `houseList` update the global\
-  \ house brush:\n       - If `drawHouseTilesRadio` checked: `g_houseBrush->setHouse(selectedHouse);\
-  \ g_gui->setActiveBrush(g_houseBrush);`\n       - If `setHouseExitRadio` checked:\
-  \ `g_houseExitBrush->setHouse(selectedHouse); g_gui->setActiveBrush(g_houseExitBrush);`\n\
-  \n**2. `EditHouseDialogQt` (inherits `QDialog`):**\n   - Constructor: `EditHouseDialogQt(QWidget*\
-  \ parent, Map* map, House* houseToEditCopy)`.\n   - Controls:\n     - `QLineEdit*\
-  \ nameEdit;`\n     - `QComboBox* townCombo;` (Populate with `map->towns`, set current\
-  \ based on `houseToEditCopy->townid`).\n     - `QSpinBox* rentSpinBox;`\n     -\
-  \ `QSpinBox* idSpinBox;` (Range 1-65535).\n     - `QCheckBox* guildhallCheck;`\n\
-  \   - Load initial values from `houseToEditCopy`.\n   - On \"OK\" (`accept()`):\
-  \ Validate data (name not empty, ID unique if changed, rent >= 0). Update `houseToEditCopy`\
-  \ fields.\n\n**3. Waypoint Palette Tab (within main `paletteTabWidget` from `UI-02`):**\n\
-  \   - **Controls:**\n     - `QListWidget* waypointList;` (Set `Qt::ItemIsEditable`\
-  \ for in-place renaming).\n     - `QPushButton* addWaypointButton;`\n     - `QPushButton*\
-  \ removeWaypointButton;`\n   - **Functionality:**\n     - Populate `waypointList`\
-  \ from `g_map.waypoints`. Store `Waypoint*` or name with `QListWidgetItem::setData`.\n\
-  \     - `addWaypointButton`: Create new `Waypoint` (e.g., \"New Waypoint 1\") in\
-  \ `g_map.waypoints`. Add to `waypointList`. Call `waypointList->editItem()` on the\
-  \ new item.\n     - `removeWaypointButton`: Confirm and remove selected waypoint(s)\
-  \ from `g_map.waypoints` and `waypointList`. Create Undo action.\n     - `waypointList::itemChanged(QListWidgetItem*\
-  \ item)` signal:\n       - Get old name (stored in item data before edit) and new\
-  \ name (item->text()).\n       - Validate new name (not empty, unique among waypoints).\
-  \ If invalid, revert or show error.\n       - Update the `Waypoint` object in `g_map.waypoints`.\
-  \ Create Undo action.\n     - `waypointList::currentItemChanged`: Sets `g_waypointBrush->setWaypoint(selectedWaypoint);\
-  \ g_gui->setActiveBrush(g_waypointBrush);`.\n\n**General:**\n- Ensure all list/combo\
-  \ boxes are updated if the underlying map data (towns, houses, waypoints) changes\
-  \ due to other operations or file loading.\n- Connect signals from UI elements to\
-  \ appropriate slots to implement the described functionality.\n"
+- The 'House' tab (`HousePaletteTab`) in the main palette system is implemented and functional.
+-   `townCombo` correctly lists towns and filters `houseList`.
+-   `houseList` displays house name, ID, and size. Supports multi-selection.
+-   `addHouseButton` opens `EditHouseDialogQt` to define a new house; on acceptance, the new house is added to data and UI.
+-   `editHouseButton` opens `EditHouseDialogQt` for the (single) selected house; on acceptance, changes are applied (via undo action later) and UI updated. Disabled for no/multiple selections.
+-   `removeHouseButton` removes selected house(s) after confirmation, updating data and UI.
+-   House list context menu 'Move to Town...' correctly reassigns selected house(s) to a new town, updating data and UI.
+-   'Draw House Tiles' and 'Set House Exit' radio buttons correctly switch the active brush mode and configure the global house brush via `BrushStateService` using the selected house.
+- The `EditHouseDialogQt` is implemented and functional:
+-   Loads data from a `House` object copy.
+-   Allows editing of name, town, rent, ID, and guildhall status.
+-   Validates input (unique ID if changed, non-empty name, non-negative rent).
+-   Applies changes to the `House` object copy on 'OK'.
+- The 'Waypoint' tab (`WaypointPaletteTab`) in the main palette system is implemented and functional:
+-   `waypointList` displays all waypoints. Waypoint names are editable in-place.
+-   `addWaypointButton` creates a new waypoint with a unique default name, adds it to data and list, and initiates name editing.
+-   `removeWaypointButton` removes selected waypoint(s) after confirmation, updating data and UI.
+-   Editing a waypoint name in the list validates uniqueness and updates the underlying `Waypoint` object.
+- Selecting a waypoint in `waypointList` configures and activates the global `WaypointBrush` via `BrushStateService` and navigates the map view to its location.
+- House and Waypoint palette lists refresh if the underlying map data changes (e.g., new map loaded, undo/redo action).
+estimation_effort: Medium-High (12-18 developer days)
+known_missing_files: []
+boilerplate_coder_ai_prompt: |
+  Your task is to implement the Qt6 UI components for managing Houses and Waypoints, specifically their palette tabs to be hosted in `UI-02`'s main palette system, and the `EditHouseDialog`. These components will interact with `HouseManager`, `TownManager`, `WaypointManager`, and `BrushStateService`.
+
+  **1. `HousePaletteTab : QWidget`**
+  *   **Layout:** `QVBoxLayout`.
+  *   **Controls:**
+      *   `QComboBox* m_townCombo;`
+      *   `QListWidget* m_houseList;` (Enable `QAbstractItemView::ExtendedSelection`)
+      *   `QHBoxLayout` for buttons:
+          *   `QPushButton* m_addHouseButton;` ("Add House")
+          *   `QPushButton* m_editHouseButton;` ("Edit House")
+          *   `QPushButton* m_removeHouseButton;` ("Remove House")
+      *   `QRadioButton* m_drawHouseTilesRadio;` ("Draw House Tiles", checked by default)
+      *   `QRadioButton* m_setHouseExitRadio;` ("Set House Exit")
+      *   (Group Radio Buttons: `QButtonGroup* m_houseBrushModeGroup;`)
+  *   **Functionality:**
+      *   Constructor: Initialize UI. Populate `m_townCombo` from `TownManager` (include "(No Town)"). Connect signals.
+      *   `void loadHousesForTown(int townId /or/ bool noTownSelected)`: Clear and repopulate `m_houseList` from `HouseManager`. Display "Name (ID: X, Size: Y sqm)". Store `mapcore::House*` or its ID with each `QListWidgetItem`. Sort list.
+      *   Slots for button clicks:
+          *   `onAddHouse()`: Create new `mapcore::House` (default values, unique ID). Open `EditHouseDialogQt`. If accepted, add to `HouseManager`, refresh list.
+          *   `onEditHouse()`: Get selected `mapcore::House*` from `m_houseList`. If one selected, create copy, open `EditHouseDialogQt`. If accepted, apply changes to original (via `HouseManager` for undo), refresh list.
+          *   `onRemoveHouse()`: Confirm. Remove selected house(s) from `HouseManager`, refresh list.
+      *   `m_houseList` context menu ("Move to Town..."): Opens `QInputDialog::getItem` with town names. Update `townId` for selected house(s) via `HouseManager`. Refresh list.
+      *   Slots for `m_houseList::itemSelectionChanged` and radio button toggles: Update `BrushStateService` with active `HouseBrush` or `HouseExitBrush` and selected house data.
+
+  **2. `EditHouseDialogQt : QDialog`**
+  *   Constructor: `EditHouseDialogQt(QWidget* parent, mapcore::House* houseCopy, mapcore::TownManager* townManager);` (Store `houseCopy` and `townManager`).
+  *   **Layout:** `QFormLayout`.
+  *   **Controls:**
+      *   `QLineEdit* m_nameEdit;`
+      *   `QComboBox* m_townCombo;` (Populate from `townManager`, set current based on `houseCopy->getTownId()`)
+      *   `QSpinBox* m_rentSpinBox;` (Min 0)
+      *   `QSpinBox* m_idSpinBox;` (Min 1, Max 65535)
+      *   `QCheckBox* m_guildhallCheck;`
+      *   `QDialogButtonBox* m_buttonBox;` (OK, Cancel)
+  *   **Functionality:**
+      *   `void loadData()`: Populate controls from `houseCopy`.
+      *   `bool applyChanges()`: Validate inputs (name not empty, ID unique if changed from original and not used by another house, rent >=0). If valid, update `houseCopy` fields. Return true if valid, false otherwise (show `QMessageBox` on error).
+      *   Connect `m_buttonBox->accepted` to a slot that calls `applyChanges()` and then `accept()` if true.
+
+  **3. `WaypointPaletteTab : QWidget`**
+  *   **Layout:** `QVBoxLayout`.
+  *   **Controls:**
+      *   `QListWidget* m_waypointList;` (Set `Qt::ItemIsEditable` on items).
+      *   `QHBoxLayout` for buttons:
+          *   `QPushButton* m_addWaypointButton;` ("Add Waypoint")
+          *   `QPushButton* m_removeWaypointButton;` ("Remove Waypoint")
+  *   **Functionality:**
+      *   Constructor: Initialize UI. Populate `m_waypointList` from `WaypointManager`. Store `mapcore::Waypoint*` or name with `QListWidgetItem`. Connect signals.
+      *   `void reloadWaypoints()`: Clear and repopulate `m_waypointList`.
+      *   Slots for button clicks:
+          *   `onAddWaypoint()`: Create new `mapcore::Waypoint` (unique default name) via `WaypointManager`. Add to list. Call `m_waypointList->editItem()` on the new item.
+          *   `onRemoveWaypoint()`: Confirm. Remove selected waypoint(s) from `WaypointManager`, update list.
+      *   Slot for `m_waypointList::itemChanged(QListWidgetItem* item)`: Get new name. Validate (not empty, unique). Update `mapcore::Waypoint` via `WaypointManager`.
+      *   Slot for `m_waypointList::currentItemChanged`: Update `BrushStateService` with `WaypointBrush` and selected waypoint. Navigate map view to waypoint.
+
+  All data modifications should ideally go through their respective managers (`HouseManager`, `WaypointManager`) to handle undo/redo and data consistency.

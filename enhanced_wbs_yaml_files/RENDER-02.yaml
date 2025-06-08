@@ -14,12 +14,19 @@ dependencies:
   - "APPSTATE-01" # For AppSettings (replacement for g_settings)
 analyzed_input_files:
   - filepath: "wxwidgets/map_drawer.h"
-    description: "Declares the `MapDrawer` class and the `DrawingOptions` struct. `MapDrawer` is responsible for all OpenGL rendering of the map content, including tiles, items, creatures, and overlays like grids, selection boxes, and tooltips. It defines various `Blit*` methods for rendering sprites and colored squares. `DrawingOptions` holds flags that control what visual elements are rendered."
+    description: "Declares the `MapDrawer` class and the `DrawingOptions` struct. `MapDrawer` is responsible for all OpenGL rendering of the map content (tiles, items, creatures, overlays). It defines various `Blit*` methods for sprites and colored squares, and methods like `DrawTile`, `DrawMap`, `DrawGrid`, etc. `DrawingOptions` holds numerous boolean flags (e.g., `show_creatures`, `transparent_floors`) that control what visual elements are rendered, typically sourced from global settings. Also defines `MapTooltip` struct and `ZoneFinder` helper class."
   - filepath: "wxwidgets/map_drawer.cpp"
-    description: "Implements `MapDrawer`. `DrawMap()` iterates through visible map nodes and floors. `DrawTile()` processes individual tiles, rendering the ground item then other items using `BlitItem`. It applies color modifications for special states (PZ, house, selection highlights). `BlitItem` and `BlitCreature` use `GameSprite::getHardwareID()` to find texture IDs and render textured quads via immediate mode OpenGL. Also includes methods for drawing overlays like `DrawGrid`, `DrawSelectionBox`, `DrawTooltips` (using GLUT for text), and brush previews. The rendering heavily relies on global `g_gui` and `g_settings` for options."
+    description: "Implements `MapDrawer`. `DrawMap()` iterates through visible map nodes (`QTreeNode`) and Z-floors. `DrawTile()` is the core method for rendering a single tile's content: it determines appropriate colors/alpha for ground and items based on `DrawingOptions` and tile state (PZ, house, selection), then calls `BlitItem`. `BlitItem` handles actual sprite rendering (using `GameSprite::getHardwareID()` and immediate mode OpenGL `glBegin/glEnd`) or calls `BlitSquare` for technical items. `BlitSquare` renders a colored quad, often using the texture of `SPRITE_ZONE` and `glColor` for tinting. `DrawTooltips` uses GLUT for text. Overlay methods include `DrawGrid`, `DrawSelectionBox`, `DrawLiveCursors`, `DrawBrush`. Contains a static `RGBQuad minimap_color[256]` array for minimap color conversion."
 current_functionality_summary: |
-  The `MapDrawer` class in `wxwidgets/map_drawer.cpp` is the core rendering engine of the original application. It uses immediate mode OpenGL to draw the map.
-  Its main responsibilities, relevant to this WBS and subsequent rendering tasks, include:
+  The `MapDrawer` class in `wxwidgets/map_drawer.cpp` is the core rendering engine, using immediate mode OpenGL. Its key responsibilities relevant to future rendering tasks include:
+  - Iterating visible map sections (nodes from a QuadTree, tiles within nodes) across multiple Z-floors.
+  - `DrawTile()`: For each tile, it determines appropriate coloring and alpha blending based on `DrawingOptions` (e.g., `show_blocking`, `show_houses`, `transparent_floors`) and tile flags (PZ, house ID, selection state).
+  - If rendering in "minimap color mode" (`show_only_colors` or `show_as_minimap`), it uses `tile->getMiniMapColor()` and `BlitSquare` (which tints a basic zone texture) to draw a colored quad for the tile.
+  - Otherwise, it calls `BlitItem` for the ground and then for each stacked item.
+  - `BlitItem()`: Retrieves the `GameSprite`, determines animation frame/patterns, gets texture ID via `GameSprite::getHardwareID()`, and renders a textured quad using `glBegin(GL_QUADS)`. It also handles special rendering for technical/invisible items (often as colored squares via `BlitSquare`) and applies color/alpha modifications.
+  - Ghosting for floors above/below the current floor is achieved by drawing shaded quads or rendering tiles with reduced alpha.
+  - Overlays like grids, selection boxes, tooltips (using GLUT), brush previews, and live cursors are also handled.
+  This specific WBS task (`RENDER-02`) focuses only on the foundational step of iterating through tiles and rendering them as simple colored quads based on minimap color or special tile state (like house areas), including floor ghosting via alpha blending. Full sprite rendering is deferred.
   - Iterating through visible map sections (nodes and tiles) across different Z-floors.
   - For each tile, rendering its ground item and then any stacked items. This involves:
     - Determining the correct sprite, animation frame, and pattern for each item/creature.
@@ -102,8 +109,7 @@ definition_of_done:
   - "Ghosting" logic is implemented: tiles on floors other than `m_currentFloor` are rendered with appropriate alpha blending (e.g., lower floors dimmer, higher floors more transparent if `TransparentFloors` setting is active).
   - Rendering uses direct OpenGL calls with a simple shader program for drawing colored quads. (Alternatively, `QPainter::fillRect` could be used if native painting is active, but direct GL is preferred for future sprite rendering).
   - Full sprite-based rendering of items/creatures is NOT implemented in this task.
-estimation_effort:
-  - "Medium (10-15 developer days). This involves setting up the core rendering loop, tile iteration logic, coordinate calculations for tile placement, and basic OpenGL rendering of colored quads with alpha blending. Implementing the Z-floor iteration and ghosting correctly, along with integrating AppSettings, adds complexity. Shader setup for simple colored quads is also included."
+estimation_effort: Medium # Estimation was already present and seems reasonable.
 known_missing_files: []
 boilerplate_coder_ai_prompt: |
   In `MapView::paintGL()` (from `RENDER-01`), implement the logic to iterate through visible map tiles and render each existing tile as a simple **colored quad**. This task focuses on the iteration, coordinate transformation, and basic quad rendering with floor ghosting. Full sprite rendering is for `RENDER-03`.

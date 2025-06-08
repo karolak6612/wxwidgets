@@ -10,30 +10,30 @@ original_input_files:
 analyzed_input_files:
   - file_path: wxwidgets/basemap.h
     description: |
-      Defines `BaseMap`, the foundational class for map data storage, and its associated helper classes `MapIterator` and `TileLocation`.
-      `BaseMap` uses a QuadTree structure (`QTreeNode root` - likely defined in map_allocator.h/cpp or similar, not provided here but essential) to spatially organize and manage `Floor` objects, which in turn store `Tile` objects.
-      It provides low-level methods for creating, accessing, and setting tiles using `TileLocation` objects (e.g., `getTileL`, `createTileL`, `setTile`).
-      Includes `MapAllocator` for efficient memory management of `Tile` objects.
-      The `MapIterator` allows iteration over all tiles in the map.
+      Defines `BaseMap`, the foundational class for map data storage, and its associated helper class `MapIterator`. `TileLocation` is also heavily used.
+      `BaseMap` uses a QuadTree structure (`QTreeNode root`). The implementation of `QTreeNode` and the `Floor` objects it manages (which likely store 2D arrays of `TileLocation` or `Tile*`) are expected to be in `map_allocator.h/cpp` (not provided here, but essential for full mechanism understanding). `BaseMap` provides low-level methods like `getTileL`, `createTileL`, `setTile` that interact with this QuadTree.
+      An instance of `MapAllocator` is included for efficient memory management of `Tile` objects.
+      The `MapIterator` allows iteration over all tiles in the map using a stack of `NodeIndex` (QTreeNode* + index) to manage traversal.
       This class is crucial for the underlying storage and spatial indexing of map tiles.
   - file_path: wxwidgets/map.h
     description: |
       Defines the `Map` class, which derives from `BaseMap`.
       It extends `BaseMap` by adding higher-level map attributes and management features:
-      - Map metadata: `width`, `height`, `description`, `mapVersion` (OTBM format and client version).
-      - Filenames for associated data: `housefile`, `spawnfile`, `waypointfile`.
-      - Collections of game elements: `Towns`, `Houses`, `Spawns`, `Waypoints`.
-      Provides methods for map-wide operations such as format conversion (`convert`), minimap export (`exportMinimap`), cleaning invalid tiles, and managing the map's changed state.
-      Defines helper templates like `foreach_ItemOnMap` and `foreach_TileOnMap` for iterating map content.
-      Includes `PropertyFlags` struct for fine-grained control in operations like item cleanup.
+      - Map metadata: `width`, `height`, `description`, `mapVersion` (a `MapVersion` struct), `housefile`, `spawnfile`, `waypointfile` (all strings).
+      - Collections of game elements: `Towns towns`, `Houses houses`, `Spawns spawns`, `Waypoints waypoints` (these are instances of dedicated manager classes).
+      Provides methods for map-wide operations such as format conversion (`convert`), minimap export (`exportMinimap`), cleaning invalid tiles, and managing the map's changed state (`hasChanged`, `doChange`, `clearChanges`).
+      Defines helper templates like `foreach_ItemOnMap`, `foreach_TileOnMap`, `remove_if_TileOnMap`, `RemoveItemOnMap` for complex iteration and modification tasks.
+      Includes `PropertyFlags` struct for fine-grained control in operations like item cleanup (`cleanDuplicateItems`).
   - file_path: wxwidgets/map.cpp
     description: |
       Implementation of the `Map` class.
-      Handles initialization of map properties, loading/saving maps (delegating to IOMap classes, e.g., `IOMapOTBM`),
-      map version conversion logic, and management of towns, houses, and spawns.
-      Implements methods for map operations like `cleanInvalidTiles`, `convertHouseTiles`, `exportMinimap`,
-      and managing the map's dimensions and associated filenames.
-      The actual QuadTree manipulation logic is largely within `BaseMap` and `QTreeNode` (not provided).
+      Handles initialization of map properties. Loading of maps is delegated to IOMap classes (e.g., `IOMapOTBM` mentioned in `Map::open`).
+      The `Map::convert` method handles map version transformations, which can involve complex item ID remapping via `ConversionMap` (details not fully provided).
+      `Map::cleanInvalidTiles` uses `g_items.typeExists()` to validate items.
+      `Map::exportMinimap` includes logic for finding map bounds, rendering tile colors to a buffer, and writing a BMP file directly.
+      Spawn management methods (`addSpawn`, `removeSpawn`, `getSpawnList`) interact with `TileLocation`'s spawn counts and the `Spawns` collection.
+      `Map::cleanDuplicateItems` uses `PropertyFlags` and helper lambdas to identify and remove duplicate items based on ID and other properties.
+      The actual QuadTree manipulation logic is largely within `BaseMap` and the external `QTreeNode`/`Floor` implementations.
   - file_path: wxwidgets/tile.h
     description: |
       (Analyzed in CORE-01, context for CORE-03) Defines the `Tile` class, the fundamental unit stored and managed by `BaseMap` and `Map`.
@@ -142,3 +142,6 @@ documentation_references:
   - "std::unique_ptr: https://en.cppreference.com/w/cpp/memory/unique_ptr"
   - "std::vector: https://en.cppreference.com/w/cpp/container/vector"
   - "C++ Standard Library: https://en.cppreference.com/w/cpp/header"
+known_missing_files:
+  - "wxwidgets/map_allocator.h and wxwidgets/map_allocator.cpp: These files likely contain the definitions for `QTreeNode`, `Floor`, and `MapAllocator`, which are essential for the detailed implementation of the QuadTree storage mechanism in `BaseMap`. Without them, the exact mechanics of QuadTree traversal and tile storage/retrieval are inferred from `BaseMap`'s public interface and usage."
+estimation_effort: X-Large

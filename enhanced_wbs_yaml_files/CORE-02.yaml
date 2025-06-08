@@ -18,66 +18,68 @@ original_input_files:
 analyzed_input_files:
   - file_path: wxwidgets/items.h
     description: |
-      Defines `ItemType` class (stores static properties of an item like ID, name, flags, sprite info, brush associations)
-      and `ItemDatabase` class (global `g_items`). `ItemDatabase` manages loading and access to all `ItemType` instances.
+      Defines `ItemType` class (stores static properties of an item like ID, name, flags, sprite info, brush associations, etc.)
+      and `ItemDatabase` class (global `g_items`). `ItemDatabase` uses a `contigous_vector<ItemType*>` for storage and manages loading/access to all `ItemType` instances.
       Includes enums for item groups, types, slot positions, weapon types, OTB attributes, and item flags.
       Crucial for defining the structure of all item metadata used by the application.
   - file_path: wxwidgets/items.cpp
     description: |
       Implements `ItemType` and `ItemDatabase`.
-      `ItemDatabase::loadFromOtb()` parses OTB (Open Tibia Binary) item files (versions 1, 2, 3).
-      `ItemDatabase::loadFromGameXml()` and `loadItemFromGameXml()` parse `items.xml` using pugixml.
-      Contains logic to interpret item attributes and flags from both binary OTB and XML formats.
-      This file's parsing logic is a primary candidate for porting to a new XML parser and potentially Qt-based file I/O.
+      `ItemDatabase::loadFromOtb()` parses OTB (Open Tibia Binary) item files, supporting versions 1, 2, and 3 with distinct parsing logic for each. This involves detailed binary data interpretation.
+      `ItemDatabase::loadFromGameXml()` and `loadItemFromGameXml()` parse `items.xml` using pugixml. `loadMetaItem` handles special item definitions within the XML.
+      Contains logic to interpret item attributes (e.g., speed, light, toporder, classification) and flags from both binary OTB and XML formats.
+      The OTB version information (MajorVersion, MinorVersion, BuildNumber) read from the OTB file pertains to the OTB file format itself.
   - file_path: wxwidgets/creatures.h
     description: |
-      Defines `CreatureType` class (stores static properties of creatures/NPCs: name, type, outfit data, brush)
-      and `CreatureDatabase` class (global `g_creatures`).
+      Defines `CreatureType` class (stores static properties: name, NPC status, `Outfit` data, and a `CreatureBrush*` pointer)
+      and `CreatureDatabase` class (global `g_creatures`), which manages a `std::map<std::string, CreatureType*>`.
       `CreatureDatabase` loads and manages `CreatureType` instances from XML files.
       Includes `Outfit` struct definition for creature appearance.
   - file_path: wxwidgets/creatures.cpp
     description: |
       Implements `CreatureType` and `CreatureDatabase`.
       `CreatureDatabase::loadFromXML()` parses the main `creatures.xml` (using pugixml).
-      `CreatureDatabase::importXMLFromOT()` handles importing creature data from individual OT server XML files (also pugixml).
-      Contains logic for parsing creature attributes from XML. This parsing logic needs to be ported.
+      `CreatureDatabase::importXMLFromOT()` handles importing creature data from individual OT server XML files (also pugixml). This function can dynamically create `CreatureBrush` instances and register them with `g_materials.tilesets`.
+      `CreatureDatabase::saveToXML()` allows saving non-standard (likely imported or modified) creature definitions back to an XML file.
+      Contains logic for parsing creature attributes (looktype, lookitem, lookmount, addons, etc.) from XML.
   - file_path: wxwidgets/ext/pugixml.hpp
     description: |
-      Header file for the pugixml library, a C++ XML parsing library.
+      Header file for the pugixml library, a C++ XML parsing library. It's a third-party library.
       Defines the public API for pugixml (loading, parsing, navigating XML).
       This library is to be replaced by a Qt-based XML solution or another modern C++ XML parser.
   - file_path: wxwidgets/ext/pugixml.cpp
     description: |
-      Implementation source file for the pugixml library.
+      Implementation source file for the pugixml library. As a third-party library, its internals are not critical beyond its replacement.
       Will be removed from the project after migration to a new XML parsing solution.
   - file_path: wxwidgets/client_version.h
     description: |
       Defines structures for managing Tibia client version information:
-      `MapVersion` (OTBM format + client version), `OtbVersion` (OTB file format details),
-      `ClientData` (DAT/SPR signatures, formats), and the main `ClientVersion` class.
-      `ClientVersion` stores client-specific details (name, OTB version, supported map versions, data paths, extensions).
+      `MapVersion` (OTBM format + client version), `OtbVersion` (OTB file format details - name, format_version, client ID),
+      `ClientData` (DAT/SPR signatures, `DatFormat` enum detailing various known DAT structures), and the main `ClientVersion` class.
+      `ClientVersion` stores client-specific details (name, OTB version, supported map versions, data paths, extensions, visibility).
       Declares static methods to load/manage client versions, primarily from `clients.xml`.
   - file_path: wxwidgets/client_version.cpp
     description: |
       Implements `ClientVersion` class and its static methods.
-      `ClientVersion::loadVersions()` parses `clients.xml` (using pugixml) to populate known client versions.
-      Handles discovery of client data paths and loading saved configurations.
-      The XML parsing logic here needs to be ported.
+      `ClientVersion::loadVersions()` parses `clients.xml` (using pugixml) to populate known client versions. This includes parsing `<otbs>`, `<clients>`, and `<extensions>` sections.
+      `hasValidPaths()` and `loadValidPaths()` attempt to locate client asset files (DAT/SPR) based on stored paths and verify their signatures using `FileReadHandle` for binary file access.
+      `saveVersions()` serializes client path configurations to a settings file using JSON (via `json::write`).
+      The XML parsing logic and wxWidgets path/file utilities need porting.
   - file_path: wxwidgets/graphics.h
     description: |
-      Defines classes for sprite management and rendering: `Sprite` (abstract), `EditorSprite` (UI icons),
+      Defines classes for sprite management and rendering: `Sprite` (abstract base), `EditorSprite` (for UI icons, uses `wxBitmap`),
       `GameSprite` (in-game items/creatures), `Animator`, and `GraphicManager`.
-      `GameSprite` stores sprite metadata (dimensions, layers, patterns, frames, light info) and pixel data.
-      `GraphicManager` (global `g_gui.gfx`) loads sprite metadata from `.dat` files and images from `.spr` files,
-      manages sprite caching, and OpenGL textures. Defines `SpriteLight` struct.
+      `GameSprite` stores sprite metadata (dimensions, layers, patterns, frames, light info) and manages pixel data through `NormalImage` and `TemplateImage` inner classes. `TemplateImage` is used for outfit colorization.
+      `GraphicManager` (global `g_gui.gfx`) loads sprite metadata from `.dat` files and images from `.spr` files, manages sprite caching, and previously OpenGL textures. Defines `SpriteLight` struct.
   - file_path: wxwidgets/graphics.cpp
     description: |
       Implements `GameSprite`, `Animator`, and `GraphicManager`.
-      `GraphicManager::loadSpriteMetadata()` parses `.dat` files for sprite metadata based on client version format.
-      `GraphicManager::loadSpriteData()` or `loadSpriteDump()` reads pixel data from `.spr` files.
-      `GameSprite` handles OpenGL texture creation and software rendering to `wxMemoryDC`.
-      Includes logic for sprite animation and outfit colorization (`TemplateImage`).
-      Binary parsing for `.dat`/`.spr` needs porting. OpenGL specifics will be handled by Qt later.
+      `GraphicManager::loadSpriteMetadata()` parses `.dat` files for sprite metadata based on `DatFormat` specified by the current `ClientVersion`. This is complex binary parsing.
+      `GraphicManager::loadSpriteData()` reads pixel data from `.spr` files. `loadSpriteDump()` handles on-demand loading if `USE_MEMCACHED_SPRITES` is off.
+      `GraphicManager::loadOTFI()` parses `.otfi` files (OTML format) which can specify custom DAT/SPR paths and extended sprite properties (`is_extended`, `has_transparency`, `has_frame_durations`).
+      `GameSprite` and its inner classes (`NormalImage`, `TemplateImage`) handle OpenGL texture creation (`createGLTexture`) and software rendering to `wxMemoryDC` (`getDC`, `DrawTo`). These aspects will be replaced.
+      Outfit colorization logic is in `TemplateImage::colorizePixel` using `TemplateOutfitLookupTable`.
+      Binary parsing for `.dat`/`.spr` and OTML parsing for `.otfi` needs porting.
   - file_path: XML/760/items.xml
     description: |
       XML file defining item properties for a specific client version (e.g., 7.60).
@@ -205,3 +207,4 @@ documentation_references:
   - "RapidXML: http://rapidxml.sourceforge.net/"
   - "OTBM Specification (if available, or infer from code): No public official link, usually reverse-engineered or from OT community."
   - ".DAT/.SPR Format (if available, or infer from code): No public official link, usually reverse-engineered or from OT community."
+estimation_effort: X-Large

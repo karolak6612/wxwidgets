@@ -133,4 +133,5 @@ qt_object_notes: "Use `quint32` for IDs. `QString` for names. `QVector3D` or cus
 additional_notes: "The HouseBrush directly modifies tile properties. The HouseExitBrush's\
   \ main logic is not a typical brush stroke but rather a targeted `house->setExit()`\
   \ call, likely triggered by a UI action after selecting a house and a target tile."
+estimation_effort: Large
 [end of enhanced_wbs_yaml_files/LOGIC-05.yaml]

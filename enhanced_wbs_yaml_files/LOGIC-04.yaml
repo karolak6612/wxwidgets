@@ -106,5 +106,6 @@ additional_notes: "The original `removeWaypoint` in `waypoints.cpp` does not dec
   should be considered: if many waypoints are typical, a spatial index or a secondary
   hash map (e.g., `QHash<PositionKey, Waypoint*>`) might be beneficial. For now,
   an iteration-based approach is acceptable for the initial port if clearly commented."
+estimation_effort: Medium
 
 [end of enhanced_wbs_yaml_files/LOGIC-04.yaml]

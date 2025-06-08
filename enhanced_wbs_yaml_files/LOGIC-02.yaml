@@ -10,26 +10,35 @@ analyzed_input_files:
   - file_path: wxwidgets/selection.h
     description: |
       Declares the `Selection` class and the `SelectionThread` class.
-      - `Selection`: Manages a `TileSet` of selected tiles. For bounding box selection, its `add(Tile*)` method is called iteratively for all tiles within the defined rectangle. The session management (`start`, `commit`, `finish`) ensures that a multi-tile selection from a bounding box is treated as a single undoable action.
-      - `SelectionThread`: A `wxThread` subclass used by `MapCanvas` to perform large area selections (like those from a bounding box) in a background thread to avoid UI freezes. Its `Entry()` method iterates coordinates and calls `selection.add(tile)`.
+      - `Selection`: Manages a `TileSet`. For bounding box selection, its `add(Tile*)` method is iteratively called. Session management (`start`, `commit`, `finish`) groups a multi-tile selection into a single undoable `Action` (or `BatchAction`).
+      - `SelectionThread`: A `wxThread` used by `MapCanvas` for large area selections. Its `Entry()` method iterates coordinates based on start/end positions passed to its constructor and calls its local `selection.add(Tile*)` for each tile. It considers `Config::COMPENSATED_SELECT` for floor iteration logic. The resulting `Action*` is stored in `result` for the main thread.
   - file_path: wxwidgets/selection.cpp
     description: |
-      Implements the `Selection` and `SelectionThread` classes.
-      - `Selection::add(Tile*)`: Creates a deep copy of the tile, marks it and its contents as selected, and adds a `Change` object to the current action. This is the core method used when iterating tiles in a bounding box.
-      - `SelectionThread::Entry()`: Contains the loop that iterates X, Y, Z coordinates based on start/end positions and selection settings (e.g., `Config::COMPENSATED_SELECT`, `Config::SELECTION_TYPE` for floor handling) and calls `selection.add(Tile*)` for each tile.
+      Implements `Selection` and `SelectionThread`.
+      - `Selection::add(Tile*)`: Creates a deep copy of the tile, marks the copy and its contents as selected, and adds a `Change` object (with the copy) to the current `Action` (`subsession`). This is the core method used by `SelectionThread` and synchronous bounding box selection.
+      - `SelectionThread::Entry()`: Iterates X, Y, Z coordinates. The Z loop depends on `start.z` and `end.z`. The `COMPENSATED_SELECT` logic adjusts X and Y iteration ranges for floors below ground level if `z <= GROUND_LAYER`.
   - file_path: wxwidgets/map_display.h
     description: |
-      Declares the `MapCanvas` class. Relevant members for bounding box selection include:
-      - `boundbox_selection` (bool): Flag indicating if a bounding box selection is in progress.
-      - Mouse event handlers: `OnMouseMove`, `OnMouseLeftRelease` (or `OnMousePropertiesRelease` if mouse buttons are swapped) which contain the logic to initiate and finalize the bounding box selection.
-      - `MapDrawer* drawer`: Used for rendering, including the visual feedback for the selection rectangle.
+      Declares the `MapCanvas` class (equivalent to the future `MapView`). Relevant members for bounding box selection:
+      - `boundbox_selection` (bool): Flag indicating if a bounding box selection is active.
+      - Mouse event handlers: `OnMouseMove`, `OnMouseLeftClick`, `OnMouseLeftRelease` (and equivalents for other buttons if swapped via settings).
+      - `MapDrawer* drawer`: Pointer to the rendering component, used to draw the visual selection rectangle.
+      - `last_click_map_x/y`: Stores the map coordinates of the initial mouse click that started the bounding box.
   - file_path: wxwidgets/map_display.cpp
     description: |
-      Implements the `MapCanvas` class.
-      - Mouse event handlers (e.g., `OnMouseActionClick`, `OnMousePropertiesClick`): Detect Shift key press during mouse down to set `boundbox_selection = true` and record the starting map coordinates (`last_click_map_x/y`).
-      - `OnMouseMove()`: If `boundbox_selection` is true, it updates `currentDragMapPoint` and calls `Refresh()` which triggers `OnPaint()`.
-      - `OnPaint()`: Sets `drawer->getOptions().dragging = boundbox_selection;`, signaling `MapDrawer` to draw the visual selection rectangle.
-      - `OnMouseActionRelease()` / `OnMousePropertiesRelease()`: If `boundbox_selection` was true, this logic finalizes the selection. It normalizes coordinates, determines the range of tiles based on `Config::SELECTION_TYPE` and `Config::COMPENSATED_SELECT`, and then iterates through these tiles, calling `editor.selection.add(tile)` (potentially via `SelectionThread` for large selections). The entire operation is wrapped in `editor.selection.start()` and `editor.selection.finish()`.
+      Implements `MapCanvas`.
+      - Mouse Click Handlers (e.g., `OnMouseActionClick`, `OnMousePropertiesClick`): If Shift is pressed, sets `boundbox_selection = true`. Records `last_click_map_x/y`. If Ctrl is not pressed, it clears the previous selection by creating and committing a selection action.
+      - `OnMouseMove()`: If `boundbox_selection` is true, it calls `Refresh()` to trigger `OnPaint`.
+      - `OnPaint()`: Sets `drawer->getOptions().dragging = boundbox_selection;`. The `MapDrawer` (external to this WBS) then uses current mouse position and `last_click_map_x/y` (converted to screen coordinates) to draw the rectangle.
+      - Mouse Release Handlers (e.g., `OnMouseActionRelease`, `OnMousePropertiesRelease`): If `boundbox_selection` was true:
+        - Normalizes coordinates: `last_click_map_x` and current `mouse_map_x` are sorted to get min/max X, similarly for Y.
+        - Floor range calculation (`Config::SELECTION_TYPE`):
+            - `SELECT_CURRENT_FLOOR`: Z is current `floor`.
+            - `SELECT_ALL_FLOORS`: Z iterates from `MAP_MAX_LAYER` down to current `floor`. `Config::COMPENSATED_SELECT` adjusts X/Y ranges for floors below ground.
+            - `SELECT_VISIBLE_FLOORS`: Z iterates from `GROUND_LAYER` (or `floor+2` if above ground) down to current `floor`. `Config::COMPENSATED_SELECT` adjusts X/Y.
+        - If `numtiles < 500` (or few worker threads), selection is synchronous: `editor.selection.start()`, loop tiles, `editor.selection.add(tile)`, `editor.selection.finish()`.
+        - Otherwise, it divides the X-range among `SelectionThread`s, starts them, then joins them using `editor.selection.join(thread)`. The entire operation is wrapped in `editor.selection.start()` and `editor.selection.finish()`.
+      - `ScreenToMap()`: Converts screen (mouse) coordinates to map coordinates, applying zoom and Z-level compensation.
 dependencies:
   - BUILD-01                # CMake project setup
   - CORE-01                 # For Position, Tile, Item definitions
@@ -149,3 +158,4 @@ documentation_references:
   - "Coordinate Systems in Qt: https://doc.qt.io/qt-6/coordsys.html"
   - "QUndoStack & QUndoCommand (from CORE-04): https://doc.qt.io/qt-6/qundostack.html"
   - "QtConcurrent::run (for potential future optimization of large selections): https://doc.qt.io/qt-6/qtconcurrentrun.html"
+estimation_effort: Large

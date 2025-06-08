@@ -14,49 +14,43 @@ original_input_files:
 analyzed_input_files:
   - file_path: wxwidgets/copybuffer.h
     description: |
-      Declares the `CopyBuffer` class. This class is responsible for managing an internal temporary `BaseMap`
-      that stores deep copies of `Tile` objects (and their selected contents) during copy or cut operations.
-      It defines the interface for `copy()`, `cut()`, `paste()`, `canPaste()`, and `clear()`.
-      It also stores `copyPos`, the top-left reference position of the copied data.
+      Declares the `CopyBuffer` class. Manages an internal `BaseMap* tiles` for storing deep copies of `Tile` objects (including only their *selected* contents) during copy/cut. `copyPos` stores the top-left reference `Position` of copied data. Interface includes `copy()`, `cut()`, `paste()`, `canPaste()`, `clear()`.
   - file_path: wxwidgets/copybuffer.cpp
     description: |
-      Implements the `CopyBuffer` class.
-      - `copy()`: Iterates through the `Editor::selection`, deep copies selected tiles/items into its internal `BaseMap`.
-      - `cut()`: Calls `copy()`, then creates an `Action` (via `Editor::actionQueue`) to delete the original selected elements from the map, making the operation undoable. This involves creating `Change` objects for the affected tiles.
-      - `paste()`: Takes a target `Position`. Iterates tiles in its internal `BaseMap`, deep copies them, offsets their positions, and creates an `Action` to add/merge these into the target `Editor`'s map. Handles `Config::MERGE_PASTE` and can trigger auto-bordering.
+      Implements `CopyBuffer`.
+      - `copy()`: Iterates `Editor::selection`. For each selected `Tile`, creates a `copied_tile` in its internal `tiles` `BaseMap`, copying only selected ground (if any), items, creature, and spawn. Updates `copyPos`.
+      - `cut()`: Calls `copy()`. Then creates a `BatchAction` with an `Action` to delete the originals. This `Action` contains `Change` objects for tiles *after* selected elements are removed (via `popSelectedItems()`, etc.). Handles `Config::USE_AUTOMAGIC` for border updates by adding another `Action` to the batch if needed. This makes `cut` an undoable operation.
+      - `paste()`: Creates a `BatchAction`. An `Action` within it holds `Change` objects. For each `buffer_tile` in its internal `tiles` `BaseMap`, calculates target `Position`, deep copies `buffer_tile` to `copy_tile`. If `Config::MERGE_PASTE` is true or `copy_tile` has no ground, it merges `copy_tile` with the existing tile at destination (or a new empty tile if none exists). Otherwise, `copy_tile` replaces the destination. The resulting tile (`new_dest_tile`) forms a `Change` for an `Action`. Handles `Config::BORDERIZE_PASTE` by adding a subsequent border update `Action` if needed. This makes `paste` an undoable operation.
   - file_path: wxwidgets/editor.h
     description: |
-      Declares the `Editor` class. Relevant methods include:
-      - `moveSelection(Position offset)`: Orchestrates moving selected elements.
-      - `destroySelection()`: Handles deletion of selected elements.
-      It holds references to `ActionQueue`, `Selection`, and `CopyBuffer`.
+      Declares `Editor`. Relevant methods: `moveSelection(Position offset)`, `destroySelection()`. Holds `ActionQueue*`, `Selection&`, `CopyBuffer&`.
   - file_path: wxwidgets/editor.cpp
     description: |
-      Implements `Editor` methods.
-      - `moveSelection()`: Creates a `BatchAction`. It effectively performs a copy of the selection to a temporary buffer (likely using `CopyBuffer` logic), creates an `Action` to delete items from their original positions, calculates new positions, and then creates another `Action` to paste the items at the new positions. This entire sequence is one undoable step.
-      - `destroySelection()`: Creates a `BatchAction` to delete all selected items/tiles from the map. It captures the state of affected tiles and their surroundings for undo and handles auto-bordering if enabled via `Config::BORDERIZE_DELETE`.
+      Implements `Editor`.
+      - `destroySelection()`: Creates a `BatchAction`. An `Action` within it contains `Change` objects for tiles after their selected elements are removed (via `popSelectedItems()`). If `Config::BORDERIZE_DELETE` and `Config::USE_AUTOMAGIC` are on, a subsequent `Action` is added to the batch to handle border updates around the cleared area.
+      - `moveSelection(Position offset)`: Creates a `BatchAction` performing a complex sequence, making the entire move undoable as a single step:
+        1. An `Action` to remove selected elements from their original positions. This involves creating `Change` objects that represent the state of the source tiles *after* the selected items are "picked up" (removed via `popSelectedItems`). A temporary `TileSet tmp_storage` (containing `Tile` objects allocated by `map.allocator`) holds the actual items being moved.
+        2. If `Config::BORDERIZE_DRAG` is enabled (and selection size is below threshold), an `Action` is added to update borders around the original (now modified) locations.
+        3. An `Action` to add/merge the elements from `tmp_storage` to the new (offset) positions. This creates `Change` objects for the destination tiles.
+        4. If `Config::BORDERIZE_DRAG` is enabled, a final `Action` updates borders around the new locations of the moved items.
   - file_path: wxwidgets/selection.h
     description: |
-      (Also analyzed for CORE-05, LOGIC-02) Declares the `Selection` class.
-      It provides the set of currently selected `Tile` objects (`TileSet tiles`) that are the source for copy/cut operations and the target for delete/move operations.
+      (Also analyzed for CORE-05, LOGIC-02) Declares `Selection`. Provides `TileSet tiles` (the current selection), which is the source for copy/cut/move/delete operations.
   - file_path: wxwidgets/selection.cpp
     description: |
-      (Also analyzed for CORE-05, LOGIC-02) Implements the `Selection` class.
-      Its state (the `TileSet`) is read by `CopyBuffer` and `Editor` methods to determine what to act upon.
+      (Also analyzed for CORE-05, LOGIC-02) Implements `Selection`. Its state (the `TileSet`) is read by `CopyBuffer` and `Editor` methods to determine what to act upon.
   - file_path: wxwidgets/main_menubar.h
     description: |
-      (Also analyzed for DOCS-02) Declares `MainMenuBar` and `MenuBar::ActionID`. Relevant here as it defines ActionIDs like `CUT`, `COPY`, `PASTE`, `DELETE` which are connected to event handlers.
+      (Also analyzed for DOCS-02) Declares `MainMenuBar` and `MenuBar::ActionID` enum (e.g., `CUT`, `COPY`, `PASTE`, `DELETE`), which are used to connect menu UI events to handlers.
   - file_path: wxwidgets/main_menubar.cpp
     description: |
-      (Also analyzed for DOCS-02) Implements `MainMenuBar`. Event handlers like `OnCut`, `OnCopy`, `OnPaste`, `OnDelete` (called from `MapCanvas` context menu) typically invoke methods on `g_gui`, which then delegate to the current `Editor` instance (e.g., `g_gui.DoCopy()` might call `editor->copybuffer.copy(...)`).
+      (Also analyzed for DOCS-02) Implements `MainMenuBar`. Event handlers like `OnCut`, `OnCopy`, `OnPaste`, `OnDelete` typically invoke methods on the global `g_gui` object. `g_gui` then delegates to the current `Editor` instance or its `MapCanvas` (e.g., `g_gui.DoCopy()` might call `editor->copybuffer.copy()`; `g_gui.DoPaste()` calls `map_canvas->StartPasting()` to initiate paste preview mode).
   - file_path: wxwidgets/map_display.cpp
     description: |
       (Also analyzed for LOGIC-02, FINAL-01) Implements `MapCanvas`.
-      - `OnMouseActionRelease`: If dragging a selection (`dragging` flag is true and not `boundbox_selection`), it calculates the offset and calls `editor.moveSelection(offset)`.
-      - `OnPaste` (menu event): Calls `g_gui.DoPaste()`, which likely sets a "pasting mode" in `MapCanvas` to show a preview.
-      - `OnMouseActionClick`: If in "pasting mode", finalizes the paste by calling `editor.copybuffer.paste(...)`.
-      - `OnDelete` (menu event): Calls `editor.destroySelection()`.
-      This shows how UI interactions for move, paste preview, and delete are initiated.
+      - Drag-Move of selection: `OnMouseActionClick` sets a `dragging` flag if the click is on an existing selection (and not a shift-click for bounding box). `OnMouseActionRelease`, if `dragging` was true and an `offset` is detected, calls `editor.moveSelection(offset)`. Visual preview during the drag is handled by `MapDrawer` based on `MapCanvas` state variables indicating the drag.
+      - Paste operation: The `OnPaste` menu event handler (often in `MapCanvas` for context menu, or delegated from `MainMenuBar` via `g_gui`) calls `StartPasting()`. This method sets a "pasting mode" flag. A subsequent `OnMouseActionClick` (left-click usually) on the map, if in this mode, finalizes the paste by calling `editor.copybuffer.paste(...)` with the clicked map coordinates, and then calls `EndPasting()`. Visual preview of items being pasted is handled by `MapDrawer`.
+      - Delete operation: The `OnDelete` menu event handler (context menu) calls `editor.destroySelection()`.
 dependencies:
   - BUILD-01                # CMake project setup
   - CORE-01                 # For Position, Item, Tile definitions
@@ -194,3 +188,4 @@ documentation_references:
   - "QClipboard & QMimeData: https://doc.qt.io/qt-6/qclipboard.html"
   - "Drag and Drop (for visual previews in MapView): https://doc.qt.io/qt-6/dnd.html"
   - "QPainter (for drawing previews): https://doc.qt.io/qt-6/qpainter.html"
+estimation_effort: X-Large

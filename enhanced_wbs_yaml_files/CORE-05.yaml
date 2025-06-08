@@ -9,26 +9,33 @@ original_input_files:
 analyzed_input_files:
   - file_path: wxwidgets/selection.h
     description: |
-      Defines the `Selection` class and `SelectionThread` class for managing user selections on the map.
-      - `Selection`: Manages a `TileSet` (a set of `Tile*`) representing the currently selected tiles. It provides methods like `add()` and `remove()` which operate on tiles or specific objects within tiles (Items, Spawns, Creatures). These methods typically work within a "session" (`start()`, `commit()`, `finish()`) that groups changes into `Action` objects for the undo/redo system. `addInternal()`/`removeInternal()` modify the selection set directly without creating actions. Also includes methods to get selection bounds (`minPosition`, `maxPosition`).
-      - `SelectionThread`: A `wxThread` subclass designed to perform selection operations over an area in a background thread, presumably to prevent UI freezes for large selections. The main thread can then merge the result of this background selection.
+      Defines the `Selection` class and `SelectionThread` for managing user selections.
+      - `Selection`: Manages a `TileSet` (a `std::set<Tile*>`) of currently selected tiles.
+        - `add()`/`remove()` methods operate on tiles or specific elements (Items, Spawns, Creatures) within them. These methods require an active "session". They work by creating a deep copy of the affected `Tile`, modifying the selection state on the copy, and then creating a `Change` object (from `CORE-04`) with this modified copy. This `Change` is added to the current `Action` (named `subsession`).
+        - `addInternal()`/`removeInternal()` directly modify the `TileSet` without creating undoable actions.
+        - Session management (`start()`, `commit()`, `finish()`): `start()` initializes a `BatchAction* session` and an `Action* subsession`. `commit()` adds the current `subsession` to `session` and creates a new `subsession`. `finish()` adds the `subsession` to `session` and then adds the `session` (BatchAction) to the `ActionQueue`.
+        - `join(SelectionThread*)` merges an action created by a background thread.
+      - `SelectionThread`: A `wxThread` subclass. Its `Entry()` method performs selection over a specified area, creating an `Action*` (result) containing the changes, which is then merged by the main thread's `Selection` object.
   - file_path: wxwidgets/selection.cpp
     description: |
-      Implements the `Selection` and `SelectionThread` classes.
-      - `Selection`: The `add()` and `remove()` methods create deep copies of the affected `Tile` objects, modify the selection state of the target objects within these copies (e.g., `item->select()`), and then add `Change` objects (containing these modified tile copies) to the current `Action` (`subsession`). The `start()`, `commit()`, and `finish()` methods manage the lifecycle of `Action` and `BatchAction` objects that record these selection changes for the `ActionQueue`.
-      - `SelectionThread::Entry()`: Implements the logic to iterate over a range of map coordinates, get the tiles, and add them to a local `Selection` object by calling its `add(Tile*)` method within a thread-local session. The resulting action data is then made available to the main thread.
+      Implements `Selection` and `SelectionThread`.
+      - `Selection::add(Tile* tile, Item* item)` (and similar for Spawn, Creature, whole Tile): Creates a deep copy of `tile` using `tile->deepCopy(editor.map)`. Sets the `selected` flag on the target `item` (or whole tile) *on the copy*. Adds `new Change(copied_tile_with_modified_selection)` to `subsession`.
+      - `Selection::remove(...)`: Similar to `add`, but deselects the element on the copied tile.
+      - `Selection::clear()`: If a session is active, creates `Change` objects for deselecting all currently selected tiles. Otherwise, directly deselects and clears `tiles`.
+      - Session methods (`start`, `commit`, `finish`) manage the lifecycle of `subsession` (Action) and `session` (BatchAction) and their addition to `editor.actionQueue`.
+      - `SelectionThread::Entry()`: Iterates a map area, calls `selection.add(tile)` for each tile within its local `Selection` object's session (started with `SUBTHREAD` flag). The resulting `Action*` is stored for the main thread.
   - file_path: wxwidgets/copybuffer.h
     description: |
-      Defines the `CopyBuffer` class, which acts as an internal clipboard for map data.
-      It contains a `BaseMap* tiles` to store deep copies of `Tile` objects that have been cut or copied.
-      Declares methods `copy(Editor&, int floor)`, `cut(Editor&, int floor)`, `paste(Editor&, const Position& toPosition)`, `canPaste()`, and `clear()`.
-      `copyPos` stores the top-left reference position of the copied data.
+      Defines the `CopyBuffer` class for internal clipboard functionality.
+      It uses a `BaseMap* tiles` to store deep copies of `Tile` objects from a cut/copy operation.
+      `copyPos` stores the top-left reference `Position` of the copied data.
+      Declares `copy()`, `cut()`, `paste()`, `canPaste()`, `clear()`.
   - file_path: wxwidgets/copybuffer.cpp
     description: |
-      Implements the `CopyBuffer` class.
-      - `copy()`: Iterates the current selection from the source `Editor`. For each selected `Tile`, it creates a deep copy containing only the selected elements (items, creatures, spawns) from that tile. These partial or full tile copies are stored in the `CopyBuffer`'s internal `BaseMap`, and `copyPos` is set to the top-leftmost position of the selection.
-      - `cut()`: Performs a `copy()` operation and then creates an `Action` (via `editor.actionQueue`) to delete the selected elements from the source map. This involves creating `Change` objects representing the tiles after deletion.
-      - `paste()`: Takes a target `Position`. It iterates through the tiles stored in its internal `BaseMap`. For each tile, it creates a deep copy, offsets its position relative to `copyPos` and the `target_paste_position`, and then creates an `Action` to add/merge these tiles into the target `Editor`'s map. It handles merging with existing tiles or placing new tiles based on `Config::MERGE_PASTE` setting. Automagic border updates can also be triggered.
+      Implements `CopyBuffer`.
+      - `copy()`: Iterates selected tiles via `editor.selection`. For each `Tile`, it creates a `copied_tile` in the internal `tiles` `BaseMap`. Critically, it only includes *selected* elements: if `tile->ground` is selected, its properties (house_id, flags) are copied. Then, `tile->getSelectedItems()` is called, and only these selected items are deep-copied into `copied_tile`. Selected creatures/spawns are also deep-copied. `copyPos` is updated.
+      - `cut()`: Performs `copy()`. Then, for each selected tile, it creates a `newtile` (deep copy of original), calls `popSelectedItems()` to remove selected items from this `newtile` (and nils out creature/spawn if selected). This `newtile` (representing the state *after* deletion) is used to create a `Change` object for an `Action` which is then added to the `ActionQueue`. Automagic border updates can be triggered.
+      - `paste()`: Iterates `buffer_tile`s in its internal `tiles` `BaseMap`. Calculates target `Position`. Creates a `copy_tile` (deep copy of `buffer_tile`). Based on `Config::MERGE_PASTE`, it either merges `copy_tile` with the existing tile at the target (or a new empty tile) or replaces it. The resulting tile is used for a `Change` object in an `Action`. Automagic border updates can be triggered.
 dependencies:
   - BUILD-01  # For CMake project structure
   - CORE-01  # For Position, Item, Tile class definitions
@@ -136,3 +143,4 @@ documentation_references:
   - 'QSet: https://doc.qt.io/qt-6/qset.html'
   - 'QUndoStack: https://doc.qt.io/qt-6/qundostack.html'
   - 'QUndoCommand: https://doc.qt.io/qt-6/qundocommand.html'
+estimation_effort: X-Large

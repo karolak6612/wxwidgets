@@ -7,19 +7,25 @@ original_input_files:
 analyzed_input_files:
   - file_path: wxwidgets/action.h
     description: |
-      Defines the interfaces for the action and history (undo/redo) system. Key classes declared:
-      - `Change`: Encapsulates an atomic change to the map state (e.g., a modified tile, moved house exit, moved waypoint). It stores the type of change and a pointer to data representing the *previous* state of the affected object.
-      - `DirtyList`: A helper class to track changed map areas (by position/floor using a custom set of `ValueType`) and specific `Change` objects. This is likely used for optimized screen refresh or for network updates in live editing sessions.
-      - `Action`: Represents a single undoable/redoable editor operation (e.g., drawing, deleting). It contains a list (`ChangeList`) of `Change` objects that constitute the operation. Key methods are `commit()` (to apply changes to the map) and `undo()` (to revert them). It's identified by an `ActionIdentifier` enum.
-      - `BatchAction`: Groups multiple `Action` instances. Actions of the same type occurring in rapid succession (within a stacking delay) can be merged into a single `BatchAction`. It manages committing, undoing, and redoing its contained actions.
-      - `ActionQueue`: Manages a deque (`ActionList`) of `BatchAction` objects, providing the main undo/redo stack. It handles stack limits based on memory usage or action count and the merging of consecutive compatible actions.
+      Defines the interfaces for the action and history (undo/redo) system. Key classes:
+      - `ChangeType` (enum): Defines types of changes like `CHANGE_TILE`, `CHANGE_MOVE_HOUSE_EXIT`, `CHANGE_MOVE_WAYPOINT`.
+      - `Change`: Encapsulates an atomic change. It stores `ChangeType` and `void* data`. For `CHANGE_TILE`, `data` points to a `Tile` object. For moves, it's a `std::pair` (e.g., house ID / waypoint name and old `Position`). `Change` takes ownership of this `data` representing the *previous* state of the map element after a commit.
+      - `DirtyList`: A helper class using `std::set` of packed positions (`ValueType`) and a `ChangeList` to track changed map areas or specific changes, likely for optimized screen refresh or network updates. `ValueType` packs coordinates suggesting 4x4 tile chunk granularity.
+      - `ActionIdentifier` (enum): Identifies types of user operations (e.g., `ACTION_DRAW`, `ACTION_DELETE_TILES`).
+      - `Action`: Represents a single editor operation. Contains a `ChangeList` (vector of `Change*`). Key methods are `commit()` (to apply changes) and `undo()`. Owns its `Change` objects.
+      - `BatchAction`: Groups multiple `Action*` instances in an `ActionVector`. Manages committing, undoing, and redoing its contained actions. Supports merging with other `BatchAction` objects. Owns its `Action` objects.
+      - `ActionQueue`: Manages a `std::deque<BatchAction*>` as the main undo/redo stack. Handles stack limits (memory/count) and merging of consecutive compatible actions based on type, time (`stacking_delay`), and settings (`GROUP_ACTIONS`). Owns its `BatchAction` objects.
   - file_path: wxwidgets/action.cpp
     description: |
       Implements the classes declared in `action.h`.
-      - `Change`: Constructor initializes the change type and data (e.g., takes a `Tile*` and stores it). The destructor `clear()` is crucial for releasing the memory of the stored state data based on its type (e.g., deleting the `Tile*` or `std::pair` for moves).
-      - `Action`: The constructor takes an `Editor&` and an `ActionIdentifier`. The `commit()` method applies the changes to the live map data by swapping the current map state with the state stored in its `Change` objects (effectively making the `Change` object now hold the state that was previously on the map). It interacts with `Editor` and `Map` to update game elements like spawns, houses, and tile selection. The `undo()` method reverses this process.
-      - `BatchAction`: Manages an `ActionVector`. Provides methods to add actions, which are then committed. `commit()`, `undo()`, `redo()` methods iterate over the contained actions. `merge()` allows combining subsequent compatible batches.
-      - `ActionQueue`: Implements the undo/redo stack logic. `addAction()`/`addBatch()` handle adding new operations, including logic for merging actions based on `stacking_delay` and `GROUP_ACTIONS` setting, and managing undo stack limits (`UNDO_MEM_SIZE`, `UNDO_SIZE` from `Config`). `undo()` and `redo()` manipulate the `current` index within the `actions` deque.
+      - `Change::clear()`: Crucially, `delete`s the `void* data` according to its `ChangeType` (e.g., `delete (Tile*)data;`).
+      - `Action::commit()`: For each `Change` in its `changes` list:
+          - For `CHANGE_TILE`: It calls `editor.map.swapTile(pos, newtile_from_change_data)`, effectively putting `newtile_from_change_data` onto the map. The `Tile*` returned by `swapTile` (which was the tile previously on the map, or a new empty tile if none was there) is then stored back into `c->data`.
+          - For move operations: Updates the game element (house exit, waypoint) with the new position from `c->data`, and stores the *original* position back into `c->data`.
+        This "swap" pattern is fundamental: the `Change` object initially holds the "new" state and after `commit` holds the "old" (pre-change) state from the map.
+      - `Action::undo()`: Reverses the `commit()` process, effectively swapping the states again.
+      - `BatchAction::merge()`: Appends actions from another batch.
+      - `ActionQueue::addBatch()`: Contains the core logic for managing the undo stack. It clears the redo history, enforces stack limits (memory via `BatchAction::memsize()` and count via `Config::UNDO_SIZE`), and attempts to merge the incoming `BatchAction` with the most recent one if types match, `GROUP_ACTIONS` is enabled, and it's within the `stacking_delay`. Otherwise, it pushes the new batch.
 dependencies:
   - BUILD-01  # For CMake project structure
   - CORE-01  # For Position, Item, Tile definitions
@@ -114,3 +120,4 @@ documentation_references:
   - 'QUndoStack: https://doc.qt.io/qt-6/qundostack.html'
   - 'QUndoCommand: https://doc.qt.io/qt-6/qundocommand.html'
   - 'std::unique_ptr: https://en.cppreference.com/w/cpp/memory/unique_ptr'
+estimation_effort: X-Large

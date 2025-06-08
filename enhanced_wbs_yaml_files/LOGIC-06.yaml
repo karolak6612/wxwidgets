@@ -26,29 +26,31 @@ analyzed_input_files:
 - file_path: wxwidgets/house_brush.cpp
   description: "Implements `HouseBrush`.\n- `setHouse()`: Sets `draw_house`.\n\
     - `getHouseID()`: Returns ID of `draw_house`.\n- `undraw()`: Clears tile's house\
-    \ ID & PZ flag. Optionally clears door IDs if `AUTO_ASSIGN_DOORID` is set.\n\
+    \ ID & PZ flag. Optionally clears door IDs if `AUTO_ASSIGN_DOORID` setting is enabled.\n\
     - `draw()`: Assigns `draw_house` to tile, sets PZ flag. Optionally removes movables\
-    \ (`HOUSE_BRUSH_REMOVE_ITEMS` setting) or auto-assigns door IDs (`AUTO_ASSIGN_DOORID`\
-    \ setting)."
+    \ (if `HOUSE_BRUSH_REMOVE_ITEMS` setting is enabled) or auto-assigns door IDs (`AUTO_ASSIGN_DOORID`\
+    \ setting enabled, using `draw_house->getEmptyDoorID()`)."
 - file_path: wxwidgets/house_exit_brush.h
   description: "Defines `HouseExitBrush` class (inherits `Brush`) for designating\
-    \ a house exit. Stores `uint32_t draw_house` (ID of the target house). `draw`\
-    \ and `undraw` methods assert false, implying a targeted UI action. Methods:\
-    \ `canDraw`, `setHouse`, `getHouseID`. Non-smearing, non-dragging."
+    \ a house exit. Stores `uint32_t draw_house` (ID of the target house). Its `draw`\
+    \ and `undraw` methods assert `false`, as its primary function is to hold the target house ID\
+    \ and validate placement via `canDraw`. The actual exit setting is a targeted UI action.\
+    \ Methods: `canDraw`, `setHouse`, `getHouseID`. Non-smearing, non-dragging."
 - file_path: wxwidgets/house_exit_brush.cpp
-  description: "Implements `HouseExitBrush`.\n- `setHouse()`: Sets `draw_house` ID.\n\
-    - `getHouseID()`: Returns stored house ID.\n- `canDraw()`: Checks if tile exists,\
-    \ has ground, is not a house tile, and is not blocking.\n- `draw()` & `undraw()`:\
-    \ Assert false."
+  description: "Implements `HouseExitBrush`.\n- `setHouse(House* house)`: Stores `house->getID()` as `draw_house`.\n\
+    - `getHouseID()`: Returns stored `draw_house` ID.\n- `canDraw()`: Checks if tile exists at `position`,\
+    \ has ground, is not already part of any house, and is not blocking.\n- `draw()` & `undraw()`:\
+    \ Assert `false`."
 - file_path: wxwidgets/waypoint_brush.h
   description: "Defines `WaypointBrush` class (inherits `Brush`) for placing/moving\
-    \ waypoints. Stores `std::string waypoint_name`. `draw` and `undraw` assert false,\
-    \ implying a targeted UI action. Methods: `canDraw`, `setWaypoint`, `getWaypoint`.\
-    \ Non-smearing, non-dragging."
+    \ waypoints. Stores `std::string waypoint_name`. Its `draw` and `undraw` methods assert `false`,\
+    \ as its primary function is to hold the target waypoint name and validate placement via `canDraw`.\
+    \ The actual waypoint placement/move is a targeted UI action. Methods: `canDraw`, `setWaypoint`,\
+    \ `getWaypoint`. Non-smearing, non-dragging."
 - file_path: wxwidgets/waypoint_brush.cpp
-  description: "Implements `WaypointBrush`.\n- `setWaypoint()`: Sets `waypoint_name`.\n\
-    - `getWaypoint()`: Returns `waypoint_name`.\n- `canDraw()`: Checks if tile exists.\n\
-    - `draw()` & `undraw()`: Assert false."
+  description: "Implements `WaypointBrush`.\n- `setWaypoint(Waypoint* wp)`: Stores `wp->name` if `wp` is not null, else clears name.\n\
+    - `getWaypoint()`: Returns stored `waypoint_name`.\n- `canDraw()`: Checks if tile exists at `position`.\n\
+    - `draw()` & `undraw()`: Assert `false`."
 documentation_references:
 - 'Qt Event System: https://doc.qt.io/qt-6/eventsandfilters.html'
 - 'QUndoStack for actions: https://doc.qt.io/qt-6/qundostack.html'
@@ -139,4 +141,5 @@ additional_notes: "The core logic for `House::setExit` and `Waypoints::addWaypoi
   \ (including tile count updates) is assumed to be correctly implemented in `mapcore`\
   \ (LOGIC-04, LOGIC-05). This task focuses on the `EditorController` and `QUndoCommand`\
   \ integration for the brushes/tools."
+estimation_effort: Large
 [end of enhanced_wbs_yaml_files/LOGIC-06.yaml]

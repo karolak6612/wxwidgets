@@ -147,4 +147,5 @@ additional_notes: "The core logic is that a `Tile` *is* a spawn point if it has 
   \ find all such tiles. The `SpawnBrush` makes a tile a spawn point and sets its\
   \ radius. The `CreatureBrush` places creatures and, if settings allow, can also\
   \ make a tile a basic spawn point if it isn't one already."
+estimation_effort: Large
 [end of enhanced_wbs_yaml_files/LOGIC-07.yaml]

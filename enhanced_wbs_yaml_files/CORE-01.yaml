@@ -14,39 +14,39 @@ analyzed_input_files:
       It includes constructors, comparison operators (`<`, `==`, `!=`, `>`), arithmetic operators (`+`, `-`, `+=`),
       an `isValid()` method to check if the position is within map boundaries (MAP_MAX_WIDTH, MAP_MAX_HEIGHT, MAP_MAX_LAYER),
       and stream insertion/extraction operators. An `abs()` function for positions is also provided.
-      This structure is critical for locating any element or area on the map.
+      This structure is critical for locating any element or area on the map. `MAP_MAX_WIDTH`, `MAP_MAX_HEIGHT`, and `MAP_MAX_LAYER` are external constants used by its `isValid()` method.
   - file_path: wxwidgets/item.h
     description: |
-      Header for the `Item` class, the base class for all game items, and its related enumerations and helper structures.
-      `Item` itself inherits from `ItemAttributes` (defined elsewhere, but provides the mechanism for storing custom attributes like UID, AID, text, description, tier via a map-like structure).
+      Header for the `Item` class, the base class for all game items. `Item` inherits from `ItemAttributes` (defined in `item_attributes.h`), which provides the mechanism for storing custom attributes (UID, AID, text, description, tier) via a map-like structure.
       This header declares item properties (e.g., blocking, moveable, light emission), specific item types (e.g., splash, container, door, podium, depot), and enumerations like `ITEMPROPERTY` and `SplashType`.
-      It includes methods for managing item ID and subtype (count/charges/fluid type), accessing attributes, handling selection state, and querying properties which often rely on `g_items` (a global item metadata store/manager).
-      Key virtual methods like `deepCopy()` and serialization methods (for OTBM format) are declared.
-      A static factory method `Item::Create` is also declared for instantiating items.
+      It includes methods for managing item ID and subtype (used for count, charges, or fluid type), accessing attributes, handling selection state, and querying properties. Most property queries (e.g., `isBlocking()`, `getName()`, `getSprite()`) heavily rely on `g_items` (a global instance of `Items` from `items.h`) which acts as an item metadata manager.
+      Key virtual methods like `deepCopy()` are declared. Serialization methods for OTBM format are also declared.
+      A static factory method `Item::Create` is declared for instantiating items. Inline methods `isStairs()` and `isLadder()` perform checks based on item names or properties.
   - file_path: wxwidgets/item.cpp
     description: |
-      Implementation of the `Item` class and its static factory `Item::Create(uint16_t type, uint16_t subtype)`.
-      The factory method is responsible for instantiating the correct derived item types (e.g., `Container`, `Teleport`, `Door`, `Podium`, `Depot`) based on the item ID's properties fetched from `g_items`. If no specific derived type matches, a base `Item` object is created.
-      The file implements methods for attribute management (getting/setting UID, AID, text, description, tier via the `ItemAttributes` base), weight calculation (stackable items have weight multiplied by subtype/count), subtype handling, and property checks (which often delegate to `g_items`).
-      It also includes static helper methods for converting between liquid type IDs and names.
-      Serialization methods for OTBM format are implemented here, handling various item attributes.
+      Implementation of the `Item` class. Its static factory `Item::Create(uint16_t type, uint16_t subtype)` instantiates the correct derived item types (`Container`, `Teleport`, `Door`, `Podium`, `Depot`, etc.) based on properties fetched from `g_items`. If no specific derived type matches, a base `Item` object is created.
+      The file implements methods for attribute management (delegating to the `ItemAttributes` base), weight calculation (stackable items have weight multiplied by subtype/count), subtype handling, and property checks (which often delegate to `g_items`).
+      It includes static helper methods for converting between liquid type IDs and names.
+      Serialization methods for OTBM format are implemented here.
+      A global utility function `transformItem(Item* old_item, uint16_t new_id, Tile* parent)` is also defined here, which changes an item's ID by creating a new item and potentially replacing it within a tile's item list.
   - file_path: wxwidgets/tile.h
     description: |
       Header for the `Tile` class, representing a single map tile at a specific `Position`.
-      A `Tile` is associated with a `TileLocation` (which holds the `Position` and potentially other location-specific data like house exits).
-      It manages a collection of `Item` objects (a `ground` item pointer and an `ItemVector` for other items), a `Creature*` pointer, a `Spawn*` pointer, a `house_id` (uint32_t), and various flags.
-      Flags are split into `mapflags` (e.g., `TILESTATE_PROTECTIONZONE`, `TILESTATE_NOPVP`) and `statflags` (internal states like `TILESTATE_SELECTED`, `TILESTATE_BLOCKING`, `TILESTATE_MODIFIED`, `TILESTATE_HAS_TABLE`).
-      Defines methods for adding/removing/querying items, managing selection state of the tile and its contents, handling house properties, and accessing linked objects like creatures or spawns.
-      Declares methods for "auto-magic" operations like `borderize`, `wallize`, `tableize`, `carpetize`.
+      A `Tile` has a `TileLocation* location` member, which points to an object holding the actual `Position` and other location-specific data (like house exits, spawn counts).
+      It manages a collection of `Item` objects (an `Item* ground` pointer and an `ItemVector items` which is `std::vector<Item*>`), a `Creature*` pointer, a `Spawn*` pointer, a `house_id` (uint32_t), and various flags.
+      Flags are split into `mapflags` (e.g., `TILESTATE_PROTECTIONZONE`, `TILESTATE_NOPVP`) and `statflags` (internal states like `TILESTATE_SELECTED`, `TILESTATE_BLOCKING`, `TILESTATE_MODIFIED`, `TILESTATE_HAS_TABLE`). A `std::vector<uint16_t> zoneIds` is also present.
+      Defines methods for adding/removing/querying items, managing selection state, handling house properties, and accessing linked objects.
+      Declares methods for "auto-magic" operations like `borderize`, `wallize`, `tableize`, `carpetize`, and an `update()` method to refresh internal `statflags`.
   - file_path: wxwidgets/tile.cpp
     description: |
       Implementation of the `Tile` class.
-      Includes constructors (one taking x,y,z and another taking `TileLocation&`), and a destructor that correctly cleans up owned objects (items, creature, spawn).
-      The `deepCopy` method creates a new Tile with copies of all its contents.
-      Item management methods like `addItem(Item* item)` include logic for handling ground items (replacing existing ground), items with ground equivalents, and always-on-bottom items, maintaining correct stacking order.
+      Includes constructors (one taking x,y,z and another taking `TileLocation&`), and a destructor that correctly cleans up owned objects (items, creature, spawn) using `delete`.
+      The `deepCopy` method creates a new Tile with deep copies of all its contents.
+      The `addItem(Item* item)` method contains crucial logic for item stacking: ground items replace existing ground; items with ground equivalents replace ground and are added to the main list; always-on-bottom items are inserted in a specific order; other items are appended. This maintains the correct visual and logical stacking order.
       Selection methods (`select`, `deselect`, `selectGround`, `popSelectedItems`, `getSelectedItems`) manage the selection state of the tile and its individual contents.
       Property query methods like `isBlocking()`, `getMiniMapColor()`, `hasProperty()` aggregate information from contained items and tile flags.
-      Implements complex "auto-magic" logic for `borderize`, `wallize`, `tableize`, `carpetize` which often interact with specific brush types and global settings (`g_settings`) via a `BaseMap*` parent (typically the main `Map` object).
+      The `update()` method recalculates `statflags` (e.g., `TILESTATE_SELECTED`, `TILESTATE_BLOCKING`, `TILESTATE_HAS_TABLE`) based on the current state of items on the tile.
+      Implements complex "auto-magic" logic for `borderize`, `wallize`, `tableize`, `carpetize` which often interact with specific brush types and global settings (`g_settings`) via a `BaseMap*` parent.
       House management includes setting `house_id` and interacting with `HouseExitList` via `TileLocation`.
 dependencies:
   - BUILD-01 # Depends on CMake project setup to compile these core classes
@@ -161,3 +161,4 @@ documentation_references:
   - 'std::vector: https://en.cppreference.com/w/cpp/container/vector'
   - 'std::map: https://en.cppreference.com/w/cpp/container/map'
   - 'std::any: https://en.cppreference.com/w/cpp/utility/any'
+estimation_effort: Large
