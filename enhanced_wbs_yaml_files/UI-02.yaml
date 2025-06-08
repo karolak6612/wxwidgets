@@ -1,25 +1,22 @@
-wbs_item_id: UI-02
-name: Port Toolbars & Palettes
-description: Recreate main application toolbars (standard, brushes, position, sizes)
-  and the palette system (terrain, doodad, item, creature, house, waypoint, etc.)
-  using Qt6 widgets.
-dependencies:
-- UI-01
-- CORE-02
-- CORE-04
-input_files:
-- wxwidgets/main_toolbar.cpp
-- wxwidgets/main_toolbar.h
-- wxwidgets/palette_window.cpp
-- wxwidgets/palette_window.h
-- wxwidgets/palette_brushlist.cpp
-- wxwidgets/palette_brushlist.h
-- wxwidgets/palette_creature.cpp
-- wxwidgets/palette_creature.h
-- wxwidgets/palette_house.cpp
-- wxwidgets/palette_house.h
-- wxwidgets/palette_waypoints.cpp
-- wxwidgets/palette_waypoints.h
+id: UI-02
+section: UI Elements
+title: Port Main Application Toolbars and Comprehensive Palette System
+original_input_files:
+  - wxwidgets/main_toolbar.cpp
+  - wxwidgets/main_toolbar.h
+  - wxwidgets/palette_window.cpp
+  - wxwidgets/palette_window.h
+  - wxwidgets/palette_brushlist.cpp
+  - wxwidgets/palette_brushlist.h
+  - wxwidgets/palette_creature.cpp
+  - wxwidgets/palette_creature.h
+  - wxwidgets/palette_house.cpp
+  - wxwidgets/palette_house.h
+  - wxwidgets/palette_waypoints.cpp
+  - wxwidgets/palette_waypoints.h
+  # Conceptual addition based on SeamlessGridPanel usage:
+  # - wxwidgets/seamless_grid_panel.cpp # If exists as separate
+  # - wxwidgets/seamless_grid_panel.h   # If exists as separate
 analyzed_input_files:
   - filepath: "wxwidgets/main_toolbar.h"
     description: "Declares `MainToolBar` class (derived from `wxEvtHandler`). It defines constants for toolbar names (`STANDARD_BAR_NAME`, `BRUSHES_BAR_NAME`, etc.) and IDs (`TOOLBAR_STANDARD`, etc.). Holds pointers to four `wxAuiToolBar` instances (`standard_toolbar`, `brushes_toolbar`, `position_toolbar`, `sizes_toolbar`) and specific controls within them, like `NumberTextCtrl` for X,Y,Z inputs (`x_control`, `y_control`, `z_control`) and a `wxButton` (`go_button`) for the position toolbar."
@@ -58,7 +55,7 @@ analyzed_input_files:
       - `BrushIconBox`: `wxScrolledWindow`-based `BrushBoxInterface` displaying brushes as a grid of `BrushButton`s (custom `wxToggleButton`s).
       - `BrushGridBox`: Another `wxScrolledWindow`-based `BrushBoxInterface` using `wxFlexGridSizer` for a dynamic grid of `BrushButton`s.
       - `DirectDrawBrushPanel`: `wxScrolledWindow`-based `BrushBoxInterface` with custom drawing for RAW items, featuring progressive loading.
-      - `SeamlessGridPanel`: Advanced `wxScrolledWindow`-based `BrushBoxInterface` with direct sprite rendering, zooming, item ID display, progressive loading, sprite caching, and chunking for very large tilesets. Declares `CachedSprite` struct.
+      - `SeamlessGridPanel`: Advanced `wxScrolledWindow`-based `BrushBoxInterface` with direct sprite rendering, zooming, item ID display (optional), progressive loading, sprite caching, and chunking for very large tilesets. Declares `CachedSprite` struct.
       - `BrushPanel`: A `wxPanel` that hosts one of the `BrushBoxInterface` implementations. It allows switching view modes (list vs. grid via `view_mode_toggle`, direct draw for RAW via `view_type_choice`, show item IDs via `show_ids_toggle`). It uses `g_brush_panel_cache` (a `std::map<const TilesetCategory*, BrushPanelState>`) to cache `BrushBoxInterface` instances and their states (grid view, list view, zoom controls) to improve performance when switching between tilesets or view modes.
       - `BrushPalettePanel`: Derived from `PalettePanel`. This is the main panel for generic categories (Terrain, Doodad, Item, RAW, Collection). It contains an inner `wxChoicebook` to select a `TilesetCategory` (e.g., a specific group of ground sprites). Each page of this inner choicebook is a `BrushPanel`. It also manages adding tool panels (e.g., `BrushToolPanel`, `BrushSizePanel`, `BrushThicknessPanel`, `ZoneBrushPanel`) and provides UI buttons ("Add new Tileset", "Add new Item", "Quick Add Item", "Create Border") that invoke dialogs (like `AddTilesetWindow`, `AddItemWindow` from UI-05, `BorderEditorDialog` from UI-05).
   - filepath: "wxwidgets/palette_brushlist.cpp"
@@ -102,6 +99,13 @@ analyzed_input_files:
     description: "Declares `WaypointPalettePanel` (derived from `PalettePanel`) for the 'Waypoints' palette tab. Uses a `wxListCtrl` (`waypoint_list`) in report view (single column) for displaying and allowing in-place editing of waypoint names."
   - filepath: "wxwidgets/palette_waypoints.cpp"
     description: "Implements `WaypointPalettePanel`. Populates `waypoint_list` from `map->waypoints`. Handles adding new waypoints (`OnClickAddWaypoint`), removing selected waypoints (`OnClickRemoveWaypoint`), and renaming waypoints directly in the `wxListCtrl` (`OnEditWaypointLabel`). Selecting a waypoint in the list sets it for the `WaypointBrush` (via `g_gui.waypoint_brush->setWaypoint()`) and navigates the map view to the waypoint's location."
+dependencies:
+  - UI-01
+  - BUILD-01
+  - CORE-06 # AppSettings for palette styles, icon sizes
+  - RENDER-01 # MapView (for context menu interactions, if any)
+  - RENDER-03 # TextureManager (for sprite previews in palettes)
+  - CORE-BRUSH-FRAMEWORK # For BrushManagerService and BrushSettings
 documentation_references:
   - 'QToolBar: https://doc.qt.io/qt-6/qtoolbar.html'
   - 'QAction: https://doc.qt.io/qt-6/qaction.html'
@@ -114,156 +118,112 @@ documentation_references:
   - 'QGridLayout / QVBoxLayout / QHBoxLayout: For arranging widgets within palettes.'
   - 'QStackedWidget: https://doc.qt.io/qt-6/qstackedwidget.html (For managing different brush views within a BrushPanel)'
 current_functionality_summary: |
-  The wxWidgets application features a set of dockable toolbars and a comprehensive, multi-category palette system.
-  **Toolbars (`MainToolBar`):** Four `wxAuiToolBar` instances provide quick access:
-  1.  *Standard Toolbar:* File operations (New, Open, Save, Save As), Undo/Redo, Clipboard (Cut, Copy, Paste). Icons from `wxArtProvider`.
-  2.  *Brushes Toolbar:* Toggle buttons for specialized brushes like Optional Border, Eraser, various Zone types (PZ, NoPVP, NoLogout, PvPZone, generic Zone), Door types (Normal, Locked, Magic, Quest, Alt, Archway), and Window types (Hatch, Normal). Icons from `wxArtProvider` or custom PNGs.
-  3.  *Position Toolbar:* `NumberTextCtrl`s for X, Y, Z coordinate input and a "Go" button.
-  4.  *Sizes Toolbar:* Toggle buttons for brush shape (Rectangular, Circular) and a set of predefined brush sizes (1x1 up to 7x7 or equivalent). Icons from `wxArtProvider`.
-  Toolbar button states (enabled/disabled, toggled) are dynamically updated based on application context (e.g., map loaded, current brush) via `UpdateButtons()`, `UpdateBrushButtons()`, and `UpdateBrushSize()`. Layout and visibility are managed by `wxAuiManager` and persisted using `g_settings`.
+  The legacy system includes a `MainToolBar` class managing four `wxAuiToolBar` instances (Standard, Brushes, Position, Sizes) populated with tools and actions, using `wxAuiManager` for layout. The palette system is anchored by `PaletteWindow`, which uses a `wxChoicebook` for main categories (Terrain, Doodad, Item, Creature, House, Waypoint, etc.). Each category can contain `BrushPalettePanel` instances, which in turn might use another `wxChoicebook` for tilesets (sub-categories) and host various `BrushBoxInterface` views like `BrushListBox` (simple list), `BrushIconBox` (icon grid), `DirectDrawBrushPanel` (custom drawing), and the complex `SeamlessGridPanel` (featuring zooming, progressive loading, sprite caching, and chunking for large datasets). Specialized palettes like `CreaturePalettePanel`, `HousePalettePanel`, and `WaypointPalettePanel` have unique UIs and data handling logic integrated within this framework.
+qt6_migration_steps: |-
+  1.  **Port `MainToolBar` to `MainWindowQt`:**
+      -   Create four `QToolBar` members in `MainWindowQt` (e.g., `standardToolbar`, `brushesToolbar`, `positionToolbar`, `sizesToolbar`).
+      -   Populate `standardToolbar` with `QAction`s for New, Open, Save, Undo, Redo, Cut, Copy, Paste, using `QIcon::fromTheme` or custom icons. Connect to `EditorController` slots or `MainWindowQt` handlers.
+      -   Populate `brushesToolbar` with checkable `QAction`s for specialized brushes (Eraser, Zone types, Door types, Window types). Use `QActionGroup` where appropriate for mutually exclusive brushes. Connect to `EditorController` or `BrushManagerService`.
+      -   Populate `positionToolbar` with `QSpinBox` for X, Y, Z and a `QPushButton` "Go". Connect to `EditorController` or `MapViewQt` slots.
+      -   Populate `sizesToolbar` with `QActionGroup`s for brush shape (Rectangular, Circular) and brush size. Connect to `BrushManagerService`.
+      -   Implement `MainWindowQt::updateToolbars()`, `updateBrushToolbarStates()`, `updateBrushSizeToolbar()` to manage action/button states.
+      -   Use `QMainWindow::addToolBar()` and allow user to show/hide/move them. Toolbar states (visibility, position) can be saved/restored using `QMainWindow::saveState()` / `restoreState()`.
 
-  **Palette System (`PaletteWindow`):** A central `wxPanel` hosts a `wxChoicebook` for switching between main palette categories: Terrain, Doodad, Item, Collection, Creature, House, Waypoint, and RAW. It also includes global controls for setting an Action ID.
-  -   **Generic Brush Palettes** (`BrushPalettePanel` serves Terrain, Doodad, Item, RAW, Collection):
-      -   These contain an inner `wxChoicebook` for selecting "tilesets" (sub-categories of brushes/items, e.g., 'Forest Grounds', 'Cave Walls').
-      -   Each selected tileset's content is displayed in a `BrushPanel`.
-      -   `BrushPanel` itself is a container that dynamically instantiates one of several `BrushBoxInterface` implementations for the actual display, based on user settings or palette type:
-          -   `BrushListBox`: Simple `wxVListBox` showing brush names and icons.
-          -   `BrushIconBox`: `wxScrolledWindow` with a grid of `BrushButton`s (toggle buttons with icons).
-          -   `BrushGridBox`: `wxScrolledWindow` with a `wxFlexGridSizer` of `BrushButton`s.
-          -   `DirectDrawBrushPanel`: Custom-drawn `wxScrolledWindow` optimized for RAW items, with progressive loading.
-          -   `SeamlessGridPanel`: Advanced custom-drawn `wxScrolledWindow` for dense grids, featuring zooming (1x-4x), item ID display (optional), progressive loading for large lists, sprite caching, and chunking navigation for very large datasets (10k+ items).
-      -   `BrushPalettePanel` can also embed specific tool panels (e.g., `BrushToolPanel`, `BrushSizePanel`, `BrushThicknessPanel`, `ZoneBrushPanel`) alongside the brush display.
-      -   Functionality to "Add new Tileset", "Add new Item" (to a tileset), "Quick Add Item", and "Create Border" is provided, invoking dialogs like `AddTilesetWindow`, `AddItemWindow` (from UI-05), and `BorderEditorDialog` (from UI-05).
-  -   **Specialized Palettes:**
-      -   `CreaturePalettePanel`: Lists creature types, allows search by name or looktype. Provides view toggles (list vs. sprite grid). The sprite grid can be a basic `CreatureSpritePanel` or the advanced `CreatureSeamlessGridPanel` with zooming and sprite sizing options. Manages spawn brush settings (time, radius). Includes functionality to load creature definitions from external NPC/Monster XML folders and to purge all loaded creatures.
-      -   `HousePalettePanel`: Allows selection of a town via `wxChoice`. Lists houses for the selected town in a `SortableListBox`. Supports adding, editing (via `EditHouseDialog`), and removing houses. Toggles between House brush and House Exit brush modes. Context menu allows moving houses between towns.
-      -   `WaypointPalettePanel`: Uses a `wxListCtrl` (report view) to display waypoints. Supports adding, removing, and in-place renaming of waypoints. Selecting a waypoint sets the `WaypointBrush` and navigates the map.
-  Palettes populate their content from `g_materials` (loaded from XML files), `g_creatures`, and map-specific data (houses, waypoints). User selections within palettes update the global brush state via `g_gui.SelectBrush()`.
-  The wxWidgets application features a set of dockable toolbars and a comprehensive, multi-category palette system.
-  **Toolbars (`MainToolBar`):** Four `wxAuiToolBar` instances provide quick access:
-  1.  *Standard Toolbar:* File operations (New, Open, Save, Save As), Undo/Redo, Clipboard (Cut, Copy, Paste). Icons from `wxArtProvider`.
-  2.  *Brushes Toolbar:* Toggle buttons for specialized brushes like Optional Border, Eraser, various Zone types (PZ, NoPVP, NoLogout, PvPZone, generic Zone), Door types (Normal, Locked, Magic, Quest, Alt, Archway), and Window types (Hatch, Normal). Icons from `wxArtProvider` or custom PNGs.
-  3.  *Position Toolbar:* `NumberTextCtrl`s for X, Y, Z coordinate input and a "Go" button.
-  4.  *Sizes Toolbar:* Toggle buttons for brush shape (Rectangular, Circular) and a set of predefined brush sizes (1x1 up to 7x7 or equivalent). Icons from `wxArtProvider`.
-  Toolbar button states (enabled/disabled, toggled) are dynamically updated based on application context (e.g., map loaded, current brush) via `UpdateButtons()`, `UpdateBrushButtons()`, and `UpdateBrushSize()`. Layout and visibility are managed by `wxAuiManager` and persisted using `g_settings`.
+  2.  **Create Main Palette Container (`PaletteDockWidget`):**
+      -   Create a `QDockWidget` subclass (e.g., `PaletteDockWidget`).
+      -   Inside it, place a `QTabWidget` (`paletteTabWidget`) as its main widget. This will host the different palette categories.
 
-  **Palette System (`PaletteWindow`):** A central `wxPanel` hosts a `wxChoicebook` for switching between main palette categories: Terrain, Doodad, Item, Collection, Creature, House, Waypoint, and RAW. It also includes global controls for setting an Action ID.
-  -   **Generic Brush Palettes** (`BrushPalettePanel` serves Terrain, Doodad, Item, RAW, Collection):
-      -   These contain an inner `wxChoicebook` for selecting "tilesets" (sub-categories of brushes/items, e.g., 'Forest Grounds', 'Cave Walls').
-      -   Each selected tileset's content is displayed in a `BrushPanel`.
-      -   `BrushPanel` itself is a container that dynamically instantiates one of several `BrushBoxInterface` implementations for the actual display, based on user settings or palette type:
-          -   `BrushListBox`: Simple `wxVListBox` showing brush names and icons.
-          -   `BrushIconBox`: `wxScrolledWindow` with a grid of `BrushButton`s (toggle buttons with icons).
-          -   `BrushGridBox`: `wxScrolledWindow` with a `wxFlexGridSizer` of `BrushButton`s.
-          -   `DirectDrawBrushPanel`: Custom-drawn `wxScrolledWindow` optimized for RAW items, with progressive loading.
-          -   `SeamlessGridPanel`: Advanced custom-drawn `wxScrolledWindow` for dense grids, featuring zooming (1x-4x), item ID display (optional), progressive loading for large lists, sprite caching, and chunking navigation for very large datasets (10k+ items).
-      -   `BrushPalettePanel` can also embed specific tool panels (e.g., `BrushToolPanel`, `BrushSizePanel`, `BrushThicknessPanel`, `ZoneBrushPanel`) alongside the brush display.
-      -   Functionality to "Add new Tileset", "Add new Item" (to a tileset), "Quick Add Item", and "Create Border" is provided, invoking dialogs like `AddTilesetWindow`, `AddItemWindow` (from UI-05), and `BorderEditorDialog` (from UI-05).
-  -   **Specialized Palettes:**
-      -   `CreaturePalettePanel`: Lists creature types, allows search by name or looktype. Provides view toggles (list vs. sprite grid). The sprite grid can be a basic `CreatureSpritePanel` or the advanced `CreatureSeamlessGridPanel` with zooming and sprite sizing options. Manages spawn brush settings (time, radius). Includes functionality to load creature definitions from external NPC/Monster XML folders and to purge all loaded creatures.
-      -   `HousePalettePanel`: Allows selection of a town via `wxChoice`. Lists houses for the selected town in a `SortableListBox`. Supports adding, editing (via `EditHouseDialog`), and removing houses. Toggles between House brush and House Exit brush modes. Context menu allows moving houses between towns.
-      -   `WaypointPalettePanel`: Uses a `wxListCtrl` (report view) to display waypoints. Supports adding, removing, and in-place renaming of waypoints. Selecting a waypoint sets the `WaypointBrush` and navigates the map.
-  Palettes populate their content from `g_materials` (loaded from XML files), `g_creatures`, and map-specific data (houses, waypoints). User selections within palettes update the global brush state via `g_gui.SelectBrush()`.
-definition_of_done:
-- The four main application toolbars (Standard, Brushes, Position, Sizes) are recreated
-  as `QToolBar` objects within the `QMainWindow`.
-- Actions on the Standard and Brushes toolbars are implemented using `QAction`s with
-  appropriate icons and tooltips, connected to placeholder slots.
-- The Position toolbar includes `QSpinBox` (or validated `QLineEdit`) controls for
-  X, Y, Z coordinates and a `QPushButton` for 'Go'.
-- The Sizes toolbar uses `QActionGroup`s or checkable `QAction`s to allow selection
-  of brush shape and size, with visual feedback.
-- A `QDockWidget` is created to house the main palette system.
-- Inside the dock widget, a `QTabWidget` (`paletteTabWidget`) is used to switch between
-  different palette types (Terrain, Doodad, Item, Creature, House, Waypoint, RAW,
-  Collection).
-- 'For generic palette types (Terrain, Doodad, Item, RAW, Collection):'
-- '  - Each tab contains a `QComboBox` or another `QTabWidget` to select the specific
-  tileset/category (e.g., ''Forest Grounds'', ''City Items'').'
-- '  - Brushes/items from the selected tileset/category are displayed in a `QListView`
-  (with a custom model/delegate for icon+text or grid view) or a `QListWidget`.'
-- '  - Basic search/filter functionality using a `QLineEdit` is provided for these
-  palettes.'
-- 'Specialized palettes are implemented:'
-- '  - `CreaturePalette`: `QComboBox` for creature categories, search field, display
-  area (list or grid), `QSpinBox` for spawn time/radius, toggles for creature/spawn
-  brush.'
-- '  - `HousePalette`: `QComboBox` for towns, `QListWidget` for houses, Add/Edit/Remove
-  buttons, toggles for house/exit brush.'
-- '  - `WaypointPalette`: `QListWidget` with editable items for waypoint names, Add/Remove
-  buttons.'
-- Selecting a brush/item in any palette correctly updates the application's global
-  current brush state.
-- Toolbars and palettes are correctly enabled/disabled/updated based on application
-  context (e.g., map open, current tool).
-boilerplate_coder_ai_prompt: "Your task is to port the main application toolbars and\
-  \ the comprehensive palette system from wxWidgets to Qt6. This involves recreating\
-  \ multiple toolbars with various controls and a tabbed palette window that displays\
-  \ different types of brushes and game elements.\n\n**Reference Files:** `wxwidgets/main_toolbar.*`,\
-  \ `wxwidgets/palette_window.*`, `wxwidgets/palette_brushlist.*`, `wxwidgets/palette_creature.*`,\
-  \ `wxwidgets/palette_house.*`, `wxwidgets/palette_waypoints.*`. Palette content\
-  \ is driven by XML asset files.\n\n**I. Main Toolbars (to be added to `QMainWindow`):**\n\
-  \n1.  **Standard Toolbar (`QToolBar` named `standardToolbar`):**\n    - Actions:\
-  \ New, Open, Save, Save As, Undo, Redo, Cut, Copy, Paste.\n    - Use `QAction` for\
-  \ each, set icons (e.g., `QIcon::fromTheme(\"document-new\")` or custom PNGs) and\
-  \ tooltips. Connect `triggered()` signals to placeholder slots.\n\n2.  **Brushes\
-  \ Toolbar (`QToolBar` named `brushesToolbar`):**\n    - Checkable `QAction`s for:\
-  \ Eraser, Optional Border, PZ, NoPVP, NoLogout, PvPZone, Zone Brush.\n    - Checkable\
-  \ `QAction`s for Door Types: Normal, Locked, Magic, Quest, Normal Alt, Archway.\n\
-  \    - Checkable `QAction`s for Window Types: Hatch, Window.\n    - Use a `QActionGroup`\
-  \ if some of these are mutually exclusive. Set icons and tooltips.\n\n3.  **Position\
-  \ Toolbar (`QToolBar` named `positionToolbar`):**\n    - Three `QSpinBox` widgets\
-  \ for X, Y, Z coordinates. Set appropriate ranges (e.g., 0 to map max width/height/depth).\n\
-  \    - A `QPushButton` labeled \"Go\".\n    - Connect `QSpinBox::valueChanged` and\
-  \ `QPushButton::clicked` to slots.\n\n4.  **Sizes Toolbar (`QToolBar` named `sizesToolbar`):**\n\
-  \    - `QActionGroup` for Brush Shape:\n        - `QAction` \"Rectangular\" (checked\
-  \ by default).\n        - `QAction` \"Circular\".\n    - `QActionGroup` for Brush\
-  \ Size (or individual checkable `QAction`s if preferred, ensuring only one is active):\n\
-  \        - Actions for sizes 1x1, 2x2, 3x3, ..., 7x7 (or equivalent radius for circular).\
-  \ Set icons representing the size/shape.\n    - Connect `triggered()` signals.\n\
-  \n5.  **Toolbar Management:**\n    - Implement `void MainWindow::updateToolbars()`\
-  \ to enable/disable toolbar actions based on application state (map loaded, selection\
-  \ active, etc.).\n    - Implement `void MainWindow::updateBrushToolbarStates()`\
-  \ to reflect the currently selected global brush.\n    - Implement `void MainWindow::updateBrushSizeToolbar(BrushShape\
-  \ shape, int size)` to update the Sizes toolbar.\n\n**II. Palette System (within\
-  \ a `QDockWidget`):**\n\n1.  **Main Palette Container:**\n    - Use a `QDockWidget`\
-  \ (e.g., titled \"Palettes\").\n    - Inside, place a `QTabWidget` (`paletteTabWidget`)\
-  \ for different palette categories.\n\n2.  **Generic Brush Palette (`BrushPalettePanel`\
-  \ equivalent for Terrain, Doodad, Item, RAW, Collection):**\n    - For each of these\
-  \ types, create a tab in `paletteTabWidget`.\n    - Each such tab will contain:\n\
-  \        - A `QComboBox` (or another `QTabWidget`) to select the specific *tileset\
-  \ category* (e.g., \"Forest Grounds,\" \"City Items,\" loaded from `g_materials.tilesets`).\n\
-  \        - A display area for brushes/items from the selected tileset:\n       \
-  \     - Recommended: `QListView` with a custom `QAbstractListModel` and `QStyledItemDelegate`\
-  \ for rendering icons and text.\n            - Alternative: `QListWidget` (simpler,\
-  \ less flexible).\n            - Consider a toggle for list view vs. icon grid view\
-  \ (`QListView::setViewMode`).\n        - A `QLineEdit` for searching/filtering items\
-  \ within the current tileset category.\n        - For palettes that use them (Terrain,\
-  \ Doodad, Collection), integrate tool panels (Brush Tools, Thickness, Size) as separate\
-  \ widgets or toolbars within this palette tab. The original `BrushPalettePanel`\
-  \ added these via `AddToolPanel`.\n\n3.  **Specialized Palettes:**\n\n    - **Creature\
-  \ Palette Tab:**\n        - `QComboBox` for creature tilesets (e.g., \"All Creatures,\"\
-  \ \"NPCs,\" \"Forest Monsters\").\n        - `QLineEdit` for search (by name, or\
-  \ \"lt:id\" for looktype).\n        - Display area: `QListView` or a custom grid\
-  \ widget (like `CreatureSeamlessGridPanel`) to show creature sprites/names.\n  \
-  \      - `QSpinBox` for \"Spawntime\" and \"Spawn Size/Radius\".\n        - `QRadioButton`\
-  \ or `QActionGroup` for \"Creature Brush\" vs. \"Spawn Brush\" mode.\n        -\
-  \ `QPushButton`s: \"Load NPCs Folder,\" \"Load Monsters Folder,\" \"Purge Creatures.\"\
-  \n        - Toggles for \"Sprite View\" / \"List View\", \"64x64 Sprites\", \"Zoom\"\
-  \ for sprite view.\n\n    - **House Palette Tab:**\n        - `QComboBox` to select\
-  \ `Town`.\n        - `QListWidget` to display houses in the selected town (Name,\
-  \ ID, Size).\n        - `QPushButton`s: \"Add House,\" \"Edit House,\" \"Remove\
-  \ House.\"\n        - `QRadioButton` or `QActionGroup` for \"House Tile Brush\"\
-  \ vs. \"Select Exit Brush.\"\n\n    - **Waypoint Palette Tab:**\n        - `QListWidget`\
-  \ where items are waypoint names. Items should be editable (`Qt::ItemIsEditable`).\n\
-  \        - `QPushButton`s: \"Add Waypoint,\" \"Remove Waypoint.\"\n\n4.  **Palette\
-  \ Interaction:**\n    - When a brush/item/creature/etc. is selected in any palette,\
-  \ a signal should be emitted, which the `MainWindow` or `Editor` class connects\
-  \ to, to set the application's current active brush.\n    - Implement logic similar\
-  \ to `PaletteWindow::OnSelectBrush` to switch to the correct palette tab and select\
-  \ the brush if it's activated externally (e.g., hotkey).\n    - Palette content\
-  \ should be refreshed when data changes (e.g., after `CORE-02` or `CORE-04` reload\
-  \ assets, or map waypoints/houses change).\n\nThis is a large UI component. Break\
-  \ it down into manageable sub-widgets for each palette type.\nThe `analyzed_input_files`\
-  \ section should be populated by reading the first 200 lines of the listed C++ files\
-  \ and calculating their MD5 hashes."
+  3.  **Design Base Palette Tab/Panel (`BasePaletteTab` - Conceptual):**
+      -   Consider a common base `QWidget` subclass for all palette tabs if there's significant shared functionality (e.g., interaction with `BrushManagerService`, `ClientDataService`).
+
+  4.  **Implement Generic Brush Palette Tabs (`GenericBrushPaletteTab` for Terrain, Doodad, Item, RAW, Collection):**
+      -   Create a `QWidget` subclass (e.g., `GenericBrushPaletteTab`).
+      -   It will contain a `QComboBox` (or another `QTabWidget`) for "tileset" selection (sub-categories).
+      -   It will contain a `QStackedWidget` to switch between different view modes (List, Icon Grid, Seamless Grid).
+      -   **View Modes:**
+          -   **List View:** `QListView` with a custom model (`QAbstractListModel`) and `QStyledItemDelegate` to display brush icon and name.
+          -   **Icon Grid View:** `QListView` set to `QListView::IconMode` or a custom `QTableView` with a custom model/delegate.
+          -   **Seamless Grid View (`SeamlessGridPaletteView`):** A custom `QAbstractScrollArea`-based widget (similar to `SeamlessGridPanel`).
+              -   Implement `paintEvent` to draw sprites directly.
+              -   Handle mouse events for selection, hover.
+              -   Implement zooming, sprite caching, progressive loading, chunking for very large lists.
+              -   Display item IDs optionally.
+      -   A `QLineEdit` for filtering brushes within the current tileset.
+      -   Integrate tool panels (Brush Tools, Thickness, Size) if they are part of these palette types.
+      -   Populate from `MaterialManager` based on palette type (Terrain, Doodad, etc.) and selected tileset.
+      -   On selection, signal `EditorController` or `BrushManagerService` with the chosen `Brush*`.
+
+  5.  **Implement Specialized Palette Tabs:**
+      -   **`CreaturePaletteTab`:**
+          -   UI: `QComboBox` for creature categories, `QLineEdit` for search, display area (list or custom grid like `CreatureSeamlessGridPaletteView`), `QSpinBox` for spawn time/radius, `QRadioButton`s for Creature/Spawn brush mode, `QPushButton`s for Load NPCs/Monsters, Purge.
+          -   Populate from `CreatureManager` and `MaterialManager` (for creature tilesets).
+          -   Filter logic for search. View mode switching.
+          -   Connect signals to `EditorController` / `BrushManagerService` / `SpawnSettingsService`.
+      -   **`HousePaletteTab`:**
+          -   UI: `QComboBox` for towns, `QListWidget` for houses, Add/Edit/Remove buttons, `QRadioButton`s for House/Exit brush mode.
+          -   Populate from `Map::getHouseManager()` and `Map::getTownManager()`.
+          -   Invokes dialogs (e.g., `EditHouseDialogQt` from UI-05) for editing.
+          -   Connects signals to `EditorController` / `BrushManagerService`.
+      -   **`WaypointPaletteTab`:**
+          -   UI: `QListWidget` with editable items, Add/Remove buttons.
+          -   Populate from `Map::getWaypointManager()`.
+          -   Connects signals to `EditorController` / `BrushManagerService`.
+
+  6.  **Integrate Palettes into `PaletteDockWidget`:**
+      -   Add instances of `GenericBrushPaletteTab` (configured for Terrain, Doodad, etc.) and specialized palette tabs (`CreaturePaletteTab`, etc.) to the `paletteTabWidget`.
+
+  7.  **Connect Selections and Settings:**
+      -   Ensure `EditorController` or relevant services are notified of palette selections to update the current active brush/tool.
+      -   Palette views should respect global settings (e.g., from `AppSettingsService`) for icon sizes, list styles, etc.
+      -   Global Action ID input (from original `PaletteWindow`) needs a Qt equivalent, perhaps in a shared toolbar or status bar area, or a dedicated small dialog/widget.
+definition_of_done: |-
+  - All four main toolbars (Standard, Brushes, Position, Sizes) are ported to `QToolBar`s and populated with equivalent `QAction`s and controls, and are functional.
+  - Toolbar states (enabled, checked) are dynamically updated based on application context.
+  - A `QDockWidget` hosts the main palette system, containing a `QTabWidget` for different palette categories (Terrain, Doodad, Item, RAW, Collection, Creature, House, Waypoint).
+  - Generic palette tabs (Terrain, Doodad, Item, RAW, Collection) correctly display brushes/items from their respective tilesets using appropriate Qt views (e.g., `QListView` with custom delegate or `QListWidget`). They allow selection which updates the active brush via `BrushManagerService`. Basic filtering is implemented.
+  - The advanced `SeamlessGridPanel` functionality (zooming, progressive loading, sprite caching, optional ID display, chunking for very large lists) is substantially replicated in a custom Qt widget (`SeamlessGridPaletteView`) and used where appropriate (e.g., for RAW or Doodad palettes if configured).
+  - Specialized palettes (`CreaturePaletteTab`, `HousePaletteTab`, `WaypointPaletteTab`) are implemented with their core UI elements and correctly display and manage their specific data types, interacting with relevant managers.
+  - All palette selections correctly update the application's active brush/tool state via `BrushManagerService`.
+  - Palettes are visually organized, reasonably performant, and user-friendly.
+  - The global Action ID input field and checkbox are reimplemented and functional.
+known_missing_files:
+  - "wxwidgets/edit_house_dialog.cpp" # If not covered by UI-05 explicitly.
+  - "wxwidgets/edit_house_dialog.h"   # If not covered by UI-05 explicitly.
+  # Might be missing specific brush tool panel files if they were separate from palette_brushlist.cpp
+boilerplate_coder_ai_prompt: |-
+  Implement the Qt6 toolbars and the comprehensive palette system. This involves creating multiple `QToolBar`s and a tabbed `QDockWidget` for various palettes (Terrain, Doodad, Item, RAW, Collection, Creature, House, Waypoint).
+
+  **I. Main Toolbars (in `MainWindowQt`):**
+  1.  Create and add four `QToolBar` members: `standardToolbar`, `brushesToolbar`, `positionToolbar`, `sizesToolbar`.
+  2.  Populate `standardToolbar` with `QAction`s (New, Open, Save, Undo, Redo, Cut, Copy, Paste). Use `QIcon::fromTheme` or provide paths to custom icons. Connect to slots in `EditorController` or `MainWindowQt`.
+  3.  Populate `brushesToolbar` with checkable `QAction`s (Eraser, Zones, Doors, Windows). Use `QActionGroup` if appropriate. Connect to `BrushManagerService` or `EditorController`.
+  4.  Populate `positionToolbar` with three `QSpinBox` (X,Y,Z) and a "Go" `QPushButton`. Connect to `EditorController` or `MapViewQt`.
+  5.  Populate `sizesToolbar` with `QActionGroup`s for brush shape (Rectangular, Circular) and size. Connect to `BrushManagerService`.
+  6.  Implement `updateToolbars()` in `MainWindowQt` to manage enabled/checked states.
+
+  **II. Palette System (`PaletteDockWidget` containing a `QTabWidget` `paletteTabWidget`):**
+
+  **A. `GenericBrushPaletteTab` (Base for Terrain, Doodad, Item, RAW, Collection):**
+     - Create a `QWidget` subclass.
+     - UI: `QComboBox* tilesetCombo; QLineEdit* filterEdit; QStackedWidget* viewStack; QListView* listView; SeamlessGridPaletteView* gridView;`
+     - Constructor: Takes `PaletteCategoryType category, MaterialManager* matMgr, ClientDataService* clientDataMgr, BrushManagerService* brushMgrService`.
+     - Populate `tilesetCombo` from `matMgr->getTilesetsForCategory(category)`.
+     - On `tilesetCombo` change or `filterEdit` change:
+        - Get `Brush*` list from `matMgr`.
+        - Populate `listView` (using a custom model/delegate for icon+text) and `gridView`.
+     - `SeamlessGridPaletteView` (custom `QAbstractScrollArea`):
+        - Implement `paintEvent` to draw brush sprites in a grid.
+        - Handle mouse for selection, hover. Implement zooming, sprite caching (use `clientDataMgr->getSpriteManager()`), progressive loading, optional item ID display.
+     - Connect item selection from views to `brushMgrService->setActiveBrush()`.
+
+  **B. Specialized Palette Tabs:**
+     - **`CreaturePaletteTab`:** UI for category, search, list/grid view (can use `SeamlessGridPaletteView`), spawn settings, brush mode. Connects to `CreatureManager`, `BrushManagerService`.
+     - **`HousePaletteTab`:** UI for town, house list, Add/Edit/Remove, House/Exit brush mode. Connects to `Map::getHouseManager()`, `BrushManagerService`. Invokes `EditHouseDialogQt`.
+     - **`WaypointPaletteTab`:** UI for waypoint list (editable names), Add/Remove. Connects to `Map::getWaypointManager()`, `BrushManagerService`.
+
+  **General:**
+  - Ensure all palettes load their data from the respective managers (`MaterialManager`, `CreatureManager`, map data).
+  - Use signals/slots for interactions (e.g., palette selection -> `BrushManagerService` -> `EditorController`).
+  - Palettes should be dockable within `MainWindowQt`.
+  - Strive for responsive UI, especially in `SeamlessGridPaletteView`.
+estimation_effort: X-Large (25-35 developer days)
