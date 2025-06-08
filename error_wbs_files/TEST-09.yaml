@@ -30,42 +30,19 @@ dependencies:
 input_files: [] # No wxWidgets files to port for this task.
 analyzed_input_files: [] # No legacy files to analyze for this task.
 documentation_references:
-  - 'Qt Test Framework - Simulating GUI Events: https://doc.qt.io/qt-6/qttest-index.html#simulating-gui-events'
-  - 'QTest Namespace: https://doc.qt.io/qt-6/qtest.html (for mouseClick, keyClicks, keyPress, qWait etc.)'
-  - 'Widget Accessibility for Testing: Ensure 'objectName' is set on key widgets.'
+  - "Qt Test Framework - Simulating GUI Events: https://doc.qt.io/qt-6/qttest-index.html#simulating-gui-events"
+  - "QTest Namespace: https://doc.qt.io/qt-6/qtest.html (for mouseClick, keyClicks, keyPress, qWait etc.)"
+  - "Widget Accessibility for Testing: Ensure 'objectName' is set on key widgets."
 current_functionality_summary: |
   This task involves creating new UI-level tests for the fully integrated Qt6 Remere's Map Editor. These tests will simulate user interactions with the graphical interface, including menus, toolbars, palettes, the map canvas, and various dialogs. The goal is to ensure that key editor features and user workflows function correctly from an end-user perspective. This involves verifying not only that UI elements respond as expected (e.g., dialogs open, buttons become enabled/disabled) but also that these UI actions result in the correct modifications to the underlying map data and application state, including undo/redo functionality.
 definition_of_done:
   - A suite of UI tests using the Qt Test framework is created, targeting essential editor features and user workflows.
-  - Tests successfully simulate user interactions:
-    - Menu selections (e.g., File > New/Open/Save/Save As, Edit > Undo/Redo, Edit > Cut/Copy/Paste, View > Zoom/Floor changes).
-    - Toolbar button clicks for major tools (e.g., select mode, draw mode, specific brush types if on toolbar).
-    - Interactions with palettes (e.g., selecting a terrain brush, an item, a doodad, a creature).
-    - Basic map canvas operations (e.g., clicking to paint a tile with the selected brush, dragging to create a selection rectangle).
-    - Interactions with key dialogs (e.g., New Map Dialog, Preferences Dialog, Map Properties Dialog, simple Find Item Dialog).
-  - **Verification steps assert both UI responses and data integrity:**
-    - **UI Response:** Dialogs appear/close as expected, widgets change state (enabled/disabled, checked/unchecked), status bar messages update correctly, map tab titles change on save/load.
-    - **Data Integrity:** User actions performed through the UI lead to correct modifications in the 'mapcore::Map' data structures (e.g., a tile's ground item ID changing after a ground brush is used via palette and map click, items being added to a tile, selection state in 'mapcore::Selection' updating, 'mapcore::CopyBuffer' being populated).
-  - **Key User Workflows Covered:**
-    - **File Operations:**
-        - Creating a new map via the 'New Map' dialog (testing various dimension inputs).
-        - Opening an existing OTBM map (using a small, valid test map file) and verifying basic rendering or data presence.
-        - Saving a modified map (Save/Save As), including verifying file creation and content if feasible (e.g., by reloading and checking a key attribute).
-    - **Basic Editing with Brushes:**
-        - Selecting a ground brush from a palette and painting a few tiles on the map canvas. Verify tile ground IDs change.
-        - Selecting an item brush and placing an item. Verify item appears on the tile.
-        - Selecting an eraser brush and clearing some tiles. Verify elements are removed.
-    - **Selection and Clipboard:**
-        - Making a rectangular selection on the map canvas. Verify selection object is updated.
-        - Performing Copy, then Paste to a new location. Verify pasted content matches original.
-        - Performing Cut, then Paste. Verify original area is cleared and content is pasted.
-    - **Undo/Redo:** For several distinct editing actions (e.g., paint ground, place item, delete selection), verify that Undo reverts the change and Redo re-applies it, checking the 'mapcore::Map' data.
-    - **Simple Dialog Interaction:**
-        - Open a simple dialog (e.g., Map Properties). Change a value (e.g., map description). Click OK. Verify the change is reflected in the 'mapcore::Map' data.
-        - Test dialog cancellation.
-  - Widgets crucial for testing (buttons, menu actions, specific input fields in dialogs, palette elements) are assigned unique and consistent 'objectName' properties in the UI C++ code to facilitate reliable interaction via 'QTest::keyClick', 'QTest::mouseClick', and widget lookup.
-  - All created UI tests pass successfully in a test environment (may require a display server).
-  - Tests are integrated into the CMake build system (e.g., using 'qt_add_test') and can be run automatically as part of CI, if the environment supports GUI tests.
+  - "Tests successfully simulate user interactions: Menu selections (e.g., File > New/Open/Save/Save As, Edit > Undo/Redo, Edit > Cut/Copy/Paste, View > Zoom/Floor changes). Toolbar button clicks for major tools (e.g., select mode, draw mode, specific brush types if on toolbar). Interactions with palettes (e.g., selecting a terrain brush, an item, a doodad, a creature). Basic map canvas operations (e.g., clicking to paint a tile with the selected brush, dragging to create a selection rectangle). Interactions with key dialogs (e.g., New Map Dialog, Preferences Dialog, Map Properties Dialog, simple Find Item Dialog)."
+  - "Verification steps assert both UI responses and data integrity: UI Response - Dialogs appear/close as expected, widgets change state (enabled/disabled, checked/unchecked), status bar messages update correctly, map tab titles change on save/load. Data Integrity - User actions performed through the UI lead to correct modifications in the 'mapcore::Map' data structures (e.g., a tile's ground item ID changing after a ground brush is used via palette and map click, items being added to a tile, selection state in 'mapcore::Selection' updating, 'mapcore::CopyBuffer' being populated)."
+  - "Key User Workflows Covered: File Operations - Creating a new map via the 'New Map' dialog (testing various dimension inputs), Opening an existing OTBM map (using a small, valid test map file) and verifying basic rendering or data presence, Saving a modified map (Save/Save As), including verifying file creation and content if feasible (e.g., by reloading and checking a key attribute). Basic Editing with Brushes - Selecting a ground brush from a palette and painting a few tiles on the map canvas. Verify tile ground IDs change, Selecting an item brush and placing an item. Verify item appears on the tile, Selecting an eraser brush and clearing some tiles. Verify elements are removed. Selection and Clipboard - Making a rectangular selection on the map canvas. Verify selection object is updated, Performing Copy, then Paste to a new location. Verify pasted content matches original, Performing Cut, then Paste. Verify original area is cleared and content is pasted. Undo/Redo - For several distinct editing actions (e.g., paint ground, place item, delete selection), verify that Undo reverts the change and Redo re-applies it, checking the 'mapcore::Map' data. Simple Dialog Interaction - Open a simple dialog (e.g., Map Properties). Change a value (e.g., map description). Click OK. Verify the change is reflected in the 'mapcore::Map' data. Test dialog cancellation."
+  - "Widgets crucial for testing (buttons, menu actions, specific input fields in dialogs, palette elements) are assigned unique and consistent 'objectName' properties in the UI C++ code to facilitate reliable interaction via 'QTest::keyClick', 'QTest::mouseClick', and widget lookup."
+  - "All created UI tests pass successfully in a test environment (may require a display server)."
+  - "Tests are integrated into the CMake build system (e.g., using 'qt_add_test') and can be run automatically as part of CI, if the environment supports GUI tests."
 estimation_effort:
   - "Very High (40-50 developer days). UI testing is inherently complex and can be brittle. Setting up testable UI states, robustly simulating user interactions, and verifying both UI feedback and underlying data changes for numerous features is a large undertaking. Ensuring tests are stable and can run in CI environments adds further complexity. Interactions with file dialogs often require mocking or specific test strategies."
 known_missing_files: [] # Not applicable
@@ -138,7 +115,5 @@ boilerplate_coder_ai_prompt: |
     - Key input fields: 'mapNameLineEdit->setObjectName("newMapDialogNameLineEdit");'
     - Palette brush buttons: 'grassBrushButton->setObjectName("terrainPaletteGrassBrush");'
 
-  This: allows 'mainWindow->findChild<QPushButton*>("myDialogOkButton")' for reliable widget access in tests.
+  This allows 'mainWindow->findChild<QPushButton*>("myDialogOkButton")' for reliable widget access in tests.
   Handle asynchronous operations carefully, using 'QSignalSpy' or 'QTest::qWait()' when UI updates or data processing might not be instantaneous.
-
-[end of enhanced_wbs_yaml_files/TEST-09.yaml]

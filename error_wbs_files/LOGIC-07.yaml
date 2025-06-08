@@ -1,8 +1,6 @@
-wbs_item_id: LOGIC-07
+id: LOGIC-07
 name: Port Creature & Spawn System (Data and Brushes)
-description: Migrate the logic for creating, managing, and storing creature spawns
-  (including spawn areas/radius, creature lists, and spawn times) and the functionality
-  of: the Creature and Spawn brushes.
+description: "Migrate the logic for creating, managing, and storing creature spawns (including spawn areas/radius, creature lists, and spawn times) and the functionality of the Creature and Spawn brushes."
 dependencies:
 - CORE-01 # Tile class
 - CORE-03 # Map structure, OTBM I/O for spawn data on tiles
@@ -84,34 +82,14 @@ current_functionality_summary: "The 'Spawn' class ('spawn.h') primarily defines 
   \ point by creating a 'Spawn' object on it. The radius of this spawn is determined\
   \ by the current brush size selected in the GUI."
 definition_of_done:
-- A Qt6 'SpawnProperties' class/struct is defined (e.g., in 'map/spawn_properties.h')
-  to: store the spawn radius.
-- The main 'Tile' class (Qt6) is augmented to store:
-  - 'std::optional<SpawnProperties> spawnProperties;' (or a pointer).
-  - 'QList<QString> creatureSpawnList;'
-  - 'int spawnTimeSeconds;'
-- 'Tile' class has methods like 'bool isSpawnPoint() const', 'void setSpawnData(int
-  radius, const QList<QString>& creatures, int timeSecs)', 'void clearSpawnData()',
-  'int getSpawnRadius() const', etc.
-- A Qt6 'SpawnManager' class (e.g., in 'map/spawn_manager.h') uses 'QSet<Position>'
-  to: register/unregister tile positions that are spawn points. This is updated when
-  'Tile::setSpawnData' or 'Tile::clearSpawnData' is called.
-- 'QtCreatureBrush' (inheriting 'BaseBrush'):
-  - Allows selection of a 'CreatureType*' (from 'CORE-CREATURES').
-  - On 'apply()': Places the selected creature on the target 'Tile'. If settings dictate
-    auto-creation: of spawns, and the tile is not already a spawn point (checked via
-    'SpawnManager' or 'Tile::isSpawnPoint'), it calls 'tile->setSpawnData()' with a
-    default: radius (e.g., 1), adds the placed creature's name to 'creatureSpawnList',
-    and: sets a default 'spawnTimeSeconds'. Updates 'SpawnManager'.
-- 'QtSpawnBrush' (inheriting 'BaseBrush'):
-  - On 'apply()': Calls 'tile->setSpawnData()' with the current brush radius. If the
-    tile: was not previously a spawn, 'creatureSpawnList' would be empty and 'spawnTimeSeconds'
-    defaulted. Updates 'SpawnManager'.
-- All spawn-modifying operations (placing creature with auto-spawn, placing spawn
-  point, modifying spawn properties via UI) are undoable via 'QUndoCommand's that
-  encapsulate: changes to 'Tile' properties and 'SpawnManager' updates.
-- OTBM loading/saving (CORE-03) correctly populates/persists 'Tile`'s spawn radius,
-  creature: list, and spawn time. 'SpawnManager' is rebuilt after map load.
+- "A Qt6 'SpawnProperties' class/struct is defined (e.g., in 'map/spawn_properties.h') to store the spawn radius."
+- "The main 'Tile' class (Qt6) is augmented to store: 'std::optional<SpawnProperties> spawnProperties;' (or a pointer), 'QList<QString> creatureSpawnList;', 'int spawnTimeSeconds;'"
+- "'Tile' class has methods like 'bool isSpawnPoint() const', 'void setSpawnData(int radius, const QList<QString>& creatures, int timeSecs)', 'void clearSpawnData()', 'int getSpawnRadius() const', etc."
+- "A Qt6 'SpawnManager' class (e.g., in 'map/spawn_manager.h') uses 'QSet<Position>' to register/unregister tile positions that are spawn points. This is updated when 'Tile::setSpawnData' or 'Tile::clearSpawnData' is called."
+- "'QtCreatureBrush' (inheriting 'BaseBrush'): Allows selection of a 'CreatureType*' (from 'CORE-CREATURES'). On 'apply()': Places the selected creature on the target 'Tile'. If settings dictate auto-creation of spawns, and the tile is not already a spawn point (checked via 'SpawnManager' or 'Tile::isSpawnPoint'), it calls 'tile->setSpawnData()' with a default radius (e.g., 1), adds the placed creature's name to 'creatureSpawnList', and sets a default 'spawnTimeSeconds'. Updates 'SpawnManager'."
+- "'QtSpawnBrush' (inheriting 'BaseBrush'): On 'apply()': Calls 'tile->setSpawnData()' with the current brush radius. If the tile was not previously a spawn, 'creatureSpawnList' would be empty and 'spawnTimeSeconds' defaulted. Updates 'SpawnManager'."
+- "All spawn-modifying operations (placing creature with auto-spawn, placing spawn point, modifying spawn properties via UI) are undoable via 'QUndoCommand's that encapsulate changes to 'Tile' properties and 'SpawnManager' updates."
+- "OTBM loading/saving (CORE-03) correctly populates/persists 'Tile's spawn radius, creature list, and spawn time. 'SpawnManager' is rebuilt after map load."
 boilerplate_coder_ai_prompt: "Port the spawn system and associated brushes (CreatureBrush,\
   \ SpawnBrush) to Qt6.\n\n1.  **'SpawnProperties' (New Data Structure):**\n    *   'int radius;'\n\
   \n2.  **'Tile' Class Augmentation (Conceptual - changes belong to Tile's task but\
@@ -148,4 +126,3 @@ additional_notes: "The core logic is that a 'Tile' *is* a spawn point if it has 
   \ radius. The 'CreatureBrush' places creatures and, if settings allow, can also\
   \ make a tile a basic spawn point if it isn't one already."
 estimation_effort: Large
-[end of enhanced_wbs_yaml_files/LOGIC-07.yaml]

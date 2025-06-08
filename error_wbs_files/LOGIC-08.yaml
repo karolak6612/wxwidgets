@@ -1,3 +1,4 @@
+id: LOGIC-08
 title: "Port Core Drawing Logic, Advanced Brushes, and Selection Tools to Qt 6"
 original_task_id: "LOGIC-08"
 original_input_files:
@@ -95,55 +96,55 @@ refactoring_suggestions: |
   - **Error Handling:** Standardize error reporting. Instead of 'wxString& error' parameters, consider using exceptions or a more structured error reporting mechanism.
 qt6_migration_steps:
   - "**1. Setup Qt 6 Project & Basic UI Shell:**"
-    - Create a new Qt 6 Widgets application.
-    - Recreate the main window ('MainFrame' -> 'QMainWindow'), menu bar, toolbars, and status bar.
-    - Implement a central widget that can host the map display and dockable widgets (palettes, minimap) using 'QDockWidget'.
+  - Create a new Qt 6 Widgets application.
+  - Recreate the main window ('MainFrame' -> 'QMainWindow'), menu bar, toolbars, and status bar.
+  - Implement a central widget that can host the map display and dockable widgets (palettes, minimap) using 'QDockWidget'.
   - "**2. Port Core Data Structures (Map, Tile, Item):**"
-    - Adapt 'BaseMap', 'Map', 'Tile', 'Item', 'ItemType', etc. (from LOGIC-01, LOGIC-02) to be independent of wxWidgets.
-    - Replace wxWidgets data types (e.g., 'wxString', 'wxArrayString', 'wxFileName') with Qt/STL equivalents ('QString', 'QList', 'QFileInfo').
+  - Adapt 'BaseMap', 'Map', 'Tile', 'Item', 'ItemType', etc. (from LOGIC-01, LOGIC-02) to be independent of wxWidgets.
+  - Replace wxWidgets data types (e.g., 'wxString', 'wxArrayString', 'wxFileName') with Qt/STL equivalents ('QString', 'QList', 'QFileInfo').
   - "**3. Port Client Version & Data Management:**"
-    - Adapt 'ClientVersion', 'SpriteManager', 'ItemManager', 'CreatureManager', 'MaterialManager' (from DATA WBS items).
-    - Replace wxWidgets specific file/path handling with Qt's 'QFile', 'QDir', 'QStandardPaths'.
-    - Ensure XML parsing (e.g., for brushes, materials) uses Qt's XML classes ('QXmlStreamReader/Writer') or a compatible library if pugixml is deeply tied to wx.
+  - Adapt 'ClientVersion', 'SpriteManager', 'ItemManager', 'CreatureManager', 'MaterialManager' (from DATA WBS items).
+  - Replace wxWidgets specific file/path handling with Qt's 'QFile', 'QDir', 'QStandardPaths'.
+  - Ensure XML parsing (e.g., for brushes, materials) uses Qt's XML classes ('QXmlStreamReader/Writer') or a compatible library if pugixml is deeply tied to wx.
   - "**4. Implement Map Display Area ('MapCanvas' -> 'QOpenGLWidget'):**"
-    - Create a custom 'QOpenGLWidget' subclass for rendering the map.
-    - Port the 'MapDrawer' logic. This is a major step.
-      - Initialize OpenGL within the 'QOpenGLWidget' context.
-      - Adapt the drawing loop and coordinate systems.
-      - Replace direct OpenGL calls with a graphics abstraction layer if developed, or map them to QOpenGLFunctions.
-      - Re-implement mouse event handling (pan, zoom, tile selection, brush strokes) using Qt's event system.
+  - Create a custom 'QOpenGLWidget' subclass for rendering the map.
+  - Port the 'MapDrawer' logic. This is a major step.
+    - Initialize OpenGL within the 'QOpenGLWidget' context.
+    - Adapt the drawing loop and coordinate systems.
+    - Replace direct OpenGL calls with a graphics abstraction layer if developed, or map them to QOpenGLFunctions.
+    - Re-implement mouse event handling (pan, zoom, tile selection, brush strokes) using Qt's event system.
   - "**5. Port the Action/Undo System:**"
-    - Adapt 'ActionQueue', 'Action', 'BatchAction', and 'Change' classes.
-    - Integrate with Qt's 'QUndoStack'. Each 'Action' or 'BatchAction' could become a 'QUndoCommand'.
-    - Ensure that applying/undoing commands correctly updates the map data and triggers a repaint of the 'QOpenGLWidget'.
+  - Adapt 'ActionQueue', 'Action', 'BatchAction', and 'Change' classes.
+  - Integrate with Qt's 'QUndoStack'. Each 'Action' or 'BatchAction' could become a 'QUndoCommand'.
+  - Ensure that applying/undoing commands correctly updates the map data and triggers a repaint of the 'QOpenGLWidget'.
   - "**6. Port the Editor Logic:**"
-    - Instantiate the 'Editor' class (or its Qt equivalent).
-    - Connect UI actions (menu items, toolbar buttons) to 'Editor' methods.
-    - Manage multiple map documents/tabs using 'QTabWidget' where each tab contains an instance of the 'Editor' (or a controller managing an 'Editor' and its 'QOpenGLWidget').
+  - Instantiate the 'Editor' class (or its Qt equivalent).
+  - Connect UI actions (menu items, toolbar buttons) to 'Editor' methods.
+  - Manage multiple map documents/tabs using 'QTabWidget' where each tab contains an instance of the 'Editor' (or a controller managing an 'Editor' and its 'QOpenGLWidget').
   - "**7. Port Brush System & Palettes:**"
-    - Adapt the 'Brush' base class and all specific brush types ('GroundBrush', 'WallBrush', etc.) to remove wxWidgets dependencies.
-    - Re-implement the brush palette window using 'QDockWidget' and custom widgets (e.g., 'QListView' or 'QTreeView' with custom delegates) to display brush icons and options.
-    - Connect brush selection in the palette to the active 'Editor' and 'MapDrawer'.
-    - The logic for 'FillDoodadPreviewBuffer' in 'GUI' will need to be moved, likely to a brush management service or the palette widget itself.
+  - Adapt the 'Brush' base class and all specific brush types ('GroundBrush', 'WallBrush', etc.) to remove wxWidgets dependencies.
+  - Re-implement the brush palette window using 'QDockWidget' and custom widgets (e.g., 'QListView' or 'QTreeView' with custom delegates) to display brush icons and options.
+  - Connect brush selection in the palette to the active 'Editor' and 'MapDrawer'.
+  - The logic for 'FillDoodadPreviewBuffer' in 'GUI' will need to be moved, likely to a brush management service or the palette widget itself.
   - "**8. Port Selection Tools:**"
-    - Adapt the 'Selection' class.
-    - Ensure mouse interactions on the 'QOpenGLWidget' correctly call 'Selection' methods.
-    - Visual feedback for selection (e.g., highlighting, selection box) needs to be re-implemented in 'MapDrawer' using Qt-compatible drawing.
+  - Adapt the 'Selection' class.
+  - Ensure mouse interactions on the 'QOpenGLWidget' correctly call 'Selection' methods.
+  - Visual feedback for selection (e.g., highlighting, selection box) needs to be re-implemented in 'MapDrawer' using Qt-compatible drawing.
   - "**9. Port GUI Class Functionality (Dialogs, Settings, Modes):**"
-    - Replace wxWidgets dialogs ('wxMessageDialog', 'wxFileDialog', etc.) with their Qt counterparts ('QMessageBox', 'QFileDialog').
-    - Port settings management from 'g_settings' (likely a custom class using 'wxConfig') to 'QSettings'.
-    - Re-implement editor mode switching (Drawing/Selection) and ensure the UI (toolbars, cursor) updates accordingly.
-    - Hotkey management: Qt has its own shortcut system ('QShortcut', 'QAction::setShortcut').
+  - Replace wxWidgets dialogs ('wxMessageDialog', 'wxFileDialog', etc.) with their Qt counterparts ('QMessageBox', 'QFileDialog').
+  - Port settings management from 'g_settings' (likely a custom class using 'wxConfig') to 'QSettings'.
+  - Re-implement editor mode switching (Drawing/Selection) and ensure the UI (toolbars, cursor) updates accordingly.
+  - Hotkey management: Qt has its own shortcut system ('QShortcut', 'QAction::setShortcut').
   - "**10. Port Specific Features & Tools:**"
-    - **Minimap:** Re-implement as a 'QDockWidget' containing a custom widget that renders a smaller overview of the map, potentially reusing parts of 'MapDrawer' with different 'DrawingOptions'.
-    - **Copy/Paste:** Adapt the 'CopyBuffer' and ensure it works with the Qt clipboard ('QClipboard').
-    - **Live Editing:** This is a complex feature. The networking part ('LiveSocket', 'LiveClient', 'LiveServer') would need to be ported from 'wxSocket' to 'QTcpSocket'/'QTcpServer' or a similar Qt networking class. Cursor and change broadcasting will need careful adaptation.
-    - **Import/Export:** Re-implement using Qt file dialogs and ensure underlying map format I/O ('IOMapOTBM', etc.) is wx-agnostic.
+  - "**Minimap:** Re-implement as a 'QDockWidget' containing a custom widget that renders a smaller overview of the map, potentially reusing parts of 'MapDrawer' with different 'DrawingOptions'."
+  - "**Copy/Paste:** Adapt the 'CopyBuffer' and ensure it works with the Qt clipboard ('QClipboard')."
+  - "**Live Editing:** This is a complex feature. The networking part ('LiveSocket', 'LiveClient', 'LiveServer') would need to be ported from 'wxSocket' to 'QTcpSocket'/'QTcpServer' or a similar Qt networking class. Cursor and change broadcasting will need careful adaptation."
+  - "**Import/Export:** Re-implement using Qt file dialogs and ensure underlying map format I/O ('IOMapOTBM', etc.) is wx-agnostic."
   - "**11. Refine and Test:**"
-    - Thoroughly test all functionalities.
-    - Profile and optimize performance, especially map rendering and large operations.
-    - Ensure consistent UI/UX.
-    - Address any platform-specific issues.
+  - Thoroughly test all functionalities.
+  - Profile and optimize performance, especially map rendering and large operations.
+  - Ensure consistent UI/UX.
+  - Address any platform-specific issues.
 
 definition_of_done:
   - All core drawing functionalities from 'editor.cpp' (draw, undraw using various brushes) are ported and operational in the Qt 6 version.

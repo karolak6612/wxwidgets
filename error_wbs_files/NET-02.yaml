@@ -49,83 +49,10 @@ refactoring_suggestions: |
   - **Error Handling and Logging:** Robust error handling and logging are crucial for a server application. Qt's logging framework ('qDebug', 'qWarning', 'qCritical') should be used.
   - **Scalability:** While not an immediate porting concern, for higher scalability, one might consider a thread-per-peer model or a more advanced asynchronous processing pipeline if Qt's default signal/slot based socket handling proves insufficient for many concurrent users. (For this WBS, standard Qt socket handling is fine).
 qt6_migration_steps:
-  - "**1. Create New Qt Console Application Project ('RMELiveServer'):**"
-    - Set up a new CMake project for a headless Qt application.
-    - Link this project against the 'mapcore' static library (from 'BUILD-01', which includes 'NET-01`'s protocol logic).
-  - "**2. Implement 'QtLiveServer' Class (e.g., inherits 'QObject'):**"
-    -   **Members:**
-        -   'QTcpServer* m_tcpServer;'
-        -   'QList<QtLivePeer*> m_peers;'
-        -   'mapcore::Map m_mapInstance;' (Owns the authoritative map)
-        -   'mapcore::ActionQueue m_actionQueueInstance;' (Initialized with 'm_mapInstance')
-        -   Potentially a password string, server name.
-    -   **'bool startServer(quint16 port, const QString& mapFilePath)' Method:**
-        -   Load the map specified by 'mapFilePath' into 'm_mapInstance' using 'mapcore`'s 'IOMapOTBM'. Handle errors.
-        -   Initialize 'm_tcpServer = new QTcpServer(this);'.
-        -   Connect 'm_tcpServer->newConnection()' signal to 'this->onNewConnection()' slot.
-        -   Call 'm_tcpServer->listen(QHostAddress::Any, port)'. Log success or failure.
-    -   **Slot 'void onNewConnection()':**
-        -   'QTcpSocket* clientSocket = m_tcpServer->nextPendingConnection();'
-        -   Create 'QtLivePeer* newPeer = new QtLivePeer(this, clientSocket, &m_mapInstance, &m_actionQueueInstance);'.
-        -   Add 'newPeer' to 'm_peers'.
-        -   Connect 'newPeer->disconnected()' signal to 'this->onPeerDisconnected(QtLivePeer*)' slot (custom signal from peer).
-        -   Connect 'newPeer->errorOccurred()' signal to a suitable error handling slot.
-    -   **Slot 'void onPeerDisconnected(QtLivePeer* peer)':** (This signal would be emitted by 'QtLivePeer')
-        -   Remove 'peer' from 'm_peers'.
-        -   'peer->deleteLater();'
-        -   Update any shared state or notify other peers if necessary.
-    -   **Broadcast Methods (e.g., 'broadcastMessageToAll(const NetworkMessage& msg, QtLivePeer* excludePeer = nullptr)'):**
-        -   Iterate 'm_peers'; for each peer (not 'excludePeer'), call 'peer->sendPacket(msg)'.
-        -   Port logic from 'LiveServer::broadcastNodes', 'broadcastChat', 'broadcastCursor', etc., to use these new methods and 'MapProtocolCodec' from 'NET-01'.
-  - "**3. Implement 'QtLivePeer' Class (e.g., inherits 'QObject'):**"
-    -   **Members:**
-        -   'QTcpSocket* m_socket;'
-        -   'QtLiveServer* m_server;' (Reference to parent server)
-        -   'mapcore::Map* m_mapRef;' (Pointer to 'QtLiveServer`'s map)
-        -   'mapcore::ActionQueue* m_actionQueueRef;' (Pointer to 'QtLiveServer`'s action queue)
-        -   'QByteArray m_receiveBuffer;' (To accumulate incoming data)
-        -   'mapcore::NetworkColor m_clientColor;'
-        -   'QString m_clientName;'
-        -   'uint32_t m_clientId;' // Server-assigned unique ID for this peer
-        -   'bool m_isAuthenticated;'
-    -   **Constructor 'QtLivePeer(QtLiveServer* server, QTcpSocket* socket, mapcore::Map* map, mapcore::ActionQueue* aq)':**
-        -   Store references.
-        -   'm_socket->setParent(this);' (for QObject ownership if socket passed as raw pointer)
-        -   Connect 'm_socket->readyRead()' to 'this->onReadyRead()'.
-        -   Connect 'm_socket->disconnected()' to 'this->onSocketDisconnected()'.
-        -   Connect 'm_socket->errorOccurred(QAbstractSocket::SocketError)' to 'this->onSocketError(QAbstractSocket::SocketError)'.
-    -   **Slot 'void onReadyRead()':**
-        -   'm_receiveBuffer.append(m_socket->readAll());'
-        -   Loop while 'm_receiveBuffer' potentially contains a complete packet:
-            -   Check if 'm_receiveBuffer.size()' >= 4 (for packet length field). If not, break.
-            -   Read the 4-byte packet length ('expectedSize') from the start of 'm_receiveBuffer' (using 'QDataStream' or 'memcpy').
-            -   Check if 'm_receiveBuffer.size()' >= (4 + 'expectedSize'). If not, break (incomplete packet).
-            -   Extract the packet data (size 'expectedSize') into a 'mapcore::NetworkMessage' (from 'NET-01').
-            -   Remove the full packet (4 + 'expectedSize' bytes) from 'm_receiveBuffer'.
-            -   Call 'parsePacket(networkMessage);'.
-    -   **'void parsePacket(mapcore::NetworkMessage& msg)':**
-        -   Read packet type ('LivePacketType') from 'msg'.
-        -   If not 'm_isAuthenticated', call 'handleLoginPacket(type, msg)'.
-        -   Else, call 'handleEditorPacket(type, msg)'.
-    -   **'handleLoginPacket(...)', 'handleEditorPacket(...)':**
-        -   Port logic from 'LivePeer::parseLoginPacket' and 'LivePeer::parseEditorPacket' and their sub-handlers ('parseHello', 'parseReady', 'parseNodeRequest', 'parseReceiveChanges', etc.).
-        -   Use 'MapProtocolCodec' (from 'NET-01') for deserializing data from 'NetworkMessage'.
-        -   Client-initiated map changes should be validated and then applied via 'm_actionQueueRef->addAction(...)'. The resulting changes (if any applied) are then typically broadcast by 'm_server'.
-    -   **'void sendPacket(const mapcore::NetworkMessage& msg)':**
-        -   Create a 'QByteArray buffer;'.
-        -   Create 'QDataStream stream(&buffer, QIODevice::WriteOnly);'.
-        -   'stream << static_cast<quint32>(msg.size);' (Write 4-byte length prefix).
-        -   'buffer.append(reinterpret_cast<const char*>(msg.buffer.data()), msg.buffer.size());' (Append actual message data).
-        -   'm_socket->write(buffer);'
-    -   **Slot 'void onSocketDisconnected()':** Emit a custom signal 'disconnected(this)' for 'QtLiveServer' to handle cleanup.
-    -   **Slot 'void onSocketError(QAbstractSocket::SocketError error)':** Log error, potentially emit 'disconnected(this)'.
-  - "**4. Implement 'main.cpp' for 'RMELiveServer':**"
-    -   Create 'QCoreApplication app(argc, argv);'.
-    -   Set application name/organization.
-    -   Parse command-line arguments for port, map file path, password (optional).
-    -   Instantiate 'QtLiveServer serverInstance;'.
-    -   Call 'serverInstance.startServer(port, mapFilePath)'. Handle failure.
-    -   'return app.exec();'
+  - "1. Create New Qt Console Application Project ('RMELiveServer'): Set up a new CMake project for a headless Qt application. Link this project against the 'mapcore' static library (from 'BUILD-01', which includes 'NET-01's protocol logic)."
+  - "2. Implement 'QtLiveServer' Class (e.g., inherits 'QObject'): Members include 'QTcpServer* m_tcpServer;', 'QList<QtLivePeer*> m_peers;', 'mapcore::Map m_mapInstance;' (Owns the authoritative map), 'mapcore::ActionQueue m_actionQueueInstance;' (Initialized with 'm_mapInstance'), and potentially a password string, server name. 'bool startServer(quint16 port, const QString& mapFilePath)' Method: Load the map specified by 'mapFilePath' into 'm_mapInstance' using 'mapcore's 'IOMapOTBM'. Handle errors. Initialize 'm_tcpServer = new QTcpServer(this);'. Connect 'm_tcpServer->newConnection()' signal to 'this->onNewConnection()' slot. Call 'm_tcpServer->listen(QHostAddress::Any, port)'. Log success or failure. Slot 'void onNewConnection()': 'QTcpSocket* clientSocket = m_tcpServer->nextPendingConnection();' Create 'QtLivePeer* newPeer = new QtLivePeer(this, clientSocket, &m_mapInstance, &m_actionQueueInstance);'. Add 'newPeer' to 'm_peers'. Connect 'newPeer->disconnected()' signal to 'this->onPeerDisconnected(QtLivePeer*)' slot (custom signal from peer). Connect 'newPeer->errorOccurred()' signal to a suitable error handling slot. Slot 'void onPeerDisconnected(QtLivePeer* peer)': (This signal would be emitted by 'QtLivePeer') Remove 'peer' from 'm_peers'. 'peer->deleteLater();' Update any shared state or notify other peers if necessary. Broadcast Methods (e.g., 'broadcastMessageToAll(const NetworkMessage& msg, QtLivePeer* excludePeer = nullptr)'): Iterate 'm_peers'; for each peer (not 'excludePeer'), call 'peer->sendPacket(msg)'. Port logic from 'LiveServer::broadcastNodes', 'broadcastChat', 'broadcastCursor', etc., to use these new methods and 'MapProtocolCodec' from 'NET-01'."
+  - "3. Implement 'QtLivePeer' Class (e.g., inherits 'QObject'): Members: 'QTcpSocket* m_socket;' 'QtLiveServer* m_server;' (Reference to parent server) 'mapcore::Map* m_mapRef;' (Pointer to 'QtLiveServer's map) 'mapcore::ActionQueue* m_actionQueueRef;' (Pointer to 'QtLiveServer's action queue) 'QByteArray m_receiveBuffer;' (To accumulate incoming data) 'mapcore::NetworkColor m_clientColor;' 'QString m_clientName;' 'uint32_t m_clientId;' // Server-assigned unique ID for this peer 'bool m_isAuthenticated;' Constructor 'QtLivePeer(QtLiveServer* server, QTcpSocket* socket, mapcore::Map* map, mapcore::ActionQueue* aq)': Store references. 'm_socket->setParent(this);' (for QObject ownership if socket passed as raw pointer) Connect 'm_socket->readyRead()' to 'this->onReadyRead()'. Connect 'm_socket->disconnected()' to 'this->onSocketDisconnected()'. Connect 'm_socket->errorOccurred(QAbstractSocket::SocketError)' to 'this->onSocketError(QAbstractSocket::SocketError)'. Slot 'void onReadyRead()': 'm_receiveBuffer.append(m_socket->readAll());' Loop while 'm_receiveBuffer' potentially contains a complete packet: Check if 'm_receiveBuffer.size()' >= 4 (for packet length field). If not, break. Read the 4-byte packet length ('expectedSize') from the start of 'm_receiveBuffer' (using 'QDataStream' or 'memcpy'). Check if 'm_receiveBuffer.size()' >= (4 + 'expectedSize'). If not, break (incomplete packet). Extract the packet data (size 'expectedSize') into a 'mapcore::NetworkMessage' (from 'NET-01'). Remove the full packet (4 + 'expectedSize' bytes) from 'm_receiveBuffer'. Call 'parsePacket(networkMessage);'. 'void parsePacket(mapcore::NetworkMessage& msg)': Read packet type ('LivePacketType') from 'msg'. If not 'm_isAuthenticated', call 'handleLoginPacket(type, msg)'. Else, call 'handleEditorPacket(type, msg)'. 'handleLoginPacket(...)', 'handleEditorPacket(...)': Port logic from 'LivePeer::parseLoginPacket' and 'LivePeer::parseEditorPacket' and their sub-handlers ('parseHello', 'parseReady', 'parseNodeRequest', 'parseReceiveChanges', etc.). Use 'MapProtocolCodec' (from 'NET-01') for deserializing data from 'NetworkMessage'. Client-initiated map changes should be validated and then applied via 'm_actionQueueRef->addAction(...)'. The resulting changes (if any applied) are then typically broadcast by 'm_server'. 'void sendPacket(const mapcore::NetworkMessage& msg)': Create a 'QByteArray buffer;'. Create 'QDataStream stream(&buffer, QIODevice::WriteOnly);'. 'stream << static_cast<quint32>(msg.size);' (Write 4-byte length prefix). 'buffer.append(reinterpret_cast<const char*>(msg.buffer.data()), msg.buffer.size());' (Append actual message data). 'm_socket->write(buffer);' Slot 'void onSocketDisconnected()': Emit a custom signal 'disconnected(this)' for 'QtLiveServer' to handle cleanup. Slot 'void onSocketError(QAbstractSocket::SocketError error)': Log error, potentially emit 'disconnected(this)'."
+  - "4. Implement 'main.cpp' for 'RMELiveServer': Create 'QCoreApplication app(argc, argv);'. Set application name/organization. Parse command-line arguments for port, map file path, password (optional). Instantiate 'QtLiveServer serverInstance;'. Call 'serverInstance.startServer(port, mapFilePath)'. Handle failure. 'return app.exec();'"
 definition_of_done:
   - A standalone, headless server application ('RMELiveServer') is created using Qt Core ('QCoreApplication').
   - The server application uses 'QTcpServer' to listen for incoming connections and 'QTcpSocket' (managed by 'QtLivePeer' instances) for client communication.
@@ -133,7 +60,7 @@ definition_of_done:
   - It correctly uses the 'NetworkMessage' and 'MapProtocolCodec' from 'mapcore::network' ('NET-01') for all data serialization and deserialization.
   - The server accurately parses messages from clients (login, map change requests, cursor updates, chat) and handles them according to the defined protocol.
   - The server can broadcast messages (map data updates, chat, cursors) to connected clients using the 'MapProtocolCodec'.
-  - The server loads the authoritative map from an OTBM file at startup using 'mapcore`'s I/O capabilities and holds this 'mapcore::Map' instance.
+  - The server loads the authoritative map from an OTBM file at startup using 'mapcore's I/O capabilities and holds this 'mapcore::Map' instance.
   - Client-initiated map changes are processed through a 'mapcore::ActionQueue' on the server, and resulting changes are broadcast to other clients.
   - Basic error handling for network events (disconnections, socket errors) is implemented.
   - The server application compiles cleanly and runs as a headless console application, establishing the foundation for live collaboration.
@@ -158,36 +85,36 @@ boilerplate_coder_ai_prompt: |
       #include "mapcore/network/live_packets.h" // From NET-01
       #include "mapcore/network/network_message.h" // From NET-01
 
-      class: QtLivePeer; // Forward declaration
+      class QtLivePeer; // Forward declaration
 
       class QtLiveServer : public QObject {
           Q_OBJECT
       public:
-          explicit: QtLiveServer(QObject *parent = nullptr);
+          explicit QtLiveServer(QObject *parent = nullptr);
           ~QtLiveServer();
 
-          bool: startServer(quint16 port, const QString& mapFilePath, const QString& serverPassword = "");
+          bool startServer(quint16 port, const QString& mapFilePath, const QString& serverPassword = "");
           void broadcastMessageToAll(const mapcore::NetworkMessage& msg, QtLivePeer* excludePeer = nullptr);
           void broadcastMapChange(const mapcore::NetworkMessage& msg, QtLivePeer* excludePeer = nullptr); // Specific for map changes
           // Add methods for broadcasting specific events like cursor updates, chat, etc.
 
           mapcore::Map* getMap() { return &m_mapInstance; }
           mapcore::ActionQueue* getActionQueue() { return &m_actionQueueInstance; }
-          QString: getPassword() const { return m_serverPassword; }
-          QString: getServerName() const { return m_serverName; } // Could be configurable
+          QString getPassword() const { return m_serverPassword; }
+          QString getServerName() const { return m_serverName; } // Could be configurable
 
       private slots:
-          void: onNewConnection();
-          void: onPeerDisconnected(QtLivePeer* peer); // Custom signal from QtLivePeer
+          void onNewConnection();
+          void onPeerDisconnected(QtLivePeer* peer); // Custom signal from QtLivePeer
 
       private:
           QTcpServer* m_tcpServer;
           QList<QtLivePeer*> m_peers;
           mapcore::Map m_mapInstance;
           mapcore::ActionQueue m_actionQueueInstance;
-          QString: m_serverPassword;
-          QString: m_serverName; // e.g., "RME Live Server"
-          uint32_t: m_nextPeerId; // To assign unique IDs to peers
+          QString m_serverPassword;
+          QString m_serverName; // e.g., "RME Live Server"
+          uint32_t m_nextPeerId; // To assign unique IDs to peers
       };
       ```
   *   **Source ('qtliveserver.cpp'):**
@@ -217,8 +144,8 @@ boilerplate_coder_ai_prompt: |
       #include "mapcore/network/map_protocol_codec.h" // From NET-01
       #include "mapcore/position.h" // For LiveCursor if it uses Position
 
-      class: QtLiveServer; // Forward declaration
-      namespace: mapcore { class Map; class ActionQueue; } // Forward declarations
+      class QtLiveServer; // Forward declaration
+      namespace mapcore { class Map; class ActionQueue; } // Forward declarations
 
       class QtLivePeer : public QObject {
           Q_OBJECT
@@ -227,21 +154,21 @@ boilerplate_coder_ai_prompt: |
           ~QtLivePeer();
 
           void sendPacket(const mapcore::NetworkMessage& msg);
-          uint32_t: getPeerId() const { return m_peerId; }
-          QString: getClientName() const { return m_clientName; }
+          uint32_t getPeerId() const { return m_peerId; }
+          QString getClientName() const { return m_clientName; }
           mapcore::NetworkColor getClientColor() const { return m_clientColor; }
 
 
       signals:
-          void: peerDisconnected(QtLivePeer* peer); // Custom signal
+          void peerDisconnected(QtLivePeer* peer); // Custom signal
 
       private slots:
-          void: onReadyRead();
-          void: onSocketDisconnected();
+          void onReadyRead();
+          void onSocketDisconnected();
           void onSocketError(QAbstractSocket::SocketError socketError);
 
       private:
-          void: processReceivedData();
+          void processReceivedData();
           void handleLoginPacket(LivePacketType packetType, mapcore::NetworkMessage& msg);
           void handleEditorPacket(LivePacketType packetType, mapcore::NetworkMessage& msg);
           // Ported packet parsing logic from original LivePeer
@@ -258,10 +185,10 @@ boilerplate_coder_ai_prompt: |
           QtLiveServer* m_server; // Parent server
           mapcore::Map* m_mapRef;
           mapcore::ActionQueue* m_actionQueueRef;
-          QByteArray: m_receiveBuffer;
-          bool: m_isAuthenticated;
-          uint32_t: m_peerId;
-          QString: m_clientName;
+          QByteArray m_receiveBuffer;
+          bool m_isAuthenticated;
+          uint32_t m_peerId;
+          QString m_clientName;
           mapcore::NetworkColor m_clientColor; // Using the UI-agnostic color struct
           mapcore::MapVersion m_clientMapVersion; // Store client's map version info
       };
@@ -288,14 +215,14 @@ boilerplate_coder_ai_prompt: |
           - 'sendBuffer.append(reinterpret_cast<const char*>(msg.buffer.data()), msg.size);'
           - 'm_socket->write(sendBuffer);'
       - **Packet Handling Methods ('parseClientHello', etc.):**
-          - Port the logic from the original 'LivePeer`'s 'parseHello', 'parseReady', 'parseNodeRequest', 'parseReceiveChanges', etc.
+          - Port the logic from the original 'LivePeer's 'parseHello', 'parseReady', 'parseNodeRequest', 'parseReceiveChanges', etc.
           - Use 'MapProtocolCodec' from 'NET-01' for deserializing data from 'NetworkMessage' (e.g., 'mapcore::Tile* tile = MapProtocolCodec::deserializeTile(msg, *m_mapRef);').
           - For map changes received ('parseChangesReceived'):
               - Create a 'mapcore::NetworkedAction* action = static_cast<mapcore::NetworkedAction*>(m_actionQueueRef->createAction(ACTION_REMOTE));'
               - 'action->owner = m_peerId;'
               - Deserialize changes from 'msg' using 'MapProtocolCodec' and add them to 'action'.
               - 'm_actionQueueRef->addAction(action);'
-              - The 'ActionQueue`'s post-action hook (or 'QtLiveServer' observing the queue) should trigger broadcasting this change to other peers.
+              - The 'ActionQueue's post-action hook (or 'QtLiveServer' observing the queue) should trigger broadcasting this change to other peers.
           - For requests ('parseNodeRequest'): Use 'MapProtocolCodec::serializeNode(...)' and 'sendPacket()'.
           - For login ('parseClientHello'): Check password against 'm_server->getPassword()'. Send 'PACKET_KICK' or 'PACKET_HELLO_FROM_SERVER' / 'PACKET_ACCEPTED_CLIENT' using 'MapProtocolCodec' for data like map name, dimensions. Set 'm_isAuthenticated = true;' upon success.
 
@@ -306,37 +233,37 @@ boilerplate_coder_ai_prompt: |
       #include "qtliveserver.h" // Your QtLiveServer header
       #include "mapcore/iomap_otbm.h" // For loading map
 
-      int: main(int argc, char *argv[]) {
-          QCoreApplication: app(argc, argv);
+      int main(int argc, char *argv[]) {
+          QCoreApplication app(argc, argv);
           QCoreApplication::setApplicationName("RMELiveServer");
           QCoreApplication::setOrganizationName("RME-QT"); // Or your organization
 
-          QCommandLineParser: parser;
+          QCommandLineParser parser;
           parser.setApplicationDescription("Remere's Map Editor - Qt Live Server");
           parser.addHelpOption();
-          QCommandLineOption: portOption(QStringList() << "p" << "port", "Port to listen on.", "port", "7171"); // Default 7171
-          QCommandLineOption: mapOption(QStringList() << "m" << "map", "Path to the OTBM map file.", "mapfile");
-          QCommandLineOption: passwordOption(QStringList() << "pw" << "password", "Server password (optional).", "password");
+          QCommandLineOption portOption(QStringList() << "p" << "port", "Port to listen on.", "port", "7171"); // Default 7171
+          QCommandLineOption mapOption(QStringList() << "m" << "map", "Path to the OTBM map file.", "mapfile");
+          QCommandLineOption passwordOption(QStringList() << "pw" << "password", "Server password (optional).", "password");
           parser.addOption(portOption);
           parser.addOption(mapOption);
           parser.addOption(passwordOption);
           parser.process(app);
 
-          if: (!parser.isSet(mapOption)) {
+          if (!parser.isSet(mapOption)) {
               qCritical("Map file must be specified with --map option.");
-              return: 1;
+              return 1;
           }
-          QString: mapFilePath = parser.value(mapOption);
-          quint16: port = static_cast<quint16>(parser.value(portOption).toUShort());
-          QString: password = parser.value(passwordOption);
+          QString mapFilePath = parser.value(mapOption);
+          quint16 port = static_cast<quint16>(parser.value(portOption).toUShort());
+          QString password = parser.value(passwordOption);
 
-          QtLiveServer: server;
-          if: (!server.startServer(port, mapFilePath, password)) {
+          QtLiveServer server;
+          if (!server.startServer(port, mapFilePath, password)) {
               qCritical("Failed to start the server.");
-              return: 1;
+              return 1;
           }
           qInfo("RMELiveServer started on port %u, serving map: %s", port, qPrintable(mapFilePath));
-          return: app.exec();
+          return app.exec();
       }
       ```
-  This: provides a comprehensive structure. Focus on careful porting of the packet handling logic and correct usage of 'MapProtocolCodec' and 'NetworkMessage' from 'NET-01'.
+  This provides a comprehensive structure. Focus on careful porting of the packet handling logic and correct usage of 'MapProtocolCodec' and 'NetworkMessage' from 'NET-01'.

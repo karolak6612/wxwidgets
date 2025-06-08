@@ -87,7 +87,7 @@ qt6_migration_steps: |
       -   Test 'copy', 'cut', 'paste' operations with mock map data and 'QUndoStack', ensuring correct data transfer and command creation.
 definition_of_done:
   - A 'SelectionManager' class is implemented in 'mapcore' using Qt/C++ to manage selected map objects (Tiles, and specific Items, Creatures, Spawns within them).
-  - 'SelectionManager' supports adding objects to selection, removing objects, and clearing the selection.
+  - "'SelectionManager' supports adding objects to selection, removing objects, and clearing the selection."
   - All selection modifications are integrated with the 'QUndoStack' (from 'CORE-04') via specific 'SelectionCommand' objects, ensuring undo/redo functionality for selection changes.
   - Clipboard operations ('copy', 'cut', 'paste') are implemented:
     - 'copySelection()': Serializes the currently selected map elements (tiles and their relevant contents) into a well-defined internal format (e.g., using 'QDataStream' and 'QByteArray') and places it on 'QApplication::clipboard()' with a custom MIME type.

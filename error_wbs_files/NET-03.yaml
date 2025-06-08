@@ -34,7 +34,7 @@ current_functionality_summary: |
     - A tabbed view for debug logs and chat messages.
     - An input field for sending chat messages.
     - A grid displaying connected users, their server-assigned IDs, and their chosen cursor colors. Users can click on a color cell to change a user's color (if permitted, usually for the host or self).
-    It: interacts with 'LiveClient' (or 'LiveServer' if hosting) to display information and send chat.
+    It interacts with 'LiveClient' (or 'LiveServer' if hosting) to display information and send chat.
   - **'NetworkedActionQueue'**: A specialized version of 'ActionQueue'. When local actions are committed, this queue ensures that the resulting changes ('DirtyList') are broadcast to the server via the 'LiveClient::sendChanges' method. This allows the local user's undoable actions to be transmitted to other participants in the live session. 'NetworkedAction' and 'NetworkedBatchAction' are used to associate an 'owner' ID with changes, helping to identify the source of an action in the networked environment.
 refactoring_suggestions: |
   - **'QtLiveClient' State Management:** The original 'LiveClient' has implicit state management (e.g., 'stopped', 'isDrawingReady'). The 'QtLiveClient' should use Qt's state machine framework ('QStateMachine') or explicit enums with clear state transition logic ('Disconnected', 'Connecting', 'Connected', 'Authenticating', 'Ready').
@@ -43,54 +43,20 @@ refactoring_suggestions: |
   - **Error Reporting:** Standardize error reporting from 'QtLiveClient' using signals that carry error messages or codes, rather than direct dialog popups from within the networking class.
   - **Thread Safety for 'NetworkedActionQueue':** If 'NetworkedActionQueue' is accessed from different threads (e.g., UI thread for local actions, network thread for incoming actions), ensure its operations are thread-safe. Qt's signal/slot mechanism across threads can help manage this.
 qt6_migration_steps:
-  - "**1. Implement 'QtLiveClient' Class (in main application, inherits 'QObject'):**"
-    -   **Members:** 'QTcpSocket* m_socket;', 'QByteArray m_receiveBuffer;', 'Editor* m_liveEditorInstance;' (pointer to the specific Editor instance for this live session), 'QtLiveLogTab* m_logTabInterface;' (interface pointer/reference), 'mapcore::NetworkColor m_ownColor;', 'QString m_userName;', 'QString m_password;', 'bool m_isAuthenticated;', 'ClientState m_state;'.
-    -   **Connection:** Implement 'connectToServer(const QString& host, quint16 port, const QString& userName, const QString& password)'. This initializes 'm_socket' and calls 'm_socket->connectToHost()'.
-    -   **Socket Signals:** Connect 'm_socket->connected()' to an internal 'onSocketConnected()' slot. Connect 'm_socket->disconnected()', 'm_socket->errorOccurred(QAbstractSocket::SocketError)', and 'm_socket->readyRead()' to respective handler slots.
-    -   **'onSocketConnected()' Slot:** Call an internal 'sendClientHello()' method. This method constructs the 'PACKET_HELLO_FROM_CLIENT' using 'mapcore::NetworkMessage' and 'MapProtocolCodec' (from 'NET-01'), then calls 'sendPacket()'.
-    -   **'onReadyRead()' Slot:** Append 'm_socket->readAll()' to 'm_receiveBuffer'. Implement message framing (e.g., read 4-byte length prefix, then read full packet if available). For each complete 'mapcore::NetworkMessage' extracted:
-        - Call a 'parsePacket(mapcore::NetworkMessage& msg)' method.
-    -   **'sendPacket(const mapcore::NetworkMessage& msg)' Method:** Prepends 4-byte size to 'msg.buffer.data()', then writes the combined data to 'm_socket->write()'.
-    -   **'parsePacket(mapcore::NetworkMessage& msg)' Method:**
-        -   Read 'LivePacketType'.
-        -   Implement handlers for server messages (e.g., 'PACKET_HELLO_FROM_SERVER', 'PACKET_KICK', 'PACKET_ACCEPTED_CLIENT', 'PACKET_SERVER_TALK', 'PACKET_NODE', 'PACKET_CURSOR_UPDATE', 'PACKET_COLOR_UPDATE').
-        -   Use 'MapProtocolCodec' (from 'NET-01') to deserialize data.
-        -   For 'PACKET_NODE': Deserialize changes. Create a 'mapcore::NetworkedAction' (from 'CORE-05'), add changes to it, and push it to 'm_liveEditorInstance->getActionQueue()'.
-        -   For 'PACKET_SERVER_TALK': Emit a signal 'chatMessageReceived(QString speaker, QString message)'.
-        -   For 'PACKET_CURSOR_UPDATE': Emit a signal 'cursorUpdateReceived(LiveCursorData data)'.
-        -   For 'PACKET_COLOR_UPDATE': Emit a signal 'colorUpdateReceived(uint32_t clientId, NetworkColor color)'.
-    -   **Client Sending Methods:** Port 'LiveClient::sendChanges(DirtyList& changes)', 'sendNodeRequests()', 'sendChat(const QString& message)', 'updateCursor(const Position& pos)', 'sendColorUpdate(uint32_t, const wxColor&)':
-        -   These methods will construct the appropriate 'mapcore::NetworkMessage' (using 'MapProtocolCodec' for complex data) and call 'sendPacket()'. 'sendColorUpdate' will take 'mapcore::NetworkColor'.
-  - "**2. Implement 'QtLiveLogTab' Class (e.g., 'QWidget'):**"
-    -   **UI:** Use 'QTabWidget' ("Debug", "Chat"). Each tab contains a 'QTextEdit' (read-only). Add a 'QLineEdit' for chat input and a 'QTableWidget' (columns: Color, ID, Name) for the user list.
-    -   **Slots:**
-        -   'void onAppendLogMessage(const QString& msg)': Appends to debug 'QTextEdit'.
-        -   'void onAppendChatMessage(const QString& speaker, const QString& msg)': Appends formatted message to chat 'QTextEdit'.
-        -   'void onUpdateUserList(const QList<UserData>& users)': Clears and repopulates the 'QTableWidget'. 'UserData' could be a simple struct with ID, name, 'mapcore::NetworkColor'.
-        -   'void onChatInputReturnPressed()': Gets text from 'QLineEdit', calls 'QtLiveClient::sendChat()', clears 'QLineEdit'.
-        -   'void onUserColorChangeRequested(int row)': Gets user ID from table, opens 'QColorDialog'. On color selection, calls 'QtLiveClient::sendColorUpdate(userId, newColor)'.
-    -   Connect 'QLineEdit::returnPressed' to 'onChatInputReturnPressed'.
-    -   Connect 'QTableWidget::cellDoubleClicked' (on color column) to 'onUserColorChangeRequested'.
-  - "**3. Adapt 'NetworkedActionQueue' (from 'CORE-05'):**"
-    -   Ensure its 'broadcast(DirtyList&)' method (or equivalent) calls 'QtLiveClient::sendChanges(DirtyList&)'. This might involve passing a pointer/reference to the active 'QtLiveClient' instance to the 'NetworkedActionQueue' when a live session starts.
-  - "**4. Integrate into 'MainWindow' / 'EditorController':**"
-    -   Add UI elements (e.g., menu "Live -> Connect") to open a dialog for server IP, port, username, password.
-    -   On successful connection ('QtLiveClient' emits 'connectedSuccessfully()' signal):
-        -   Create/obtain a dedicated 'Editor' instance for this live session.
-        -   Set this 'Editor`'s action queue to be a 'NetworkedActionQueue' instance, configured with the active 'QtLiveClient'.
-        -   Create 'QtLiveLogTab', pass 'QtLiveClient' instance to it (or connect signals/slots). Display 'QtLiveLogTab' (e.g., in a dock widget or new tab).
-        -   Connect 'QtLiveClient' signals (chat, cursor, color updates) to 'QtLiveLogTab' slots.
-  - "**5. Remove Old wxWidgets Files:**"
-    -   Remove 'wxwidgets/live_client.*', 'wxwidgets/live_tab.*', and 'wxwidgets/live_action.*' from the CMake build.
+  - "1. Implement 'QtLiveClient' Class (in main application, inherits 'QObject'): Members include 'QTcpSocket* m_socket;', 'QByteArray m_receiveBuffer;', 'Editor* m_liveEditorInstance;' (pointer to the specific Editor instance for this live session), 'QtLiveLogTab* m_logTabInterface;' (interface pointer/reference), 'mapcore::NetworkColor m_ownColor;', 'QString m_userName;', 'QString m_password;', 'bool m_isAuthenticated;', 'ClientState m_state;'. Connection: Implement 'connectToServer(const QString& host, quint16 port, const QString& userName, const QString& password)'. This initializes 'm_socket' and calls 'm_socket->connectToHost()'. Socket Signals: Connect 'm_socket->connected()' to an internal 'onSocketConnected()' slot. Connect 'm_socket->disconnected()', 'm_socket->errorOccurred(QAbstractSocket::SocketError)', and 'm_socket->readyRead()' to respective handler slots. 'onSocketConnected()' Slot: Call an internal 'sendClientHello()' method. This method constructs the 'PACKET_HELLO_FROM_CLIENT' using 'mapcore::NetworkMessage' and 'MapProtocolCodec' (from 'NET-01'), then calls 'sendPacket()'. 'onReadyRead()' Slot: Append 'm_socket->readAll()' to 'm_receiveBuffer'. Implement message framing (e.g., read 4-byte length prefix, then read full packet if available). For each complete 'mapcore::NetworkMessage' extracted: Call a 'parsePacket(mapcore::NetworkMessage& msg)' method. 'sendPacket(const mapcore::NetworkMessage& msg)' Method: Prepends 4-byte size to 'msg.buffer.data()', then writes the combined data to 'm_socket->write()'. 'parsePacket(mapcore::NetworkMessage& msg)' Method: Read 'LivePacketType'. Implement handlers for server messages (e.g., 'PACKET_HELLO_FROM_SERVER', 'PACKET_KICK', 'PACKET_ACCEPTED_CLIENT', 'PACKET_SERVER_TALK', 'PACKET_NODE', 'PACKET_CURSOR_UPDATE', 'PACKET_COLOR_UPDATE'). Use 'MapProtocolCodec' (from 'NET-01') to deserialize data. For 'PACKET_NODE': Deserialize changes. Create a 'mapcore::NetworkedAction' (from 'CORE-05'), add changes to it, and push it to 'm_liveEditorInstance->getActionQueue()'. For 'PACKET_SERVER_TALK': Emit a signal 'chatMessageReceived(QString speaker, QString message)'. For 'PACKET_CURSOR_UPDATE': Emit a signal 'cursorUpdateReceived(LiveCursorData data)'. For 'PACKET_COLOR_UPDATE': Emit a signal 'colorUpdateReceived(uint32_t clientId, NetworkColor color)'. Client Sending Methods: Port 'LiveClient::sendChanges(DirtyList& changes)', 'sendNodeRequests()', 'sendChat(const QString& message)', 'updateCursor(const Position& pos)', 'sendColorUpdate(uint32_t, const wxColor&)': These methods will construct the appropriate 'mapcore::NetworkMessage' (using 'MapProtocolCodec' for complex data) and call 'sendPacket()'. 'sendColorUpdate' will take 'mapcore::NetworkColor'."
+  - "2. Implement 'QtLiveLogTab' Class (e.g., 'QWidget'): UI: Use 'QTabWidget' ('Debug', 'Chat'). Each tab contains a 'QTextEdit' (read-only). Add a 'QLineEdit' for chat input and a 'QTableWidget' (columns: Color, ID, Name) for the user list. Slots: 'void onAppendLogMessage(const QString& msg)': Appends to debug 'QTextEdit'. 'void onAppendChatMessage(const QString& speaker, const QString& msg)': Appends formatted message to chat 'QTextEdit'. 'void onUpdateUserList(const QList<UserData>& users)': Clears and repopulates the 'QTableWidget'. 'UserData' could be a simple struct with ID, name, 'mapcore::NetworkColor'. 'void onChatInputReturnPressed()': Gets text from 'QLineEdit', calls 'QtLiveClient::sendChat()', clears 'QLineEdit'. 'void onUserColorChangeRequested(int row)': Gets user ID from table, opens 'QColorDialog'. On color selection, calls 'QtLiveClient::sendColorUpdate(userId, newColor)'. Connect 'QLineEdit::returnPressed' to 'onChatInputReturnPressed'. Connect 'QTableWidget::cellDoubleClicked' (on color column) to 'onUserColorChangeRequested'."
+  - "3. Adapt 'NetworkedActionQueue' (from 'CORE-05'): Ensure its 'broadcast(DirtyList&)' method (or equivalent) calls 'QtLiveClient::sendChanges(DirtyList&)'. This might involve passing a pointer/reference to the active 'QtLiveClient' instance to the 'NetworkedActionQueue' when a live session starts."
+  - "4. Integrate into 'MainWindow' / 'EditorController': Add UI elements (e.g., menu 'Live -> Connect') to open a dialog for server IP, port, username, password. On successful connection ('QtLiveClient' emits 'connectedSuccessfully()' signal): Create/obtain a dedicated 'Editor' instance for this live session. Set this 'Editor's action queue to be a 'NetworkedActionQueue' instance, configured with the active 'QtLiveClient'. Create 'QtLiveLogTab', pass 'QtLiveClient' instance to it (or connect signals/slots). Display 'QtLiveLogTab' (e.g., in a dock widget or new tab). Connect 'QtLiveClient' signals (chat, cursor, color updates) to 'QtLiveLogTab' slots."
+  - "5. Remove Old wxWidgets Files: Remove 'wxwidgets/live_client.*', 'wxwidgets/live_tab.*', and 'wxwidgets/live_action.*' from the CMake build."
 definition_of_done:
-  - A 'QtLiveClient' class is implemented using 'QTcpSocket' for network communication, replacing the Boost.Asio based 'LiveClient'.
-  - 'QtLiveClient' can connect to the 'QtLiveServer' (from 'NET-02'), send login credentials, and handle server responses (hello, kick, accepted, version change).
-  - 'QtLiveClient' correctly uses 'MapProtocolCodec' (from 'NET-01') to serialize outgoing messages (changes, cursor updates, chat) and deserialize incoming server messages (map data, other cursors, chat).
-  - Received map changes are applied to the local 'Editor' instance via its 'NetworkedActionQueue'.
-  - A 'QtLiveLogTab' widget is implemented using Qt Widgets, displaying debug logs, chat messages, and a list of connected users with their colors. It allows users to send chat messages and request color changes.
-  - The 'NetworkedActionQueue' is successfully adapted to call 'QtLiveClient::sendChanges()' when local actions are committed during a live session.
-  - The main application ('MainWindow'/'EditorController') can initiate a live client session, manage the 'QtLiveClient' instance, and integrate the 'QtLiveLogTab' into its UI.
-  - Client-side error handling for network events (disconnection, socket errors) is implemented.
+  - "A 'QtLiveClient' class is implemented using 'QTcpSocket' for network communication, replacing the Boost.Asio based 'LiveClient'."
+  - "'QtLiveClient' can connect to the 'QtLiveServer' (from 'NET-02'), send login credentials, and handle server responses (hello, kick, accepted, version change)."
+  - "'QtLiveClient' correctly uses 'MapProtocolCodec' (from 'NET-01') to serialize outgoing messages (changes, cursor updates, chat) and deserialize incoming server messages (map data, other cursors, chat)."
+  - "Received map changes are applied to the local 'Editor' instance via its 'NetworkedActionQueue'."
+  - "A 'QtLiveLogTab' widget is implemented using Qt Widgets, displaying debug logs, chat messages, and a list of connected users with their colors. It allows users to send chat messages and request color changes."
+  - "The 'NetworkedActionQueue' is successfully adapted to call 'QtLiveClient::sendChanges()' when local actions are committed during a live session."
+  - "The main application ('MainWindow'/'EditorController') can initiate a live client session, manage the 'QtLiveClient' instance, and integrate the 'QtLiveLogTab' into its UI."
+  - "Client-side error handling for network events (disconnection, socket errors) is implemented."
 estimation_effort:
   - "High (18-24 developer days). This involves significant work in creating the 'QtLiveClient' with 'QTcpSocket', including robust message framing and parsing. Porting the 'LiveLogTab' to Qt Widgets is a substantial UI task. Integrating these components into the main application flow, managing editor instances for live sessions, and ensuring the 'NetworkedActionQueue' correctly interacts with 'QtLiveClient' are all complex. Thorough testing of the client-server interaction will be necessary."
 known_missing_files: []
@@ -108,43 +74,43 @@ boilerplate_coder_ai_prompt: |
       #include "mapcore/network/map_protocol_codec.h"  // From NET-01
       #include "mapcore/position.h"
 
-      class: Editor; // Forward declaration (from mapcore or main app)
-      class: QtLiveLogTab; // Forward declaration
-      namespace: mapcore { struct NetworkColor; struct LiveCursor; class ActionQueue; class DirtyList; }
+      class Editor; // Forward declaration (from mapcore or main app)
+      class QtLiveLogTab; // Forward declaration
+      namespace mapcore { struct NetworkColor; struct LiveCursor; class ActionQueue; class DirtyList; }
 
       class QtLiveClient : public QObject {
           Q_OBJECT
       public:
-          explicit: QtLiveClient(Editor* editorInstance, QObject *parent = nullptr); // Editor for this session
+          explicit QtLiveClient(Editor* editorInstance, QObject *parent = nullptr); // Editor for this session
           ~QtLiveClient();
 
-          bool: connectToServer(const QString& host, quint16 port, const QString& userName, const QString& password);
-          void: disconnectFromServer();
+          bool connectToServer(const QString& host, quint16 port, const QString& userName, const QString& password);
+          void disconnectFromServer();
 
           void sendChanges(mapcore::DirtyList& dirtyList);
-          void: sendNodeRequest(int ndx, int ndy, bool underground); // Simplified from queryNodeList
-          void: sendChatMessage(const QString& message);
+          void sendNodeRequest(int ndx, int ndy, bool underground); // Simplified from queryNodeList
+          void sendChatMessage(const QString& message);
           void sendCursorUpdate(const mapcore::Position& position);
           void sendColorChangeRequest(uint32_t targetClientId, const mapcore::NetworkColor& color);
 
 
       signals:
-          void: connectedSuccessfully();
-          void: disconnectedFromServer();
-          void: connectionError(const QString& errorString);
-          void: serverMessage(const QString& message); // For general server messages like kick reason
-          void: chatMessageReceived(const QString& speaker, const QString& message);
+          void connectedSuccessfully();
+          void disconnectedFromServer();
+          void connectionError(const QString& errorString);
+          void serverMessage(const QString& message); // For general server messages like kick reason
+          void chatMessageReceived(const QString& speaker, const QString& message);
           void cursorUpdateReceived(const mapcore::LiveCursor& cursor); // LiveCursor from NET-01
           void colorUpdateReceived(uint32_t clientId, const mapcore::NetworkColor& color);
           // Signal to indicate map data has been received and applied
-          void: mapDataUpdated();
+          void mapDataUpdated();
 
 
       private slots:
-          void: onSocketConnected();
-          void: onSocketDisconnected();
+          void onSocketConnected();
+          void onSocketDisconnected();
           void onSocketErrorOccurred(QAbstractSocket::SocketError socketError);
-          void: onSocketReadyRead();
+          void onSocketReadyRead();
 
       private:
           void sendPacket(mapcore::NetworkMessage& msg);
@@ -162,19 +128,19 @@ boilerplate_coder_ai_prompt: |
           void parseUpdateOperation(mapcore::NetworkMessage& msg);
           void parseColorUpdate(mapcore::NetworkMessage& msg);
 
-          void: sendHelloPacket(); // Renamed from sendHello
-          void: sendReadyPacket(); // Renamed from sendReady
+          void sendHelloPacket(); // Renamed from sendHello
+          void sendReadyPacket(); // Renamed from sendReady
 
           QTcpSocket* m_socket;
-          QByteArray: m_receiveBuffer;
+          QByteArray m_receiveBuffer;
           Editor* m_editor; // The editor instance this client is associated with
           mapcore::ActionQueue* m_actionQueue; // Shortcut to editor's action queue
 
-          QString: m_userName;
-          QString: m_password;
+          QString m_userName;
+          QString m_password;
           mapcore::NetworkColor m_ownColor;
           // Add other necessary members like client ID received from server, etc.
-          bool: m_isReady; // Tracks if client has sent PACKET_READY_CLIENT
+          bool m_isReady; // Tracks if client has sent PACKET_READY_CLIENT
       };
       ```
   *   **Source ('qtliveclient.cpp'):**
@@ -205,25 +171,25 @@ boilerplate_coder_ai_prompt: |
       ```cpp
       #include <QWidget>
       // Forward declare Qt UI elements
-      class: QTabWidget; class QTextEdit; class QLineEdit; class QTableWidget; class QTableWidgetItem;
-      namespace: mapcore { struct NetworkColor; struct LiveCursor; } // For data structs
+      class QTabWidget; class QTextEdit; class QLineEdit; class QTableWidget; class QTableWidgetItem;
+      namespace mapcore { struct NetworkColor; struct LiveCursor; } // For data structs
 
       class QtLiveLogTab : public QWidget {
           Q_OBJECT
       public:
-          explicit: QtLiveLogTab(QWidget *parent = nullptr);
+          explicit QtLiveLogTab(QWidget *parent = nullptr);
           // Method to associate with a QtLiveClient instance, perhaps via signals/slots from MainWindow
           // void setLiveClient(QtLiveClient* client); // Or connect signals directly
 
       public slots:
-          void: appendLogMessage(const QString& message);
-          void: appendChatMessage(const QString& speaker, const QString& message);
+          void appendLogMessage(const QString& message);
+          void appendChatMessage(const QString& speaker, const QString& message);
           void updateUserList(const QList<mapcore::LiveCursor>& cursors); // Example data structure
           void onOwnColorChangeRequested(const mapcore::NetworkColor& color); // Slot to react to local color change
 
       private slots:
-          void: onChatInputReturnPressed();
-          void: onUserListItemDoubleClicked(int row, int column); // For color change
+          void onChatInputReturnPressed();
+          void onUserListItemDoubleClicked(int row, int column); // For color change
 
       private:
           QTabWidget* m_tabWidget;

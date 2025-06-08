@@ -32,12 +32,7 @@ documentation_references:
 current_functionality_summary: |
   This task focuses on creating new unit tests for the Qt6-based asset parsers. These parsers, developed as part of 'CORE-02' (for items, creatures, client versions, graphics/sprites) and 'CORE-04' (for materials, brushes, palettes, tilesets), are responsible for reading various XML and potentially binary (like OTB for items, SPR/DAT for graphics) data files. The unit tests will validate that these parsers correctly interpret the input data and accurately populate the corresponding C++ data structures within the 'mapcore' library (e.g., 'mapcore::ItemManager', 'mapcore::CreatureManager', 'mapcore::MaterialManager'). This ensures the integrity of game and editor asset data from the point of loading.
 definition_of_done:
-  - Unit tests using the Qt Test framework are developed for each key asset parser/loader within 'mapcore', including:
-    - 'mapcore::ItemManager' (for items from OTB and/or XML).
-    - 'mapcore::CreatureManager' (for creatures.xml).
-    - 'mapcore::ClientVersionManager' (for clients.xml).
-    - 'mapcore::GraphicManager' (for .dat/.spr sprite metadata and data, and .otfi).
-    - 'mapcore::MaterialManager' (for the entire materials system including 'materials.xml', 'grounds.xml', 'walls.xml', 'doodads.xml', 'borders.xml', palette files, 'tilesets.xml', 'collections.xml').
+  - "Unit tests using the Qt Test framework are developed for each key asset parser/loader within 'mapcore', including: 'mapcore::ItemManager' (for items from OTB and/or XML), 'mapcore::CreatureManager' (for creatures.xml), 'mapcore::ClientVersionManager' (for clients.xml), 'mapcore::GraphicManager' (for .dat/.spr sprite metadata and data, and .otfi), and 'mapcore::MaterialManager' (for the entire materials system including 'materials.xml', 'grounds.xml', 'walls.xml', 'doodads.xml', 'borders.xml', palette files, 'tilesets.xml', 'collections.xml')."
   - Test cases utilize small, focused mock data snippets (e.g., XML strings, small binary arrays) or dedicated small, valid example files. These mock inputs are designed to cover:
     - Correct parsing of all relevant attributes and elements into their corresponding C++ object fields (e.g., 'ItemType' attributes, 'GroundBrush' border rules, 'CreatureType' outfits).
     - Handling of optional attributes and elements, ensuring default values are correctly applied or fields remain appropriately uninitialized.
@@ -123,4 +118,4 @@ boilerplate_coder_ai_prompt: |
   ```
   Use: 'QTemporaryFile' or string literals for mock XML data passed to parsers.
 
-[end of enhanced_wbs_yaml_files/TEST-02.yaml]
+

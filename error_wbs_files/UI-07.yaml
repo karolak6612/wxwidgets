@@ -73,26 +73,11 @@ qt6_migration_steps:
   - "  Connect signals: 'addWaypointButton' creates a new waypoint in 'WaypointManager', adds to list, and calls 'waypointList->editItem()'. 'removeWaypointButton' confirms and removes selected waypoints from 'WaypointManager' and list. 'waypointList::itemChanged' validates new name (unique, not empty) and updates 'WaypointManager'. 'waypointList::currentItemChanged' updates 'BrushStateService' with 'WaypointBrush' and selected waypoint."
   - "Ensure all lists update if underlying 'HouseManager', 'TownManager', or 'WaypointManager' data changes."
 definition_of_done:
-- The 'House' tab ('HousePaletteTab') in the main palette system is implemented and functional.
--   'townCombo' correctly lists towns and filters 'houseList'.
--   'houseList' displays house name, ID, and size. Supports multi-selection.
--   'addHouseButton' opens 'EditHouseDialogQt' to define a new house; on acceptance, the new house is added to data and UI.
--   'editHouseButton' opens 'EditHouseDialogQt' for the (single) selected house; on acceptance, changes are applied (via undo action later) and UI updated. Disabled for no/multiple selections.
--   'removeHouseButton' removes selected house(s) after confirmation, updating data and UI.
--   House list context menu 'Move to Town...' correctly reassigns selected house(s) to a new town, updating data and UI.
--   'Draw House Tiles' and 'Set House Exit' radio buttons correctly switch the active brush mode and configure the global house brush via 'BrushStateService' using the selected house.
-- The 'EditHouseDialogQt' is implemented and functional:
--   Loads data from a 'House' object copy.
--   Allows editing of name, town, rent, ID, and guildhall status.
--   Validates input (unique ID if changed, non-empty name, non-negative rent).
--   Applies changes to the 'House' object copy on 'OK'.
-- The 'Waypoint' tab ('WaypointPaletteTab') in the main palette system is implemented and functional:
--   'waypointList' displays all waypoints. Waypoint names are editable in-place.
--   'addWaypointButton' creates a new waypoint with a unique default name, adds it to data and list, and initiates name editing.
--   'removeWaypointButton' removes selected waypoint(s) after confirmation, updating data and UI.
--   Editing a waypoint name in the list validates uniqueness and updates the underlying 'Waypoint' object.
-- Selecting a waypoint in 'waypointList' configures and activates the global 'WaypointBrush' via 'BrushStateService' and navigates the map view to its location.
-- House and Waypoint palette lists refresh if the underlying map data changes (e.g., new map loaded, undo/redo action).
+- "The 'House' tab ('HousePaletteTab') in the main palette system is implemented and functional. 'townCombo' correctly lists towns and filters 'houseList'. 'houseList' displays house name, ID, and size. Supports multi-selection. 'addHouseButton' opens 'EditHouseDialogQt' to define a new house; on acceptance, the new house is added to data and UI. 'editHouseButton' opens 'EditHouseDialogQt' for the (single) selected house; on acceptance, changes are applied (via undo action later) and UI updated. Disabled for no/multiple selections. 'removeHouseButton' removes selected house(s) after confirmation, updating data and UI. House list context menu 'Move to Town...' correctly reassigns selected house(s) to a new town, updating data and UI. 'Draw House Tiles' and 'Set House Exit' radio buttons correctly switch the active brush mode and configure the global house brush via 'BrushStateService' using the selected house."
+- "The 'EditHouseDialogQt' is implemented and functional: Loads data from a 'House' object copy. Allows editing of name, town, rent, ID, and guildhall status. Validates input (unique ID if changed, non-empty name, non-negative rent). Applies changes to the 'House' object copy on 'OK'."
+- "The 'Waypoint' tab ('WaypointPaletteTab') in the main palette system is implemented and functional: 'waypointList' displays all waypoints. Waypoint names are editable in-place. 'addWaypointButton' creates a new waypoint with a unique default name, adds it to data and list, and initiates name editing. 'removeWaypointButton' removes selected waypoint(s) after confirmation, updating data and UI. Editing a waypoint name in the list validates uniqueness and updates the underlying 'Waypoint' object."
+- "Selecting a waypoint in 'waypointList' configures and activates the global 'WaypointBrush' via 'BrushStateService' and navigates the map view to its location."
+- "House and Waypoint palette lists refresh if the underlying map data changes (e.g., new map loaded, undo/redo action)."
 estimation_effort: Medium-High (12-18 developer days)
 known_missing_files: []
 boilerplate_coder_ai_prompt: |

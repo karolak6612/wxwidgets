@@ -50,30 +50,14 @@ refactoring_suggestions: |
   - **Algorithm Separation:** Core algorithms (e.g., for 'cleanDuplicateItems', 'validateGrounds') should be clearly separated from the 'Editor' or 'Map' classes if they can operate on the data structures independently. This improves testability.
   - **'main_menubar.cpp' Logic:** Event handlers in 'main_menubar.cpp' sometimes contain significant logic (e.g., 'OnMapStatistics', 'OnSearchForItem'). This logic should be moved to dedicated controller or service classes to keep the UI layer thin.
 qt6_migration_steps:
-  - "**1. Identify Core Tool Logic:**"
-    - From 'editor.cpp', 'map.cpp', and 'main_menubar.cpp', isolate the functions and code blocks corresponding to each tool (e.g., 'Editor::clearInvalidHouseTiles', 'Map::cleanDuplicateItems', the body of 'MainMenuBar::OnMapStatistics').
-  - "**2. Design Tool Classes/Services (Optional but Recommended):**"
-    - For each distinct tool, consider creating a separate class (e.g., 'MapCleanerTool', 'StatisticsGeneratorTool') or a service that encapsulates its logic. These classes would operate on 'mapcore::Map' and related data structures.
-  - "**3. Port Core Algorithms:**"
-    - Rewrite the identified algorithms in C++, ensuring they use only Qt/STL data types and 'mapcore' structures.
-    - For example, the iteration and modification logic in 'Editor::clearInvalidHouseTiles' or 'Map::cleanDuplicateItems' needs to be ported.
-  - "**4. Integrate with 'EditorController' and 'ActionQueue':**"
-    - Create methods in 'EditorController' to invoke each tool (e.g., 'EditorController::performClearInvalidHouseTiles()').
-    - Inside these 'EditorController' methods, instantiate the tool/service class (if created) or directly execute the ported algorithm.
-    - Crucially, wrap each tool's execution in a 'mapcore::Action' or 'mapcore::BatchAction'. All modifications to map data must be recorded as 'mapcore::Change' objects within this action to ensure undo/redo functionality via the 'mapcore::ActionQueue'.
-  - "**5. Port Dialog Interactions:**"
-    - For tools that require user input (e.g., 'OnMapRemoveItems' which uses 'FindItemDialog', 'OnMapProperties' which uses 'MapPropertiesWindow'), the Qt equivalent dialogs (created in UI WBS items like UI-07) will gather parameters.
-    - The 'EditorController' methods will take these parameters, execute the tool logic, and then potentially display results (e.g., for statistics).
-  - "**6. Connect UI Actions:**"
-    - In the 'MainWindow' (Qt), create 'QAction's for each tool in the main menu.
-    - Connect the 'triggered()' signal of these 'QAction's to the corresponding slots in 'EditorController' that execute the tool.
-  - "**7. Handle Progress Reporting:**"
-    - Replace direct calls to 'g_gui.CreateLoadBar'/'SetLoadDone' with a signal-based progress reporting mechanism. The tool/service can emit progress signals (e.g., 'progressUpdated(int percentage, QString message)'), which the 'MainWindow' or a dedicated progress dialog can connect to.
-  - "**8. Specific Tool Considerations:**"
-    - **Map Properties ('Editor::setMapDescription', etc.):** Logic will be in 'EditorController', taking data from the Qt 'MapPropertiesDialog' (UI-07) and applying it to 'mapcore::Map', wrapped in an action.
-    - **Map Statistics ('MainMenuBar::OnMapStatistics'):** The data gathering logic should be moved to a method in 'EditorController' or a 'StatisticsService'. The results would then be passed to a Qt dialog for display.
-    - **Map Cleanup Tools ('Editor::clearInvalidHouseTiles', 'Map::cleanDuplicateItems', 'Editor::validateGrounds'):** Port core algorithms to 'EditorController' or 'mapcore::Map' methods, ensuring all changes are part of a single undoable action.
-    - **Import Monster Data ('MainMenuBar::OnImportMonsterData'):** Port the XML parsing (if not already covered by DATA-05) and the logic for merging/updating creature definitions in 'CreatureManager', ensuring this is also an undoable action if it modifies current map state directly or indirectly.
+  - "1. Identify Core Tool Logic: From 'editor.cpp', 'map.cpp', and 'main_menubar.cpp', isolate the functions and code blocks corresponding to each tool (e.g., 'Editor::clearInvalidHouseTiles', 'Map::cleanDuplicateItems', the body of 'MainMenuBar::OnMapStatistics')."
+  - "2. Design Tool Classes/Services (Optional but Recommended): For each distinct tool, consider creating a separate class (e.g., 'MapCleanerTool', 'StatisticsGeneratorTool') or a service that encapsulates its logic. These classes would operate on 'mapcore::Map' and related data structures."
+  - "3. Port Core Algorithms: Rewrite the identified algorithms in C++, ensuring they use only Qt/STL data types and 'mapcore' structures. For example, the iteration and modification logic in 'Editor::clearInvalidHouseTiles' or 'Map::cleanDuplicateItems' needs to be ported."
+  - "4. Integrate with 'EditorController' and 'ActionQueue': Create methods in 'EditorController' to invoke each tool (e.g., 'EditorController::performClearInvalidHouseTiles()'). Inside these 'EditorController' methods, instantiate the tool/service class (if created) or directly execute the ported algorithm. Crucially, wrap each tool's execution in a 'mapcore::Action' or 'mapcore::BatchAction'. All modifications to map data must be recorded as 'mapcore::Change' objects within this action to ensure undo/redo functionality via the 'mapcore::ActionQueue'."
+  - "5. Port Dialog Interactions: For tools that require user input (e.g., 'OnMapRemoveItems' which uses 'FindItemDialog', 'OnMapProperties' which uses 'MapPropertiesWindow'), the Qt equivalent dialogs (created in UI WBS items like UI-07) will gather parameters. The 'EditorController' methods will take these parameters, execute the tool logic, and then potentially display results (e.g., for statistics)."
+  - "6. Connect UI Actions: In the 'MainWindow' (Qt), create 'QAction's for each tool in the main menu. Connect the 'triggered()' signal of these 'QAction's to the corresponding slots in 'EditorController' that execute the tool."
+  - "7. Handle Progress Reporting: Replace direct calls to 'g_gui.CreateLoadBar'/'SetLoadDone' with a signal-based progress reporting mechanism. The tool/service can emit progress signals (e.g., 'progressUpdated(int percentage, QString message)'), which the 'MainWindow' or a dedicated progress dialog can connect to."
+  - "8. Specific Tool Considerations: Map Properties ('Editor::setMapDescription', etc.) - Logic will be in 'EditorController', taking data from the Qt 'MapPropertiesDialog' (UI-07) and applying it to 'mapcore::Map', wrapped in an action. Map Statistics ('MainMenuBar::OnMapStatistics') - The data gathering logic should be moved to a method in 'EditorController' or a 'StatisticsService'. The results would then be passed to a Qt dialog for display. Map Cleanup Tools ('Editor::clearInvalidHouseTiles', 'Map::cleanDuplicateItems', 'Editor::validateGrounds') - Port core algorithms to 'EditorController' or 'mapcore::Map' methods, ensuring all changes are part of a single undoable action. Import Monster Data ('MainMenuBar::OnImportMonsterData') - Port the XML parsing (if not already covered by DATA-05) and the logic for merging/updating creature definitions in 'CreatureManager', ensuring this is also an undoable action if it modifies current map state directly or indirectly."
 definition_of_done:
   - Core logic for map-wide tools (e.g., 'clearInvalidHouseTiles', 'cleanDuplicateItems', 'validateGrounds', 'borderizeMap', 'randomizeMap', map properties editing, map statistics generation) is ported from 'editor.cpp', 'map.cpp', and 'main_menubar.cpp'.
   - Ported tool logic resides in 'EditorController', 'mapcore::Map', or dedicated service classes, and is independent of wxWidgets.
@@ -92,7 +76,7 @@ known_missing_files:
 boilerplate_coder_ai_prompt: |
   As a C++ expert with Qt 6 experience, your task is to port various map-wide tools and utility operations from a wxWidgets-based map editor to a Qt 6 application. The core logic for these tools is primarily found in 'wxwidgets/editor.cpp', 'wxwidgets/map.cpp', and triggered by event handlers in 'wxwidgets/main_menubar.cpp'.
 
-  **Key Responsibilities:**
+  Key Responsibilities:
 
   1.  **Identify and Isolate Tool Logic:**
       *   From 'editor.cpp': Port methods like 'clearInvalidHouseTiles', 'randomizeMap', 'borderizeMap', 'validateGrounds', 'setMapDescription', 'setWidth', 'setHeight', etc.
@@ -124,7 +108,7 @@ boilerplate_coder_ai_prompt: |
   6.  **Connect to Qt UI Actions:**
       *   The 'MainWindow' (Qt) will have 'QAction's for these tools. These actions' 'triggered()' signals will connect to slots in 'EditorController' to execute the ported tool logic.
 
-  **Constraints:**
+  Constraints:
   *   Focus on porting the C++ logic, not on creating new Qt UI elements (dialogs, specific widgets for tools), as those are handled in other WBS items.
   *   Ensure all ported code uses Qt/STL data types and is free of wxWidgets dependencies.
   *   The "Fill" tool is handled in LOGIC-10. Procedural generation dialogs like Island/Monster generators are handled in UI-PROCGEN WBS items.

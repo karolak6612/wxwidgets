@@ -48,37 +48,14 @@ refactoring_suggestions: |
   - 'OpenGLContextManager' (if complex sharing is needed beyond QOpenGLWidget's capabilities, though likely not necessary).
   - 'SettingsService': Provides typed access to application settings, replacing direct 'g_settings' calls for UI-related configurations.
 qt6_migration_steps:
-  - "**1. Identify 'g_gui' Responsibilities:**"
-    - Exhaustively list all states managed and services provided by the original 'wxwidgets/gui.h/cpp' (as detailed in 'current_functionality_summary'). This list forms the requirements for the new service classes.
-  - "**2. Design Focused Service Classes:**"
-    - Based on the identified responsibilities, define a set of new service classes. Examples:
-        - 'BrushStateService' (or 'BrushManager'): Manages active brush, its type, size, shape, variation, and any brush-specific data (e.g., current raw item ID, current creature type). Emits signals when brush or settings change.
-        - 'EditorStateService' (or 'ApplicationStateManager'): Manages current editor mode (draw, select, fill), active map document/editor session, current floor, current zoom (if not solely per-view). Emits signals on state changes.
-        - 'ClientDataService': Manages the loaded 'ClientVersion' and provides access to items ('ItemManager'), sprites ('SpriteManager'), materials ('MaterialManager'), and creatures ('CreatureManager'). This replaces direct access to 'g_items', 'g_gui.gfx', 'g_materials', 'g_creatures'.
-        - 'UIService' (or 'WindowManager'/'DialogManager'): Handles requests to show standard dialogs (open, save, message boxes), manages floating tool windows or palettes if not handled by 'QMainWindow`'s docking.
-        - 'ClipboardManager': Manages 'CopyBuffer' functionality.
-        - 'SettingsManager': Provides typed access to application settings relevant to UI and editor state.
-  - "**3. Instantiate Services in 'MainWindow':**"
-    - The 'MainWindow' (from 'UI-01') will create and own instances of these new service classes (e.g., 'm_brushStateService = new BrushStateService(this);').
-  - "**4. Implement Dependency Injection:**"
-    - Modify constructors of classes that need these services to accept them as parameters. For example:
-        - 'EditorController(mapcore::Map* map, mapcore::ActionQueue* queue, BrushStateService* brushService, EditorStateService* editorStateService, ...)'
-        - 'MapViewWidget(BrushStateService* brushService, EditorStateService* editorStateService, ...)'
-        - Palette UI classes will take 'BrushStateService*' and 'ClientDataService*'.
-        - Toolbars will take 'EditorStateService*' and 'BrushStateService*'.
-    - 'MainWindow' will pass the owned service instances when creating these components.
-  - "**5. Codebase-Wide Refactoring:**"
-    - Remove all usages of the old 'g_gui' global object.
-    - Replace calls like 'g_gui.GetCurrentBrush()' with 'm_brushStateService->getActiveBrush()'.
-    - Replace 'g_gui.GetCurrentEditor()' logic: 'EditorStateService' might provide the active 'EditorSession', from which the 'EditorController' or 'Map' can be accessed.
-    - Replace direct access to 'g_items', 'g_gui.gfx' with calls to 'm_clientDataService->getItemManager()', 'm_clientDataService->getSpriteManager()', etc.
-  - "**6. Utilize Signals and Slots:**"
-    - Implement communication between services and UI components using Qt's signal/slot mechanism.
-    - E.g., Palettes emit signals when user changes brush settings, 'BrushStateService' receives this, updates its state, and emits its own signals that 'MapViewWidget' or 'EditorController' might be connected to.
-  - "**7. Phase out Conceptual 'GuiManager':**"
-    - Ensure that the 'GuiManager' singleton planned in 'UI-03' is not implemented. Instead, this WBS directly implements the fine-grained service classes and dependency injection.
-  - "**8. Update 'EditorController':**"
-    - 'EditorController' will become a primary consumer of many of these services to perform its orchestration tasks, interacting with 'mapcore' components based on UI state provided by these services.
+  - "1. Identify 'g_gui' Responsibilities: Exhaustively list all states managed and services provided by the original 'wxwidgets/gui.h/cpp' (as detailed in 'current_functionality_summary'). This list forms the requirements for the new service classes."
+  - "2. Design Focused Service Classes: Based on the identified responsibilities, define a set of new service classes. Examples: 'BrushStateService' (or 'BrushManager') manages active brush, its type, size, shape, variation, and any brush-specific data (e.g., current raw item ID, current creature type). Emits signals when brush or settings change. 'EditorStateService' (or 'ApplicationStateManager') manages current editor mode (draw, select, fill), active map document/editor session, current floor, current zoom (if not solely per-view). Emits signals on state changes. 'ClientDataService' manages the loaded 'ClientVersion' and provides access to items ('ItemManager'), sprites ('SpriteManager'), materials ('MaterialManager'), and creatures ('CreatureManager'). This replaces direct access to 'g_items', 'g_gui.gfx', 'g_materials', 'g_creatures'. 'UIService' (or 'WindowManager'/'DialogManager') handles requests to show standard dialogs (open, save, message boxes), manages floating tool windows or palettes if not handled by 'QMainWindow's docking. 'ClipboardManager' manages 'CopyBuffer' functionality. 'SettingsManager' provides typed access to application settings relevant to UI and editor state."
+  - "3. Instantiate Services in 'MainWindow': The 'MainWindow' (from 'UI-01') will create and own instances of these new service classes (e.g., 'm_brushStateService = new BrushStateService(this);')."
+  - "4. Implement Dependency Injection: Modify constructors of classes that need these services to accept them as parameters. For example: 'EditorController(mapcore::Map* map, mapcore::ActionQueue* queue, BrushStateService* brushService, EditorStateService* editorStateService, ...)', 'MapViewWidget(BrushStateService* brushService, EditorStateService* editorStateService, ...)', Palette UI classes will take 'BrushStateService*' and 'ClientDataService*', Toolbars will take 'EditorStateService*' and 'BrushStateService*'. 'MainWindow' will pass the owned service instances when creating these components."
+  - "5. Codebase-Wide Refactoring: Remove all usages of the old 'g_gui' global object. Replace calls like 'g_gui.GetCurrentBrush()' with 'm_brushStateService->getActiveBrush()'. Replace 'g_gui.GetCurrentEditor()' logic: 'EditorStateService' might provide the active 'EditorSession', from which the 'EditorController' or 'Map' can be accessed. Replace direct access to 'g_items', 'g_gui.gfx' with calls to 'm_clientDataService->getItemManager()', 'm_clientDataService->getSpriteManager()', etc."
+  - "6. Utilize Signals and Slots: Implement communication between services and UI components using Qt's signal/slot mechanism. E.g., Palettes emit signals when user changes brush settings, 'BrushStateService' receives this, updates its state, and emits its own signals that 'MapViewWidget' or 'EditorController' might be connected to."
+  - "7. Phase out Conceptual 'GuiManager': Ensure that the 'GuiManager' singleton planned in 'UI-03' is not implemented. Instead, this WBS directly implements the fine-grained service classes and dependency injection."
+  - "8. Update 'EditorController': 'EditorController' will become a primary consumer of many of these services to perform its orchestration tasks, interacting with 'mapcore' components based on UI state provided by these services."
 definition_of_done:
   - The global 'g_gui' object's functionalities are fully decomposed into multiple, focused service classes (e.g., 'BrushStateService', 'EditorStateService', 'ClientDataService', 'UIService', 'ClipboardManager', 'SettingsManager').
   - These new service classes are instantiated and owned by 'MainWindow'.

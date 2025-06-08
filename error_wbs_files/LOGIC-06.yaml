@@ -1,8 +1,6 @@
-wbs_item_id: LOGIC-06
+id: LOGIC-06
 name: Integrate House & Waypoint Brushes
-description: Migrate the UI interaction logic for HouseBrush, HouseExitBrush, and
-  WaypointBrush: to Qt6, ensuring they correctly interact with the map data via the
-  EditorController: and Action system.
+description: "Migrate the UI interaction logic for HouseBrush, HouseExitBrush, and WaypointBrush to Qt6, ensuring they correctly interact with the map data via the EditorController and Action system."
 dependencies:
 - LOGIC-01 # EditorController for dispatching brush actions
 - LOGIC-04 # Core Waypoint System (Waypoint and Waypoints classes)
@@ -142,4 +140,3 @@ additional_notes: "The core logic for 'House::setExit' and 'Waypoints::addWaypoi
   \ (LOGIC-04, LOGIC-05). This task focuses on the 'EditorController' and 'QUndoCommand'\
   \ integration for the brushes/tools."
 estimation_effort: Large
-[end of enhanced_wbs_yaml_files/LOGIC-06.yaml]

@@ -54,11 +54,7 @@ definition_of_done:
   - Checkable ('QAction::setCheckable(true)') and radio button ('QActionGroup') behaviors are implemented for relevant menu items as defined by the 'kind' attribute in 'menubar.xml'.
   - Each 'QAction`'s 'triggered()' signal is connected to a placeholder slot in 'MainWindow' or a dedicated 'MenuActionHandler' class. These slots should at least log the action's object name or a unique ID. Full implementation of action logic is deferred to other WBS tasks.
   - A 'QStatusBar' is added to the 'MainWindow' and can display initial application messages and status tips from actions.
-  - Recent files functionality is implemented:
-    - 'QSettings' is used to store and retrieve the list of recently opened file paths.
-    - A 'Recent Files' submenu (or equivalent) in the 'File' 'QMenu' is dynamically populated with 'QAction's representing these files.
-    - Clicking a recent file action triggers a signal or slot with the file path (actual file opening logic is part of 'LOGIC-01'/'UI-02').
-    - A method 'void MainWindow::addRecentFile(const QString& filePath)' updates 'QSettings' and refreshes the recent files menu.
+  - "Recent files functionality is implemented: 'QSettings' is used to store and retrieve the list of recently opened file paths. A 'Recent Files' submenu (or equivalent) in the 'File' 'QMenu' is dynamically populated with 'QAction's representing these files. Clicking a recent file action triggers a signal or slot with the file path (actual file opening logic is part of 'LOGIC-01'/'UI-02'). A method 'void MainWindow::addRecentFile(const QString& filePath)' updates 'QSettings' and refreshes the recent files menu."
   - A mechanism for dynamically updating menu item states (enabled/disabled, checked/unchecked) is implemented in 'MainWindow' (e.g., an 'updateMenus()' slot). This slot will use 'QAction::setEnabled()' and 'QAction::setChecked()' based on application state (initially, most actions can be enabled for testing purposes, with actual state logic refined as services from 'REFACTOR-01' become available).
   - The 'MainWindow' correctly loads and saves its size, position, and state of dock widgets (if any are added at this stage) using 'QSettings' ('saveState()', 'restoreState()').
   - The 'MainWindow' is instantiated and shown by the main application entry point ('FINAL-02'), displaying the title, icon, menu bar, and status bar.
@@ -75,32 +71,32 @@ boilerplate_coder_ai_prompt: |
   #include <QMainWindow>
   #include <QMap> // For storing actions
 
-  class: QAction;
-  class: QMenu;
-  class: QSettings; // For recent files and window state
+  class QAction;
+  class QMenu;
+  class QSettings; // For recent files and window state
 
   class MainWindow : public QMainWindow {
       Q_OBJECT
   public:
-      explicit: MainWindow(QWidget *parent = nullptr);
+      explicit MainWindow(QWidget *parent = nullptr);
       ~MainWindow() override;
 
-      void: addRecentFile(const QString& filePath);
+      void addRecentFile(const QString& filePath);
 
   protected:
-      void: closeEvent(QCloseEvent *event) override;
+      void closeEvent(QCloseEvent *event) override;
 
   private slots:
-      void: onPlaceholderActionTriggered(); // Placeholder for all menu actions initially
-      void: openRecentFile();             // Slot for dynamic recent file actions
-      void: updateMenus();                // Slot to update enabled/checked state of actions
+      void onPlaceholderActionTriggered(); // Placeholder for all menu actions initially
+      void openRecentFile();             // Slot for dynamic recent file actions
+      void updateMenus();                // Slot to update enabled/checked state of actions
 
   private:
-      void: createMenusFromXML(const QString& xmlFilePath);
-      void: parseMenuNode(QXmlStreamReader& xml, QMenu* parentMenu, QMenuBar* menuBar); // Helper for XML parsing
-      void: loadWindowSettings();
-      void: saveWindowSettings();
-      void: updateRecentFilesMenu();
+      void createMenusFromXML(const QString& xmlFilePath);
+      void parseMenuNode(QXmlStreamReader& xml, QMenu* parentMenu, QMenuBar* menuBar); // Helper for XML parsing
+      void loadWindowSettings();
+      void saveWindowSettings();
+      void updateRecentFilesMenu();
 
       // QMenuBar* m_menuBar; // QMainWindow has one implicitly
       QStatusBar* m_statusBar;
@@ -108,7 +104,7 @@ boilerplate_coder_ai_prompt: |
 
       QMap<QString, QAction*> m_actions; // Store actions by their XML "action" name for easy access
       QMenu* m_recentFilesMenu;       // Pointer to the 'Recent Files' QMenu
-      enum: { MaxRecentFiles = 10 };
+      enum { MaxRecentFiles = 10 };
       QList<QAction*> m_recentFileActions;
   };
   ```
@@ -176,4 +172,4 @@ boilerplate_coder_ai_prompt: |
 
   Place 'menubar.xml' in the project and ensure it's accessible (e.g., via Qt Resource System ':/menubar.xml').
 
-[end of enhanced_wbs_yaml_files/UI-01.yaml]
+

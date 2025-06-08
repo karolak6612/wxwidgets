@@ -47,68 +47,19 @@ refactoring_suggestions: |
   - **Text Rendering:** Replace 'glutBitmapCharacter' with Qt's text rendering capabilities (e.g., 'QPainter::drawText' if rendering onto a QPaintDevice, or rendering text to a texture using 'QFont' and 'QImage' for use in OpenGL).
   - **Batching:** The current per-item 'glBegin/glEnd' is highly inefficient. The new system should batch rendering of sprites that share the same texture atlas and shader (part of 'RENDER-03').
 qt6_migration_steps:
-  - "**1. Prepare 'MapView' for Drawing:**"
-    -   Ensure 'MapView' (from 'RENDER-01') has access to the 'mapcore::Map* m_map' instance and 'AppSettings* m_appSettings'.
-    -   The 'paintGL()' method should already have OpenGL context initialization and projection/view matrix setup.
-  - "**2. Calculate Visible Tile Range in 'MapView::paintGL()':**"
-    -   Based on 'm_viewCenterMapCoords', 'm_zoomFactor', widget 'width()', 'height()', and 'TILE_PIXEL_SIZE' (e.g., 32), determine the range of map tile coordinates ('minMapX', 'maxMapX', 'minMapY', 'maxMapY') visible in the viewport.
-    -   Determine the Z-floor range to render ('renderMinZ', 'renderMaxZ') based on 'm_currentFloor' and 'm_appSettings->getBoolean(ConfigKey::ShowAllFloors)' (using the new 'ConfigKey' enum from 'APPSTATE-01'). If showing all floors, this typically means 'm_currentFloor' +/- a few floors, clamped to 0-15. The original 'MapDrawer' logic for 'start_z' and 'superend_z' can be a reference.
-  - "**3. Implement Tile Iteration and Colored Quad Rendering Loop in 'MapView::paintGL()':**"
-    -   Iterate 'z' from 'renderMaxZ' down to 'renderMinZ' (drawing from top down).
-    -   For each 'z', iterate 'y' from 'minMapY' to 'maxMapY'.
-    -   For each 'y', iterate 'x' from 'minMapX' to 'maxMapX'.
-        -   'mapcore::Tile* tile = m_map->getTile(x, y, z);'
-        -   If '!tile || (tile->empty() && !tile->isHouseTile())', continue (skip empty non-house tiles).
-        -   **Determine Tile Color and Alpha:**
-            -   'QColor tileColor = Qt::darkGray; // Default for empty or no-ground tiles'
-            -   'float alpha = 1.0f;'
-            -   If 'tile->ground && tile->ground->getMiniMapColor() != 0xFF' (and 'm_appSettings->getBoolean(ConfigKey::ShowOnlyTileFlags)' is false):
-                -   Use a helper function to convert the 8-bit minimap color (from 'tile->ground->getMiniMapColor()') to an RGB 'QColor'. (e.g., 'QColor minimapColorToRGB(uint8_t miniColor)').
-                -   'tileColor = minimapColorToRGB(tile->ground->getMiniMapColor());'
-            -   Else if 'tile->isHouseTile() && m_appSettings->getBoolean(ConfigKey::ShowHouses)':
-                -   'tileColor = QColor(Qt::blue).darker(150); // Placeholder for house area'
-            -   Else if ('m_appSettings->getBoolean(ConfigKey::ShowOnlyTileFlags)' or 'm_appSettings->getBoolean(ConfigKey::ShowSpecialTiles)'):
-                -   Apply color tints for PZ, PvP, NoLogout based on 'tile->getMapFlags()' similar to 'MapDrawer::DrawTile' but using 'QColor'.
-            -   **Apply Ghosting:**
-                -   If 'z < m_currentFloor': 'alpha = 0.3f; // Lower floors dimmer'
-                -   Else if 'z > m_currentFloor':
-                    -   If 'm_appSettings->getBoolean(ConfigKey::TransparentFloors)': 'alpha = 0.2f; // Higher floors very transparent'
-                    -   Else: 'continue; // Don't draw higher floors if not transparent'
-                -   'tileColor.setAlphaF(alpha);'
-        -   **Render the Quad:**
-            -   Calculate screen coordinates '(screenTileX, screenTileY)' for the top-left of the tile and 'scaledTileSize' based on 'x, y', 'm_viewCenterMapCoords', 'm_zoomFactor', and 'TILE_PIXEL_SIZE'.
-            -   **Using direct OpenGL (Recommended for this stage):**
-                -   Ensure a simple shader program for colored quads is bound before the loops.
-                -   Pass 'tileColor' to the shader as a uniform.
-                -   Define vertices for a quad at '( (x - m_viewCenterMapCoords.x()) * TILE_PIXEL_SIZE, (y - m_viewCenterMapCoords.y()) * TILE_PIXEL_SIZE )' of size 'TILE_PIXEL_SIZE'. (These are world coordinates before view matrix).
-                -   Or, pass '(x * TILE_PIXEL_SIZE, y * TILE_PIXEL_SIZE)' and let ModelView matrix handle panning/zooming.
-                -   Add these vertices to a VBO (if batching many quads) or draw immediately (if simpler for this step). For this WBS, immediate drawing of individual quads is acceptable if VBO setup is too complex for the scope.
-  - "**4. Shader for Colored Quads (if using direct OpenGL):**"
-    -   Create minimal vertex shader:
-        ```glsl
-        #version 330 core
-        layout: (location = 0) in vec2 aPos;
-        uniform: mat4 mvpMatrix; // ModelViewProjection
-        void: main() { gl_Position = mvpMatrix * vec4(aPos.x, aPos.y, 0.0, 1.0); }
-        ```
-    -   Create minimal fragment shader:
-        ```glsl
-        #version 330 core
-        out: vec4 FragColor;
-        uniform: vec4 uColor; // Color passed from C++
-        void: main() { FragColor = uColor; }
-        ```
-    -   Compile and link these shaders in 'MapView::initializeGL()'. Store program ID.
-  - "**5. Defer Sprite Rendering:**"
-    -   Explicitly do not implement 'BlitItem', 'BlitCreature', or any texture-based sprite rendering in this task. This is for 'RENDER-03'.
+  - "1. Prepare 'MapView' for Drawing: Ensure 'MapView' (from 'RENDER-01') has access to the 'mapcore::Map* m_map' instance and 'AppSettings* m_appSettings'. The 'paintGL()' method should already have OpenGL context initialization and projection/view matrix setup."
+  - "2. Calculate Visible Tile Range in 'MapView::paintGL()': Based on 'm_viewCenterMapCoords', 'm_zoomFactor', widget 'width()', 'height()', and 'TILE_PIXEL_SIZE' (e.g., 32), determine the range of map tile coordinates ('minMapX', 'maxMapX', 'minMapY', 'maxMapY') visible in the viewport. Determine the Z-floor range to render ('renderMinZ', 'renderMaxZ') based on 'm_currentFloor' and 'm_appSettings->getBoolean(ConfigKey::ShowAllFloors)' (using the new 'ConfigKey' enum from 'APPSTATE-01'). If showing all floors, this typically means 'm_currentFloor' +/- a few floors, clamped to 0-15. The original 'MapDrawer' logic for 'start_z' and 'superend_z' can be a reference."
+  - "3. Implement Tile Iteration and Colored Quad Rendering Loop in 'MapView::paintGL()': Iterate 'z' from 'renderMaxZ' down to 'renderMinZ' (drawing from top down). For each 'z', iterate 'y' from 'minMapY' to 'maxMapY'. For each 'y', iterate 'x' from 'minMapX' to 'maxMapX'. Get 'mapcore::Tile* tile = m_map->getTile(x, y, z);'. If '!tile || (tile->empty() && !tile->isHouseTile())', continue (skip empty non-house tiles). Determine Tile Color and Alpha: Set 'QColor tileColor = Qt::darkGray;' and 'float alpha = 1.0f;'. If 'tile->ground && tile->ground->getMiniMapColor() != 0xFF' (and 'm_appSettings->getBoolean(ConfigKey::ShowOnlyTileFlags)' is false): Use a helper function to convert the 8-bit minimap color to an RGB 'QColor'. Set 'tileColor = minimapColorToRGB(tile->ground->getMiniMapColor());'. Else if 'tile->isHouseTile() && m_appSettings->getBoolean(ConfigKey::ShowHouses)': Set 'tileColor = QColor(Qt::blue).darker(150);'. Else if ('m_appSettings->getBoolean(ConfigKey::ShowOnlyTileFlags)' or 'm_appSettings->getBoolean(ConfigKey::ShowSpecialTiles)'): Apply color tints for PZ, PvP, NoLogout based on 'tile->getMapFlags()' similar to 'MapDrawer::DrawTile' but using 'QColor'. Apply Ghosting: If 'z < m_currentFloor': 'alpha = 0.3f;'. Else if 'z > m_currentFloor': If 'm_appSettings->getBoolean(ConfigKey::TransparentFloors)': 'alpha = 0.2f;'. Else: 'continue;'. Set 'tileColor.setAlphaF(alpha);'. Render the Quad: Calculate screen coordinates for the top-left of the tile and 'scaledTileSize' based on 'x, y', 'm_viewCenterMapCoords', 'm_zoomFactor', and 'TILE_PIXEL_SIZE'. Using direct OpenGL: Ensure a simple shader program for colored quads is bound before the loops. Pass 'tileColor' to the shader as a uniform. Define vertices for a quad at the appropriate coordinates. Add these vertices to a VBO (if batching many quads) or draw immediately (if simpler for this step). For this WBS, immediate drawing of individual quads is acceptable if VBO setup is too complex for the scope."
+  - "4. Shader for Colored Quads (if using direct OpenGL): Create minimal vertex shader with '#version 330 core', 'layout (location = 0) in vec2 aPos;', 'uniform mat4 mvpMatrix;', and 'void main() { gl_Position = mvpMatrix * vec4(aPos.x, aPos.y, 0.0, 1.0); }'. Create minimal fragment shader with '#version 330 core', 'out vec4 FragColor;', 'uniform vec4 uColor;', and 'void main() { FragColor = uColor; }'. Compile and link these shaders in 'MapView::initializeGL()'. Store program ID."
+  - "5. Defer Sprite Rendering: Explicitly do not implement 'BlitItem', 'BlitCreature', or any texture-based sprite rendering in this task. This is for 'RENDER-03'."
 definition_of_done:
-  - 'MapView::paintGL' correctly iterates through the map tiles visible in the current viewport.
-  - The range of visible map tiles (X, Y coordinates) and Z-floors is accurately calculated based on 'MapView`'s view parameters (center, zoom, current floor) and settings from 'AppSettings' (e.g., 'ShowAllFloors').
-  - Each non-empty 'mapcore::Tile' (or house tile area) is rendered as a simple colored quad at its correct on-screen position and scale.
-  - The color of the quad is derived from the tile's ground item's minimap color (if available and applicable settings are active), or a default/special color (e.g., for house areas or other tile flags if 'ShowOnlyTileFlags' is on).
-  - "Ghosting" logic is implemented: tiles on floors other than 'm_currentFloor' are rendered with appropriate alpha blending (e.g., lower floors dimmer, higher floors more transparent if 'TransparentFloors' setting is active).
-  - Rendering uses direct OpenGL calls with a simple shader program for drawing colored quads. (Alternatively, 'QPainter::fillRect' could be used if native painting is active, but direct GL is preferred for future sprite rendering).
-  - Full sprite-based rendering of items/creatures is NOT implemented in this task.
+  - "'MapView::paintGL' correctly iterates through the map tiles visible in the current viewport."
+  - "The range of visible map tiles (X, Y coordinates) and Z-floors is accurately calculated based on 'MapView's view parameters (center, zoom, current floor) and settings from 'AppSettings' (e.g., 'ShowAllFloors')."
+  - "Each non-empty 'mapcore::Tile' (or house tile area) is rendered as a simple colored quad at its correct on-screen position and scale."
+  - "The color of the quad is derived from the tile's ground item's minimap color (if available and applicable settings are active), or a default/special color (e.g., for house areas or other tile flags if 'ShowOnlyTileFlags' is on)."
+  - "Ghosting logic is implemented: tiles on floors other than 'm_currentFloor' are rendered with appropriate alpha blending (e.g., lower floors dimmer, higher floors more transparent if 'TransparentFloors' setting is active)."
+  - "Rendering uses direct OpenGL calls with a simple shader program for drawing colored quads. (Alternatively, 'QPainter::fillRect' could be used if native painting is active, but direct GL is preferred for future sprite rendering)."
+  - "Full sprite-based rendering of items/creatures is NOT implemented in this task."
 estimation_effort: Medium # Estimation was already present and seems reasonable.
 known_missing_files: []
 boilerplate_coder_ai_prompt: |
@@ -130,64 +81,64 @@ boilerplate_coder_ai_prompt: |
   **3. Tile Iteration and Rendering Loop (in 'paintGL()'):**
       ```cpp
       // Base Model matrix (identity, or pre-translated/scaled if projection is static)
-      QMatrix4x4: modelMatrix;
+      QMatrix4x4 modelMatrix;
       // Apply inverse view translation based on m_viewCenterMapCoords (in tile units)
       // This effectively makes m_viewCenterMapCoords the center of your world coordinates for the projection
       modelMatrix.translate(-m_viewCenterMapCoords.x() * TILE_PIXEL_SIZE,
                             -m_viewCenterMapCoords.y() * TILE_PIXEL_SIZE);
 
 
-      for: (int z = renderMaxZ; z >= renderMinZ; --z) {
+      for (int z = renderMaxZ; z >= renderMinZ; --z) {
           // Optional: Adjust modelMatrix for Z-offset if not handled by painter's algorithm & depth buffer
           // float zOffset = (m_currentFloor - z) * TILE_PIXEL_SIZE * 0.5; // Example offset
           // QMatrix4x4 floorModelMatrix = modelMatrix;
           // floorModelMatrix.translate(zOffset, zOffset); // Apply perspective offset for floors
 
-          for: (int y = minMapY; y <= maxMapY; ++y) {
-              for: (int x = minMapX; x <= maxMapX; ++x) {
+          for (int y = minMapY; y <= maxMapY; ++y) {
+              for (int x = minMapX; x <= maxMapX; ++x) {
                   mapcore::Tile* tile = m_map->getTile(x, y, z);
-                  if: (!tile || (tile->empty() && !tile->isHouseTile())) {
+                  if (!tile || (tile->empty() && !tile->isHouseTile())) {
                       continue;
                   }
 
                   QColor baseColor = Qt::darkGray; // Default
-                  float: alpha = 1.0f;
+                  float alpha = 1.0f;
 
                   if (tile->ground && tile->ground->getMiniMapColor() != 0xFF && !m_appSettings->getBoolean(ConfigKey::ShowOnlyTileFlags)) {
                       // Implement helper: static QColor minimapToRGB(uint8_t minimapColor)
-                      baseColor: = minimapToRGB(tile->ground->getMiniMapColor());
+                      baseColor = minimapToRGB(tile->ground->getMiniMapColor());
                   } else if (tile->isHouseTile() && m_appSettings->getBoolean(ConfigKey::ShowHouses)) {
                       baseColor = QColor(Qt::blue).darker(150);
                   }
                   // Add more conditions for PZ, NoLogout etc. from AppSettings flags if ShowOnlyTileFlags is true or ShowSpecialTiles is true
 
-                  if: (z != m_currentFloor) {
-                      if: (z < m_currentFloor) { // Lower floors
-                          alpha: = 0.4f; // Dimmer
+                  if (z != m_currentFloor) {
+                      if (z < m_currentFloor) { // Lower floors
+                          alpha = 0.4f; // Dimmer
                       } else { // Higher floors (z > m_currentFloor)
                           if (m_appSettings->getBoolean(ConfigKey::TransparentFloors)) {
-                              alpha: = 0.25f; // More transparent
+                              alpha = 0.25f; // More transparent
                           } else {
                               continue; // Skip higher floors if transparency is off
                           }
                       }
                   }
-                  QColor: finalColor(baseColor.red(), baseColor.green(), baseColor.blue(), static_cast<int>(alpha * 255));
+                  QColor finalColor(baseColor.red(), baseColor.green(), baseColor.blue(), static_cast<int>(alpha * 255));
 
                   // Prepare vertices for a quad at (x * TILE_PIXEL_SIZE, y * TILE_PIXEL_SIZE) of size TILE_PIXEL_SIZE
                   // These are world coordinates that will be transformed by modelMatrix and m_projectionMatrix
-                  float: worldX = x * TILE_PIXEL_SIZE;
-                  float: worldY = y * TILE_PIXEL_SIZE;
+                  float worldX = x * TILE_PIXEL_SIZE;
+                  float worldY = y * TILE_PIXEL_SIZE;
 
-                  GLfloat: vertices[] = {
+                  GLfloat vertices[] = {
                       worldX, worldY,
-                      worldX: + TILE_PIXEL_SIZE, worldY,
-                      worldX: + TILE_PIXEL_SIZE, worldY + TILE_PIXEL_SIZE,
+                      worldX + TILE_PIXEL_SIZE, worldY,
+                      worldX + TILE_PIXEL_SIZE, worldY + TILE_PIXEL_SIZE,
                       worldX, worldY + TILE_PIXEL_SIZE
                   };
 
                   // Calculate MVP for this specific tile quad
-                  QMatrix4x4: mvp = m_projectionMatrix * modelMatrix; // Or floorModelMatrix
+                  QMatrix4x4 mvp = m_projectionMatrix * modelMatrix; // Or floorModelMatrix
 
                   m_colorQuadShaderProgram.setUniformValue("mvpMatrix", mvp);
                   m_colorQuadShaderProgram.setUniformValue("uColor", QVector4D(finalColor.redF(), finalColor.greenF(), finalColor.blueF(), finalColor.alphaF()));
@@ -198,11 +149,11 @@ boilerplate_coder_ai_prompt: |
                   // Then draw: glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
                   // For this WBS, if direct draw without VBO is simpler to illustrate, it's fine:
                   // (but note this is not good practice for the final rendering)
-                   if: (/* VAO for a unit quad is bound, and aPos is setup */) {
-                       QMatrix4x4: tileSpecificModel = modelMatrix;
+                   if (/* VAO for a unit quad is bound, and aPos is setup */) {
+                       QMatrix4x4 tileSpecificModel = modelMatrix;
                        tileSpecificModel.translate(worldX, worldY);
                        tileSpecificModel.scale(TILE_PIXEL_SIZE, TILE_PIXEL_SIZE);
-                       mvp: = m_projectionMatrix * tileSpecificModel;
+                       mvp = m_projectionMatrix * tileSpecificModel;
                        m_colorQuadShaderProgram.setUniformValue("mvpMatrix", mvp);
                        // glDrawArrays(GL_TRIANGLE_FAN, 0, 4); // Draw the unit quad
                    }
@@ -233,4 +184,4 @@ boilerplate_coder_ai_prompt: |
   ```
   Focus: on getting the tile iteration, coordinate transformations, and basic colored quad rendering with alpha correct. Do not implement sprite loading or texture rendering.
 
-[end of enhanced_wbs_yaml_files/RENDER-02.yaml]
+

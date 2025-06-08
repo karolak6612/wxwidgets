@@ -1,8 +1,6 @@
-wbs_item_id: UI-05
+id: UI-05
 name: Port Brush & Material Editor
-description: Recreate the UI for editing brush and material properties. This involves
-  dialogs/panels for defining new brushes (ground, wall, doodad, border) and modifying
-  existing: ones.
+description: "Recreate the UI for editing brush and material properties. This involves dialogs/panels for defining new brushes (ground, wall, doodad, border) and modifying existing ones."
 dependencies:
 - 'CORE-04 # Brush/Material system being edited. XML parsing/saving logic is key.'
 - 'UI-02   # Palettes might launch parts of this editor or provide context.'
@@ -65,51 +63,24 @@ documentation_references:
 - QSpinBox, QLineEdit, QCheckBox, QComboBox for input fields.
 - QTableWidget or QTreeView with QAbstractItemModel for lists/grids of properties.
 - 'QGraphicsView (for potential visual doodad editor): https://doc.qt.io/qt-6/qgraphicsview.html'
-- QXmlStreamWriter / QXmlStreamReader (or other XML library like TinyXML2) for reading/writing
-  definition: files.
-current_functionality_summary: 'The wxWidgets version has a 'BorderEditorDialog' which
-  is a tabbed dialog:
+- QXmlStreamWriter / QXmlStreamReader (or other XML library like TinyXML2) for reading/writing definition files.
+current_functionality_summary: |
+  The wxWidgets version has a 'BorderEditorDialog' which is a tabbed dialog:
 
   - **Border Tab:** Edits auto-border configurations (items assigned to 12 border positions N, E, S, W, CNW, CNE, CSE, CSW, DNW, DNE, DSE, DSW). Includes a visual grid editor ('BorderGridPanel') and preview ('BorderPreviewPanel'). Saves to 'borders.xml'.
   - **Ground Tab:** Edits ground brush definitions (name, server look ID, Z-order, list of items with chances). Associates a Border ID (from common properties) with alignment options. Saves to 'grounds.xml' and adds a reference to the selected tileset category in 'tilesets.xml'.
-  Functionality: for creating new tileset categories is handled by 'AddTilesetWindow'.
-  Functionality: for adding new items (single or range) to existing tileset categories is handled by 'AddItemWindow'.
-  These: dialogs are invoked from 'BrushPalettePanel' (defined in 'palette_brushlist.cpp').
-  The: legacy editor does not have dedicated UI within 'BorderEditorDialog' for Wall or Doodad brush compositions beyond what 'PropertiesWindow' might offer; the WBS implies these will be new tabs in the Qt version.
+  Functionality for creating new tileset categories is handled by 'AddTilesetWindow'.
+  Functionality for adding new items (single or range) to existing tileset categories is handled by 'AddItemWindow'.
+  These dialogs are invoked from 'BrushPalettePanel' (defined in 'palette_brushlist.cpp').
+  The legacy editor does not have dedicated UI within 'BorderEditorDialog' for Wall or Doodad brush compositions beyond what 'PropertiesWindow' might offer; the WBS implies these will be new tabs in the Qt version.
 definition_of_done:
 - A Qt6 'Brush & Material Editor' (e.g., a 'QDialog' or dockable 'QWidget') is implemented.
-- 'The editor uses a 'QTabWidget' for separate sections: ''Borders'', ''Ground Brushes'',
-  ''Wall Brushes'', ''Doodad Brushes''.'
-- '**Borders Tab:**'
-- '  - Allows creating new and editing existing border definitions (ID, name, optional/ground
-  type, group ID).'
-- '  - Provides a visual grid to assign item IDs to each border part (N, S, E, W,
-  corners, diagonals).'
-- '  - Includes an item selector (using 'UI-06`''s item finder) and a preview panel.'
-- '  - Saves definitions to 'borders.xml' (or the Qt6 equivalent data store), including
-  the: name as an XML comment.'
-- '**Ground Brushes Tab:**'
-- '  - Allows creating/editing ground brushes (name, server look ID, Z-order).'
-- '  - Manages a list of items (with chances) for the ground brush.'
-- '  - Allows associating a Border ID (defined in Border Editor) and alignment properties.'
-- '  - 'QComboBox' to select target tileset for listing the brush.'
-- '  - Saves definitions to 'grounds.xml' and updates 'tilesets.xml' with the brush
-  reference.'
-- '**Wall Brushes Tab (Basic):**'
-- '  - Allows creating/editing wall brushes (name, server look ID).'
-- '  - 'QComboBox' for target tileset.'
-- '  - Input fields for specifying item IDs for essential wall parts (e.g., horizontal,
-  vertical, pole).'
-- '  - Saves to 'walls.xml' and updates 'tilesets.xml'.'
-- '**Doodad Brushes Tab (Basic):**'
-- '  - Allows creating/editing doodad brushes (name, server look ID, common properties
-  like: draggable, blocking).'
-- '  - 'QComboBox' for target tileset.'
-- '  - A 'QTableWidget' to manage a list of items with their relative X, Y, Z offsets
-  for: composite doodads.'
-- '  - Saves to 'doodads.xml' and updates 'tilesets.xml'.'
-- Helper dialogs for creating new tileset categories and adding items/brushes to tileset
-  categories: are implemented and accessible.
+- "The editor uses a 'QTabWidget' for separate sections: 'Borders', 'Ground Brushes', 'Wall Brushes', 'Doodad Brushes'."
+- "Borders Tab: Allows creating new and editing existing border definitions (ID, name, optional/ground type, group ID). Provides a visual grid to assign item IDs to each border part (N, S, E, W, corners, diagonals). Includes an item selector (using 'UI-06's item finder) and a preview panel. Saves definitions to 'borders.xml' (or the Qt6 equivalent data store), including the name as an XML comment."
+- "Ground Brushes Tab: Allows creating/editing ground brushes (name, server look ID, Z-order). Manages a list of items (with chances) for the ground brush. Allows associating a Border ID (defined in Border Editor) and alignment properties. 'QComboBox' to select target tileset for listing the brush. Saves definitions to 'grounds.xml' and updates 'tilesets.xml' with the brush reference."
+- "Wall Brushes Tab (Basic): Allows creating/editing wall brushes (name, server look ID). 'QComboBox' for target tileset. Input fields for specifying item IDs for essential wall parts (e.g., horizontal, vertical, pole). Saves to 'walls.xml' and updates 'tilesets.xml'."
+- "Doodad Brushes Tab (Basic): Allows creating/editing doodad brushes (name, server look ID, common properties like draggable, blocking). 'QComboBox' for target tileset. A 'QTableWidget' to manage a list of items with their relative X, Y, Z offsets for composite doodads. Saves to 'doodads.xml' and updates 'tilesets.xml'."
+- "Helper dialogs for creating new tileset categories and adding items/brushes to tileset categories are implemented and accessible."
 boilerplate_coder_ai_prompt: "Your task is to design and implement a 'Brush & Material\
   \ Editor' using Qt6. This editor will allow users to define and modify auto-borders,\
   \ ground brushes, and provide basic editing for wall and doodad brushes. These definitions\
