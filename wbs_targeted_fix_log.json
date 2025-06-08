@@ -1,0 +1,142 @@
+[
+  {
+    "filename": "UI-05.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_mapping_values_not_allowed"
+    ]
+  },
+  {
+    "filename": "LOGIC-05.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_mapping_values_not_allowed"
+    ]
+  },
+  {
+    "filename": "LOGIC-07.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_mapping_values_not_allowed"
+    ]
+  },
+  {
+    "filename": "LOGIC-06.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_mapping_values_not_allowed"
+    ]
+  },
+  {
+    "filename": "LOGIC-04.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_mapping_values_not_allowed"
+    ]
+  },
+  {
+    "filename": "LOGIC-08.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_block_sequence_start"
+    ]
+  },
+  {
+    "filename": "NET-03.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_block_sequence_start"
+    ]
+  },
+  {
+    "filename": "REFACTOR-01.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_block_sequence_start"
+    ]
+  },
+  {
+    "filename": "NET-01.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_block_sequence_start"
+    ]
+  },
+  {
+    "filename": "NET-02.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_block_sequence_start"
+    ]
+  },
+  {
+    "filename": "RENDER-03.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_block_sequence_start"
+    ]
+  },
+  {
+    "filename": "RENDER-01.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_block_sequence_start"
+    ]
+  },
+  {
+    "filename": "LOGIC-09.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_block_sequence_start"
+    ]
+  },
+  {
+    "filename": "RENDER-02.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_block_sequence_start"
+    ]
+  },
+  {
+    "filename": "CORE-05.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_block_end_scalar"
+    ]
+  },
+  {
+    "filename": "TEST-09.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_block_end_scalar"
+    ]
+  },
+  {
+    "filename": "UI-01.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_block_end_scalar"
+    ]
+  },
+  {
+    "filename": "TEST-02.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_block_end_scalar"
+    ]
+  },
+  {
+    "filename": "UI-07.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_block_end_scalar"
+    ]
+  },
+  {
+    "filename": "TEST-10.yaml",
+    "status": "No_Effective_Targeted_Fixes_Applied",
+    "attempted_fix_functions": [
+      "fix_missing_colon_targeted"
+    ]
+  }
+]

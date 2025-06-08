@@ -1,0 +1,137 @@
+wbs_item_id: LOGIC-05
+name: Port House System Logic & Data Management
+description: Migrate the core house data structures ('House', 'Houses'), their management
+  logic, and their interaction with the map and tile data from wxWidgets to Qt6. This
+  task: also includes the logic for the House Brush.
+dependencies:
+- CORE-01 # Tile and Item base classes
+- CORE-03 # Map structure, TileLocation, loading/saving house data
+- CORE-04 # Action system for undo/redo of house operations
+- CORE-TOWNSYSTEM # Town system for associating houses with towns (if LOGIC-03 is separate)
+- BRUSH-FRAMEWORK-CORE # Base brush class for HouseBrush
+- UI-HOUSEPALETTE # UI for listing and selecting houses (interacts with HouseBrush)
+original_input_files:
+- wxwidgets/house.h
+- wxwidgets/house.cpp
+- wxwidgets/house_brush.h
+- wxwidgets/house_brush.cpp
+- wxwidgets/house_exit_brush.h
+- wxwidgets/house_exit_brush.cpp
+analyzed_input_files:
+- file_path: wxwidgets/house.h
+  description: "Defines 'House' and 'Houses' (manager) classes.\n- 'House' class:\
+    \ Stores 'id' (uint32_t), 'rent' (int), 'name' (std::string), 'townid' (uint32_t),\
+    \ 'guildhall' (bool), 'exit' (Position), and a 'PositionList tiles'. References\
+    \ 'Map*'. Methods include 'getID', 'setID', 'clean' (dissociates tiles), 'addTile',\
+    \ 'removeTile', 'size' (walkable tiles), 'getDescription', 'setExit', 'getExit',\
+    \ 'getEmptyDoorID', 'getDoorPositionByID', 'getTilePositions'.\n- 'Houses' class:\
+    \ Manages 'House' objects in a 'HouseMap' (std::map<uint32_t, House*>). References\
+    \ 'Map&'. Methods include 'count', iterators, 'erase', 'find', 'getHouse', 'removeHouse',\
+    \ 'changeId', 'addHouse', 'getEmptyID'."
+- file_path: wxwidgets/house.cpp
+  description: "Implements 'House' and 'Houses' methods.\n- 'Houses' methods: Constructor/destructor,\
+    \ 'getEmptyID' (finds next available ID), 'addHouse', 'removeHouse' (calls 'house->clean()'), 'changeId',\
+    \ 'getHouse'.\n- 'House' methods: Constructor/destructor, 'clean' (updates tiles'\
+    \ house association and exit status), 'size' (counts non-blocking tiles), 'addTile'\
+    \ (sets 'tile->setHouse(this)'), 'removeTile' (clears 'tile->setHouse(nullptr)'),\
+    \ 'getEmptyDoorID' (scans items on house tiles), 'getDoorPositionByID', 'getDescription',\
+    \ 'setExit' (updates 'TileLocation::house_exits' on old/new exit tiles, creates\
+    \ tile if needed)."
+- file_path: wxwidgets/house_brush.h
+  description: "Defines the 'HouseBrush' class, inheriting from 'Brush'. Its purpose\
+    \ is to assign a specific house ID to map tiles. It stores a pointer to the 'House'\
+    \ object ('draw_house') that it currently represents. Declares methods for 'draw',\
+    \ 'undraw', 'canDraw', 'setHouse', 'getHouseID', 'getLookID', and 'getName'."
+- file_path: wxwidgets/house_brush.cpp
+  description: "Implements 'HouseBrush' methods.\n- 'setHouse(House* house)': Sets\
+    \ the 'draw_house' pointer.\n- 'getHouseID()': Returns the ID of the 'draw_house'.\n\
+    - 'undraw(BaseMap* map, Tile* tile)': Clears the house ID from the tile ('tile->setHouse(nullptr)')\
+    \ and sets PZ flag to false. If 'AUTO_ASSIGN_DOORID' is enabled, it also clears\
+    \ door IDs on the tile.\n- 'draw(BaseMap* map, Tile* tile, void* parameter)':\
+    \ Assigns the current 'draw_house' to the tile ('tile->setHouse(draw_house)')\
+    \ and sets its PZ flag to true. If 'HOUSE_BRUSH_REMOVE_ITEMS' is enabled, it removes\
+    \ movable items from the tile. If 'AUTO_ASSIGN_DOORID' is enabled, it assigns\
+    \ an empty door ID to any doors on the tile."
+- file_path: wxwidgets/house_exit_brush.h
+  description: "Defines the 'HouseExitBrush' class, inheriting from 'Brush'.\
+    \ This brush is used to set the exit position for a specific house. It stores the\
+    \ ID of the house ('draw_house') for which the exit is being set. Declares methods\
+    \ for 'canDraw', 'draw', 'undraw', 'setHouse', 'getHouseID', 'getLookID', and 'getName'.\
+    \ The 'draw' and 'undraw' methods are asserted to 'false' as this brush likely\
+    \ works by directly calling 'house->setExit()' through a UI interaction rather\
+    \ than a typical brush stroke."
+- file_path: wxwidgets/house_exit_brush.cpp
+  description: "Implements 'HouseExitBrush' methods.\n- 'setHouse(House* house)':\
+    \ Sets the 'draw_house' ID.\n- 'getHouseID()': Returns the stored house ID.\n\
+    - 'canDraw(BaseMap* map, const Position& position)': Checks if an exit can be\
+    \ placed at the given position (tile must exist, have ground, not be a house\
+    \ tile itself, and not be blocking).\n- 'draw' and 'undraw' methods assert 'false',\
+    \ indicating they are not meant to be called directly for drawing operations."
+documentation_references:
+- 'Qt Data Structures: https://doc.qt.io/qt-6/qtcore-containers.html (QMap for Houses,
+  QList: or QVector for House tiles)'
+- 'QVector3D for positions: https://doc.qt.io/qt-6/qvector3d.html'
+- 'QString for names: https://doc.qt.io/qt-6/qstring.html'
+current_functionality_summary: "Houses are managed by the 'Houses' class, which holds\
+  \ 'House' objects in a 'std::map'. Each 'House' object stores its ID, name, rent,\
+  \ town ID, guildhall status, a list of 'Position's for its tiles, and an exit 'Position'.\n\
+  - Adding/removing tiles to a house updates the 'Tile::house_id' and the house's\
+  \ internal list of tile positions.\n- Setting a house exit updates flags on the\
+  \ 'TileLocation' of the old and new exit tiles.\n- The 'HouseBrush' assigns a selected\
+  \ house ID to tiles, sets the PZ flag, and can optionally remove movable items or\
+  \ auto-assign door IDs. \n- The 'HouseExitBrush' is used to designate a tile as\
+  \ an exit point for a selected house; its actual logic is likely tied to a UI action\
+  \ that calls 'selected_house->setExit(clicked_tile_pos)' rather than a brush stroke."
+definition_of_done:
+- 'House' and 'Houses' classes are part of 'mapcore', managing house data (ID, name,
+  rent, town ID, guildhall status, tile list, exit position) without UI dependencies.
+- 'House::addTile' and 'House::removeTile' correctly update 'Tile::house_id' and the
+  house's tile list.
+- 'House::setExit' correctly updates 'TileLocation::house_exits' for old and new exit
+  tiles.
+- House data (including tiles and exits) is correctly serialized to and deserialized
+  from: OTBM / auxiliary house XML files.
+- 'HouseBrush' (Qt6 version inheriting from new 'BaseBrush'):
+  - Correctly assigns the selected house ID to tiles.
+  - Sets PZ flag on house tiles.
+  - Optionally removes movable items and auto-assigns door IDs based on settings.
+- 'HouseExitTool' (or equivalent UI interaction logic for setting exits):
+  - Correctly calls 'selected_house->setExit(target_pos)'.
+- All house-related operations (adding/removing tiles via brush, setting exits, modifying
+  house: properties) are undoable via the 'QUndoStack'.
+- Unit tests for 'House', 'Houses', and 'HouseBrush' functionalities are implemented
+  and: pass.
+boilerplate_coder_ai_prompt: "Port the House system and House Brush logic to Qt6.\
+  \ Reference 'wxwidgets/house.h', 'wxwidgets/house.cpp', 'wxwidgets/house_brush.h',\
+  \ and 'wxwidgets/house_exit_brush.h'.\n\n1.  **Core 'House' and 'Houses' (Manager)\
+  \ Classes (in 'mapcore'):\n    *   'House' class: Attributes ('id', 'name', 'rent',\
+  \ 'townId', 'guildhall', 'exitPos'). Manages a 'QList<QVector3D>' or 'QList<Position>'\
+  \ for its tiles. Needs a 'Map*' reference.\n    *   'Houses' class: Manages 'QHash<quint32, House*> m_houses'.\
+  \ Needs a 'Map*' reference.\n    *   Implement methods: 'House::addTile(Tile* tile)'\
+  \ (updates 'tile->setHouseId()', adds to list), 'House::removeTile(Tile* tile)'\
+  \ (clears 'tile->setHouseId()', removes from list), 'House::setExit(const Position& pos)'\
+  \ (updates 'TileLocation::house_exits' on old/new tiles). 'Houses::addHouse', 'Houses::removeHouse',\
+  \ 'Houses::getHouse', 'Houses::getEmptyID'.\n\n2.  **'HouseBrush' Class (Qt6):\n\
+  \    *   Inherit from a new 'BaseBrush' class.\n    *   Store a pointer to the currently\
+  \ selected 'House' object.\n    *   'draw(Map* map, Tile* tile)': Sets 'tile->setHouseId(selectedHouse->getId())',\
+  \ sets PZ flag. Optionally removes movable items / auto-assigns door IDs per settings.\n\
+  \    *   'undraw(Map* map, Tile* tile)': Clears 'tile->setHouseId(0)', clears PZ.\
+  \ Optionally clears door IDs.\n\n3.  **House Exit Logic (likely a 'MapTool' or UI Action,\
+  \ not a brush stroke):\n    *   Implement logic that, when a house and a tile are\
+  \ selected, calls 'selectedHouse->setExit(tile->getPosition())'.\n\n4.  **Undo/Redo:**\n\
+  \    *   All operations modifying house data or tile house assignments (brushing,\
+  \ exit setting) must be commands pushed to a 'QUndoStack'.\n\n5.  **I/O:**\n    *   Ensure\
+  \ 'IOMapOTBM' (and any auxiliary XML house format handler) correctly loads 'House'\
+  \ objects into 'Map::m_houses', populates their tile lists, and sets exits. Ensure\
+  \ all data is saved correctly.\n\nEnsure all classes are free of UI dependencies\
+  \ if they reside in 'mapcore'."
+qt_object_notes: "Use 'quint32' for IDs. 'QString' for names. 'QVector3D' or custom
+  'Position' for coordinates. 'QList<Position>' for house tile storage. 'QHash<quint32, House*>'
+  for: 'Houses' manager. Integrate house-modifying operations with 'QUndoStack' by
+  creating: custom 'QUndoCommand' subclasses for each logical operation (e.g., AddTileToHouseCommand,
+  SetHouseExitCommand)."
+additional_notes: "The HouseBrush directly modifies tile properties. The HouseExitBrush's\
+  \ main logic is not a typical brush stroke but rather a targeted 'house->setExit()'\
+  \ call, likely triggered by a UI action after selecting a house and a target tile."
+estimation_effort: Large
+[end of enhanced_wbs_yaml_files/LOGIC-05.yaml]

@@ -1,0 +1,179 @@
+id: UI-01 # Changed from wbs_item_id for consistency
+section: UI Elements # Added section for clarity
+title: "Port Main Application Window (QMainWindow) and Dynamic Menu Bar from XML"
+original_task_id: UI-01 # Assuming this is the original ID
+description: Recreate the main application window (as a 'QMainWindow' subclass) and its menu bar ('QMenuBar') using Qt6. This includes parsing 'menubar.xml' to dynamically build menus and actions, and setting up basic window properties and a status bar.
+dependencies:
+  - "BUILD-01"   # CMake setup for the Qt application
+  - "CORE-06"    # AppSettings (for persisting window state, recent files)
+  - "FINAL-02"   # main() application entry point, where MainWindow will be instantiated
+input_files:
+  - "wxwidgets/application.h"
+  - "wxwidgets/application.cpp"
+  - "wxwidgets/main_menubar.h"
+  - "wxwidgets/main_menubar.cpp"
+  - "menubar.xml"
+analyzed_input_files:
+  - filepath: "wxwidgets/application.h"
+    description: "Declares the 'Application' class (derived from 'wxApp'), serving as the main application entry point. It defines 'OnInit()' for application initialization. Also declares 'MainFrame' (derived from 'wxFrame'), the primary window, which holds references to 'MainMenuBar*' and 'MainToolBar*'. 'MainFrame' is responsible for the overall window structure and lifecycle."
+  - filepath: "wxwidgets/application.cpp"
+    description: "Implements 'Application::OnInit()', which handles global setup: settings, data directory discovery, client version loading, sprite loading, and 'MainFrame' instantiation. It also processes command-line arguments for opening maps. 'MainFrame`'s constructor is implemented here: it initializes 'wxAuiManager' for docking panes, creates the central 'MapTabbook', and instantiates 'MainMenuBar', 'MainToolBar', and 'wxStatusBar'. 'MainFrame' manages recent file lists (via 'MainMenuBar') and application exit procedures (prompting for saves, calling 'Application::Unload')."
+  - filepath: "wxwidgets/main_menubar.h"
+    description: "Declares 'MainMenuBar' (derived from 'wxEvtHandler'). Defines 'MenuBar::ActionID' enum (mapping action names to IDs) and 'MenuBar::Action' struct (linking action string, ID, item kind, and event handler function pointer). Manages 'wxFileHistory' for recent files and a map of 'ActionID' to 'wxMenuItem*' lists for dynamic state updates (enabled/disabled, checked). Declares numerous 'On...' event handler methods corresponding to menu actions."
+  - filepath: "wxwidgets/main_menubar.cpp"
+    description: |-
+      Implements: 'MainMenuBar'.
+      - Key method 'Load(const FileName& path, ...)': Parses an XML file (expected to be 'menubar.xml') using 'pugi::xml_document'. It dynamically constructs the 'wxMenuBar' by creating 'wxMenu' and 'wxMenuItem' objects. The XML structure (elements like '<menu>', '<item>', '<separator>') and attributes ('name', 'action', 'hotkey', 'help', 'kind') are used to define the menu. 'action' attributes are mapped to 'ActionID's, and menu items are connected to their respective 'On...' handler methods within 'MainMenuBar'.
+      - 'Update()': Dynamically enables/disables/checks menu items based on application state (e.g., map loaded, selection active, undo/redo stack).
+      - 'LoadValues()': Sets initial checked states for menu items based on application settings.
+      - Contains implementations for all 'On...' event handlers, which execute application logic, often by interacting with 'g_gui' (global GUI manager) or 'Editor' instances.
+      - Manages recent files: 'AddRecentFile', 'LoadRecentFiles', 'SaveRecentFiles'.
+  - filepath: "menubar.xml"
+    description: "(File not provided in source) An XML file that defines the hierarchical structure of the application's main menu bar. Based on 'main_menubar.cpp`'s parsing logic, it's expected to use elements like '<menu>', '<item>', and '<separator>'. Attributes for '<item>' likely include 'name' (display text, '$' for mnemonic), 'action' (maps to 'MenuBar::ActionID'), 'hotkey' (e.g., \"Ctrl+N\"), 'help' (for status bar), and 'kind' (\"normal\", \"check\", \"radio\"). Menus can be nested."
+documentation_references:
+  - 'QMainWindow Class: https://doc.qt.io/qt-6/qmainwindow.html'
+  - 'QMenuBar Class: https://doc.qt.io/qt-6/qmenubar.html'
+  - 'QMenu Class: https://doc.qt.io/qt-6/qmenu.html'
+  - 'QAction Class: https://doc.qt.io/qt-6/qaction.html'
+  - 'QStatusBar Class: https://doc.qt.io/qt-6/qstatusbar.html'
+  - 'QXmlStreamReader (for parsing XML): https://doc.qt.io/qt-6/qxmlstreamreader.html'
+  - 'Qt Signals and Slots: https://doc.qt.io/qt-6/signalsandslots.html'
+  - 'QSettings (for recent files and window state): https://doc.qt.io/qt-6/qsettings.html'
+  - 'Standard Shortcuts in Qt: https://doc.qt.io/qt-6/qkeysequence.html#StandardKey-enum'
+current_functionality_summary: |
+  The wxWidgets application's main UI is structured around 'Application' (the 'wxApp' equivalent) and 'MainFrame' (the 'wxFrame' equivalent).
+  - 'MainFrame' initializes the primary window, including setting up the 'wxAuiManager' for dockable panels (like palettes and the map display area/'MapTabbook'). It creates and owns the 'MainMenuBar' and 'MainToolBar', and a 'wxStatusBar'. It also handles loading/saving of window layout preferences and the recent files list.
+  - 'MainMenuBar' is responsible for dynamically constructing the entire menu system by parsing 'menubar.xml'. This XML file defines menu hierarchy, item names, action identifiers, hotkeys, and help strings. 'MainMenuBar' maps these XML definitions to internal 'MenuBar::Action' structures that link to specific C++ event handler methods within 'MainMenuBar' itself. It also contains an 'Update()' method that is called frequently to enable, disable, check, or uncheck menu items based on the current application state (e.g., whether a map is loaded, if there's a selection, etc.). The recent files list is managed using 'wxFileHistory' and displayed in a dedicated menu.
+definition_of_done:
+  - A 'MainWindow' class, inheriting from 'QMainWindow', is created and serves as the application's main window.
+  - A 'QMenuBar' is successfully set as the main menu bar for the 'MainWindow'.
+  - The menu structure defined in 'menubar.xml' is parsed using 'QXmlStreamReader' (or a similar Qt XML parsing utility).
+  - Corresponding 'QMenu' and 'QAction' objects are dynamically created and added to the 'QMenuBar', accurately replicating the hierarchy, names, submenus, and separators from the XML.
+  - Hotkeys specified in 'menubar.xml' are assigned as shortcuts to their respective 'QAction' objects (e.g., using 'QAction::setShortcut' and 'QKeySequence::fromString'). Standard platform-specific key sequences should be preferred where applicable (e.g., 'QKeySequence::Save').
+  - Help strings from 'menubar.xml' are set as status tips for 'QAction' objects ('QAction::setStatusTip').
+  - Checkable ('QAction::setCheckable(true)') and radio button ('QActionGroup') behaviors are implemented for relevant menu items as defined by the 'kind' attribute in 'menubar.xml'.
+  - Each 'QAction`'s 'triggered()' signal is connected to a placeholder slot in 'MainWindow' or a dedicated 'MenuActionHandler' class. These slots should at least log the action's object name or a unique ID. Full implementation of action logic is deferred to other WBS tasks.
+  - A 'QStatusBar' is added to the 'MainWindow' and can display initial application messages and status tips from actions.
+  - Recent files functionality is implemented:
+    - 'QSettings' is used to store and retrieve the list of recently opened file paths.
+    - A 'Recent Files' submenu (or equivalent) in the 'File' 'QMenu' is dynamically populated with 'QAction's representing these files.
+    - Clicking a recent file action triggers a signal or slot with the file path (actual file opening logic is part of 'LOGIC-01'/'UI-02').
+    - A method 'void MainWindow::addRecentFile(const QString& filePath)' updates 'QSettings' and refreshes the recent files menu.
+  - A mechanism for dynamically updating menu item states (enabled/disabled, checked/unchecked) is implemented in 'MainWindow' (e.g., an 'updateMenus()' slot). This slot will use 'QAction::setEnabled()' and 'QAction::setChecked()' based on application state (initially, most actions can be enabled for testing purposes, with actual state logic refined as services from 'REFACTOR-01' become available).
+  - The 'MainWindow' correctly loads and saves its size, position, and state of dock widgets (if any are added at this stage) using 'QSettings' ('saveState()', 'restoreState()').
+  - The 'MainWindow' is instantiated and shown by the main application entry point ('FINAL-02'), displaying the title, icon, menu bar, and status bar.
+estimation_effort:
+  - "Medium (12-18 developer days). Creating the 'MainWindow' shell, status bar, and basic window state persistence is straightforward. The main complexity lies in accurately parsing 'menubar.xml', dynamically creating the entire 'QMenu'/'QAction' hierarchy, mapping all attributes (hotkeys, checkable states), implementing the recent files list with 'QSettings', and setting up the initial mechanism for dynamic menu state updates. Connecting all actions to placeholder slots is repetitive but necessary."
+known_missing_files:
+  - "menubar.xml" # This file is critical and needs to be provided. For now, a placeholder structure can be assumed based on analysis of main_menubar.cpp.
+boilerplate_coder_ai_prompt: |
+  Your task is to create the main application window ('MainWindow') for the Qt6 Remere's Map Editor, including its dynamic menu bar loaded from 'menubar.xml'. This replaces the wxWidgets 'MainFrame' and 'MainMenuBar'.
+
+  **1. 'MainWindow.h':**
+  ```cpp
+  #pragma once
+  #include <QMainWindow>
+  #include <QMap> // For storing actions
+
+  class: QAction;
+  class: QMenu;
+  class: QSettings; // For recent files and window state
+
+  class MainWindow : public QMainWindow {
+      Q_OBJECT
+  public:
+      explicit: MainWindow(QWidget *parent = nullptr);
+      ~MainWindow() override;
+
+      void: addRecentFile(const QString& filePath);
+
+  protected:
+      void: closeEvent(QCloseEvent *event) override;
+
+  private slots:
+      void: onPlaceholderActionTriggered(); // Placeholder for all menu actions initially
+      void: openRecentFile();             // Slot for dynamic recent file actions
+      void: updateMenus();                // Slot to update enabled/checked state of actions
+
+  private:
+      void: createMenusFromXML(const QString& xmlFilePath);
+      void: parseMenuNode(QXmlStreamReader& xml, QMenu* parentMenu, QMenuBar* menuBar); // Helper for XML parsing
+      void: loadWindowSettings();
+      void: saveWindowSettings();
+      void: updateRecentFilesMenu();
+
+      // QMenuBar* m_menuBar; // QMainWindow has one implicitly
+      QStatusBar* m_statusBar;
+      QSettings* m_settings; // For recent files and window state
+
+      QMap<QString, QAction*> m_actions; // Store actions by their XML "action" name for easy access
+      QMenu* m_recentFilesMenu;       // Pointer to the 'Recent Files' QMenu
+      enum: { MaxRecentFiles = 10 };
+      QList<QAction*> m_recentFileActions;
+  };
+  ```
+
+  **2. 'MainWindow.cpp':**
+  *   **Constructor:**
+      - Call 'QMainWindow' constructor.
+      - Set window title, initial size, and application icon.
+      - 'm_settings = new QSettings(QSettings::IniFormat, QSettings::UserScope, "RME-Qt", "Editor", this);'
+      - 'm_statusBar = statusBar(); m_statusBar->showMessage("Welcome to RME-Qt!");'
+      - 'createMenusFromXML(":/menubar.xml"); // Assume menubar.xml is in Qt resources'
+      - 'loadWindowSettings();'
+      - 'updateRecentFilesMenu();'
+      - 'updateMenus(); // Initial state update'
+      - (Later, connect signals from services like EditorStateService to 'updateMenus')
+  *   **'closeEvent(QCloseEvent *event)':**
+      - 'saveWindowSettings();'
+      - Implement logic for "Do you want to save changes?" (deferred to when map editing is active). For now, 'event->accept();'.
+  *   **'createMenusFromXML(const QString& xmlFilePath)':**
+      - 'QFile file(xmlFilePath); if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) return;'
+      - 'QXmlStreamReader xml(&file);'
+      - 'QMenuBar* menuBarInstance = menuBar();'
+      - Loop 'while (!xml.atEnd() && !xml.hasError())':
+          - 'xml.readNext(); if (xml.isStartElement() && xml.name().toString() == "menubar") { parseMenuNode(xml, nullptr, menuBarInstance); }'
+  *   **'parseMenuNode(QXmlStreamReader& xml, QMenu* parentMenu, QMenuBar* menuBarInstance)':** (Recursive helper)
+      - Loop 'while (!(xml.isEndElement() && xml.name().toString() == (parentMenu ? "menu" : "menubar")))':
+          - 'xml.readNext(); if (xml.isStartElement())':
+              - 'QString elementName = xml.name().toString();'
+              - 'QXmlStreamAttributes attrs = xml.attributes();'
+              - If 'elementName == "menu"`:
+                  - 'QString menuName = attrs.value("name").toString().replace("$", "&");'
+                  - 'QMenu* newMenu = new QMenu(menuName);'
+                  - 'if (parentMenu) parentMenu->addMenu(newMenu); else menuBarInstance->addMenu(newMenu);'
+                  - 'if (attrs.value("special").toString() == "RECENT_FILES") { m_recentFilesMenu = newMenu; }'
+                  - 'parseMenuNode(xml, newMenu, nullptr); // Recurse'
+              - Else if 'elementName == "item"`:
+                  - 'QString itemName = attrs.value("name").toString().replace("$", "&");'
+                  - 'QString actionName = attrs.value("action").toString();'
+                  - 'QAction* action = new QAction(itemName, this);'
+                  - 'action->setObjectName(actionName);'
+                  - 'if (attrs.hasAttribute("hotkey")) action->setShortcut(QKeySequence::fromString(attrs.value("hotkey").toString()));'
+                  - 'if (attrs.hasAttribute("help")) action->setStatusTip(attrs.value("help").toString());'
+                  - 'if (attrs.value("kind").toString() == "check") action->setCheckable(true);'
+                  - '// TODO: Handle radio items with QActionGroup'
+                  - 'connect(action, &QAction::triggered, this, &MainWindow::onPlaceholderActionTriggered);'
+                  - 'if (parentMenu) parentMenu->addAction(action); else menuBarInstance->addAction(action);'
+                  - 'm_actions.insert(actionName, action);'
+              - Else if 'elementName == "separator"`:
+                  - 'if (parentMenu) parentMenu->addSeparator();'
+  *   **'onPlaceholderActionTriggered()':**
+      - 'QAction* action = qobject_cast<QAction*>(sender());'
+      - 'if (action) { m_statusBar->showMessage(QString("Action '%1' triggered.").arg(action->objectName())); }'
+  *   **'updateMenus()':** (Initial stub)
+      - Iterate 'm_actions.values()': 'action->setEnabled(true);' (Enable all for now).
+      - Example for later: 'if (m_actions.contains("SAVE")) m_actions["SAVE"]->setEnabled(isMapDirty);'
+  *   **'loadWindowSettings()' / 'saveWindowSettings()':** Use 'm_settings' to 'setValue("geometry", saveGeometry())' and 'restoreGeometry(m_settings->value("geometry").toByteArray())'. Same for 'saveState()' / 'restoreState()' for dock widgets and toolbars.
+  *   **Recent Files Logic:**
+      - 'addRecentFile()': Get list from 'm_settings', add new path (ensure uniqueness, limit count), save list back to 'm_settings'. Call 'updateRecentFilesMenu()'.
+      - 'updateRecentFilesMenu()': If 'm_recentFilesMenu' exists: clear its actions (store in 'm_recentFileActions' then delete them). Read paths from 'm_settings'. For each path, create 'QAction* recentAction = new QAction(filePath, this); recentAction->setData(filePath); connect(recentAction, &QAction::triggered, this, &MainWindow::openRecentFile); m_recentFilesMenu->addAction(recentAction); m_recentFileActions.append(recentAction);'.
+      - 'openRecentFile()': 'QAction* action = qobject_cast<QAction*>(sender()); if (action) { QString filePath = action->data().toString(); /* Call file opening logic (UI-02/LOGIC-01) */ }'.
+
+  **3. 'main.cpp' (from 'FINAL-02'):**
+      - Instantiate 'MainWindow mainWindow;'
+      - 'mainWindow.show();'
+
+  Place 'menubar.xml' in the project and ensure it's accessible (e.g., via Qt Resource System ':/menubar.xml').
+
+[end of enhanced_wbs_yaml_files/UI-01.yaml]
