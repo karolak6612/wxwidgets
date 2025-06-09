@@ -8,7 +8,7 @@ description: Recreate the UI for managing a live editing server. This includes d
 dependencies:
 - 'NET-02 # LiveServerQt logic that this UI will control and interact with.'
 - 'UI-01  # Main window might host this as a dock widget or dialog.'
-- 'APPSTATE-01 # For QSettings, if server settings are persisted.'
+- 'REFACTOR-01 # For QSettings, if server settings are persisted.'
 input_files:
 - wxwidgets/live_server.cpp
 - wxwidgets/live_server.h

@@ -60,7 +60,7 @@ dependencies:
   - LOGIC-01                # For EditorController, which will host these methods
   - LOGIC-02                # For Bounding-Box Selection (as a common way to populate selection)
   - RENDER-01               # For MapView mouse events (initiating drag-move, paste location)
-  - UI-01                   # For Edit menu QActions (Cut, Copy, Paste, Delete)
+  - UI-01                   # For Edit menu QActions (Cut, Copy, Paste, Delete) # MainWindow provides the menu actions
 current_functionality_summary: |
   - `CopyBuffer` (`copybuffer.h/cpp`): Manages an internal `BaseMap` to store deep copies of selected tiles/items for copy/cut operations. `copy()` populates this buffer from `Editor::selection`. `cut()` first calls `copy()`, then creates an `Action` to delete the originals. `paste()` creates an `Action` to place deep copies from the buffer onto the map at a target position, handling merging and auto-bordering.
   - `Editor` (`editor.h/cpp`):
@@ -117,7 +117,7 @@ qt6_migration_steps: |-
       -   Connect Edit menu `QAction`s (Cut, Copy, Paste, Delete) `triggered()` signals to the respective `EditorController` handler methods.
       -   Update enabled state of these actions based on `selectionManager->hasSelection()` and `clipboardManager->hasData()`.
 
-  4.  **Update `MapView` (from `UI-EVENT-MAPVIEW`, `RENDER-01`, `LOGIC-02`):**
+  4.  **Update `MapView` (from `RENDER-01` which provides MapView, and `LOGIC-02` for selection context):**
       -   **Visual Paste Preview:**
           -   Add state `bool m_isPastingMode; QList<TileData> m_pastePreviewData; Position m_pastePreviewRefPos;`.
           -   Method `startPastePreview(const QList<TileData>& data, const Position& refPos)` called by `EditorController`.

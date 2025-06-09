@@ -47,7 +47,7 @@ dependencies:
   - CORE-05                 # For SelectionManager class (which will be used by EditorController)
   - CORE-06                 # For AppSettings (reading selection mode settings)
   - LOGIC-01                # For EditorController, which will orchestrate the selection action
-  - RENDER-01               # For MapView, which needs to draw the visual selection rectangle
+  - RENDER-01               # For MapView, which needs to draw the visual selection rectangle (and provides mouse events)
 current_functionality_summary: |
   When the user Shift-drags the mouse in selection mode on `MapCanvas` (`map_display.cpp`), the `boundbox_selection` flag is set.
   - `MapCanvas::OnMouseMove` tracks the mouse and triggers repaints.
@@ -58,7 +58,7 @@ current_functionality_summary: |
   - The `Selection::add` method creates a deep copy of the tile, marks it and its contents as selected, and this change is recorded as part of an `Action` within an ongoing selection "session".
   - When the selection session is finished (`Selection::finish()`), the encompassing `Action` (potentially a `BatchAction`) is pushed to the `ActionQueue`, making the entire bounding box selection operation undoable.
 qt6_migration_steps: |-
-  1.  **`MapView` Mouse Event Handling (from `UI-EVENT-MAPVIEW`):**
+  1.  **`MapView` Mouse Event Handling (from `RENDER-01` as it's the MapView provider):**
       -   In `MapView::mousePressEvent()`: If Shift key is pressed (and in a selection tool mode):
           -   Store `dragStartScreenPoint` (QPoint) and convert to `dragStartMapPosition` (map coordinates).
           -   If Ctrl key is NOT pressed, call `editorController->clearSelection()` (which should create an undoable command).

@@ -5,7 +5,7 @@ original_input_files:
   - "Integrated `MapViewport` and `MainWindow` (with `AppContext`) from `FINAL-01`"
   - "`AppSettings` from `CORE-06`"
   - "View and Tools menu `QAction`s from `UI-02` (Toolbar & Menubar Setup)"
-  - "Dockable palette widgets (e.g., TerrainPalette, ItemPalette) from `UI-PALETTES-ALL`"
+  - "Dockable palette widgets (e.g., TerrainPalette, ItemPalette) from `UI-02`" # UI-02 includes palette system
   - "`MapDrawingOptions` or similar structure controlling map rendering flags (from `RENDER-01` or `MapViewport`)"
 analyzed_input_files:
   - file_path: "qtui::MapViewport (from FINAL-01/RENDER-01)"
@@ -31,7 +31,7 @@ analyzed_input_files:
       The `QAction` objects for various View menu items (Zoom In/Out/Normal, Floor navigation, Show/Hide Grid, Lights, Creatures, Spawns, Toolbars, Palettes)
       and common Tools menu items (e.g., Map Properties, Find Item). Their `triggered()` signals need to be connected to implementing slots.
       Checkable actions should have their state synced with `AppSettings`.
-  - file_path: "Palette Widgets (from UI-PALETTES-ALL)"
+  - file_path: "Palette Widgets (from UI-02)" # UI-02 includes the main palette system and its individual palette tabs/widgets
     description: |
       The actual QDockWidget instances containing the different palettes (Terrain, Item, Doodad, etc.).
       Their visibility will be toggled by actions in the View > Palettes submenu.
@@ -39,8 +39,7 @@ dependencies:
   - FINAL-01  # Core-UI integration, AppContext, MainWindow, MapViewport
   - CORE-06  # AppSettings for persisting view preferences
   - UI-01    # MainWindow structure for managing toolbars/docks
-  - UI-02    # View and Tools Menu QAction definitions
-  - UI-02 # For palette QDockWidget instances to show/hide
+  - UI-02    # View and Tools Menu QAction definitions, and also for palette QDockWidget instances to show/hide
   - RENDER-01 # For MapViewport's drawing options and zoom/floor capabilities
 current_functionality_summary: |
   Following `FINAL-03`, the application has integrated core logic, file operations, edit operations, and a preferences dialog.
@@ -94,7 +93,7 @@ definition_of_done: |
 boilerplate_coder_ai_prompt: |
   Implement the View menu operations and common Tools menu operations for the Qt6 map editor.
   Assume `AppContext` provides `MapViewport& mapViewport`, `AppSettings& appSettings`, and `MainWindow* mainWindow`.
-  Menu `QAction`s are already created in `MainWindow` as per `UI-02`. Palette `QDockWidget`s are created as per `UI-PALETTES-ALL`.
+  Menu `QAction`s are already created in `MainWindow` as per `UI-02`. Palette `QDockWidget`s are created as per `UI-02`.
 
   **1. Zoom and Floor Navigation (in `MainWindow` slots, calling `MapViewport` methods):**
      - Implement slots for `zoomInAction`, `zoomOutAction`, `zoomNormalAction` to call `mapViewport.zoomIn()`, `mapViewport.zoomOut()`, `mapViewport.setZoom(1.0)`.

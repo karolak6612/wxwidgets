@@ -6,7 +6,7 @@ dependencies:
 - CORE-03 # Map structure, OTBM I/O for spawn data on tiles
 - CORE-04 # Action system for undo/redo
 - CORE-02 # Creature type definitions from creatures.xml
-- BRUSH-FRAMEWORK-CORE # Base brush class
+- CORE-BRUSH-FRAMEWORK # Base brush class
 - UI-06 # UI for selecting creatures and setting spawn properties
 original_input_files:
 - wxwidgets/spawn.h

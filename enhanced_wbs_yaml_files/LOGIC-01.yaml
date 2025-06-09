@@ -54,7 +54,7 @@ dependencies:
   - CORE-03                 # Ported Map data structure
   - CORE-04                 # Ported Action & History system (QUndoStack, QUndoCommand base)
   - CORE-05                 # Ported Selection system (for destroySelection, moveSelection)
-  - RENDER-01        # For map view mouse events that trigger drawing/selection
+  - RENDER-01               # For map view mouse events that trigger drawing/selection
   - CORE-BRUSH-FRAMEWORK    # Ported base Brush class and BrushManager
   - BRUSH-LOGIC-ALL         # Meta-task representing porting of all specific brush logic
 current_functionality_summary: |
@@ -104,6 +104,10 @@ qt6_migration_steps: |
           -   Call the appropriate `EditorController` method (e.g., `applyBrushStroke`).
   6.  **Map Updates/Notifications:**
       -   After a command is pushed and executed by `QUndoStack` (or when undone/redone), the `QUndoStack::indexChanged()` signal (or custom signals from commands) should trigger `MapViewport` to repaint the affected map regions.
+
+# TODO: UI-EVENT-MAPVIEW was changed to RENDER-01, verify this change is correct.
+# It seems correct because RENDER-01 is where MapView (QOpenGLWidget) is created, which would handle mouse events.
+# UI-EVENT-MAPVIEW was a conceptual task that is now realized by RENDER-01's MapView implementation.
 definition_of_done: |
   - An `EditorController` class is implemented and acts as the intermediary for applying brush actions and other modifications to the map.
   - Core drawing operations (triggered by UI events like mouse clicks/drags in `MapViewport`):

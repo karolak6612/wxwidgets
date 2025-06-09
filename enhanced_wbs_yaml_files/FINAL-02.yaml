@@ -31,7 +31,7 @@ dependencies:
   - FINAL-01  # Core Map Logic and Main UI Integration
   - CORE-03  # Specifically for Map::load/save and metadata methods
   - CORE-04  # For QUndoStack interaction (clearing, setClean)
-  # CORE-IOMAP might be a dependency if OTBM I/O logic was separated from CORE-03
+  - CORE-07-MapIO # For map I/O operations
 current_functionality_summary: |
   Following `FINAL-01`, the core map logic is minimally integrated with the Qt UI shell.
   Basic map data might be displayable. Undo/Redo and Selection/Clipboard systems are conceptually wired up.

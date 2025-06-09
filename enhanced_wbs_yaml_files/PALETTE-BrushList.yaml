@@ -1,0 +1,81 @@
+id: PALETTE-BrushList
+section: UI Elements
+title: Implement Brush List Palette
+original_input_files:
+  # Conceptual: Based on wxwidgets/palette_brushlist.h which defines BrushListBox
+  # and how palettes are generally structured.
+  - wxwidgets/palette_brushlist.h
+  - wxwidgets/palette_brushlist.cpp
+  - wxwidgets/palette_window.h # For overall palette container context
+  - wxwidgets/palette_window.cpp
+analyzed_input_files:
+  - file_path: wxwidgets/palette_brushlist.h
+    description: |
+      Declares `BrushListBox` (a `wxVListBox` implementation of `BrushBoxInterface`)
+      and `BrushPanel` which can host different brush views.
+      This suggests a UI component that can list various brushes, perhaps all loaded ones,
+      potentially with icons and names, allowing the user to select one to make it active.
+  - file_path: wxwidgets/palette_window.h
+    description: |
+      Declares `PaletteWindow` which uses a `wxChoicebook` to switch between different
+      palette categories. A "Brush List" could be one such category or a view mode
+      within other palettes.
+dependencies:
+  - UI-02                  # Main Palette System framework
+  - CORE-BRUSH-FRAMEWORK   # For BrushManagerService to get list of available brushes
+  - REFACTOR-01            # For BrushStateService (if this palette directly sets active brush)
+current_functionality_summary: |
+  The legacy system has components like `BrushListBox` and `BrushPanel` within the
+  overall palette framework (`PaletteWindow`) that can display lists of brushes.
+  This task is to create a dedicated palette tab or view that lists all (or a filtered set of)
+  available brushes, allowing users to select one to activate it. This might be a master list
+  or a specific type of brush presentation not covered by other specialized palettes.
+qt6_migration_steps: |
+  1. Create `BrushListPaletteTab.h/.cpp` inheriting `QWidget`.
+  2. Design UI:
+     - A `QListView` or `QTreeView` to display brush names, possibly with icons.
+     - Optional: Filters (e.g., by brush type/group if brushes have such metadata).
+  3. Populate the view:
+     - Get all registered brushes from `BrushManagerService` (from `CORE-BRUSH-FRAMEWORK`).
+     - Create model items for each brush (name, icon).
+  4. Handle selection:
+     - When a brush is selected in the view, notify `BrushStateService` (from `REFACTOR-01`)
+       or `EditorController` to set it as the active brush.
+  5. Integrate this tab into the main palette system (`QTabWidget` in `UI-02`).
+definition_of_done: |
+  - A `BrushListPaletteTab` widget is implemented and added to the main palette system.
+  - The palette lists available brushes from `BrushManagerService`.
+  - Users can select a brush from this list to make it the active drawing brush.
+  - Filtering or categorization of brushes is implemented if deemed necessary.
+boilerplate_coder_ai_prompt: |
+  Implement a `BrushListPaletteTab` Qt widget.
+
+  1.  **`BrushListPaletteTab.h`:**
+      ```cpp
+      #include <QWidget>
+      class QListView;
+      class QStringListModel; // Or a custom model
+      class BrushManagerService; // From CORE-BRUSH-FRAMEWORK
+      class BrushStateService;   // From REFACTOR-01
+
+      class BrushListPaletteTab : public QWidget {
+          Q_OBJECT
+      public:
+          BrushListPaletteTab(BrushManagerService* brushManager, BrushStateService* brushStateService, QWidget* parent = nullptr);
+          void refreshBrushList();
+      private slots:
+          void onBrushSelectionChanged(const QModelIndex& current, const QModelIndex& previous);
+      private:
+          QListView* m_brushListView;
+          QStringListModel* m_brushModel; // Or custom model storing Brush* or names
+          BrushManagerService* m_brushManager;
+          BrushStateService* m_brushStateService;
+      };
+      ```
+  2.  **`BrushListPaletteTab.cpp`:**
+      - Constructor: Setup UI (ListView), store managers. Call `refreshBrushList()`. Connect `m_brushListView->selectionModel()->currentChanged` to `onBrushSelectionChanged`.
+      - `refreshBrushList()`: Clear model. Get all brushes from `m_brushManager`. Populate `m_brushModel` (e.g., with brush names; store actual `Brush*` or unique name in `Qt::UserRole`).
+      - `onBrushSelectionChanged()`: Get selected brush identifier (name or pointer). Call `m_brushStateService->setActiveBrushByName(brushName);` or `m_brushStateService->setActiveBrush(brushPtr);`.
+  Integrate this tab into the main palette `QTabWidget` (from `UI-02`).
+documentation_references: ["QListView", "QStringListModel", "QAbstractItemModel", "UI-02", "CORE-BRUSH-FRAMEWORK", "REFACTOR-01"]
+estimation_effort: Medium

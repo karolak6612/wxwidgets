@@ -1,0 +1,38 @@
+id: BRUSH-LOGIC-RAW
+section: Editor Behavior & Logic
+title: Port RAW Brush Logic
+original_input_files:
+  - wxwidgets/raw_brush.cpp
+  - wxwidgets/raw_brush.h
+analyzed_input_files:
+  - file_path: wxwidgets/raw_brush.h
+    description: Defines 'RAWBrush' (inherits 'Brush'). Stores 'uint16_t raw_item_id' for the item to be placed.
+  - file_path: wxwidgets/raw_brush.cpp
+    description: Implements 'RAWBrush'. 'draw' places the 'raw_item_id'. 'undraw' removes items matching 'raw_item_id'.
+dependencies:
+  - CORE-BRUSH-FRAMEWORK
+  - CORE-01
+  - CORE-02 # For ItemManager (to validate raw_item_id)
+  - LOGIC-01
+  - CORE-04
+current_functionality_summary: |
+  The 'RAWBrush' places a specific item ID directly onto the map. It's used for placing any item by its ID, often selected from a RAW palette.
+qt6_migration_steps: |
+  1. Define `mapcore::RawBrush` class inheriting from `mapcore::Brush`.
+  2. Store `uint16_t currentItemId` (set via palette/tool settings).
+  3. Implement `apply()`:
+     - Get target `Tile`.
+     - If erasing: Find and remove an item with `currentItemId` from the tile.
+     - If drawing: Create new `mapcore::Item` with `currentItemId`. Add to tile (respect stacking, etc.).
+     - Record changes for undo.
+definition_of_done: |
+  - `mapcore::RawBrush` is implemented.
+  - Can place and erase specific items by ID.
+  - Operations are undoable.
+  - Unit tests for RAW brush placement/removal pass.
+boilerplate_coder_ai_prompt: |
+  Port `RAWBrush` from `wxwidgets/raw_brush.cpp/h` to `mapcore::RawBrush`.
+  1. Header: `mapcore::RawBrush : public mapcore::Brush`. Store `uint16_t m_itemId;`. Method `void setItemId(uint16_t id);`.
+  2. Source: Implement `apply()`. Drawing: `mapcore::Item* newItem = mapcore::Item::create(m_itemId); tile->addItem(newItem);`. Erasing: `tile->removeItemOfType(m_itemId);`. All changes via `EditorControllerInterface`.
+documentation_references: ["mapcore::Brush", "mapcore::Item", "mapcore::Tile"]
+estimation_effort: Medium

@@ -6,7 +6,7 @@ dependencies:
 - CORE-03 # Map structure, TileLocation, loading/saving house data
 - CORE-04 # Action system for undo/redo of house operations
 - CORE-13-TownSystem # Town system for associating houses with towns (if LOGIC-03 is separate)
-- BRUSH-FRAMEWORK-CORE # Base brush class for HouseBrush
+- CORE-BRUSH-FRAMEWORK # Base brush class for HouseBrush
 - UI-07 # UI for listing and selecting houses (interacts with HouseBrush)
 original_input_files:
 - wxwidgets/house.h

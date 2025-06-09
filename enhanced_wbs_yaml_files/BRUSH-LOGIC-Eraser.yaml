@@ -1,0 +1,39 @@
+id: BRUSH-LOGIC-Eraser
+section: Editor Behavior & Logic
+title: Port Eraser Brush Logic
+original_input_files:
+  - wxwidgets/eraser_brush.cpp
+  # wxwidgets/eraser_brush.h was noted as missing. Base on Brush.h and eraser_brush.cpp
+analyzed_input_files:
+  - file_path: wxwidgets/eraser_brush.cpp
+    description: Implements 'EraserBrush'. 'draw' removes most items, respecting settings for unique/complex items. 'undraw' (right-click) is more aggressive, removing borders and potentially unique items.
+dependencies:
+  - CORE-BRUSH-FRAMEWORK
+  - CORE-01
+  - CORE-02 # For ItemType properties (e.g., to check if item is 'unique' or 'complex')
+  - LOGIC-01
+  - CORE-04
+  - CORE-06 # For AppSettings (e.g., "leave unique items" setting)
+current_functionality_summary: |
+  The 'EraserBrush' removes map elements. A standard application (draw) removes most items but might leave unique/complex ones based on settings. An alternative application (undraw/right-click) performs a more thorough clearing.
+qt6_migration_steps: |
+  1. Define `mapcore::EraserBrush` class inheriting from `mapcore::Brush`.
+  2. Implement `apply()`:
+     - Determine mode (normal erase vs. aggressive erase) based on `BrushSettings` (e.g., `isEraseMode` could mean aggressive).
+     - Get target `Tile`.
+     - Normal erase: Iterate items on tile. Remove items unless they are ground, or flagged as unique/complex and settings say to keep them.
+     - Aggressive erase: Remove all items (except possibly ground if configured), creature, spawn info. Potentially trigger border re-calculation for adjacent tiles.
+     - Record changes for undo.
+definition_of_done: |
+  - `mapcore::EraserBrush` is implemented.
+  - Normal erase correctly removes appropriate items.
+  - Aggressive erase (if applicable via settings) performs a more thorough clear.
+  - Settings for preserving unique/complex items are respected.
+  - Operations are undoable.
+  - Unit tests for different erase scenarios pass.
+boilerplate_coder_ai_prompt: |
+  Port `EraserBrush` from `wxwidgets/eraser_brush.cpp` to `mapcore::EraserBrush`.
+  1. Header: `mapcore::EraserBrush : public mapcore::Brush`.
+  2. Source: Implement `apply()`. It should check `BrushSettings` (e.g. a flag for 'aggressiveErase' or if `isEraseMode` means aggressive). Based on the mode and `AppSettings` (e.g. "leave unique items"), iterate through the `Tile`'s contents (items, creature, spawn) and remove them. Use `EditorControllerInterface` to make changes undoable. Consider if erasing ground should be possible or if it should just clear items on top.
+documentation_references: ["mapcore::Brush", "mapcore::Tile", "mapcore::Item", "CORE-06 AppSettings"]
+estimation_effort: Medium

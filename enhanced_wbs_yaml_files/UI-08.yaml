@@ -7,7 +7,7 @@ dependencies:
   - "UI-06"        # Creature Palette functionality (which includes controls for new spawn parameters) and a Creature Finder Dialog.
   - "LOGIC-07"     # Defines mapcore::SpawnProperties and tile attributes for spawns (e.g., creature_list, spawn_time_seconds).
   - "CORE-02"      # For mapcore::CreatureType definitions (used when adding creatures to a spawn).
-  - "APPSTATE-01"  # For AppSettings, potentially for default spawn values.
+  - "REFACTOR-01"  # For AppSettings, potentially for default spawn values.
   - "BUILD-01"     # CMake setup.
 input_files:
   - "wxwidgets/palette_creature.cpp"
