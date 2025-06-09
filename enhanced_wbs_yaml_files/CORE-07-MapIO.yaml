@@ -168,5 +168,3 @@ documentation_references:
   - "Qt Zlib Compression: qCompress/qUncompress https://doc.qt.io/qt-6/qbytearray.html#qUncompress"
   - "OTBM format details (community resources, e.g., OTLand, TFS source code if available for reference for structure)"
 estimation_effort: X-Large
-
-```

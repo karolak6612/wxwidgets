@@ -119,4 +119,3 @@ documentation_references:
   - "QMap: https://doc.qt.io/qt-6/qmap.html"
   - "QVariant: https://doc.qt.io/qt-6/qvariant.html"
 estimation_effort: Medium (Highly dependent on analysis of original source)
-```
