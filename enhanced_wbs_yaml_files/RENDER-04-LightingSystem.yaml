@@ -1,0 +1,114 @@
+id: RENDER-04-LightingSystem
+section: Rendering
+title: Port Lighting System
+original_input_files:
+  - wxwidgets/light_drawer.h
+  - wxwidgets/light_drawer.cpp
+analyzed_input_files:
+  - file_path: wxwidgets/light_drawer.h
+    description: |
+      Declares the `LightDrawer` class.
+      Likely responsible for managing light sources, calculating light intensity on tiles,
+      and providing data or methods for the `MapDrawer` to render these lighting effects.
+      May include structures for light properties (color, intensity, radius).
+  - file_path: wxwidgets/light_drawer.cpp
+    description: |
+      Implements the `LightDrawer` class.
+      Contains logic for adding/removing light sources, updating light calculations
+      when map elements change, and potentially algorithms for ambient light,
+      sunlight, and dynamic lights from items or creatures.
+dependencies:
+  - BUILD-01 # For CMake project setup
+  - CORE-01  # For Position, Tile data
+  - CORE-02  # For ItemType (items can emit light), SpriteManager (for light sprites/effects if any)
+  - RENDER-01 # For MapViewport, where lighting is ultimately displayed
+  - CORE-06  # For AppSettings (e.g., global light level, toggle for lighting effects)
+current_functionality_summary: |
+  The legacy system has a `LightDrawer` component (`light_drawer.h/cpp`) responsible for managing and calculating lighting effects on the map. This includes ambient light, sunlight, and dynamic lights from items or creatures. The `MapDrawer` would then use this information to render the final scene with lighting.
+qt6_migration_steps: |
+  1.  **Define `LightSource` Data Structure (in `mapcore/rendering/` or `mapcore/world/`):**
+      -   Create a struct/class `LightSource` to store properties like `Position`, `QColor color`, `float intensity`, `float radius`.
+  2.  **Define `LightmapData` (in `mapcore/rendering/`):**
+      -   Define a structure or class (e.g., `TileLightInfo`) to store the calculated light values (e.g., color, intensity) for each tile.
+      -   The `Map` or a dedicated `Lightmap` class could store a grid of this `TileLightInfo`.
+  3.  **Implement `LightCalculatorService` (in `mapcore/rendering/` or `mapcore/services/`):**
+      -   This service will be responsible for:
+          -   Managing a list of dynamic `LightSource`s.
+          -   Calculating ambient light levels.
+          -   Processing light emitted by items on tiles (from `ItemType` properties).
+          -   Updating the `LightmapData` for affected map areas when lights or light-blocking elements change.
+          -   Algorithms for light propagation and blending.
+  4.  **Integrate with `MapViewport` (`RENDER-01`):**
+      -   `MapViewport` will query the `LightCalculatorService` (or the `LightmapData`) to get light values for visible tiles.
+      -   The rendering shaders (if used) or tile blending logic in `MapViewport` will use this light information to modulate the color of rendered tiles and sprites.
+  5.  **Settings Integration (`CORE-06`):**
+      -   Allow enabling/disabling lighting effects and adjusting global light levels via `AppSettings`.
+  6.  **Unit Tests:**
+      -   Test `LightSource` data structure.
+      -   Test `LightCalculatorService` logic for adding/removing light sources and calculating light spread with mock map data.
+definition_of_done: |
+  - `LightSource` data structure is defined.
+  - `LightmapData` (or `TileLightInfo`) structure for storing per-tile light values is defined.
+  - A `LightCalculatorService` is implemented in `mapcore` that can:
+    - Manage dynamic light sources.
+    - Calculate light contributions from items.
+    - Update a representation of the map's light values.
+  - `MapViewport` (from `RENDER-01`) is modified to use the calculated light data to affect the visual appearance of rendered tiles/sprites.
+  - Lighting effects can be toggled or adjusted via `AppSettings`.
+  - Unit tests verify the core logic of the `LightCalculatorService`.
+boilerplate_coder_ai_prompt: |
+  Port the lighting system from `wxwidgets/light_drawer.h/cpp` to Qt6/C++ within the `mapcore` library.
+
+  **1. Define `LightSource` and `TileLightInfo` (in `mapcore/rendering/lighting_types.h` or similar):**
+     ```cpp
+     #include <QColor>
+     #include "mapcore/position.h" // Assuming Position is in mapcore
+
+     struct LightSource {
+         mapcore::Position position;
+         QColor color;
+         float intensity; // e.g., 0.0 to 1.0
+         float radius;    // In map units
+     };
+
+     struct TileLightInfo {
+         QColor lightColor = Qt::black; // Accumulated light color on the tile
+         float lightLevel = 0.0f;      // Accumulated light intensity (0.0 to 1.0+)
+         // Add other relevant fields, e.g., for separate ambient/dynamic components
+     };
+     ```
+
+  **2. Implement `LightCalculatorService` (in `mapcore/rendering/light_calculator_service.h/cpp`):**
+     -   Manages `QList<LightSource> m_dynamicLights;`.
+     -   Holds a reference to `mapcore::Map* m_map;` and potentially `mapcore::AppSettings* m_settings;`.
+     -   `void addDynamicLight(const LightSource& light);`
+     -   `void removeDynamicLight(const LightSource& light);` // Requires a way to identify/compare
+     -   `void clearDynamicLights();`
+     -   `TileLightInfo calculateLightForTile(const mapcore::Position& tilePos);` (This is the core logic).
+         -   Start with global ambient light from settings.
+         -   Iterate items on the tile at `tilePos`; if an item emits light (check its `ItemType`), add its contribution.
+         -   Iterate `m_dynamicLights`; calculate their contribution to `tilePos` based on distance, radius, intensity.
+         -   Consider light-blocking tiles/items between sources and `tilePos`.
+         -   Return the combined `TileLightInfo`.
+     -   `void updateLightmapForRegion(const QRect& mapRect);` // If using a cached lightmap
+
+  **3. Integration with `MapViewport` (Conceptual - modify `RENDER-01`'s `MapViewport`):**
+     -   `MapViewport` will have an instance of or access to `LightCalculatorService`.
+     -   In `MapViewport::paintGL()` (or tile drawing methods):
+         -   For each visible tile at `pos`:
+             -   `TileLightInfo lightInfo = m_lightService->calculateLightForTile(pos);`
+             -   Modulate the color of the tile and items drawn on it by `lightInfo.lightColor` and `lightInfo.lightLevel`.
+             -   E.g., `finalColor.setRgbF(baseColor.redF() * lightInfo.lightColor.redF() * lightInfo.lightLevel, ...);`
+
+  **4. Settings:**
+     -   Define `AppSettings` keys for "EnableLightingEffects" (bool) and "GlobalAmbientLightLevel" (float 0-1).
+     -   `LightCalculatorService` and `MapViewport` should respect these.
+
+  **5. Unit Tests:**
+     -   Test `LightCalculatorService::calculateLightForTile` with various light source setups and mock item lights.
+documentation_references:
+  - "QColor: https://doc.qt.io/qt-6/qcolor.html"
+  - "Data Structures for 2D Lighting"
+  - "Game Programming Patterns - Object Management"
+estimation_effort: Large
+```

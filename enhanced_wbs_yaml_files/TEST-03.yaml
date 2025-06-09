@@ -4,14 +4,14 @@ title: "Develop Unit Tests for OTBM and OTMM File I/O"
 original_task_id: TEST-03 # Assuming this is the original ID
 description: Create unit tests for saving and loading map files in OTBM (OpenTibia Binary Map) and OTMM (OpenTibia MiniMap) formats. This includes verifying that all map elements (tiles, items, creatures, spawns, waypoints, houses, etc.) are correctly serialized and deserialized by the 'mapcore' library.
 dependencies:
-  - "CORE-03"  # Implements IOMapOTBM, IOMapOTMM (or equivalent Qt6 map I/O classes)
+  - "CORE-07-MapIO"  # Implements IOMapOTBM, IOMapOTMM (or equivalent Qt6 map I/O classes)
   - "TEST-01"  # Unit tests for the core data structures being serialized
   - "CORE-01"  # Defines mapcore::Map, mapcore::Tile, mapcore::Position, etc.
   - "CORE-02"  # Defines mapcore::Item, mapcore::Creature, etc.
-  - "LOGIC-02" # mapcore::ItemManager (for item type lookup during comparison)
-  - "LOGIC-04" # mapcore::Waypoint, mapcore::WaypointManager
-  - "LOGIC-05" # mapcore::House, mapcore::Town, mapcore::HouseManager, mapcore::TownManager
-  - "LOGIC-07" # mapcore::SpawnProperties, mapcore::SpawnManager, mapcore::Creature (for spawn lists)
+  - "CORE-02" # mapcore::ItemManager (for item type lookup during comparison)
+  - "CORE-11-WaypointSystem" # mapcore::Waypoint, mapcore::WaypointManager
+  - "CORE-09-HouseSystem" # mapcore::House, mapcore::Town, mapcore::HouseManager, mapcore::TownManager
+  - "CORE-10-SpawnSystem" # mapcore::SpawnProperties, mapcore::SpawnManager, mapcore::Creature (for spawn lists)
   - "BUILD-01" # For CMake setup to build and run tests
 input_files: [] # No wxWidgets files to port for this task
 analyzed_input_files: [] # No legacy files to analyze for this task

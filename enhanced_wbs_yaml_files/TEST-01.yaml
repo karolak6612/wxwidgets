@@ -7,9 +7,9 @@ dependencies:
   - "CORE-01" # mapcore::Position, mapcore::Tile, mapcore::Map, mapcore::Floor, mapcore::QTreeNode
   - "CORE-02" # mapcore::Item, mapcore::Container, mapcore::ItemType, mapcore::Creature, mapcore::Outfit, mapcore::SpriteData, mapcore::GraphicManager
   - "CORE-03" # mapcore::IOMapOTBM and related (for potential test data loading, though mocking is preferred)
-  - "LOGIC-02" # mapcore::ItemManager (formerly ItemDatabase)
-  - "LOGIC-04" # mapcore::Waypoint, mapcore::WaypointManager
-  - "LOGIC-07" # mapcore::SpawnProperties, mapcore::SpawnManager
+  - "CORE-02" # mapcore::ItemManager (formerly ItemDatabase)
+  - "CORE-11-WaypointSystem" # mapcore::Waypoint, mapcore::WaypointManager
+  - "CORE-10-SpawnSystem" # mapcore::SpawnProperties, mapcore::SpawnManager
   - "BUILD-01" # For CMake setup to build and run tests
 input_files: [] # No wxWidgets files to port for this task
 analyzed_input_files: [] # No legacy files to analyze for this task

@@ -54,8 +54,8 @@ dependencies:
   - CORE-03                 # Ported Map data structure
   - CORE-04                 # Ported Action & History system (QUndoStack, QUndoCommand base)
   - CORE-05                 # Ported Selection system (for destroySelection, moveSelection)
-  - UI-EVENT-MAPVIEW        # For map view mouse events that trigger drawing/selection
-  - BRUSH-FRAMEWORK-CORE    # Ported base Brush class and BrushManager
+  - RENDER-01        # For map view mouse events that trigger drawing/selection
+  - CORE-BRUSH-FRAMEWORK    # Ported base Brush class and BrushManager
   - BRUSH-LOGIC-ALL         # Meta-task representing porting of all specific brush logic
 current_functionality_summary: |
   In the legacy codebase, `Editor::drawInternal` methods (and similar methods like `destroySelection`) serve as the central point for applying modifications to the map.

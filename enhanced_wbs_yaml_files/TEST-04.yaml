@@ -5,11 +5,12 @@ original_task_id: TEST-04 # Assuming this is the original ID
 description: Develop unit tests for the brush and material system. This includes testing brush application logic (e.g., how ground, wall, item, doodad, creature brushes modify the map), border auto-tiling, wall auto-connection, and correct handling of material properties and brush definitions.
 dependencies:
   - "CORE-03"  # Defines mapcore::Map, mapcore::Tile, which are manipulated by brushes.
-  - "CORE-04"  # Defines mapcore::MaterialManager, mapcore::Brush types, and their application logic.
+  - CORE-14-MaterialSystem  # Defines mapcore::MaterialManager and application logic.
+  - CORE-BRUSH-FRAMEWORK  # Defines mapcore::Brush types.
   - "TEST-01"  # Unit tests for basic data structures (Item, Tile, etc.).
   - "CORE-01"  # For Position, Tile, Item data structures.
   - "CORE-02"  # For ItemType, CreatureType definitions used by brushes.
-  - "LOGIC-02" # ItemManager, for resolving item types for brushes.
+  - "CORE-02" # ItemManager, for resolving item types for brushes.
   - "BUILD-01" # For CMake setup to build and run tests.
 input_files: [] # No wxWidgets files to port for this task.
 analyzed_input_files: [] # No legacy files to analyze for this task.

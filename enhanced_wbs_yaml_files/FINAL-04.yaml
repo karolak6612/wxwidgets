@@ -40,7 +40,7 @@ dependencies:
   - CORE-06  # AppSettings for persisting view preferences
   - UI-01    # MainWindow structure for managing toolbars/docks
   - UI-02    # View and Tools Menu QAction definitions
-  - UI-PALETTES-ALL # For palette QDockWidget instances to show/hide
+  - UI-02 # For palette QDockWidget instances to show/hide
   - RENDER-01 # For MapViewport's drawing options and zoom/floor capabilities
 current_functionality_summary: |
   Following `FINAL-03`, the application has integrated core logic, file operations, edit operations, and a preferences dialog.

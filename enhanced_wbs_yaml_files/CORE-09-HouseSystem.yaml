@@ -1,0 +1,142 @@
+id: CORE-09-HouseSystem
+section: Core Migration Tasks
+title: Port House System Data Structures
+original_input_files:
+  - wxwidgets/house.h
+  - wxwidgets/house.cpp
+  # Contextual files:
+  # - wxwidgets/tile.h (Tile stores house_id, TileLocation stores house exits) - CORE-01, CORE-03
+  # - wxwidgets/map.h (Map stores collection of Houses) - CORE-03
+  # - wxwidgets/iomap_otbm.cpp (Map loading/saving includes house data) - CORE-07-MapIO
+analyzed_input_files:
+  - file_path: wxwidgets/house.h
+    description: |
+      Defines the `House` class and potentially related structures like `HouseExit`.
+      - `House` class: Represents a player house with properties like ID (uint32_t), name (string), town ID (uint32_t), entry point (`Position`), rent (uint32_t), size (int), and possibly a list of associated tiles or exit positions.
+      - May manage access rights or other house-specific attributes.
+      - Declares methods for getting/setting these properties.
+      - `HouseExit` might be a simple struct storing a `Position`.
+      - The `Map` class (in `map.h`) likely contains a list or map of `House*` objects.
+      - Tiles (`Tile` class in `tile.h`) store a `house_id`. `TileLocation` (associated with `Tile`) might store actual house exit information.
+  - file_path: wxwidgets/house.cpp
+    description: |
+      Implementation of the `House` class.
+      - Constructor likely takes house ID, name, entry position, etc.
+      - Methods to manage house attributes.
+      - May include logic for finding all tiles belonging to a house (e.g., by flood fill from entry or by checking `house_id` on tiles).
+      - Logic for adding/removing/validating house exits.
+dependencies:
+  - BUILD-01
+  - CORE-01  # For Position, Tile (house_id)
+  - CORE-03  # For Map (stores Houses collection, TileLocation might be relevant)
+  # CORE-07-MapIO is related for loading/saving house data.
+current_functionality_summary: |
+  - The `House` class (`house.h/cpp`) defines a player house, storing its ID, name, entry position, town ID, rent, size, and possibly a list of tiles or exits.
+  - Tiles store a `house_id`. `TileLocation` objects (associated with tiles, managed by `BaseMap`'s QuadTree structure) might store specific house exit information.
+  - The main `Map` object manages a collection of all houses in the map.
+  - Map I/O operations (e.g., OTBM parsing) read and write house data.
+qt6_migration_steps: |
+  1.  **Define `HouseExit` Struct (in `mapcore/houses/HouseExit.h` or similar):**
+      -   If `HouseExit` is a distinct concept in the original code (more than just a `Position`), define it. It might store a `Position` and possibly a destination house ID or other properties. For now, assume it's primarily a `Position`.
+      -   `struct HouseExit { Position toPosition; /* other relevant data */ };`
+
+  2.  **Define `HouseData` Class (in `mapcore/houses/HouseData.h/cpp`):**
+      -   Create `HouseData.h` and `HouseData.cpp`. This class will represent a single house.
+      -   Store members: `uint32_t id;`, `QString name;`, `uint32_t townId;`, `Position entryPoint;`, `uint32_t rent;`, `int sizeInSqms;`.
+      -   Store a `QList<Position> exits;` (or `QList<HouseExit> exits;`).
+      -   Implement constructor and accessors/mutators for these properties.
+      -   Consider methods like `addExit(const Position& pos)`, `removeExit(const Position& pos)`.
+
+  3.  **Integrate with `Map` and `Tile`:**
+      -   `Map` class (from `CORE-03`):
+          -   Modify its `Towns towns`, `Houses houses`, etc. members. The `Houses` member should become something like `QMap<uint32_t, HouseData> housesById;`.
+          -   Implement methods in `Map` like `addHouse(HouseData&& house)`, `getHouse(uint32_t houseId) const`, `removeHouse(uint32_t houseId)`.
+      -   `Tile` class (from `CORE-01`):
+          -   It already has `uint32_t house_id;`. This will link a tile to a `HouseData` object via the `Map::housesById`.
+      -   `TileLocation` (if ported from `CORE-03`): If `TileLocation` was responsible for storing house exit flags/data directly on the tile's location structure, this logic needs to be reconciled. It might be simpler for `HouseData` to store its exits, and `Tile` to just have its `house_id`.
+
+  4.  **Update Map I/O (`CORE-07-MapIO` - `OtbmMapIO`):**
+      -   Modify `OtbmMapIO::loadMap` to parse OTBM house nodes:
+          -   Read house attributes (ID, name, entry, etc.).
+          -   Read house exit positions.
+          -   Create `HouseData` objects and add them to `Map::housesById`.
+          -   When loading tiles, the `house_id` on the tile should be set.
+      -   Modify `OtbmMapIO::saveMap` to serialize `HouseData` from `Map::housesById` into OTBM house nodes.
+
+  5.  **Unit Tests:**
+      -   Test `HouseData` construction and property management.
+      -   Test adding/removing exits from `HouseData`.
+      -   Test `Map`'s ability to add, retrieve, and remove `HouseData` objects.
+      -   Test (conceptually, or as part of `CORE-07`'s tests) that house data is correctly loaded and saved with maps.
+definition_of_done: |
+  - A `HouseData` class (and `HouseExit` struct if needed) is implemented in `mapcore/houses/` to store all properties of a house (ID, name, entry, exits, town ID, rent, size).
+  - The `Map` class (from `CORE-03`) is updated to manage a collection of `HouseData` objects (e.g., `QMap<uint32_t, HouseData>`).
+  - The `Tile` class (from `CORE-01`) uses its `house_id` to associate with a `HouseData` instance managed by `Map`.
+  - Logic for managing house exits is implemented within `HouseData`.
+  - The OTBM map I/O system (`CORE-07-MapIO`) is extended to correctly load and save house definitions and tile `house_id` information.
+  - Unit tests are created for `HouseData` and for the `Map` class's house management capabilities.
+  - The new classes compile successfully within the `mapcore` library.
+boilerplate_coder_ai_prompt: |
+  You are to port the House system data structures from a legacy C++ codebase (based on `house.h/cpp`) to a modern C++/Qt6 environment within the `mapcore` library. This includes defining the `HouseData` class and integrating it with the `Map` and `Tile` classes.
+
+  **1. `HouseExit` Struct (Optional, `mapcore/houses/HouseExit.h`):**
+     - If house exits have more properties than just a `Position`, define a `HouseExit` struct:
+       ```cpp
+       #include "core/position.h" // Assuming Position is in core/
+       struct HouseExit {
+           Position toPosition;
+           // Any other relevant data like a specific exit ID or type
+       };
+       ```
+     - If exits are just positions, `QList<Position>` in `HouseData` is sufficient.
+
+  **2. `HouseData` Class (`mapcore/houses/HouseData.h/cpp`):**
+     - Define class `HouseData`.
+     - Members:
+       ```cpp
+       #include <QString>
+       #include <QList>
+       #include "core/position.h" // Or your Position header
+       // #include "HouseExit.h" // If you defined HouseExit
+
+       class HouseData {
+       public:
+           uint32_t id = 0;
+           QString name;
+           uint32_t townId = 0;
+           Position entryPoint;
+           uint32_t rent = 0;
+           int sizeInSqms = 0;
+           QList<Position> exits; // Or QList<HouseExit>
+           // Add constructors, getters, setters as needed
+       };
+       ```
+     - Implement methods to add/remove exits if necessary.
+
+  **3. Update `Map` Class (Modify `mapcore/map/Map.h/cpp` from `CORE-03`):**
+     - Add a member: `QMap<uint32_t, HouseData> housesById;`.
+     - Implement public methods:
+       - `void addHouse(HouseData&& houseData);`
+       - `HouseData* getHouse(uint32_t houseId);` (returns pointer to value in map, or nullptr)
+       - `const HouseData* getHouse(uint32_t houseId) const;`
+       - `void removeHouse(uint32_t houseId);`
+       - `const QMap<uint32_t, HouseData>& getHouses() const { return housesById; }`
+
+  **4. Update `Tile` Class (Verify `mapcore/map/Tile.h` from `CORE-01`):**
+     - Ensure `Tile` has `uint32_t house_id;`. No direct link to `HouseData` needed in `Tile` itself; the `house_id` is the key to look up in `Map::housesById`.
+
+  **5. Integration with Map I/O (`CORE-07-MapIO`):**
+     - This task defines the data structures. The actual loading/saving logic will be implemented as part of `CORE-07-MapIO`'s `OtbmMapIO` class. Ensure that `OtbmMapIO` is updated to:
+        - Read house data from OTBM house nodes and populate `Map::housesById`.
+        - Read `house_id` for each tile and set it on the `Tile` object.
+        - Write `HouseData` from `Map::housesById` and individual tile `house_id`s back to OTBM.
+
+  **General Requirements:**
+     - Use C++17/Qt6 types and practices.
+     - Provide header and source files.
+     - Write basic Qt Test unit tests for `HouseData` and `Map`'s house management.
+documentation_references:
+  - "QMap: https://doc.qt.io/qt-6/qmap.html"
+  - "QList: https://doc.qt.io/qt-6/qlist.html"
+estimation_effort: Medium
+```

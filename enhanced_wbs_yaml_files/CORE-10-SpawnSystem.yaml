@@ -1,0 +1,125 @@
+id: CORE-10-SpawnSystem
+section: Core Migration Tasks
+title: Port Spawn System Data Structures
+original_input_files:
+  - wxwidgets/spawn.h
+  - wxwidgets/spawn.cpp
+  # Contextual files:
+  # - wxwidgets/tile.h (Tile contains Spawn* and TileLocation stores spawn counts) - CORE-01, CORE-03
+  # - wxwidgets/map.h (Map stores collection of Spawns) - CORE-03
+  # - wxwidgets/creature.h (Spawn references creatures by name or type) - CORE-08 for Creature definition
+  # - wxwidgets/iomap_otbm.cpp (Map loading/saving includes spawn data) - CORE-07-MapIO
+analyzed_input_files:
+  - file_path: wxwidgets/spawn.h
+    description: |
+      Defines the `Spawn` class.
+      - Represents a creature spawn area or point.
+      - Stores a list of creature names/types (`std::vector<std::string>`) that can spawn.
+      - Stores a radius (int) defining the spawn area around a central `Position`.
+      - Stores a spawn time interval (int, e.g., in seconds).
+      - May store other attributes like spawn count limit or if it's a "mega spawn".
+      - The `Map` class (in `map.h`) likely contains a list or map of `Spawn*` objects.
+      - Individual `Tile` objects (or their `TileLocation`) might store a count of how many spawns influence them, or a pointer to a `Spawn` object if a spawn's center is on that tile.
+  - file_path: wxwidgets/spawn.cpp
+    description: |
+      Implementation of the `Spawn` class.
+      - Constructor takes position, radius, spawn time, and list of creatures.
+      - Methods to manage creature list, radius, spawn time.
+      - May include logic to check if a given position is within the spawn's radius.
+dependencies:
+  - BUILD-01
+  - CORE-01  # For Position, Tile (TileLocation might be relevant for spawn counts)
+  - CORE-03  # For Map (stores Spawns collection)
+  - CORE-08  # For Creature definitions (spawn references creature types/names)
+  # CORE-07-MapIO is related for loading/saving spawn data.
+current_functionality_summary: |
+  - The `Spawn` class (`spawn.h/cpp`) defines a spawn area, including its center `Position`, radius, spawn interval, and a list of creature types/names that can appear.
+  - The main `Map` object manages a collection of all spawns.
+  - `TileLocation` objects (associated with tiles) might store a count of spawns affecting that tile, or a `Tile` might point to a `Spawn` if its center is there. This is used for visualization or quick lookup.
+  - Map I/O operations (e.g., OTBM parsing) read and write spawn data.
+qt6_migration_steps: |
+  1.  **Define `SpawnData` Class (in `mapcore/spawns/SpawnData.h/cpp`):**
+      -   Create `SpawnData.h` and `SpawnData.cpp`. This class represents a single spawn definition.
+      -   Store members: `Position center;`, `int radius;`, `int intervalSeconds;`, `QList<QString> creatureTypes;` (list of creature names or type identifiers).
+      -   Implement constructor and accessors/mutators for these properties.
+      -   Add methods like `addCreatureType(const QString& type)`, `removeCreatureType(const QString& type)`.
+      -   Consider a unique ID for each spawn if needed for referencing, though OTBM might handle spawns by their direct inclusion in tile areas or a map-level list.
+
+  2.  **Integrate with `Map` and `Tile`:**
+      -   `Map` class (from `CORE-03`):
+          -   Add a member like `QList<SpawnData> spawns;` or `QMap<Position, SpawnData> spawnsByPosition;` if center position is unique. A simple list is likely sufficient as spawns might overlap or not have perfectly unique centers if radius is 0.
+          -   Implement methods in `Map` like `addSpawn(SpawnData&& spawn)`, `getSpawns() const`, `removeSpawn(...)`.
+      -   `Tile` class (from `CORE-01`) / `TileLocation` (from `CORE-03`):
+          -   The original `Tile` had `Spawn* spawn_ptr` and `TileLocation` had `spawn_count`.
+          -   In the new system:
+              -   `Tile::spawn_ptr` could become `SpawnData* spawnDataRef = nullptr;` if a tile is the center of a spawn.
+              -   `TileLocation`'s `spawn_count` (if `TileLocation` is a separate, detailed class) could be recalculated dynamically by checking which `SpawnData` areas cover a tile, or it could be cached if performance demands. For `mapcore`, dynamic calculation is likely preferred initially.
+
+  3.  **Update Map I/O (`CORE-07-MapIO` - `OtbmMapIO`):**
+      -   Modify `OtbmMapIO::loadMap` to parse OTBM spawn nodes:
+          -   Read spawn attributes (center position, radius, interval, creature list).
+          -   Create `SpawnData` objects and add them to `Map::spawns`.
+          -   If a tile is explicitly marked as a spawn center in OTBM, link its `Tile::spawnDataRef`.
+      -   Modify `OtbmMapIO::saveMap` to serialize `SpawnData` from `Map::spawns` into OTBM spawn nodes.
+
+  4.  **Unit Tests:**
+      -   Test `SpawnData` construction and property management (creature list, radius, interval).
+      -   Test `Map`'s ability to add, retrieve, and remove `SpawnData` objects.
+      -   Test (conceptually, or as part of `CORE-07`'s tests) that spawn data is correctly loaded and saved with maps.
+definition_of_done: |
+  - A `SpawnData` class is implemented in `mapcore/spawns/` to store all properties of a spawn (center position, radius, interval, list of creature types).
+  - The `Map` class (from `CORE-03`) is updated to manage a collection of `SpawnData` objects.
+  - The relationship between `Tile` objects and `SpawnData` (e.g., a tile being the center of a spawn, or being within a spawn's radius) is defined. `Tile::spawnDataRef` can point to a `SpawnData` if it's a center.
+  - The OTBM map I/O system (`CORE-07-MapIO`) is extended to correctly load and save spawn definitions.
+  - Unit tests are created for `SpawnData` and for the `Map` class's spawn management capabilities.
+  - The new classes compile successfully within the `mapcore` library.
+boilerplate_coder_ai_prompt: |
+  You are to port the Spawn system data structures from a legacy C++ codebase (based on `spawn.h/cpp`) to a modern C++/Qt6 environment within the `mapcore` library. This includes defining the `SpawnData` class and integrating it with the `Map` and `Tile` classes.
+
+  **1. `SpawnData` Class (`mapcore/spawns/SpawnData.h/cpp`):**
+     - Define class `SpawnData`.
+     - Members:
+       ```cpp
+       #include <QStringList> // For QList<QString>
+       #include "core/position.h" // Or your Position header
+
+       class SpawnData {
+       public:
+           Position center;
+           int radius = 0;
+           int intervalSeconds = 60; // Default spawn time
+           QStringList creatureTypes; // List of creature names/identifiers
+
+           // Add constructors, getters, setters as needed
+           // void addCreatureType(const QString& type);
+           // bool removeCreatureType(const QString& type);
+       };
+       ```
+
+  **2. Update `Map` Class (Modify `mapcore/map/Map.h/cpp` from `CORE-03`):**
+     - Add a member: `QList<SpawnData> spawns;`.
+     - Implement public methods:
+       - `void addSpawn(SpawnData&& spawnData);`
+       - `QList<SpawnData>& getSpawns();`
+       - `const QList<SpawnData>& getSpawns() const;`
+       - `void removeSpawn(...);` // (Define how to identify a spawn for removal, e.g., by index or by matching data)
+
+  **3. Update `Tile` Class (Modify `mapcore/map/Tile.h/cpp` from `CORE-01`):**
+     - Add a member: `SpawnData* spawnDataRef = nullptr;`
+     - This pointer can be set if this tile is the center of a spawn defined in `Map::spawns`. It's a non-owning pointer for quick reference.
+
+  **4. Integration with Map I/O (`CORE-07-MapIO`):**
+     - This task defines the data structures. The actual loading/saving logic will be implemented as part of `CORE-07-MapIO`'s `OtbmMapIO` class. Ensure that `OtbmMapIO` is updated to:
+        - Read spawn data from OTBM spawn nodes and populate `Map::spawns`.
+        - If a tile is a spawn center, set its `spawnDataRef` to point to the corresponding `SpawnData` in `Map::spawns`.
+        - Write `SpawnData` from `Map::spawns` back to OTBM.
+
+  **General Requirements:**
+     - Use C++17/Qt6 types and practices.
+     - Provide header and source files.
+     - Write basic Qt Test unit tests for `SpawnData` and `Map`'s spawn management.
+documentation_references:
+  - "QList: https://doc.qt.io/qt-6/qlist.html"
+  - "QStringList: https://doc.qt.io/qt-6/qstringlist.html"
+estimation_effort: Medium
+```

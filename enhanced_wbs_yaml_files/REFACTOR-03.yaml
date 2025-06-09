@@ -10,7 +10,7 @@ dependencies:
   - "REFACTOR-02" # Profiling Report which guides this task
   - "RENDER-01"   # Initial MapView implementation
   - "RENDER-03"   # TextureManager implementation
-  - "RENDER-04"   # Lighting System (if shaders are involved)
+  - "RENDER-04-LightingSystem"   # Lighting System (if shaders are involved)
   - "CORE-01"     # Map data structures (for culling, data access)
 analyzed_input_files:
   - filepath: "Conceptual: Qt6 MapView class source code"

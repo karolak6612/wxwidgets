@@ -9,8 +9,8 @@ original_input_files:
 dependencies:
   - "RENDER-02"  # Basic tile quad rendering in MapView
   - "CORE-02"    # For mapcore::GraphicManager, mapcore::GameSprite, mapcore::Animator
-  - "DATA-03"    # For the actual sprite data (.spr, .dat) loading logic used by mapcore::GraphicManager
-  - "APPSTATE-01" # For AppSettings (e.g., animation settings)
+  - "CORE-02"    # For the actual sprite data (.spr, .dat) loading logic used by mapcore::GraphicManager
+  - "REFACTOR-01" # For AppSettings (e.g., animation settings)
 analyzed_input_files:
   - filepath: "wxwidgets/graphics.h"
     description: "Declares 'GraphicManager', 'GameSprite', 'Sprite', 'EditorSprite', 'Animator', and related helper structures like 'SpriteLight'. 'GameSprite' stores metadata (dimensions, layers, patterns, frames) and a list of 'NormalImage' objects which hold raw pixel data. It has 'getHardwareID()' methods to get an OpenGL texture ID, triggering texture creation if needed. 'GameSprite::TemplateImage' handles dynamic creature outfit colorization by creating new GL textures. 'GraphicManager' loads '.dat' (metadata) and '.spr' (pixel data) files, manages 'GameSprite' instances, and includes a texture garbage collection mechanism."

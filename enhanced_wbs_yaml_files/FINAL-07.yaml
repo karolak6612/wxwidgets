@@ -22,8 +22,9 @@ dependencies:
   - BUILD-01 # For CMake to find/link Qlementine if it's a library
   - UI-01    # MainWindow
   - UI-02    # Toolbars & Menubar
-  - UI-PALETTES-ALL # All palette UIs
-  - UI-DIALOGS-ALL  # All standard dialog UIs
+  - UI-02 # All palette UIs
+  - UI-04    # All standard dialog UIs (part 1)
+  - UI-05    # All standard dialog UIs (part 2)
   - FINAL-01 # Core UI Integration
   - FINAL-02 # File Menu Operations (dialogs like QFileDialog might be affected by global style)
   - FINAL-03 # Edit Menu & Preferences Dialog

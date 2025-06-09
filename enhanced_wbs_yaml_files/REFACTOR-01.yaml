@@ -10,14 +10,15 @@ dependencies:
   - "FINAL-04" # Implies most UI and core components are ported.
   - "UI-01"    # MainWindow, which will own the new services.
   - "UI-02"    # EditorController, which will consume many services.
-  - "UI-03"    # MapView, which will consume display-related services.
+  - RENDER-01  # MapView, which will consume display-related services.
+  - UI-01      # (Related to MapView's context in MainWindow)
   - "UI-04"    # Palette UIs, which will interact with BrushManager.
   - "UI-05"    # Toolbars, which will interact with EditorStateManager, BrushManager.
   - "CORE-02"  # ItemManager (g_items was accessed via g_gui or globally)
   - "CORE-05"  # ActionQueue (GetCurrentEditor()->actionQueue)
-  - "DATA-02"  # ClientVersionManager (loaded_version, GetCurrentVersion())
-  - "DATA-03"  # SpriteManager (gfx)
-  - "DATA-04"  # MaterialManager (g_materials)
+  - "CORE-02"  # ClientVersionManager (loaded_version, GetCurrentVersion())
+  - "CORE-02"  # SpriteManager (gfx)
+  - "CORE-14-MaterialSystem"  # MaterialManager (g_materials)
 analyzed_input_files:
   - filepath: "wxwidgets/gui.h"
     description: "Declares the global 'g_gui' object (class 'GUI'). This class acts as a central hub for managing the entire application's UI state and providing access to shared resources and services. Key responsibilities include: managing the active editor instance and its state (current map, floor, zoom), brush selection and parameters ('current_brush', 'brush_size', etc.), editor mode (drawing/selection), palette and minimap instances and their visibility, the copy/paste buffer, loaded client version data, OpenGL context, and various UI helper functions like showing dialogs, progress bars, and updating the main frame's title and status bar. It also holds references to many specific brush types."

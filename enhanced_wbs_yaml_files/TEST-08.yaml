@@ -10,7 +10,7 @@ dependencies:
   - "TEST-01"  # Unit tests for core data structures (mapcore::Map, mapcore::Tile, etc.)
   - "TEST-06"  # Unit tests for network protocol message serialization/deserialization
   - "CORE-01"  # mapcore::Map, mapcore::Tile, mapcore::Position, etc.
-  - "CORE-03"  # For map loading/saving if test maps are pre-prepared.
+  - "CORE-07-MapIO"  # For map loading/saving if test maps are pre-prepared.
   - "CORE-05"  # mapcore::ActionQueue, mapcore::NetworkedActionQueue
   - "BUILD-01" # For CMake setup to build and run tests, including managing server executable for tests.
 input_files: [] # No wxWidgets files to port for this task.

@@ -59,8 +59,8 @@ dependencies:
   - CORE-05                 # For SelectionManager & ClipboardManager classes (whose logic is being implemented here)
   - LOGIC-01                # For EditorController, which will host these methods
   - LOGIC-02                # For Bounding-Box Selection (as a common way to populate selection)
-  - UI-EVENT-MAPVIEW        # For MapView mouse events (initiating drag-move, paste location)
-  - UI-MENUBAR-ACTIONS      # For Edit menu QActions (Cut, Copy, Paste, Delete)
+  - RENDER-01               # For MapView mouse events (initiating drag-move, paste location)
+  - UI-01                   # For Edit menu QActions (Cut, Copy, Paste, Delete)
 current_functionality_summary: |
   - `CopyBuffer` (`copybuffer.h/cpp`): Manages an internal `BaseMap` to store deep copies of selected tiles/items for copy/cut operations. `copy()` populates this buffer from `Editor::selection`. `cut()` first calls `copy()`, then creates an `Action` to delete the originals. `paste()` creates an `Action` to place deep copies from the buffer onto the map at a target position, handling merging and auto-bordering.
   - `Editor` (`editor.h/cpp`):

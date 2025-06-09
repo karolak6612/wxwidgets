@@ -6,11 +6,10 @@ description: Recreate UI for the creature palette (selection, spawn settings, se
 dependencies:
   - "UI-02"        # Main Palette System (hosts the Creature Palette Tab)
   - "CORE-02"      # mapcore::CreatureManager, mapcore::CreatureType, mapcore::Outfit
-  - "LOGIC-02"     # For ItemManager (if creature brushes can also place items/corpses, though not primary)
-  - "LOGIC-07"     # Spawn system logic (interacts with spawn brush mode)
-  - "APPSTATE-01"  # AppSettings (for palette preferences, default spawn times)
+  - "CORE-02"     # For ItemManager (if creature brushes can also place items/corpses, though not primary)
+  - "CORE-10-SpawnSystem"     # Spawn system logic (interacts with spawn brush mode)
   - "REFACTOR-01"  # Services like BrushStateService, EditorStateService
-  - "DATA-05"      # Creature data and XML file structures (creatures.xml)
+  - "CORE-02"      # Creature data and XML file structures (creatures.xml)
   - "BUILD-01"     # CMake setup
 input_files:
   - "wxwidgets/palette_creature.cpp"

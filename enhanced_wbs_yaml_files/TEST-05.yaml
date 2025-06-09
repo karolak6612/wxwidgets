@@ -5,9 +5,9 @@ original_task_id: TEST-05 # Assuming this is the original ID
 description: Develop unit tests for map action and selection functionalities implemented in Qt6. This includes testing actions like cut, copy, paste, delete, and fill, as well as selection mechanisms (e.g., rectangular, magic wand/smart select), ensuring they correctly modify map data, manage selection state, and interact with the undo/redo system.
 dependencies:
   - "CORE-05"  # mapcore::Action, mapcore::ActionQueue (UndoStack), mapcore::Change
-  - "LOGIC-03" # mapcore::Selection, mapcore::CopyBuffer
-  - "LOGIC-02" # mapcore::ItemManager (used by actions to validate/create items)
-  - "CORE-04"  # mapcore::MaterialManager (for mock brushes used in Fill action)
+  - "CORE-05" # mapcore::Selection, mapcore::CopyBuffer
+  - "CORE-02" # mapcore::ItemManager (used by actions to validate/create items)
+  - "CORE-14-MaterialSystem"  # mapcore::MaterialManager (for mock brushes used in Fill action)
   - "CORE-01"  # mapcore::Map, mapcore::Tile, mapcore::Item etc.
   - "TEST-01"  # Unit tests for the basic data structures being manipulated.
   - "BUILD-01" # For CMake setup to build and run tests.

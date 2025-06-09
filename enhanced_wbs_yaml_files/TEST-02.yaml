@@ -5,7 +5,7 @@ original_task_id: TEST-02 # Assuming this is the original ID
 description: Create unit tests for the asset loading and parsing logic. This involves testing the correct parsing of data files (e.g., items.xml, creatures.xml, materials.xml and its includes, client version files) and ensuring the data is correctly populated into the relevant mapcore data structures.
 dependencies:
   - "CORE-02"  # Defines mapcore::ItemType, mapcore::CreatureType, mapcore::ClientProfile, mapcore::GraphicManager, and potentially their parsers/loaders.
-  - "CORE-04"  # Defines mapcore::MaterialManager, mapcore::Brush types (GroundBrush, WallBrush etc.) and their parsers/loaders.
+  - "CORE-14-MaterialSystem"  # Defines mapcore::MaterialManager, mapcore::Brush types (GroundBrush, WallBrush etc.) and their parsers/loaders.
   - "TEST-01"  # Ensures the basic data structures being populated are themselves tested.
   - "BUILD-01" # For CMake setup to build and run tests.
 # The input_files list below represents *examples* of the file types whose parsers need testing.

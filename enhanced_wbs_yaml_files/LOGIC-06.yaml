@@ -3,11 +3,11 @@ name: Integrate House & Waypoint Brushes
 description: "Migrate the UI interaction logic for HouseBrush, HouseExitBrush, and WaypointBrush to Qt6, ensuring they correctly interact with the map data via the EditorController and Action system."
 dependencies:
 - LOGIC-01 # EditorController for dispatching brush actions
-- LOGIC-04 # Core Waypoint System (Waypoint and Waypoints classes)
-- LOGIC-05 # Core House System (House and Houses classes)
+- CORE-11-WaypointSystem # Core Waypoint System (Waypoint and Waypoints classes)
+- CORE-09-HouseSystem # Core House System (House and Houses classes)
 - CORE-04 # Action system (ActionQueue, Change classes)
-- UI-PALETTE-03 # For House Palette and Waypoint Palette to select current house/waypoint
-- BRUSH-FRAMEWORK-CORE # For the base BaseBrush class
+- UI-07 # For House Palette and Waypoint Palette to select current house/waypoint
+- CORE-BRUSH-FRAMEWORK # For the base BaseBrush class
 original_input_files:
 - wxwidgets/house_brush.h
 - wxwidgets/house_brush.cpp

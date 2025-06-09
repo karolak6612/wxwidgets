@@ -47,7 +47,6 @@ dependencies:
   - CORE-05                 # For SelectionManager class (which will be used by EditorController)
   - CORE-06                 # For AppSettings (reading selection mode settings)
   - LOGIC-01                # For EditorController, which will orchestrate the selection action
-  - UI-EVENT-MAPVIEW        # For MapView mouse events that initiate bounding box selection
   - RENDER-01               # For MapView, which needs to draw the visual selection rectangle
 current_functionality_summary: |
   When the user Shift-drags the mouse in selection mode on `MapCanvas` (`map_display.cpp`), the `boundbox_selection` flag is set.

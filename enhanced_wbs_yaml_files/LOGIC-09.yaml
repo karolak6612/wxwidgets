@@ -7,14 +7,14 @@ original_input_files:
   - "wxwidgets/map.cpp"
   - "wxwidgets/main_menubar.cpp"
 dependencies:
-  - "LOGIC-01" # BaseMap and Tile
-  - "LOGIC-02" # Item Management
-  - "LOGIC-04" # Waypoint System Core
-  - "LOGIC-05" # House System Core
-  - "DATA-01"  # OTBM Loader
-  - "DATA-03"  # Sprite Management (indirectly for item properties)
-  - "DATA-04"  # Material Management (indirectly for item properties)
-  - "DATA-05"  # Creature Data
+  - "CORE-03" # BaseMap and Tile
+  - "CORE-02" # Item Management
+  - "CORE-11-WaypointSystem" # Waypoint System Core
+  - "CORE-09-HouseSystem" # House System Core
+  - "CORE-07-MapIO"  # OTBM Loader
+  - "CORE-02"  # Sprite Management (indirectly for item properties)
+  - "CORE-14-MaterialSystem"  # Material Management (indirectly for item properties)
+  - "CORE-02"  # Creature Data
   - "UI-02"    # Main Application Window (for menu actions)
   - "UI-07"    # Dialogs (for properties, statistics, etc.)
 analyzed_input_files:

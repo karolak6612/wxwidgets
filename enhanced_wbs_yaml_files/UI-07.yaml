@@ -6,8 +6,8 @@ description: Recreate UI components for managing houses (palette tab, editor dia
 dependencies:
   - "UI-02"        # Main Palette System (hosts these palette tabs)
   - "CORE-01"      # For mapcore::House, mapcore::Town, mapcore::Waypoint data structures
-  - "LOGIC-04"     # For mapcore::WaypointManager
-  - "LOGIC-05"     # For mapcore::HouseManager, mapcore::TownManager
+  - "CORE-11-WaypointSystem"     # For mapcore::WaypointManager
+  - "CORE-09-HouseSystem"     # For mapcore::HouseManager, mapcore::TownManager
   - "BUILD-01"     # CMake setup
 input_files:
   - "wxwidgets/palette_house.cpp"

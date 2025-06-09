@@ -7,12 +7,12 @@ dependencies:
   - "RENDER-01"  # MapView (OpenGL viewport setup)
   - "RENDER-02"  # Basic Tile Rendering (colored quads)
   - "RENDER-03"  # Sprite Rendering (textured quads, atlases)
-  - "RENDER-04"  # Lighting System (if lighting affects visual output for tests)
-  - "CORE-03"    # IOMapOTBM for loading test map files
+  - "RENDER-04-LightingSystem"  # Lighting System (if lighting affects visual output for tests)
+  - "CORE-07-MapIO"    # IOMapOTBM for loading test map files
   - "TEST-01"    # Unit tests for core data structures
   - "CORE-01"    # mapcore::Map, mapcore::Tile, etc.
   - "CORE-02"    # mapcore::Item, mapcore::Creature, mapcore::ItemType, etc.
-  - "CORE-04"    # mapcore::MaterialManager (for brush definitions affecting borders)
+  - "CORE-14-MaterialSystem"    # mapcore::MaterialManager (for brush definitions affecting borders)
   - "BUILD-01"   # For CMake setup to build and run tests
 input_files: [] # No wxWidgets files to port for this task
 analyzed_input_files: [] # No legacy files to analyze for this task

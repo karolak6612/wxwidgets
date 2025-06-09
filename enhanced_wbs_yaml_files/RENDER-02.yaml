@@ -9,9 +9,9 @@ dependencies:
   - "RENDER-01"  # MapView (QOpenGLWidget) setup
   - "CORE-01"    # For map data structures (Tile, Item, Position)
   - "CORE-03"    # For Map class and accessing tiles
-  - "DATA-02"    # For ClientVersion (to potentially get item properties for minimap color)
-  - "DATA-04"    # For MaterialManager (g_items access, used by MapDrawer for minimap colors)
-  - "APPSTATE-01" # For AppSettings (replacement for g_settings)
+  - "CORE-02"    # For ClientVersion (to potentially get item properties for minimap color)
+  - "CORE-14-MaterialSystem"    # For MaterialManager (g_items access, used by MapDrawer for minimap colors)
+  - "REFACTOR-01" # For AppSettings (replacement for g_settings)
 analyzed_input_files:
   - filepath: "wxwidgets/map_drawer.h"
     description: "Declares the 'MapDrawer' class and the 'DrawingOptions' struct. 'MapDrawer' is responsible for all OpenGL rendering of the map content (tiles, items, creatures, overlays). It defines various 'Blit*' methods for sprites and colored squares, and methods like 'DrawTile', 'DrawMap', 'DrawGrid', etc. 'DrawingOptions' holds numerous boolean flags (e.g., 'show_creatures', 'transparent_floors') that control what visual elements are rendered, typically sourced from global settings. Also defines 'MapTooltip' struct and 'ZoneFinder' helper class."

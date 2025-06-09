@@ -6,7 +6,8 @@ description: Develop UI tests for key editor features using the Qt Test framewor
 dependencies:
   - "UI-01"    # MainWindow
   - "UI-02"    # EditorController
-  - "UI-03"    # MapViewWidget (Map Canvas)
+  - RENDER-01  # MapViewWidget (Map Canvas)
+  - UI-01      # (MainWindow context for MapViewWidget)
   - "UI-04"    # Palette UIs (Item, Terrain, Doodad, etc.)
   - "UI-05"    # Main Toolbars
   - "UI-06"    # Status Bar
@@ -17,14 +18,16 @@ dependencies:
   - "CORE-01"  # Map data structures (Map, Tile, Item)
   - "CORE-02"  # Item/Creature definitions
   - "CORE-03"  # Map I/O (for loading/saving test maps)
-  - "CORE-04"  # Brush/Material system
+  - CORE-14-MaterialSystem  # Material system
+  - CORE-BRUSH-FRAMEWORK  # Brush system
   - "CORE-05"  # ActionQueue/Undo system
   - "LOGIC-01" # Editor Initialization / Map loading
-  - "LOGIC-02" # Item Management logic
-  - "LOGIC-03" # Selection & Copy/Paste logic
-  - "LOGIC-04" # Waypoint system logic
-  - "LOGIC-05" # House system logic
-  - "LOGIC-07" # Creature/Spawn system logic
+  - "CORE-02" # Item Management logic
+  - "CORE-05" # Selection & Copy/Paste logic
+  - "CORE-11-WaypointSystem" # Waypoint system logic
+  - "CORE-09-HouseSystem" # House system logic
+  - CORE-10-SpawnSystem     # Spawn system logic
+  - CORE-08-CreatureOutfit  # Creature instance logic
   - "TEST-01"  # Unit tests for core data structures
   - "BUILD-01" # For CMake setup
 input_files: [] # No wxWidgets files to port for this task.
