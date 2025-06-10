@@ -25,6 +25,10 @@ set(RME_CORE_LIB_SOURCES
 
     # CORE-06 settings system files
     settings/AppSettings.cpp
+
+    # CORE-BRUSH-FRAMEWORK files
+    brush/Brush.cpp
+    brush/BrushManagerService.cpp
 )
 
 add_library(rme_core_lib STATIC ${RME_CORE_LIB_SOURCES})
