@@ -48,9 +48,15 @@ qt6_migration_steps: |
      - Add `find_package(Qt6 REQUIRED COMPONENTS Widgets Gui OpenGL Core Concurrent)`. Adjust components as necessary based on a more detailed source analysis.
      - (Include directories for Qt6 will typically be handled by linking against Qt6::Components).
 
-  3. **Find Qlementine Package:**
-     - Add `find_package(Qlementine REQUIRED)`.
-     - (Include directories for Qlementine will typically be handled by linking against Qlementine::Qlementine).
+  3. **Integrate Local Qlementine Package:**
+        - Add the Qlementine library, located in the `qlementine/` subdirectory of the project, to the CMake build.
+          In your main `CMakeLists.txt` (assuming it's in the project root):
+          ```cmake
+          # Add the qlementine subdirectory. This will execute Qlementine's CMakeLists.txt
+          # and make its targets available.
+          add_subdirectory(qlementine)
+          ```
+        - This assumes the `qlementine` directory contains its own `CMakeLists.txt` that defines a library target (commonly named `qlementine`).
 
   4. **Find Other Dependencies (Placeholder - to be detailed in subsequent tasks):**
      - Add commands to find `ZLIB`, `OpenGL` (if Qt6::OpenGL is not sufficient), and `PugiXML` (if used directly and not vendored).
@@ -65,7 +71,7 @@ qt6_migration_steps: |
      - (Note: Many wxWidgets specific UI files will be replaced by Qt versions in later tasks. This initial setup might include them temporarily if aiming for a phased build, or focus on non-UI core logic first.)
 
   6. **Link Libraries:**
-     - Add `target_link_libraries(RME_Qt PRIVATE Qt6::Widgets Qt6::Gui Qt6::OpenGL Qt6::Core Qt6::Concurrent Qlementine::Qlementine)`.
+     - Add `target_link_libraries(RME_Qt PRIVATE Qt6::Widgets Qt6::Gui Qt6::OpenGL Qt6::Core Qt6::Concurrent qlementine)`.
      - Add other dependencies like ZLIB if found.
 
   7. **Include Directories:**
@@ -113,6 +119,7 @@ documentation_references:
   - "https://doc.qt.io/qt-6/cmake-get-started.html"
   - "https://doc.qt.io/qt-6/cmake-build-systems.html"
   - "https://doc.qt.io/qt-6/cmake-manual.html"
-  - "https://github.com/OlivierLDff/Qlementine/blob/main/README.md"
+  - "qlementine/README.md (local copy)"
+  - "qlementine/docs/usage.md (local copy, for CMake integration and basic setup)"
   - "https://cmake.org/cmake/help/latest/manual/cmake-tutorial.7.html"
   - "https://cmake.org/cmake/help/latest/guide/tutorial/index.html"
