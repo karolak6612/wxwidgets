@@ -1,9 +1,0 @@
-id: TEST-01
-section: Quality Assurance & Testing
-title: Establish Unit Testing Framework for Core
-input_files:
-- N/A (Based on mapcore library API)
-dependencies:
-- CORE-05
-definition_of_done: A testing framework (e.g., CTest with Google Test) is integrated into the CMake build. Unit tests are written for critical functions in `mapcore`, including `Map` manipulation, `Tile` state changes, and `ItemDatabase` lookups. Code coverage for the core library is reported.
-boilerplate_coder_ai_prompt: Integrate the Google Test framework with the CMake project. Write unit tests for the `Map` class in the `mapcore` library. Tests must cover adding/removing tiles, finding tiles by position, and verifying map dimensions. Configure CTest to run these tests.

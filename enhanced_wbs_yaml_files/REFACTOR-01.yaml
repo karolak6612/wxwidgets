@@ -1,62 +1,121 @@
 id: REFACTOR-01
 section: Post-Migration Refactoring & Optimization
-title: Decouple Systems from Global Managers
-original_input_files: gui.cpp, all files that include `gui.h`
-analyzed_input_files:
-- wxwidgets/gui.h
-- wxwidgets/gui.cpp
-- 'Conceptual: All ported Qt files that would interact with the GuiManager singleton (from UI-03)'
+title: "Decouple UI State and Services from Global Access (Refactor Conceptual GuiManager)"
+original_task_id: REFACTOR-01 # Keep original ID
+original_input_files:
+  - "wxwidgets/gui.h"
+  - "wxwidgets/gui.cpp"
+  - "Conceptual: All ported Qt files that would previously interact with a global GuiManager or g_gui."
 dependencies:
-- FINAL-04
-current_functionality_summary: The application's UI state and access to shared UI-related services were planned to be centralized in a `GuiManager` singleton (as per task `UI-03`), which itself was intended as a replacement for the original wxWidgets-era `g_gui` global object. This `GuiManager` would typically handle state like the active brush, brush settings (size, shape), current editor mode (draw, select), etc. This task aims to eliminate this global singleton pattern in favor of dependency injection for better modularity and testability.
-qt6_migration_steps: |-
-  1. Thoroughly identify all responsibilities that were conceptually assigned to the `GuiManager` singleton (from WBS task `UI-03`). These typically include managing:
-     - The active brush instance.
-     - Current brush settings (size, shape, specific data like item ID for RAWBrush or CreatureType for CreatureBrush).
-     - Current editor mode (e.g., `DRAWING_MODE`, `SELECTION_MODE`).
-     - Potentially other shared UI states or access to common UI utility functions.
-  2. Design and implement smaller, focused service classes to encapsulate these responsibilities. Examples:
-     - `BrushManager`: Manages the active brush object, its current type, size, shape, and any associated data specific to that brush. It should provide methods to get/set the active brush and its properties, and emit signals when these change.
-     - `EditorStateManager` (or `ViewStateManager`): Manages editor-wide states such as the current drawing/selection mode, the active floor being viewed, potentially current zoom level if not managed solely by `MapView`. It should also emit signals on state changes.
-     - Evaluate if any other distinct services are needed based on the full scope originally planned for `GuiManager`.
-  3. Instantiate these new manager/service classes within the `MainWindow` class (created in `UI-01`). `MainWindow` will own these service instances (e.g., as member variables: `m_brushManager = new BrushManager(this);`).
-  4. Implement Dependency Injection:
-     - Modify the constructors of key UI components and controller classes (`MapView`, `EditorController`, palette widgets, toolbars) to accept pointers or references to the manager/service instances they require. For example, `EditorController`'s constructor might become `EditorController(Map* map, ActionQueue* queue, Selection* sel, BrushManager* brushManager, EditorStateManager* stateManager, ...)`.
-     - `MainWindow` will be responsible for passing its owned service instances when it creates these child widgets or controller objects.
-  5. Perform a codebase-wide refactoring:
-     - Remove the `GuiManager` singleton class definition and all its instances/usages.
-     - Update all classes that previously would have called `GuiManager::instance()->someMethod()` to now use the methods of the service instances that were injected into them (e.g., `m_brushManager->getActiveBrush()`).
-  6. Utilize Qt's signal/slot mechanism for communication between these decoupled components. For instance, if a palette widget changes the active brush via `BrushManager::setActiveBrush()`, `BrushManager` should emit a signal (e.g., `activeBrushChanged(Brush* newBrush)`). `MapView` or other components can connect to this signal to update their state or display (e.g., changing the mouse cursor).
-  7. Ensure that `EditorController` is properly provided with all necessary manager/service instances (BrushManager, EditorStateManager) and `mapcore` components (Map, ActionQueue, Selection) through its constructor or dedicated setter methods to perform its operations.
-definition_of_done: |-
-  The global `GuiManager` singleton (conceptually introduced in UI-03 to replace g_gui) is eliminated from the application architecture, and its responsibilities are handled by focused service classes managed by MainWindow and provided to other components via dependency injection.
-  Key requirements:
-  - Responsibilities like active brush management and editor state are now handled by new, non-global service classes (e.g., `BrushManager`, `EditorStateManager`).
-  - These service classes are instantiated and owned by `MainWindow`.
-  - Other components (`MapView`, `EditorController`, palettes, toolbars, etc.) receive instances of these services through their constructors or dedicated setters (dependency injection).
-  - All direct or indirect reliance on a global `GuiManager` (or `g_gui`) for these services is removed from the codebase.
-  - The application remains fully functional with this refactored architecture, demonstrating improved modularity and reduced global state.
-  - Communication between these decoupled components is achieved using Qt's signal/slot mechanism where appropriate.
-boilerplate_coder_ai_prompt: |-
-  Refactor the application to eliminate the global `GuiManager` singleton (which was planned in `UI-03` as a replacement for the old `g_gui`). Instead, use dependency injection for managing UI-related services. (Depends on `FINAL-04` and many UI tasks being complete).
-  1.  **Create New Service Classes (if not already partially done in `UI-03`):**
-      -   `BrushManager(QObject* parent = nullptr)`: Manages `Brush* m_activeBrush`, `BrushShape m_currentShape`, `int m_currentSize`, and any data for specialized brushes (e.g., current `ItemType*` for RAW, `CreatureType*` for Creature).
-          -   Provide public methods: `setActiveBrush(Brush*)`, `setBrushShape(BrushShape)`, `setBrushSize(int)`, `getActiveBrush()`, etc.
-          -   Emit signals on change: `void activeBrushChanged(Brush* newBrush);`, `void brushSettingsChanged();`.
-      -   `EditorStateManager(QObject* parent = nullptr)`: Manages `EditorMode m_currentMode` (e.g., enum `DRAW_MODE`, `SELECTION_MODE`, `FILL_MODE`), `int m_currentFloor`.
-          -   Provide methods to set/get these states.
-          -   Emit signals on change: `void editorModeChanged(EditorMode newMode);`, `void currentFloorChanged(int newFloor);`.
-  2.  **In `MainWindow.h/.cpp` (from `UI-01`):**
-      -   Add member pointers: `BrushManager* m_brushManager;`, `EditorStateManager* m_editorStateManager;`.
-      -   In `MainWindow` constructor: `m_brushManager = new BrushManager(this);`, `m_editorStateManager = new EditorStateManager(this);`.
-  3.  **Update Constructors/Setters for Dependency Injection:**
-      -   `EditorController` constructor should now take `BrushManager*` and `EditorStateManager*` (along with `Map*`, `ActionQueue*`, `Selection*`).
-      -   `MapView` constructor should take `BrushManager*`, `EditorStateManager*`, etc., as needed for rendering cursors, visual feedback for modes, etc.
-      -   Palette widgets (from `UI-PALETTE-*` tasks) should take `BrushManager*` to call its setters when the user selects a new brush or changes settings.
-      -   Toolbars with mode-switching buttons should interact with `EditorStateManager*`.
-  4.  **Replace Global Access:**
-      -   Search for all usages of `GuiManager::instance()` (or `g_gui` if any remnants exist) and replace them with calls to methods on the injected manager instances.
-      -   For example, if `MapView` needed the active brush for cursor display, it would now use `m_injectedBrushManager->getActiveBrush()`.
-  5.  **Connect Signals/Slots:**
-      -   Example: `MapView` might connect to `m_brushManager->activeBrushChanged()` to update its cursor. Palettes connect their UI controls' signals to slots that call `m_brushManager->setActiveBrush()`, etc.
-  6.  Remove the `GuiManager.h/.cpp` files and any global instance.
+  - "FINAL-04" # Implies most UI and core components are ported.
+  - "UI-01"    # MainWindow, which will own the new services.
+  - "UI-02"    # EditorController, which will consume many services.
+  - RENDER-01  # MapView, which will consume display-related services.
+  - UI-01      # (Related to MapView's context in MainWindow)
+  - "UI-04"    # Palette UIs, which will interact with BrushManager.
+  - "UI-05"    # Toolbars, which will interact with EditorStateManager, BrushManager.
+  - "CORE-02"  # ItemManager (g_items was accessed via g_gui or globally)
+  - "CORE-05"  # ActionQueue (GetCurrentEditor()->actionQueue)
+  - "CORE-02"  # ClientVersionManager (loaded_version, GetCurrentVersion())
+  - "CORE-02"  # SpriteManager (gfx)
+  - "CORE-14-MaterialSystem"  # MaterialManager (g_materials)
+analyzed_input_files:
+  - filepath: "wxwidgets/gui.h"
+    description: "Declares the global 'g_gui' object (class 'GUI'). This class acts as a central hub for managing the entire application's UI state and providing access to shared resources and services. Key responsibilities include: managing the active editor instance and its state (current map, floor, zoom), brush selection and parameters ('current_brush', 'brush_size', etc.), editor mode (drawing/selection), palette and minimap instances and their visibility, the copy/paste buffer, loaded client version data, OpenGL context, and various UI helper functions like showing dialogs, progress bars, and updating the main frame's title and status bar. It also holds references to many specific brush types."
+  - filepath: "wxwidgets/gui.cpp"
+    description: "Implements the 'GUI' class. Contains logic for initializing and managing wxWidgets UI components like 'wxAuiManager' for docking, 'MapTabbook' for editor tabs. Handles loading/unloading of client versions (sprites, items, materials via 'g_items', 'g_creatures', 'g_materials'). Manages UI perspective saving/loading. Provides concrete implementations for brush selection, hotkey management, editor mode switching, autosave logic, detached view tracking, and interaction with various dialogs. Many methods directly access or modify the state of UI elements or editor components."
+  - filepath: "Conceptual: All ported Qt files that would interact with a global GuiManager singleton (from UI-03)"
+    description: "This task addresses the architectural decision made in UI-03 where a 'GuiManager' singleton was planned as a Qt replacement for g_gui. This WBS item (REFACTOR-01) aims to refactor that concept further by breaking down the monolithic GuiManager into smaller, focused services that are provided via dependency injection instead of global singleton access."
+current_functionality_summary: |
+  The wxWidgets application relied heavily on a global 'g_gui' object (class 'GUI') to manage almost all UI-related state and provide access to shared services. This included:
+  - **Editor Session Management:** Knowing the current 'Editor' instance, current 'Map', active 'MapCanvas', floor, zoom level.
+  - **Brush Management:** Storing the currently selected 'Brush', its size, shape, variation, and specific brush instances (e.g., 'eraser', 'house_brush'). Managing the 'doodad_buffer_map'.
+  - **Editor Mode:** Current mode (drawing, selection, pasting).
+  - **Data Management:** Loading and providing access to client version data ('ClientVersion', 'SpriteManager' via 'gfx', 'ItemManager' via 'g_items', 'MaterialManager' via 'g_materials').
+  - **UI Element Management:** Managing palettes ('PaletteWindow'), minimap ('MinimapWindow'), search results window, progress bars, and the main application frame ('MainFrame'). Handling AUI perspective.
+  - **User Interaction:** Displaying dialogs, managing hotkeys, updating status bar and window title.
+  - **Clipboard:** Providing access to the 'CopyBuffer'.
+  - **OpenGL Context:** Managing the shared 'wxGLContext'.
+  The: conceptual 'GuiManager' singleton (planned in 'UI-03') was intended to carry these responsibilities over to the Qt version. This refactoring task aims to break down this centralized global/singleton approach.
+refactoring_suggestions: |
+  The primary refactoring is the core of this task: replacing the global 'g_gui' (and its conceptual successor, the 'GuiManager' singleton) with multiple, focused service classes provided through dependency injection.
+  Key service classes to create could include:
+  - 'BrushManager': Handles active brush, brush properties (size, shape, variation), and specific brush data.
+  - 'EditorStateManager' (or 'ApplicationStateManager'): Manages current editor mode, active floor, potentially active 'EditorSession' if multiple maps can be open.
+  - 'PaletteService': Manages creation, registration, and state of different palettes.
+  - 'DialogService': Provides a consistent way to show application-specific dialogs.
+  - 'ClientVersionService': Manages the currently loaded client version and provides access to its data (items, sprites, materials). This would encapsulate 'g_items', 'g_creatures', 'g_materials', and 'gfx' access.
+  - 'ClipboardService': Wraps 'CopyBuffer' functionality.
+  - 'OpenGLContextManager' (if complex sharing is needed beyond QOpenGLWidget's capabilities, though likely not necessary).
+  - 'SettingsService': Provides typed access to application settings, replacing direct 'g_settings' calls for UI-related configurations.
+qt6_migration_steps:
+  - "1. Identify 'g_gui' Responsibilities: Exhaustively list all states managed and services provided by the original 'wxwidgets/gui.h/cpp' (as detailed in 'current_functionality_summary'). This list forms the requirements for the new service classes."
+  - "2. Design Focused Service Classes: Based on the identified responsibilities, define a set of new service classes. Examples: 'BrushStateService' (or 'BrushManager') manages active brush, its type, size, shape, variation, and any brush-specific data (e.g., current raw item ID, current creature type). Emits signals when brush or settings change. 'EditorStateService' (or 'ApplicationStateManager') manages current editor mode (draw, select, fill), active map document/editor session, current floor, current zoom (if not solely per-view). Emits signals on state changes. 'ClientDataService' manages the loaded 'ClientVersion' and provides access to items ('ItemManager'), sprites ('SpriteManager'), materials ('MaterialManager'), and creatures ('CreatureManager'). This replaces direct access to 'g_items', 'g_gui.gfx', 'g_materials', 'g_creatures'. 'UIService' (or 'WindowManager'/'DialogManager') handles requests to show standard dialogs (open, save, message boxes), manages floating tool windows or palettes if not handled by 'QMainWindow's docking. 'ClipboardManager' manages 'CopyBuffer' functionality. 'SettingsManager' provides typed access to application settings relevant to UI and editor state."
+  - "3. Instantiate Services in 'MainWindow': The 'MainWindow' (from 'UI-01') will create and own instances of these new service classes (e.g., 'm_brushStateService = new BrushStateService(this);')."
+  - "4. Implement Dependency Injection: Modify constructors of classes that need these services to accept them as parameters. For example: 'EditorController(mapcore::Map* map, mapcore::ActionQueue* queue, BrushStateService* brushService, EditorStateService* editorStateService, ...)', 'MapViewWidget(BrushStateService* brushService, EditorStateService* editorStateService, ...)', Palette UI classes will take 'BrushStateService*' and 'ClientDataService*', Toolbars will take 'EditorStateService*' and 'BrushStateService*'. 'MainWindow' will pass the owned service instances when creating these components."
+  - "5. Codebase-Wide Refactoring: Remove all usages of the old 'g_gui' global object. Replace calls like 'g_gui.GetCurrentBrush()' with 'm_brushStateService->getActiveBrush()'. Replace 'g_gui.GetCurrentEditor()' logic: 'EditorStateService' might provide the active 'EditorSession', from which the 'EditorController' or 'Map' can be accessed. Replace direct access to 'g_items', 'g_gui.gfx' with calls to 'm_clientDataService->getItemManager()', 'm_clientDataService->getSpriteManager()', etc."
+  - "6. Utilize Signals and Slots: Implement communication between services and UI components using Qt's signal/slot mechanism. E.g., Palettes emit signals when user changes brush settings, 'BrushStateService' receives this, updates its state, and emits its own signals that 'MapViewWidget' or 'EditorController' might be connected to."
+  - "7. Phase out Conceptual 'GuiManager': Ensure that the 'GuiManager' singleton planned in 'UI-03' is not implemented. Instead, this WBS directly implements the fine-grained service classes and dependency injection."
+  - "8. Update 'EditorController': 'EditorController' will become a primary consumer of many of these services to perform its orchestration tasks, interacting with 'mapcore' components based on UI state provided by these services."
+definition_of_done:
+  - The global 'g_gui' object's functionalities are fully decomposed into multiple, focused service classes (e.g., 'BrushStateService', 'EditorStateService', 'ClientDataService', 'UIService', 'ClipboardManager', 'SettingsManager').
+  - These new service classes are instantiated and owned by 'MainWindow'.
+  - All components requiring these services (e.g., 'EditorController', 'MapViewWidget', palettes, toolbars) receive them via dependency injection (constructor or dedicated setters).
+  - All global access patterns related to 'g_gui' (and the conceptual 'GuiManager' singleton from 'UI-03') are eliminated from the Qt codebase.
+  - The application is fully functional, using the new service-based architecture.
+  - Communication between services and components is primarily managed through Qt's signal/slot mechanism.
+  - Modularity and testability are demonstrably improved by the removal of global state dependencies.
+estimation_effort:
+  - "Very High (35-50 developer days). This is a major architectural refactoring that touches a vast majority of the codebase. Identifying all responsibilities of 'g_gui', designing appropriate service class boundaries, and then updating all call sites across the entire application (UI, controller, potentially core interactions if 'g_gui' was improperly used there) is a massive undertaking. Extensive testing will be required to ensure no functionality is broken."
+known_missing_files: []
+boilerplate_coder_ai_prompt: |
+  Your task is to refactor the Qt 6 application to eliminate any reliance on a global UI manager object (like the old 'g_gui' or the conceptual 'GuiManager' singleton from 'UI-03'). Replace this with a set of focused service classes owned by 'MainWindow' and provided to other components via dependency injection.
+
+  **1. Design and Implement Service Classes:**
+     Based on the functionalities of the original 'wxwidgets/gui.cpp' ('g_gui'), define and implement the following service classes (place them in a suitable application-level directory like 'src/services/'):
+
+     *   **'BrushStateService(QObject* parent)':**
+         -   Manages: 'Brush* m_activeBrush', 'BrushShape m_currentShape', 'int m_currentSize', 'int m_brushVariation', 'bool m_drawLockedDoors', 'bool m_useCustomThickness', 'float m_customThicknessMod', current raw item ID, current creature type for brushes, 'BaseMap* m_doodadBufferMap'.
+         -   Methods: 'setActiveBrush(Brush*)', 'setBrushShape(BrushShape)', 'setBrushSize(int)', 'getActiveBrush()', 'getBrushShape()', 'getBrushSize()', etc.
+         -   Signals: 'activeBrushChanged(Brush*)', 'brushSettingsChanged()'.
+
+     *   **'EditorStateService(QObject* parent)':**
+         -   Manages: 'EditorMode m_currentMode' (enum for DRAWING_MODE, SELECTION_MODE, etc.), 'int m_currentFloor', 'Editor* m_activeEditorSession' (pointer to the currently active editor instance, if applicable for multi-document).
+         -   Methods: 'setEditorMode(EditorMode)', 'setCurrentFloor(int)', 'setActiveEditorSession(Editor*)', getters for these.
+         -   Signals: 'editorModeChanged(EditorMode)', 'currentFloorChanged(int)', 'activeEditorChanged(Editor*)'.
+
+     *   **'ClientDataService(QObject* parent)':**
+         -   Manages: Loaded 'ClientVersion* m_clientVersion', 'ItemManager* m_itemManager', 'SpriteManager* m_spriteManager' (for 'gfx'), 'MaterialManager* m_materialManager', 'CreatureManager* m_creatureManager'.
+         -   Methods: 'loadVersion(ClientVersionID)', 'unloadVersion()', 'getClientVersion()', 'getItemManager()', 'getSpriteManager()', etc.
+         -   Signals: 'clientVersionChanged(ClientVersion*)'.
+
+     *   **'WindowManagerService(QObject* parent)':** (Replaces 'g_gui`'s direct window/dialog management)
+         -   Manages: 'MainFrame* m_mainWindow' (or 'QMainWindow*'), 'MapTabbook* m_tabbook', references to palettes, minimap if they are independent windows/docks.
+         -   Methods: 'showErrorDialog(QString title, QString text)', 'showInfoDialog(...)', 'getActiveMapCanvas()', 'getCurrentEditor()', 'getCurrentMapTab()', 'refreshPalettes()', 'updateTitle()', 'updateMenubar()', 'updateStatusText(QString)'.
+         -   Manages AUI-like perspective loading/saving conceptually (actual docking is 'QMainWindow').
+
+     *   **'ClipboardService(QObject* parent)':**
+         -   Manages: 'mapcore::CopyBuffer m_copyBuffer'.
+         -   Methods: 'copy()', 'cut()', 'paste()', 'canPaste()'. Interacts with 'EditorStateService' to get active editor for operations.
+
+     *   **'ApplicationSettingsService(QObject* parent)':**
+         -   Provides typed access to UI-related settings currently managed by 'g_settings' but accessed via 'g_gui' (e.g., 'g_gui.HasDoorLocked()', 'g_gui.IsPasting()').
+
+  **2. Instantiate Services in 'MainWindow':**
+     - In 'MainWindow.h', declare member pointers for these services.
+     - In 'MainWindow.cpp' constructor, instantiate them (e.g., 'm_brushStateService = new BrushStateService(this);').
+
+  **3. Dependency Injection:**
+     - Modify constructors of 'EditorController', 'MapViewWidget', palette widgets, toolbars, and any other relevant classes to accept pointers to the service instances they need.
+     - 'MainWindow' will pass its owned service instances when creating these components.
+     - For example: 'm_editorController = new EditorController(m_mapInstance, m_actionQueue, m_selection, m_brushStateService, m_editorStateService, m_clipboardService, ...);'
+     - 'm_mapViewWidget = new MapViewWidget(m_editorController, m_brushStateService, m_editorStateService, ...);'
+
+  **4. Codebase Refactoring:**
+     - Globally replace calls to 'g_gui.someMethod()' or 'GuiManager::instance()->someMethod()' with calls to the appropriate injected service instance (e.g., 'm_brushStateService->getActiveBrush()').
+     - This includes replacing direct access to 'g_items', 'g_gui.gfx', 'g_materials', 'g_creatures' with 'm_clientDataService->getItemManager()', etc.
+     - Update UI elements (toolbars, menus, palettes) to interact with these services, primarily using signals and slots. For example, a brush palette, when a brush is selected, would call 'm_brushStateService->setActiveBrush(newBrush);'. 'MapViewWidget' would connect to 'm_brushStateService->activeBrushChanged(...)' to update its display.
+
+  **5. Remove Global Singleton:**
+     - Delete 'GuiManager.h/.cpp' (if it was created based on UI-03) and remove any global instance.
+     - Ensure no static 'instance()' methods or global pointers to these new services exist.

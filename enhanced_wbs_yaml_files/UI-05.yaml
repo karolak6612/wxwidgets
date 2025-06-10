@@ -1,6 +1,6 @@
-wbs_item_id: UI-05
+id: UI-05
 name: Port Brush & Material Editor
-description: Recreate the UI for editing brush and material properties. This involves dialogs/panels for defining new brushes (ground, wall, doodad, border) and modifying existing ones.
+description: "Recreate the UI for editing brush and material properties. This involves dialogs/panels for defining new brushes (ground, wall, doodad, border) and modifying existing ones."
 dependencies:
 - 'CORE-04 # Brush/Material system being edited. XML parsing/saving logic is key.'
 - 'UI-02   # Palettes might launch parts of this editor or provide context.'
@@ -8,25 +8,55 @@ dependencies:
 input_files:
 - wxwidgets/border_editor_window.cpp
 - wxwidgets/border_editor_window.h
-- '# Conceptually also:'
-- '# - wxwidgets/palette_brushlist.cpp (for AddTileset/AddItemToTileset dialog invocation logic)'
-- '# - XML files like materials.xml, grounds.xml, walls.xml, doodads.xml, borders.xml, tilesets.xml (as their structure defines what needs to be edited)'
+- wxwidgets/add_item_window.cpp
+- wxwidgets/add_item_window.h
+- wxwidgets/add_tileset_window.cpp
+- wxwidgets/add_tileset_window.h
+- wxwidgets/palette_brushlist.cpp # For context on how editor/dialogs are invoked
 analyzed_input_files:
 - file_path: wxwidgets/border_editor_window.cpp
-  description: Implements `BorderEditorDialog`, a wxDialog with a notebook for editing "Border" definitions (visual grid for assigning items to border parts, saved to borders.xml) and "Ground" brush definitions (items with chances, border associations, saved to grounds.xml and tilesets.xml).
-  md5_hash: 818cac007ee9466327a484fbd41065a1
-  content_lite: |-
-    //////////////////////////////////////////////////////////////////////\n// This file is part of Remere's Map Editor\n//////////////////////////////////////////////////////////////////////\n// Remere's Map Editor is free software: you can redistribute it and/or modify\n// it under the terms of the GNU General Public License as published by\n// the Free Software Foundation, either version 3 of the License, or\n// (at your option) any later version.\n//\n// Remere's Map Editor is distributed in the hope that it will be useful,\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\n// GNU General Public License for more details.\n//\n// You should have received a copy of the GNU General Public License\n// along with this program. If not, see <http://www.gnu.org/licenses/>.\n//////////////////////////////////////////////////////////////////////\n\n#include "main.h"\n#include "border_editor_window.h"\n#include "browse_tile_window.h"\n#include "find_item_window.h"\n#include "common_windows.h"\n#include "graphics.h"\n#include "gui.h"\n#include "artprovider.h"\n#include "items.h"\n#include "brush.h"\n#include "ground_brush.h"\n#include <wx/sizer.h>\n#include <wx/gbsizer.h>\n#include <wx/statline.h>\n#include <wx/tglbtn.h>\n#include <wx/dcbuffer.h>\n#include <wx/filename.h>\n#include <wx/filepicker.h>\n#include <pugixml.hpp>\n\n#define BORDER_GRID_SIZE 32\n#define BORDER_PREVIEW_SIZE 192\n#define BORDER_GRID_CELL_SIZE 32\n#define ID_BORDER_GRID_SELECT wxID_HIGHEST + 1\n#define ID_GROUND_ITEM_LIST wxID_HIGHEST + 2\n\n// Utility functions for edge string/position conversion\nBorderEdgePosition edgeStringToPosition(const std::string& edgeStr) {\n    if (edgeStr == "n") return EDGE_N;\n    if (edgeStr == "e") return EDGE_E;\n    if (edgeStr == "s") return EDGE_S;\n    if (edgeStr == "w") return EDGE_W;\n    if (edgeStr == "cnw") return EDGE_CNW;\n    if (edgeStr == "cne") return EDGE_CNE;\n    if (edgeStr == "cse") return EDGE_CSE;\n    if (edgeStr == "csw") return EDGE_CSW;\n    if (edgeStr == "dnw") return EDGE_DNW;\n    if (edgeStr == "dne") return EDGE_DNE;\n    if (edgeStr == "dse") return EDGE_DSE;\n    if (edgeStr == "dsw") return EDGE_DSW;\n    return EDGE_NONE;\n}\n\nstd::string edgePositionToString(BorderEdgePosition pos) {\n    switch (pos) {\n        case EDGE_N: return "n";\n        case EDGE_E: return "e";\n        case EDGE_S: return "s";\n        case EDGE_W: return "w";\n        case EDGE_CNW: return "cnw";\n        case EDGE_CNE: return "cne";\n        case EDGE_CSE: return "cse";\n        case EDGE_CSW: return "csw";\n        case EDGE_DNW: return "dnw";\n        case EDGE_DNE: return "dne";\n        case EDGE_DSE: return "dse";\n        case EDGE_DSW: return "dsw";\n        default: return "";\n    }\n}\n\n// Add a helper function at the top of the file to get item ID from brush\nuint16_t GetItemIDFromBrush(Brush* brush) {\n    if (!brush) {\n        wxLogDebug("GetItemIDFromBrush: Brush is null");\n        OutputDebugStringA("GetItemIDFromBrush: Brush is null\n");\n        return 0;\n    }\n    \n    uint16_t id = 0;\n    \n    wxLogDebug("GetItemIDFromBrush: Checking brush type: %s", wxString(brush->getName()).c_str());\n    OutputDebugStringA(wxString::Format("GetItemIDFromBrush: Checking brush type: %s\n", wxString(brush->getName()).c_str()).mb_str());\n    \n    // First prioritize RAW brush - this is the most direct approach\n    if (brush->isRaw()) {\n        RAWBrush* rawBrush = brush->asRaw();\n        if (rawBrush) {\n            id = rawBrush->getItemID();\n            wxLogDebug("GetItemIDFromBrush: Found RAW brush ID: %d", id);\n            OutputDebugStringA(wxString::Format("GetItemIDFromBrush: Found RAW brush ID: %d\n", id).mb_str());\n            if (id > 0) {\n                return id;\n            }\n        }\n    } \n    \n    // Then try getID which sometimes works directly\n    id = brush->getID();\n    if (id > 0) {\n        wxLogDebug("GetItemIDFromBrush: Got ID from brush->getID(): %d", id);\n        OutputDebugStringA(wxString::Format("GetItemIDFromBrush: Got ID from brush->getID(): %d\n", id).mb_str());\n        return id;\n    }\n    \n    // Try getLookID which works for most other brush types\n    id = brush->getLookID();\n    if (id > 0) {\n        wxLogDebug("GetItemIDFromBrush: Got ID from getLookID(): %d", id);\n        OutputDebugStringA(wxString::Format("GetItemIDFromBrush: Got ID from getLookID(): %d\n", id).mb_str());\n        return id;\n    }\n    \n    // Try specific brush type methods - when all else fails\n    if (brush->isGround()) {\n        wxLogDebug("GetItemIDFromBrush: Detected Ground brush");\n        OutputDebugStringA("GetItemIDFromBrush: Detected Ground brush\n");\n        GroundBrush* groundBrush = brush->asGround();\n        if (groundBrush) {\n            // For ground brush, id is usually the server_lookid from grounds.xml\n            // Try to find something else\n            wxLogDebug("GetItemIDFromBrush: Failed to get ID for Ground brush");\n            OutputDebugStringA("GetItemIDFromBrush: Failed to get ID for Ground brush\n");\n        }\n    }\n    else if (brush->isWall()) {\n        wxLogDebug("GetItemIDFromBrush: Detected Wall brush");\n        OutputDebugStringA("GetItemIDFromBrush: Detected Wall brush\n");\n        WallBrush* wallBrush = brush->asWall();\n        if (wallBrush) {\n            wxLogDebug("GetItemIDFromBrush: Failed to get ID for Wall brush");\n            OutputDebugStringA("GetItemIDFromBrush: Failed to get ID for Wall brush\n");\n        }\n    }\n    else if (brush->isDoodad()) {\n        wxLogDebug("GetItemIDFromBrush: Detected Doodad brush");\n        OutputDebugStringA("GetItemIDFromBrush: Detected Doodad brush\n");\n        DoodadBrush* doodadBrush = brush->asDoodad();\n        if (doodadBrush) {\n            wxLogDebug("GetItemIDFromBrush: Failed to get ID for Doodad brush");\n            OutputDebugStringA("GetItemIDFromBrush: Failed to get ID for Doodad brush\n");\n        }\n    }\n    \n    if (id == 0) {\n        wxLogDebug("GetItemIDFromBrush: Failed to get item ID from brush %s", wxString(brush->getName()).c_str());\n        OutputDebugStringA(wxString::Format("GetItemIDFromBrush: Failed to get item ID from brush %s\n", wxString(brush->getName()).c_str()).mb_str());\n    }\n    \n    return id;\n}\n\n// Event table for BorderEditorDialog\nBEGIN_EVENT_TABLE(BorderEditorDialog, wxDialog)\n    EVT_BUTTON(wxID_ADD, BorderEditorDialog::OnAddItem)\n    EVT_BUTTON(wxID_CLEAR, BorderEditorDialog::OnClear)\n    EVT_BUTTON(wxID_SAVE, BorderEditorDialog::OnSave)\n    EVT_BUTTON(wxID_CLOSE, BorderEditorDialog::OnClose)\n    EVT_BUTTON(wxID_FIND, BorderEditorDialog::OnBrowse)\n    EVT_COMBOBOX(wxID_ANY, BorderEditorDialog::OnLoadBorder)\n    EVT_NOTEBOOK_PAGE_CHANGED(wxID_ANY, BorderEditorDialog::OnPageChanged)\n    EVT_BUTTON(wxID_ADD + 100, BorderEditorDialog::OnAddGroundItem)\n    EVT_BUTTON(wxID_REMOVE, BorderEditorDialog::OnRemoveGroundItem)\n    EVT_BUTTON(wxID_FIND + 100, BorderEditorDialog::OnGroundBrowse)\n    EVT_COMBOBOX(wxID_ANY + 100, BorderEditorDialog::OnLoadGroundBrush)\nEND_EVENT_TABLE()\n\n// Event table for BorderItemButton\nBEGIN_EVENT_TABLE(BorderItemButton, wxButton)\n    EVT_PAINT(BorderItemButton::OnPaint)\nEND_EVENT_TABLE()\n\n// Event table for BorderGridPanel\nBEGIN_EVENT_TABLE(BorderGridPanel, wxPanel)\n    EVT_PAINT(BorderGridPanel::OnPaint)\n    EVT_LEFT_UP(BorderGridPanel::OnMouseClick)\n    EVT_LEFT_DOWN(BorderGridPanel::OnMouseDown)\nEND_EVENT_TABLE()\n\n// Event table for BorderPreviewPanel\nBEGIN_EVENT_TABLE(BorderPreviewPanel, wxPanel)\n    EVT_PAINT(BorderPreviewPanel::OnPaint)\nEND_EVENT_TABLE()\n\nBorderEditorDialog::BorderEditorDialog(wxWindow* parent, const wxString& title) :\n    wxDialog(parent, wxID_ANY, title, wxDefaultPosition, wxSize(650, 520),\n        wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),\n    m_nextBorderId(1),\n    m_activeTab(0) {\n    \n    CreateGUIControls();\n    LoadExistingBorders();\n    LoadExistingGroundBrushes();
+  description: |-
+    Implements: 'BorderEditorDialog', a wxDialog with a wxNotebook.
+    - **Border Tab:** Edits auto-border configurations (saved to 'borders.xml').
+      Features 'BorderGridPanel' (custom wxPanel for visual assignment of item IDs to 12 border positions: N, E, S, W, CNW, CNE, CSE, CSW, DNW, DNE, DSE, DSW) and 'BorderPreviewPanel' (custom wxPanel for preview).
+      Allows: setting border ID (wxSpinCtrl), name (wxTextCtrl, stored as XML comment), group ID (wxSpinCtrl), and type (wxCheckBox for "Optional", "Ground").
+      Loads: existing borders from 'borders.xml' into a wxComboBox. Uses 'FindItemDialog' for item selection.
+    - **Ground Tab:** Edits ground brush definitions (saved to 'grounds.xml', with a reference added to 'tilesets.xml').
+      Features: inputs for brush name (wxTextCtrl), server look ID (wxSpinCtrl), Z-order (wxSpinCtrl).
+      A: wxChoice allows selecting the target tileset category.
+      A: wxListBox ('m_groundItemsList') manages items (ID and chance) for the brush.
+      Associates: a Border ID (from the "Common Properties" ID control, also used by Border Tab) with alignment properties (wxChoice for "outer"/"inner") and options (wxCheckBox for "To None", "Inner Border").
+      Loads: existing ground brushes from 'grounds.xml' into a wxComboBox. Uses 'FindItemDialog' for item selection.
+    Saves: configurations by parsing and rewriting 'borders.xml' and 'grounds.xml' using pugixml, and also updates 'tilesets.xml'.
 - file_path: wxwidgets/border_editor_window.h
-  description: Header for `BorderEditorDialog` and related custom controls like `BorderGridPanel` and `BorderPreviewPanel`. Defines enums for border edge positions.
-  md5_hash: bd39a5877c94e515b651c2ce15ba704c
-  content_lite: "// border_editor_window.h - Provides a visual editor for auto borders\\n\\n#ifndef RME_BORDER_EDITOR_WINDOW_H_\\n#define RME_BORDER_EDITOR_WINDOW_H_\\n\\n#include <wx/dialog.h>\\n#include <wx/sizer.h>\\n#include <wx/statbox.h>\\n#include <wx/stattext.h>\\n#include <wx/textctrl.h>\\n#include <wx/button.h>\\n#include <wx/listbox.h>\\n#include <wx/spinctrl.h>\\n#include <wx/grid.h>\\n#include <wx/panel.h>\\n#include <wx/checkbox.h>\\n#include <wx/combobox.h>\\n#include <wx/notebook.h>\\n#include <wx/choice.h>\\n#include <vector>\\n#include <map>\\n\\nclass BorderItemButton;\\nclass BorderGridPanel;\\n\\n// Represents a border edge position\\nenum BorderEdgePosition {\\n    EDGE_NONE = -1,\\n    EDGE_N,   // North\\n    EDGE_E,   // East\\n    EDGE_S,   // South\\n    EDGE_W,   // West\\n    EDGE_CNW, // Corner Northwest\\n    EDGE_CNE, // Corner Northeast\\n    EDGE_CSE, // Corner Southeast\\n    EDGE_CSW, // Corner Southwest\\n    EDGE_DNW, // Diagonal Northwest\\n    EDGE_DNE,\
-    \ // Diagonal Northeast\\n    EDGE_DSE, // Diagonal Southeast\\n    EDGE_DSW, // Diagonal Southwest\\n    EDGE_COUNT\\n};\\n\\n// Alignment options for borders\\nenum BorderAlignment {\\n    ALIGN_OUTER,\\n    ALIGN_INNER\\n};\\n\\n// Utility function to convert border edge string to position\\nBorderEdgePosition edgeStringToPosition(const std::string& edgeStr);\\n\\n// Utility function to convert border position to string\\nstd::string edgePositionToString(BorderEdgePosition pos);\\n\\n// Represents a border item\\nstruct BorderItem {\\n    BorderEdgePosition position;\\n    uint16_t itemId;\\n    \\n    BorderItem() : position(EDGE_NONE), itemId(0) {}\\n    BorderItem(BorderEdgePosition pos, uint16_t id) : position(pos), itemId(id) {}\\n    \\n    bool operator==(const BorderItem& other) const {\\n        return position == other.position && itemId == other.itemId;\\n    }\\n    \\n    bool operator!=(const BorderItem& other) const {\\n        return !(*this == other);\\n    }\\n};\\\
-    n\\n// Represents a ground item with chance\\nstruct GroundItem {\\n    uint16_t itemId;\\n    int chance;\\n    \\n    GroundItem() : itemId(0), chance(10) {}\\n    GroundItem(uint16_t id, int c) : itemId(id), chance(c) {}\\n    \\n    bool operator==(const GroundItem& other) const {\\n        return itemId == other.itemId && chance == other.chance;\\n    }\\n    \\n    bool operator!=(const GroundItem& other) const {\\n        return !(*this == other);\\n    }\\n};\\n\\nclass BorderEditorDialog : public wxDialog {\\npublic:\\n    BorderEditorDialog(wxWindow* parent, const wxString& title);\\n    virtual ~BorderEditorDialog();\\n\\n    // Event handlers - made public so they can be accessed by other components\\n    void OnItemIdChanged(wxCommandEvent& event);\\n    void OnPositionSelected(wxCommandEvent& event);\\n    void OnAddItem(wxCommandEvent& event);\\n    void OnClear(wxCommandEvent& event);\\n    void OnSave(wxCommandEvent& event);\\n    void OnClose(wxCommandEvent& event);\\\
-    n    void OnBrowse(wxCommandEvent& event);\\n    void OnLoadBorder(wxCommandEvent& event);\\n    void OnGridCellClicked(wxMouseEvent& event);\\n    void OnPageChanged(wxBookCtrlEvent& event);\\n    void OnAddGroundItem(wxCommandEvent& event);\\n    void OnRemoveGroundItem(wxCommandEvent& event);\\n    void OnLoadGroundBrush(wxCommandEvent& event);\\n    void OnGroundBrowse(wxCommandEvent& event);\\n\\nprotected:\\n    void CreateGUIControls();\\n    void LoadExistingBorders();\\n    void LoadExistingGroundBrushes();\\n    void LoadTilesets();\\n    void SaveBorder();\\n    void SaveGroundBrush();\\n    bool ValidateBorder();\\n    bool ValidateGroundBrush();\\n    void UpdatePreview();\\n    void ClearItems();\\n    void ClearGroundItems();\\n    void UpdateGroundItemsList();\\n\\npublic:\\n    // UI Elements - made public so they can be accessed by other components\\n    // Common\\n    wxTextCtrl* m_nameCtrl;\\n    wxSpinCtrl* m_idCtrl;\\n    wxNotebook* m_notebook;\\n    \\n    //\
-    \ Border Tab\\n    wxPanel* m_borderPanel;\\n    wxComboBox* m_existingBordersCombo;\\n    wxCheckBox* m_isOptionalCheck;\\n    wxCheckBox* m_isGroundCheck;\\n    wxSpinCtrl* m_groupCtrl;\\n    wxSpinCtrl* m_itemIdCtrl;\\n    \\n    // Ground Tab\\n    wxPanel* m_groundPanel;\\n    wxComboBox* m_existingGroundBrushesCombo;\\n    wxSpinCtrl* m_serverLookIdCtrl;\\n    wxSpinCtrl* m_zOrderCtrl;\\n    wxSpinCtrl* m_groundItemIdCtrl;\\n    wxSpinCtrl* m_groundItemChanceCtrl;\\n    wxListBox* m_groundItemsList;\\n    \\n    // Border alignment for ground brushes\\n    wxChoice* m_borderAlignmentChoice;\\n    wxCheckBox* m_includeToNoneCheck;\\n    wxCheckBox* m_includeInnerCheck;\\n    \\n    // Tileset selector for ground brushes\\n    wxChoice* m_tilesetChoice;\\n    \\n    // Map of tileset names to internal identifiers\\n    std::map<wxString, wxString> m_tilesets;\\n    \\n    // Border items\\n    std::vector<BorderItem> m_borderItems;\\n    \\n    // Ground items\\n    std::vector<GroundItem>\
-    \ m_groundItems;\\n    \\n    // Border grid\\n    BorderGridPanel* m_gridPanel;\\n    \\n    // Border item buttons for each position\\n    std::map<BorderEdgePosition, BorderItemButton*> m_borderButtons;\\n    \\n    // Border preview panel\\n    class BorderPreviewPanel* m_previewPanel;\\n    \\nprivate:\\n    // Next available border ID\\n    int m_nextBorderId;\\n    \\n    // Current active tab (0 = border, 1 = ground)\\n    int m_activeTab;\\n    \\n    DECLARE_EVENT_TABLE()\\n};\\n\\n// Custom button to represent a border item\\nclass BorderItemButton : public wxButton {\\npublic:\\n    BorderItemButton(wxWindow* parent, BorderEdgePosition position, wxWindowID id = wxID_ANY);\\n    virtual ~BorderItemButton();\\n    \\n    void SetItemId(uint16_t id);\\n    uint16_t GetItemId() const { return m_itemId; }\\n    BorderEdgePosition GetPosition() const { return m_position; }\\n    \\n    void OnPaint(wxPaintEvent& event);\\n    \\nprivate:\\n    uint16_t m_itemId;\\n    BorderEdgePosition\
-    \ m_position;\\n    "
+  description: |-
+    Header: for 'BorderEditorDialog'. Defines the dialog class, 'BorderItem' struct (position, itemId), 'GroundItem' struct (itemId, chance), and enums like 'BorderEdgePosition'.
+    Declares custom controls: 'BorderGridPanel' (manages the 12-position grid for border item assignment) and 'BorderPreviewPanel' (shows a 5x5 preview of the border).
+- file_path: wxwidgets/add_item_window.cpp
+  description: |-
+    Implements: 'AddItemWindow', a wxDialog for adding one or a range of items to a specific tileset category.
+    Features: an item ID input (wxSpinCtrl 'item_id_field') with a preview (DCButton 'item_button'), and a wxChoice ('tileset_choice') populated with existing tileset categories relevant to the 'category_type' passed in the constructor.
+    A: wxCheckBox ('range_checkbox') enables range mode, revealing wxSpinCtrl inputs for range start and end ('range_start_field', 'range_end_field').
+    Includes: helper buttons like "Quick +10 Range" and "Use Current Item" (sets range end from 'item_id_field').
+    The: "Add Selection from Palette" button is present but its specific multi-selection logic from palette isn't fully detailed here.
+    On: OK, it retrieves the selected tileset name, and either adds the single item ID or iterates through the range, calling 'g_materials.addToTileset()' for each valid item. Finally, calls 'g_materials.modify()' to save changes to 'tilesets.xml'.
+- file_path: wxwidgets/add_item_window.h
+  description: Header for 'AddItemWindow'. Declares the dialog class and its UI elements, including controls for single item ID, range selection, and tileset choice.
+- file_path: wxwidgets/add_tileset_window.cpp
+  description: |-
+    Implements: 'AddTilesetWindow', a wxDialog for creating a new tileset category.
+    Features: a wxTextCtrl ('tileset_name_field') for the new tileset name and a wxSpinCtrl ('item_id_field') to specify the ID of the first item to be added to this new tileset, along with a DCButton ('item_button') for preview.
+    On: OK, it retrieves the tileset name and item ID, then calls 'g_materials.addToTileset()' (which handles creation if the tileset doesn't exist) and 'g_materials.modify()' to save to 'tilesets.xml'.
+- file_path: wxwidgets/add_tileset_window.h
+  description: Header for 'AddTilesetWindow'. Declares the dialog class and its UI elements for tileset name and initial item ID.
+- file_path: wxwidgets/palette_brushlist.cpp
+  description: |-
+    Defines: 'BrushPalettePanel' which hosts the wxChoicebook of tilesets and 'BrushPanel' for displaying brushes within each tileset.
+    Key relevance to UI-05:
+    - 'BrushPalettePanel::OnClickAddTileset': Creates and shows an 'AddTilesetWindow'.
+    - 'BrushPalettePanel::OnClickAddItemTileset': Creates and shows an 'AddItemWindow', passing the selected tileset context.
+    - 'BrushPalettePanel::OnClickCreateBorder': Creates and shows a 'BorderEditorDialog'.
+    The: detailed brush display mechanisms (like 'SeamlessGridPanel', 'DirectDrawBrushPanel') within 'BrushPanel' are more directly related to UI-02 (Palette System).
 documentation_references:
 - 'QDialog: https://doc.qt.io/qt-6/qdialog.html'
 - 'QTabWidget: https://doc.qt.io/qt-6/qtabwidget.html'
@@ -34,91 +64,83 @@ documentation_references:
 - QTableWidget or QTreeView with QAbstractItemModel for lists/grids of properties.
 - 'QGraphicsView (for potential visual doodad editor): https://doc.qt.io/qt-6/qgraphicsview.html'
 - QXmlStreamWriter / QXmlStreamReader (or other XML library like TinyXML2) for reading/writing definition files.
-current_functionality_summary: |-
-  The wxWidgets version has a `BorderEditorDialog` which is a tabbed dialog:
-  - **Border Tab:** Edits auto-border configurations. Users can assign item IDs to 12 border positions (N, S, E, W, corners, diagonals) using a visual grid and an item ID input/browser. It includes a preview. Saves to `borders.xml`.
-  - **Ground Tab:** Edits ground brush definitions. Users set a name, server look ID, Z-order, and can add multiple items with chances to the brush. It allows associating a Border ID (defined in the Border tab) with alignment properties ("outer"/"inner", "to none"). Saves to `grounds.xml` and adds a reference to the brush in `tilesets.xml` under a user-selected tileset category.
-  Functionality for adding new tileset categories or adding items to existing tilesets is handled by simpler dialogs invoked from the main palettes (`palette_brushlist.cpp`).
-  There isn't a dedicated comprehensive editor for Wall or Doodad brush compositions in the provided files beyond basic property editing via `PropertiesWindow`.
+current_functionality_summary: |
+  The wxWidgets version has a 'BorderEditorDialog' which is a tabbed dialog:
+
+  - **Border Tab:** Edits auto-border configurations (items assigned to 12 border positions N, E, S, W, CNW, CNE, CSE, CSW, DNW, DNE, DSE, DSW). Includes a visual grid editor ('BorderGridPanel') and preview ('BorderPreviewPanel'). Saves to 'borders.xml'.
+  - **Ground Tab:** Edits ground brush definitions (name, server look ID, Z-order, list of items with chances). Associates a Border ID (from common properties) with alignment options. Saves to 'grounds.xml' and adds a reference to the selected tileset category in 'tilesets.xml'.
+  Functionality for creating new tileset categories is handled by 'AddTilesetWindow'.
+  Functionality for adding new items (single or range) to existing tileset categories is handled by 'AddItemWindow'.
+  These dialogs are invoked from 'BrushPalettePanel' (defined in 'palette_brushlist.cpp').
+  The legacy editor does not have dedicated UI within 'BorderEditorDialog' for Wall or Doodad brush compositions beyond what 'PropertiesWindow' might offer; the WBS implies these will be new tabs in the Qt version.
 definition_of_done:
-- A Qt6 'Brush & Material Editor' (e.g., a `QDialog` or dockable `QWidget`) is implemented.
-- 'The editor uses a `QTabWidget` for separate sections: ''Borders'', ''Ground Brushes'', ''Wall Brushes'', ''Doodad Brushes''.'
-- '**Borders Tab:**'
-- '  - Allows creating new and editing existing border definitions (ID, name, optional/ground type, group ID).'
-- '  - Provides a visual grid to assign item IDs to each border part (N, S, E, W, corners, diagonals).'
-- '  - Includes an item selector (using `UI-06`''s item finder) and a preview panel.'
-- '  - Saves definitions to `borders.xml` (or the Qt6 equivalent data store), including the name as an XML comment.'
-- '**Ground Brushes Tab:**'
-- '  - Allows creating/editing ground brushes (name, server look ID, Z-order).'
-- '  - Manages a list of items (with chances) for the ground brush.'
-- '  - Allows associating a Border ID (defined in Border Editor) and alignment properties.'
-- '  - `QComboBox` to select target tileset for listing the brush.'
-- '  - Saves definitions to `grounds.xml` and updates `tilesets.xml` with the brush reference.'
-- '**Wall Brushes Tab (Basic):**'
-- '  - Allows creating/editing wall brushes (name, server look ID).'
-- '  - `QComboBox` for target tileset.'
-- '  - Input fields for specifying item IDs for essential wall parts (e.g., horizontal, vertical, pole).'
-- '  - Saves to `walls.xml` and updates `tilesets.xml`.'
-- '**Doodad Brushes Tab (Basic):**'
-- '  - Allows creating/editing doodad brushes (name, server look ID, common properties like draggable, blocking).'
-- '  - `QComboBox` for target tileset.'
-- '  - A `QTableWidget` to manage a list of items with their relative X, Y, Z offsets for composite doodads.'
-- '  - Saves to `doodads.xml` and updates `tilesets.xml`.'
-- Helper dialogs for creating new tileset categories and adding items/brushes to tileset categories are implemented and accessible.
-boilerplate_coder_ai_prompt: |
-  Your task is to design and implement a 'Brush & Material Editor' using Qt6. This editor will allow users to define and modify auto-borders, ground brushes, and provide basic editing for wall and doodad brushes. These definitions are typically stored in XML files (`borders.xml`, `grounds.xml`, `walls.xml`, `doodads.xml`, and `tilesets.xml`).
-
-  **Reference Files:** `wxwidgets/border_editor_window.*` (for border and ground brush editing), `wxwidgets/palette_brushlist.*` (for how tilesets/categories are added/items added to them).
-
-  **Main Editor Structure (e.g., `BrushMaterialEditorDialog : QDialog`):**
-  Use a `QTabWidget` for the following sections:
-
-  **1. 'Borders' Tab (based on `BorderEditorDialog` - Border Tab):**
-     - Inputs: `QLineEdit` for Border Name (stored as comment in XML), `QSpinBox` for Border ID (1-1000), `QSpinBox` for Group ID (0-1000), `QCheckBox` "Optional", `QCheckBox` "Is Ground Border".
-     - `QComboBox` to load existing border definitions from `borders.xml` for editing.
-     - **Visual Grid Editor:** Create a custom `QWidget` (e.g., `BorderGridEditorWidget`).
-       - It should display 12 clickable cells representing: N, E, S, W, CNW, CNE, CSE, CSW, DNW, DNE, DSE, DSW.
-       - Clicking a cell makes it active for item assignment.
-     - **Item Assignment:**
-       - `QSpinBox` for Item ID (for the active grid cell).
-       - `QPushButton` "Browse..." (opens item finder - `UI-06`).
-       - `QPushButton` "Apply Item to Selected Cell".
-     - **Preview Panel:** A custom `QWidget` (`BorderPreviewWidget`) that renders a 5x5 grid showing how the current border items would look around a central tile.
-     - **Actions:** `QPushButton` "Save Border" (writes changes to `borders.xml`, including name as a comment), `QPushButton` "Clear Grid", `QPushButton` "Load Selected Border".
-
-  **2. 'Ground Brushes' Tab (based on `BorderEditorDialog` - Ground Tab):**
-     - Inputs: `QLineEdit` for Brush Name, `QSpinBox` for Server Look ID, `QSpinBox` for Z-Order.
-     - `QComboBox` to load existing ground brushes from `grounds.xml`.
-     - `QComboBox` `m_tilesetChoice` to select the target tileset category (from `tilesets.xml`) where this brush will be listed.
-     - **Item List:** `QTableWidget` (columns: "Item ID", "Chance"). Buttons: "Add Item" (uses item finder `UI-06` + `QInputDialog` for chance), "Remove Item".
-     - **Border Association:**
-       - `QSpinBox` `m_idCtrl` (from common properties section, or a dedicated one here) to specify the Border ID (defined in 'Borders' Tab) for this ground brush.
-       - `QComboBox` `m_borderAlignmentChoice` for Border Alignment ("outer", "inner").
-       - `QCheckBox` `m_includeToNoneCheck` for "Add 'to=none' border variant".
-       - `QCheckBox` `m_includeInnerCheck` for "Add inner border variant (uses same ID as main)".
-     - **Actions:** `QPushButton` "Save Ground Brush" (writes to `grounds.xml`, adds `<brush name="..."/>` to selected category in `tilesets.xml`).
-
-  **3. 'Wall Brushes' Tab (Basic):**
-     - Inputs: `QLineEdit` for Brush Name, `QSpinBox` for Server Look ID.
-     - `QComboBox` to load existing wall brushes from `walls.xml`.
-     - `QComboBox` for target Tileset.
-     - Input fields (`QSpinBox`+Browse) for Item IDs for: Horizontal Wall, Vertical Wall, Pole.
-     - (Future: Expand to cover all 12+ wall segment types and add door/window definitions within them. A visual grid editor here would be ideal.)
-     - **Actions:** `QPushButton` "Save Wall Brush" (writes to `walls.xml`, updates `tilesets.xml`).
-
-  **4. 'Doodad Brushes' Tab (Basic):**
-     - Inputs: `QLineEdit` for Brush Name, `QSpinBox` for Server Look ID.
-     - `QComboBox` to load existing doodad brushes from `doodads.xml`.
-     - `QComboBox` for target Tileset.
-     - `QCheckBox`es for properties (Draggable, Blocking, etc.).
-     - **Composite Items:** `QTableWidget` (columns: "Item ID", "X-Offset", "Y-Offset", "Z-Offset"). Buttons to Add/Remove/Edit items (Item ID uses item finder).
-     - (Future: `QGraphicsView`-based visual editor to place items relative to an origin for composite doodads.)
-     - **Actions:** `QPushButton` "Save Doodad Brush" (writes to `doodads.xml`, updates `tilesets.xml`).
-
-  **Helper Dialogs (can be simple `QDialog`s, possibly invoked from palettes or this editor):**
-  -   `NewTilesetDialog`: `QLineEdit` for new tileset name. Logic to add a new `<tileset name="..."><terrain/></tileset>` (or appropriate inner tags like `<items/>`, `<doodad/>`) to `tilesets.xml`.
-  -   `AddItemToTilesetDialog`: `QComboBox` for tileset selection, `QSpinBox`+Browse for item ID (or brush name if adding brushes). Logic to add `<item id="..."/>` or `<brush name="..."/>` to the chosen category within `tilesets.xml`.
-
-  **XML Handling:**
-  - Implement robust parsing and saving for `borders.xml`, `grounds.xml`, `walls.xml`, `doodads.xml`, and `tilesets.xml` using `QXmlStreamReader` and `QXmlStreamWriter` or an equivalent library.
-  - When saving, try to preserve comments and existing structure. For `borders.xml`, save the "Name" field as an XML comment before the `<border>` tag.
+- A Qt6 'Brush & Material Editor' (e.g., a 'QDialog' or dockable 'QWidget') is implemented.
+- "The editor uses a 'QTabWidget' for separate sections: 'Borders', 'Ground Brushes', 'Wall Brushes', 'Doodad Brushes'."
+- "Borders Tab: Allows creating new and editing existing border definitions (ID, name, optional/ground type, group ID). Provides a visual grid to assign item IDs to each border part (N, S, E, W, corners, diagonals). Includes an item selector (using 'UI-06's item finder) and a preview panel. Saves definitions to 'borders.xml' (or the Qt6 equivalent data store), including the name as an XML comment."
+- "Ground Brushes Tab: Allows creating/editing ground brushes (name, server look ID, Z-order). Manages a list of items (with chances) for the ground brush. Allows associating a Border ID (defined in Border Editor) and alignment properties. 'QComboBox' to select target tileset for listing the brush. Saves definitions to 'grounds.xml' and updates 'tilesets.xml' with the brush reference."
+- "Wall Brushes Tab (Basic): Allows creating/editing wall brushes (name, server look ID). 'QComboBox' for target tileset. Input fields for specifying item IDs for essential wall parts (e.g., horizontal, vertical, pole). Saves to 'walls.xml' and updates 'tilesets.xml'."
+- "Doodad Brushes Tab (Basic): Allows creating/editing doodad brushes (name, server look ID, common properties like draggable, blocking). 'QComboBox' for target tileset. A 'QTableWidget' to manage a list of items with their relative X, Y, Z offsets for composite doodads. Saves to 'doodads.xml' and updates 'tilesets.xml'."
+- "Helper dialogs for creating new tileset categories and adding items/brushes to tileset categories are implemented and accessible."
+boilerplate_coder_ai_prompt: "Your task is to design and implement a 'Brush & Material\
+  \ Editor' using Qt6. This editor will allow users to define and modify auto-borders,\
+  \ ground brushes, and provide basic editing for wall and doodad brushes. These definitions\
+  \ are typically stored in XML files ('borders.xml', 'grounds.xml', 'walls.xml',\
+  \ 'doodads.xml', and 'tilesets.xml').\n\n**Reference Files:** 'wxwidgets/border_editor_window.*'\
+  \ (for border and ground brush editing), 'wxwidgets/palette_brushlist.*' (for how\
+  \ tilesets/categories are added/items added to them).\n\n**Main Editor Structure\
+  \ (e.g., 'BrushMaterialEditorDialog : QDialog'):**\nUse a 'QTabWidget' for the following\
+  \ sections:\n\n**1. 'Borders' Tab (based on 'BorderEditorDialog' - Border Tab):**\n\
+  \   - Inputs: 'QLineEdit' for Border Name (stored as comment in XML), 'QSpinBox'\
+  \ for Border ID (1-1000), 'QSpinBox' for Group ID (0-1000), 'QCheckBox' \"Optional\"\
+  , 'QCheckBox' \"Is Ground Border\".\n   - 'QComboBox' to load existing border definitions\
+  \ from 'borders.xml' for editing.\n   - **Visual Grid Editor:** Create a custom\
+  \ 'QWidget' (e.g., 'BorderGridEditorWidget').\n     - It should display 12 clickable\
+  \ cells representing: N, E, S, W, CNW, CNE, CSE, CSW, DNW, DNE, DSE, DSW.\n    \
+  \ - Clicking a cell makes it active for item assignment.\n   - **Item Assignment:**\n\
+  \     - 'QSpinBox' for Item ID (for the active grid cell).\n     - 'QPushButton'\
+  \ \"Browse...\" (opens item finder - 'UI-06').\n     - 'QPushButton' \"Apply Item\
+  \ to Selected Cell\".\n   - **Preview Panel:** A custom 'QWidget' ('BorderPreviewWidget')\
+  \ that renders a 5x5 grid showing how the current border items would look around\
+  \ a central tile.\n   - **Actions:** 'QPushButton' \"Save Border\" (writes changes\
+  \ to 'borders.xml', including name as a comment), 'QPushButton' \"Clear Grid\",\
+  \ 'QPushButton' \"Load Selected Border\".\n\n**2. 'Ground Brushes' Tab (based on\
+  \ 'BorderEditorDialog' - Ground Tab):**\n   - Inputs: 'QLineEdit' for Brush Name,\
+  \ 'QSpinBox' for Server Look ID, 'QSpinBox' for Z-Order.\n   - 'QComboBox' to load\
+  \ existing ground brushes from 'grounds.xml'.\n   - 'QComboBox' 'm_tilesetChoice'\
+  \ to select the target tileset category (from 'tilesets.xml') where this brush will\
+  \ be listed.\n   - **Item List:** 'QTableWidget' (columns: \"Item ID\", \"Chance\"\
+  ). Buttons: \"Add Item\" (uses item finder 'UI-06' + 'QInputDialog' for chance),\
+  \ \"Remove Item\".\n   - **Border Association:**\n     - 'QSpinBox' 'm_idCtrl' (from\
+  \ common properties section, or a dedicated one here) to specify the Border ID (defined\
+  \ in 'Borders' Tab) for this ground brush.\n     - 'QComboBox' 'm_borderAlignmentChoice'\
+  \ for Border Alignment (\"outer\", \"inner\").\n     - 'QCheckBox' 'm_includeToNoneCheck'\
+  \ for \"Add 'to=none' border variant\".\n     - 'QCheckBox' 'm_includeInnerCheck'\
+  \ for \"Add inner border variant (uses same ID as main)\".\n   - **Actions:** 'QPushButton'\
+  \ \"Save Ground Brush\" (writes to 'grounds.xml', adds '<brush name=\"...\"/>' to\
+  \ selected category in 'tilesets.xml').\n\n**3. 'Wall Brushes' Tab (Basic):**\n\
+  \   - Inputs: 'QLineEdit' for Brush Name, 'QSpinBox' for Server Look ID.\n   - 'QComboBox'\
+  \ to load existing wall brushes from 'walls.xml'.\n   - 'QComboBox' for target Tileset.\n\
+  \   - Input fields ('QSpinBox'+Browse) for Item IDs for: Horizontal Wall, Vertical\
+  \ Wall, Pole.\n   - (Future: Expand to cover all 12+ wall segment types and add\
+  \ door/window definitions within them. A visual grid editor here would be ideal.)\n\
+  \   - **Actions:** 'QPushButton' \"Save Wall Brush\" (writes to 'walls.xml', updates\
+  \ 'tilesets.xml').\n\n**4. 'Doodad Brushes' Tab (Basic):**\n   - Inputs: 'QLineEdit'\
+  \ for Brush Name, 'QSpinBox' for Server Look ID.\n   - 'QComboBox' to load existing\
+  \ doodad brushes from 'doodads.xml'.\n   - 'QComboBox' for target Tileset.\n   -\
+  \ 'QCheckBox'es for properties (Draggable, Blocking, etc.).\n   - **Composite Items:**\
+  \ 'QTableWidget' (columns: \"Item ID\", \"X-Offset\", \"Y-Offset\", \"Z-Offset\"\
+  ). Buttons to Add/Remove/Edit items (Item ID uses item finder).\n   - (Future: 'QGraphicsView'-based\
+  \ visual editor to place items relative to an origin for composite doodads.)\n \
+  \  - **Actions:** 'QPushButton' \"Save Doodad Brush\" (writes to 'doodads.xml',\
+  \ updates 'tilesets.xml').\n\n**Helper Dialogs (can be simple 'QDialog's, possibly\
+  \ invoked from palettes or this editor):**\n-   'NewTilesetDialog': 'QLineEdit'\
+  \ for new tileset name. Logic to add a new '<tileset name=\"...\"><terrain/></tileset>'\
+  \ (or appropriate inner tags like '<items/>', '<doodad/>') to 'tilesets.xml'.\n\
+  -   'AddItemToTilesetDialog': 'QComboBox' for tileset selection, 'QSpinBox'+Browse\
+  \ for item ID (or brush name if adding brushes). Logic to add '<item id=\"...\"\
+  />' or '<brush name=\"...\"/>' to the chosen category within 'tilesets.xml'.\n\n\
+  **XML Handling:**\n- Implement robust parsing and saving for 'borders.xml', 'grounds.xml',\
+  \ 'walls.xml', 'doodads.xml', and 'tilesets.xml' using 'QXmlStreamReader' and 'QXmlStreamWriter'\
+  \ or an equivalent library.\n- When saving, try to preserve comments and existing\
+  \ structure. For 'borders.xml', save the \"Name\" field as an XML comment before\
+  \ the '<border>' tag.\n"

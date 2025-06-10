@@ -1,68 +1,99 @@
-wbs_item_id: TEST-10
-name: UI Test Cross-Platform Compatibility
-description: Perform (primarily manual) UI tests on Windows, macOS, and Linux to identify and address platform-specific UI glitches, layout issues, and behavioral inconsistencies. Automated UI tests from TEST-09 should also be run on each platform.
+id: TEST-10 # Changed from wbs_item_id for consistency
+section: Testing # Added section for clarity
+title: "Execute and Document Cross-Platform UI Compatibility Tests"
+original_task_id: TEST-10 # Assuming this is the original ID
+description: Perform (primarily manual) UI tests on Windows, macOS, and Linux to identify and address platform-specific UI glitches, layout issues, font rendering problems, widget behavior inconsistencies, and High DPI scaling issues. Automated UI tests developed in TEST-09 should also be executed on each platform.
 dependencies:
-- TEST-09
-input_files: []
-analyzed_input_files: []
+  - "TEST-09"    # Automated UI test suite to be run
+  - "FINAL-05"   # Application Packaging (implies application is near final)
+  - "FINAL-06"   # Documentation Review (implies application is feature complete for docs)
+  # This task should ideally run on a feature-complete or release candidate version.
+input_files: [] # No wxWidgets files to port for this task.
+analyzed_input_files: [] # No legacy files to analyze for this task.
 documentation_references:
-- 'Qt Platform Notes: https://doc.qt.io/qt-6/platformspecific.html'
-- 'Qt High DPI Support: https://doc.qt.io/qt-6/highdpi.html'
-- Testing for Cross-Platform Issues (General Software Engineering Principles)
-current_functionality_summary: 'This WBS item outlines the process for testing the Qt6 Remere''s Map Editor application across its target operating systems: Windows, macOS, and Linux. The primary goal is to ensure a consistent and correct user experience on each platform. This involves manual exploratory testing based on a checklist and, where possible, running the automated UI test suite developed in TEST-09.'
+  - 'Qt Platform Specifics: https://doc.qt.io/qt-6/platformspecific.html'
+  - 'Qt High DPI Support: https://doc.qt.io/qt-6/highdpi.html'
+  - 'Qt Style Sheets and Platform Look and Feel: https://doc.qt.io/qt-6/stylesheet.html'
+  - 'Testing for Cross-Platform Issues (General Software Engineering Principles)'
+current_functionality_summary: |
+  This WBS item outlines the crucial process of testing the Qt6 Remere's Map Editor application for UI and functional consistency across its primary target operating systems: Windows, macOS, and Linux. It involves a combination of systematic manual exploratory testing, guided by a comprehensive checklist, and the execution of the automated UI test suite developed in 'TEST-09'. The main objective is to identify and document any platform-specific bugs, visual glitches, layout problems, or behavioral inconsistencies to ensure a high-quality user experience on all supported platforms.
 definition_of_done:
-- A comprehensive UI testing checklist, covering key features, dialogs, and user workflows, has been systematically executed on recent versions of Windows, macOS, and at least one common Linux distribution/desktop environment.
-- The automated UI test suite (from `TEST-09`) has been executed on each target platform, and any platform-specific functional regressions identified are documented.
-- All significant platform-specific UI issues (e.g., layout breakages, incorrect widget scaling, font rendering problems affecting readability, non-functional controls, critical deviations from native look-and-feel where expected) are documented with detailed reproduction steps, screenshots, and severity assessment.
-- A report summarizing the findings for each platform is produced.
-- Actionable bug reports for critical or major platform-specific issues are created for developers.
-- The application achieves a state of acceptable visual and functional consistency across the tested platforms, with any remaining minor discrepancies acknowledged and documented if not fixed.
-boilerplate_coder_ai_prompt: |-
-  This WBS item, `TEST-10`, is focused on the **execution and documentation of cross-platform UI compatibility testing** for the Qt6 Remere's Map Editor. This is largely a manual testing effort, potentially supplemented by running automated UI tests from `TEST-09` on different OS environments.
+  - A comprehensive UI testing checklist has been developed, covering key application features, dialogs, user workflows, visual elements, and platform interactions.
+  - This checklist has been systematically executed by testers on recent, representative versions of:
+    - Windows (e.g., Windows 10/11).
+    - macOS (e.g., latest two major versions).
+    - Linux (e.g., Ubuntu LTS with GNOME, and at least one other common desktop environment like KDE Plasma or Xfce if possible).
+  - The automated UI test suite (from 'TEST-09') has been successfully executed on each target platform, and any platform-specific failures or functional regressions are documented.
+  - All significant platform-specific UI issues are thoroughly documented. This includes, but is not limited to:
+    - Layout breakages or misalignments of UI elements.
+    - Incorrect widget sizing or scaling, especially on High DPI displays.
+    - Font rendering problems affecting readability or appearance.
+    - Non-functional or incorrectly behaving controls (buttons, menus, scrollbars, etc.).
+    - Critical deviations from the native look-and-feel where adherence is expected (e.g., standard file dialogs).
+    - Platform-specific crashes or hangs triggered by UI interactions.
+    - Inconsistent behavior of features across platforms.
+  - Each documented issue includes detailed reproduction steps, screenshots or videos illustrating the problem, the specific platform(s) affected (including OS version and desktop environment for Linux), and an assessment of its severity and impact on the user.
+  - A consolidated Cross-Platform Test Report is produced, summarizing the testing activities, environments, overall findings, and a prioritized list of all identified platform-specific issues.
+  - Actionable bug reports for all critical or major platform-specific issues have been created in the project's issue tracking system, assigned for resolution.
+  - The application achieves an acceptable state of visual and functional consistency across the tested platforms. Any remaining minor, non-critical discrepancies are acknowledged, documented, and accepted if not scheduled for immediate fixing.
+estimation_effort:
+  - "High (15-25 QA/developer days). Setting up multiple test environments, meticulously executing a broad checklist manually on each, running automated suites, and then thoroughly documenting/reporting all findings is a significant time investment. Analyzing failures to distinguish between platform issues and general bugs also takes time."
+known_missing_files: [] # Not applicable
+boilerplate_coder_ai_prompt: |
+  *This WBS item, 'TEST-10', describes a **testing and reporting process** to be executed primarily by QA engineers or developers. The AI's role is to understand this process and the expected inputs/outputs, particularly the structure of the test report and the types of issues to look for. It does not involve direct code generation for the application itself, but might involve scripting for test automation if that were part of the test execution.*
 
-  **Primary Goal:**
-  Identify, document, and report any UI/UX issues that are specific to Windows, macOS, or Linux platforms.
+  **Objective:**
+  To: systematically test the Qt6 Remere's Map Editor across Windows, macOS, and Linux to identify and document platform-specific UI/UX bugs, inconsistencies, and visual glitches.
 
-  **Testing Scope & Environments:**
-  -   **Platforms:**
-      -   Windows (e.g., Windows 10/11).
-      -   macOS (e.g., latest available version).
-      -   Linux (e.g., Ubuntu LTS with GNOME; consider testing on another DE like KDE if feasible).
-  -   **Key Areas for Manual Testing Checklist (for each platform):**
-      1.  **Installation & Startup:** Application installs and launches correctly.
-      2.  **Main Window:**
-          -   Correct layout, no overlapping/truncated elements.
-          -   Window decorations, title bar, minimize/maximize/close behavior are native.
-          -   Menu bar: Native integration on macOS (global menu bar), correct appearance on Windows/Linux.
-          -   Toolbars & Palettes: Correctly docked/undocked, icons visible, tooltips appear.
-      3.  **Dialogs:**
-          -   Standard dialogs (`QFileDialog`, `QMessageBox`, `QInputDialog`, `QFontDialog`, `QColorDialog`) have native look and feel.
-          -   Custom dialogs render correctly, all controls are accessible and functional.
-      4.  **Map Canvas Rendering:** While `TEST-07` covers detailed rendering logic, perform a smoke test to ensure the map canvas displays without obvious platform-specific rendering artifacts (e.g., severe flickering, missing chunks, completely incorrect colors not caught by automated tests).
-      5.  **Controls & Widgets:**
-          -   Buttons, checkboxes, radio buttons, sliders, input fields, tabs, scrollbars, etc., are visually correct and function as expected.
-          -   Font rendering is clear and legible across all UI text.
-      6.  **User Interactions:**
-          -   Mouse clicks, drags, wheel scrolling on map and UI elements.
-          -   Keyboard input and shortcuts (check for conflicts with OS shortcuts, standard platform equivalents like Cmd+C vs. Ctrl+C).
-          -   Drag-and-drop operations (e.g., for docking palettes).
-      7.  **High DPI Scaling:** If testing on High DPI displays, ensure UI elements scale correctly and are not blurry or misaligned.
-      8.  **Performance/Responsiveness:** Note any significant platform-specific sluggishness in UI interactions (though detailed performance profiling is `REFACTOR-02`).
-      9.  **Feature Workflows:** Execute key workflows from `TEST-09` manually (e.g., File > New, basic editing, File > Save) to catch platform-specific behavioral deviations.
+  **Inputs for Tester/QA:**
+  - A stable, feature-rich build of the RME-Qt application (ideally a release candidate or post 'FINAL-05').
+  - Access to testing environments for Windows, macOS, and specified Linux distributions/desktop environments.
+  - The automated UI test suite developed in 'TEST-09'.
+  - A pre-defined UI testing checklist (or the task to develop one as the first step).
 
-  **Automated UI Test Execution (from `TEST-09`):**
-  -   Set up environments to run the automated UI test suite (developed in `TEST-09`) on Windows, macOS, and Linux.
-  -   Execute the suite and record pass/fail results for each platform.
-  -   Analyze any failures to determine if they are due to platform-specific issues.
+  **Procedure for Tester/QA:**
 
-  **Deliverables for this task (manual generation by tester/QA):**
-  1.  A **Cross-Platform Test Report** detailing:
-      -   Environments tested (OS versions, Desktop Environments).
-      -   Summary of manual checklist execution.
-      -   Results of automated UI test suite execution on each platform.
-      -   A list of all identified platform-specific bugs/issues, including:
-          -   Description, severity, steps to reproduce, platform(s) affected.
-          -   Screenshots/videos illustrating the issues.
-  2.  (If applicable) Bug reports filed in an issue tracking system for the identified problems.
+  1.  **Develop/Finalize UI Testing Checklist:** If not already existing, create a detailed checklist covering:
+      *   Installation and launch.
+      *   Main window layout (menus, toolbars, dock widgets, status bar) on different screen resolutions and High DPI settings.
+      *   All major dialogs (File New/Open/Save, Preferences, Map Properties, Item Properties, Town Editor, House Editor, etc.): layout, control functionality, native feel.
+      *   Palette interaction: selecting brushes, items, creatures; UI feedback.
+      *   Map canvas interaction: basic drawing, selection, panning, zooming, floor changes – visual feedback and basic functional correctness (detailed rendering logic is 'TEST-07').
+      *   Font rendering across all UI elements.
+      *   Keyboard navigation and shortcuts (including platform-specific equivalents like Cmd vs Ctrl).
+      *   Drag and drop (e.g., for dock widgets).
+      *   Window management (minimize, maximize, resize, fullscreen).
+      *   Overall application responsiveness (qualitative assessment).
 
-  This task does not typically involve writing new application code, but rather the systematic testing of the application developed from other WBS items across different operating systems. If the AI is later tasked to *fix* issues found, this YAML's context will be relevant.
+  2.  **Execute Manual Tests on Each Platform:**
+      *   For Windows, macOS, and each targeted Linux environment:
+          - Install the application.
+          - Systematically go through the UI testing checklist, noting any deviations, visual bugs, or unexpected behavior.
+          - Pay special attention to High DPI scaling, font rendering, and native widget integration (e.g., file dialogs, menu bars on macOS).
+
+  3.  **Execute Automated UI Tests (from 'TEST-09') on Each Platform:**
+      *   Run the full suite of automated UI tests.
+      *   Record all failures and investigate if they are platform-specific or general bugs.
+
+  4.  **Document Findings:**
+      *   For each issue found:
+          - Provide a clear title and detailed steps to reproduce.
+          - Specify the platform(s) affected (OS version, desktop environment, display settings if relevant).
+          - Include screenshots and/or short videos.
+          - Assess severity (e.g., critical, major, minor, cosmetic) and impact.
+          - Note if the issue is a regression from a previous version or a new problem.
+      *   File these issues in the project's designated bug tracking system.
+
+  5.  **Compile Cross-Platform Test Report:**
+      *   **Introduction:** Purpose of the testing, scope, application version tested.
+      *   **Test Environments:** Detailed list of OS versions, hardware configurations (if relevant), Qt version used for build.
+      *   **Manual Test Execution Summary:** Overview of checklist completion for each platform.
+      *   **Automated Test Execution Summary:** Pass/fail rates for the UI test suite on each platform.
+      *   **Key Findings & Issues:**
+          - A section for each platform, detailing significant bugs and inconsistencies discovered.
+          - A consolidated list of high-priority cross-platform issues or patterns observed.
+      *   **High DPI and Scaling Report:** Specific feedback on UI scalability and clarity on high-resolution displays.
+      *   **Accessibility Notes (Optional):** Basic observations on keyboard navigation, focus handling, etc.
+      *   **Conclusion and Recommendations:** Overall assessment of cross-platform compatibility. Recommendations for addressing common issues or areas needing developer attention.
+
+  The primary output of this task is the **Cross-Platform Test Report** and the filed **bug reports**.

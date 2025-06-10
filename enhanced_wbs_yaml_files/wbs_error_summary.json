@@ -1,0 +1,122 @@
+{
+  "error_files": [
+    {
+      "filename": "UI-05.yaml",
+      "error": "YAML parsing error: mapping values are not allowed here\n  in \"enhanced_wbs_yaml_files/UI-05.yaml\", line 5, column 11"
+    },
+    {
+      "filename": "LOGIC-05.yaml",
+      "error": "YAML parsing error: mapping values are not allowed here\n  in \"enhanced_wbs_yaml_files/LOGIC-05.yaml\", line 5, column 7"
+    },
+    {
+      "filename": "LOGIC-08.yaml",
+      "error": "YAML parsing error: while parsing a block collection\n  in \"enhanced_wbs_yaml_files/LOGIC-08.yaml\", line 97, column 3\nexpected <block end>, but found '<block sequence start>'\n  in \"enhanced_wbs_yaml_files/LOGIC-08.yaml\", line 98, column 5"
+    },
+    {
+      "filename": "CORE-05.yaml",
+      "error": "YAML parsing error: while parsing a block collection\n  in \"enhanced_wbs_yaml_files/CORE-05.yaml\", line 89, column 3\nexpected <block end>, but found '<scalar>'\n  in \"enhanced_wbs_yaml_files/CORE-05.yaml\", line 90, column 24"
+    },
+    {
+      "filename": "NET-03.yaml",
+      "error": "YAML parsing error: while parsing a block collection\n  in \"enhanced_wbs_yaml_files/NET-03.yaml\", line 46, column 3\nexpected <block end>, but found '<block sequence start>'\n  in \"enhanced_wbs_yaml_files/NET-03.yaml\", line 47, column 5"
+    },
+    {
+      "filename": "TEST-08.yaml",
+      "error": "YAML parsing error: while scanning an alias\n  in \"enhanced_wbs_yaml_files/TEST-08.yaml\", line 29, column 5\nexpected alphabetic or numeric character, but found '*'\n  in \"enhanced_wbs_yaml_files/TEST-08.yaml\", line 29, column 6"
+    },
+    {
+      "filename": "TEST-09.yaml",
+      "error": "YAML parsing error: while parsing a block collection\n  in \"enhanced_wbs_yaml_files/TEST-09.yaml\", line 33, column 3\nexpected <block end>, but found '<scalar>'\n  in \"enhanced_wbs_yaml_files/TEST-09.yaml\", line 35, column 48"
+    },
+    {
+      "filename": "UI-01.yaml",
+      "error": "YAML parsing error: while parsing a block mapping\n  in \"enhanced_wbs_yaml_files/UI-01.yaml\", line 57, column 5\nexpected <block end>, but found '<scalar>'\n  in \"enhanced_wbs_yaml_files/UI-01.yaml\", line 58, column 19"
+    },
+    {
+      "filename": "TEST-02.yaml",
+      "error": "YAML parsing error: while parsing a block mapping\n  in \"enhanced_wbs_yaml_files/TEST-02.yaml\", line 35, column 5\nexpected <block end>, but found '<scalar>'\n  in \"enhanced_wbs_yaml_files/TEST-02.yaml\", line 36, column 30"
+    },
+    {
+      "filename": "LOGIC-07.yaml",
+      "error": "YAML parsing error: mapping values are not allowed here\n  in \"enhanced_wbs_yaml_files/LOGIC-07.yaml\", line 5, column 5"
+    },
+    {
+      "filename": "REFACTOR-01.yaml",
+      "error": "YAML parsing error: while parsing a block collection\n  in \"enhanced_wbs_yaml_files/REFACTOR-01.yaml\", line 51, column 3\nexpected <block end>, but found '<block sequence start>'\n  in \"enhanced_wbs_yaml_files/REFACTOR-01.yaml\", line 52, column 5"
+    },
+    {
+      "filename": "NET-01.yaml",
+      "error": "YAML parsing error: while parsing a block collection\n  in \"enhanced_wbs_yaml_files/NET-01.yaml\", line 40, column 3\nexpected <block end>, but found '<block sequence start>'\n  in \"enhanced_wbs_yaml_files/NET-01.yaml\", line 41, column 5"
+    },
+    {
+      "filename": "TEST-10.yaml",
+      "error": "YAML parsing error: while scanning a simple key\n  in \"enhanced_wbs_yaml_files/TEST-10.yaml\", line 101, column 1\ncould not find expected ':'\n  in \"enhanced_wbs_yaml_files/TEST-10.yaml\", line 102, column 1"
+    },
+    {
+      "filename": "NET-02.yaml",
+      "error": "YAML parsing error: while parsing a block collection\n  in \"enhanced_wbs_yaml_files/NET-02.yaml\", line 52, column 3\nexpected <block end>, but found '<block sequence start>'\n  in \"enhanced_wbs_yaml_files/NET-02.yaml\", line 53, column 5"
+    },
+    {
+      "filename": "TEST-07.yaml",
+      "error": "YAML parsing error: while scanning an alias\n  in \"enhanced_wbs_yaml_files/TEST-07.yaml\", line 41, column 5\nexpected alphabetic or numeric character, but found '*'\n  in \"enhanced_wbs_yaml_files/TEST-07.yaml\", line 41, column 6"
+    },
+    {
+      "filename": "UI-04.yaml",
+      "error": "YAML parsing error: while scanning an alias\n  in \"enhanced_wbs_yaml_files/UI-04.yaml\", line 70, column 5\nexpected alphabetic or numeric character, but found '*'\n  in \"enhanced_wbs_yaml_files/UI-04.yaml\", line 70, column 6"
+    },
+    {
+      "filename": "TEST-04.yaml",
+      "error": "YAML parsing error: while scanning an alias\n  in \"enhanced_wbs_yaml_files/TEST-04.yaml\", line 24, column 5\nexpected alphabetic or numeric character, but found '*'\n  in \"enhanced_wbs_yaml_files/TEST-04.yaml\", line 24, column 6"
+    },
+    {
+      "filename": "UI-07.yaml",
+      "error": "YAML parsing error: while parsing a block mapping\n  in \"enhanced_wbs_yaml_files/UI-07.yaml\", line 1, column 1\nexpected <block end>, but found '<scalar>'\n  in \"enhanced_wbs_yaml_files/UI-07.yaml\", line 77, column 17"
+    },
+    {
+      "filename": "RENDER-03.yaml",
+      "error": "YAML parsing error: while parsing a block collection\n  in \"enhanced_wbs_yaml_files/RENDER-03.yaml\", line 37, column 3\nexpected <block end>, but found '<block sequence start>'\n  in \"enhanced_wbs_yaml_files/RENDER-03.yaml\", line 38, column 5"
+    },
+    {
+      "filename": "LOGIC-06.yaml",
+      "error": "YAML parsing error: mapping values are not allowed here\n  in \"enhanced_wbs_yaml_files/LOGIC-06.yaml\", line 4, column 16"
+    },
+    {
+      "filename": "TEST-01.yaml",
+      "error": "YAML parsing error: while scanning an alias\n  in \"enhanced_wbs_yaml_files/TEST-01.yaml\", line 24, column 5\nexpected alphabetic or numeric character, but found '*'\n  in \"enhanced_wbs_yaml_files/TEST-01.yaml\", line 24, column 6"
+    },
+    {
+      "filename": "RENDER-01.yaml",
+      "error": "YAML parsing error: while parsing a block collection\n  in \"enhanced_wbs_yaml_files/RENDER-01.yaml\", line 37, column 3\nexpected <block end>, but found '<block sequence start>'\n  in \"enhanced_wbs_yaml_files/RENDER-01.yaml\", line 38, column 5"
+    },
+    {
+      "filename": "UI-06.yaml",
+      "error": "YAML parsing error: while scanning an alias\n  in \"enhanced_wbs_yaml_files/UI-06.yaml\", line 56, column 5\nexpected alphabetic or numeric character, but found '*'\n  in \"enhanced_wbs_yaml_files/UI-06.yaml\", line 56, column 6"
+    },
+    {
+      "filename": "TEST-05.yaml",
+      "error": "YAML parsing error: while scanning an alias\n  in \"enhanced_wbs_yaml_files/TEST-05.yaml\", line 24, column 5\nexpected alphabetic or numeric character, but found '*'\n  in \"enhanced_wbs_yaml_files/TEST-05.yaml\", line 24, column 6"
+    },
+    {
+      "filename": "LOGIC-04.yaml",
+      "error": "YAML parsing error: mapping values are not allowed here\n  in \"enhanced_wbs_yaml_files/LOGIC-04.yaml\", line 4, column 12"
+    },
+    {
+      "filename": "TEST-03.yaml",
+      "error": "YAML parsing error: while scanning an alias\n  in \"enhanced_wbs_yaml_files/TEST-03.yaml\", line 28, column 5\nexpected alphabetic or numeric character, but found '*'\n  in \"enhanced_wbs_yaml_files/TEST-03.yaml\", line 28, column 6"
+    },
+    {
+      "filename": "LOGIC-09.yaml",
+      "error": "YAML parsing error: while parsing a block collection\n  in \"enhanced_wbs_yaml_files/LOGIC-09.yaml\", line 53, column 3\nexpected <block end>, but found '<block sequence start>'\n  in \"enhanced_wbs_yaml_files/LOGIC-09.yaml\", line 54, column 5"
+    },
+    {
+      "filename": "TEST-06.yaml",
+      "error": "YAML parsing error: while scanning an alias\n  in \"enhanced_wbs_yaml_files/TEST-06.yaml\", line 22, column 5\nexpected alphabetic or numeric character, but found '*'\n  in \"enhanced_wbs_yaml_files/TEST-06.yaml\", line 22, column 6"
+    },
+    {
+      "filename": "RENDER-02.yaml",
+      "error": "YAML parsing error: while parsing a block collection\n  in \"enhanced_wbs_yaml_files/RENDER-02.yaml\", line 50, column 3\nexpected <block end>, but found '<block sequence start>'\n  in \"enhanced_wbs_yaml_files/RENDER-02.yaml\", line 51, column 5"
+    }
+  ],
+  "processed_count": 28,
+  "total_analyzed": 57
+}

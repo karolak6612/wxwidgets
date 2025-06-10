@@ -1,97 +1,162 @@
-wbs_item_id: FINAL-02
-name: Port Splash Screen & Startup Logic
-description: Recreate the application's splash screen and initial startup sequence in Qt6. This includes loading initial configurations, checking for updates (if applicable), and transitioning to the main editor window.
-dependencies:
-- CORE-02
-- UI-01
-input_files:
-- wxwidgets/application.cpp
-- wxwidgets/application.h
+id: FINAL-02
+section: Integration & Finalization
+title: Implement File Menu Operations (New, Open, Save, Save As, Close)
+original_input_files:
+  - "Integrated `Map` class, `AssetManager`, `QUndoStack` and `MainWindow` from `FINAL-01`"
+  - "File menu actions (New, Open, Save, Save As, Close, Exit, Recent Files) defined in `UI-02` (Toolbar & Menubar Setup)"
+  - "Map saving/loading logic within `Map` class (from `CORE-03` and potentially `CORE-IOMAP` if I/O was separated)"
 analyzed_input_files:
-- file_path: wxwidgets/application.cpp
-  description: Contains the main application class `Application`, including `OnInit` which handles startup sequences, settings loading, single instance check, main frame creation, and showing a welcome dialog (acting as a splash screen). `OnEventLoopEnter` handles initial map loading.
-  md5_hash: 0d81945a070c94603991cc98e38b89a2
-  content_lite: "//////////////////////////////////////////////////////////////////////\\n// This file is part of Remere's Map Editor\\n//////////////////////////////////////////////////////////////////////\\n// Remere's Map Editor is free software: you can redistribute it and/or modify\\n// it under the terms of the GNU General Public License as published by\\n// the Free Software Foundation, either version 3 of the License, or\\n// (at your option) any later version.\\n//\\n// Remere's Map Editor is distributed in the hope that it will be useful,\\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\\n// GNU General Public License for more details.\\n//\\n// You should have received a copy of the GNU General Public License\\n// along with this program. If not, see <http://www.gnu.org/licenses/>.\\n//////////////////////////////////////////////////////////////////////\\n\\n#include \"main.h\"\\n\\n#include \"\
-    application.h\"\\n#include \"sprites.h\"\\n#include \"editor.h\"\\n#include \"common_windows.h\"\\n#include \"palette_window.h\"\\n#include \"preferences.h\"\\n#include \"result_window.h\"\\n#include \"minimap_window.h\"\\n#include \"about_window.h\"\\n#include \"main_menubar.h\"\\n#include \"updater.h\"\\n#include \"artprovider.h\"\\n#include \"dark_mode_manager.h\"\\n\\n#include \"materials.h\"\\n#include \"map.h\"\\n#include \"complexitem.h\"\\n#include \"creature.h\"\\n\\n// Add exception handling includes\\n#include <exception>\\n#include <fstream>\\n#include <wx/datetime.h>\\n#include <wx/filename.h>\\n#include <wx/stdpaths.h>\\n\\n#include <wx/snglinst.h>\\n\\n#if defined(__LINUX__) || defined(__WINDOWS__)\\n\t#include <GL/glut.h>\\n#endif\\n\\n#include \"../brushes/icon/editor_icon.xpm\"\\n#include \"color_utils.h\"\\n\\nBEGIN_EVENT_TABLE(MainFrame, wxFrame)\\nEVT_CLOSE(MainFrame::OnExit)\\n\\n// Update check complete\\n#ifdef _USE_UPDATER_\\nEVT_ON_UPDATE_CHECK_FINISHED(wxID_ANY,\
-    \ MainFrame::OnUpdateReceived)\\n#endif\\nEVT_ON_UPDATE_MENUS(wxID_ANY, MainFrame::OnUpdateMenus)\\n\\n// Idle event handler\\nEVT_IDLE(MainFrame::OnIdle)\\nEND_EVENT_TABLE()\\n\\nBEGIN_EVENT_TABLE(MapWindow, wxPanel)\\nEVT_SIZE(MapWindow::OnSize)\\n\\nEVT_COMMAND_SCROLL_TOP(MAP_WINDOW_HSCROLL, MapWindow::OnScroll)\\nEVT_COMMAND_SCROLL_BOTTOM(MAP_WINDOW_HSCROLL, MapWindow::OnScroll)\\nEVT_COMMAND_SCROLL_THUMBTRACK(MAP_WINDOW_HSCROLL, MapWindow::OnScroll)\\nEVT_COMMAND_SCROLL_LINEUP(MAP_WINDOW_HSCROLL, MapWindow::OnScrollLineUp)\\nEVT_COMMAND_SCROLL_LINEDOWN(MAP_WINDOW_HSCROLL, MapWindow::OnScrollLineDown)\\nEVT_COMMAND_SCROLL_PAGEUP(MAP_WINDOW_HSCROLL, MapWindow::OnScrollPageUp)\\nEVT_COMMAND_SCROLL_PAGEDOWN(MAP_WINDOW_HSCROLL, MapWindow::OnScrollPageDown)\\n\\nEVT_COMMAND_SCROLL_TOP(MAP_WINDOW_VSCROLL, MapWindow::OnScroll)\\nEVT_COMMAND_SCROLL_BOTTOM(MAP_WINDOW_VSCROLL, MapWindow::OnScroll)\\nEVT_COMMAND_SCROLL_THUMBTRACK(MAP_WINDOW_VSCROLL, MapWindow::OnScroll)\\nEVT_COMMAND_SCROLL_LINEUP(MAP_WINDOW_VSCROLL,\
-    \ MapWindow::OnScrollLineUp)\\nEVT_COMMAND_SCROLL_LINEDOWN(MAP_WINDOW_VSCROLL, MapWindow::OnScrollLineDown)\\nEVT_COMMAND_SCROLL_PAGEUP(MAP_WINDOW_VSCROLL, MapWindow::OnScrollPageUp)\\nEVT_COMMAND_SCROLL_PAGEDOWN(MAP_WINDOW_VSCROLL, MapWindow::OnScrollPageDown)\\n\\nEVT_BUTTON(MAP_WINDOW_GEM, MapWindow::OnGem)\\nEND_EVENT_TABLE()\\n\\nBEGIN_EVENT_TABLE(MapScrollBar, wxScrollBar)\\nEVT_KEY_DOWN(MapScrollBar::OnKey)\\nEVT_KEY_UP(MapScrollBar::OnKey)\\nEVT_CHAR(MapScrollBar::OnKey)\\nEVT_SET_FOCUS(MapScrollBar::OnFocus)\\nEVT_MOUSEWHEEL(MapScrollBar::OnWheel)\\nEND_EVENT_TABLE()\\n\\nwxIMPLEMENT_APP(Application);\\n\\nApplication::~Application() {\\n\t// Destroy\\n}\\n\\nbool Application::OnInit() {\\n#if defined __DEBUG_MODE__ && defined __WINDOWS__\\n\t_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);\\n#endif\\n\\n\tstd::cout << \"This is free software: you are free to change and redistribute it.\" << std::endl;\\n\tstd::cout << \"There is NO WARRANTY, to the extent permitted\
-    \ by law.\" << std::endl;\\n\tstd::cout << \"Review COPYING in RME distribution for details.\" << std::endl;\\n\tmt_seed(time(nullptr));\\n\tsrand(time(nullptr));\\n\\n\t// Set up global exception handling\\n#ifndef __DEBUG_MODE__\\n\twxHandleFatalExceptions(true);\\n#endif\\n\\n\t// Discover data directory\\n\tg_gui.discoverDataDirectory(\"clients.xml\");\\n\\n\t// Tell that we are the real thing\\n\twxAppConsole::SetInstance(this);\\n\twxArtProvider::Push(newd ArtProvider());\\n\\n#if defined(__LINUX__) || defined(__WINDOWS__)\\n\tint argc = 1;\\n\tchar* argv[1] = { wxString(this->argv[0]).char_str() };\\n\tglutInit(&argc, argv);\\n#endif\\n\\n\t// Load some internal stuff\\n\tg_settings.load();\\n\tFixVersionDiscrapencies();\\n\tg_gui.LoadHotkeys();\\n\tClientVersion::loadVersions();\\n\\n\t// Initialize dark mode manager\\n\tg_darkMode.Initialize();\\n\\n#ifdef _USE_PROCESS_COM\\n\tm_single_instance_checker = newd wxSingleInstanceChecker; // Instance checker has to stay alive throughout\
-    \ the applications lifetime\\n\t\\n\t// Parse command line arguments first to allow overriding single instance setting\\n\tm_file_to_open = wxEmptyString;\\n\tParseCommandLineMap(m_file_to_open);\\n\t\\n\tif (g_settings.getInteger(Config::ONLY_ONE_INSTANCE) && m_single_instance_checker->IsAnotherRunning()) {\\n\t\tRMEProcessClient client;\\n\t\twxConnectionBase* connection = client.MakeConnection(\"localhost\", \"rme_host\", \"rme_talk\");\\n\t\tif (connection) {\\n\t\t\tif (m_file_to_open != wxEmptyString) {\\n\t\t\t\twxLogNull nolog; // We might get a timeout message if the file fails to open on the running instance. Let's not show that message.\\n\t\t\t\tconnection->Execute(m_file_to_open);\\n\t\t\t}\\n\t\t\tconnection->Disconnect();\\n\t\t\twxDELETE(connection);\\n\t\t}\\n\t\twxDELETE(m_single_instance_checker);\\n\t\treturn false; // Since we return false - OnExit is never called\\n\t}\\n\t// We act as server then\\n\tm_proc_server = newd RMEProcessServer();\\n\tif (!m_proc_server->Create(\"\
-    rme_host\")) {\\n\t\twxLogWarning(\"Could not register IPC service!\");\\n\t}\\n#endif\\n\\n\t// Image handlers\\n\t// wxImage::AddHandler(newd wxBMPHandler);\\n\twxImage::AddHandler(newd wxPNGHandler);\\n\twxImage::AddHandler(newd wxJPEGHandler);\\n\twxImage::AddHandler(newd wxTGAHandler);\\n\\n\tg_gui.gfx.loadEditorSprites();\\n\\n#ifndef __DEBUG_MODE__\\n\t// Enable fatal exception handler\\n\twxHandleFatalExceptions(true);\\n#endif\\n\t// Load all the dependency files\\n\tstd::string error;\\n\tStringVector warnings;\\n\\n\t// Don't parse command line map again since we already did it above\\n\tif (m_file_to_open == wxEmptyString) {\\n\t\tParseCommandLineMap(m_file_to_open);\\n\t}\\n\\n\tg_gui.root = newd MainFrame(__W_RME_APPLICATION_NAME__, wxDefaultPosition, wxSize(700, 500));\\n\tSetTopWindow(g_gui.root);\\n\tg_gui.SetTitle(\"\");\\n\\n\tg_gui.root->LoadRecentFiles();\\n\\n\t// Load palette\\n\tg_gui.LoadPerspective();\\n\\n\t// Create icon and apply color shift"
-- file_path: wxwidgets/application.h
-  description: Header file for the `Application` and `MainFrame` classes, defining their structure and event tables.
-  md5_hash: d2e901497da4c1e658e00f27822a25c8
-  content_lite: "//////////////////////////////////////////////////////////////////////\\n// This file is part of Remere's Map Editor\\n//////////////////////////////////////////////////////////////////////\\n// Remere's Map Editor is free software: you can redistribute it and/or modify\\n// it under the terms of the GNU General Public License as published by\\n// the Free Software Foundation, either version 3 of the License, or\\n// (at your option) any later version.\\n//\\n// Remere's Map Editor is distributed in the hope that it will be useful,\\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\\n// GNU General Public License for more details.\\n//\\n// You should have received a copy of the GNU General Public License\\n// along with this program. If not, see <http://www.gnu.org/licenses/>.\\n//////////////////////////////////////////////////////////////////////\\n\\n#ifndef RME_APPLICATION_H_\\n#define\
-    \ RME_APPLICATION_H_\\n\\n#include \"gui.h\"\\n#include \"main_toolbar.h\"\\n#include \"action.h\"\\n#include \"settings.h\"\\n\\n#include \"process_com.h\"\\n#include \"map_display.h\"\\n#include \"welcome_dialog.h\"\\n\\nclass Item;\\nclass Creature;\\n\\nclass MainFrame;\\nclass MapWindow;\\nclass wxEventLoopBase;\\nclass wxSingleInstanceChecker;\\n\\nclass Application : public wxApp {\\npublic:\\n\t~Application();\\n\tvirtual bool OnInit();\\n\tvirtual void OnEventLoopEnter(wxEventLoopBase* loop);\\n\tvirtual void MacOpenFiles(const wxArrayString& fileNames);\\n\tvirtual int OnExit();\\n\tvirtual bool OnExceptionInMainLoop();\\n\tvoid Unload();\\n\\nprivate:\\n\tbool m_startup;\\n\twxString m_file_to_open;\\n\tvoid FixVersionDiscrapencies();\\n\tbool ParseCommandLineMap(wxString& fileName);\\n\\n\tvirtual void OnFatalException();\\n\\n#ifdef _USE_PROCESS_COM\\n\tRMEProcessServer* m_proc_server;\\n\twxSingleInstanceChecker* m_single_instance_checker;\\n#endif\\n};\\n\\nclass MainMenuBar;\\\
-    n\\nclass MainFrame : public wxFrame {\\npublic:\\n\tMainFrame(const wxString& title, const wxPoint& pos, const wxSize& size);\\n\t~MainFrame();\\n\\n\tvoid UpdateMenubar();\\n\tbool DoQueryClose();\\n\tbool DoQuerySave(bool doclose = true);\\n\tbool DoQuerySaveTileset(bool doclose = true);\\n\tbool DoQueryImportCreatures();\\n\tbool LoadMap(FileName name);\\n\\n\tvoid AddRecentFile(const FileName& file);\\n\tvoid LoadRecentFiles();\\n\tvoid SaveRecentFiles();\\n\tstd::vector<wxString> GetRecentFiles();\\n\\n\tMainToolBar* GetAuiToolBar() const {\\n\t\treturn tool_bar;\\n\t}\\n\\n\tvoid OnUpdateMenus(wxCommandEvent& event);\\n\tvoid UpdateFloorMenu();\\n\tvoid OnIdle(wxIdleEvent& event);\\n\tvoid OnExit(wxCloseEvent& event);\\n\\n#ifdef _USE_UPDATER_\\n\tvoid OnUpdateReceived(wxCommandEvent& event);\\n#endif\\n\\n#ifdef __WINDOWS__\\n\tvirtual bool MSWTranslateMessage(WXMSG* msg);\\n#endif\\n\\n\tvoid PrepareDC(wxDC& dc);\\n\\nprotected:\\n\tMainMenuBar* menu_bar;\\n\tMainToolBar* tool_bar;\\\
-    n\\n\tfriend class Application;\\n\tfriend class GUI;\\n\\n\tDECLARE_EVENT_TABLE()\\n};\\n\\n#endif"
+  - file_path: "mapcore::Map (from FINAL-01/CORE-03)"
+    description: |
+      The integrated `Map` class which now needs its file I/O methods (e.g., `createNew()`, `loadFromFile(filePath)`, `saveToFile(filePath)`, `hasChanged()`)
+      to be connected to UI actions. It also manages the map's file name and description.
+  - file_path: "mapcore::AssetManager (from FINAL-01/CORE-02)"
+    description: |
+      The integrated `AssetManager` used to load necessary game assets (items, creatures, sprites)
+      before a map can be fully loaded or a new map can be meaningfully created.
+  - file_path: "QUndoStack (from FINAL-01/CORE-04)"
+    description: |
+      The undo stack that needs to be managed during file operations (e.g., cleared on 'New' or 'Load',
+      set to clean state on 'Save').
+  - file_path: "qtui::MainWindow (from FINAL-01/UI-01)"
+    description: |
+      The main application window containing the File menu. Its actions (QAction instances for New, Open, Save, etc.)
+      need to be connected to handler slots that implement the file operations.
+      It also needs to manage the window title based on the current map's name and modified state, and potentially a recent files list.
+  - file_path: "File Menu QActions (from UI-02)"
+    description: |
+      The `QAction` objects for "New", "Open", "Save", "Save As", "Close", "Exit", and "Recent Files"
+      created during the menubar setup. These actions need their `triggered()` signals connected to implementing slots.
+dependencies:
+  - FINAL-01  # Core Map Logic and Main UI Integration
+  - CORE-03  # Specifically for Map::load/save and metadata methods
+  - CORE-04  # For QUndoStack interaction (clearing, setClean)
+  - CORE-07-MapIO # For map I/O operations
+current_functionality_summary: |
+  Following `FINAL-01`, the core map logic is minimally integrated with the Qt UI shell.
+  Basic map data might be displayable. Undo/Redo and Selection/Clipboard systems are conceptually wired up.
+  However, the File menu operations (New, Open, Save, Save As, Close, Exit) are not yet implemented.
+  Users cannot create new maps, load existing maps from disk, or save their work through the UI.
+  The application might load a default map or start empty, but full file lifecycle management is missing.
+  A recent files menu might exist in the UI but is not functional.
+qt6_migration_steps: |
+  1.  **Implement `MainWindow::slotFileNew()`:**
+      -   Check for unsaved changes in the current map (call `promptToSaveChanges()`). If user cancels, abort.
+      -   Call `AppContext::map().createNew()` (this method should initialize an empty map and set default properties).
+      -   Clear the `QUndoStack` and set its clean state.
+      -   Update `MapViewport` to display the new empty map.
+      -   Update window title to "Untitled" or similar.
+      -   Update recent files list if applicable.
+  2.  **Implement `MainWindow::slotFileOpen()`:**
+      -   Check for unsaved changes (`promptToSaveChanges()`). If user cancels, abort.
+      -   Use `QFileDialog::getOpenFileName()` to let the user select an .otbm file.
+      -   If a file is selected:
+          -   (Ensure `AssetManager` has loaded client data if not already done globally).
+          -   Call `AppContext::map().loadFromFile(selectedFilePath)`.
+          -   If loading fails, show an error message (`QMessageBox`).
+          -   If successful, clear and reset the `QUndoStack`.
+          -   Update `MapViewport` to display the loaded map.
+          -   Update window title with the map name.
+          -   Add the file to the recent files list (`QSettings` or custom manager).
+  3.  **Implement `MainWindow::slotFileSave()`:**
+      -   If the current map has no associated filename (is "Untitled") or was never saved, call `slotFileSaveAs()`.
+      -   Otherwise, call `AppContext::map().saveToFile(currentFilePath)`.
+      -   If saving fails, show an error message.
+      -   If successful, set `QUndoStack` to clean state. Update window title (remove `*`).
+  4.  **Implement `MainWindow::slotFileSaveAs()`:**
+      -   Use `QFileDialog::getSaveFileName()` to let the user choose a filename and location.
+      -   If a file is chosen:
+          -   Call `AppContext::map().saveToFile(chosenFilePath)`.
+          -   If saving fails, show an error message.
+          -   If successful, update the current map's filename in `AppContext::map()`. Set `QUndoStack` to clean. Update window title. Add to recent files.
+  5.  **Implement `MainWindow::slotFileClose()`:**
+      -   Check for unsaved changes (`promptToSaveChanges()`). If user cancels, abort.
+      -   Call `AppContext::map().close()` or `createNew()` to effectively close the current map.
+      -   Clear `MapViewport`.
+      -   Clear `QUndoStack`.
+      -   Update window title.
+      -   Disable menu/toolbar actions that require an open map.
+  6.  **Implement `MainWindow::promptToSaveChanges()` helper:**
+      -   Checks `AppContext::map().hasChanged()` or `!QUndoStack::isClean()`.
+      -   If changes exist, show a `QMessageBox` with "Save", "Don't Save", "Cancel" options.
+      -   Handle return values: if "Save", call `slotFileSave()` and return true if successful (or not cancelled by save dialog). If "Don't Save", return true. If "Cancel", return false.
+  7.  **Implement `MainWindow::slotFileExit()`:**
+      -   Call `promptToSaveChanges()`. If it returns false (user cancelled), abort exit.
+      -   Otherwise, call `QApplication::quit()`.
+  8.  **Recent Files Menu:**
+      -   Use `QSettings` to store a list of recently opened file paths.
+      -   Dynamically populate a "Recent Files" submenu in the File menu.
+      -   When a recent file is selected, it should call a handler similar to `slotFileOpen()` but with the path provided.
+  9.  **Connect Menu Actions:**
+      -   In `MainWindow` (or where menu actions from `UI-02` are set up), connect the `triggered()` signal of each `QAction` (New, Open, Save, Save As, Close, Exit, and recent file actions) to its corresponding slot.
+definition_of_done: |
+  - User can create a new, empty map via `File > New`.
+  - User can open an existing .otbm map file via `File > Open` using `QFileDialog`.
+  - User can save the current map to its existing file via `File > Save`. If the map is new, it prompts for "Save As".
+  - User can save the current map to a new file via `File > Save As` using `QFileDialog`.
+  - User is prompted to save unsaved changes before creating a new map, opening another map, closing the map, or exiting the application.
+  - Closing a map (`File > Close`) clears the view and disables relevant UI actions.
+  - `File > Exit` correctly prompts for saving and then closes the application.
+  - The main window title updates to reflect the current map's filename and modified status (e.g., "map.otbm[*]" if modified).
+  - The `QUndoStack` is appropriately cleared or marked clean after New, Open, and Save operations.
+  - A functional "Recent Files" list is maintained (e.g., in `QSettings`) and displayed in the File menu, allowing users to reopen maps from this list.
+  - Basic error handling (e.g., `QMessageBox` for file I/O errors) is implemented for file operations.
+boilerplate_coder_ai_prompt: |
+  Implement the File menu operations (New, Open, Save, Save As, Close, Exit, Recent Files) for the Qt6 map editor.
+  Assume an `AppContext` provides access to `mapcore::Map& mapManager`, `QUndoStack& undoStack`, and potentially a `RecentFilesManager`.
+  The `MainWindow` has `QAction` members for these menu items.
+
+  **1. New File (`MainWindow::slotFileNew()`):**
+     - Prompt to save unsaved changes (use a helper `promptToSaveChanges() -> bool`).
+     - If not cancelled, call `mapManager.createNewMap()`.
+     - Clear `undoStack` and set it to clean.
+     - Update UI (viewport, window title).
+
+  **2. Open File (`MainWindow::slotFileOpen()`):**
+     - Prompt to save unsaved changes.
+     - Use `QFileDialog::getOpenFileName()` for OTBM files.
+     - If a file is selected, call `mapManager.loadFromFile(filePath)`.
+     - On success: clear `undoStack`, update UI, add to recent files.
+     - On failure: `QMessageBox::warning()`.
+
+  **3. Save File (`MainWindow::slotFileSave()`):**
+     - If `mapManager.currentFilePath()` is empty or map is new, call `slotFileSaveAs()`.
+     - Else, call `mapManager.saveToFile(mapManager.currentFilePath())`.
+     - On success: `undoStack->setClean()`, update window title.
+     - On failure: `QMessageBox::warning()`.
+
+  **4. Save As File (`MainWindow::slotFileSaveAs()`):**
+     - Use `QFileDialog::getSaveFileName()`.
+     - If a file is selected, call `mapManager.saveToFile(chosenPath)`.
+     - On success: `mapManager.setCurrentFilePath(chosenPath)`, `undoStack->setClean()`, update window title, add to recent files.
+     - On failure: `QMessageBox::warning()`.
+
+  **5. Close File (`MainWindow::slotFileClose()`):**
+     - Prompt to save unsaved changes.
+     - If not cancelled, call `mapManager.closeMap()` (or `createNewMap()` to reset state).
+     - Clear `undoStack`, update UI (clear viewport, disable map-specific actions).
+
+  **6. Exit Application (`MainWindow::slotFileExit()` or `MainWindow::closeEvent()`):**
+     - Call `promptToSaveChanges()`. If it returns `false` (user cancelled), ignore the exit request.
+     - Else, proceed with `QApplication::quit()`.
+
+  **7. `promptToSaveChanges() -> bool` Helper:**
+     - Checks `!undoStack->isClean()`.
+     - If dirty, shows `QMessageBox` with Save/Don't Save/Cancel.
+     - Handles user's choice, potentially calling `slotFileSave()`. Returns `false` if user cancels, `true` otherwise.
+
+  **8. Recent Files:**
+     - Store recent file paths in `QSettings`.
+     - Create `QAction`s dynamically for a "Recent Files" submenu.
+     - Connect these actions to a slot that calls `mapManager.loadFromFile(filePath)` (after prompting to save current).
+
+  **9. Connect Signals:** Connect `triggered()` signals of menu `QAction`s to these slots. Update window title based on `mapManager.currentFilePath()` and `undoStack->isClean()`.
 documentation_references:
-- 'Qt SplashScreen Example: https://doc.qt.io/qt-6/qsplashscreen.html'
-- 'Qt QSettings: https://doc.qt.io/qt-6/qsettings.html'
-- 'Qt QSingleApplication (or custom IPC for single instance): https://doc.qt.io/archives/qq/qq26-singleapplication.html (Note: this is an older article, modern approach might use QSharedMemory + QLocalServer)'
-- 'Qt QCommandLineParser: https://doc.qt.io/qt-6/qcommandlineparser.html'
-- 'Qt QDesktopServices::openUrl: https://doc.qt.io/qt-6/qdesktopservices.html#openUrl'
-current_functionality_summary: |-
-  The wxWidgets application (`Application::OnInit`) initializes various components:
-  - Sets up global exception handling.
-  - Discovers data directory.
-  - Loads settings, hotkeys, and client versions.
-  - Initializes image handlers and editor sprites.
-  - Performs a single instance check using `wxSingleInstanceChecker`. If another instance is running, it can send a file path via IPC and exit.
-  - Creates the `MainFrame`.
-  - Loads UI perspective and recent files.
-  - Shows a `wxWelcomeDialog` (which includes an icon `editor_icon.xpm` that gets a random hue shift) if no map is opened via command line and settings permit. This dialog acts as the splash/initial screen.
-  - `Application::OnEventLoopEnter` handles opening a map passed via command line or creating a new map.
-  - Logic exists to open specific URLs (Discord, Idler.live) on first launch or after a 7-day interval.
-  - Command line arguments like `-force-multi-instance` and `-ws` are parsed.
-  No separate `splash.cpp`/`.h` was found; the splash functionality is integrated into the welcome dialog shown during `OnInit`.
-definition_of_done:
-- A `QSplashScreen` is implemented, displaying an application logo (e.g., a PNG version of `editor_icon.xpm`).
-- The random hue shift applied to the original `editor_icon.xpm` is replicated for the splash screen image if this visual effect is desired.
-- The main application startup sequence (in `main.cpp` or a custom `QApplication` subclass) correctly initializes essential Qt services.
-- 'Single instance logic is ported: The application checks if another instance is running. If so, it sends any command-line file path to the existing instance (e.g., using `QSharedMemory` and `QLocalServer`/`QLocalSocket`) and then exits.'
-- Application settings are loaded using `QSettings`.
-- Client version data (from `CORE-02` task's output) is loaded during startup.
-- The `QSplashScreen` is displayed early in the startup process.
-- The main application window (`QMainWindow`) is created.
-- After the main window is initialized and ready to be displayed, `QSplashScreen::finish(mainWindow)` is called to close the splash screen.
-- Logic for opening a map from command-line arguments (using `QCommandLineParser`) or creating a new default map is implemented, similar to the behavior in `Application::OnEventLoopEnter`.
-- The feature to open specific web URLs (e.g., Discord, project website) on first launch or after a set interval (e.g., 7 days) is replicated using `QDesktopServices::openUrl()` and `QSettings` for tracking.
-- Command-line argument parsing for options like forcing multiple instances or controlling the welcome/splash behavior is implemented using `QCommandLineParser`.
-boilerplate_coder_ai_prompt: |-
-  Your task is to port the wxWidgets application startup logic and splash screen to Qt6 for Remere's Map Editor.
-  The primary reference files from the wxWidgets version are `wxwidgets/application.cpp` and `wxwidgets/application.h`.
-
-  **Splash Screen:**
-  1.  Implement a splash screen using `QSplashScreen`.
-  2.  The original application used an XPM icon (`editor_icon.xpm`) and applied a random hue shift to it before displaying it in a welcome dialog (which served as a splash screen).
-  3.  You will need to:
-      a.  Obtain or convert `editor_icon.xpm` to a common format like PNG that Qt can easily load (e.g., `editor_icon.png`).
-      b.  If the random hue shift is a desired feature, implement a similar image manipulation function for `QPixmap` before setting it on the `QSplashScreen`.
-      c.  Display the `QSplashScreen` early in the `main()` function of your Qt application.
-
-  **Application Initialization (typically in `main.cpp` and potentially a custom `MyApplication` class inheriting `QApplication`):**
-  1.  **Single Instance Check:**
-      *   Implement logic to ensure only one instance of the application runs, unless a command-line flag like `-force-multi-instance` is used.
-      *   Use `QSharedMemory` to detect if another instance is running.
-      *   If another instance is detected, use `QLocalSocket` to send the command-line arguments (especially a map file to open) to the running instance (which should have a `QLocalServer` listening) and then the new instance should terminate.
-  2.  **Settings:** Load application settings using `QSettings` (equivalent to `g_settings`).
-  3.  **Client Versions:** Load client version data (this will likely depend on `CORE-02` task which handles parsing `clients.xml`).
-  4.  **Main Window Creation:** Create the main application window (e.g., `MainWindow : QMainWindow`).
-  5.  **Splash Screen Finalization:** Once the `MainWindow` is initialized and ready to be shown, call `splash->finish(mainWindow);`.
-  6.  **Command-Line Argument Parsing:**
-      *   Use `QCommandLineParser` to handle command-line arguments.
-      *   Support opening a map file specified on the command line.
-      *   Support flags like `-force-multi-instance` (to disable single instance check) and `-ws` (to control welcome screen/splash behavior, if this feature is retained beyond a simple splash).
-  7.  **Initial Map Loading:** After the main window is set up, implement the logic found in `Application::OnEventLoopEnter`:
-      *   If a map file was passed via command line, load it.
-      *   If no map file is specified and the welcome dialog (if any, or if configured by `-ws`) isn't shown, create and display a new, empty map.
-  8.  **URL Opening Feature:**
-      *   Replicate the logic to open specific URLs (e.g., "https://discord.gg/FD2cYKBq5E", "https://idler.live/") using `QDesktopServices::openUrl()`.
-      *   This should happen on the first ever launch or if 7 days have passed since the last time these URLs were opened. Use `QSettings` to store a timestamp (`LAST_WEBSITES_OPEN_TIME`).
-
-  **Structure and Error Handling:**
-  - Refer to `wxwidgets/application.cpp` (`Application::OnInit`, `Application::OnEventLoopEnter`, `Application::ParseCommandLineMap`) for the sequence and details of these operations.
-  - Implement robust error handling for file operations and IPC.
-  - Ensure the Qt6 application structure is clean and follows Qt best practices.
-  - The `analyzed_input_files` section should be populated by reading the first 200 lines of `wxwidgets/application.cpp` and `wxwidgets/application.h` and calculating their MD5 hashes.
+  - "QFileDialog: https://doc.qt.io/qt-6/qfiledialog.html"
+  - "QSettings: https://doc.qt.io/qt-6/qsettings.html"
+  - "QMessageBox: https://doc.qt.io/qt-6/qmessagebox.html"
+  - "QApplication::quit(): https://doc.qt.io/qt-6/qapplication.html#quit"
+  - "QMainWindow::closeEvent(): https://doc.qt.io/qt-6/qmainwindow.html#closeEvent"
+  - "QUndoStack::isClean(): https://doc.qt.io/qt-6/qundostack.html#isClean"
+  - "QUndoStack::setClean(): https://doc.qt.io/qt-6/qundostack.html#setClean"
+  - "QUndoStack::clear(): https://doc.qt.io/qt-6/qundostack.html#clear"

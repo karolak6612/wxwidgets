@@ -1,0 +1,186 @@
+dependencies:
+  - name: "wxWidgets"
+    version: "Unknown" # Likely 3.x based on typical wxWidgets projects of this era
+    purpose: "Core UI Framework, Event Loop, Main Window, Dialogs, Controls"
+    integration_files:
+      # UI Elements
+      - "wxwidgets/about_window.cpp"
+      - "wxwidgets/about_window.h"
+      - "wxwidgets/add_item_window.cpp"
+      - "wxwidgets/add_item_window.h"
+      - "wxwidgets/add_tileset_window.cpp"
+      - "wxwidgets/add_tileset_window.h"
+      - "wxwidgets/application.cpp"
+      - "wxwidgets/application.h"
+      - "wxwidgets/artprovider.cpp"
+      - "wxwidgets/artprovider.h"
+      - "wxwidgets/automagic_settings.cpp"
+      - "wxwidgets/automagic_settings.h"
+      - "wxwidgets/border_editor_window.cpp"
+      - "wxwidgets/border_editor_window.h"
+      - "wxwidgets/borderize_window.cpp"
+      - "wxwidgets/borderize_window.h"
+      - "wxwidgets/browse_tile_window.cpp"
+      - "wxwidgets/browse_tile_window.h"
+      - "wxwidgets/common_windows.cpp"
+      - "wxwidgets/common_windows.h"
+      - "wxwidgets/container_properties_window.cpp"
+      - "wxwidgets/container_properties_window.h"
+      - "wxwidgets/dat_debug_view.cpp"
+      - "wxwidgets/dat_debug_view.h"
+      - "wxwidgets/dcbutton.cpp"
+      - "wxwidgets/dcbutton.h"
+      - "wxwidgets/editor_tabs.cpp"
+      - "wxwidgets/editor_tabs.h"
+      - "wxwidgets/extension_window.cpp"
+      - "wxwidgets/extension_window.h"
+      - "wxwidgets/find_creature_window.cpp"
+      - "wxwidgets/find_creature_window.h"
+      - "wxwidgets/find_item_window.cpp"
+      - "wxwidgets/find_item_window.h"
+      - "wxwidgets/ground_validation_dialog.cpp"
+      - "wxwidgets/ground_validation_dialog.h"
+      - "wxwidgets/gui.cpp"
+      - "wxwidgets/gui.h"
+      - "wxwidgets/gui_ids.h"
+      - "wxwidgets/hotkey_manager.cpp"
+      - "wxwidgets/hotkey_manager.h"
+      - "wxwidgets/island_generator_dialog.cpp"
+      - "wxwidgets/island_generator_dialog.h"
+      - "wxwidgets/live_tab.cpp"
+      - "wxwidgets/live_tab.h"
+      - "wxwidgets/main.h" # Often contains wxApp definition
+      - "wxwidgets/main_menubar.cpp"
+      - "wxwidgets/main_menubar.h"
+      - "wxwidgets/main_toolbar.cpp"
+      - "wxwidgets/main_toolbar.h"
+      - "wxwidgets/map_display.cpp"
+      - "wxwidgets/map_display.h"
+      - "wxwidgets/map_window.cpp"
+      - "wxwidgets/map_window.h"
+      - "wxwidgets/minimap_window.cpp"
+      - "wxwidgets/minimap_window.h"
+      - "wxwidgets/monster_generator_dialog.cpp"
+      - "wxwidgets/monster_generator_dialog.h"
+      - "wxwidgets/numbertextctrl.cpp"
+      - "wxwidgets/numbertextctrl.h"
+      - "wxwidgets/old_properties_window.cpp"
+      - "wxwidgets/old_properties_window.h"
+      - "wxwidgets/palette_brushlist.cpp"
+      - "wxwidgets/palette_brushlist.h"
+      - "wxwidgets/palette_common.cpp"
+      - "wxwidgets/palette_common.h"
+      - "wxwidgets/palette_creature.cpp"
+      - "wxwidgets/palette_creature.h"
+      - "wxwidgets/palette_house.cpp"
+      - "wxwidgets/palette_house.h"
+      - "wxwidgets/palette_waypoints.cpp"
+      - "wxwidgets/palette_waypoints.h"
+      - "wxwidgets/palette_window.cpp"
+      - "wxwidgets/palette_window.h"
+      - "wxwidgets/positionctrl.cpp"
+      - "wxwidgets/positionctrl.h"
+      - "wxwidgets/preferences.cpp"
+      - "wxwidgets/preferences.h"
+      - "wxwidgets/properties_window.cpp"
+      - "wxwidgets/properties_window.h"
+      - "wxwidgets/replace_items_window.cpp"
+      - "wxwidgets/replace_items_window.h"
+      - "wxwidgets/result_window.cpp"
+      - "wxwidgets/result_window.h"
+      - "wxwidgets/settings.cpp" # Often uses wxConfig
+      - "wxwidgets/settings.h"
+      - "wxwidgets/tileset_window.cpp"
+      - "wxwidgets/tileset_window.h"
+      - "wxwidgets/updater.cpp" # Might use wxHTTP or similar
+      - "wxwidgets/updater.h"
+      - "wxwidgets/welcome_dialog.cpp"
+      - "wxwidgets/welcome_dialog.h"
+      # Core logic files that might use wxString, wxPoint, etc.
+      - "wxwidgets/action.cpp"
+      - "wxwidgets/action.h"
+      - "wxwidgets/basemap.cpp"
+      - "wxwidgets/basemap.h"
+      - "wxwidgets/brush.cpp"
+      - "wxwidgets/brush.h"
+      - "wxwidgets/client_version.cpp"
+      - "wxwidgets/client_version.h"
+      - "wxwidgets/common.cpp"
+      - "wxwidgets/common.h"
+      - "wxwidgets/copybuffer.cpp"
+      - "wxwidgets/copybuffer.h"
+      - "wxwidgets/editor.cpp"
+      - "wxwidgets/editor.h"
+      - "wxwidgets/filehandle.cpp" # May use wxFile or related
+      - "wxwidgets/filehandle.h"
+      - "wxwidgets/graphics.cpp" # May use wxDC, wxBitmap
+      - "wxwidgets/graphics.h"
+      - "wxwidgets/map_drawer.cpp"
+      - "wxwidgets/map_drawer.h"
+      - "wxwidgets/selection.cpp"
+      - "wxwidgets/selection.h"
+      - "wxwidgets/threads.h" # wxThread
+      - "wxwidgets/dark_mode_manager.cpp"
+      - "wxwidgets/dark_mode_manager.h"
+
+  - name: "SFML"
+    version: "Unknown"
+    purpose: "2D Hardware-Accelerated Rendering for the Map Viewport"
+    integration_files:
+      # SFML is not typically used with wxWidgets in this manner.
+      # If it were, map_display.cpp or graphics.cpp would be candidates.
+      # Given the typical architecture, it's unlikely to be present or easily detectable.
+      []
+
+  - name: "pugixml"
+    version: "Unknown" # Bundled, check wxwidgets/ext/pugixml.cpp for version comments if available
+    purpose: "Parsing of .xml files (items.xml, creatures.xml, materials.xml, clients.xml, etc.)"
+    integration_files:
+      - "wxwidgets/ext/pugixml.cpp"
+      - "wxwidgets/items.cpp" # Likely uses pugixml for items.xml
+      - "wxwidgets/creatures.cpp" # Likely uses pugixml for creatures.xml
+      - "wxwidgets/materials.cpp" # Likely uses pugixml for materials.xml
+      - "wxwidgets/client_version.cpp" # Likely uses pugixml for clients.xml
+      - "wxwidgets/iomap.cpp" # May use it for OTBM metadata or other XML formats
+      - "wxwidgets/iomap_otbm.cpp" # May use it for OTBM metadata
+      - "wxwidgets/iomap_otmm.cpp" # May use it for OTMM metadata
+      - "wxwidgets/town.cpp" # For towns.xml or similar
+      - "wxwidgets/house.cpp" # For houses.xml or similar
+      - "wxwidgets/monster_generator_dialog.cpp" # For loading/saving monster XMLs
+      - "wxwidgets/border_editor_window.cpp" # For borders.xml
+      - "wxwidgets/island_generator_dialog.cpp" # For border/client data in island generation
+
+  - name: "zlib"
+    version: "Unknown"
+    purpose: "Decompression of .otbm map data streams"
+    integration_files:
+      - "wxwidgets/iomap_otbm.cpp" # Standard OTBM loading involves zlib
+      - "wxwidgets/iomap_otbm.h"
+      # Potentially iomap.cpp if it handles generic compression aspects
+
+  - name: "Boost.Asio"
+    version: "Unknown" # Check otml.h for version if specified
+    purpose: "Asynchronous network operations for Live Server/Client"
+    integration_files:
+      - "wxwidgets/live_client.cpp"
+      - "wxwidgets/live_client.h"
+      - "wxwidgets/live_server.cpp"
+      - "wxwidgets/live_server.h"
+      - "wxwidgets/live_peer.cpp"
+      - "wxwidgets/live_peer.h"
+      - "wxwidgets/live_socket.cpp"
+      - "wxwidgets/live_socket.h"
+      - "wxwidgets/net_connection.cpp"
+      - "wxwidgets/net_connection.h"
+      - "wxwidgets/rme_net.cpp" # If it contains Asio networking code
+      - "wxwidgets/rme_net.h"
+      - "wxwidgets/otml.h" # Includes boost headers
+
+  - name: "OpenSSL"
+    version: "Unknown"
+    purpose: "TLS/SSL for secure network communication (if direct usage is observed)"
+    integration_files:
+      # Often used indirectly via Boost.Asio. Direct usage would be in live_*.cpp/h or net_*.cpp/h
+      # No strong candidates from filenames alone without seeing content.
+      # If Boost.Asio is configured for SSL, it would use OpenSSL.
+      []

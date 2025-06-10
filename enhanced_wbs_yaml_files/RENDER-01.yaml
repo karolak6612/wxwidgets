@@ -1,93 +1,184 @@
 id: RENDER-01
-section: Core Migration Tasks
-title: Implement OpenGL Viewport
-original_input_files: map_display.h/cpp
-analyzed_input_files:
-- wxwidgets/map_display.h
-- wxwidgets/map_display.cpp
+section: Rendering System
+title: "Implement Core OpenGL Viewport and Navigation (MapView)"
+original_task_id: RENDER-01 # Keep original ID
+original_input_files:
+  - "wxwidgets/map_display.h"
+  - "wxwidgets/map_display.cpp"
 dependencies:
-- UI-01
-- CORE-03
-current_functionality_summary: '`MapCanvas` (a `wxGLCanvas` in `map_display.h/cpp`) is the primary rendering widget. It manages view parameters like current floor, zoom level, and scroll position (view center). It handles user input for navigation: panning via middle-mouse drag, zooming via the mouse wheel, and floor changes via keyboard shortcuts. It also includes methods for coordinate transformations (screen to map and vice-versa). The actual drawing of map content is delegated to a `MapDrawer` class.'
-qt6_migration_steps: |-
-  1. Create a new C++ class `MapView` which inherits from `QOpenGLWidget` and an appropriate version of `QOpenGLFunctions` (e.g., `QOpenGLFunctions_3_3_Core` or a version suitable for the required OpenGL features).
-  2. This `MapView` widget will be established as the central display area within the `MainWindow` (created in task `UI-01`).
-  3. Implement the standard `QOpenGLWidget` virtual methods:
-     - `initializeGL()`: Called once when the widget is created. Initialize `QOpenGLFunctions` (by calling `initializeOpenGLFunctions()`). Set up initial OpenGL states like clear color (`glClearColor`), enable depth testing if needed for 3D aspects or layers.
-     - `resizeGL(int w, int h)`: Called when the widget is resized. Set the OpenGL viewport using `glViewport(0, 0, w, h)`. Update the projection matrix (typically an orthographic projection for a 2D map view, e.g., using `QMatrix4x4::ortho`).
-     - `paintGL()`: Called whenever the widget needs to be redrawn. Initially, this will just clear the color and depth buffers (`glClear`). Actual map content rendering will be added in task `RENDER-02`.
-  4. Implement a camera/view model within the `MapView` class to manage the current viewing state:
-     - Member variables: `int m_currentFloor`, `double m_zoomFactor` (e.g., 1.0 for 32px tiles), `QPointF m_viewCenterMapCoords` (stores the map X,Y coordinates at the center of the view, can be fractional for smooth scrolling).
-     - Helper methods for coordinate transformation: `Position screenToMapCoords(const QPoint& screenPoint) const;` and `QPoint mapCoordsToScreen(const Position& mapPoint) const;`. These will use `m_zoomFactor` and `m_viewCenterMapCoords`.
-  5. Implement Pan controls by overriding mouse event handlers:
-     - `mousePressEvent(QMouseEvent* event)`: If the middle mouse button is pressed, store the initial mouse position (`m_lastPanMousePos = event->pos();`) and set a boolean flag `m_isPanning = true;`.
-     - `mouseMoveEvent(QMouseEvent* event)`: If `m_isPanning` is true, calculate the delta movement from `m_lastPanMousePos`. Adjust `m_viewCenterMapCoords` based on this delta, scaled by `1.0 / m_zoomFactor` (and tile size if map coords are tile units). Update `m_lastPanMousePos = event->pos();`. Call `update()` to schedule a repaint.
-     - `mouseReleaseEvent(QMouseEvent* event)`: If the middle mouse button is released, set `m_isPanning = false;`.
-  6. Implement Zoom controls by overriding `wheelEvent(QWheelEvent* event)`:
-     - Get the scroll delta using `event->angleDelta().y()`.
-     - Adjust `m_zoomFactor` (e.g., `m_zoomFactor *= std::pow(1.001, event->angleDelta().y());`). Clamp `m_zoomFactor` to reasonable minimum/maximum values.
-     - Implement zoom-to-cursor: Calculate the map coordinate under the mouse cursor *before* changing the zoom. After updating `m_zoomFactor`, adjust `m_viewCenterMapCoords` so that the same map coordinate remains under the mouse cursor's screen position. Call `update()`.
-  7. Implement Floor change controls:
-     - Provide public slots in `MapView`: `void setCurrentFloor(int floor)`, `void floorUp()`, `void floorDown()`. These methods will update `m_currentFloor` (clamping to valid range 0-15) and call `update()`.
-     - These slots will be connected to `QAction`s (e.g., from menus or toolbars in `MainWindow`) or can be called directly from `MapView::keyPressEvent` if handling keyboard shortcuts like PageUp/PageDown.
-  8. Add an instance of `MapView` as the central widget in `MainWindow`'s layout.
-definition_of_done: |-
-  A `MapView` class, derived from `QOpenGLWidget` and `QOpenGLFunctions`, is created and serves as the central map display widget within the `MainWindow`.
-  Key requirements:
-  - `MapView` is successfully integrated as a central widget in the `MainWindow` layout.
-  - Basic OpenGL initialization (setting clear color, viewport, and an appropriate orthographic projection matrix) is functional within `MapView`.
-  - Panning: Dragging with the middle mouse button smoothly scrolls the map view by updating the view's center map coordinates.
-  - Zooming: Using the mouse wheel zooms the view in and out, maintaining the point under the mouse cursor as the zoom center.
-  - Floor Changing: Public slots in `MapView` allow changing the displayed floor (`m_currentFloor`), and these changes trigger a repaint.
-  - Coordinate conversion methods (`screenToMapCoords`, `mapCoordsToScreen`) are implemented and function correctly based on the current view parameters (zoom, center).
-  - The `paintGL()` method is correctly set up to clear the screen (actual drawing of map content is deferred to `RENDER-02`).
-boilerplate_coder_ai_prompt: |-
-  Create `MapView.h` and `MapView.cpp`. `MapView` must inherit from `QOpenGLWidget` and an appropriate `QOpenGLFunctions` version (e.g., `QOpenGLFunctions_3_3_Core`). This widget will be the central display in `MainWindow` (from `UI-01`) and will use `Position` from `mapcore` (`CORE-01`).
-  1.  **Member Variables in `MapView.h`:**
-      ```cpp
-      private:
-          int m_currentFloor = 7; // Default floor
-          double m_zoomFactor = 1.0; // 1.0 means 1 screen pixel = 1 texture pixel for a 32x32 tile sprite
-          QPointF m_viewCenterMapCoords; // Center of the view in map tile coordinates (float for smooth scroll)
-          QPoint m_lastPanMousePos;
-          bool m_isPanning = false;
-          QMatrix4x4 m_projectionMatrix;
-      ```
-  2.  **Override `QOpenGLWidget` virtual methods in `MapView.cpp`:**
-      -   `initializeGL()`: Call `initializeOpenGLFunctions();glClearColor(0.2f, 0.2f, 0.2f, 1.0f);`
-      -   `resizeGL(int w, int h)`: `glViewport(0, 0, w, h); updateProjectionMatrix(w,h);`
-      -   `paintGL()`: `glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // More drawing in RENDER-02`
-  3.  **Implement `updateProjectionMatrix(int w, int h)`:**
-      -   `m_projectionMatrix.setToIdentity();`
-      -   `float aspect = float(w) / float(h ? h : 1);`
-      -   `float worldWidth = w / (32.0 * m_zoomFactor); // Width of visible map area in tile units`
-      -   `float worldHeight = h / (32.0 * m_zoomFactor); // Height of visible map area in tile units`
-      -   `m_projectionMatrix.ortho(-worldWidth / 2.0f, worldWidth / 2.0f, worldHeight / 2.0f, -worldHeight / 2.0f, -1.0f, 1.0f);`
-          (This sets up projection so (0,0) in world space is center of screen. Adjust if `m_viewCenterMapCoords` is top-left).
-  4.  **Implement Coordinate Conversion (methods in `MapView`):**
-      -   `Position screenToMapCoords(const QPoint& screenPos) const;`
-      -   `QPoint mapCoordsToScreen(const Position& mapPos) const;`
-      (These will use `m_viewCenterMapCoords`, `m_zoomFactor`, widget size, and tile size (32)).
-  5.  **Implement Mouse Event Handlers in `MapView.cpp`:**
-      -   `mousePressEvent(QMouseEvent* ev)`: If `ev->button() == Qt::MiddleButton`, set `m_isPanning = true; m_lastPanMousePos = ev->pos();`.
-      -   `mouseMoveEvent(QMouseEvent* ev)`: If `m_isPanning`:
-          `QPoint delta = ev->pos() - m_lastPanMousePos;`
-          `m_viewCenterMapCoords -= QPointF(delta.x() / (32.0 * m_zoomFactor), delta.y() / (32.0 * m_zoomFactor));`
-          `m_lastPanMousePos = ev->pos(); update();`
-      -   `mouseReleaseEvent(QMouseEvent* ev)`: If `ev->button() == Qt::MiddleButton`, `m_isPanning = false;`.
-      -   `wheelEvent(QWheelEvent* ev)`:
-          `Position mapPosUnderMouse = screenToMapCoords(ev->position().toPoint());`
-          `double oldZoom = m_zoomFactor;`
-          `int numDegrees = ev->angleDelta().y() / 8; int numSteps = numDegrees / 15;`
-          `m_zoomFactor *= std::pow(1.1, numSteps); // Adjust sensitivity`
-          `m_zoomFactor = qBound(0.125, m_zoomFactor, 16.0); // Clamp zoom`
-          `updateProjectionMatrix(width(), height()); // Update projection due to zoom change`
-          `// Recalculate m_viewCenterMapCoords to keep mapPosUnderMouse at the same screen pixel: `
-          `// QPointF screenPosOfMapPoint = mapCoordsToScreen(mapPosUnderMouse); // Before zoom, using OLD view center`
-          `// m_viewCenterMapCoords = mapPosUnderMouse - (QPointF(ev->position().x() - width()/2.0, ev->position().y() - height()/2.0) / (32.0 * m_zoomFactor) );`
-          `update(); // Trigger repaint`
-  6.  **Implement Public Slots in `MapView.h` and `MapView.cpp`:**
-      -   `void setCurrentFloor(int floor);` (updates `m_currentFloor`, clamps 0-15, calls `update()`)
-      -   `void floorUp();` (`setCurrentFloor(m_currentFloor - 1)`)
-      -   `void floorDown();` (`setCurrentFloor(m_currentFloor + 1)`)
-  7.  In `MainWindow` (from `UI-01`), create an instance of `MapView` and set it as the central widget or part of the main layout. Connect menu actions/toolbar buttons for floor changes to `MapView`'s slots.
+  - "UI-01"    # MainWindow, which will host the MapView
+  - "CORE-01"  # For Position, Tile, Item data structures (used in coordinate transforms, context)
+  - "CORE-03"  # For Map structure (though direct rendering of its content is RENDER-02)
+analyzed_input_files:
+  - filepath: "wxwidgets/map_display.h"
+    description: "Declares the 'MapCanvas' class, a 'wxGLCanvas' subclass responsible for rendering the map and handling user input for navigation and basic interactions. It manages view parameters like current floor, zoom level, and view center (via its parent 'MapWindow'). Defines event handlers for mouse (panning, zooming, clicking for selection/drawing) and keyboard (floor changes, hotkeys, brush controls). It contains methods for coordinate transformations ('ScreenToMap'). Actual drawing is delegated to a 'MapDrawer' instance. Also declares 'MapPopupMenu' for context menus and 'AnimationTimer'."
+  - filepath: "wxwidgets/map_display.cpp"
+    description: "Implements 'MapCanvas'. 'OnPaint' sets up OpenGL and calls 'MapDrawer' to render the map. Mouse event handlers implement logic for panning (middle-mouse drag), selection (left-click, drag), drawing (left-click drag with brush), context menus (right-click), and zooming (mouse wheel). Keyboard events handle floor changes, brush size adjustments, and mode switching. 'ScreenToMap' converts screen coordinates to map coordinates. Contains a 'floodFill' algorithm and logic for 'OnCreateHouse' (auto house detection), which are more tool-like functionalities embedded within the canvas."
+current_functionality_summary: |
+  The 'MapCanvas' class (a 'wxGLCanvas' subclass in 'map_display.h/cpp') is the core component for displaying the map and handling user navigation. Its key responsibilities include:
+  - **OpenGL Context Management:** Setting up and managing the OpenGL rendering context provided by 'wxGLCanvas'.
+  - **View State Management:** Tracking the current floor ('m_floor'), zoom level ('m_zoomFactor'), and the center of the view (scroll position, managed by its parent 'MapWindow' but used extensively for coordinate calculations).
+  - **User Input Handling for Navigation:**
+    - **Panning:** Middle mouse button drag allows the user to scroll the map view.
+    - **Zooming:** Mouse wheel events adjust the zoom level. Zooming is typically centered on the mouse cursor position.
+    - **Floor Changing:** Keyboard shortcuts (PageUp, PageDown, Ctrl+Wheel) allow changing the currently displayed map floor.
+  - **Coordinate Transformation:** Provides methods like 'ScreenToMap' to convert screen pixel coordinates to map tile coordinates, considering the current zoom and scroll position.
+  - **Drawing Orchestration:** In its 'OnPaint' event, it prepares the OpenGL context and delegates the actual drawing of map tiles, items, creatures, etc., to a 'MapDrawer' object (covered in 'RENDER-02').
+  - **Basic Interaction State:** Manages internal states for dragging, selection box drawing, and drawing mode activity.
+  - **Context Menus:** Shows a 'MapPopupMenu' on right-click, offering various actions based on the clicked location and selected items.
+  - **Embedded Tools:** Contains some tool-like logic directly, such as a 'floodFill' algorithm for ground brushes and an 'OnCreateHouse' handler for automatic house detection.
+refactoring_suggestions: |
+  - **Separation of Concerns:** The 'MapCanvas' in wxWidgets mixes viewport management, input handling, and some higher-level tool logic (flood fill, create house). In Qt, the 'MapView' (QOpenGLWidget) should focus primarily on rendering and viewport control.
+    - Tool-like logic (flood fill, create house) should be moved to 'EditorController' or dedicated tool classes (as per 'LOGIC-09' or similar WBS items). 'MapView' might emit signals with context (e.g., clicked map position) that these controller/tool classes can act upon.
+  - **Camera/View Model:** Formalize the camera/view parameters (center position, zoom, current floor) into a dedicated class or struct within 'MapView' or passed to it, rather than relying on a mix of direct members and parent window states. This improves encapsulation.
+  - **Input Handling:** While basic mouse events for pan/zoom will be in 'MapView', more complex interactions that involve editor state or specific tools (like initiating drawing with a brush, or complex selection logic) should ideally be processed by 'EditorController' after 'MapView' emits signals for raw input events.
+  - "Coordinate Transformations: Ensure the coordinate transformation logic is robust and clearly defined, especially the zoom-to-cursor implementation."
+qt6_migration_steps:
+  - "1. Create 'MapView' Class: Define 'MapView' inheriting from 'QOpenGLWidget' and an appropriate 'QOpenGLFunctions' version (e.g., 'QOpenGLFunctions_4_3_Core' or as determined by 'RENDER-00'). This class will be the central map display area in 'MainWindow'."
+  - "2. Implement OpenGL Initialization ('initializeGL', 'resizeGL'): 'initializeGL()': Call 'initializeOpenGLFunctions()'. Set initial OpenGL states (e.g., 'glClearColor', enabling depth testing if needed, blending for transparency). 'resizeGL(int w, int h)': Call 'glViewport(0, 0, w, h)'. Implement 'updateProjectionMatrix(w, h)' to set up an orthographic projection (e.g., using 'QMatrix4x4::ortho')."
+  - "3. Implement Basic 'paintGL()': Initially, 'paintGL()' will clear the screen ('glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)'). The actual map drawing using 'MapDrawerQt' is part of 'RENDER-02'."
+  - "4. Implement Camera/View Model: Add member variables to 'MapView' including 'int m_currentFloor = 7;', 'qreal m_zoomFactor = 1.0;' (pixels per tile edge), 'QPointF m_viewCenterMapCoords;' (center of view in map tile units), 'QMatrix4x4 m_projectionMatrix;', and 'QMatrix4x4 m_viewMatrix;' (to handle panning). Implement 'void updateProjectionMatrix(int width, int height);' and 'void updateViewMatrix();' methods with appropriate matrix calculations for orthographic projection and view transformations."
+
+  - "5. Implement Coordinate Transformation Methods: Implement 'mapcore::Position screenToMapCoords(const QPoint& screenPos) const;' to convert window pixel coordinates to map tile coordinates, considering 'm_viewCenterMapCoords', 'm_zoomFactor', and 'm_currentFloor'. Also implement 'QPoint mapCoordsToScreen(const mapcore::Position& mapPos) const;' to convert map tile coordinates to window pixel coordinates."
+  - "6. Implement Panning (Mouse Events): Override 'mousePressEvent(QMouseEvent* event)' to handle middle button press for panning. Override 'mouseMoveEvent(QMouseEvent* event)' to update 'm_viewCenterMapCoords' based on mouse delta when panning. Override 'mouseReleaseEvent(QMouseEvent* event)' to end panning on middle button release."
+  - "7. Implement Zooming (Wheel Event): Override 'wheelEvent(QWheelEvent* event)' to handle mouse wheel zooming. Calculate zoom factor changes, clamp zoom levels, and adjust 'm_viewCenterMapCoords' to keep the point under the mouse cursor at the same screen position during zoom operations."
+  - "8. Implement Floor Change Controls (Public Slots): Implement 'void setCurrentFloor(int floor);', 'void floorUp();', and 'void floorDown();' public slots to manage the current floor display. These slots will be connected to 'QAction's in 'MainWindow' or keyboard events."
+  - "9. Integrate into 'MainWindow': In 'MainWindow' (from 'UI-01'), instantiate 'MapView' and set it as the central widget or within a suitable layout. Connect menu/toolbar actions for floor changes to 'MapView's slots."
+  - "10. Exclude Advanced Tools: The 'floodFill' and 'OnCreateHouse' logic from 'MapCanvas' should NOT be ported directly into 'MapView'. These are tool functionalities and should be handled by 'EditorController' or dedicated tool classes (e.g., 'LOGIC-09'), potentially triggered by signals from 'MapView' on user actions."
+definition_of_done:
+  - "A 'MapView' class, derived from 'QOpenGLWidget' and 'QOpenGLFunctions', is created."
+  - "'MapView' is integrated as a central widget within the 'MainWindow'."
+  - "OpenGL is initialized correctly in 'initializeGL' (clear color). 'resizeGL' correctly sets the viewport and an orthographic projection matrix. 'paintGL' clears the screen."
+  - "Panning (middle-mouse drag) smoothly updates 'm_viewCenterMapCoords' and redraws."
+  - "Zooming (mouse wheel) smoothly updates 'm_zoomFactor', keeps the point under the cursor centered, and redraws."
+  - "Public slots 'setCurrentFloor', 'floorUp', 'floorDown' correctly update 'm_currentFloor' and trigger a redraw. These are connectable from 'MainWindow'."
+  - "Coordinate transformation methods 'screenToMapCoords' and 'mapCoordsToScreen' are implemented and function correctly based on 'm_viewCenterMapCoords', 'm_zoomFactor', and widget dimensions."
+  - "Basic keyboard navigation (arrow keys for pan, pgup/pgdn for floor) can be optionally implemented within 'MapView::keyPressEvent' or handled by 'MainWindow' via actions."
+boilerplate_coder_ai_prompt: |
+  Create 'MapView.h' and 'MapView.cpp' for a Qt 6 application. 'MapView' must inherit from 'QOpenGLWidget' and an appropriate 'QOpenGLFunctions' version (e.g., 'QOpenGLFunctions_4_3_Core'). This widget will be the central map display. It will use 'mapcore::Position'.
+
+  **'MapView.h':**
+  ```cpp
+  #pragma once
+  #include <QOpenGLWidget>
+  #include <QOpenGLFunctions_4_3_Core> // Or your chosen version
+  #include <QPointF>
+  #include <QMatrix4x4>
+  #include "mapcore/position.h" // Assuming this path
+
+  class QMouseEvent;
+  class QWheelEvent;
+  class QKeyEvent;
+
+  class MapView : public QOpenGLWidget, protected QOpenGLFunctions_4_3_Core {
+      Q_OBJECT
+  public:
+      explicit MapView(QWidget *parent = nullptr);
+      ~MapView() override;
+
+      mapcore::Position screenToMapCoords(const QPoint& screenPos) const;
+      QPoint mapCoordsToScreen(const mapcore::Position& mapPos) const; // More complex with current model
+      int getCurrentFloor() const { return m_currentFloor; }
+      qreal getZoomFactor() const { return m_zoomFactor; }
+      QPointF getViewCenterMapCoords() const { return m_viewCenterMapCoords; }
+
+
+  public slots:
+      void setCurrentFloor(int floor);
+      void floorUp();
+      void floorDown();
+      void setViewCenter(const mapcore::Position& mapPos); // Sets center and floor
+      void setZoom(qreal zoom);
+
+
+  signals:
+      void viewChanged(); // Emitted after pan, zoom, or floor change
+      void mapPositionClicked(const mapcore::Position& mapPos, Qt::MouseButton button, Qt::KeyboardModifiers modifiers);
+      void mapPositionDoubleClicked(const mapcore::Position& mapPos, Qt::MouseButton button);
+
+
+  protected:
+      void initializeGL() override;
+      void resizeGL(int w, int h) override;
+      void paintGL() override;
+
+      void mousePressEvent(QMouseEvent* event) override;
+      void mouseMoveEvent(QMouseEvent* event) override;
+      void mouseReleaseEvent(QMouseEvent* event) override;
+      void wheelEvent(QWheelEvent* event) override;
+      void keyPressEvent(QKeyEvent* event) override; // For basic navigation like arrows/pgup/dn
+
+  private:
+      void updateProjectionMatrix();
+      void updateViewMatrix(); // May not be needed if translation handled directly in paintGL
+
+      int m_currentFloor;
+      qreal m_zoomFactor; // Represents how many screen pixels correspond to one world unit (e.g., one tile edge of 32px)
+      QPointF m_viewCenterMapCoords; // Center of the view in map *tile* coordinates (e.g., 1000.5, 1000.5)
+
+      QPoint m_lastPanMousePos;
+      bool m_isPanning;
+
+      QMatrix4x4 m_projectionMatrix;
+      // QMatrix4x4 m_viewMatrix; // For panning, alternatively apply translation in paintGL
+
+      // Constants
+      const int TILE_PIXEL_SIZE = 32; // Base size of a tile in pixels at zoom = 1.0
+      const int MAX_Z = 15;
+      const qreal MIN_ZOOM = 0.125;
+      const qreal MAX_ZOOM = 8.0; // Max zoom factor (e.g., 4.0 means one tile is 32*4 = 128 screen pixels)
+  };
+  ```
+
+  **'MapView.cpp':**
+  - Implement constructor: Initialize members ('m_currentFloor = 7', 'm_zoomFactor = 1.0', 'm_viewCenterMapCoords = QPointF(1000,1000)').
+  - 'initializeGL()': Call 'initializeOpenGLFunctions(); glClearColor(0.1f, 0.1f, 0.1f, 1.0f); glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);'
+  - 'resizeGL(int w, int h)': 'glViewport(0, 0, w, h); updateProjectionMatrix();'
+  - 'paintGL()': 'glClear(GL_COLOR_BUFFER_BIT); QMatrix4x4 mvp = m_projectionMatrix; /* Multiply by m_viewMatrix if used */ /* Further drawing in RENDER-02 */'
+  - 'updateProjectionMatrix()':
+      'm_projectionMatrix.setToIdentity();'
+      '// We want to map map tile coordinates to screen pixels based on zoom.'
+      '// If zoomFactor = 1.0, one tile (32 units) is 32 pixels.'
+      '// If zoomFactor = 2.0, one tile (32 units) is 64 pixels.'
+      'float left = m_viewCenterMapCoords.x() - (width() / 2.0 / (TILE_PIXEL_SIZE * m_zoomFactor));'
+      'float right = m_viewCenterMapCoords.x() + (width() / 2.0 / (TILE_PIXEL_SIZE * m_zoomFactor));'
+      'float top = m_viewCenterMapCoords.y() - (height() / 2.0 / (TILE_PIXEL_SIZE * m_zoomFactor));'
+      'float bottom = m_viewCenterMapCoords.y() + (height() / 2.0 / (TILE_PIXEL_SIZE * m_zoomFactor));'
+      'm_projectionMatrix.ortho(left, right, bottom, top, -1.0f, 1.0f); // Note: Y is often inverted in OpenGL vs QWidget screen coords'
+  - **Coordinate Conversions:**
+    - 'screenToMapCoords(const QPoint& screenPos)':
+        'qreal worldX = m_viewCenterMapCoords.x() + (screenPos.x() - width() / 2.0) / (TILE_PIXEL_SIZE * m_zoomFactor);'
+        'qreal worldY = m_viewCenterMapCoords.y() + (screenPos.y() - height() / 2.0) / (TILE_PIXEL_SIZE * m_zoomFactor);'
+        'return mapcore::Position(static_cast<int>(worldX), static_cast<int>(worldY), m_currentFloor);'
+    - 'mapCoordsToScreen(const mapcore::Position& mapPos)':
+        'qreal screenX = (mapPos.x - m_viewCenterMapCoords.x()) * (TILE_PIXEL_SIZE * m_zoomFactor) + width() / 2.0;'
+        'qreal screenY = (mapPos.y - m_viewCenterMapCoords.y()) * (TILE_PIXEL_SIZE * m_zoomFactor) + height() / 2.0;'
+        'return QPoint(qRound(screenX), qRound(screenY));'
+  - **Mouse Events:**
+    - 'mousePressEvent': If 'Qt::MiddleButton', set 'm_isPanning = true; m_lastPanMousePos = event->pos();'. Else, emit 'mapPositionClicked(screenToMapCoords(event->pos()), event->button(), event->modifiers());'.
+    - 'mouseMoveEvent': If 'm_isPanning':
+        'QPointF delta = event->pos() - m_lastPanMousePos;'
+        'm_viewCenterMapCoords -= QPointF(delta.x() / (TILE_PIXEL_SIZE * m_zoomFactor), delta.y() / (TILE_PIXEL_SIZE * m_zoomFactor));'
+        'm_lastPanMousePos = event->pos(); updateProjectionMatrix(); update(); emit viewChanged();'
+    - 'mouseReleaseEvent': If 'Qt::MiddleButton', 'm_isPanning = false;'.
+    - 'mouseDoubleClickEvent': Emit 'mapPositionDoubleClicked(screenToMapCoords(event->pos()), event->button());'.
+    - 'wheelEvent':
+        'mapcore::Position mapPosUnderMouse = screenToMapCoords(event->position().toPoint());'
+        'int numDegrees = event->angleDelta().y() / 8; int numSteps = numDegrees / 15;'
+        'qreal newZoomFactor = m_zoomFactor * std::pow(1.12, numSteps);'
+        'newZoomFactor = qBound(MIN_ZOOM, newZoomFactor, MAX_ZOOM);'
+        '// Adjust m_viewCenterMapCoords to keep mapPosUnderMouse at the same screen position'
+        'QPointF screenPosGlobal = event->position();'
+        'm_viewCenterMapCoords.setX(mapPosUnderMouse.x - (screenPosGlobal.x() - width() / 2.0) / (TILE_PIXEL_SIZE * newZoomFactor));'
+        'm_viewCenterMapCoords.setY(mapPosUnderMouse.y - (screenPosGlobal.y() - height() / 2.0) / (TILE_PIXEL_SIZE * newZoomFactor));'
+        'm_zoomFactor = newZoomFactor;'
+        'updateProjectionMatrix(); update(); emit viewChanged();'
+  - **Public Slots:**
+    - 'setCurrentFloor()': Update 'm_currentFloor', clamp '0 <= floor <= MAX_Z'. Call 'update(); emit viewChanged();'.
+    - 'floorUp()': 'setCurrentFloor(m_currentFloor - 1);' (adjust for typical map floor numbering where 0 is highest).
+    - 'floorDown()': 'setCurrentFloor(m_currentFloor + 1);'.
+    - 'setViewCenter()': Update 'm_viewCenterMapCoords' and 'm_currentFloor'. Call 'updateProjectionMatrix(); update(); emit viewChanged();'.
+    - 'setZoom()': Update 'm_zoomFactor', clamp. Call 'updateProjectionMatrix(); update(); emit viewChanged();'.
+  - **Key Press Event:** Implement basic arrow key panning (adjust 'm_viewCenterMapCoords' by a tile amount) and PageUp/PageDown for 'floorUp()'/'floorDown()'.
+
+  Ensure: all coordinate calculations correctly handle the relationship between screen pixels, map tile coordinates, and the zoom factor. The TILE_PIXEL_SIZE (e.g., 32) is crucial.

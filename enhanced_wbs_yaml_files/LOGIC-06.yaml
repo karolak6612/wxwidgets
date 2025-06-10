@@ -1,98 +1,142 @@
 id: LOGIC-06
-section: Editor Behavior
-title: Integrate House & Waypoint Brushes
-original_input_files: house_brush.h/cpp, house_exit_brush.h/cpp, waypoint_brush.h/cpp
-analyzed_input_files:
+name: Integrate House & Waypoint Brushes
+description: "Migrate the UI interaction logic for HouseBrush, HouseExitBrush, and WaypointBrush to Qt6, ensuring they correctly interact with the map data via the EditorController and Action system."
+dependencies:
+- LOGIC-01 # EditorController for dispatching brush actions
+- CORE-11-WaypointSystem # Core Waypoint System (Waypoint and Waypoints classes)
+- CORE-09-HouseSystem # Core House System (House and Houses classes)
+- CORE-04 # Action system (ActionQueue, Change classes)
+- UI-07 # For House Palette and Waypoint Palette to select current house/waypoint
+- CORE-BRUSH-FRAMEWORK # For the base BaseBrush class
+original_input_files:
 - wxwidgets/house_brush.h
 - wxwidgets/house_brush.cpp
 - wxwidgets/house_exit_brush.h
 - wxwidgets/house_exit_brush.cpp
 - wxwidgets/waypoint_brush.h
 - wxwidgets/waypoint_brush.cpp
-dependencies:
-- UI-PALETTE-03
+analyzed_input_files:
+- file_path: wxwidgets/house_brush.h
+  description: "Defines 'HouseBrush' class (inherits 'Brush') for assigning tiles\
+    \ to a house. Stores 'House* draw_house'. Methods: 'draw', 'undraw', 'canDraw'\
+    \ (always true), 'setHouse', 'getHouseID'. No visual palette representation ('getLookID'\
+    \ returns 0). Supports dragging."
+- file_path: wxwidgets/house_brush.cpp
+  description: "Implements 'HouseBrush'.\n- 'setHouse()': Sets 'draw_house'.\n\
+    - 'getHouseID()': Returns ID of 'draw_house'.\n- 'undraw()': Clears tile's house\
+    \ ID & PZ flag. Optionally clears door IDs if 'AUTO_ASSIGN_DOORID' setting is enabled.\n\
+    - 'draw()': Assigns 'draw_house' to tile, sets PZ flag. Optionally removes movables\
+    \ (if 'HOUSE_BRUSH_REMOVE_ITEMS' setting is enabled) or auto-assigns door IDs ('AUTO_ASSIGN_DOORID'\
+    \ setting enabled, using 'draw_house->getEmptyDoorID()')."
+- file_path: wxwidgets/house_exit_brush.h
+  description: "Defines 'HouseExitBrush' class (inherits 'Brush') for designating\
+    \ a house exit. Stores 'uint32_t draw_house' (ID of the target house). Its 'draw'\
+    \ and 'undraw' methods assert 'false', as its primary function is to hold the target house ID\
+    \ and validate placement via 'canDraw'. The actual exit setting is a targeted UI action.\
+    \ Methods: 'canDraw', 'setHouse', 'getHouseID'. Non-smearing, non-dragging."
+- file_path: wxwidgets/house_exit_brush.cpp
+  description: "Implements 'HouseExitBrush'.\n- 'setHouse(House* house)': Stores 'house->getID()' as 'draw_house'.\n\
+    - 'getHouseID()': Returns stored 'draw_house' ID.\n- 'canDraw()': Checks if tile exists at 'position',\
+    \ has ground, is not already part of any house, and is not blocking.\n- 'draw()' & 'undraw()':\
+    \ Assert 'false'."
+- file_path: wxwidgets/waypoint_brush.h
+  description: "Defines 'WaypointBrush' class (inherits 'Brush') for placing/moving\
+    \ waypoints. Stores 'std::string waypoint_name'. Its 'draw' and 'undraw' methods assert 'false',\
+    \ as its primary function is to hold the target waypoint name and validate placement via 'canDraw'.\
+    \ The actual waypoint placement/move is a targeted UI action. Methods: 'canDraw', 'setWaypoint',\
+    \ 'getWaypoint'. Non-smearing, non-dragging."
+- file_path: wxwidgets/waypoint_brush.cpp
+  description: "Implements 'WaypointBrush'.\n- 'setWaypoint(Waypoint* wp)': Stores 'wp->name' if 'wp' is not null, else clears name.\n\
+    - 'getWaypoint()': Returns stored 'waypoint_name'.\n- 'canDraw()': Checks if tile exists at 'position'.\n\
+    - 'draw()' & 'undraw()': Assert 'false'."
+documentation_references:
+- 'Qt Event System: https://doc.qt.io/qt-6/eventsandfilters.html'
+- 'QUndoStack for actions: https://doc.qt.io/qt-6/qundostack.html'
 current_functionality_summary: |-
-  - `HouseBrush` (`house_brush.h/cpp`): Assigns/unassigns tiles to a specified house and sets/clears PZ flags. The actual update to the `House` object's tile list is expected to be handled by the `Action` system.
-  - `HouseExitBrush` (`house_exit_brush.h/cpp`): Marks a tile as an exit for a specified house. Its `draw/undraw` methods are not directly used; instead, a `CHANGE_MOVE_HOUSE_EXIT` action is created by higher-level editor logic.
-  - `WaypointBrush` (`waypoint_brush.h/cpp`): Places or moves a named waypoint. Similar to `HouseExitBrush`, its `draw/undraw` are not directly used; a `CHANGE_MOVE_WAYPOINT` action is created.
-  All these operations are designed to be undoable.
+  - 'HouseBrush': When a house is selected in the palette, this brush is used to paint tiles with that house's ID. It sets the Protection Zone flag on these tiles. It can also optionally remove existing movable items and auto-assign unique door IDs to doors within the house tile if configured in settings. Undrawing removes the house ID and PZ flag.
+  - 'HouseExitBrush': This brush is associated with a selected house. When a tile is clicked with this brush active, that tile's position is set as the exit for the selected house. This is not a continuous drawing operation; it's a point-and-click action that modifies the 'House' object's exit property and updates the 'TileLocation`'s house exit list.
+  - 'WaypointBrush': Associated with a selected waypoint (or a new waypoint name). A click on the map moves the selected waypoint to the clicked tile or creates a new one if the name is new. This also modifies 'TileLocation`'s waypoint count.
+  All: these operations are designed to be undoable through an action queue.
 qt6_migration_steps: |-
-  1. Extend the `EditorController::handleMapClick` method (or a similar dispatcher introduced in `LOGIC-01`) to include specific logic when the active brush is `HouseBrush`, `HouseExitBrush`, or `WaypointBrush`.
-  2. **For `HouseBrush`:**
-     a. The `BrushManager` (or equivalent UI state provider) must make the currently selected `House*` (from the House Palette, task `UI-PALETTE-03`) available to the `EditorController`.
-     b. When `handleMapClick` is called for `HouseBrush` on a `targetPos`:
-        i.  Retrieve the `Tile* tileToModify = map->getOrCreateTile(targetPos)`.
-        ii. Create an `Action* action = actionQueue->createAction(ACTION_DRAW_HOUSE);` (or a generic draw action ID).
-        iii. Add `Change` for `tileToModify`'s 'before' state: `action->addChange(new Change(tileToModify->deepCopy()));`.
-        iv.  `House* oldHouse = map->houses.getHouse(tileToModify->getHouseID());`
-        v.  If performing an "undraw" operation (e.g., Ctrl+Click):
-            Call `activeBrush->asHouse()->undraw(map, tileToModify);` (this clears `house_id` and PZ flag on `tileToModify`).
-            If `oldHouse`, call `oldHouse->removeTile(tileToModify);` (this uses the `mapcore` `House` method from `LOGIC-05`).
-        vi. Else (draw operation):
-            `activeBrush->asHouse()->setHouse(selectedHouse);`
-            `activeBrush->asHouse()->draw(map, tileToModify, nullptr);` (this sets `house_id` and PZ flag on `tileToModify`).
-            If `oldHouse` and `oldHouse != selectedHouse`, call `oldHouse->removeTile(tileToModify);`.
-            Call `selectedHouse->addTile(tileToModify);`.
-        vii.Add `Change` for `tileToModify`'s 'after' state: `action->addChange(new Change(tileToModify->deepCopy()));`.
-        viii.Push the `Action` to `ActionQueue`: `actionQueue->addAction(action);`.
-  3. **For `HouseExitBrush`:**
-     a. `BrushManager` provides the selected `House*`.
-     b. When `handleMapClick` is called for `HouseExitBrush` on `targetPos`:
-        i.  `if (!activeBrush->asHouseExit()->canDraw(map, targetPos)) return;`
-        ii. Create an `Action* action = actionQueue->createAction(ACTION_SET_HOUSE_EXIT);`.
-        iii. Create a `Change` object of type `CHANGE_MOVE_HOUSE_EXIT`. This `Change` must store `selectedHouse->getID()` and `targetPos`.
-        iv. `action->addChange(changeObject);`
-        v.  `actionQueue->addAction(action);`. (The `Action::commit` for `CHANGE_MOVE_HOUSE_EXIT` will call `selectedHouse->setExit(targetPos)`).
-  4. **For `WaypointBrush`:**
-     a. `BrushManager` provides the selected `Waypoint*` name (or a new name if creating).
-     b. When `handleMapClick` is called for `WaypointBrush` on `targetPos`:
-        i.  `if (!activeBrush->asWaypoint()->canDraw(map, targetPos)) return;`
-        ii. Create an `Action* action = actionQueue->createAction(ACTION_SET_WAYPOINT);`.
-        iii. Create a `Change` object of type `CHANGE_MOVE_WAYPOINT`. Store waypoint name and `targetPos`.
-        iv. `action->addChange(changeObject);`
-        v.  `actionQueue->addAction(action);`. (The `Action::commit` for `CHANGE_MOVE_WAYPOINT` will update `map->waypoints` and `TileLocation` counters).
-  5. In `MapView::mousePressEvent` (from `UI-EVENT-01`): If active brush is one of these types, ensure necessary context (selected `House*`, waypoint name) is fetched from the relevant palette (via `BrushManager`) and passed to `EditorController`.
+  1. Ensure 'BaseBrush' (from 'BRUSH-FRAMEWORK-CORE') is suitable for 'QtHouseBrush', 'QtHouseExitBrush', and 'QtWaypointBrush'.
+  2. Create 'QtHouseBrush' class:
+     - Inherit from 'BaseBrush'.
+     - Member: 'House* currentHouse;' (pointer to the house selected in the palette).
+     - 'void setCurrentHouse(House* house);'
+     - 'void draw(EditorController* controller, const Position& pos);' // Called on mouse click/drag
+       - Gets 'Tile* tileToModify = controller->getMap()->getOrCreateTile(pos);'.
+       - Creates 'QUndoCommand' for the operation.
+       - Inside command's 'redo()':
+         - 'House* oldHouse = controller->getMap()->getHouses()->getHouse(tileToModify->getHouseID());'
+         - 'brushLogic->undraw(controller->getMap(), tileToModify);' // (original wx undraw logic: clears house_id, PZ, door IDs)
+         - 'if (oldHouse && oldHouse != currentHouse) oldHouse->removeTile(tileToModify);'
+         - 'brushLogic->draw(controller->getMap(), tileToModify, nullptr);' // (original wx draw logic: sets house_id to currentHouse->id, sets PZ, handles items/doors)
+         - 'currentHouse->addTile(tileToModify);'
+         - 'tileToModify->update();'
+       - Inside command's 'undo()': Restore previous tile state and house associations.
+  3. Create 'QtHouseExitTool' (likely not a brush, but a tool/mode in 'EditorController'):
+     - When active, and a house is selected in palette:
+     - On map click at 'targetPos':
+       - 'House* selectedHouse = palette->getCurrentHouse();'
+       - 'if (!selectedHouse || !isValidExitLocation(map, targetPos)) return;'
+       - Create 'SetHouseExitCommand(selectedHouse, targetPos, oldExitPos);'
+       - Command's 'redo()': 'selectedHouse->setExit(targetPos);' (updates TileLocations).
+       - Command's 'undo()': 'selectedHouse->setExit(oldExitPos);'.
+  4. Create 'QtWaypointTool' (tool/mode in 'EditorController'):
+     - When active, and a waypoint name/object is selected/entered in palette:
+     - On map click at 'targetPos':
+       - 'Waypoint* selectedWaypoint = palette->getCurrentWaypoint();' (or create new if name is new)
+       - 'if (!isValidWaypointLocation(map, targetPos)) return;'
+       - Create 'MoveWaypointCommand(selectedWaypoint, targetPos, oldWaypointPos);'
+       - Command's 'redo()': 'map->getWaypoints()->addWaypoint(selectedWaypoint); selectedWaypoint->setPosition(targetPos);' (updates TileLocations).
+       - Command's 'undo()': 'map->getWaypoints()->addWaypoint(selectedWaypoint); selectedWaypoint->setPosition(oldWaypointPos);' (or remove if it was new).
+  5. In 'EditorController::handleMapClickOrDrag(...)':
+     - If current tool is 'QtHouseBrush', call its 'draw()' method, passing necessary context.
+     - If current tool is 'QtHouseExitTool' or 'QtWaypointTool', trigger their respective command creation.
+  6. Ensure the 'House Palette' and 'Waypoint Palette' (UI-PALETTE-03) correctly communicate the selected 'House*' or 'Waypoint*'/name to the 'EditorController' or 'BrushManager'.
 definition_of_done: |-
-  Clicking on the `MapView` with an active `HouseBrush`, `HouseExitBrush`, or `WaypointBrush` correctly modifies the map data through the `EditorController` and creates an undoable `Action`.
-  Key requirements:
-  - When `HouseBrush` is active, a click assigns/unassigns the target tile to/from the currently selected house (from the House Palette). This updates `Tile::house_id`, relevant tile flags (like PZ), and the `House` object's list of tiles. The operation is undoable.
-  - When `HouseExitBrush` is active, a click on a valid tile sets the exit of the currently selected house to that tile's position. This is recorded as an undoable `Action` (e.g., of type `CHANGE_MOVE_HOUSE_EXIT`).
-  - When `WaypointBrush` is active, a click on a tile creates a new waypoint or moves the currently selected waypoint (from the Waypoint Palette) to that tile's position. This is recorded as an undoable `Action` (e.g., of type `CHANGE_MOVE_WAYPOINT`).
-  - All interactions are managed by `EditorController` and correctly utilize `mapcore` components (`ActionQueue`, `House`, `Waypoint`, `Tile` methods).
-  - The `MapView` visually reflects these changes after the action is committed.
-boilerplate_coder_ai_prompt: |-
-  Extend `EditorController::handleMapClick` (or a similar dispatcher) to specifically handle `HouseBrush`, `HouseExitBrush`, and `WaypointBrush`. These brushes depend on selections made in their respective palettes (task `UI-PALETTE-03`).
-  1.  **If `activeBrush->isHouse()`:**
-      a.  Get `House* selectedHouse = brushManager->getCurrentHouseFromPalette();`. If null, return.
-      b.  Get `Tile* tile = map->getOrCreateTile(mapPos);`.
-      c.  Create `Action* action = actionQueue->createAction(DRAW_HOUSE_ACTION);`.
-      d.  `action->addChange(new Change(tile->deepCopy()));` // 'Before' state.
-      e.  `House* oldHouse = map->houses.getHouse(tile->getHouseID());`
-      f.  If undrawing (e.g., Ctrl+Click):
-          `activeBrush->asHouse()->undraw(map, tile);`
-          `if (oldHouse) oldHouse->removeTile(tile);`
-      g.  Else (drawing):
-          `activeBrush->asHouse()->setHouse(selectedHouse);`
-          `activeBrush->asHouse()->draw(map, tile, nullptr);`
-          `if (oldHouse && oldHouse != selectedHouse) oldHouse->removeTile(tile);`
-          `selectedHouse->addTile(tile);`
-      h.  `action->addChange(new Change(tile->deepCopy()));` // 'After' state.
-      i.  `actionQueue->addAction(action);`
-  2.  **Else if `activeBrush->isHouseExit()`:**
-      a.  `House* selectedHouse = brushManager->getCurrentHouseFromPalette();`.
-      b.  `HouseExitBrush* houseExitBrush = activeBrush->asHouseExit();`
-      c.  `houseExitBrush->setHouse(selectedHouse); // Set context for the brush if it stores house ID/ptr`
-      d.  `if (!selectedHouse || !houseExitBrush->canDraw(map, mapPos)) return;`
-      e.  `Action* action = actionQueue->createAction(SET_HOUSE_EXIT_ACTION);`
-      f.  `action->addChange(Change::Create(selectedHouse, mapPos)); // Creates a CHANGE_MOVE_HOUSE_EXIT`
-      g.  `actionQueue->addAction(action);`
-  3.  **Else if `activeBrush->isWaypoint()`:**
-      a.  `Waypoint* selectedWaypoint = brushManager->getCurrentWaypointFromPalette(); // Or get new waypoint name`
-      b.  `WaypointBrush* waypointBrush = activeBrush->asWaypoint();`
-      c.  `waypointBrush->setWaypoint(selectedWaypoint); // Set context for the brush`
-      d.  `if (!selectedWaypoint || !waypointBrush->canDraw(map, mapPos)) return;`
-      e.  `Action* action = actionQueue->createAction(SET_WAYPOINT_ACTION);`
-      f.  `action->addChange(Change::Create(selectedWaypoint, mapPos)); // Creates a CHANGE_MOVE_WAYPOINT`
-      g.  `actionQueue->addAction(action);`
-  4.  Ensure `MapView::mousePressEvent` provides necessary context (like selected house/waypoint from palettes) to `EditorController`.
-  5.  Verify that the `commit()` methods for `CHANGE_MOVE_HOUSE_EXIT` and `CHANGE_MOVE_WAYPOINT` correctly update the `House` and `map->waypoints` data in `mapcore`.
+  - 'QtHouseBrush' correctly assigns/unassigns tiles to the selected house, updating 'Tile::house_id' and PZ flags, via undoable commands. Optional item/door handling is preserved.
+  - Setting a house exit via UI interaction (e.g., 'QtHouseExitTool') correctly calls 'House::setExit' and updates 'TileLocation' data through an undoable command.
+  - Placing/moving a waypoint via UI interaction (e.g., 'QtWaypointTool') correctly updates 'Waypoint::pos' and 'TileLocation' waypoint counts through an undoable command.
+  - All operations are integrated into 'EditorController' and use the 'QUndoStack'.
+  - Visual feedback on the map reflects changes correctly.
+boilerplate_coder_ai_prompt: "Implement the Qt6 logic for 'HouseBrush', and UI-driven tools for setting House Exits and Waypoints, integrating with 'EditorController' and 'QUndoStack'.\n\
+  \n1.  **'QtHouseBrush' (inherits 'BaseBrush'):**\n    *   Member: 'House* m_currentHouse;'\n\
+  \    *   'void setCurrentHouse(House* house);'\n    *   'void applyBrush(EditorController* editorController,\
+  \ const Position& pos, bool isUndoing);' // Main logic for mouse click/drag\n\
+  \        - Get 'Tile* tile = editorController->getMap()->getOrCreateTile(pos);'\n\
+  \        - Create a 'QUndoCommand' (e.g., 'PaintHouseCommand').\n        - **Inside 'PaintHouseCommand::redo()':**\n\
+  \            - Store 'tile`'s original 'houseId' and flags.\n            - 'House* oldHouse = editorController->getMap()->getHouses()->getHouse(tile->getHouseID());'\n\
+  \            - If 'isUndoing' (Ctrl+Click equivalent):\n                - 'tile->setHouseId(0); tile->setPZ(false);' // Plus door ID logic from wx version\n\
+  \                - 'if (oldHouse) oldHouse->removeTile(tile);'\n            - Else (normal draw):\n\
+  \                - 'tile->setHouseId(m_currentHouse->getID()); tile->setPZ(true);' // Plus item/door logic from wx version\n\
+  \                - 'if (oldHouse && oldHouse != m_currentHouse) oldHouse->removeTile(tile);'\n\
+  \                - 'm_currentHouse->addTile(tile);'\n            - 'tile->update();' (if necessary)\n\
+  \        - **Inside 'PaintHouseCommand::undo()':** Restore original 'houseId', flags, and 'House' tile lists.\n\
+  \        - Push command to 'editorController->getUndoStack()'.\n\n2.  **House Exit Setting\
+  \ (in 'EditorController' or a 'MapTool'):\n    *   On UI action (e.g., click with\
+  \ 'Set Exit' tool active):\n        - 'House* selectedHouse = palette->getCurrentHouse();'\n\
+  \        - 'Position targetPos = mouseMapPosition;'\n        - 'if (!selectedHouse || !isValidExitPos(targetPos)) return;'\n\
+  \        - 'Position oldExitPos = selectedHouse->getExit();'\n        - Create 'SetHouseExitCommand(selectedHouse, targetPos, oldExitPos)'.\n\
+  \        - 'redo()': 'selectedHouse->setExit(targetPos);' (this method in 'mapcore' must update TileLocations).\n\
+  \        - 'undo()': 'selectedHouse->setExit(oldExitPos);'.\n        - Push command.\n\
+  \n3.  **Waypoint Placement/Move (in 'EditorController' or a 'MapTool'):\n    *   On\
+  \ UI action:\n        - 'Waypoint* waypointToPlaceOrMove = palette->getCurrentWaypoint(); // Or new if creating'\n\
+  \        - 'Position targetPos = mouseMapPosition;'\n        - 'if (!waypointToPlaceOrMove || !isValidWaypointPos(targetPos)) return;'\n\
+  \        - 'Position oldWaypointPos = waypointToPlaceOrMove->pos; // Store if moving existing'\n\
+  \        - 'bool wasNew = waypointToPlaceOrMove->pos == Position(0,0,0); // Example check for new'\n\
+  \        - Create 'PlaceWaypointCommand(map->getWaypoints(), waypointToPlaceOrMove, targetPos, oldWaypointPos, wasNew)'.\n\
+  \        - 'redo()': 'waypointsManager->addWaypoint(waypointToPlaceOrMove); waypointToPlaceOrMove->pos = targetPos;'\
+  \ (addWaypoint handles tile counts).\n        - 'undo()': If 'wasNew', 'waypointsManager->removeWaypoint(name);'\
+  \ else 'waypointToPlaceOrMove->pos = oldWaypointPos;' (removeWaypoint/addWaypoint handle tile counts).\n\
+  \        - Push command.\n\n4.  Update 'EditorController::handleMapClickOrDrag' to call these\
+  \ new brush/tool logics."
+qt_object_notes: "Use 'QUndoCommand' for all map-modifying actions. Ensure 'House'
+  and: 'Waypoint' methods in 'mapcore' correctly update tile associations ('house_id',
+  'TileLocation' waypoint/exit counts). Palettes will provide the selected 'House*'
+  or: 'Waypoint*' (or name for new waypoint) to 'EditorController'."
+additional_notes: "The core logic for 'House::setExit' and 'Waypoints::addWaypoint/removeWaypoint'\
+  \ (including tile count updates) is assumed to be correctly implemented in 'mapcore'\
+  \ (LOGIC-04, LOGIC-05). This task focuses on the 'EditorController' and 'QUndoCommand'\
+  \ integration for the brushes/tools."
+estimation_effort: Large

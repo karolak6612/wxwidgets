@@ -1,80 +1,191 @@
 id: LOGIC-03
-section: Editor Behavior
-title: Port Cut, Copy, Paste & Move
-original_input_files: copybuffer.h/cpp, editor.cpp, main_menubar.cpp, selection.h/cpp
+section: Editor Behavior & Logic
+title: Implement Cut, Copy, Paste, Delete, and Drag-Move Logic
+original_input_files:
+  - wxwidgets/copybuffer.h
+  - wxwidgets/copybuffer.cpp
+  - wxwidgets/editor.h
+  - wxwidgets/editor.cpp
+  - wxwidgets/selection.h
+  - wxwidgets/selection.cpp
+  - wxwidgets/main_menubar.h # For context on how actions are triggered
+  - wxwidgets/main_menubar.cpp # For context on how actions are triggered
+  - wxwidgets/map_display.cpp # For context on drag-move initiation and paste preview
 analyzed_input_files:
-- wxwidgets/copybuffer.h
-- wxwidgets/copybuffer.cpp
-- wxwidgets/editor.h
-- wxwidgets/editor.cpp
-- wxwidgets/main_menubar.h
-- wxwidgets/main_menubar.cpp
-- wxwidgets/selection.h
-- wxwidgets/selection.cpp
+  - file_path: wxwidgets/copybuffer.h
+    description: |
+      Declares the `CopyBuffer` class. Manages an internal `BaseMap* tiles` for storing deep copies of `Tile` objects (including only their *selected* contents) during copy/cut. `copyPos` stores the top-left reference `Position` of copied data. Interface includes `copy()`, `cut()`, `paste()`, `canPaste()`, `clear()`.
+  - file_path: wxwidgets/copybuffer.cpp
+    description: |
+      Implements `CopyBuffer`.
+      - `copy()`: Iterates `Editor::selection`. For each selected `Tile`, creates a `copied_tile` in its internal `tiles` `BaseMap`, copying only selected ground (if any), items, creature, and spawn. Updates `copyPos`.
+      - `cut()`: Calls `copy()`. Then creates a `BatchAction` with an `Action` to delete the originals. This `Action` contains `Change` objects for tiles *after* selected elements are removed (via `popSelectedItems()`, etc.). Handles `Config::USE_AUTOMAGIC` for border updates by adding another `Action` to the batch if needed. This makes `cut` an undoable operation.
+      - `paste()`: Creates a `BatchAction`. An `Action` within it holds `Change` objects. For each `buffer_tile` in its internal `tiles` `BaseMap`, calculates target `Position`, deep copies `buffer_tile` to `copy_tile`. If `Config::MERGE_PASTE` is true or `copy_tile` has no ground, it merges `copy_tile` with the existing tile at destination (or a new empty tile if none exists). Otherwise, `copy_tile` replaces the destination. The resulting tile (`new_dest_tile`) forms a `Change` for an `Action`. Handles `Config::BORDERIZE_PASTE` by adding a subsequent border update `Action` if needed. This makes `paste` an undoable operation.
+  - file_path: wxwidgets/editor.h
+    description: |
+      Declares `Editor`. Relevant methods: `moveSelection(Position offset)`, `destroySelection()`. Holds `ActionQueue*`, `Selection&`, `CopyBuffer&`.
+  - file_path: wxwidgets/editor.cpp
+    description: |
+      Implements `Editor`.
+      - `destroySelection()`: Creates a `BatchAction`. An `Action` within it contains `Change` objects for tiles after their selected elements are removed (via `popSelectedItems()`). If `Config::BORDERIZE_DELETE` and `Config::USE_AUTOMAGIC` are on, a subsequent `Action` is added to the batch to handle border updates around the cleared area.
+      - `moveSelection(Position offset)`: Creates a `BatchAction` performing a complex sequence, making the entire move undoable as a single step:
+        1. An `Action` to remove selected elements from their original positions. This involves creating `Change` objects that represent the state of the source tiles *after* the selected items are "picked up" (removed via `popSelectedItems`). A temporary `TileSet tmp_storage` (containing `Tile` objects allocated by `map.allocator`) holds the actual items being moved.
+        2. If `Config::BORDERIZE_DRAG` is enabled (and selection size is below threshold), an `Action` is added to update borders around the original (now modified) locations.
+        3. An `Action` to add/merge the elements from `tmp_storage` to the new (offset) positions. This creates `Change` objects for the destination tiles.
+        4. If `Config::BORDERIZE_DRAG` is enabled, a final `Action` updates borders around the new locations of the moved items.
+  - file_path: wxwidgets/selection.h
+    description: |
+      (Also analyzed for CORE-05, LOGIC-02) Declares `Selection`. Provides `TileSet tiles` (the current selection), which is the source for copy/cut/move/delete operations.
+  - file_path: wxwidgets/selection.cpp
+    description: |
+      (Also analyzed for CORE-05, LOGIC-02) Implements `Selection`. Its state (the `TileSet`) is read by `CopyBuffer` and `Editor` methods to determine what to act upon.
+  - file_path: wxwidgets/main_menubar.h
+    description: |
+      (Also analyzed for DOCS-02) Declares `MainMenuBar` and `MenuBar::ActionID` enum (e.g., `CUT`, `COPY`, `PASTE`, `DELETE`), which are used to connect menu UI events to handlers.
+  - file_path: wxwidgets/main_menubar.cpp
+    description: |
+      (Also analyzed for DOCS-02) Implements `MainMenuBar`. Event handlers like `OnCut`, `OnCopy`, `OnPaste`, `OnDelete` typically invoke methods on the global `g_gui` object. `g_gui` then delegates to the current `Editor` instance or its `MapCanvas` (e.g., `g_gui.DoCopy()` might call `editor->copybuffer.copy()`; `g_gui.DoPaste()` calls `map_canvas->StartPasting()` to initiate paste preview mode).
+  - file_path: wxwidgets/map_display.cpp
+    description: |
+      (Also analyzed for LOGIC-02, FINAL-01) Implements `MapCanvas`.
+      - Drag-Move of selection: `OnMouseActionClick` sets a `dragging` flag if the click is on an existing selection (and not a shift-click for bounding box). `OnMouseActionRelease`, if `dragging` was true and an `offset` is detected, calls `editor.moveSelection(offset)`. Visual preview during the drag is handled by `MapDrawer` based on `MapCanvas` state variables indicating the drag.
+      - Paste operation: The `OnPaste` menu event handler (often in `MapCanvas` for context menu, or delegated from `MainMenuBar` via `g_gui`) calls `StartPasting()`. This method sets a "pasting mode" flag. A subsequent `OnMouseActionClick` (left-click usually) on the map, if in this mode, finalizes the paste by calling `editor.copybuffer.paste(...)` with the clicked map coordinates, and then calls `EndPasting()`. Visual preview of items being pasted is handled by `MapDrawer`.
+      - Delete operation: The `OnDelete` menu event handler (context menu) calls `editor.destroySelection()`.
 dependencies:
-- LOGIC-02
-current_functionality_summary: |-
-  `copybuffer.h/cpp` implements the `CopyBuffer` class, which handles the logic for copying, cutting, and pasting map regions using an internal `BaseMap` to store data. These operations create `Action` objects for undo/redo.
-  `editor.cpp` contains methods like `moveSelection` which orchestrates a move by copying, deleting the original, and pasting to the new location, all as undoable actions. It also has `destroySelection`.
-  `main_menubar.cpp` contains the UI event handlers (e.g., `OnCut`, `OnCopy`, `OnPaste`) that trigger these operations via the global `g_gui` which in turn calls `Editor` methods.
-  `selection.h/cpp` provides the `Selection` object used to determine what to copy/cut.
+  - BUILD-01                # CMake project setup
+  - CORE-01                 # For Position, Item, Tile definitions
+  - CORE-03                 # For Map data structure
+  - CORE-04                 # For Action/History system (QUndoStack, QUndoCommand base)
+  - CORE-05                 # For SelectionManager & ClipboardManager classes (whose logic is being implemented here)
+  - LOGIC-01                # For EditorController, which will host these methods
+  - LOGIC-02                # For Bounding-Box Selection (as a common way to populate selection)
+  - RENDER-01               # For MapView mouse events (initiating drag-move, paste location)
+  - UI-01                   # For Edit menu QActions (Cut, Copy, Paste, Delete) # MainWindow provides the menu actions
+current_functionality_summary: |
+  - `CopyBuffer` (`copybuffer.h/cpp`): Manages an internal `BaseMap` to store deep copies of selected tiles/items for copy/cut operations. `copy()` populates this buffer from `Editor::selection`. `cut()` first calls `copy()`, then creates an `Action` to delete the originals. `paste()` creates an `Action` to place deep copies from the buffer onto the map at a target position, handling merging and auto-bordering.
+  - `Editor` (`editor.h/cpp`):
+    - `destroySelection()`: Creates an undoable `BatchAction` to remove selected elements and updates borders.
+    - `moveSelection()`: Creates an undoable `BatchAction` that effectively copies the selection, deletes originals, and pastes at the new offset, managing border updates.
+  - `Selection` (`selection.h/cpp`): Provides the set of selected tiles/items that are the source for copy/cut/move/delete.
+  - `MainMenuBar` (`main_menubar.h/cpp`): UI event handlers for menu items (Cut, Copy, Paste, Delete) trigger these operations, usually via `g_gui` delegating to `Editor`.
+  - `MapCanvas` (`map_display.h/cpp`): Initiates drag-move operations based on mouse gestures on a selection. Handles the visual preview aspect of pasting.
 qt6_migration_steps: |-
-  1. Ensure the `CopyBuffer` class (ported to `mapcore` in `CORE-05`) is fully functional. Its `copy`, `cut`, and `paste` methods should operate on `mapcore`'s `Map`, `Selection`, and `ActionQueue` objects and be UI-independent.
-  2. Implement corresponding methods in the `EditorController` class (application layer):
-     - `void EditCopy()`: Retrieves current floor and selection, then calls `mapcoreCopyBuffer->copy(map, selection, currentFloor)`.
-     - `void EditCut()`: Retrieves current floor and selection, then calls `mapcoreCopyBuffer->cut(map, selection, actionQueue, currentFloor)`. This `cut` method within `mapcoreCopyBuffer` should create and manage the deletion `Action`.
-     - `void EditPaste(const Position& targetMapPos)`: Calls `mapcoreCopyBuffer->paste(map, actionQueue, targetMapPos)`. This `paste` method within `mapcoreCopyBuffer` creates the paste `Action`.
-     - `void InitiateVisualPaste()`: Informs the `MapView` to enter a "pasting mode" where a preview of the `CopyBuffer` content is shown under the mouse.
-     - `void MoveSelection(const Position& offset)`: This method should create a `BatchAction`. It will:
-       a. Call `mapcoreCopyBuffer->copy(...)` to temporarily store the current selection.
-       b. Create and add an `Action` to the `BatchAction` to delete the items from their original selected positions.
-       c. Calculate new positions based on the `offset`.
-       d. Create and add another `Action` to the `BatchAction` to paste the items (from the temporary copy in `CopyBuffer`) to the new positions.
-       e. Add the `BatchAction` to the `actionQueue`.
-  3. In the `MainWindow` (from `UI-01`):
-     - Create `QAction` objects for "Cut", "Copy", and "Paste".
-     - Connect their `triggered()` signals to slots that call the appropriate `EditorController` methods (e.g., `EditCopy`, `EditCut`, `InitiateVisualPaste`).
-     - Dynamically enable/disable these `QAction`s based on context (e.g., "Paste" enabled if `mapcoreCopyBuffer->canPaste()` is true; "Cut"/"Copy" enabled if `selection->size() > 0`).
-  4. Implement the visual "pasting mode" in `MapView`:
-     - When `EditorController::InitiateVisualPaste()` is called, `MapView` should set a flag `isPastingMode = true`.
-     - In `MapView::paintGL` (or an overlay `paintEvent`): If `isPastingMode`, get the content preview from `mapcoreCopyBuffer` (it might need a method like `getPreviewData()`) and render it ghosted at the current mouse cursor's map position.
-     - In `MapView::mousePressEvent`: If `isPastingMode` and a valid placement click occurs, call `editorController->EditPaste(clickedMapPos)` and then exit pasting mode (`isPastingMode = false`).
-  5. Implement selection drag-and-move:
-     - In `MapView::mousePressEvent`: If clicking on an existing selection (and not in another mode like Shift-drag for bounding box), set `isDraggingSelection = true` and store `dragAnchorMapPos = clickedMapPos`.
-     - In `MapView::mouseMoveEvent`: If `isDraggingSelection`, calculate `currentOffset = currentMapPos - dragAnchorMapPos`. Trigger `MapView::update()` to repaint. In `paintGL`, draw a ghosted preview of the selected items moved by `currentOffset`.
-     - In `MapView::mouseReleaseEvent`: If `isDraggingSelection`, set `isDraggingSelection = false`. If `currentOffset` is significant, call `editorController->MoveSelection(currentOffset)`. Trigger repaint.
-  6. Ensure all operations correctly utilize `mapcore`'s `ActionQueue` by creating and adding `Action` or `BatchAction` objects.
-definition_of_done: |-
-  Cut, Copy, Paste, and selection drag-and-move operations are fully functional, integrated with the `mapcore ActionQueue`, and provide appropriate visual feedback.
-  Key requirements:
-  - "Copy" (e.g., Ctrl+C or menu action) correctly copies the selected map region into the `mapcore`'s `CopyBuffer`.
-  - "Cut" (e.g., Ctrl+X or menu action) copies the selection to `CopyBuffer` and creates an undoable `Action` to delete the original selection from the map.
-  - "Paste" (e.g., Ctrl+V or menu action) initiates a visual "pasting mode" where `MapView` shows a preview of the `CopyBuffer`'s content under the mouse cursor. A subsequent click on the map finalizes the paste operation at that position, creating an undoable `Action`.
-  - Dragging an existing selection on the `MapView` visually moves a preview (ghost image) of the selection. Releasing the mouse finalizes the move by creating an undoable `BatchAction` (effectively a cut from the old position and a paste to the new position).
-  - All these operations (Cut, Copy, Paste, Move) are correctly undoable and redoable via the `ActionQueue`.
-  - UI actions (menu items, toolbar buttons) for Cut, Copy, and Paste are correctly enabled or disabled based on the current selection state and the content of the `CopyBuffer`.
-boilerplate_coder_ai_prompt: |-
-  Implement Cut, Copy, Paste, and selection drag-and-move functionality. This involves `EditorController`, `MainWindow`, and `MapView`, interacting with `mapcore`'s `CopyBuffer` and `ActionQueue` (from `CORE-05`).
-  1.  **`EditorController` Methods:**
-      -   `void handleCopy()`: Gets current floor/selection. Calls `mapcoreCopyBuffer->copy(map, selection, floor)`.
-      -   `void handleCut()`: Gets floor/selection. Calls `mapcoreCopyBuffer->cut(map, selection, actionQueue, floor)`.
-      -   `void handleStartPaste()`: Sets a state in `MapView` to enter "pasting mode" (e.g., via a signal or direct call).
-      -   `void handleFinalizePaste(const Position& targetPos)`: Calls `mapcoreCopyBuffer->paste(map, actionQueue, targetPos)`. Exits "pasting mode" in `MapView`.
-      -   `void handleMoveSelection(const Position& offset)`: Creates a `BatchAction`. Adds an action for deleting items from original selected positions (after copying them to a temporary buffer or using `CopyBuffer`'s state). Adds another action for pasting items to new positions (original positions + offset). Pushes `BatchAction` to `actionQueue`.
-  2.  **`MainWindow` UI (`UI-01` & `UI-02` context):**
-      -   Ensure `QAction`s for "Cut", "Copy", "Paste" exist.
-      -   Connect their `triggered()` signals to slots calling `editorController->handleCut()`, `editorController->handleCopy()`, `editorController->handleStartPaste()`.
-      -   Update `QAction` enabled states: Copy/Cut if `selection->size() > 0`; Paste if `mapcoreCopyBuffer->canPaste()`.
-  3.  **`MapView` Enhancements (`UI-EVENT-01` context):**
-      -   Add a boolean state, e.g., `m_isPastingMode`.
-      -   `mousePressEvent`:
-          -   If `m_isPastingMode`: Call `editorController->handleFinalizePaste(clickedMapPos)`.
-          -   Else if clicking on an existing selection (and not Shift-dragging): Set `m_isDraggingSelection = true`; store `m_dragAnchorMapPos = clickedMapPos`.
-      -   `mouseMoveEvent`:
-          -   If `m_isPastingMode` or `m_isDraggingSelection`: Update preview position (e.g., `m_currentPastePreviewPos = mouseMapPos` or `m_currentDragOffset = mouseMapPos - m_dragAnchorMapPos`). Call `update()` for repaint.
-      -   `mouseReleaseEvent`:
-          -   If `m_isDraggingSelection`: Set `m_isDraggingSelection = false`. If `m_currentDragOffset` is significant, call `editorController->handleMoveSelection(m_currentDragOffset)`. Request repaint.
-      -   `paintGL` (or overlay `paintEvent`):
-          -   If `m_isPastingMode`: Draw a ghost preview of `mapcoreCopyBuffer`'s content at `m_currentPastePreviewPos`.
-          -   If `m_isDraggingSelection`: Draw a ghost preview of the current `selection` translated by `m_currentDragOffset`.
-  4.  Ensure all operations correctly use `mapcore`'s `ActionQueue` for undo/redo.
+  1.  **Ensure `ClipboardManager` and `SelectionManager` are established (from `CORE-05`):**
+      -   `ClipboardManager` should have an internal representation for copied data (e.g., a list of `TileData` with relative positions) and methods `storeData(const QList<TileData>& data, const Position& refPos)` and `retrieveData() -> QList<TileData>`.
+      -   `SelectionManager` should provide `getSelectedElementsForClipboard() -> QList<TileData>` and methods to clear/modify the actual selection on the map.
+
+  2.  **Implement Logic in `EditorController` (from `LOGIC-01`):**
+      -   **`void handleCopy()`:**
+          -   `QList<TileData> selectedData = selectionManager->getSelectedElementsForClipboard(map);`
+          -   `Position refPos = selectionManager->getSelectionBounds().topLeft();` (or similar reference)
+          -   `clipboardManager->storeData(selectedData, refPos);`
+          -   Update UI (e.g., enable Paste action).
+      -   **`void handleDelete(const QString& commandText = "Delete Selection")`:** (Helper for Cut and Delete)
+          -   `Create `DeleteCommand(map, selectionManager, commandText)` (a `QUndoCommand`).
+          -   `DeleteCommand::redo()`: Stores data for selected elements (for undo), then removes them from `map` and `selectionManager`.
+          -   `DeleteCommand::undo()`: Restores elements to `map` and `selectionManager`.
+          -   Push to `undoStack`.
+      -   **`void handleCut()`:**
+          -   Call `handleCopy()`.
+          -   Call `handleDelete("Cut")`.
+      -   **`void handleStartPaste()`:**
+          -   If `clipboardManager->hasData()`:
+              -   Signal `MapView` to enter "pasting mode" and pass necessary preview data (e.g., `clipboardManager->retrieveData()` and `clipboardManager->getReferencePosition()`).
+      -   **`void handleFinalizePaste(const Position& targetDropPos)`:**
+          -   `QList<TileData> clipboardData = clipboardManager->retrieveData();`
+          -   `Position originalRefPos = clipboardManager->getReferencePosition();`
+          -   Create `PasteCommand(map, undoStack, targetDropPos, originalRefPos, clipboardData)`.
+          -   `PasteCommand::redo()`: Calculates actual positions for each `TileData` based on `targetDropPos` and `originalRefPos`. Adds/merges tiles/items into the `map`. Stores data for undo (e.g., list of added tiles or previous state of modified tiles). Handles auto-bordering if applicable.
+          -   `PasteCommand::undo()`: Removes/reverts pasted tiles/items.
+          -   Push to `undoStack`.
+          -   Signal `MapView` to exit "pasting mode".
+      -   **`void handleMoveSelection(const Position& dragStartPos, const Position& dragEndPos)`:** (Triggered by `MapView` after drag)
+          -   `Position offset = dragEndPos - dragStartPos;`
+          -   If offset is zero, do nothing.
+          -   Create `MoveCommand(map, selectionManager, undoStack, offset)`.
+          -   `MoveCommand::redo()`:
+              -   Internally, get `QList<TileData> selectedData = selectionManager->getSelectedElementsForClipboard(map);`
+              -   Store data for undo (original positions of selected elements, and the elements themselves).
+              -   Remove selected elements from their original positions on the `map`.
+              -   Calculate new positions by applying `offset`.
+              -   Add/merge the `selectedData` (now considered "movedData") to these new positions on the `map`.
+              -   Update `selectionManager` to reflect the new positions of selected items.
+          -   `MoveCommand::undo()`: Reverse the move.
+          -   Push to `undoStack`.
+
+  3.  **Update `MainWindow` (from `UI-01`, `UI-02`, `FINAL-03`):**
+      -   Connect Edit menu `QAction`s (Cut, Copy, Paste, Delete) `triggered()` signals to the respective `EditorController` handler methods.
+      -   Update enabled state of these actions based on `selectionManager->hasSelection()` and `clipboardManager->hasData()`.
+
+  4.  **Update `MapView` (from `RENDER-01` which provides MapView, and `LOGIC-02` for selection context):**
+      -   **Visual Paste Preview:**
+          -   Add state `bool m_isPastingMode; QList<TileData> m_pastePreviewData; Position m_pastePreviewRefPos;`.
+          -   Method `startPastePreview(const QList<TileData>& data, const Position& refPos)` called by `EditorController`.
+          -   `mouseMoveEvent`: If `m_isPastingMode`, update `m_currentMouseMapPos` and call `update()` for repaint.
+          -   `paintEvent/paintGL`: If `m_isPastingMode`, render a ghosted preview of `m_pastePreviewData` at `m_currentMouseMapPos` (offset by `m_pastePreviewRefPos`).
+          -   `mousePressEvent`: If `m_isPastingMode`, call `editorController->handleFinalizePaste(clickedMapPos)`. Set `m_isPastingMode = false;`.
+      -   **Selection Drag-and-Move Visuals:**
+          -   Add state `bool m_isDraggingSelection; Position m_dragAnchorMapPos; Position m_currentDragMapPos;`.
+          -   `mousePressEvent`: If clicking on an existing selection (and not Shift-dragging for bounding box): `m_isDraggingSelection = true; m_dragAnchorMapPos = clickedMapPos;`.
+          -   `mouseMoveEvent`: If `m_isDraggingSelection`, update `m_currentDragMapPos` and call `update()`.
+          -   `paintEvent/paintGL`: If `m_isDraggingSelection`, get current selection. Draw a ghosted preview of selected elements translated by `m_currentDragMapPos - m_dragAnchorMapPos`.
+          -   `mouseReleaseEvent`: If `m_isDraggingSelection`, set `m_isDraggingSelection = false`. Calculate `Position offset = m_currentDragMapPos - m_dragAnchorMapPos`. If offset is non-zero, call `editorController->handleMoveSelection(m_dragAnchorMapPos, m_currentDragMapPos)` (or just the offset).
+definition_of_done: |
+  - Cut, Copy, Paste, and Delete operations are fully functional via Edit menu actions and/or keyboard shortcuts.
+  -   "Copy" populates an internal clipboard (`ClipboardManager`) with the selected map elements.
+  -   "Cut" copies to clipboard and then creates an undoable command to delete the selection from the map.
+  -   "Paste" initiates a visual preview mode in `MapView`; a subsequent click finalizes the paste as an undoable command, correctly handling offsets and merging/replacing tiles as per settings.
+  -   "Delete" (e.g., from context menu or Del key) removes the current selection via an undoable command.
+  - Drag-and-move of an existing selection is implemented:
+    -   `MapView` provides visual feedback (ghosted preview) of the selection being dragged.
+    -   Releasing the mouse finalizes the move, implemented as an undoable command (likely a conceptual copy, delete original, paste to new location).
+  - All these operations are correctly integrated with the `QUndoStack` from `CORE-04`.
+  - UI actions (menu items, toolbar buttons) are enabled/disabled appropriately based on selection state and clipboard content.
+boilerplate_coder_ai_prompt: |
+  Implement Cut, Copy, Paste, Delete, and drag-and-move logic for map elements. This involves `EditorController` methods that use `SelectionManager`, `ClipboardManager`, and `QUndoStack` (all from `mapcore`, assumed to be available via `AppContext`). `MapView` will handle UI interaction and visual previews.
+
+  **1. `EditorController` Methods:**
+     -   `void handleCopy()`:
+         -   `QList<TileData> data = appContext.selectionManager().getSelectedElementsForClipboard(appContext.map());`
+         -   `Position refPos = appContext.selectionManager().getSelectionBounds().topLeft();`
+         -   `appContext.clipboardManager().storeData(data, refPos);`
+     -   `void handleDeleteSelection(const QString& commandText)`:
+         -   `DeleteCommand* cmd = new DeleteCommand(appContext.map(), appContext.selectionManager(), commandText);`
+         -   `appContext.undoStack().push(cmd);`
+     -   `void handleCut()`: Calls `handleCopy()`, then `handleDeleteSelection("Cut Selection")`.
+     -   `void handleStartPaste()`: If `clipboardManager.hasData()`, signals `MapView` to enter paste preview mode, providing data.
+     -   `void handleFinalizePaste(const Position& targetDropPos)`:
+         -   `PasteCommand* cmd = new PasteCommand(appContext.map(), appContext.selectionManager(), appContext.clipboardManager(), targetDropPos);`
+         -   `appContext.undoStack().push(cmd);`
+         -   Signals `MapView` to exit paste preview mode.
+     -   `void handleMoveSelection(const Position& dragStartPos, const Position& currentPos)`:
+         -   `Position offset = currentPos - dragStartPos; if (offset == Position(0,0,0)) return;`
+         -   `MoveCommand* cmd = new MoveCommand(appContext.map(), appContext.selectionManager(), offset);`
+         -   `appContext.undoStack().push(cmd);`
+
+  **2. `QUndoCommand` Subclasses (in `mapcore` or `editor` logic):**
+     -   `DeleteCommand(Map* map, SelectionManager* selMgr, ...)`:
+         -   `redo()`: Stores copies of selected elements, then removes them from `map` and `selMgr`.
+         -   `undo()`: Restores elements to `map` and `selMgr`.
+     -   `PasteCommand(Map* map, SelectionManager* selMgr, ClipboardManager* clipMgr, Position target, ...)`:
+         -   `redo()`: Retrieves data from `clipMgr`. Adds/merges to `map` at `target`. Stores info for undo. Updates `selMgr` to select pasted items.
+         -   `undo()`: Removes pasted items. Restores previous selection.
+     -   `MoveCommand(Map* map, SelectionManager* selMgr, Position offset, ...)`:
+         -   `redo()`: Stores original state/positions of selected items. Deletes them from old positions. Adds them at new (offset) positions. Updates `selMgr`.
+         -   `undo()`: Moves items back to original positions. Restores original selection.
+
+  **3. `MapView` Updates (UI layer):**
+     -   Implement `m_isPastingMode`, `m_pastePreviewData`, `m_pastePreviewRefPos` for paste preview.
+     -   Implement `m_isDraggingSelection`, `m_dragAnchorMapPos`, `m_currentDragMapPos` for drag-move.
+     -   `mousePressEvent`, `mouseMoveEvent`, `mouseReleaseEvent` to manage these states and call `EditorController` methods.
+     -   `paintEvent` to draw ghost previews based on these states.
+
+  **4. `MainWindow` Connections:**
+     -   Connect Edit menu `QAction`s (`Cut`, `Copy`, `Paste`, `Delete`) to `EditorController` handlers.
+     -   Dynamically update enabled state of these actions.
+documentation_references:
+  - "QUndoStack & QUndoCommand: https://doc.qt.io/qt-6/qundostack.html"
+  - "QClipboard & QMimeData: https://doc.qt.io/qt-6/qclipboard.html"
+  - "Drag and Drop (for visual previews in MapView): https://doc.qt.io/qt-6/dnd.html"
+  - "QPainter (for drawing previews): https://doc.qt.io/qt-6/qpainter.html"
+estimation_effort: X-Large

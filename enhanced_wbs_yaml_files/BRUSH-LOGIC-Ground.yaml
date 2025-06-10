@@ -1,0 +1,46 @@
+id: BRUSH-LOGIC-Ground
+section: Editor Behavior & Logic
+title: Port Ground Brush Logic
+original_input_files:
+  - wxwidgets/ground_brush.cpp
+  - wxwidgets/ground_brush.h
+analyzed_input_files:
+  - file_path: wxwidgets/ground_brush.h
+    description: Defines 'GroundBrush' (inherits 'TerrainBrush'). Specifies structures for border calculation logic.
+  - file_path: wxwidgets/ground_brush.cpp
+    description: Implements 'GroundBrush'. Handles loading definitions from XML (item variations, chances, 'AutoBorder' configs). Core logic includes 'draw' (placing ground items) and 'doBorders' (calculating and applying border items based on neighbors and friendship rules).
+dependencies:
+  - CORE-BRUSH-FRAMEWORK
+  - CORE-01
+  - CORE-02 # For ItemManager/ItemType
+  - LOGIC-01
+  - CORE-04
+  - CORE-14-MaterialSystem # Ground brush and border definitions loaded via MaterialManager
+current_functionality_summary: |
+  The 'GroundBrush' draws terrain ground tiles. It supports item variations/chances and complex auto-bordering ('doBorders') based on neighboring tiles and brush friendship rules defined in XML.
+qt6_migration_steps: |
+  1. Define `mapcore::GroundBrush` class inheriting from `mapcore::TerrainBrush` (if TerrainBrush is a defined intermediate base) or `mapcore::Brush`.
+  2. Store current ground brush definition (item IDs, chances, border rules for various transitions) loaded from `MaterialManager`.
+  3. Implement `apply()`:
+     - If erasing: Remove ground item. Trigger border updates for neighbors.
+     - If drawing: Place the selected ground item (considering variations/chances).
+     - Crucially, implement the 'doBorders' logic:
+        - For the current tile and its 8 neighbors, analyze their ground types.
+        - Based on the current ground brush's border rules (transition to self, to other types, to void, friend rules), determine and place appropriate border items on the current tile and/or neighbors.
+     - Record all changes for undo.
+definition_of_done: |
+  - `mapcore::GroundBrush` is implemented.
+  - Ground brush definitions (items, chances, border rules) are correctly loaded and used.
+  - Auto-bordering logic correctly applies borders based on context.
+  - Operations are undoable.
+  - Unit tests for placement and various auto-bordering scenarios pass.
+boilerplate_coder_ai_prompt: |
+  Port `GroundBrush` from `wxwidgets/ground_brush.cpp/h` to `mapcore::GroundBrush`.
+  1. Header: `mapcore::GroundBrush : public mapcore::Brush` (or `TerrainBrush`). Store current ground brush definition (from `MaterialManager`).
+  2. Source: Implement `apply()`.
+     - Drawing: Place ground item. Then, call a `doAutoBorders(Position targetPos)` helper.
+     - `doAutoBorders()`: This is complex. For `targetPos` and its 8 neighbors: get their ground types. Consult current brush's border rules (loaded from `MaterialManager`) for transitions between these types. Add/remove appropriate border items on `targetPos` and potentially on neighbors.
+     - Erasing: Remove ground item, then call `doAutoBorders()` for `targetPos` and neighbors to update their borders.
+     - All changes via `EditorControllerInterface`.
+documentation_references: ["mapcore::Brush", "CORE-14-MaterialSystem", "mapcore::Tile", "mapcore::Item"]
+estimation_effort: X-Large # Auto-bordering is complex

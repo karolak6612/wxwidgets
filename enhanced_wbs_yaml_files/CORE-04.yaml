@@ -1,103 +1,123 @@
 id: CORE-04
 section: Core Migration Tasks
-title: Port Brush & Materials System
-original_input_files: brush.h/cpp (and all `*_brush.*`), materials.h/cpp, tileset.h/cpp
+title: Port Action & History (Undo/Redo) System
+original_input_files:
+  - wxwidgets/action.h
+  - wxwidgets/action.cpp
 analyzed_input_files:
-- wxwidgets/brush.h
-- wxwidgets/brush.cpp
-- wxwidgets/materials.h
-- wxwidgets/materials.cpp
-- wxwidgets/tileset.h
-- wxwidgets/tileset.cpp
-- wxwidgets/ground_brush.h
-- wxwidgets/ground_brush.cpp
-- wxwidgets/wall_brush.h
-- wxwidgets/wall_brush.cpp
-- wxwidgets/doodad_brush.h
-- wxwidgets/doodad_brush.cpp
-- wxwidgets/creature_brush.h
-- wxwidgets/creature_brush.cpp
-- wxwidgets/house_brush.h
-- wxwidgets/house_brush.cpp
-- wxwidgets/spawn_brush.h
-- wxwidgets/spawn_brush.cpp
-- wxwidgets/raw_brush.h
-- wxwidgets/raw_brush.cpp
-- wxwidgets/carpet_brush.h
-- wxwidgets/carpet_brush.cpp
-- wxwidgets/table_brush.h
-- wxwidgets/table_brush.cpp
-- wxwidgets/waypoint_brush.h
-- wxwidgets/waypoint_brush.cpp
-- XML/760/materials.xml (Fetched via URL and its includes like grounds.xml, walls.xml, etc.)
+  - file_path: wxwidgets/action.h
+    description: |
+      Defines the interfaces for the action and history (undo/redo) system. Key classes:
+      - `ChangeType` (enum): Defines types of changes like `CHANGE_TILE`, `CHANGE_MOVE_HOUSE_EXIT`, `CHANGE_MOVE_WAYPOINT`.
+      - `Change`: Encapsulates an atomic change. It stores `ChangeType` and `void* data`. For `CHANGE_TILE`, `data` points to a `Tile` object. For moves, it's a `std::pair` (e.g., house ID / waypoint name and old `Position`). `Change` takes ownership of this `data` representing the *previous* state of the map element after a commit.
+      - `DirtyList`: A helper class using `std::set` of packed positions (`ValueType`) and a `ChangeList` to track changed map areas or specific changes, likely for optimized screen refresh or network updates. `ValueType` packs coordinates suggesting 4x4 tile chunk granularity.
+      - `ActionIdentifier` (enum): Identifies types of user operations (e.g., `ACTION_DRAW`, `ACTION_DELETE_TILES`).
+      - `Action`: Represents a single editor operation. Contains a `ChangeList` (vector of `Change*`). Key methods are `commit()` (to apply changes) and `undo()`. Owns its `Change` objects.
+      - `BatchAction`: Groups multiple `Action*` instances in an `ActionVector`. Manages committing, undoing, and redoing its contained actions. Supports merging with other `BatchAction` objects. Owns its `Action` objects.
+      - `ActionQueue`: Manages a `std::deque<BatchAction*>` as the main undo/redo stack. Handles stack limits (memory/count) and merging of consecutive compatible actions based on type, time (`stacking_delay`), and settings (`GROUP_ACTIONS`). Owns its `BatchAction` objects.
+  - file_path: wxwidgets/action.cpp
+    description: |
+      Implements the classes declared in `action.h`.
+      - `Change::clear()`: Crucially, `delete`s the `void* data` according to its `ChangeType` (e.g., `delete (Tile*)data;`).
+      - `Action::commit()`: For each `Change` in its `changes` list:
+          - For `CHANGE_TILE`: It calls `editor.map.swapTile(pos, newtile_from_change_data)`, effectively putting `newtile_from_change_data` onto the map. The `Tile*` returned by `swapTile` (which was the tile previously on the map, or a new empty tile if none was there) is then stored back into `c->data`.
+          - For move operations: Updates the game element (house exit, waypoint) with the new position from `c->data`, and stores the *original* position back into `c->data`.
+        This "swap" pattern is fundamental: the `Change` object initially holds the "new" state and after `commit` holds the "old" (pre-change) state from the map.
+      - `Action::undo()`: Reverses the `commit()` process, effectively swapping the states again.
+      - `BatchAction::merge()`: Appends actions from another batch.
+      - `ActionQueue::addBatch()`: Contains the core logic for managing the undo stack. It clears the redo history, enforces stack limits (memory via `BatchAction::memsize()` and count via `Config::UNDO_SIZE`), and attempts to merge the incoming `BatchAction` with the most recent one if types match, `GROUP_ACTIONS` is enabled, and it's within the `stacking_delay`. Otherwise, it pushes the new batch.
 dependencies:
-- CORE-02
-current_functionality_summary: |-
-  The `materials.xml` (and its included files like `grounds.xml`, `walls.xml`, `doodads.xml`, `borders.xml`, various palette XMLs, `tilesets.xml`, `collections.xml`) defines the comprehensive structure of all map editor brushes and their organization.
-  - `brush.h/cpp` files define the base `Brush` class and derived types.
-  - `materials.h/cpp` defines `Materials` (`g_materials`) which parses these XMLs (using pugixml) to load brush properties, item associations, border rules (`AutoBorder`), multi-tile doodad compositions, and palette groupings.
-  - `tileset.h/cpp` defines `Tileset` and `TilesetCategory` for palette organization.
-  These systems depend on `CORE-01` data models and `CORE-02` asset definitions (`ItemDatabase`).
-qt6_migration_steps: |-
-  1. Port all brush classes (`Brush` hierarchy, `Brushes` manager, `AutoBorder`), `Materials` manager, `Tileset`, and `TilesetCategory` classes to the `mapcore` library.
-  2. In `Materials::loadMaterials` and its helper methods, replace all `pugixml` XML parsing logic with a suitable C++ XML library like TinyXML2 or RapidXML (or `QXmlStreamReader` if external libs are not allowed, though it may be more complex for these structures).
-     - Parse `materials.xml` and recursively load all included XML files (e.g., `grounds.xml`, `walls.xml`, `doodads.xml`, `borders.xml`, `creature_palette.xml`, `raw_palette.xml`, `item_palette.xml`, `tilesets.xml`, `collections.xml`).
-     - For `grounds.xml`: Parse `<ground>` elements, their item variations (`<item>`), z-order, `<border>` references (linking to `borders.xml`), and `<friend>` brush names.
-     - For `walls.xml`: Parse `<wall>` elements, their orientations (horizontal, vertical, pole, T-junctions, corners, diagonals - attributes like `type`, `horiz_s`, `vert_e`, etc.), and embedded door/window items (`<door>`, `<window>`). Handle `redirect` attributes.
-     - For `doodads.xml`: Parse `<doodad>` elements, their multi-tile item compositions (`<item x=".." y=".." z=".." id="..."/>`), alternates (`<alternate>`), and properties (`draggable`, `on_blocking`).
-     - For `borders.xml`: Parse `<border id="...">` and their edge item definitions (`<n>`, `<s>`, `<e>`, `<w>`, `<ne>`, etc.).
-     - For palette XMLs (`creature_palette.xml`, `raw_palette.xml`, `item_palette.xml`): Parse `<item>` or `<creature>` entries with `id` or `name` ranges.
-     - For `tilesets.xml`: Parse `<tileset name="...">` and its content elements like `<item id=.../>`, `<doodad itemid=... brush=.../>`, `<raw id=.../>`, `<terrain brush=.../>`.
-     - For `collections.xml`: Parse `<collection name="...">` and its `<brush name=.../>` references.
-  3. Remove all wxWidgets dependencies (wxString, wxArrayString, wxFileName, logging).
-  4. Ensure brush implementations correctly use data models from `CORE-01` and asset definitions from `CORE-02`.
-  5. Manage `g_brushes` and `g_materials` instances within `mapcore`.
-  6. Port `Tileset` and `TilesetCategory` data structures, removing UI-specific logic.
-  7. Update path handling for loading XMLs and extensions to use `std::filesystem::path` or `QDir`/`QFileInfo`.
-  8. Verify `mapcore` compiles cleanly without wxWidgets or pugixml.
-definition_of_done: |-
-  The `mapcore` library's brush and materials system can parse `materials.xml` (and all its includes) and correctly represent all brush types and palette structures.
-  Key requirements:
-  - `Materials` class successfully parses `materials.xml` and all included XML files (grounds, walls, doodads, borders, palettes, tilesets, collections) using the chosen XML library.
-  - All brush types (ground, wall, doodad, etc.) are instantiated with their properties, including multi-tile item compositions for doodads, and complex border/connection logic for ground/wall brushes.
-  - Border definitions from `borders.xml` are correctly loaded and associated with ground brushes.
-  - Wall brush orientations and embedded door/window items are correctly parsed.
-  - `Tileset` and `TilesetCategory` structures are populated based on `tilesets.xml` and palette XMLs, organizing brushes and items for editor use.
-  - The system correctly handles "friend" brushes and wall "redirects".
-  - All wxWidgets and pugixml dependencies are removed.
-  - The `mapcore` library compiles successfully.
-boilerplate_coder_ai_prompt: |-
-  Port the brush system (all `Brush` derived classes, `Brushes` manager, `AutoBorder`) and the `Materials` system (including `Tileset`, `TilesetCategory`) to the `mapcore` library. This relies on `CORE-01` (data models) and `CORE-02` (ItemDatabase).
-  1.  **XML Parsing Strategy**: Choose a C++ XML parsing library (e.g., TinyXML2, RapidXML, or QXmlStreamReader if mandated). Replace all `pugixml` code.
-  2.  **`Materials::loadMaterials(const std::string& mainMaterialsFile)`:**
-      -   Parse `materials.xml`. For each `<include file="..."/>`, recursively parse the included XML.
-      -   **`grounds.xml` parsing:**
-          -   For each `<ground>`: Store its attributes (name, id, type).
-          -   Parse `<item id="..." variation="..." zorder="..."/>` sub-elements.
-          -   Parse `<border id="..."/>` and store the ID. This ID will be used to look up actual border items from the parsed `borders.xml`.
-          -   Parse `<friend name="..."/>`.
-      -   **`walls.xml` parsing:**
-          -   For each `<wall>`: Store attributes (name, id).
-          -   Parse item IDs for different orientations (e.g., `horiz_e`, `vert_s`, `pole`, `corner_sw`, `tdoor_e`).
-          -   Parse `<door id="..." chance="..."/>` and `<window id="..." chance="..."/>` sub-elements associated with wall parts.
-          -   Handle `redirect` attributes.
-      -   **`doodads.xml` parsing:**
-          -   For each `<doodad>`: Store attributes (name, id, type).
-          -   Parse `<item x="..." y="..." z="..." id="..."/>` for multi-tile compositions.
-          -   Parse `<alternate>` doodad IDs.
-          -   Parse properties like `draggable`, `on_blocking`.
-      -   **`borders.xml` parsing:**
-          -   For each `<border id="...">`: Store a map of edge type (e.g., "n", "s", "ne") to item ID.
-      -   **Palette XMLs (`creature_palette.xml`, `raw_palette.xml`, `item_palette.xml`) parsing:**
-          -   Parse `<item id="..." range_to="..."/>` or `<creature name="..."/>` into palette groups.
-      -   **`tilesets.xml` parsing:**
-          -   For each `<tileset name="...">`: Parse `<item id=.../>`, `<doodad itemid=... brush=.../>`, `<raw id=.../>`, `<terrain brush=.../>` to link to actual items or brush definitions.
-      -   **`collections.xml` parsing:**
-          -   For each `<collection name="...">`: Parse `<brush name=.../>` references.
-  3.  **Brush Classes (`mapcore`):**
-      -   Ensure `GroundBrush`, `WallBrush`, `DoodadBrush`, etc., have members to store their specific parsed properties (e.g., `DoodadBrush` stores a list of its composite items and their relative positions).
-      -   The `AutoBorder` class should store the parsed border definitions from `borders.xml`.
-  4.  **Data Structures for Palettes (`mapcore`):**
-      -   `Tileset` and `TilesetCategory` should store the loaded palette information, linking names to lists of item IDs or brush names.
-  5.  Remove all wxWidgets dependencies. Manage `g_brushes` and `g_materials` within `mapcore`.
-  6.  Ensure `mapcore` compiles cleanly.
+  - BUILD-01  # For CMake project structure
+  - CORE-01  # For Position, Item, Tile definitions
+  - CORE-03  # For Map data structure and operations
+current_functionality_summary: |
+  The existing action system in RME is custom-built and manages undo/redo operations.
+  - `Change`: Encapsulates the data for a single atomic modification, typically storing a copy of the `Tile` object before changes, or specific data for moves (like old position of a house exit).
+  - `Action`: Represents a user-level operation (e.g., drawing a brush stroke, deleting selection). It holds a list of `Change` objects. Key methods are `commit()` to apply the changes to the map and `undo()` to revert them by applying the stored `Change` data back to the map.
+  - `BatchAction`: Groups multiple `Action` instances. This is used to combine related actions that occur in quick succession (e.g., multiple small brush strokes) into a single undoable step, based on a stacking delay.
+  - `ActionQueue`: Manages a deque of `BatchAction` objects. This forms the undo/redo stack. It has logic to limit the stack size by memory usage or number of actions and handles the merging of new actions into existing batches if they are compatible and occur within the stacking delay.
+qt6_migration_steps: |
+  1.  **Evaluate Qt's Undo Framework:**
+      -   Thoroughly investigate `QUndoStack` and `QUndoCommand` from the Qt framework.
+      -   Determine if `QUndoStack` can replace `ActionQueue` and `QUndoCommand` can replace `Action` and `BatchAction`.
+      -   Assess how `Change` objects (storing previous state) map to `QUndoCommand`'s way of storing information for undo/redo. `QUndoCommand` typically requires implementing `undo()` and `redo()` methods where the command itself holds the necessary data or logic to revert/reapply.
+
+  2.  **Design Base Command Class (if using `QUndoCommand`):**
+      -   Create a base `AppUndoCommand` (derived from `QUndoCommand`).
+      -   This base class might handle common functionalities, e.g., storing pointers to the map or other core services.
+      -   It will require reimplementing `undo()` and `redo()` virtual functions.
+
+  3.  **Port `Change` Logic:**
+      -   The concept of `Change` (storing old tile data, etc.) needs to be integrated into each concrete `QUndoCommand` or custom `Action` class.
+      -   Instead of `Change` objects holding raw `Tile*` that are swapped, the `QUndoCommand` itself will likely need to store the *delta* or enough information to reconstruct the previous state or re-apply the new state. For example, a `DrawTileCommand` might store the `Position` and a copy of the `Tile` *before* the draw, and another copy of the `Tile` *after* the draw. `undo()` would restore the "before" tile, `redo()` would restore the "after" tile.
+
+  4.  **Implement Concrete Commands/Actions:**
+      -   For each existing `ActionIdentifier` (e.g., `ACTION_DRAW`, `ACTION_DELETE_TILES`), create a corresponding concrete command class (e.g., `DrawCommand`, `DeleteTilesCommand`) derived from `AppUndoCommand` or a custom `Action` base.
+      -   Each command will take necessary parameters in its constructor (e.g., position, brush info, list of selected tiles).
+      -   The `redo()` (or `execute()`) method will perform the action on the map data (ported in `CORE-03`).
+      -   The `undo()` method will revert the action.
+      -   Memory management for any data stored by the command (e.g., copies of tiles) must be handled within the command class.
+
+  5.  **Implement `ActionQueue` (or use `QUndoStack`):**
+      -   If using `QUndoStack`, it will manage the command history.
+      -   If a custom `ActionQueue` is ported:
+          -   It will store `std::unique_ptr<Action>` (or `std::unique_ptr<AppUndoCommand>`).
+          -   Port logic for `undo()`, `redo()`, adding commands (`push`), and clearing the redo stack on new commands.
+          -   Implement stack limits (size/memory).
+          -   The "batching" or "stacking delay" logic from `BatchAction` needs to be re-evaluated. `QUndoCommand` has `mergeWith()` which can achieve similar results if commands are compatible. A custom solution might involve a timer to merge commands pushed in rapid succession.
+
+  6.  **Integration with Editor/Map:**
+      -   Editor operations will now create instances of these new command classes and push them onto the `QUndoStack` (or custom `ActionQueue`).
+      -   The `DirtyList` concept for updating UI or network needs to be re-implemented. Commands can emit signals after `redo()`/`undo()`, or the `QUndoStack` itself has signals like `indexChanged`.
+
+  7.  **Unit Testing:**
+      -   Create unit tests for `QUndoStack` (or custom `ActionQueue`) behavior: push, undo, redo, stack limits, merging.
+      -   Create unit tests for key concrete command classes, verifying their `undo()` and `redo()` logic with mock map data.
+definition_of_done: |
+  - A robust undo/redo system is implemented, either using Qt's `QUndoStack` and `QUndoCommand` or a custom-ported equivalent of `ActionQueue` and `Action`.
+  - The system supports adding commands/actions, performing undo, and performing redo operations.
+  - Logic for managing the undo/redo stack, including stack limits (by size or memory) and clearing the redo stack when new commands are pushed, is functional.
+  - The concept of `Change` objects (for storing state to enable undo) is correctly implemented within each concrete command/action.
+  - Key editor operations (e.g., drawing, deleting, pasting - at least stubs for their actions) are implemented as concrete commands that can be managed by the undo system.
+  - The action system correctly interacts with the ported map data structures (`Map`, `Tile`, `Item` from `CORE-01`/`CORE-03`).
+  - Memory management for commands and their associated data is handled correctly (e.g., using smart pointers or Qt's ownership model).
+  - The "batching" or "stacking delay" feature for merging similar consecutive actions is implemented or a clear decision is made on its replacement/omission.
+  - Unit tests verify the functionality of the undo stack (add, undo, redo, limits) and at least one representative concrete command.
+  - The ported code compiles successfully within the `mapcore` library.
+boilerplate_coder_ai_prompt: |
+  You are to port the action and history (undo/redo) system from an old C++ codebase (based on `action.h` and `action.cpp`) to a modern C++/Qt6 environment, preferably using Qt's `QUndoStack` and `QUndoCommand`. This system will be part of a `mapcore` library.
+
+  **1. Base Command (`AppUndoCommand` from `QUndoCommand`):**
+     - Create a base class `AppUndoCommand` inheriting `QUndoCommand`.
+     - It might hold a pointer to the main `Map` object or an interface to map manipulation services.
+
+  **2. Concrete Commands (e.g., `DrawTileCommand`, `DeleteSelectionCommand`):**
+     - For each major editor operation, create a class derived from `AppUndoCommand`.
+     - Constructor: Takes parameters needed for the operation (e.g., `Position`, `Brush*`, list of `Tile*`).
+     - `redo()` method: Implements the logic to perform the action on the `Map` data. It must store necessary data to enable `undo()`. For example, if changing a tile, it might store a deep copy of the tile *before* modification.
+     - `undo()` method: Implements the logic to revert the action, using the data stored during `redo()`. For example, restoring the saved copy of the tile.
+     - (Optional) `mergeWith(const QUndoCommand *other)`: Implement if you want to combine consecutive similar commands (e.g., multiple small brush strokes into one undo step).
+     - (Optional) `id()`: Can return an ID for command type checking if needed for merging.
+
+  **3. Undo Stack Management:**
+     - Use a global or context-owned `QUndoStack` instance.
+     - When an editor operation occurs, create an instance of the corresponding concrete command and `push()` it onto the `QUndoStack`.
+
+  **4. `Change` Object Equivalence:**
+     - The original system used `Change` objects to store old tile data. In the `QUndoCommand` pattern, this data is typically stored as member variables within the concrete command itself during the `redo()` (or initial execution) phase, so `undo()` can access it. For example, a command modifying a tile might store a `std::unique_ptr<TileData>` representing the tile's state before modification.
+
+  **5. `DirtyList` Equivalence:**
+     - After a command's `redo()` or `undo()` is called, the command (or the `QUndoStack` via its signals like `indexChanged()`) should notify the application that the map data has changed so the UI can refresh. This can be done via Qt signals/slots or a callback mechanism. List the affected positions or tiles if possible for optimized updates.
+
+  **General Porting Instructions:**
+     - Replace wxWidgets types with Qt/STL equivalents.
+     - Use smart pointers (`std::unique_ptr`, `QSharedPointer`) for managing dynamically allocated data within commands if not handled by Qt's ownership.
+     - Ensure commands correctly interact with the `Map`, `Tile`, and `Item` classes ported in `CORE-01` and `CORE-03`.
+     - Provide header (.h) and source (.cpp) files for the base command (if any) and a few example concrete commands.
+     - Write basic Qt Test unit tests for `QUndoStack` usage (push, undo, redo) and for the `undo()`/`redo()` logic of example commands.
+documentation_references:
+  - 'Qt Command Pattern: https://doc.qt.io/qt-6/qtwidgets-mainwindows-application-example.html#command-pattern'
+  - 'QUndoStack: https://doc.qt.io/qt-6/qundostack.html'
+  - 'QUndoCommand: https://doc.qt.io/qt-6/qundocommand.html'
+  - 'std::unique_ptr: https://en.cppreference.com/w/cpp/memory/unique_ptr'
+estimation_effort: X-Large

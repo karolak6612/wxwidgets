@@ -1,98 +1,117 @@
-wbs_item_id: TEST-03
-name: Unit Test File I/O (OTBM/OTMM)
-description: Create unit tests for saving and loading map files in OTBM (OpenTibia Binary Map) and OTMM (OpenTibia MiniMap) formats. This includes verifying that all map elements (tiles, items, creatures, spawns, waypoints, houses, etc.) are correctly serialized and deserialized.
+id: TEST-03 # Changed from wbs_item_id for consistency
+section: Testing # Added section for clarity
+title: "Develop Unit Tests for OTBM and OTMM File I/O"
+original_task_id: TEST-03 # Assuming this is the original ID
+description: Create unit tests for saving and loading map files in OTBM (OpenTibia Binary Map) and OTMM (OpenTibia MiniMap) formats. This includes verifying that all map elements (tiles, items, creatures, spawns, waypoints, houses, etc.) are correctly serialized and deserialized by the 'mapcore' library.
 dependencies:
-- CORE-03
-- TEST-01
-- CORE-01
-- CORE-02
-- LOGIC-04
-- LOGIC-05
-- LOGIC-07
-input_files: []
-analyzed_input_files: []
+  - "CORE-07-MapIO"  # Implements IOMapOTBM, IOMapOTMM (or equivalent Qt6 map I/O classes)
+  - "TEST-01"  # Unit tests for the core data structures being serialized
+  - "CORE-01"  # Defines mapcore::Map, mapcore::Tile, mapcore::Position, etc.
+  - "CORE-02"  # Defines mapcore::Item, mapcore::Creature, etc.
+  - "CORE-02" # mapcore::ItemManager (for item type lookup during comparison)
+  - "CORE-11-WaypointSystem" # mapcore::Waypoint, mapcore::WaypointManager
+  - "CORE-09-HouseSystem" # mapcore::House, mapcore::Town, mapcore::HouseManager, mapcore::TownManager
+  - "CORE-10-SpawnSystem" # mapcore::SpawnProperties, mapcore::SpawnManager, mapcore::Creature (for spawn lists)
+  - "BUILD-01" # For CMake setup to build and run tests
+input_files: [] # No wxWidgets files to port for this task
+analyzed_input_files: [] # No legacy files to analyze for this task
 documentation_references:
-- 'Qt Test Framework: https://doc.qt.io/qt-6/qttest-index.html'
-- OTBM Format Specification (e.g., from online resources like OTLand, for reference)
-- 'QTemporaryFile for managing test files: https://doc.qt.io/qt-6/qtemporaryfile.html'
-current_functionality_summary: This task is for creating new unit tests to validate the Qt6 implementation of OTBM (OpenTibia Binary Map) and OTMM (OpenTibia MiniMap) file saving and loading. These tests will ensure data integrity during serialization and deserialization processes.
+  - 'Qt Test Framework: https://doc.qt.io/qt-6/qttest-index.html'
+  - 'OTBM Format Specification (e.g., from online resources like OTLand, CipSoft docs, for reference)'
+  - 'OTMM Format: If specifications exist, link them. Otherwise, base on existing knowledge or reverse engineering if necessary.'
+  - 'QTemporaryFile for managing test files: https://doc.qt.io/qt-6/qtemporaryfile.html'
+  - 'QTemporaryDir for managing test directories: https://doc.qt.io/qt-6/qtemporarydir.html'
+current_functionality_summary: |
+  This task is dedicated to creating new unit tests for the Qt6 implementation of OTBM (OpenTibia Binary Map) and OTMM (OpenTibia MiniMap) file saving and loading functionalities, which are part of the 'mapcore' library (developed in 'CORE-03'). These tests are crucial for ensuring data integrity, verifying that all map components are correctly serialized to disk and then deserialized back into memory without loss or corruption. The primary method will be round-trip testing.
 definition_of_done:
-- Unit tests using the Qt Test framework are created for both OTBM and OTMM file I/O operations.
-- 'Comprehensive round-trip tests are implemented:'
-- '  - A variety of `Map` objects are programmatically created in memory, featuring diverse elements: map attributes (version, description, dimensions), tiles with different ground/items, items with all attribute types (count, actionID, text, etc.), creatures, spawns (radius, creature lists, intervals), waypoints, and houses (including doors, beds, depots).'
-- '  - Each test map is saved to an OTBM file using the implemented saver.'
-- '  - The saved OTBM file is then loaded into a new `Map` object using the implemented loader.'
-- '  - A thorough, deep comparison is performed between the original in-memory `Map` and the loaded `Map` to verify that all data (including all nested attributes of items, tile flags, house settings, etc.) is identical.'
-- '  - Similar round-trip tests are implemented for OTMM minimap data, ensuring pixel data and any associated metadata are preserved.'
-- 'Error handling for file loading is robustly tested, including attempts to load:'
-- '  - Non-existent files.'
-- '  - Corrupted or malformed OTBM/OTMM files (e.g., incorrect node types, invalid data sizes, truncated content).'
-- '  - OTBM files specifying unsupported client versions or item data versions (if the loader is expected to handle such checks).'
-- '  - The loader should report errors appropriately (e.g., return false, throw specific exceptions) and not crash.'
-- Tests cover edge cases, such as saving/loading empty maps, maps with maximum dimensions, or maps with unusual item attribute combinations.
-- All created unit tests pass successfully.
-- Tests are integrated into the CMake build system for automated execution.
-boilerplate_coder_ai_prompt: |-
-  Your task is to create robust unit tests for the OTBM (OpenTibia Binary Map) and OTMM (OpenTibia MiniMap) file input/output operations using the Qt Test framework. These tests will primarily validate the map saver and loader functionalities developed in `CORE-03`.
+  - Unit tests using the Qt Test framework are created for both OTBM and OTMM file I/O operations within the 'mapcore' library.
+  - "Comprehensive Round-Trip Tests for OTBM: Programmatically create diverse 'mapcore::Map' objects in memory. These test maps should include a wide array of features: Map header attributes (OTBM version, map dimensions, item major/minor versions, custom description strings), Tiles (with and without ground items, various item stacks, different tile flags), Items (all supported attribute types), Containers (with nested items), Creatures, Spawns (with specified radius, creature lists, spawn time intervals), Waypoints (both individual waypoints associated with tiles and map-wide waypoints managed by 'WaypointManager'), Houses (with assigned tiles, doors, beds, depots, rent, town ID, guildhall status), and Towns (with town ID, name, and temple position). Each test map is saved to a temporary OTBM file using the 'mapcore's implemented OTBM saving mechanism. The saved OTBM file is then loaded into a new 'mapcore::Map' object using the 'mapcore's OTBM loading mechanism. A thorough, deep comparison is performed between the original in-memory 'Map' and the loaded 'Map'. This comparison must verify: Identical map header attributes, identical content for every tile (ground item, stacked items with all their attributes, tile flags), correct creature data on tiles (if applicable), correct spawn data on tiles (radius, creature list, interval), correct waypoint data (tile-associated and map-wide), correct house data (all attributes, tile lists, door links), and correct town data (all attributes, house lists)."
+  - "Round-Trip Tests for OTMM (Minimap): Programmatically create or load sample minimap data (e.g., pixel colors for a defined area). Save this data to a temporary OTMM file. Load the OTMM file into a new minimap data structure. Verify that the loaded minimap pixel data and any associated metadata are identical to the original."
+  - "Error Handling Tests for OTBM/OTMM Loaders: Attempt to load non-existent files and verify appropriate error reporting (e.g., return 'false', specific error code/exception). Attempt to load empty files and verify graceful failure. Attempt to load corrupted or malformed OTBM/OTMM files: Files with incorrect magic numbers/signatures, files with invalid node types or unexpected data structures, files where data sizes are inconsistent with header information, and truncated files (incomplete data). Attempt to load OTBM files specifying unsupported client versions or item data versions (if the loader is designed for such checks, verify it behaves as expected). The loader must not crash and should report errors clearly."
+  - "Edge Case Coverage: Saving/loading completely empty maps. Saving/loading maps with maximum allowed dimensions (if feasible for unit tests, otherwise conceptual). Maps with tiles containing the maximum number of items or items with maximum attribute values/string lengths."
+  - All created unit tests pass successfully.
+  - Tests are integrated into the CMake build system ('qt_add_test' or similar) for automated execution (e.g., via 'ctest').
+  - Test data (small mock OTBM/OTMM snippets for error testing, or generation code for round-trip maps) is managed cleanly, possibly using 'QTemporaryFile' or 'QTemporaryDir'.
+estimation_effort:
+  - "Very High (25-35 developer days). OTBM is a complex, hierarchical binary format. Creating test maps that cover all features and attributes, implementing thorough deep comparison logic, and designing diverse corrupted file scenarios for error handling will be very time-consuming. OTMM is simpler but still requires careful validation."
+known_missing_files: [] # Not applicable
+boilerplate_coder_ai_prompt: |
+  Your task is to write unit tests for the OTBM (OpenTibia Binary Map) and OTMM (OpenTibia MiniMap) file I/O operations for the 'mapcore' library, using the Qt Test framework. The primary focus is on round-trip testing and error handling for the map saver and loader functionalities developed in 'CORE-03'.
 
-  **General Strategy: Round-Trip Testing**
-  The most effective way to test file I/O is through round-trip testing:
-  1.  **Create Data:** Programmatically create a `Map` object (and its associated data like `Minimap` if separate). Populate this map with a specific, known set of features.
-  2.  **Save Data:** Use your Qt6 OTBM saver (and OTMM saver) to write this `Map` (and minimap) to a temporary file(s).
-  3.  **Load Data:** Use your Qt6 OTBM loader (and OTMM loader) to read the temporary file(s) into a *new* `Map` object (and `Minimap` object).
-  4.  **Compare Data:** Perform a deep and thorough comparison between the original in-memory `Map` object and the newly loaded `Map` object. All aspects must be identical. Use helper functions for comparing complex objects like `Item`, `Tile`, `House`, etc.
+  General Test Structure (for each test class, e.g., 'TestOtbmIO');
+    1.  Inherit from 'QObject'.
+    2.  Include necessary 'mapcore' headers.
+    3.  Use 'QTEST_MAIN' or integrate into a larger test runner.
+    4.  Private slots for test cases (e.g., 'testEmptyMapRoundTrip()', 'testFullMapRoundTrip()', 'testLoadCorruptedOtbmHeader()').
+    5.  Use 'QTemporaryDir' to create a temporary directory for saving/loading test map files. Get file paths using 'QTemporaryDir::filePath()'.
 
-  **Key Map Elements and Attributes to Verify During Round-Trip Tests:**
+  Round-Trip Testing Strategy for OTBM;
 
-  *   **Map Header/Attributes:**
-      - OTBM Version, Map Width, Height, Item Major Version, Item Minor Version.
-      - Custom map description strings.
-  *   **Tiles:**
-      - Correct ground item ID.
-      - Tile flags (e.g., `TILESTATE_PROTECTIONZONE`, `TILESTATE_NOLOGOUT`, `TILESTATE_HOUSE`).
-      - **Items on Tiles:**
-          - Correct item IDs.
-          - For stackable items: correct count/subtype.
-          - For all items: `ActionID`, `UniqueID`, `charges`/`subType` (for splash/fluid), `text`, `writtenDate`, `writer`, `description`.
-          - For containers: Depot ID, items inside the container (recursive check).
-          - For teleports: Destination position.
-          - For doors: Door ID, and ensure house doors are correctly linked to houses.
-          - All other relevant item attributes.
-      - **Creatures on Tiles:** (If stored directly on tiles outside of spawns, or as part of initial map state)
-          - Creature name.
-      - **Spawns on Tiles:**
-          - Spawn radius (`SpawnProperties::radius`).
-          - `QList<QString>` of creature names for the spawn.
-          - Spawn interval (`spawn_time_seconds`).
-      - **Waypoints on Tiles:** (If individual waypoints are directly on tiles)
-          - Waypoint name and position.
-  *   **Map-Wide Waypoints (if stored in a separate list):**
-      - List of all waypoints with their names and positions.
-  *   **Houses:**
-      - House ID, name (if applicable).
-      - Entry position, exit position (if applicable).
-      - List of all tile positions belonging to the house.
-      - Correct association of doors with houses.
-      - Rent, size, town ID.
-  *   **Towns:**
-      - Town ID, name, temple position.
-      - List of house IDs belonging to the town.
-  *   **Minimap (OTMM):**
-      - Correct pixel data (colors) for each tile.
-      - Any metadata stored in the OTMM file.
+  - 'void TestOtbmIO::initTestCase()' - (Optional one-time setup).
+  - 'void TestOtbmIO::cleanupTestCase()' - (Optional one-time cleanup).
+  - 'void TestOtbmIO::init()' - (Setup before each test function, e.g., create 'QTemporaryDir m_tempDir;').
+  - 'void TestOtbmIO::cleanup()' - (Cleanup after each test function).
 
-  **Error Handling for Loaders:**
-  - Test loading non-existent files.
-  - Test loading empty files.
-  - Test loading truncated/corrupted OTBM/OTMM files (e.g., by manually altering a saved test file).
-    - Invalid node types or unexpected data.
-    - Data sizes inconsistent with headers.
-  - Test loading OTBM files that might specify an unsupported client version or item data version (verify graceful failure or warning if the loader is designed for this).
-  - Ensure the loader reports errors clearly (e.g., returns `false` or throws specific, catchable exceptions) and does not crash or lead to undefined behavior.
+  - Test Function Example ('testFullMapRoundTrip()');
+        ```cpp
+      // 1. Create Original Map
+      mapcore::Map originalMap;
+      // ... Programmatically populate originalMap with a comprehensive set of features:
+      //     - Set map attributes (version, description, dimensions: e.g., 50x50x1).
+      //     - Create tiles with ground items (mapcore::Item::Create(groundId)).
+      //     - Add various items to tiles: stackables, containers (with items inside), items with ActionID, UniqueID, text.
+      //     - Add a mapcore::SpawnProperties to a tile, add creatures to its list.
+      //     - Add a mapcore::Waypoint to a tile using originalMap.getWaypointManager().addWaypoint(...).
+      //     - Create a mapcore::House, add tiles to it, set exit, rent, townID. Add to originalMap.getHouseManager().
+      //     - Create a mapcore::Town, set temple. Add to originalMap.getTownManager().
 
-  **Test Setup:**
-  - Use `QTemporaryDir` or `QTemporaryFile` to manage temporary map files created during tests, ensuring they are cleaned up.
-  - Create helper functions to construct `Map` objects with predefined test scenarios (e.g., `createTestMapWithItems()`, `createTestMapWithHouseAndSpawns()`).
-  - Create robust deep comparison functions for `Map`, `Tile`, `Item`, `House`, etc.
+      // 2. Save Map
+      QString otbmPath = m_tempDir.filePath("test_full.otbm");
+      mapcore::IOMapOTBM mapSaver; // Assuming this is the class from CORE-03
+      QVERIFY(mapSaver.saveMap(originalMap, otbmPath));
 
-  Integrate all tests into the CMake build system for automated execution.
+      // 3. Load Map
+      mapcore::Map loadedMap;
+      mapcore::IOMapOTBM mapLoader;
+      QVERIFY(mapLoader.loadMap(loadedMap, otbmPath));
+
+      // 4. Compare Maps
+      // Implement a thorough compareMaps(const mapcore::Map& map1, const mapcore::Map& map2) helper.
+      QVERIFY(compareMaps(originalMap, loadedMap));
+      ```
+
+  - 'bool compareMaps(const mapcore::Map& map1, const mapcore::Map& map2)' Helper;
+      - Compare header attributes: 'QCOMPARE(map1.getVersion(), map2.getVersion());', dimensions, description.
+      - Iterate all possible tile positions (up to map1's dimensions). For each position:
+          - 'mapcore::Tile* tile1 = map1.getTile(pos); mapcore::Tile* tile2 = map2.getTile(pos);'
+          - If one is null and the other isn't, 'QFAIL'. If both null, continue.
+          - 'QVERIFY(compareTiles(tile1, tile2));' (another helper).
+      - Compare WaypointManagers, HouseManagers, TownManagers by iterating their contents and comparing individual Waypoints, Houses, Towns.
+
+  - 'bool compareTiles(const mapcore::Tile* tile1, const mapcore::Tile* tile2)' Helper;
+      - Compare ground items (ID, attributes).
+      - Compare item stacks: size, and for each item, 'QVERIFY(compareItems(item1, item2));'.
+      - Compare tile flags.
+      - Compare SpawnProperties (radius, creature list, interval).
+      - Compare Waypoint data.
+
+  - 'bool compareItems(const mapcore::Item* item1, const mapcore::Item* item2)' Helper;
+      - Compare ID, count/subtype, all attributes (ActionID, UniqueID, text, etc.).
+      - If containers, recursively compare their contents.
+
+  Error Handling Tests for OTBM Loader;
+  - 'testLoadNonExistentFile()': 'QVERIFY(!mapLoader.loadMap(map, "non_existent.otbm"));'.
+  - 'testLoadEmptyFile()': Create an empty file using 'QTemporaryFile', try to load.
+  - 'testLoadCorruptedFile()': Create a valid small OTBM, then manually truncate it or alter some bytes using 'QFile' I/O, then try to load. Test various corruption types (header, node data, attributes).
+      - Example: 'QTemporaryFile tempFile; tempFile.open(); tempFile.write("InvalidData"); tempFile.close(); QVERIFY(!mapLoader.loadMap(map, tempFile.fileName()));'
+
+  OTMM Testing;
+  - Similar round-trip strategy for minimap data.
+  - Create a mock minimap data structure (e.g., a 2D array of color indices).
+  - Use 'IOMapOTMM' (from 'CORE-03') to save/load to/from a temporary file.
+  - Compare the original and loaded minimap data.
+
+  Ensure to test all node types and attributes defined in the OTBM specification that your loader/saver is expected to handle.
+  Consider using 'QTest::addColumn' and 'QTest::newRow' for data-driven tests, especially for different item attribute combinations or corruption scenarios.
+
+

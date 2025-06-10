@@ -1,9 +1,0 @@
-id: DOCS-02
-section: Build, Deployment, & Documentation
-title: Create Initial User Manual
-input_files:
-- main_menubar.xml (for features)
-dependencies:
-- FINAL-04
-definition_of_done: A basic user manual is created in Markdown format. It includes sections covering installation, a tour of the new UI, and instructions for using the core drawing and editing tools.
-boilerplate_coder_ai_prompt: '*This is a documentation task for a technical writer, not a coding task.*'

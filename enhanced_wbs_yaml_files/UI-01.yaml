@@ -1,133 +1,175 @@
-wbs_item_id: UI-01
-name: Port Main Window & Menu Bar
-description: Recreate the main application window (QMainWindow) and its menu bar (QMenuBar) using Qt6, including parsing menubar.xml to dynamically build menus and actions.
+id: UI-01 # Changed from wbs_item_id for consistency
+section: UI Elements # Added section for clarity
+title: "Port Main Application Window (QMainWindow) and Dynamic Menu Bar from XML"
+original_task_id: UI-01 # Assuming this is the original ID
+description: Recreate the main application window (as a 'QMainWindow' subclass) and its menu bar ('QMenuBar') using Qt6. This includes parsing 'menubar.xml' to dynamically build menus and actions, and setting up basic window properties and a status bar.
 dependencies:
-- FINAL-02
+  - "BUILD-01"   # CMake setup for the Qt application
+  - "CORE-06"    # AppSettings (for persisting window state, recent files)
+  - "FINAL-02"   # main() application entry point, where MainWindow will be instantiated
 input_files:
-- wxwidgets/application.cpp
-- wxwidgets/application.h
-- wxwidgets/main_menubar.cpp
-- wxwidgets/main_menubar.h
-- menubar.xml
+  - "wxwidgets/application.h"
+  - "wxwidgets/application.cpp"
+  - "wxwidgets/main_menubar.h"
+  - "wxwidgets/main_menubar.cpp"
+  - "menubar.xml"
 analyzed_input_files:
-- file_path: wxwidgets/application.cpp
-  description: Contains the `MainFrame` class definition (equivalent to QMainWindow) and its basic setup including menu bar, status bar, and AUI manager. (Content already analyzed for FINAL-02).
-  md5_hash: 4226f0e538780bac3cf1a8a873a45808
-  content_lite: "//////////////////////////////////////////////////////////////////////\\n// This file is part of Remere's Map Editor\\n//////////////////////////////////////////////////////////////////////\\n// Remere's Map Editor is free software: you can redistribute it and/or modify\\n// it under the terms of the GNU General Public License as published by\\n// the Free Software Foundation, either version 3 of the License, or\\n// (at your option) any later version.\\n//\\n// Remere's Map Editor is distributed in the hope that it will be useful,\\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\\n// GNU General Public License for more details.\\n//\\n// You should have received a copy of the GNU General Public License\\n// along with this program. If not, see <http://www.gnu.org/licenses/>.\\n//////////////////////////////////////////////////////////////////////\\n\\n#include \"main.h\"\\n\\n#include \"\
-    application.h\"\\n#include \"sprites.h\"\\n#include \"editor.h\"\\n#include \"common_windows.h\"\\n#include \"palette_window.h\"\\n#include \"preferences.h\"\\n#include \"result_window.h\"\\n#include \"minimap_window.h\"\\n#include \"about_window.h\"\\n#include \"main_menubar.h\"\\n#include \"updater.h\"\\n#include \"artprovider.h\"\\n#include \"dark_mode_manager.h\"\\n\\n#include \"materials.h\"\\n#include \"map.h\"\\n#include \"complexitem.h\"\\n#include \"creature.h\"\\n\\n// Add exception handling includes\\n#include <exception>\\n#include <fstream>\\n#include <wx/datetime.h>\\n#include <wx/filename.h>\\n#include <wx/stdpaths.h>\\n\\n#include <wx/snglinst.h>\\n\\n#if defined(__LINUX__) || defined(__WINDOWS__)\\n\t#include <GL/glut.h>\\n#endif\\n\\n#include \"../brushes/icon/editor_icon.xpm\"\\n#include \"color_utils.h\"\\n\\nBEGIN_EVENT_TABLE(MainFrame, wxFrame)\\nEVT_CLOSE(MainFrame::OnExit)\\n\\n// Update check complete\\n#ifdef _USE_UPDATER_\\nEVT_ON_UPDATE_CHECK_FINISHED(wxID_ANY,\
-    \ MainFrame::OnUpdateReceived)\\n#endif\\nEVT_ON_UPDATE_MENUS(wxID_ANY, MainFrame::OnUpdateMenus)\\n\\n// Idle event handler\\nEVT_IDLE(MainFrame::OnIdle)\\nEND_EVENT_TABLE()\\n\\nBEGIN_EVENT_TABLE(MapWindow, wxPanel)\\nEVT_SIZE(MapWindow::OnSize)\\n\\nEVT_COMMAND_SCROLL_TOP(MAP_WINDOW_HSCROLL, MapWindow::OnScroll)\\nEVT_COMMAND_SCROLL_BOTTOM(MAP_WINDOW_HSCROLL, MapWindow::OnScroll)\\nEVT_COMMAND_SCROLL_THUMBTRACK(MAP_WINDOW_HSCROLL, MapWindow::OnScroll)\\nEVT_COMMAND_SCROLL_LINEUP(MAP_WINDOW_HSCROLL, MapWindow::OnScrollLineUp)\\nEVT_COMMAND_SCROLL_LINEDOWN(MAP_WINDOW_HSCROLL, MapWindow::OnScrollLineDown)\\nEVT_COMMAND_SCROLL_PAGEUP(MAP_WINDOW_HSCROLL, MapWindow::OnScrollPageUp)\\nEVT_COMMAND_SCROLL_PAGEDOWN(MAP_WINDOW_HSCROLL, MapWindow::OnScrollPageDown)\\n\\nEVT_COMMAND_SCROLL_TOP(MAP_WINDOW_VSCROLL, MapWindow::OnScroll)\\nEVT_COMMAND_SCROLL_BOTTOM(MAP_WINDOW_VSCROLL, MapWindow::OnScroll)\\nEVT_COMMAND_SCROLL_THUMBTRACK(MAP_WINDOW_VSCROLL, MapWindow::OnScroll)\\nEVT_COMMAND_SCROLL_LINEUP(MAP_WINDOW_VSCROLL,\
-    \ MapWindow::OnScrollLineUp)\\nEVT_COMMAND_SCROLL_LINEDOWN(MAP_WINDOW_VSCROLL, MapWindow::OnScrollLineDown)\\nEVT_COMMAND_SCROLL_PAGEUP(MAP_WINDOW_VSCROLL, MapWindow::OnScrollPageUp)\\nEVT_COMMAND_SCROLL_PAGEDOWN(MAP_WINDOW_VSCROLL, MapWindow::OnScrollPageDown)\\n\\nEVT_BUTTON(MAP_WINDOW_GEM, MapWindow::OnGem)\\nEND_EVENT_TABLE()\\n\\nBEGIN_EVENT_TABLE(MapScrollBar, wxScrollBar)\\nEVT_KEY_DOWN(MapScrollBar::OnKey)\\nEVT_KEY_UP(MapScrollBar::OnKey)\\nEVT_CHAR(MapScrollBar::OnKey)\\nEVT_SET_FOCUS(MapScrollBar::OnFocus)\\nEVT_MOUSEWHEEL(MapScrollBar::OnWheel)\\nEND_EVENT_TABLE()\\n\\nwxIMPLEMENT_APP(Application);\\n\\nApplication::~Application() {\\n\t// Destroy\\n}\\n\\nbool Application::OnInit() {\\n#if defined __DEBUG_MODE__ && defined __WINDOWS__\\n\t_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);\\n#endif\\n\\n\tstd::cout << \"This is free software: you are free to change and redistribute it.\" << std::endl;\\n\tstd::cout << \"There is NO WARRANTY, to the extent permitted\
-    \ by law.\" << std::endl;\\n\tstd::cout << \"Review COPYING in RME distribution for details.\" << std::endl;\\n\tmt_seed(time(nullptr));\\n\tsrand(time(nullptr));\\n\\n\t// Set up global exception handling\\n#ifndef __DEBUG_MODE__\\n\twxHandleFatalExceptions(true);\\n#endif\\n\\n\t// Discover data directory\\n\tg_gui.discoverDataDirectory(\"clients.xml\");\\n\\n\t// Tell that we are the real thing\\n\twxAppConsole::SetInstance(this);\\n\twxArtProvider::Push(newd ArtProvider());\\n\\n#if defined(__LINUX__) || defined(__WINDOWS__)\\n\tint argc = 1;\\n\tchar* argv[1] = { wxString(this->argv[0]).char_str() };\\n\tglutInit(&argc, argv);\\n#endif\\n\\n\t// Load some internal stuff\\n\tg_settings.load();\\n\tFixVersionDiscrapencies();\\n\tg_gui.LoadHotkeys();\\n\tClientVersion::loadVersions();\\n\\n\t// Initialize dark mode manager\\n\tg_darkMode.Initialize();\\n\\n#ifdef _USE_PROCESS_COM\\n\tm_single_instance_checker = newd wxSingleInstanceChecker; // Instance checker has to stay alive throughout\
-    \ the applications lifetime\\n\t\\n\t// Parse command line arguments first to allow overriding single instance setting\\n\tm_file_to_open = wxEmptyString;\\n\tParseCommandLineMap(m_file_to_open);\\n\t\\n\tif (g_settings.getInteger(Config::ONLY_ONE_INSTANCE) && m_single_instance_checker->IsAnotherRunning()) {\\n\t\tRMEProcessClient client;\\n\t\twxConnectionBase* connection = client.MakeConnection(\"localhost\", \"rme_host\", \"rme_talk\");\\n\t\tif (connection) {\\n\t\t\tif (m_file_to_open != wxEmptyString) {\\n\t\t\t\twxLogNull nolog; // We might get a timeout message if the file fails to open on the running instance. Let's not show that message.\\n\t\t\t\tconnection->Execute(m_file_to_open);\\n\t\t\t}\\n\t\t\tconnection->Disconnect();\\n\t\t\twxDELETE(connection);\\n\t\t}\\n\t\twxDELETE(m_single_instance_checker);\\n\t\treturn false; // Since we return false - OnExit is never called\\n\t}\\n\t// We act as server then\\n\tm_proc_server = newd RMEProcessServer();\\n\tif (!m_proc_server->Create(\"\
-    rme_host\")) {\\n\t\twxLogWarning(\"Could not register IPC service!\");\\n\t}\\n#endif\\n\\n\t// Image handlers\\n\t// wxImage::AddHandler(newd wxBMPHandler);\\n\twxImage::AddHandler(newd wxPNGHandler);\\n\twxImage::AddHandler(newd wxJPEGHandler);\\n\twxImage::AddHandler(newd wxTGAHandler);\\n\\n\tg_gui.gfx.loadEditorSprites();\\n\\n#ifndef __DEBUG_MODE__\\n\t// Enable fatal exception handler\\n\twxHandleFatalExceptions(true);\\n#endif\\n\t// Load all the dependency files\\n\tstd::string error;\\n\tStringVector warnings;\\n\\n\t// Don't parse command line map again since we already did it above\\n\tif (m_file_to_open == wxEmptyString) {\\n\t\tParseCommandLineMap(m_file_to_open);\\n\t}\\n\\n\tg_gui.root = newd MainFrame(__W_RME_APPLICATION_NAME__, wxDefaultPosition, wxSize(700, 500));\\n\tSetTopWindow(g_gui.root);\\n\tg_gui.SetTitle(\"\");\\n\\n\tg_gui.root->LoadRecentFiles();\\n\\n\t// Load palette\\n\tg_gui.LoadPerspective();\\n\\n\t// Create icon and apply color shift"
-- file_path: wxwidgets/application.h
-  description: Header for `MainFrame` and `Application`. (Content already analyzed for FINAL-02).
-  md5_hash: d2e901497da4c1e658e00f27822a25c8
-  content_lite: "//////////////////////////////////////////////////////////////////////\\n// This file is part of Remere's Map Editor\\n//////////////////////////////////////////////////////////////////////\\n// Remere's Map Editor is free software: you can redistribute it and/or modify\\n// it under the terms of the GNU General Public License as published by\\n// the Free Software Foundation, either version 3 of the License, or\\n// (at your option) any later version.\\n//\\n// Remere's Map Editor is distributed in the hope that it will be useful,\\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\\n// GNU General Public License for more details.\\n//\\n// You should have received a copy of the GNU General Public License\\n// along with this program. If not, see <http://www.gnu.org/licenses/>.\\n//////////////////////////////////////////////////////////////////////\\n\\n#ifndef RME_APPLICATION_H_\\n#define\
-    \ RME_APPLICATION_H_\\n\\n#include \"gui.h\"\\n#include \"main_toolbar.h\"\\n#include \"action.h\"\\n#include \"settings.h\"\\n\\n#include \"process_com.h\"\\n#include \"map_display.h\"\\n#include \"welcome_dialog.h\"\\n\\nclass Item;\\nclass Creature;\\n\\nclass MainFrame;\\nclass MapWindow;\\nclass wxEventLoopBase;\\nclass wxSingleInstanceChecker;\\n\\nclass Application : public wxApp {\\npublic:\\n\t~Application();\\n\tvirtual bool OnInit();\\n\tvirtual void OnEventLoopEnter(wxEventLoopBase* loop);\\n\tvirtual void MacOpenFiles(const wxArrayString& fileNames);\\n\tvirtual int OnExit();\\n\tvirtual bool OnExceptionInMainLoop();\\n\tvoid Unload();\\n\\nprivate:\\n\tbool m_startup;\\n\twxString m_file_to_open;\\n\tvoid FixVersionDiscrapencies();\\n\tbool ParseCommandLineMap(wxString& fileName);\\n\\n\tvirtual void OnFatalException();\\n\\n#ifdef _USE_PROCESS_COM\\n\tRMEProcessServer* m_proc_server;\\n\twxSingleInstanceChecker* m_single_instance_checker;\\n#endif\\n};\\n\\nclass MainMenuBar;\\\
-    n\\nclass MainFrame : public wxFrame {\\npublic:\\n\tMainFrame(const wxString& title, const wxPoint& pos, const wxSize& size);\\n\t~MainFrame();\\n\\n\tvoid UpdateMenubar();\\n\tbool DoQueryClose();\\n\tbool DoQuerySave(bool doclose = true);\\n\tbool DoQuerySaveTileset(bool doclose = true);\\n\tbool DoQueryImportCreatures();\\n\tbool LoadMap(FileName name);\\n\\n\tvoid AddRecentFile(const FileName& file);\\n\tvoid LoadRecentFiles();\\n\tvoid SaveRecentFiles();\\n\tstd::vector<wxString> GetRecentFiles();\\n\\n\tMainToolBar* GetAuiToolBar() const {\\n\t\treturn tool_bar;\\n\t}\\n\\n\tvoid OnUpdateMenus(wxCommandEvent& event);\\n\tvoid UpdateFloorMenu();\\n\tvoid OnIdle(wxIdleEvent& event);\\n\tvoid OnExit(wxCloseEvent& event);\\n\\n#ifdef _USE_UPDATER_\\n\tvoid OnUpdateReceived(wxCommandEvent& event);\\n#endif\\n\\n#ifdef __WINDOWS__\\n\tvirtual bool MSWTranslateMessage(WXMSG* msg);\\n#endif\\n\\n\tvoid PrepareDC(wxDC& dc);\\n\\nprotected:\\n\tMainMenuBar* menu_bar;\\n\tMainToolBar* tool_bar;\\\
-    n\\n\tfriend class Application;\\n\tfriend class GUI;\\n\\n\tDECLARE_EVENT_TABLE()\\n};\\n\\n#endif"
-- file_path: wxwidgets/main_menubar.cpp
-  description: Implements `MainMenuBar` which parses `menubar.xml` to create wxMenus and wxMenuItems, connects events, and handles menu item state updates (enable/disable, check).
-  md5_hash: 7e1d95ca4226c3bad9dcebfa8e117677
-  content_lite: "//////////////////////////////////////////////////////////////////////\\n// This file is part of Remere's Map Editor\\n//////////////////////////////////////////////////////////////////////\\n// Remere's Map Editor is free software: you can redistribute it and/or modify\\n// it under the terms of the GNU General Public License as published by\\n// the Free Software Foundation, either version 3 of the License, or\\n// (at your option) any later version.\\n//\\n// Remere's Map Editor is distributed in the hope that it will be useful,\\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\\n// GNU General Public License for more details.\\n//\\n// You should have received a copy of the GNU General Public License\\n// along with this program. If not, see <http://www.gnu.org/licenses/>.\\n//////////////////////////////////////////////////////////////////////\\n\\n\t/*\\n\t * AUTOMAGIC SYSTEM OVERVIEW\\\
-    n\t * -------------------------\\n\t * The Automagic system in Remere's Map Editor provides automatic border and wall handling.\\n\t * \\n\t * Files involved:\\n\t * - settings.h/cpp: Defines USE_AUTOMAGIC, BORDERIZE_PASTE, BORDERIZE_DRAG settings\\n\t * - main_menubar.h/cpp: Implements menu options for toggling Automagic and borderizing\\n\t * - tile.h/cpp: Contains borderize() and wallize() methods that apply automatic borders/walls\\n\t * - ground_brush.cpp: Implements GroundBrush::doBorders() which handles automatic borders\\n\t * - wall_brush.cpp: Implements WallBrush::doWalls() which handles automatic walls\\n\t * - borderize_window.cpp: UI for borderizing large selections or the entire map\\n\t * - editor.cpp: Contains borderizeSelection() and borderizeMap() methods\\n\t * - copybuffer.cpp: Applies borderize to pasted content\\n\t * \\n\t * How it works:\\n\t * 1. When enabled (via Config::USE_AUTOMAGIC), the editor automatically applies borders\\n\t *    and wall connections\
-    \ when tiles are placed, moved, or modified.\\n\t * 2. Borderizing examines neighboring tiles to determine appropriate borders between\\n\t *    different terrain types.\\n\t * 3. Wallizing connects wall segments automatically based on adjacent walls.\\n\t * 4. The system can be triggered:\\n\t *    - Automatically during editing when Automagic is enabled\\n\t *    - Manually via Map > Borderize Selection (Ctrl+B)\\n\t *    - Manually via Map > Borderize Map (processes the entire map)\\n\t * \\n\t * Settings:\\n\t * - BORDERIZE_PASTE: Automatically borderize after pasting\\n\t * - BORDERIZE_DRAG: Automatically borderize after drag operations\\n\t * - BORDERIZE_DRAG_THRESHOLD: Maximum selection size for auto-borderizing during drag\\n\t * - BORDERIZE_PASTE_THRESHOLD: Maximum selection size for auto-borderizing during paste\\n\t * \\n\t * The BorderizeWindow provides a UI for processing large maps in chunks to avoid\\n\t * performance issues when borderizing extensive areas.\\n\t */\\\
-    n\\n#include \"main.h\"\\n\\n#include \"main_menubar.h\"\\n#include \"application.h\"\\n#include \"preferences.h\"\\n#include \"about_window.h\"\\n#include \"minimap_window.h\"\\n#include \"dat_debug_view.h\"\\n#include \"result_window.h\"\\n#include \"extension_window.h\"\\n#include \"find_item_window.h\"\\n#include \"settings.h\"\\n#include \"automagic_settings.h\"\\n#include \"find_creature_window.h\"\\n#include \"map.h\"\\n#include \"editor.h\"\\n#include \"gui.h\"\\n#include \"border_editor_window.h\"\\n\\n#include <wx/chartype.h>\\n\\n#include \"editor.h\"\\n#include \"materials.h\"\\n#include \"live_client.h\"\\n#include \"live_server.h\"\\n#include \"string_utils.h\"\\n#include \"hotkey_manager.h\"\\n\\nconst wxEventType EVT_MENU = wxEVT_COMMAND_MENU_SELECTED;\\n\\nBEGIN_EVENT_TABLE(MainMenuBar, wxEvtHandler)\\n\tEVT_MENU(MenuBar::NEW, MainMenuBar::OnNew)\\n\tEVT_MENU(MenuBar::OPEN, MainMenuBar::OnOpen)\\n\tEVT_MENU(MenuBar::SAVE, MainMenuBar::OnSave)\\n\tEVT_MENU(MenuBar::SAVE_AS,\
-    \ MainMenuBar::OnSaveAs)\\n\tEVT_MENU(MenuBar::GENERATE_MAP, MainMenuBar::OnGenerateMap)\\n\tEVT_MENU(MenuBar::MAP_MENU_GENERATE_ISLAND, MainMenuBar::OnGenerateIsland)\\n\tEVT_MENU(MenuBar::FIND_CREATURE, MainMenuBar::OnSearchForCreature)\\nEND_EVENT_TABLE()\\n\\nMainMenuBar::MainMenuBar(MainFrame* frame) :\\n\tframe(frame) {\\n\tusing namespace MenuBar;\\n\tchecking_programmaticly = false;\\n\\n#define MAKE_ACTION(id, kind, handler) actions[#id] = new MenuBar::Action(#id, id, kind, wxCommandEventFunction(&MainMenuBar::handler))\\n#define MAKE_SET_ACTION(id, kind, setting_, handler)                                                  \tactions[#id] = new MenuBar::Action(#id, id, kind, wxCommandEventFunction(&MainMenuBar::handler)); \tactions[#id].setting = setting_\\n\\n\tMAKE_ACTION(NEW, wxITEM_NORMAL, OnNew);\\n\tMAKE_ACTION(OPEN, wxITEM_NORMAL, OnOpen);\\n\tMAKE_ACTION(SAVE, wxITEM_NORMAL, OnSave);\\n\tMAKE_ACTION(SAVE_AS, wxITEM_NORMAL, OnSaveAs);\\n\tMAKE_ACTION(GENERATE_MAP, wxITEM_NORMAL,\
-    \ OnGenerateMap);\\n\tMAKE_ACTION(CLOSE, wxITEM_NORMAL, OnClose);\\n\\n\tMAKE_ACTION(IMPORT_MAP, wxITEM_NORMAL, OnImportMap);\\n\tMAKE_ACTION(IMPORT_MONSTERS, wxITEM_NORMAL, OnImportMonsterData);\\n\tMAKE_ACTION(IMPORT_MINIMAP, wxITEM_NORMAL, OnImportMinimap);\\n\tMAKE_ACTION(EXPORT_MINIMAP, wxITEM_NORMAL, OnExportMinimap);\\n\tMAKE_ACTION(EXPORT_TILESETS, wxITEM_NORMAL, OnExportTilesets);\\n\\n\tMAKE_ACTION(RELOAD_DATA, wxITEM_NORMAL, OnReloadDataFiles);\\n\t// MAKE_ACTION(RECENT_FILES, wxITEM_NORMAL, OnRecent);\\n\tMAKE_ACTION(PREFERENCES, wxITEM_NORMAL, OnPreferences);\\n\tMAKE_ACTION(EXIT, wxITEM_NORMAL, OnQuit);\\n\\n\tMAKE_ACTION(UNDO, wxITEM_NORMAL, OnUndo);\\n\tMAKE_ACTION(REDO, wxITEM_NORMAL, OnRedo);\\n\\n\tMAKE_ACTION(FIND_ITEM, wxITEM_NORMAL, OnSearchForItem);\\n\tMAKE_ACTION(REPLACE_ITEMS, wxITEM_NORMAL, OnReplaceItems);\\n\tMAKE_ACTION(SEARCH_ON_MAP_EVERYTHING, wxITEM_NORMAL, OnSearchForStuffOnMap);\\n\tMAKE_ACTION(SEARCH_ON_MAP_ZONES, wxITEM_NORMAL, OnSearchForZonesOnMap);\\\
-    n\tMAKE_ACTION(SEARCH_ON_MAP_UNIQUE, wxITEM_NORMAL, OnSearchForUniqueOnMap);\\n\tMAKE_ACTION(SEARCH_ON_MAP_ACTION, wxITEM_NORMAL, OnSearchForActionOnMap);\\n\tMAKE_ACTION(SEARCH_ON_MAP_CONTAINER, wxITEM_NORMAL, OnSearchForContainerOnMap);\\n\tMAKE_ACTION(SEARCH_ON_MAP_WRITEABLE, wxITEM_NORMAL, OnSearchForWriteableOnMap);\\n\tMAKE_ACTION(SEARCH_ON_SELECTION_EVERYTHING, wxITEM_NORMAL, OnSearchForStuffOnSelection);\\n\tMAKE_ACTION(SEARCH_ON_SELECTION_ZONES, wxITEM_NORMAL, OnSearchForZonesOnSelection);\\n\tMAKE_ACTION(SEARCH_ON_SELECTION_UNIQUE, wxITEM_NORMAL, OnSearchForUniqueOnSelection);\\n\tMAKE_ACTION(SEARCH_ON_SELECTION_ACTION, wxITEM_NORMAL, OnSearchForActionOnSelection);\\n\tMAKE_ACTION(SEARCH_ON_SELECTION_CONTAINER, wxITEM_NORMAL, OnSearchForContainerOnSelection);\\n\tMAKE_ACTION(SEARCH_ON_SELECTION_WRITEABLE, wxITEM_NORMAL, OnSearchForWriteableOnSelection);\\n\tMAKE_ACTION(SEARCH_ON_SELECTION_ITEM, wxITEM_NORMAL, OnSearchForItemOnSelection);\\n\tMAKE_ACTION(REPLACE_ON_SELECTION_ITEMS,\
-    \ wxITEM_NORMAL, OnReplaceItemsOnSelection);\\n\tMAKE_ACTION(REMOVE_ON_SELECTION_ITEM, wxITEM_NORMAL, OnRemoveItemOnSelection);\\n\tMAKE_ACTION(SELECT_MODE_COMPENSATE, wxITEM_RADIO, OnSelectionTypeChange);\\n\tMAKE_ACTION(SELECT_MODE_LOWER, wxITEM_RADIO, OnSelectionTypeChange);\\n\tMAKE_ACTION(SELECT_MODE_CURRENT, wxITEM_RADIO, OnSelectionTypeChange);\\n\tMAKE_ACTION(SELECT_MODE_VISIBLE, wxITEM_RADIO, OnSelectionTypeChange);\\n\\n\t// Remove the AUTOMAGIC action as it's now handled by 'A' hotkey\\n\t// MAKE_ACTION(AUTOMAGIC, wxITEM_CHECK, OnToggleAutomagic);\\n\t\\n\tMAKE_ACTION(BORDERIZE_SELECTION, wxITEM_NORMAL, OnBorderizeSelection);\\n\tMAKE_ACTION(BORDERIZE_MAP, wxITEM_NORMAL, OnBorderizeMap);\\n\tMAKE_ACTION(RANDOMIZE_SELECTION, wxITEM_NORMAL, OnRandomizeSelection);\\n\tMAKE_ACTION(RANDOMIZE_MAP, wxITEM_NORMAL, OnRandomizeMap);\\n\tMAKE_ACTION(GOTO_PREVIOUS_POSITION, wxITEM_NORMAL, OnGotoPreviousPosition);\\n\tMAKE_ACTION(GOTO_POSITION, wxITEM_NORMAL, OnGotoPosition);\\n\tMAKE_ACTION(JUMP_TO_BRUSH,\
-    \ wxITEM_NORMAL, OnJumpToBrush);\\n\tMAKE_ACTION(JUMP_TO_ITEM_BRUSH, wxITEM_NORMAL, OnJumpToItemBrush);\\n\\n\tMAKE_ACTION(CUT, wxITEM_NORMAL, OnCut);\\n\tMAKE_ACTION(COPY, wxITEM_NORMAL, OnCopy);\\n\tMAKE_ACTION(PASTE, wxITEM_NORMAL, OnPaste);\\n\\n\tMAKE_ACTION(EDIT_TOWNS, wxITEM_NORMAL, OnMapEditTowns);\\n\tMAKE_ACTION(EDIT_ITEMS, wxITEM_NORMAL, OnMapEditItems);\\n\tMAKE_ACTION(EDIT_MONSTERS, wxITEM_NORMAL, OnMapEditMonsters);\\n\\n\tMAKE_ACTION(CLEAR_INVALID_HOUSES, wxITEM_NORMAL, OnClearHouseTiles);\\n\tMAKE_ACTION(CLEAR_MODIFIED_STATE, wxITEM_NORMAL, OnClearModifiedState);\\n\tMAKE_ACTION(MAP_REMOVE_ITEMS, wxITEM_NORMAL, OnMapRemoveItems);\\n\tMAKE_ACTION(MAP_REMOVE_CORPSES, wxITEM_NORMAL, OnMapRemoveCorpses);\\n\tMAKE_ACTION(MAP_REMOVE_DUPLICATES, wxITEM_NORMAL, OnMapRemoveDuplicates);\\n\tMAKE_ACTION(MAP_VALIDATE_GROUND, wxITEM_NORMAL, OnMapValidateGround);\\n\tMAKE_ACTION(MAP_REMOVE_UNREACHABLE_TILES, wxITEM_NORMAL, OnMapRemoveUnreachable);\\n\tMAKE_ACTION(MAP_CLEANUP, wxITEM_NORMAL,\
-    \ OnMapCleanup);\\n\tMAKE_ACTION(MAP_CLEAN_HOUSE_ITEMS, wxITEM_NORMAL, OnMapCleanHouseItems);\\n\tMAKE_ACTION(MAP_PROPERTIES, wxITEM_NORMAL, OnMapProperties);\\n\tMAKE_ACTION(MAP_STATISTICS, wxITEM_NORMAL, OnMapStatistics);\\n\\n\tMAKE_ACTION(VIEW_TOOLBARS_BRUSHES, wxITEM_CHECK, OnToolbars);\\n\tMAKE_ACTION(VIEW_TOOLBARS_POSITION, wxITEM_CHECK, OnToolbars);\\n\tMAKE_ACTION(VIEW_TOOLBARS_SIZES, wxITEM_CHECK, OnToolbars);\\n\tMAKE_ACTION(VIEW_TOOLBARS_STANDARD, wxITEM_CHECK, OnToolbars);\\n\tMAKE_ACTION(NEW_VIEW, wxITEM_NORMAL, OnNewView);\\n\tMAKE_ACTION(NEW_DETACHED_VIEW, wxITEM_NORMAL, OnNewDetachedView);\\n\tMAKE_ACTION(TOGGLE_FULLSCREEN, wxITEM_NORMAL, OnToggleFullscreen);\\n\\n\tMAKE_ACTION(ZOOM_IN, wxITEM_NORMAL, OnZoomIn);\\n\tMAKE_ACTION(ZOOM_OUT, wxITEM_NORMAL, OnZoomOut);\\n\tMAKE_ACTION(ZOOM_NORMAL, wxITEM_NORMAL, OnZoomNormal);\\n\\n\tMAKE_ACTION(SHOW_SHADE, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(SHOW_ALL_FLOORS, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(GHOST_ITEMS,\
-    \ wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(GHOST_HIGHER_FLOORS, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(HIGHLIGHT_ITEMS, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(HIGHLIGHT_LOCKED_DOORS, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(SHOW_EXTRA, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(SHOW_INGAME_BOX, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(SHOW_LIGHTS, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(SHOW_LIGHT_STR, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(SHOW_TECHNICAL_ITEMS, wxITEM_CHECK, OnChangeViewSettings);\\n\tMAKE_ACTION(SHOW_WAYPOINTS, wxITEM_CHECK, OnChangeViewSettings);"
-- file_path: wxwidgets/main_menubar.h
-  description: Header for `MainMenuBar`, defining its structure, ActionID enum, and Action struct.
-  md5_hash: d1745ca6d54e4da65e402b7c39857bad
-  content_lite: "//////////////////////////////////////////////////////////////////////\\n// This file is part of Remere's Map Editor\\n//////////////////////////////////////////////////////////////////////\\n// Remere's Map Editor is free software: you can redistribute it and/or modify\\n// it under the terms of the GNU General Public License as published by\\n// the Free Software Foundation, either version 3 of the License, or\\n// (at your option) any later version.\\n//\\n// Remere's Map Editor is distributed in the hope that it will be useful,\\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\\n// GNU General Public License for more details.\\n//\\n// You should have received a copy of the GNU General Public License\\n// along with this program. If not, see <http://www.gnu.org/licenses/>.\\n//////////////////////////////////////////////////////////////////////\\n\\n#ifndef RME_MAIN_BAR_H_\\n#define RME_MAIN_BAR_H_\\\
-    n\\n#include <wx/docview.h>\\n\\nnamespace MenuBar {\\n\tstruct Action;\\n\\n\tenum ActionID {\\n\t\tNEW,\\n\t\tOPEN,\\n\t\tSAVE,\\n\t\tSAVE_AS,\\n\t\tGENERATE_MAP,\\n\t\tCLOSE,\\n\t\tIMPORT_MAP,\\n\t\tIMPORT_MONSTERS,\\n\t\tIMPORT_MINIMAP,\\n\t\tEXPORT_MINIMAP,\\n\t\tEXPORT_TILESETS,\\n\t\tRELOAD_DATA,\\n\t\tRECENT_FILES,\\n\t\tPREFERENCES,\\n\t\tEXIT,\\n\t\tUNDO,\\n\t\tREDO,\\n\t\tFIND_ITEM,\\n\t\tFIND_CREATURE,\\n\t\tREPLACE_ITEMS,\\n\t\tAUTOMAGIC,\\n\t\tSEARCH_ON_MAP_EVERYTHING,\\n\t\tSEARCH_ON_MAP_ZONES,\\n\t\tSEARCH_ON_MAP_UNIQUE,\\n\t\tSEARCH_ON_MAP_ACTION,\\n\t\tSEARCH_ON_MAP_CONTAINER,\\n\t\tSEARCH_ON_MAP_WRITEABLE,\\n\t\tSEARCH_ON_SELECTION_EVERYTHING,\\n\t\tSEARCH_ON_SELECTION_ZONES,\\n\t\tSEARCH_ON_SELECTION_UNIQUE,\\n\t\tSEARCH_ON_SELECTION_ACTION,\\n\t\tSEARCH_ON_SELECTION_CONTAINER,\\n\t\tSEARCH_ON_SELECTION_WRITEABLE,\\n\t\tSEARCH_ON_SELECTION_ITEM,\\n\t\tREPLACE_ON_SELECTION_ITEMS,\\n\t\tREMOVE_ON_SELECTION_ITEM,\\n\t\tSELECT_MODE_COMPENSATE,\\n\t\tSELECT_MODE_CURRENT,\\\
-    n\t\tSELECT_MODE_LOWER,\\n\t\tSELECT_MODE_VISIBLE,\\n\t\t// AUTOMAGIC removed - now controlled by 'A' hotkey\\n\t\tBORDERIZE_SELECTION,\\n\t\tBORDERIZE_MAP,\\n\t\tRANDOMIZE_SELECTION,\\n\t\tRANDOMIZE_MAP,\\n\t\tGOTO_PREVIOUS_POSITION,\\n\t\tGOTO_POSITION,\\n\t\tJUMP_TO_BRUSH,\\n\t\tJUMP_TO_ITEM_BRUSH,\\n\t\tCLEAR_INVALID_HOUSES,\\n\t\tCLEAR_MODIFIED_STATE,\\n\t\tCUT,\\n\t\tCOPY,\\n\t\tPASTE,\\n\t\tEDIT_TOWNS,\\n\t\tEDIT_ITEMS,\\n\t\tEDIT_MONSTERS,\\n\t\tMAP_CLEANUP,\\n\t\tMAP_REMOVE_ITEMS,\\n\t\tMAP_REMOVE_CORPSES,\\n\t\tMAP_REMOVE_UNREACHABLE_TILES,\\n\t\tMAP_CLEAN_HOUSE_ITEMS,\\n\t\tMAP_PROPERTIES,\\n\t\tMAP_STATISTICS,\\n\t\tVIEW_TOOLBARS_BRUSHES,\\n\t\tVIEW_TOOLBARS_POSITION,\\n\t\tVIEW_TOOLBARS_SIZES,\\n\t\tVIEW_TOOLBARS_STANDARD,\\n\t\tNEW_VIEW,\\n\t\t//idler\\n\t\tNEW_DETACHED_VIEW,\\n\t\tTOGGLE_FULLSCREEN,\\n\t\tZOOM_IN,\\n\t\tZOOM_OUT,\\n\t\tZOOM_NORMAL,\\n\t\tSHOW_SHADE,\\n\t\tSHOW_ALL_FLOORS,\\n\t\tGHOST_ITEMS,\\n\t\tGHOST_HIGHER_FLOORS,\\n\t\tHIGHLIGHT_ITEMS,\\n\t\tHIGHLIGHT_LOCKED_DOORS,\\\
-    n\t\tSHOW_INGAME_BOX,\\n\t\tSHOW_LIGHTS,\\n\t\tSHOW_LIGHT_STR,\\n\t\tSHOW_TECHNICAL_ITEMS,\\n\t\tSHOW_WAYPOINTS,\\n\t\tSHOW_GRID,\\n\t\tSHOW_EXTRA,\\n\t\tSHOW_CREATURES,\\n\t\tSHOW_SPAWNS,\\n\t\tSHOW_SPECIAL,\\n\t\tSHOW_ZONES,\\n\t\tSHOW_AS_MINIMAP,\\n\t\tSHOW_ONLY_COLORS,\\n\t\tSHOW_ONLY_MODIFIED,\\n\t\tSHOW_HOUSES,\\n\t\tSHOW_PATHING,\\n\t\tSHOW_TOOLTIPS,\\n\t\tSHOW_PREVIEW,\\n\t\tSHOW_WALL_HOOKS,\\n\t\tSHOW_TOWNS,\\n\t\tALWAYS_SHOW_ZONES,\\n\t\tEXT_HOUSE_SHADER,\\n\t\tREFRESH_ITEMS,\\n\\n\t\tWIN_MINIMAP,\\n\t\tNEW_PALETTE,\\n\t\tTAKE_SCREENSHOT,\\n\t\tLIVE_START,\\n\t\tLIVE_JOIN,\\n\t\tLIVE_CLOSE,\\n\t\tSELECT_TERRAIN,\\n\t\tSELECT_DOODAD,\\n\t\tSELECT_ITEM,\\n\t\tSELECT_COLLECTION,\\n\t\tSELECT_CREATURE,\\n\t\tSELECT_HOUSE,\\n\t\tSELECT_WAYPOINT,\\n\t\tSELECT_RAW,\\n\t\tFLOOR_0,\\n\t\tFLOOR_1,\\n\t\tFLOOR_2,\\n\t\tFLOOR_3,\\n\t\tFLOOR_4,\\n\t\tFLOOR_5,\\n\t\tFLOOR_6,\\n\t\tFLOOR_7,\\n\t\tFLOOR_8,\\n\t\tFLOOR_9,\\n\t\tFLOOR_10,\\n\t\tFLOOR_11,\\n\t\tFLOOR_12,\\n\t\tFLOOR_13,\\n\t\t\
-    FLOOR_14,\\n\t\tFLOOR_15,\\n\t\tDEBUG_VIEW_DAT,\\n\t\tEXTENSIONS,\\n\t\tGOTO_WEBSITE,\\n\t\tABOUT,\\n\t\tID_MENU_SERVER_HOST,\\n\t\tID_MENU_SERVER_CONNECT,\\n\\n\t\tEXPERIMENTAL_FOG,\\n\t\tMAP_REMOVE_DUPLICATES,\\n\t\tSHOW_HOTKEYS,\\n\t\tMAP_MENU_REPLACE_ITEMS,\\n\t\tMAP_MENU_GENERATE_ISLAND,\\n\t\tMAP_VALIDATE_GROUND,\\n\t\tMAP_CREATE_BORDER,\\n\t\t\t\\n\\n\\n\t};\\n}\\n\\nclass MainFrame;\\n\\nclass MainMenuBar : public wxEvtHandler {\\npublic:\\n\tMainMenuBar(MainFrame* frame);\\n\tvirtual ~MainMenuBar();\\n\\n\tbool Load(const FileName&, wxArrayString& warnings, wxString& error);\\n\\n\t// Update\\n\t// Turn on/off all buttons according to current editor state\\n\tvoid Update();\\n\tvoid UpdateFloorMenu(); // Only concerns the floor menu\\n\\n\tvoid AddRecentFile(FileName file);\\n\tvoid LoadRecentFiles();\\n\tvoid SaveRecentFiles();\\n\tstd::vector<wxString> GetRecentFiles();\\n"
-- file_path: menubar.xml
-  description: 'XML file defining the structure of the menu bar, including menus, submenus, items, action names, hotkeys, and help strings. (Content status: Not Found via URL in this attempt).'
-  md5_hash: N/A - Not Fetched
-  content_lite: N/A - Not Fetched
+  - filepath: "wxwidgets/application.h"
+    description: "Declares the 'Application' class (derived from 'wxApp'), serving as the main application entry point. It defines 'OnInit()' for application initialization. Also declares 'MainFrame' (derived from 'wxFrame'), the primary window, which holds references to 'MainMenuBar*' and 'MainToolBar*'. 'MainFrame' is responsible for the overall window structure and lifecycle."
+  - filepath: "wxwidgets/application.cpp"
+    description: "Implements 'Application::OnInit()', which handles global setup: settings, data directory discovery, client version loading, sprite loading, and 'MainFrame' instantiation. It also processes command-line arguments for opening maps. 'MainFrame`'s constructor is implemented here: it initializes 'wxAuiManager' for docking panes, creates the central 'MapTabbook', and instantiates 'MainMenuBar', 'MainToolBar', and 'wxStatusBar'. 'MainFrame' manages recent file lists (via 'MainMenuBar') and application exit procedures (prompting for saves, calling 'Application::Unload')."
+  - filepath: "wxwidgets/main_menubar.h"
+    description: "Declares 'MainMenuBar' (derived from 'wxEvtHandler'). Defines 'MenuBar::ActionID' enum (mapping action names to IDs) and 'MenuBar::Action' struct (linking action string, ID, item kind, and event handler function pointer). Manages 'wxFileHistory' for recent files and a map of 'ActionID' to 'wxMenuItem*' lists for dynamic state updates (enabled/disabled, checked). Declares numerous 'On...' event handler methods corresponding to menu actions."
+  - filepath: "wxwidgets/main_menubar.cpp"
+    description: |-
+      Implements: 'MainMenuBar'.
+      - Key method 'Load(const FileName& path, ...)': Parses an XML file (expected to be 'menubar.xml') using 'pugi::xml_document'. It dynamically constructs the 'wxMenuBar' by creating 'wxMenu' and 'wxMenuItem' objects. The XML structure (elements like '<menu>', '<item>', '<separator>') and attributes ('name', 'action', 'hotkey', 'help', 'kind') are used to define the menu. 'action' attributes are mapped to 'ActionID's, and menu items are connected to their respective 'On...' handler methods within 'MainMenuBar'.
+      - 'Update()': Dynamically enables/disables/checks menu items based on application state (e.g., map loaded, selection active, undo/redo stack).
+      - 'LoadValues()': Sets initial checked states for menu items based on application settings.
+      - Contains implementations for all 'On...' event handlers, which execute application logic, often by interacting with 'g_gui' (global GUI manager) or 'Editor' instances.
+      - Manages recent files: 'AddRecentFile', 'LoadRecentFiles', 'SaveRecentFiles'.
+  - filepath: "menubar.xml"
+    description: "(File not provided in source) An XML file that defines the hierarchical structure of the application's main menu bar. Based on 'main_menubar.cpp`'s parsing logic, it's expected to use elements like '<menu>', '<item>', and '<separator>'. Attributes for '<item>' likely include 'name' (display text, '$' for mnemonic), 'action' (maps to 'MenuBar::ActionID'), 'hotkey' (e.g., \"Ctrl+N\"), 'help' (for status bar), and 'kind' (\"normal\", \"check\", \"radio\"). Menus can be nested."
 documentation_references:
-- 'QMainWindow Class: https://doc.qt.io/qt-6/qmainwindow.html'
-- 'QMenuBar Class: https://doc.qt.io/qt-6/qmenubar.html'
-- 'QMenu Class: https://doc.qt.io/qt-6/qmenu.html'
-- 'QAction Class: https://doc.qt.io/qt-6/qaction.html'
-- 'QStatusBar Class: https://doc.qt.io/qt-6/qstatusbar.html'
-- 'QXmlStreamReader (for parsing XML): https://doc.qt.io/qt-6/qxmlstreamreader.html'
-- 'Qt Signals and Slots: https://doc.qt.io/qt-6/signalsandslots.html'
-- 'QSettings (for recent files): https://doc.qt.io/qt-6/qsettings.html'
-current_functionality_summary: |-
-  The wxWidgets application uses a `MainFrame` (derived from `wxFrame`) as its main window. This frame hosts a `MainMenuBar` object.
-  The `MainMenuBar` class is responsible for:
-  1. Parsing an external `menubar.xml` file to dynamically construct the entire menu hierarchy (menus, sub-menus, items, separators).
-  2. Mapping XML item definitions to internal `MenuBar::Action` structs, which link an action name (from XML) to an event ID, item kind (normal, check, radio), and a C++ event handler function pointer within `MainMenuBar`.
-  3. Connecting UI events from `wxMenuItem`s to these handler functions.
-  4. Managing the enabled/disabled and checked/unchecked state of menu items dynamically based on application context (e.g., map loaded, selection available) via an `Update()` method.
-  5. Handling a list of recent files, displayed in a dedicated submenu.
-  The `MainFrame` also initializes a status bar.
+  - 'QMainWindow Class: https://doc.qt.io/qt-6/qmainwindow.html'
+  - 'QMenuBar Class: https://doc.qt.io/qt-6/qmenubar.html'
+  - 'QMenu Class: https://doc.qt.io/qt-6/qmenu.html'
+  - 'QAction Class: https://doc.qt.io/qt-6/qaction.html'
+  - 'QStatusBar Class: https://doc.qt.io/qt-6/qstatusbar.html'
+  - 'QXmlStreamReader (for parsing XML): https://doc.qt.io/qt-6/qxmlstreamreader.html'
+  - 'Qt Signals and Slots: https://doc.qt.io/qt-6/signalsandslots.html'
+  - 'QSettings (for recent files and window state): https://doc.qt.io/qt-6/qsettings.html'
+  - 'Standard Shortcuts in Qt: https://doc.qt.io/qt-6/qkeysequence.html#StandardKey-enum'
+current_functionality_summary: |
+  The wxWidgets application's main UI is structured around 'Application' (the 'wxApp' equivalent) and 'MainFrame' (the 'wxFrame' equivalent).
+  - 'MainFrame' initializes the primary window, including setting up the 'wxAuiManager' for dockable panels (like palettes and the map display area/'MapTabbook'). It creates and owns the 'MainMenuBar' and 'MainToolBar', and a 'wxStatusBar'. It also handles loading/saving of window layout preferences and the recent files list.
+  - 'MainMenuBar' is responsible for dynamically constructing the entire menu system by parsing 'menubar.xml'. This XML file defines menu hierarchy, item names, action identifiers, hotkeys, and help strings. 'MainMenuBar' maps these XML definitions to internal 'MenuBar::Action' structures that link to specific C++ event handler methods within 'MainMenuBar' itself. It also contains an 'Update()' method that is called frequently to enable, disable, check, or uncheck menu items based on the current application state (e.g., whether a map is loaded, if there's a selection, etc.). The recent files list is managed using 'wxFileHistory' and displayed in a dedicated menu.
 definition_of_done:
-- A `MainWindow` class, inheriting from `QMainWindow`, is created and serves as the application's main window.
-- A `QMenuBar` is set as the main menu bar for the `MainWindow`.
-- The menu structure defined in `menubar.xml` is successfully parsed (e.g., using `QXmlStreamReader`), and corresponding `QMenu` and `QAction` objects are dynamically created and added to the `QMenuBar`, replicating the original hierarchy, including submenus and separators.
-- Hotkeys specified in `menubar.xml` are assigned as shortcuts to the respective `QAction` objects.
-- Help strings from `menubar.xml` are set as status tips for `QAction` objects.
-- Each `QAction`'s `triggered()` signal is connected to a placeholder slot or an appropriate handler method (to be fully implemented by other WBS tasks corresponding to each action).
-- A `QStatusBar` is added to the `MainWindow` and can display initial application messages.
-- Functionality to load, display, and open recent files (similar to `wxFileHistory`) is implemented in the 'File' menu, likely using `QSettings` for persistence.
-- A mechanism equivalent to `MainMenuBar::Update()` and `MainMenuBar::LoadValues()` is implemented in `MainWindow` to dynamically update the enabled/disabled state and checked state of `QAction`s based on application state and settings.
-- The `MainWindow` is displayed correctly upon application startup (linking with `FINAL-02`).
-boilerplate_coder_ai_prompt: |-
-  Your task is to port the main application window and its menu bar from the wxWidgets Remere's Map Editor to Qt6.
-  Reference Files: `wxwidgets/application.cpp` (MainFrame), `wxwidgets/application.h` (MainFrame), `wxwidgets/main_menubar.cpp`, `wxwidgets/main_menubar.h`, and `menubar.xml`.
+  - A 'MainWindow' class, inheriting from 'QMainWindow', is created and serves as the application's main window.
+  - A 'QMenuBar' is successfully set as the main menu bar for the 'MainWindow'.
+  - The menu structure defined in 'menubar.xml' is parsed using 'QXmlStreamReader' (or a similar Qt XML parsing utility).
+  - Corresponding 'QMenu' and 'QAction' objects are dynamically created and added to the 'QMenuBar', accurately replicating the hierarchy, names, submenus, and separators from the XML.
+  - Hotkeys specified in 'menubar.xml' are assigned as shortcuts to their respective 'QAction' objects (e.g., using 'QAction::setShortcut' and 'QKeySequence::fromString'). Standard platform-specific key sequences should be preferred where applicable (e.g., 'QKeySequence::Save').
+  - Help strings from 'menubar.xml' are set as status tips for 'QAction' objects ('QAction::setStatusTip').
+  - Checkable ('QAction::setCheckable(true)') and radio button ('QActionGroup') behaviors are implemented for relevant menu items as defined by the 'kind' attribute in 'menubar.xml'.
+  - Each 'QAction`'s 'triggered()' signal is connected to a placeholder slot in 'MainWindow' or a dedicated 'MenuActionHandler' class. These slots should at least log the action's object name or a unique ID. Full implementation of action logic is deferred to other WBS tasks.
+  - A 'QStatusBar' is added to the 'MainWindow' and can display initial application messages and status tips from actions.
+  - "Recent files functionality is implemented: 'QSettings' is used to store and retrieve the list of recently opened file paths. A 'Recent Files' submenu (or equivalent) in the 'File' 'QMenu' is dynamically populated with 'QAction's representing these files. Clicking a recent file action triggers a signal or slot with the file path (actual file opening logic is part of 'LOGIC-01'/'UI-02'). A method 'void MainWindow::addRecentFile(const QString& filePath)' updates 'QSettings' and refreshes the recent files menu."
+  - A mechanism for dynamically updating menu item states (enabled/disabled, checked/unchecked) is implemented in 'MainWindow' (e.g., an 'updateMenus()' slot). This slot will use 'QAction::setEnabled()' and 'QAction::setChecked()' based on application state (initially, most actions can be enabled for testing purposes, with actual state logic refined as services from 'REFACTOR-01' become available).
+  - The 'MainWindow' correctly loads and saves its size, position, and state of dock widgets (if any are added at this stage) using 'QSettings' ('saveState()', 'restoreState()').
+  - The 'MainWindow' is instantiated and shown by the main application entry point ('FINAL-02'), displaying the title, icon, menu bar, and status bar.
+estimation_effort:
+  - "Medium (12-18 developer days). Creating the 'MainWindow' shell, status bar, and basic window state persistence is straightforward. The main complexity lies in accurately parsing 'menubar.xml', dynamically creating the entire 'QMenu'/'QAction' hierarchy, mapping all attributes (hotkeys, checkable states), implementing the recent files list with 'QSettings', and setting up the initial mechanism for dynamic menu state updates. Connecting all actions to placeholder slots is repetitive but necessary."
+known_missing_files:
+  - "menubar.xml" # This file is critical and needs to be provided. For now, a placeholder structure can be assumed based on analysis of main_menubar.cpp.
+boilerplate_coder_ai_prompt: |
+  Your task is to create the main application window ('MainWindow') for the Qt6 Remere's Map Editor, including its dynamic menu bar loaded from 'menubar.xml'. This replaces the wxWidgets 'MainFrame' and 'MainMenuBar'.
 
-  **1. Create `MainWindow` (inheriting `QMainWindow`):**
-     - This will be the top-level window.
-     - Set up a `QMenuBar` using `setMenuBar()` or by adding it to a layout if preferred (though `setMenuBar` is standard for `QMainWindow`).
-     - Add a `QStatusBar` using `statusBar()`.
+  **1. 'MainWindow.h':**
+  ```cpp
+  #pragma once
+  #include <QMainWindow>
+  #include <QMap> // For storing actions
 
-  **2. Implement Menu Loading from `menubar.xml`:**
-     - Create a new class, e.g., `MenuLoader`, or implement this logic within `MainWindow`.
-     - Use `QXmlStreamReader` to parse `menubar.xml`.
-     - Recursively process `<menu>` and `<item>` elements:
-       - For each `<menu name="Title" [special="RECENT_FILES"]>`:
-         - Create a `QMenu* menu = new QMenu("Title");`.
-         - If `special="RECENT_FILES"`, this menu will be populated later by recent file actions. Store a pointer to it.
-         - Add it to the parent menu or `QMenuBar`.
-         - Recursively call your parsing function for its children.
-       - For each `<item name="Label" action="ACTION_NAME" [hotkey="Ctrl+N"] [help="Help text"] [kind="check/radio"]>`:
-         - Create a `QAction* action = new QAction("Label");`.
-         - Set `action->setObjectName("ACTION_NAME");` (very important for later access and testing).
-         - If `hotkey` exists, `action->setShortcut(QKeySequence("Ctrl+N"));`.
-         - If `help` exists, `action->setStatusTip("Help text");`.
-         - If `kind="check"`, `action->setCheckable(true);`.
-         - If `kind="radio"`, group related radio actions using a `QActionGroup`.
-         - Connect `action->triggered()` to a placeholder slot for now, or map `ACTION_NAME` to a specific handler method later.
-         - Add the action to the current `QMenu`.
-       - For `<separator/>`: Call `currentMenu->addSeparator();`.
-     - Store created `QAction` objects, perhaps in a `QMap<QString, QAction*> m_actions;` (keyed by `ACTION_NAME`) for easy access during state updates.
+  class QAction;
+  class QMenu;
+  class QSettings; // For recent files and window state
 
-  **3. Implement Menu State Management:**
-     - Create a public method in `MainWindow`, e.g., `void updateMenus();`.
-     - Inside `updateMenus()`:
-       - Access `QAction` objects (e.g., from `m_actions` map).
-       - Enable/disable actions based on application state (e.g., `m_actions["SAVE"]->setEnabled(isMapLoaded && isMapModified);`).
-       - Set checked state for checkable/radio actions (e.g., `m_actions["SHOW_GRID"]->setChecked(settings.showGrid);`).
-       - Refer to the logic in `MainMenuBar::Update()` and `MainMenuBar::LoadValues()` from `main_menubar.cpp` for conditions.
+  class MainWindow : public QMainWindow {
+      Q_OBJECT
+  public:
+      explicit MainWindow(QWidget *parent = nullptr);
+      ~MainWindow() override;
 
-  **4. Implement Recent Files Functionality:**
-     - Use `QSettings` to store and retrieve a list of recent file paths.
-     - In `updateMenus()` or when the File menu is about to show (`QMenu::aboutToShow` signal), clear existing recent file actions and repopulate the "Recent Files" `QMenu` with new `QAction`s for each path.
-     - Connect these dynamic actions to a slot that opens the selected file.
-     - Implement `void addRecentFile(const QString& filePath);` to update `QSettings` and the menu.
+      void addRecentFile(const QString& filePath);
 
-  **5. Integration:**
-     - Instantiate and show `MainWindow` in your `main.cpp` (from `FINAL-02`).
-     - Call `updateMenus()` initially and whenever application state changes that might affect menu items.
+  protected:
+      void closeEvent(QCloseEvent *event) override;
 
-  The original `MainMenuBar::actions` (a `std::map<std::string, MenuBar::Action*>`) provides the mapping from the XML `action` attribute string to internal IDs and event handlers. In Qt, `QAction` itself can be the central object, identified by its `objectName`.
+  private slots:
+      void onPlaceholderActionTriggered(); // Placeholder for all menu actions initially
+      void openRecentFile();             // Slot for dynamic recent file actions
+      void updateMenus();                // Slot to update enabled/checked state of actions
+
+  private:
+      void createMenusFromXML(const QString& xmlFilePath);
+      void parseMenuNode(QXmlStreamReader& xml, QMenu* parentMenu, QMenuBar* menuBar); // Helper for XML parsing
+      void loadWindowSettings();
+      void saveWindowSettings();
+      void updateRecentFilesMenu();
+
+      // QMenuBar* m_menuBar; // QMainWindow has one implicitly
+      QStatusBar* m_statusBar;
+      QSettings* m_settings; // For recent files and window state
+
+      QMap<QString, QAction*> m_actions; // Store actions by their XML "action" name for easy access
+      QMenu* m_recentFilesMenu;       // Pointer to the 'Recent Files' QMenu
+      enum { MaxRecentFiles = 10 };
+      QList<QAction*> m_recentFileActions;
+  };
+  ```
+
+  **2. 'MainWindow.cpp':**
+  *   **Constructor:**
+      - Call 'QMainWindow' constructor.
+      - Set window title, initial size, and application icon.
+      - 'm_settings = new QSettings(QSettings::IniFormat, QSettings::UserScope, "RME-Qt", "Editor", this);'
+      - 'm_statusBar = statusBar(); m_statusBar->showMessage("Welcome to RME-Qt!");'
+      - 'createMenusFromXML(":/menubar.xml"); // Assume menubar.xml is in Qt resources'
+      - 'loadWindowSettings();'
+      - 'updateRecentFilesMenu();'
+      - 'updateMenus(); // Initial state update'
+      - (Later, connect signals from services like EditorStateService to 'updateMenus')
+  *   **'closeEvent(QCloseEvent *event)':**
+      - 'saveWindowSettings();'
+      - Implement logic for "Do you want to save changes?" (deferred to when map editing is active). For now, 'event->accept();'.
+  *   **'createMenusFromXML(const QString& xmlFilePath)':**
+      - 'QFile file(xmlFilePath); if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) return;'
+      - 'QXmlStreamReader xml(&file);'
+      - 'QMenuBar* menuBarInstance = menuBar();'
+      - Loop 'while (!xml.atEnd() && !xml.hasError())':
+          - 'xml.readNext(); if (xml.isStartElement() && xml.name().toString() == "menubar") { parseMenuNode(xml, nullptr, menuBarInstance); }'
+  *   **'parseMenuNode(QXmlStreamReader& xml, QMenu* parentMenu, QMenuBar* menuBarInstance)':** (Recursive helper)
+      - Loop 'while (!(xml.isEndElement() && xml.name().toString() == (parentMenu ? "menu" : "menubar")))':
+          - 'xml.readNext(); if (xml.isStartElement())':
+              - 'QString elementName = xml.name().toString();'
+              - 'QXmlStreamAttributes attrs = xml.attributes();'
+              - If 'elementName == "menu"`:
+                  - 'QString menuName = attrs.value("name").toString().replace("$", "&");'
+                  - 'QMenu* newMenu = new QMenu(menuName);'
+                  - 'if (parentMenu) parentMenu->addMenu(newMenu); else menuBarInstance->addMenu(newMenu);'
+                  - 'if (attrs.value("special").toString() == "RECENT_FILES") { m_recentFilesMenu = newMenu; }'
+                  - 'parseMenuNode(xml, newMenu, nullptr); // Recurse'
+              - Else if 'elementName == "item"`:
+                  - 'QString itemName = attrs.value("name").toString().replace("$", "&");'
+                  - 'QString actionName = attrs.value("action").toString();'
+                  - 'QAction* action = new QAction(itemName, this);'
+                  - 'action->setObjectName(actionName);'
+                  - 'if (attrs.hasAttribute("hotkey")) action->setShortcut(QKeySequence::fromString(attrs.value("hotkey").toString()));'
+                  - 'if (attrs.hasAttribute("help")) action->setStatusTip(attrs.value("help").toString());'
+                  - 'if (attrs.value("kind").toString() == "check") action->setCheckable(true);'
+                  - '// TODO: Handle radio items with QActionGroup'
+                  - 'connect(action, &QAction::triggered, this, &MainWindow::onPlaceholderActionTriggered);'
+                  - 'if (parentMenu) parentMenu->addAction(action); else menuBarInstance->addAction(action);'
+                  - 'm_actions.insert(actionName, action);'
+              - Else if 'elementName == "separator"`:
+                  - 'if (parentMenu) parentMenu->addSeparator();'
+  *   **'onPlaceholderActionTriggered()':**
+      - 'QAction* action = qobject_cast<QAction*>(sender());'
+      - 'if (action) { m_statusBar->showMessage(QString("Action '%1' triggered.").arg(action->objectName())); }'
+  *   **'updateMenus()':** (Initial stub)
+      - Iterate 'm_actions.values()': 'action->setEnabled(true);' (Enable all for now).
+      - Example for later: 'if (m_actions.contains("SAVE")) m_actions["SAVE"]->setEnabled(isMapDirty);'
+  *   **'loadWindowSettings()' / 'saveWindowSettings()':** Use 'm_settings' to 'setValue("geometry", saveGeometry())' and 'restoreGeometry(m_settings->value("geometry").toByteArray())'. Same for 'saveState()' / 'restoreState()' for dock widgets and toolbars.
+  *   **Recent Files Logic:**
+      - 'addRecentFile()': Get list from 'm_settings', add new path (ensure uniqueness, limit count), save list back to 'm_settings'. Call 'updateRecentFilesMenu()'.
+      - 'updateRecentFilesMenu()': If 'm_recentFilesMenu' exists: clear its actions (store in 'm_recentFileActions' then delete them). Read paths from 'm_settings'. For each path, create 'QAction* recentAction = new QAction(filePath, this); recentAction->setData(filePath); connect(recentAction, &QAction::triggered, this, &MainWindow::openRecentFile); m_recentFilesMenu->addAction(recentAction); m_recentFileActions.append(recentAction);'.
+      - 'openRecentFile()': 'QAction* action = qobject_cast<QAction*>(sender()); if (action) { QString filePath = action->data().toString(); /* Call file opening logic (UI-02/LOGIC-01) */ }'.
+
+  **3. 'main.cpp' (from 'FINAL-02'):**
+      - Instantiate 'MainWindow mainWindow;'
+      - 'mainWindow.show();'
+
+  Place 'menubar.xml' in the project and ensure it's accessible (e.g., via Qt Resource System ':/menubar.xml').
+
+

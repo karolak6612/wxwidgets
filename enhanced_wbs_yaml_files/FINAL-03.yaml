@@ -1,42 +1,130 @@
 id: FINAL-03
-section: Finalization
-title: Port Application Settings Logic
-original_input_files: settings.h/cpp, preferences.h/cpp
+section: Integration & Finalization
+title: Implement Edit Menu Operations & Link Preferences Dialog
+original_input_files:
+  - "Integrated `QUndoStack`, `SelectionManager`, `ClipboardManager` from `FINAL-01`"
+  - "Integrated `AppSettings` (using `QSettings`) from `CORE-06`"
+  - "Edit Menu `QAction`s (Undo, Redo, Cut, Copy, Paste, Preferences) from `UI-02` (Toolbar & Menubar Setup)"
+  - "`PreferencesDialog` (Qt-based) from `CORE-06`"
 analyzed_input_files:
-- wxwidgets/settings.h
-- wxwidgets/settings.cpp
-- wxwidgets/preferences.h
-- wxwidgets/preferences.cpp
-- 'Note: Relies on FINAL-01 for QSettings backend in Settings class and UI-DIALOGS-02 for the Preferences Dialog.'
+  - file_path: "mapcore::QUndoStack (via AppContext from FINAL-01)"
+    description: |
+      The application's undo/redo stack. The Edit > Undo and Edit > Redo menu actions
+      need to be connected to its `undo()` and `redo()` slots. Their enabled state
+      should reflect `canUndo()` and `canRedo()`.
+  - file_path: "mapcore::SelectionManager (via AppContext from FINAL-01)"
+    description: |
+      Manages the current selection of map elements. The Edit > Cut and Edit > Copy
+      operations will act upon the data identified by the `SelectionManager`.
+      The enabled state of Cut/Copy depends on whether there is an active selection.
+  - file_path: "mapcore::ClipboardManager (via AppContext from FINAL-01)"
+    description: |
+      Handles the logic for serializing selection data to the clipboard (Copy/Cut)
+      and deserializing it for placement on the map (Paste).
+      Edit > Cut, Edit > Copy, Edit > Paste menu actions will trigger its methods.
+      The enabled state of Paste depends on whether the clipboard contains compatible data.
+  - file_path: "core::AppSettings (from CORE-06)"
+    description: |
+      The application's settings manager, using `QSettings` for persistence.
+      The `PreferencesDialog` will read initial values from and save modified values to this manager.
+  - file_path: "qtui::MainWindow (from FINAL-01/UI-01)"
+    description: |
+      The main application window containing the Edit menu. Its `QAction`s for Undo, Redo,
+      Cut, Copy, Paste, and Preferences need their `triggered()` signals connected to appropriate handler slots.
+  - file_path: "qtui::PreferencesDialog (from CORE-06)"
+    description: |
+      The Qt-based dialog for modifying application settings. The Edit > Preferences
+      menu action needs to instantiate and show this dialog.
 dependencies:
-- UI-DIALOGS-02
-current_functionality_summary: The application currently uses a global `g_settings` object (instance of `Settings` from `settings.h/cpp`) to manage configurations, which were originally persisted using `wxConfig`. Task `FINAL-01` aimed to refactor the underlying `Settings` class to use `QSettings`. This task (`FINAL-03`) focuses on creating a new singleton accessor (e.g., `AppSettings`) for these settings and replacing all usages of the old `g_settings` global throughout the entire codebase with this new singleton.
-qt6_migration_steps: |-
-  1. Define a new singleton class named `AppSettings` (e.g., in `AppSettings.h` and `AppSettings.cpp`). This class will be the central point for accessing all application settings.
-  2. The `AppSettings` class must provide a static method to access its single instance (e.g., `AppSettings::instance()`).
-  3. Internally, `AppSettings` must use `QSettings` for loading and saving all configuration values. It can either encapsulate the `Settings` class refactored in `FINAL-01` (which should now use `QSettings`) or re-implement similar logic directly using `QSettings`.
-     - Ensure it uses a consistent organization name (e.g., "RME-QtDev") and application name (e.g., "RME-Qt") for `QSettings`, possibly set via `QCoreApplication::setOrganizationName()` and `QCoreApplication::setApplicationName()` early in main.
-     - It must support all configuration keys from the `Config::Key` enum (defined in the original `wxwidgets/settings.h`).
-  4. Implement typed getter methods in `AppSettings` (e.g., `int getInt(Config::Key key, int defaultValue) const;`, `QString getString(Config::Key key, const QString& defaultValue) const;`) that retrieve values from `QSettings`.
-  5. Implement typed setter methods in `AppSettings` (e.g., `void setInt(Config::Key key, int value);`, `void setString(Config::Key key, const QString& value);`) that write values to `QSettings`. Consider if `QSettings::sync()` is needed after sets or if it can be deferred.
-  6. Perform a codebase-wide replacement of all accesses to the old global `g_settings` object (e.g., `g_settings.getInteger(Config::SOME_KEY)`) with calls to the new `AppSettings` singleton (e.g., `AppSettings::instance()->getInt(Config::SOME_KEY, default_value)`).
-  7. Ensure that the `PreferencesDialog` (from task `UI-DIALOGS-02`, which relies on `FINAL-01`'s work) correctly interacts with the new `AppSettings` singleton to load current settings into the UI and to save modified settings.
-  8. Verify that all application settings are correctly persisted to the chosen `QSettings` backend (e.g., INI file or native registry) and are loaded correctly across application sessions.
-definition_of_done: |-
-  The application uses a new `AppSettings` singleton for all configuration management, fully replacing the old `g_settings` global.
-  Key requirements:
-  - An `AppSettings` singleton class is implemented and uses `QSettings` for persistence.
-  - All settings previously accessed via `g_settings` and defined in `Config::Key` are now managed by `AppSettings`.
-  - All code throughout the application (ported `mapcore` logic, new Qt UI code) uses `AppSettings::instance()` to access settings.
-  - Settings are correctly loaded at startup and saved upon modification or application exit.
-  - The `PreferencesDialog` (from UI-DIALOGS-02 / FINAL-01) correctly reflects and modifies settings through `AppSettings`.
-boilerplate_coder_ai_prompt: |-
-  Create a new singleton class, `AppSettings`, to manage all application settings using `QSettings`. This task builds upon the settings system refactored in `FINAL-01` and the preferences dialog from `UI-DIALOGS-02`.
-  1. Define `AppSettings.h` and `AppSettings.cpp`.
-  2. Implement the singleton pattern (e.g., a static `AppSettings& instance()` method).
-  3. The `AppSettings` class should use `QSettings` as its storage backend. It might internally use or adapt the `Settings` class logic from `FINAL-01` (which should have been refactored to use `QSettings`). Ensure consistent use of organization and application names for `QSettings`.
-  4. Ensure `AppSettings` supports all configuration keys from the `Config::Key` enum (originally in `wxwidgets/settings.h`). You might need to copy/adapt this enum into `AppSettings.h` or a shared core header.
-  5. Provide typed public methods in `AppSettings` for getting and setting each configuration key (e.g., `int getUndoSize() const;`, `void setUndoSize(int size);`). These methods will internally use `QSettings::value()` and `QSettings::setValue()`, mapping `Config::Key` enum values to string keys for `QSettings`.
-  6. Search the entire codebase (ported `mapcore` and new Qt UI code) and replace every instance of `g_settings.getInteger(Config::KEY)`, `g_settings.getString(Config::KEY)`, etc., with calls to the new `AppSettings::instance()` methods.
-  7. Ensure the `PreferencesDialog` (from `UI-DIALOGS-02`, which depends on `FINAL-01`) correctly uses `AppSettings` to display and save settings.
-  8. Verify settings persistence across application sessions.
+  - FINAL-01  # Core-UI integration, AppContext
+  - CORE-04  # QUndoStack (Action & History System)
+  - CORE-05  # SelectionManager & ClipboardManager
+  - CORE-06  # AppSettings & PreferencesDialog definition
+  - UI-02    # Edit Menu QActions creation
+current_functionality_summary: |
+  Following `FINAL-01` and `FINAL-02`, the application has an integrated core map logic, a basic UI shell, and functional File menu operations.
+  The `QUndoStack`, `SelectionManager`, `ClipboardManager`, and `AppSettings` are available via an `AppContext`.
+  A `PreferencesDialog` has been defined (as part of `CORE-06`) but is not yet accessible from the main menu.
+  The Edit menu `QAction`s (Undo, Redo, Cut, Copy, Paste, Preferences) exist in the UI but are not connected to any backend functionality. Their enabled states are not dynamically updated.
+qt6_migration_steps: |
+  1.  **Undo/Redo Implementation (`MainWindow`):**
+      -   Connect the `Edit > Undo` `QAction::triggered()` signal to a slot that calls `AppContext::undoStack().undo()`.
+      -   Connect the `Edit > Redo` `QAction::triggered()` signal to a slot that calls `AppContext::undoStack().redo()`.
+      -   Connect `AppContext::undoStack().canUndoChanged(bool)` signal to the `Edit > Undo` `QAction::setEnabled(bool)` slot.
+      -   Connect `AppContext::undoStack().canRedoChanged(bool)` signal to the `Edit > Redo` `QAction::setEnabled(bool)` slot.
+      -   Initialize the enabled state of Undo/Redo actions based on `QUndoStack::canUndo()` and `QUndoStack::canRedo()` when a map is loaded or a new map is created.
+
+  2.  **Cut/Copy/Paste Implementation (`MainWindow`):**
+      -   Connect `Edit > Copy` `QAction::triggered()` signal to a slot that calls `AppContext::clipboardManager().copySelection(AppContext::selectionManager(), AppContext::map())`.
+      -   Connect `Edit > Cut` `QAction::triggered()` signal to a slot that calls `AppContext::clipboardManager().cutSelection(AppContext::selectionManager(), AppContext::map(), AppContext::undoStack())`.
+      -   Connect `Edit > Paste` `QAction::triggered()` signal to a slot that calls `AppContext::clipboardManager().paste(AppContext::map(), currentTargetPosition, AppContext::undoStack())`. The `currentTargetPosition` needs to be determined (e.g., center of current view, or last mouse position on map).
+      -   The enabled state of `Edit > Copy` and `Edit > Cut` should be updated based on whether `AppContext::selectionManager().hasSelection()` (or similar). This might require a signal from `SelectionManager` or periodic checks.
+      -   The enabled state of `Edit > Paste` should be updated based on `QApplication::clipboard()->mimeData()->hasFormat("application/vnd.rme-map-selection")` (or the custom MIME type defined in `CORE-05`). This can be checked when the Edit menu is about to show or clipboard content changes.
+
+  3.  **Preferences Dialog Implementation (`MainWindow`):**
+      -   Connect the `Edit > Preferences` `QAction::triggered()` signal to a slot.
+      -   This slot will instantiate the `PreferencesDialog` (defined in `CORE-06`).
+      -   The `PreferencesDialog` constructor or an init method should load current settings from `AppContext::appSettings()` into its UI widgets.
+      -   The dialog's "Apply" or "OK" button will save the modified settings back using `AppContext::appSettings().set...(value)` methods and potentially `AppContext::appSettings().save()` or `sync()`.
+      -   Show the dialog modally using `exec()`.
+
+  4.  **Context Menu Integration (Future Task Consideration):**
+      -   Note: While this task focuses on the Edit Menu, the same Undo/Redo, Cut/Copy/Paste actions will likely be needed in context menus within the `MapViewport`. The handler slots implemented here should be reusable.
+
+  5.  **Testing:**
+      -   Test Undo/Redo for various actions.
+      -   Test Cut, Copy, Paste with different types of selections.
+      -   Test opening the Preferences dialog, changing settings, saving, and verifying that settings are applied (either immediately or after restart, depending on the setting).
+      -   Test that settings are correctly loaded when the dialog is reopened.
+definition_of_done: |
+  - Edit > Undo and Edit > Redo menu actions are fully functional, correctly interacting with the `QUndoStack`. Their enabled states update dynamically.
+  - Edit > Cut, Edit > Copy, and Edit > Paste menu actions are fully functional.
+    - Copy places a representation of the current selection (managed by `SelectionManager`) onto the system clipboard using a custom MIME type.
+    - Cut performs a copy and then issues an undoable command to delete the selection.
+    - Paste takes data from the clipboard and issues an undoable command to place it onto the map.
+  - The enabled states of Cut, Copy, and Paste actions are dynamically updated based on selection state and clipboard content.
+  - The Edit > Preferences menu action successfully opens the `PreferencesDialog`.
+  - The `PreferencesDialog` correctly loads current settings from `AppSettings` upon opening.
+  - Changes made in the `PreferencesDialog` are correctly saved back to `AppSettings` (and thus persisted by `QSettings`) upon user confirmation (e.g., clicking "OK" or "Apply").
+  - The application reflects changes made in the Preferences dialog where applicable (some settings might require an application restart).
+boilerplate_coder_ai_prompt: |
+  Implement the Edit menu operations (Undo, Redo, Cut, Copy, Paste) and link the Preferences dialog for the Qt6 map editor.
+  Assume an `AppContext` provides access to `mapcore::Map& mapManager`, `QUndoStack& undoStack`, `mapcore::SelectionManager& selectionManager`, `mapcore::ClipboardManager& clipboardManager`, and `core::AppSettings& appSettings`.
+  The `MainWindow` has `QAction` members for these menu items. The `PreferencesDialog` class is already defined and implemented as per `CORE-06`.
+
+  **1. Wire Undo/Redo Actions (in `MainWindow`):**
+     - Connect `undoAction->triggered()` to `appContext.undoStack().undo()`.
+     - Connect `redoAction->triggered()` to `appContext.undoStack().redo()`.
+     - Connect `appContext.undoStack().canUndoChanged(bool)` to `undoAction->setEnabled(bool)`.
+     - Connect `appContext.undoStack().canRedoChanged(bool)` to `redoAction->setEnabled(bool)`.
+     - Initialize enabled states.
+
+  **2. Wire Cut/Copy/Paste Actions (in `MainWindow`):**
+     - Connect `copyAction->triggered()` to a slot that calls `appContext.clipboardManager().copySelection(appContext.selectionManager(), appContext.map())`.
+     - Connect `cutAction->triggered()` to a slot that calls `appContext.clipboardManager().cutSelection(appContext.selectionManager(), appContext.map(), appContext.undoStack())`.
+     - Connect `pasteAction->triggered()` to a slot that calls `appContext.clipboardManager().paste(appContext.map(), currentTargetPos, appContext.undoStack())`. (Determine `currentTargetPos` based on current view or mouse position).
+     - Update enabled state of `copyAction` and `cutAction` based on `selectionManager.hasSelection()`. (This might need a signal from `SelectionManager` or a menu `aboutToShow` event).
+     - Update enabled state of `pasteAction` based on `QApplication::clipboard()->mimeData()->hasFormat("your/custom-mime-type")`.
+
+  **3. Link Preferences Dialog (in `MainWindow`):**
+     - Connect `preferencesAction->triggered()` to a slot.
+     - In the slot:
+       ```cpp
+       PreferencesDialog dialog(appContext.appSettings(), this); // Pass settings manager
+       // dialog.loadSettings(); // PreferencesDialog should load settings in its constructor or an init method
+       if (dialog.exec() == QDialog::Accepted) {
+           // dialog.saveSettings(); // PreferencesDialog should save settings on accept
+       }
+       ```
+       (Ensure `PreferencesDialog` correctly loads from and saves to `AppSettings`).
+
+  **4. Context Updates:**
+     - Ensure selection changes trigger updates for Copy/Cut action enabled states.
+     - Ensure clipboard changes trigger updates for Paste action enabled state (e.g., `QApplication::clipboard()->dataChanged()` signal).
+documentation_references:
+  - "QUndoStack: https://doc.qt.io/qt-6/qundostack.html"
+  - "QClipboard: https://doc.qt.io/qt-6/qclipboard.html"
+  - "QMimeData: https://doc.qt.io/qt-6/qmimedata.html"
+  - "QSettings: https://doc.qt.io/qt-6/qsettings.html"
+  - "QDialog: https://doc.qt.io/qt-6/qdialog.html"
+  - "QAction: https://doc.qt.io/qt-6/qaction.html"
