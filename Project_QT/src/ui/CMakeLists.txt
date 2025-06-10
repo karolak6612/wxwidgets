@@ -5,10 +5,18 @@ add_subdirectory(widgets)
 
 # Consolidate all UI sources
 set(RME_UI_LIB_SOURCES
+    MainWindow.cpp  # Added MainWindow source directly
     ${RME_UI_WIDGETS_SOURCES}
     # Add other UI component sources here if defined in this directory
     # or from other subdirectories like 'dialogs', 'palettes', etc.
 )
+
+# QRC resource file processing
+set(RME_UI_QRC_FILES
+    ../resources/resources.qrc
+)
+qt_add_resources(RME_UI_LIB_QrcSrc ${RME_UI_QRC_FILES})
+list(APPEND RME_UI_LIB_SOURCES ${RME_UI_LIB_QrcSrc})
 
 # Define the UI library
 add_library(rme_ui_lib STATIC ${RME_UI_LIB_SOURCES})
@@ -26,6 +34,7 @@ target_link_libraries(rme_ui_lib PRIVATE
     Qt6::Gui        # For QMouseEvent, QWheelEvent, QKeyEvent, QMatrix4x4 etc.
     Qt6::OpenGL     # For QOpenGLWidget
     Qt6::Widgets    # For QWidget, and general Qt Widgets module
+    Qt6::Xml        # Added Qt6::Xml for QXmlStreamReader
     rme_core_lib    # For mapcore::Position and other core data structures
 )
 
@@ -34,7 +43,7 @@ target_link_libraries(rme_ui_lib PRIVATE
 # list(APPEND RME_UI_LIB_SOURCES ${RME_UI_LIB_UISrc})
 
 # Optional: If using QRC resource files
-# qt_add_resources(RME_UI_LIB_QrcSrc ${QRC_FILES})
+# qt_add_resources(RME_UI_LIB_QrcSrc ${QRC_FILES}) # This line is now handled above
 # list(APPEND RME_UI_LIB_SOURCES ${RME_UI_LIB_QrcSrc})
 
 # Ensure rme_core_lib is found (it's defined in Project_QT/src/core/CMakeLists.txt)

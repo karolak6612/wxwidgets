@@ -88,8 +88,6 @@ These mandates must be adhered to for all coding tasks:
 All tasks from `tasks_execution_order.md` are listed here. This board will be updated as tasks progress.
 
 ### Backlog (To Do)
-- [ ] RENDER-01 (Implement Core OpenGL Viewport and Navigation (MapView))
-- [ ] TEST-01 (Develop Unit Tests for Core Qt6 Data Structures)
 - [ ] UI-01 (Port Main Application Window (QMainWindow) and Dynamic Menu Bar from XML)
 - [ ] BUILD-02 (Implement Packaging and Deployment)
 - [ ] CORE-04 (Port Action & History (Undo/Redo) System)
@@ -169,6 +167,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - None
 
 ### Completed
+- [x] RENDER-01 (Implement Core OpenGL Viewport and Navigation (MapView)) - Branch: feat/render-01-mapview-complete
 - [x] NET-01 (Isolate and Port Network Protocol Definition and Serialization Logic) - Branch: feat/net-01-protocol-serialization
 - [x] LOGIC-04 (Port Waypoint System) - Branch: feat/logic-04-waypoint-system
 - [x] CORE-BRUSH-FRAMEWORK (Port Base Brush Class, Implement BrushManager, and Define BrushSettings) - Branch: feat/core-brush-framework
@@ -182,5 +181,6 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 
 ### Blocked / Needs Discussion
 - [ ] DOCS-01 (Generate Developer API Documentation (Doxygen))
+- [ ] TEST-01 (Develop Unit Tests for Core Qt6 Data Structures)
 ---
 The "Tasks with Unresolved Dependencies" section has been removed from the Kanban board part as the `LOGIC-01` dependency on `BRUSH-LOGIC-ALL` was resolved by removing it, and the new task list in `tasks_execution_order.md` (which this Kanban is based on) reflects this. The specific brush logic tasks are now dependencies of `LOGIC-01`.
