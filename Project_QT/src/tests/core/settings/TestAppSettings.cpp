@@ -3,10 +3,10 @@
 #include <QDir>
 #include <QFile>
 #include <QTemporaryDir>
-#include <QSettings> // Explicitly include for clearing in init()
-#include <memory> // For std::unique_ptr
+#include <QSettings>
+#include <memory>
 
-#include "core/settings/AppSettings.h" // Class to test
+#include "core/settings/AppSettings.h"
 
 using namespace RME;
 
@@ -15,14 +15,10 @@ class TestAppSettings : public QObject
     Q_OBJECT
 
 private:
-    // Using specific org/app names for QSettings ensures tests don't interfere
-    // with user settings or other tests, and makes cleanup predictable.
     const QString testOrgName = "RME_TestOrg_AppSettings";
     const QString testAppName = "RME_TestApp_AppSettingsFile";
 
     std::unique_ptr<AppSettings> createAppSettingsForTest() {
-        // This ensures that each test creating an AppSettings instance
-        // uses the same, isolated configuration.
         return std::make_unique<AppSettings>(
             QSettings::IniFormat,
             QSettings::UserScope,
@@ -32,26 +28,22 @@ private:
     }
 
 private slots:
-    void initTestCase();    // Called once before all tests
-    void cleanupTestCase(); // Called once after all tests
-    void init();            // Called before each test function
-    void cleanup();         // Called after each test function
+    void initTestCase();
+    void cleanupTestCase();
+    void init();
+    void cleanup();
 
-    void testDefaultValues();
+    void testDefaultValues_Subset1();
+    void testDefaultValues_Subset2();
     void testSetAndGet_Bool();
     void testSetAndGet_String();
     void testSetAndGet_Float();
     void testSetAndGet_Int();
-    void testPersistence();
-    void testGetValue_WithCustomDefault(); // Test the defaultValue parameter of getValue
+    void testPersistence_Extended();
+    void testGetValue_WithCustomDefault();
 };
 
 void TestAppSettings::initTestCase() {
-    // Set application/organization name for QSettings if AppSettings constructor
-    // relies on default QSettings constructor in some paths.
-    // The AppSettings constructor provided attempts to use these if its own args are empty.
-    // For these tests, we provide explicit org/app names to AppSettings constructor,
-    // but setting these can prevent warnings or issues if other code instantiates QSettings().
     if (QCoreApplication::organizationName().isEmpty()) {
         QCoreApplication::setOrganizationName("RMEditor_TestSuite_Org");
     }
@@ -61,30 +53,22 @@ void TestAppSettings::initTestCase() {
 }
 
 void TestAppSettings::cleanupTestCase() {
-    // Clean up the settings file created by the test suite, if any.
-    // This ensures no residue is left on the system.
     QSettings settings(QSettings::IniFormat, QSettings::UserScope, testOrgName, testAppName);
     settings.clear();
-    // qInfo() << "Cleaned up test settings from:" << settings.fileName();
 }
 
 void TestAppSettings::init() {
-    // Ensure a clean state for each test by clearing settings
-    // associated with the specific test organization/application names.
     QSettings settings(QSettings::IniFormat, QSettings::UserScope, testOrgName, testAppName);
     settings.clear();
-    // For debugging, print the path of the settings file being used by tests:
-    // if(testCounter == 0) qInfo() << "Test settings file for this run:" << settings.fileName();
-    // testCounter++;
 }
-// static int testCounter = 0; // if using the qInfo above
 
 void TestAppSettings::cleanup() { }
 
 
-void TestAppSettings::testDefaultValues() {
+void TestAppSettings::testDefaultValues_Subset1() {
     auto as = createAppSettingsForTest();
 
+    // Original subset
     QCOMPARE(as->isTransparentFloorsEnabled(), false);
     QCOMPARE(as->isShowGridEnabled(), false);
     QCOMPARE(as->getDataDirectory(), QString(""));
@@ -94,90 +78,176 @@ void TestAppSettings::testDefaultValues() {
     QCOMPARE(as->getPaletteColCount(), 8);
     QCOMPARE(as->getLiveHost(), QString("localhost"));
     QCOMPARE(as->getLivePort(), 12356);
+
+    // --- Added settings for broader coverage ---
+    // Version Group
+    QCOMPARE(as->isUseCustomDataDirectory(), false);
+    QCOMPARE(as->getExtensionsDirectory(), QString(""));
+    // Graphics Group
+    QCOMPARE(as->getTextureCleanPulse(), 15);
+    QCOMPARE(as->getScreenshotFormat(), QString("png"));
+    // View Group
+    QCOMPARE(as->isShowCreaturesEnabled(), true); // Default 1
+    QCOMPARE(as->isHighlightItemsEnabled(), false);
 }
+
+void TestAppSettings::testDefaultValues_Subset2() {
+    auto as = createAppSettingsForTest();
+    // Editor Group
+    QCOMPARE(as->getZoomSpeed(), 1.4f);
+    QCOMPARE(as->isBorderizePasteEnabled(), true); // Default 1
+    QCOMPARE(as->getRecentFiles(), QString("")); // Default was complex string, now empty
+    // UI Group
+    QCOMPARE(as->useLargeTerrainToolbar(), true); // Default 1
+    QCOMPARE(as->getPaletteItemStyle(), QString("listbox"));
+    // Window Group
+    QCOMPARE(as->getWindowHeight(), 500);
+    QCOMPARE(as->isWindowMaximized(), false); // Default 0
+    // Network Group
+    QCOMPARE(as->getLivePassword(), QString(""));
+    // Interface Group (Dark Mode)
+    QCOMPARE(as->isDarkModeEnabled(), false); // Default 0
+    QCOMPARE(as->getDarkModeRed(), 45);
+    // HouseCreation Group
+    QCOMPARE(as->getMaxHouseTiles(), 5000);
+    // LOD Group
+    QCOMPARE(as->getTooltipMaxZoom(), 10);
+    // PaletteGrid Group
+    QCOMPARE(as->getGridChunkSize(), 3000);
+    // Misc/Root Level
+    QCOMPARE(as->isGoToWebsiteOnBootEnabled(), false); // Default 0
+}
+
 
 void TestAppSettings::testSetAndGet_Bool() {
     auto as = createAppSettingsForTest();
 
     as->setTransparentFloorsEnabled(true);
     QCOMPARE(as->isTransparentFloorsEnabled(), true);
-    as->setTransparentFloorsEnabled(false);
-    QCOMPARE(as->isTransparentFloorsEnabled(), false);
-
     as->setShowGridEnabled(true);
     QCOMPARE(as->isShowGridEnabled(), true);
-
     as->setTextureManagementEnabled(false);
     QCOMPARE(as->isTextureManagementEnabled(), false);
+
+    // Added
+    as->setUseCustomDataDirectory(true);
+    QCOMPARE(as->isUseCustomDataDirectory(), true);
+    as->setShowCreaturesEnabled(false);
+    QCOMPARE(as->isShowCreaturesEnabled(), false);
+    as->setBorderizePasteEnabled(false);
+    QCOMPARE(as->isBorderizePasteEnabled(), false);
+    as->setUseLargeTerrainToolbar(false);
+    QCOMPARE(as->useLargeTerrainToolbar(), false);
+    as->setWindowMaximized(true);
+    QCOMPARE(as->isWindowMaximized(), true);
+    as->setDarkModeEnabled(true);
+    QCOMPARE(as->isDarkModeEnabled(), true);
+    as->setGoToWebsiteOnBootEnabled(true);
+    QCOMPARE(as->isGoToWebsiteOnBootEnabled(), true);
 }
 
 void TestAppSettings::testSetAndGet_String() {
     auto as = createAppSettingsForTest();
-    QString testDir = "/test/data/dir";
-    as->setDataDirectory(testDir);
-    QCOMPARE(as->getDataDirectory(), testDir);
+    as->setDataDirectory("/test/data");
+    QCOMPARE(as->getDataDirectory(), QString("/test/data"));
+    as->setLiveHost("192.168.0.1");
+    QCOMPARE(as->getLiveHost(), QString("192.168.0.1"));
 
-    QString testHost = "192.168.1.100";
-    as->setLiveHost(testHost);
-    QCOMPARE(as->getLiveHost(), testHost);
+    // Added
+    as->setExtensionsDirectory("/test/ext");
+    QCOMPARE(as->getExtensionsDirectory(), QString("/test/ext"));
+    as->setScreenshotFormat("jpg");
+    QCOMPARE(as->getScreenshotFormat(), QString("jpg"));
+    as->setRecentFiles("map1.rme|map2.rme");
+    QCOMPARE(as->getRecentFiles(), QString("map1.rme|map2.rme"));
+    as->setPaletteItemStyle("icons");
+    QCOMPARE(as->getPaletteItemStyle(), QString("icons"));
+    as->setLivePassword("secret");
+    QCOMPARE(as->getLivePassword(), QString("secret"));
 }
 
 void TestAppSettings::testSetAndGet_Float() {
     auto as = createAppSettingsForTest();
-    float testSpeed = 5.0f;
-    as->setScrollSpeed(testSpeed);
-    QCOMPARE(as->getScrollSpeed(), testSpeed);
+    as->setScrollSpeed(5.0f);
+    QCOMPARE(as->getScrollSpeed(), 5.0f);
+
+    // Added
+    as->setZoomSpeed(2.0f);
+    QCOMPARE(as->getZoomSpeed(), 2.0f);
 }
 
 void TestAppSettings::testSetAndGet_Int() {
     auto as = createAppSettingsForTest();
-    int testUndo = 100;
-    as->setUndoSize(testUndo);
-    QCOMPARE(as->getUndoSize(), testUndo);
+    as->setUndoSize(100);
+    QCOMPARE(as->getUndoSize(), 100);
+    as->setPaletteColCount(12);
+    QCOMPARE(as->getPaletteColCount(), 12);
+    as->setLivePort(8888);
+    QCOMPARE(as->getLivePort(), 8888);
 
-    int testCols = 12;
-    as->setPaletteColCount(testCols);
-    QCOMPARE(as->getPaletteColCount(), testCols);
-
-    int testPort = 8888;
-    as->setLivePort(testPort);
-    QCOMPARE(as->getLivePort(), testPort);
+    // Added
+    as->setTextureCleanPulse(30);
+    QCOMPARE(as->getTextureCleanPulse(), 30);
+    as->setWindowHeight(800);
+    QCOMPARE(as->getWindowHeight(), 800);
+    as->setDarkModeRed(50);
+    QCOMPARE(as->getDarkModeRed(), 50);
+    as->setMaxHouseTiles(9000);
+    QCOMPARE(as->getMaxHouseTiles(), 9000);
+    as->setTooltipMaxZoom(5);
+    QCOMPARE(as->getTooltipMaxZoom(), 5);
+    as->setGridChunkSize(100);
+    QCOMPARE(as->getGridChunkSize(), 100);
 }
 
-void TestAppSettings::testPersistence() {
+void TestAppSettings::testPersistence_Extended() {
+    // Original subset
     QString testHost = "persistent.example.com";
     int testPort = 9999;
     bool testGrid = true;
+    // Added settings for extended test
+    QString testScreenshotDir = "/screenshots/game";
+    int testWindowWidth = 1024;
+    float testNewZoomSpeed = 2.5f;
 
     {
         auto as1 = createAppSettingsForTest();
         as1->setLiveHost(testHost);
         as1->setLivePort(testPort);
         as1->setShowGridEnabled(testGrid);
-        // AppSettings destructor calls QSettings::sync()
+        // New
+        as1->setScreenshotDirectory(testScreenshotDir);
+        as1->setWindowWidth(testWindowWidth);
+        as1->setZoomSpeed(testNewZoomSpeed);
+        as1->setDarkModeEnabled(true); // A bool
     }
 
     {
-        auto as2 = createAppSettingsForTest(); // New instance, should load from same file
+        auto as2 = createAppSettingsForTest();
         QCOMPARE(as2->getLiveHost(), testHost);
         QCOMPARE(as2->getLivePort(), testPort);
         QCOMPARE(as2->isShowGridEnabled(), testGrid);
+        // New
+        QCOMPARE(as2->getScreenshotDirectory(), testScreenshotDir);
+        QCOMPARE(as2->getWindowWidth(), testWindowWidth);
+        QCOMPARE(as2->getZoomSpeed(), testNewZoomSpeed);
+        QCOMPARE(as2->isDarkModeEnabled(), true);
 
-        QCOMPARE(as2->getScrollSpeed(), 3.5f); // Check a default value not touched in this test
+        // Check a default value for a setting not touched in this test
+        QCOMPARE(as2->getScrollSpeed(), 3.5f);
     }
 }
 
 void TestAppSettings::testGetValue_WithCustomDefault() {
     auto as = createAppSettingsForTest();
-
-    // Key DATA_DIRECTORY default is ""
     QCOMPARE(as->getValue(Config::DATA_DIRECTORY).toString(), QString(""));
-    // Provide a custom default to getValue
     QCOMPARE(as->getValue(Config::DATA_DIRECTORY, "/custom/default/path").toString(), QString("/custom/default/path"));
-
-    // Set a value, then custom default should be ignored
     as->setValue(Config::DATA_DIRECTORY, "/actual/value");
     QCOMPARE(as->getValue(Config::DATA_DIRECTORY, "/custom/default/path_ignored").toString(), QString("/actual/value"));
+
+    // Test with an int key and custom int default
+    QCOMPARE(as->getValue(Config::TEXTURE_CLEAN_PULSE).toInt(), 15); // Map default
+    QCOMPARE(as->getValue(Config::TEXTURE_CLEAN_PULSE, 999).toInt(), 999); // Custom default
 }
 
 
