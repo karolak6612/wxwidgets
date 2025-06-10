@@ -32,6 +32,15 @@ set(RME_CORE_LIB_SOURCES
 
     # LOGIC-04 Waypoint System files
     waypoints/WaypointManager.cpp
+
+    # NET-01 Network Protocol & IO Handlers
+    network/NetworkMessage.cpp
+    network/MapProtocolCodec.cpp
+    io/BinaryNode.cpp
+    io/NodeFileReadHandle.cpp
+    io/MemoryNodeFileReadHandle.cpp
+    io/NodeFileWriteHandle.cpp
+    io/MemoryNodeFileWriteHandle.cpp
 )
 
 add_library(rme_core_lib STATIC ${RME_CORE_LIB_SOURCES})
