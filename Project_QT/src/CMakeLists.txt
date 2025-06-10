@@ -1,5 +1,6 @@
 # Add subdirectories for different modules/libraries
 add_subdirectory(core)
+add_subdirectory(ui)
 
 # Define application source files
 # These wxwidgets sources are placeholders and will be refactored/replaced.
@@ -29,6 +30,7 @@ target_link_libraries(rme_qt_app PRIVATE
     Qt6::Concurrent
     oclero::qlementine # Qlementine library target
     rme_core_lib       # Our core library
+    rme_ui_lib         # Our new UI library
 )
 
 # Include directories for the application
