@@ -2,7 +2,7 @@
 
 ## 1. Project Overview & Goal
 
-This project focuses on migrating Remere's Map Editor (RME), a 2D map editor, from its original C++/wxWidgets codebase to a modernized C++/Qt6 application.
+This project focuses on migrating Remere's Map Editor (RME), a 2D tile map editor, from its original C++/wxWidgets codebase to a modernized C++/Qt6 application.
 
 -   **Original wxWidgets Source Code:** Located in the `wxwidgets/` directory within the repository.
 -   **Target for New Qt6 Code:** All new and ported Qt6 C++ code should reside in the `Project_QT/src/` directory (unless a task specifically defines other locations, e.g., for tests or resources).
@@ -12,7 +12,7 @@ This project focuses on migrating Remere's Map Editor (RME), a 2D map editor, fr
 ## 2. Our Roles
 
 -   **Coder:** Jules (AI Coding Assistant)
--   **Auditor & Reviewer:** User (You, interacting via the chat interface)
+-   **Auditor & Reviewer:** User (Interacting via the chat interface)
 
 ## 3. Key Project Artifacts & References
 
