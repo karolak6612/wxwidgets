@@ -29,6 +29,9 @@ set(RME_CORE_LIB_SOURCES
     # CORE-BRUSH-FRAMEWORK files
     brush/Brush.cpp
     brush/BrushManagerService.cpp
+
+    # LOGIC-04 Waypoint System files
+    waypoints/WaypointManager.cpp
 )
 
 add_library(rme_core_lib STATIC ${RME_CORE_LIB_SOURCES})
