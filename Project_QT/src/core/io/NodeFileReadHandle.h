@@ -33,11 +33,10 @@ public:
     // Called by BinaryNode's destructor or when a node is no longer needed
     void recycleNode(BinaryNode* node);
 
-    // Called by BinaryNode to load its properties from the stream
-    bool readNodeProperties(BinaryNode* node, std::vector<uint8_t>& properties);
+    // bool readNodeProperties(BinaryNode* node, std::vector<uint8_t>& properties); // Replaced by logic in readNextNode
 
-    bool isOk() const { return m_error == 0; }
-    int getError() const { return m_error; } // 0 for no error
+    bool isOk() const { return m_error == RME_OTBM_IO_NO_ERROR; }
+    int getError() const { return m_error; }
 
     virtual size_t tell() const = 0; // Current read position in the underlying stream/buffer
     virtual bool isEof() const = 0;  // True if no more data can be read from source

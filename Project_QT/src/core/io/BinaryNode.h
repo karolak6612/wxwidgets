@@ -42,22 +42,43 @@ public:
     bool skipBytes(size_t bytesToSkip);
 
     bool getBytes(uint8_t* buffer, size_t length);
-    bool getBytes(std::vector<uint8_t>& buffer, size_t length);
+    bool getBytes(std::vector<uint8_t>& buffer, size_t length); // Keep for now, or adapt to QByteArray
     bool getString(std::string& value); // Reads a string prefixed by uint16_t length
-    // bool getLongString(std::string& value); // Reads a string prefixed by uint32_t length (if needed)
+    bool getString(QString& value);     // Reads a string (U16 len) into QString
 
     BinaryNode* getChild(); // Gets the first child of this node
     BinaryNode* getNextChild(); // Advances to the next sibling of the current child (or gets first if no current child)
     BinaryNode* advance();    // Advances this node to its next sibling
 
-    const std::vector<uint8_t>& getPropertiesData() const { return m_properties; } // Access to raw properties data
+    /** @brief Sets the properties data for this node and resets the read offset. */
+    void setProperties(const QByteArray& propsData);
+    /** @brief Gets the raw properties data. Useful if external parsing or decompression is needed first. */
+    const QByteArray& getPropertiesData() const { return m_properties; }
+    /** @brief Resets the internal read offset for properties to the beginning. */
+    void resetReadOffset();
+    /** @brief Checks if there is more property data to be read. */
+    bool hasMoreProperties() const;
+    /** @brief Gets the current read offset within the properties data. */
+    qsizetype getReadOffset() const { return m_readOffset; }
+
+    /** @brief Gets the type of this node. */
+    uint8_t getType() const { return m_type; }
+    /** @brief Sets the type of this node (used by NodeFileReadHandle during creation). */
+    void setType(uint8_t type) { m_type = type; }
+    /** @brief Gets the node data (distinct from properties, e.g. tile coords, item id). */
+    const QByteArray& getNodeData() const { return m_nodeData; }
+    /** @brief Sets the node data (used by NodeFileReadHandle). */
+    void setNodeData(const QByteArray& data) { m_nodeData = data; }
+
 
 private:
     template <typename T>
-    bool readType(T& value);
+    bool readType(T& value); // Internal helper for numeric types
 
-    std::vector<uint8_t> m_properties; // Stores the properties (data) of this node
-    size_t m_readOffset;               // Current read offset within m_properties
+    uint8_t m_type;          // Type of this node (e.g., OTBM_NODE_TILE)
+    QByteArray m_nodeData;   // Raw data for this node (e.g., tile coordinates, item ID)
+    QByteArray m_properties; // Stores the properties (attributes) of this node.
+    qsizetype m_readOffset;  // Current read offset within m_properties
 
     NodeFileReadHandle* m_fileHandle; // Non-owning pointer to the file handle that created it
     BinaryNode* m_parent;             // Non-owning pointer to the parent node

@@ -3,43 +3,67 @@
 #include "core/io/otbm_constants.h"   // For NODE_START, NODE_END, ESCAPE_CHAR
 #include <cstring> // For memcpy
 #include <stdexcept> // For potential exceptions
+#include <QString> // For getString(QString&)
+#include <QtEndian> // For qFromLittleEndian
 
 namespace RME {
 namespace core {
 namespace io {
 
 BinaryNode::BinaryNode(NodeFileReadHandle* handle, BinaryNode* parentNode) :
+    m_type(0), // Default type, should be set by NodeFileReadHandle
     m_readOffset(0),
     m_fileHandle(handle),
     m_parent(parentNode),
     m_child(nullptr) {
-    // Properties are loaded by calling loadProperties() externally by NodeFileReadHandle
+    // m_nodeData and m_properties are loaded by NodeFileReadHandle
 }
 
 BinaryNode::~BinaryNode() {
-    // The original used a custom memory pool via m_fileHandle->freeNode(m_child).
-    // If m_fileHandle is responsible for freeing children, this destructor might be empty
-    // or cooperate with the handle. For now, assume m_fileHandle manages this.
     if (m_child) {
-        m_fileHandle->recycleNode(m_child); // Tell handle to recycle child
+        m_fileHandle->recycleNode(m_child);
         m_child = nullptr;
     }
 }
 
+void BinaryNode::setProperties(const QByteArray& propsData) {
+    m_properties = propsData;
+    resetReadOffset();
+}
+
+void BinaryNode::resetReadOffset() {
+    m_readOffset = 0;
+}
+
+bool BinaryNode::hasMoreProperties() const {
+    return m_readOffset < m_properties.size();
+}
+
 template <typename T>
 bool BinaryNode::readType(T& value) {
-    if (m_readOffset + sizeof(T) > m_properties.size()) {
-        // Attempted to read past the end of the properties buffer
+    if (m_readOffset + static_cast<qsizetype>(sizeof(T)) > m_properties.size()) {
         return false;
     }
-    memcpy(&value, m_properties.data() + m_readOffset, sizeof(T));
-    // TODO: Handle endianness if required. Assuming little-endian for now.
+    if constexpr (sizeof(T) > 1) {
+        // QByteArray::data() is char*, constData() is const char*.
+        // We are reading, so constData() is appropriate.
+        value = qFromLittleEndian<T>(reinterpret_cast<const uchar*>(m_properties.constData() + m_readOffset));
+    } else {
+        // For single byte types (uint8_t/int8_t), direct copy.
+        memcpy(&value, m_properties.constData() + m_readOffset, sizeof(T));
+    }
     m_readOffset += sizeof(T);
     return true;
 }
 
 bool BinaryNode::getU8(uint8_t& value) {
-    return readType(value);
+    if (m_readOffset + static_cast<qsizetype>(sizeof(uint8_t)) > m_properties.size()) {
+        return false;
+    }
+    // QByteArray operator[] returns char, needs cast. Direct access is fine for single byte.
+    value = static_cast<uint8_t>(m_properties.at(m_readOffset));
+    m_readOffset += sizeof(uint8_t);
+    return true;
 }
 
 bool BinaryNode::getU16(uint16_t& value) {
@@ -55,50 +79,62 @@ bool BinaryNode::getU64(uint64_t& value) {
 }
 
 bool BinaryNode::skipBytes(size_t bytesToSkip) {
-    if (m_readOffset + bytesToSkip > m_properties.size()) {
+    if (m_readOffset + static_cast<qsizetype>(bytesToSkip) > m_properties.size()) {
         m_readOffset = m_properties.size(); // Move to end
-        return false; // Skipped past end
+        return false;
     }
     m_readOffset += bytesToSkip;
     return true;
 }
 
 bool BinaryNode::getBytes(uint8_t* buffer, size_t length) {
-    if (m_readOffset + length > m_properties.size()) {
-        return false; // Not enough data
+    if (m_readOffset + static_cast<qsizetype>(length) > m_properties.size()) {
+        return false;
     }
-    memcpy(buffer, m_properties.data() + m_readOffset, length);
+    memcpy(buffer, m_properties.constData() + m_readOffset, length);
     m_readOffset += length;
     return true;
 }
 
 bool BinaryNode::getBytes(std::vector<uint8_t>& buffer, size_t length) {
-    if (m_readOffset + length > m_properties.size()) {
-        return false; // Not enough data
+    if (m_readOffset + static_cast<qsizetype>(length) > m_properties.size()) {
+        return false;
     }
     buffer.resize(length);
-    memcpy(buffer.data(), m_properties.data() + m_readOffset, length);
+    memcpy(buffer.data(), m_properties.constData() + m_readOffset, length);
     m_readOffset += length;
     return true;
 }
 
 bool BinaryNode::getString(std::string& value) {
-    uint16_t len;
-    if (!getU16(len)) {
+    quint16 len; // Use quint16 for Qt types compatibility with qFromLittleEndian
+    if (!getU16(len)) { // getU16 handles endianness
         return false;
     }
-    if (m_readOffset + len > m_properties.size()) {
-        // Not enough data for the string content, revert read of length
-        m_readOffset -= sizeof(uint16_t);
+    if (m_readOffset + static_cast<qsizetype>(len) > m_properties.size()) {
+        // Not enough data for the string content. Attempt to "unread" length.
+        // This is important for parsers that try to read optional attributes.
+        m_readOffset -= sizeof(quint16);
         return false;
     }
-    value.assign(reinterpret_cast<const char*>(m_properties.data() + m_readOffset), len);
+    value.assign(m_properties.constData() + m_readOffset, static_cast<size_t>(len));
     m_readOffset += len;
     return true;
 }
 
-// void BinaryNode::loadProperties() - Implementation moved to NodeFileReadHandle::readNodeProperties
-// as it needs access to the file handle's internal buffer and escape logic.
+bool BinaryNode::getString(QString& value) {
+    quint16 len;
+    if (!getU16(len)) {
+        return false;
+    }
+    if (m_readOffset + static_cast<qsizetype>(len) > m_properties.size()) {
+        m_readOffset -= sizeof(quint16); // Revert length read
+        return false;
+    }
+    value = QString::fromUtf8(m_properties.constData() + m_readOffset, static_cast<int>(len));
+    m_readOffset += len;
+    return true;
+}
 
 
 BinaryNode* BinaryNode::getChild() {
