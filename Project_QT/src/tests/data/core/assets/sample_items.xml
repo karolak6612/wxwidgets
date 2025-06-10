@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<items>
+  <item id="100" name="Sample Ground OTB Override"> <!-- Same ID as in OTB -->
+    <attribute key="description" value="This is a sample ground item, description from XML."/>
+    <attribute key="weight" value="1250"/> <!-- 12.50 kg -->
+    <attribute key="article" value="a"/>
+  </item>
+  <item id="200" name="Magic Sword">
+    <attribute key="type" value="1"/> <!-- ItemType::TYPE_NORMAL -->
+    <attribute key="group" value="3"/> <!-- ItemGroup::WEAPON -->
+    <attribute key="weight" value="3500"/>
+    <attribute key="attack" value="25"/>
+    <attribute key="article" value="a"/>
+    <attribute key="blocksprojectile" value="true"/> <!-- Example flag -->
+  </item>
+  <item id="201" name="Health Potion">
+    <attribute key="type" value="2"/> <!-- ItemType::TYPE_FLUID (example) -->
+    <attribute key="group" value="11"/> <!-- ItemGroup::FLUID -->
+    <attribute key="weight" value="200"/>
+    <attribute key="article" value="a"/>
+  </item>
+</items>

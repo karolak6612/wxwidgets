@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<creatures>
+  <creature name="Rat" script="creatures/rat.lua" type="monster">
+    <look type="21" head="0" body="0" legs="0" feet="0" addons="0" mount="0"/>
+    <!-- RME specific attributes if any, e.g. for brushes -->
+    <attribute key="health_max" value="20"/>
+    <attribute key="description" value="A common rat."/>
+  </creature>
+  <creature name="Cave Rat" script="creatures/caverat.lua" type="monster">
+    <look type="57"/> <!-- Only looktype, others default to 0 -->
+  </creature>
+  <creature name="Sam" script="npcs/sam.lua" type="npc">
+    <look type="136" head="78" body="88" legs="67" feet="95" addons="1" mount="0"/>
+    <attribute key="town_id" value="1"/>
+  </creature>
+</creatures>

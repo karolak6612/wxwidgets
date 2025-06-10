@@ -88,11 +88,6 @@ These mandates must be adhered to for all coding tasks:
 All tasks from `tasks_execution_order.md` are listed here. This board will be updated as tasks progress.
 
 ### Backlog (To Do)
-- [ ] BUILD-00 (Create Root CMakeLists.txt and Basic Project Structure)
-- [ ] CORE-01 (Port Core Data Structures - Position, Item, Tile)
-- [ ] START (Project Start and Overall WBS Definition)
-- [ ] BUILD-01 (Setup Initial CMake Build System for Qt6 Project)
-- [ ] CORE-02 (Port Asset Database & Parsers (Items, Creatures, Sprites, Client Versions))
 - [ ] CORE-03 (Port Map Data Structure & Non-Rendering Logic)
 - [ ] CORE-06 (Port Settings & Preferences System)
 - [ ] CORE-BRUSH-FRAMEWORK (Port Base Brush Class, Implement BrushManager, and Define BrushSettings)
@@ -174,13 +169,16 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [ ] TEST-10 (Execute and Document Cross-Platform UI Compatibility Tests)
 
 ### In Progress
-- None
+- [ ] CORE-02 (Port Asset Database & Parsers (Items, Creatures, Sprites, Client Versions))
 
 ### In Review
 - None
 
 ### Completed
-- None
+- [x] BUILD-00 (Create Root CMakeLists.txt and Basic Project Structure) - Branch: feat/build-00-initial-structure
+- [x] CORE-01 (Port Core Data Structures - Position, Item, Tile) - Branch: feat/core-01-data-structures
+- [x] START (Project Start and Overall WBS Definition) - Branch: docs/start-task-acknowledged
+- [x] BUILD-01 (Setup Initial CMake Build System for Qt6 Project) - Branch: feat/build-01-cmake-setup
 
 ### Blocked / Needs Discussion
 - None
