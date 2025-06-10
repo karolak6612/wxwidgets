@@ -41,6 +41,11 @@ set(RME_CORE_LIB_SOURCES
     io/MemoryNodeFileReadHandle.cpp
     io/NodeFileWriteHandle.cpp
     io/MemoryNodeFileWriteHandle.cpp
+
+    # CORE-04 Action & History System
+    actions/AppUndoCommand.cpp
+    actions/UndoManager.cpp
+    actions/TileChangeCommand.cpp
 )
 
 add_library(rme_core_lib STATIC ${RME_CORE_LIB_SOURCES})
@@ -54,6 +59,9 @@ target_include_directories(rme_core_lib PUBLIC
 
 # Link against Qt6 Core as QSettings, QXmlStreamReader, QFile, QDataStream, QString, QList, QMap, QVariant etc. are used.
 # QVector is also in Core. QDebug is in Core.
-target_link_libraries(rme_core_lib PRIVATE Qt6::Core)
+target_link_libraries(rme_core_lib PRIVATE
+    Qt6::Core
+    Qt6::Widgets # Added for QUndoStack, QUndoCommand, QObject signals/slots in UndoManager
+)
 
 # Add other dependencies if necessary
