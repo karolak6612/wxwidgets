@@ -107,6 +107,11 @@ public:
     void tableize() { /* TODO */ }
     void carpetize() { /* TODO */ }
 
+    // Waypoint Tracking
+    void increaseWaypointCount();
+    void decreaseWaypointCount();
+    int getWaypointCount() const;
+
     // Needed for addItem logic
     IItemTypeProvider* getItemTypeProvider() const { return itemTypeProvider; }
 
@@ -123,6 +128,7 @@ private:
     TileStateFlags stateFlags = TileStateFlag::NO_FLAGS;
 
     IItemTypeProvider* itemTypeProvider; // Non-owning, passed at construction for item logic
+    int m_waypointCount = 0;
 
     // Helper for deep copy
     void copyMembersTo(Tile& target) const;

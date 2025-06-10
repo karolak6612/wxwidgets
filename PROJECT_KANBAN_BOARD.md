@@ -88,13 +88,6 @@ These mandates must be adhered to for all coding tasks:
 All tasks from `tasks_execution_order.md` are listed here. This board will be updated as tasks progress.
 
 ### Backlog (To Do)
-- [ ] DOCS-01 (Generate Developer API Documentation (Doxygen))
-- [ ] LOGIC-04 (Port Waypoint System)
-- [ ] NET-01 (Isolate and Port Network Protocol Definition and Serialization Logic)
-- [ ] RENDER-01 (Implement Core OpenGL Viewport and Navigation (MapView))
-- [ ] TEST-01 (Develop Unit Tests for Core Qt6 Data Structures)
-- [ ] UI-01 (Port Main Application Window (QMainWindow) and Dynamic Menu Bar from XML)
-- [ ] BUILD-02 (Implement Packaging and Deployment)
 - [ ] CORE-04 (Port Action & History (Undo/Redo) System)
 - [ ] CORE-07-MapIO (Port OTBM Map I/O System)
 - [ ] CORE-08-CreatureOutfit (Port Creature Instance and Outfit Classes)
@@ -166,12 +159,18 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [ ] TEST-10 (Execute and Document Cross-Platform UI Compatibility Tests)
 
 ### In Progress
-- [ ] CORE-BRUSH-FRAMEWORK (Port Base Brush Class, Implement BrushManager, and Define BrushSettings)
+- None
 
 ### In Review
 - None
 
 ### Completed
+- [x] BUILD-02 (Implement Packaging and Deployment) - Branch: feat/build-02-cpack-packaging
+- [x] UI-01 (Port Main Application Window (QMainWindow) and Dynamic Menu Bar from XML) - Branch: feat/ui-01-mainwindow-reworked
+- [x] RENDER-01 (Implement Core OpenGL Viewport and Navigation (MapView)) - Branch: feat/render-01-mapview-complete
+- [x] NET-01 (Isolate and Port Network Protocol Definition and Serialization Logic) - Branch: feat/net-01-protocol-serialization
+- [x] LOGIC-04 (Port Waypoint System) - Branch: feat/logic-04-waypoint-system
+- [x] CORE-BRUSH-FRAMEWORK (Port Base Brush Class, Implement BrushManager, and Define BrushSettings) - Branch: feat/core-brush-framework
 - [x] BUILD-00 (Create Root CMakeLists.txt and Basic Project Structure) - Branch: feat/build-00-initial-structure
 - [x] CORE-01 (Port Core Data Structures - Position, Item, Tile) - Branch: feat/core-01-data-structures
 - [x] START (Project Start and Overall WBS Definition) - Branch: docs/start-task-acknowledged
@@ -181,6 +180,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [x] CORE-06 (Port Settings & Preferences System) - Branch: feat/core-06-settings-system-complete
 
 ### Blocked / Needs Discussion
-- None
+- [ ] DOCS-01 (Generate Developer API Documentation (Doxygen))
+- [ ] TEST-01 (Develop Unit Tests for Core Qt6 Data Structures)
 ---
 The "Tasks with Unresolved Dependencies" section has been removed from the Kanban board part as the `LOGIC-01` dependency on `BRUSH-LOGIC-ALL` was resolved by removing it, and the new task list in `tasks_execution_order.md` (which this Kanban is based on) reflects this. The specific brush logic tasks are now dependencies of `LOGIC-01`.
