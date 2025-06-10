@@ -88,7 +88,6 @@ These mandates must be adhered to for all coding tasks:
 All tasks from `tasks_execution_order.md` are listed here. This board will be updated as tasks progress.
 
 ### Backlog (To Do)
-- [ ] CORE-03 (Port Map Data Structure & Non-Rendering Logic)
 - [ ] CORE-06 (Port Settings & Preferences System)
 - [ ] CORE-BRUSH-FRAMEWORK (Port Base Brush Class, Implement BrushManager, and Define BrushSettings)
 - [ ] DOCS-01 (Generate Developer API Documentation (Doxygen))
@@ -169,7 +168,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [ ] TEST-10 (Execute and Document Cross-Platform UI Compatibility Tests)
 
 ### In Progress
-- [ ] CORE-02 (Port Asset Database & Parsers (Items, Creatures, Sprites, Client Versions))
+- [ ] CORE-03 (Port Map Data Structure & Non-Rendering Logic)
 
 ### In Review
 - None
@@ -179,6 +178,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [x] CORE-01 (Port Core Data Structures - Position, Item, Tile) - Branch: feat/core-01-data-structures
 - [x] START (Project Start and Overall WBS Definition) - Branch: docs/start-task-acknowledged
 - [x] BUILD-01 (Setup Initial CMake Build System for Qt6 Project) - Branch: feat/build-01-cmake-setup
+- [x] CORE-02 (Port Asset Database & Parsers (Items, Creatures, Sprites, Client Versions)) - Branch: feat/core-02-asset-pipeline
 
 ### Blocked / Needs Discussion
 - None
