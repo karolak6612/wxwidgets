@@ -88,7 +88,6 @@ These mandates must be adhered to for all coding tasks:
 All tasks from `tasks_execution_order.md` are listed here. This board will be updated as tasks progress.
 
 ### Backlog (To Do)
-- [ ] UI-01 (Port Main Application Window (QMainWindow) and Dynamic Menu Bar from XML)
 - [ ] BUILD-02 (Implement Packaging and Deployment)
 - [ ] CORE-04 (Port Action & History (Undo/Redo) System)
 - [ ] CORE-07-MapIO (Port OTBM Map I/O System)
@@ -167,6 +166,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - None
 
 ### Completed
+- [x] UI-01 (Port Main Application Window (QMainWindow) and Dynamic Menu Bar from XML) - Branch: feat/ui-01-mainwindow-reworked
 - [x] RENDER-01 (Implement Core OpenGL Viewport and Navigation (MapView)) - Branch: feat/render-01-mapview-complete
 - [x] NET-01 (Isolate and Port Network Protocol Definition and Serialization Logic) - Branch: feat/net-01-protocol-serialization
 - [x] LOGIC-04 (Port Waypoint System) - Branch: feat/logic-04-waypoint-system

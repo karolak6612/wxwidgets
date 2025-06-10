@@ -21,6 +21,15 @@ else()
     add_executable(rme_qt_app ${APP_SOURCES})
 endif()
 
+# macOS specific bundle properties
+if(APPLE)
+    set_target_properties(rme_qt_app PROPERTIES
+        MACOSX_BUNDLE_ICON_FILE "${CMAKE_PROJECT_SOURCE_DIR}/packaging/icons/RME-Qt.icns" # Path relative to root project
+        MACOSX_BUNDLE_BUNDLE_NAME "RME-Qt"
+        # MACOSX_BUNDLE_INFO_PLIST "${CMAKE_PROJECT_SOURCE_DIR}/packaging/macos/Info.plist.in" # Optional custom Info.plist
+    )
+endif()
+
 # Link against Qt6 modules, Qlementine, and our libraries
 target_link_libraries(rme_qt_app PRIVATE
     Qt6::Core
