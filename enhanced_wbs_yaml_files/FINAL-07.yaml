@@ -45,12 +45,41 @@ qt6_migration_steps: |-
           -   Add the QSS file(s) (e.g., `qlementine.qss`) to the project, typically as a Qt resource (`.qrc`).
           -   Compile any helper C++ classes into the main application or a utility library.
   2.  **Initialize Qlementine Style:**
-      -   In `main.cpp`, before or during `QApplication` instantiation, initialize and apply the Qlementine style.
-      -   This might involve creating an instance of a Qlementine style class (if provided as a `QStyle` subclass) and setting it using `QApplication::setStyle(new QlementineStyle());`.
-      -   Or, it might involve loading the `qlementine.qss` file from resources and applying it globally using `qApp->setStyleSheet(qssString);`. Refer to Qlementine's documentation for the recommended setup.
+      -   In `main.cpp`, after `QApplication app(argc, argv);`, initialize and apply the Qlementine style.
+      -   The primary method is to instantiate `oclero::qlementine::QlementineStyle` and set it using `QApplication::setStyle()`.
+          ```cpp
+          // In main.cpp, after QApplication app(argc, argv);
+          #include <oclero/qlementine.hpp> // Ensure this include is present
+
+          // ...
+          auto* style = new oclero::qlementine::QlementineStyle(&app); // Or other appropriate parent like &app if 'app' is the QApplication instance
+          QApplication::setStyle(style);
+          ```
+      -   Loading QSS files directly via `qApp->setStyleSheet()` is generally a secondary approach for Qlementine, which promotes its `QStyle` subclass for deeper integration.
   3.  **Theme Selection (if Qlementine offers multiple themes like light/dark):**
-      -   If `FINAL-03` (Preferences Dialog) or `CORE-06` (AppSettings) included a setting for theme choice (e.g., light/dark), ensure this setting is now used to instruct Qlementine or the `ThemeManager` (if a separate one like in the original FINAL-04 prompt exists) to apply the correct Qlementine theme variant.
-      -   The `ThemeManager` (if used) would now load Qlementine's QSS instead of custom `light.qss`/`dark.qss`, or configure Qlementine's C++ API if it provides one for theme switching.
+      -   If `FINAL-03` (Preferences Dialog) or `CORE-06` (AppSettings) included a setting for theme choice (e.g., light/dark), use this setting to apply the correct Qlementine theme.
+      -   Qlementine provides mechanisms for this:
+          -   **1. Direct theme setting on the style instance:**
+              ```cpp
+              // auto* style = qobject_cast<oclero::qlementine::QlementineStyle*>(QApplication::style());
+              // if (style) {
+              //    style->setThemeJsonPath(":/themes/your_light_theme.json"); // Or dark theme
+              // }
+              ```
+              *(Note: The theme path should point to a theme JSON file, typically included via Qt resources).*
+          -   **2. Using `oclero::qlementine::ThemeManager` (Recommended for multiple themes):**
+              ```cpp
+              // In main.cpp or where you manage application style
+              // auto* qlementineStyle = qobject_cast<oclero::qlementine::QlementineStyle*>(QApplication::style());
+              // if (qlementineStyle) {
+              //    auto* themeManager = new oclero::qlementine::ThemeManager(qlementineStyle);
+              //    themeManager->loadDirectory(":/themes"); // Directory in resources (e.g., :/themes/light.json, :/themes/dark.json)
+              //    // Set theme based on AppSettings
+              //    // QString currentTheme = AppSettings::getInstance().getTheme(); // "Light" or "Dark"
+              //    // themeManager->setCurrentTheme(currentTheme);
+              // }
+              ```
+      -   The `ThemeManager` is preferred if multiple themes are bundled or user-selectable. Ensure theme files (e.g., `light.json`, `dark.json`) are included in your Qt resources (e.g., in a `:/themes/` prefix).
   4.  **Review and Test UI Components:**
       -   Thoroughly test all parts of the application UI with Qlementine applied:
           -   `MainWindow`, menus, toolbars, status bar.
@@ -119,7 +148,10 @@ boilerplate_coder_ai_prompt: |
      -   Ensure the application has a consistent, modern look and feel.
      -   Check for any styling conflicts or visual glitches.
 documentation_references:
-  - "Qlementine GitHub Repository & Documentation (Primary Reference): [Link to Qlementine's official repository/docs]"
+  - "qlementine/README.md (local copy)"
+  - "qlementine/docs/usage.md (local copy, for C++ setup and ThemeManager)"
+  - "qlementine/docs/theme.md (local copy, for JSON theme structure)"
+  - "qlementine/docs/widgets.md (local copy, for available Qlementine specific widgets)"
   - "Qt Style Sheets: https://doc.qt.io/qt-6/stylesheet.html"
   - "Qt Style Sheets Syntax: https://doc.qt.io/qt-6/stylesheet-syntax.html"
   - "Qt Style Sheets Examples: https://doc.qt.io/qt-6/stylesheet-examples.html"
