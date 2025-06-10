@@ -24,7 +24,8 @@ add_test(NAME TestCore_Tile COMMAND TestCore_Tile)
 # Add subdirectories for categorized core tests
 add_subdirectory(assets)
 add_subdirectory(sprites)
-add_subdirectory(map) # New line for map structure tests
+add_subdirectory(map)
+add_subdirectory(settings) # New line for AppSettings tests
 
 # CTest include is managed at Project_QT/src/tests/CMakeLists.txt.
 # add_test() commands register tests with CTest framework.

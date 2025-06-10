@@ -22,18 +22,21 @@ set(RME_CORE_LIB_SOURCES
     map/BaseMap.cpp
     map/MapIterator.cpp
     map/Map.cpp
+
+    # CORE-06 settings system files
+    settings/AppSettings.cpp
 )
 
 add_library(rme_core_lib STATIC ${RME_CORE_LIB_SOURCES})
 
 # Public include directories for this library
 # This allows other targets linking against rme_core_lib to find its headers
-# e.g., #include "Position.h", #include "assets/AssetManager.h", #include "map/Map.h"
+# e.g., #include "Position.h", #include "assets/AssetManager.h", #include "settings/AppSettings.h"
 target_include_directories(rme_core_lib PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR} # Exposes Project_QT/src/core/ and its subdirectories (map, assets, sprites)
+    ${CMAKE_CURRENT_SOURCE_DIR} # Exposes Project_QT/src/core/ and its subdirectories
 )
 
-# Link against Qt6 Core as QXmlStreamReader, QFile, QDataStream, QString, QList, QMap, QVariant etc. are used.
+# Link against Qt6 Core as QSettings, QXmlStreamReader, QFile, QDataStream, QString, QList, QMap, QVariant etc. are used.
 # QVector is also in Core. QDebug is in Core.
 target_link_libraries(rme_core_lib PRIVATE Qt6::Core)
 
