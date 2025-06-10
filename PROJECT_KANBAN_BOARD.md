@@ -88,7 +88,6 @@ These mandates must be adhered to for all coding tasks:
 All tasks from `tasks_execution_order.md` are listed here. This board will be updated as tasks progress.
 
 ### Backlog (To Do)
-- [ ] LOGIC-04 (Port Waypoint System)
 - [ ] NET-01 (Isolate and Port Network Protocol Definition and Serialization Logic)
 - [ ] RENDER-01 (Implement Core OpenGL Viewport and Navigation (MapView))
 - [ ] TEST-01 (Develop Unit Tests for Core Qt6 Data Structures)
@@ -171,6 +170,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - None
 
 ### Completed
+- [x] LOGIC-04 (Port Waypoint System) - Branch: feat/logic-04-waypoint-system
 - [x] CORE-BRUSH-FRAMEWORK (Port Base Brush Class, Implement BrushManager, and Define BrushSettings) - Branch: feat/core-brush-framework
 - [x] BUILD-00 (Create Root CMakeLists.txt and Basic Project Structure) - Branch: feat/build-00-initial-structure
 - [x] CORE-01 (Port Core Data Structures - Position, Item, Tile) - Branch: feat/core-01-data-structures
