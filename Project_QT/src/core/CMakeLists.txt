@@ -46,6 +46,7 @@ set(RME_CORE_LIB_SOURCES
     actions/AppUndoCommand.cpp
     actions/UndoManager.cpp
     actions/TileChangeCommand.cpp
+    actions/ChangeSetCommand.cpp
 )
 
 add_library(rme_core_lib STATIC ${RME_CORE_LIB_SOURCES})

@@ -132,6 +132,17 @@ private:
 
     // Helper for deep copy
     void copyMembersTo(Tile& target) const;
+
+    /**
+     * @brief Estimates the memory usage of this Tile object.
+     *
+     * This method should account for the size of the Tile object itself,
+     * its ground item, all other items, creature, spawn, and any other
+     * dynamically allocated memory or complex members it owns.
+     *
+     * @return size_t Estimated memory usage in bytes.
+     */
+    virtual size_t estimateMemoryUsage() const;
 };
 
 } // namespace RME

@@ -156,4 +156,24 @@ bool Item::isDepot() const {
     return PROVIDER_CALL(isDepot, false, id);
 }
 
+/**
+ * @brief Estimates the memory usage of this Item object.
+ *
+ * This method provides a basic estimation. A more accurate version
+ * would iterate through the `attributes` QMap and sum the memory
+ * used by keys and QVariant values.
+ *
+ * @return size_t Estimated memory usage in bytes.
+ */
+size_t Item::estimateMemoryUsage() const {
+    size_t memory = sizeof(Item);
+    // Add cost of attributes. This is a rough estimate.
+    // A more accurate calculation would iterate attributes:
+    // for (auto it = attributes.begin(); it != attributes.end(); ++it) {
+    //     memory += it.key().capacity() + sizeof(QVariant); // QVariant size is tricky
+    // }
+    memory += attributes.size() * (sizeof(QString) + sizeof(QVariant) + 30); // Rough estimate per attribute
+    return memory + 50; // Placeholder for basic item + general overhead
+}
+
 } // namespace RME
