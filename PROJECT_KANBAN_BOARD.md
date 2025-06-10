@@ -88,7 +88,6 @@ These mandates must be adhered to for all coding tasks:
 All tasks from `tasks_execution_order.md` are listed here. This board will be updated as tasks progress.
 
 ### Backlog (To Do)
-- [ ] CORE-BRUSH-FRAMEWORK (Port Base Brush Class, Implement BrushManager, and Define BrushSettings)
 - [ ] DOCS-01 (Generate Developer API Documentation (Doxygen))
 - [ ] LOGIC-04 (Port Waypoint System)
 - [ ] NET-01 (Isolate and Port Network Protocol Definition and Serialization Logic)
@@ -167,7 +166,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [ ] TEST-10 (Execute and Document Cross-Platform UI Compatibility Tests)
 
 ### In Progress
-- [ ] CORE-06 (Port Settings & Preferences System)
+- [ ] CORE-BRUSH-FRAMEWORK (Port Base Brush Class, Implement BrushManager, and Define BrushSettings)
 
 ### In Review
 - None
@@ -179,6 +178,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [x] BUILD-01 (Setup Initial CMake Build System for Qt6 Project) - Branch: feat/build-01-cmake-setup
 - [x] CORE-02 (Port Asset Database & Parsers (Items, Creatures, Sprites, Client Versions)) - Branch: feat/core-02-asset-pipeline
 - [x] CORE-03 (Port Map Data Structure & Non-Rendering Logic) - Branch: feat/core-03-map-data-structure
+- [x] CORE-06 (Port Settings & Preferences System) - Branch: feat/core-06-settings-system-complete
 
 ### Blocked / Needs Discussion
 - None
