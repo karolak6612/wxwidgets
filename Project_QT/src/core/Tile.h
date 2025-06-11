@@ -46,35 +46,45 @@ public:
     Tile(int x, int y, int z, IItemTypeProvider* itemProvider);
     ~Tile() = default; // std::unique_ptr will handle cleanup
 
-    // Deep copy
+    // Copying and Moving
+    Tile(const Tile& other);
+    Tile& operator=(const Tile& other);
+    Tile(Tile&& other) noexcept;
+    Tile& operator=(Tile&& other) noexcept;
+
     std::unique_ptr<Tile> deepCopy() const;
 
     // Position
     const Position& getPosition() const { return position; }
 
     // Item Management
-    // addItem returns raw pointer to item for convenience, but ownership remains with Tile.
     Item* addItem(std::unique_ptr<Item> item);
-    void removeItem(Item* itemToRemove); // Removes and deletes the item
-    std::unique_ptr<Item> popItem(Item* itemToPop); // Removes and returns ownership
+    void removeItem(Item* itemToRemove);
+    std::unique_ptr<Item> popItem(Item* itemToPop);
 
     Item* getGround() const { return ground.get(); }
     const QList<std::unique_ptr<Item>>& getItems() const { return items; }
-    QList<Item*> getAllItems() const; // Returns raw pointers to all items (ground + top)
+    QList<Item*> getAllItems() const;
 
-    Item* getTopItem() const; // Gets the highest visible non-creature item
-    Item* getItemAtStackpos(int stackpos) const; // 0 = ground, 1 = first top item, etc.
+    Item* getTopItem() const;
+    Item* getItemAtStackpos(int stackpos) const;
     int getItemCount() const { return (ground ? 1 : 0) + items.size(); }
+    bool isEmpty() const { return getItemCount() == 0 && !creature && !spawn; } // Updated isEmpty
+    bool hasItemOfType(uint16_t id) const; // Example utility
+    Item* getItemById(uint16_t id) const; // Example utility
 
     // Creature Management
-    RME::core::creatures::Creature* getCreature() const { return creature.get(); }
+    const RME::core::creatures::Creature* getCreature() const { return creature.get(); }
+    RME::core::creatures::Creature* getCreature() { return creature.get(); } // Non-const version
     void setCreature(std::unique_ptr<RME::core::creatures::Creature> newCreature);
     std::unique_ptr<RME::core::creatures::Creature> popCreature();
+    bool hasCreature() const { return creature != nullptr; }
 
     // Spawn Management
     Spawn* getSpawn() const { return spawn.get(); }
     void setSpawn(std::unique_ptr<Spawn> newSpawn);
     std::unique_ptr<Spawn> popSpawn();
+    bool hasSpawn() const { return spawn != nullptr; }
 
     // House ID
     uint32_t getHouseID() const { return house_id; }
@@ -88,38 +98,33 @@ public:
     bool hasMapFlag(TileMapFlag flag) const { return mapFlags.testFlag(flag); }
 
     TileStateFlags getStateFlags() const { return stateFlags; }
-    void setStateFlags(TileStateFlags flags) { stateFlags = flags; } // Usually for internal update
+    void setStateFlags(TileStateFlags flags) { stateFlags = flags; }
     void addStateFlag(TileStateFlag flag) { stateFlags |= flag; }
     void removeStateFlag(TileStateFlag flag) { stateFlags &= ~flag; }
     bool hasStateFlag(TileStateFlag flag) const { return stateFlags.testFlag(flag); }
 
     // Properties derived from items/flags
-    bool isBlocking() const; // Checks items and tile state
+    bool isBlocking() const;
     bool isPZ() const { return hasMapFlag(TileMapFlag::PROTECTION_ZONE); }
-    // Add more like isNoPVP, isNoLogout, etc.
 
-    // Update internal state (e.g., blocking flag) based on items
     void update();
 
-    // Stubs for complex editor functions (to be implemented in later tasks)
     void borderize(const Tile* neighbors[8]) { /* TODO */ }
     void wallize() { /* TODO */ }
     void tableize() { /* TODO */ }
     void carpetize() { /* TODO */ }
 
-    // Waypoint Tracking
     void increaseWaypointCount();
     void decreaseWaypointCount();
     int getWaypointCount() const;
 
-    // Needed for addItem logic
     IItemTypeProvider* getItemTypeProvider() const { return itemTypeProvider; }
-
+    size_t estimateMemoryUsage() const;
 
 private:
     Position position;
     std::unique_ptr<Item> ground;
-    QList<std::unique_ptr<Item>> items; // Items on top of ground
+    QList<std::unique_ptr<Item>> items;
     std::unique_ptr<RME::core::creatures::Creature> creature;
     std::unique_ptr<Spawn> spawn;
     uint32_t house_id = 0;
@@ -127,22 +132,10 @@ private:
     TileMapFlags mapFlags = TileMapFlag::NO_FLAGS;
     TileStateFlags stateFlags = TileStateFlag::NO_FLAGS;
 
-    IItemTypeProvider* itemTypeProvider; // Non-owning, passed at construction for item logic
+    IItemTypeProvider* itemTypeProvider;
     int m_waypointCount = 0;
 
-    // Helper for deep copy
     void copyMembersTo(Tile& target) const;
-
-    /**
-     * @brief Estimates the memory usage of this Tile object.
-     *
-     * This method should account for the size of the Tile object itself,
-     * its ground item, all other items, creature, spawn, and any other
-     * dynamically allocated memory or complex members it owns.
-     *
-     * @return size_t Estimated memory usage in bytes.
-     */
-    virtual size_t estimateMemoryUsage() const;
 };
 
 } // namespace RME
