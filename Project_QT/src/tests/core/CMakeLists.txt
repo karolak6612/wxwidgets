@@ -31,6 +31,7 @@ add_subdirectory(io)
 add_subdirectory(creatures)
 add_subdirectory(navigation) # Added for CORE-11 WaypointData tests
 add_subdirectory(spawns)
+add_subdirectory(items) # New line for derived item tests
 
 # --- Mock Objects (Common for core tests if needed, or defined per test) ---
 # These mocks are specific to the tests in this directory or its subdirectories.

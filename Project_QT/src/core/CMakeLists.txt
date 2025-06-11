@@ -134,6 +134,26 @@ set(CORE_SPAWNS_SRCS
 list(APPEND RME_CORE_LIB_SOURCES ${CORE_SPAWNS_SRCS})
 list(APPEND RME_CORE_LIB_HEADERS ${CORE_SPAWNS_HDRS})
 
+# Derived Item System (Complex Items)
+set(CORE_ITEMS_DERIVED_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/ContainerItem.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/TeleportItem.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/DoorItem.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/DepotItem.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/PodiumItem.h
+)
+
+set(CORE_ITEMS_DERIVED_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/ContainerItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/TeleportItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/DoorItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/DepotItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/PodiumItem.cpp
+)
+
+list(APPEND RME_CORE_LIB_SOURCES ${CORE_ITEMS_DERIVED_SRCS})
+list(APPEND RME_CORE_LIB_HEADERS ${CORE_ITEMS_DERIVED_HDRS})
+
 add_library(rme_core_lib STATIC ${RME_CORE_LIB_SOURCES})
 
 # Public include directories for this library
