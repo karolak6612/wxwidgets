@@ -1,0 +1,11 @@
+<materials>
+    <brush name="test_grass" type="ground" server_lookid="4526" z-order="3500">
+        <item id="4526" chance="50" />
+        <item id="4527" chance="15" />
+        <border align="outer" id="38" />
+        <friend name="test_dirt" />
+    </brush>
+    <brush name="test_dirt" type="ground" server_lookid="103">
+        <item id="103" chance="100" />
+    </brush>
+</materials>

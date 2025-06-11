@@ -88,8 +88,6 @@ These mandates must be adhered to for all coding tasks:
 All tasks from `tasks_execution_order.md` are listed here. This board will be updated as tasks progress.
 
 ### Backlog (To Do)
-- [ ] CORE-11-WaypointSystem (Port Waypoint System Data Structures)
-- [ ] CORE-14-MaterialSystem (Port Material System Data Structures)
 - [ ] DOCS-02 (Create User Manual and Feature Documentation)
 - [ ] LOGIC-01 (Implement Core Drawing, Deletion, and Modification Logic Controller)
 - [ ] NET-02 (Port Live Collaboration Server Logic to Qt Network)
@@ -156,7 +154,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [ ] TEST-10 (Execute and Document Cross-Platform UI Compatibility Tests)
 
 ### In Progress
-- None
+- CORE-14-MaterialSystem (Port Material System Data Structures) - Branch: feat/core-14-material-system
 
 ### In Review
 - None
@@ -178,6 +176,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [x] CORE-04 (Port Action & History (Undo/Redo) System) - Branch: feat/core-04-undo-redo-system
 - [x] CORE-07-MapIO (Port OTBM Map I/O System) - Branch: feat/core-07-otbm-io
 - [x] CORE-08-CreatureOutfit (Port Creature Instance and Outfit Classes) - Branch: feat/core-08-creature-outfit
+- [x] CORE-11-WaypointSystem (Port Waypoint System Data Structures) - Branch: feat/core-11-waypoint-system
 
 ### Blocked / Needs Discussion
 - [ ] DOCS-01 (Generate Developer API Documentation (Doxygen))

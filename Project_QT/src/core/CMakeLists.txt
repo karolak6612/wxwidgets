@@ -14,6 +14,7 @@ set(RME_CORE_LIB_SOURCES
     assets/ItemDatabase.cpp
     assets/CreatureDatabase.cpp
     assets/AssetManager.cpp         # Uses all managers, IItemTypeProvider.h
+    assets/MaterialManager.cpp      # Manages material definitions from XML
     sprites/SpriteManager.cpp
 
     # CORE-03 map structure files

@@ -1,0 +1,7 @@
+<materials>
+    <include file="test_grounds.xml"/>
+    <include file="test_walls.xml"/>
+    <brush name="doodad_test_simple" type="doodad" server_lookid="1234">
+        <item id="1234" chance="100"/>
+    </brush>
+</materials>

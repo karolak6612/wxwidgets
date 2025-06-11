@@ -1,0 +1,14 @@
+<materials>
+    <brush name="test_brick_wall" type="wall" server_lookid="1026" on_blocking="true">
+        <wall type="horizontal">
+            <item id="1026" chance="100"/>
+            <door id="1207" type="archway" open="false"/>
+        </wall>
+        <wall type="vertical">
+            <item id="1025" chance="100"/>
+        </wall>
+        <wall type="pole">
+            <item id="1027" chance="100"/>
+        </wall>
+    </brush>
+</materials>
