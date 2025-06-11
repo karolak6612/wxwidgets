@@ -5,7 +5,7 @@ set(RME_CORE_LIB_SOURCES
     # CORE-01 files
     Position.cpp
     Item.cpp          # Uses IItemTypeProvider.h
-    Creature.cpp      # Stub
+    creatures/Creature.cpp # Instance of a creature
     Spawn.cpp         # Stub
     Tile.cpp          # Uses Item.h, Creature.h, Spawn.h, Position.h
 
@@ -14,6 +14,7 @@ set(RME_CORE_LIB_SOURCES
     assets/ItemDatabase.cpp
     assets/CreatureDatabase.cpp
     assets/AssetManager.cpp         # Uses all managers, IItemTypeProvider.h
+    assets/MaterialManager.cpp      # Manages material definitions from XML
     sprites/SpriteManager.cpp
 
     # CORE-03 map structure files
@@ -41,11 +42,15 @@ set(RME_CORE_LIB_SOURCES
     io/MemoryNodeFileReadHandle.cpp
     io/NodeFileWriteHandle.cpp
     io/MemoryNodeFileWriteHandle.cpp
+    io/DiskNodeFileReadHandle.cpp
+    io/DiskNodeFileWriteHandle.cpp
+    io/OtbmMapIO.cpp
 
     # CORE-04 Action & History System
     actions/AppUndoCommand.cpp
     actions/UndoManager.cpp
     actions/TileChangeCommand.cpp
+    actions/ChangeSetCommand.cpp
 )
 
 add_library(rme_core_lib STATIC ${RME_CORE_LIB_SOURCES})

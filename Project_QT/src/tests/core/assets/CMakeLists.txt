@@ -21,6 +21,10 @@ add_executable(TestCoreAssets_AssetManager TestAssetManager.cpp)
 target_link_libraries(TestCoreAssets_AssetManager PRIVATE Qt6::Test Qt6::Core rme_core_lib)
 add_test(NAME TestCoreAssets_AssetManager COMMAND TestCoreAssets_AssetManager)
 
+add_executable(TestCoreAssets_MaterialManager TestMaterialManager.cpp)
+target_link_libraries(TestCoreAssets_MaterialManager PRIVATE Qt6::Test Qt6::Core rme_core_lib)
+add_test(NAME TestCoreAssets_MaterialManager COMMAND TestCoreAssets_MaterialManager)
+
 # Note on sample data:
 # The tests programmatically create their sample data files in the CWD.
 # CTest by default runs executables from their build directory.

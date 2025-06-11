@@ -1,12 +1,15 @@
 #ifndef RME_MAP_PROTOCOL_CODEC_H
 #define RME_MAP_PROTOCOL_CODEC_H
 
-#include "core/network/NetworkMessage.h" // For NetworkMessage class
-#include "core/Position.h"             // For RME::core::Position
-#include <QString>                     // For QString in LiveCursor
-#include <memory>                      // For std::unique_ptr
+#include "core/network/NetworkMessage.h"
+#include "core/Position.h"
+#include "core/network/live_packets.h" // Added for packet data structs
+#include <QString>
+#include <memory>
 
 // Forward declarations for mapcore types
+// Note: MapVersionInfo might need to be a full include if used by value in method signatures.
+// For now, assuming RME::core::map::MapVersionInfo is sufficient as forward if only by const&/ptr.
 namespace RME {
 namespace core {
 class Tile;
@@ -85,6 +88,68 @@ public:
     // TODO: Add methods for other map elements if needed by live protocol,
     // e.g., house data, spawn data, if they are sent granularly.
     // For now, focusing on core map content (tiles, items, nodes) and cursors.
+
+    // --- Payload struct (de)serialization methods ---
+
+    // Client -> Server
+    static bool serializeData(const ClientHelloClientData& data, NetworkMessage& msg);
+    static bool deserializeData(NetworkMessage& msg, ClientHelloClientData& outData);
+
+    static bool serializeData(const MapNodeRequestClientData& data, NetworkMessage& msg);
+    static bool deserializeData(NetworkMessage& msg, MapNodeRequestClientData& outData);
+
+    // MapChangesClientData needs MapVersionInfo for context during item/tile serialization if version-dependent.
+    // It also needs itemProvider and mapContext for deserializing tile data string into actual tiles/items.
+    static bool serializeData(const MapChangesClientData& data, NetworkMessage& msg, const RME::core::map::MapVersionInfo& version);
+    static bool deserializeData(NetworkMessage& msg, MapChangesClientData& outData, const RME::core::map::MapVersionInfo& version, RME::core::IItemTypeProvider* itemProvider, RME::core::Map& mapContext);
+
+    static bool serializeData(const ChatMessageClientData& data, NetworkMessage& msg);
+    static bool deserializeData(NetworkMessage& msg, ChatMessageClientData& outData);
+
+    // Server -> Client
+    static bool serializeData(const ServerHelloServerData& data, NetworkMessage& msg);
+    static bool deserializeData(NetworkMessage& msg, ServerHelloServerData& outData);
+
+    static bool serializeData(const YourIdColorData& data, NetworkMessage& msg);
+    static bool deserializeData(NetworkMessage& msg, YourIdColorData& outData);
+
+    static bool serializeData(const PeerListServerData& data, NetworkMessage& msg);
+    static bool deserializeData(NetworkMessage& msg, PeerListServerData& outData);
+
+    // MapChangesServerData also needs version context and potentially itemProvider/mapContext for similar reasons.
+    static bool serializeData(const MapChangesServerData& data, NetworkMessage& msg, const RME::core::map::MapVersionInfo& version);
+    static bool deserializeData(NetworkMessage& msg, MapChangesServerData& outData, const RME::core::map::MapVersionInfo& version, RME::core::IItemTypeProvider* itemProvider, RME::core::Map& mapContext);
+
+    static bool serializeData(const ChatMessageServerData& data, NetworkMessage& msg);
+    static bool deserializeData(NetworkMessage& msg, ChatMessageServerData& outData);
+
+    static bool serializeData(const KickClientData& data, NetworkMessage& msg);
+    static bool deserializeData(NetworkMessage& msg, KickClientData& outData);
+
+    // For ClientColorUpdate (client->server: U8 color, server->client: U32 peerId, U8 color)
+    // and CursorUpdate, existing serializeCursor/deserializeCursor or direct NetworkMessage add/get
+    // methods can be used by QtLivePeer directly if payloads are simple.
+
+    /**
+     * @brief Deserializes a full tile from a raw OTBM data blob.
+     * This is used by the server to reconstruct a tile state received from a client,
+     * or by a client to reconstruct a tile from a map change broadcast.
+     * The blob is expected to be a single OTBM_TILE or OTBM_HOUSETILE node structure.
+     * @param tileBlob The QByteArray containing the serialized OTBM tile node.
+     * @param mapContext Reference to the map, needed for context if items are created
+     *                   that might need to interact with map-level systems (though typically
+     *                   for pure deserialization, only AssetManager/ItemTypeProvider is essential).
+     * @param version The map version information for deserialization context.
+     * @param itemProvider Provider for item type information, crucial for creating items.
+     * @return A unique_ptr to the deserialized Tile, or nullptr on failure.
+     *         The returned Tile will have its content (items, flags) populated but its
+     *         position member might be default (0,0,0) as OTBM tile nodes don't store their own position.
+     */
+    static std::unique_ptr<RME::core::Tile> deserializeTileFromBlob(
+        const QByteArray& tileBlob,
+        RME::core::Map& mapContext,
+        const RME::core::map::MapVersionInfo& version,
+        RME::core::IItemTypeProvider* itemProvider);
 };
 
 } // namespace network

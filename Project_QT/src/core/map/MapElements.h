@@ -5,6 +5,7 @@
 #include <QString>
 #include <QList> // For list of creature names in SpawnData (though SpawnData itself is deferred)
 #include <QRect> // For HouseData exit scrollbars/area (commented out for now)
+#include <QSet>  // For QSet in WaypointData
 
 namespace RME {
 
@@ -49,13 +50,62 @@ struct HouseData {
 // from the Tile-based RME::Spawn instances.
 
 // --- WaypointData ---
+/**
+ * @brief Stores data for a single waypoint on the map.
+ * Includes its name, position, and connections to other waypoints.
+ */
 struct WaypointData {
-    QString name;
-    Position position; // Location of the waypoint
+    QString name;      ///< Unique name of the waypoint.
+    Position position; ///< Location of the waypoint on the map.
+    QSet<QString> connectedWaypointNames; ///< Set of names of waypoints connected to this one.
 
+    /**
+     * @brief Default constructor.
+     */
     WaypointData() = default;
+
+    /**
+     * @brief Constructs a WaypointData with a name and position.
+     * @param wpName The name of the waypoint.
+     * @param wpPos The position of the waypoint.
+     */
     WaypointData(const QString& wpName, const Position& wpPos)
         : name(wpName), position(wpPos) {}
+
+    /**
+     * @brief Adds a connection to another waypoint by its name.
+     * @param otherName The unique name of the waypoint to connect to.
+     */
+    void addConnection(const QString& otherName) {
+        if (!otherName.isEmpty() && otherName != name) { // Prevent self-connection
+            connectedWaypointNames.insert(otherName);
+        }
+    }
+
+    /**
+     * @brief Removes a connection to another waypoint by its name.
+     * @param otherName The unique name of the waypoint to disconnect from.
+     */
+    void removeConnection(const QString& otherName) {
+        connectedWaypointNames.remove(otherName);
+    }
+
+    /**
+     * @brief Checks if this waypoint is connected to another waypoint by its name.
+     * @param otherName The unique name of the other waypoint.
+     * @return True if a connection exists, false otherwise.
+     */
+    bool isConnectedTo(const QString& otherName) const {
+        return connectedWaypointNames.contains(otherName);
+    }
+
+    /**
+     * @brief Gets the set of names of all waypoints connected to this one.
+     * @return A const reference to the QSet of connected waypoint names.
+     */
+    const QSet<QString>& getConnections() const {
+        return connectedWaypointNames;
+    }
 };
 
 

@@ -1,15 +1,26 @@
 #include "AssetManager.h"
+#include "MaterialManager.h" // Added
 #include <QDebug>
 #include <QFileInfo> // For path operations
 #include <QCoreApplication> // For applicationDirPath fallback, already in .h but good for .cpp too
 
+// Assuming types like ItemData, CreatureData, MaterialData are in RME::core::assets
+// This using directive might simplify the implementation if these types are used frequently.
+// However, it's often clearer to use fully qualified names or specific 'using' declarations.
+// For now, I will use qualified names in new/changed code for clarity.
+// using namespace RME::core::assets;
+
 namespace RME {
+// If AssetManager.h declares AssetManager in RME::core::assets, this should match.
+// Based on previous files, AssetManager seems to be in RME namespace directly.
+// Let's assume RME namespace for AssetManager class itself.
 
 struct AssetManager::AssetManagerData {
     ClientVersionManager clientVersionManager;
-    ItemDatabase itemDatabase;
-    CreatureDatabase creatureDatabase;
-    SpriteManager spriteManager;
+    ItemDatabase itemDatabase; // Assuming RME::ItemDatabase or RME::core::assets::ItemDatabase
+    CreatureDatabase creatureDatabase; // Assuming RME::CreatureDatabase or RME::core::assets::CreatureDatabase
+    SpriteManager spriteManager; // Assuming RME::core::sprites::SpriteManager
+    core::assets::MaterialManager materialManager; // New member
 
     const ClientProfile* currentClientProfile = nullptr; // Cached pointer
     QString currentDataPath;
@@ -158,24 +169,62 @@ bool AssetManager::loadAllAssets(const QString& dataPath, const QString& clientV
     }
 
     qInfo() << "AssetManager: Successfully loaded all essential assets for client version" << clientVersionString;
+
+    // 5. Load Materials
+    if (d->currentClientProfile) {
+        // The MaterialManager itself takes a base directory and the main XML file name.
+        // Resolve path relative to dataPath, trying versioned then common paths.
+        QString materialsBaseDir = resolvePath(d->currentDataPath, QString("XML/%1/").arg(d->currentClientProfile->versionString));
+        if (!QFileInfo::exists(QDir(materialsBaseDir).filePath("materials.xml"))) {
+            // Fallback to a common XML directory if versioned one or its materials.xml doesn't exist
+            materialsBaseDir = resolvePath(d->currentDataPath, "XML/common/");
+             if (!QFileInfo::exists(QDir(materialsBaseDir).filePath("materials.xml"))) {
+                 materialsBaseDir = resolvePath(d->currentDataPath, "XML/"); // Generic XML dir
+                  if (!QFileInfo::exists(QDir(materialsBaseDir).filePath("materials.xml"))) {
+                      materialsBaseDir = resolvePath(d->currentDataPath, "data/XML/"); // Another common structure
+                       if (!QFileInfo::exists(QDir(materialsBaseDir).filePath("materials.xml"))) {
+                           materialsBaseDir = resolvePath(d->currentDataPath, "data/"); // Fallback to data/
+                       }
+                  }
+            }
+        }
+
+        qInfo() << "AssetManager: Attempting to load materials from base directory:" << materialsBaseDir << "with main file: materials.xml";
+        if (QFileInfo::exists(QDir(materialsBaseDir).filePath("materials.xml"))) {
+            if (!d->materialManager.loadMaterialsFromDirectory(materialsBaseDir, "materials.xml", *this)) {
+                qWarning() << "AssetManager: Failed to load some or all materials. Last error from MaterialManager:" << d->materialManager.getLastError();
+            } else {
+                qInfo() << "AssetManager: Materials loaded. Count:" << d->materialManager.getAllMaterials().size();
+            }
+        } else {
+            qWarning() << "AssetManager: materials.xml not found in resolved directory:" << materialsBaseDir << "(or its fallbacks). Skipping material loading.";
+        }
+    } else {
+        qWarning() << "AssetManager: Cannot load materials, current client profile is not set.";
+    }
+
     return true;
 }
 
 const ClientVersionManager& AssetManager::getClientVersionManager() const { return d->clientVersionManager; }
-const ItemDatabase& AssetManager::getItemDatabase() const { return d->itemDatabase; }
-const CreatureDatabase& AssetManager::getCreatureDatabase() const { return d->creatureDatabase; }
-const SpriteManager& AssetManager::getSpriteManager() const { return d->spriteManager; }
+const ItemDatabase& AssetManager::getItemDatabase() const { return d->itemDatabase; } // Assuming RME::ItemDatabase
+const CreatureDatabase& AssetManager::getCreatureDatabase() const { return d->creatureDatabase; } // Assuming RME::CreatureDatabase
+const SpriteManager& AssetManager::getSpriteManager() const { return d->spriteManager; } // Assuming RME::core::sprites::SpriteManager
 
 const ClientProfile* AssetManager::getCurrentClientProfile() const { return d->currentClientProfile; }
 
-const ItemData* AssetManager::getItemData(quint16 itemId) const {
+const RME::core::assets::ItemData* AssetManager::getItemData(quint16 itemId) const {
     return d->itemDatabase.getItemData(itemId);
 }
-const CreatureData* AssetManager::getCreatureData(const QString& name) const {
+const RME::core::assets::CreatureData* AssetManager::getCreatureData(const QString& name) const {
     return d->creatureDatabase.getCreatureData(name);
 }
-const SpriteData* AssetManager::getSpriteData(quint32 spriteId) const {
+const RME::core::assets::SpriteData* AssetManager::getSpriteData(quint32 spriteId) const {
     return d->spriteManager.getSpriteData(spriteId);
+}
+
+const RME::core::assets::MaterialData* AssetManager::getMaterialData(const QString& id) const {
+    return d->materialManager.getMaterial(id);
 }
 
 

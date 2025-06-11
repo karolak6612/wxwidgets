@@ -147,12 +147,12 @@ Item* Tile::getItemAtStackpos(int stackpos) const {
 }
 
 // Creature Management
-void Tile::setCreature(std::unique_ptr<Creature> newCreature) {
+void Tile::setCreature(std::unique_ptr<RME::core::creatures::Creature> newCreature) {
     creature = std::move(newCreature);
     update();
 }
 
-std::unique_ptr<Creature> Tile::popCreature() {
+std::unique_ptr<RME::core::creatures::Creature> Tile::popCreature() {
     update(); // Creature might affect tile state
     return std::move(creature);
 }
@@ -219,6 +219,51 @@ void Tile::update() {
     else removeStateFlag(TileStateFlag::HAS_WALKABLE_GROUND);
 
     // Other flags like TILESTATE_SELECTED, TILESTATE_MODIFIED are typically set externally.
+}
+
+/**
+ * @brief Estimates the memory usage of this Tile object.
+ *
+ * Calculates the total memory by summing the size of the Tile object itself,
+ * and the estimated memory usage of its constituent parts: ground item,
+ * other items, creature, and spawn.
+ *
+ * @return size_t Estimated memory usage in bytes.
+ */
+size_t Tile::estimateMemoryUsage() const {
+    size_t memory = sizeof(Tile);
+
+    if (ground) {
+        memory += ground->estimateMemoryUsage();
+    }
+
+    // Estimate for the QList structure itself plus items
+    memory += items.capacity() * sizeof(std::unique_ptr<Item>); // Capacity of the list pointers
+    for (const auto& item : items) {
+        if (item) {
+            memory += item->estimateMemoryUsage();
+        }
+    }
+
+    if (creature) {
+        // Assuming Creature class will have estimateMemoryUsage()
+        // For now, using sizeof(RME::core::creatures::Creature) or a placeholder
+        // memory += creature->estimateMemoryUsage(); // Ideal
+        memory += sizeof(RME::core::creatures::Creature) + 100; // Placeholder for Creature + typical dynamic data
+    }
+
+    if (spawn) {
+        // Assuming Spawn class will have estimateMemoryUsage()
+        // For now, using sizeof(Spawn) or a placeholder
+        // memory += spawn->estimateMemoryUsage(); // Ideal
+        memory += sizeof(Spawn) + 50; // Placeholder for Spawn + typical dynamic data
+    }
+
+    // Add cost of QList<std::unique_ptr<Item>> items itself (beyond capacity, the object overhead)
+    // This is often minor but can be included. sizeof(items) would give this.
+    // memory += sizeof(items); // Overhead of the QList object itself
+
+    return memory;
 }
 
 } // namespace RME

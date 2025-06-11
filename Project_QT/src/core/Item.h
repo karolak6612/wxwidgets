@@ -94,6 +94,17 @@ public:
     // Provide access to the type provider if needed by other systems
     IItemTypeProvider* getTypeProvider() const { return itemTypeProvider; }
 
+    /**
+     * @brief Estimates the memory usage of this Item object.
+     *
+     * This method should account for the size of the Item object itself,
+     * its attributes, and any other dynamically allocated memory or
+     * complex members it owns.
+     *
+     * @return size_t Estimated memory usage in bytes.
+     */
+    virtual size_t estimateMemoryUsage() const;
+
 protected:
     // Helper for deep copy of base members
     void copyBaseMembersTo(Item& targetItem) const;
