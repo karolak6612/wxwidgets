@@ -122,6 +122,18 @@ set(CORE_HOUSES_SRCS
 list(APPEND RME_CORE_LIB_SOURCES ${CORE_HOUSES_SRCS})
 list(APPEND RME_CORE_LIB_HEADERS ${CORE_HOUSES_HDRS})
 
+# Spawn System
+set(CORE_SPAWNS_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/spawns/SpawnData.h
+)
+
+set(CORE_SPAWNS_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/spawns/SpawnData.cpp
+)
+
+list(APPEND RME_CORE_LIB_SOURCES ${CORE_SPAWNS_SRCS})
+list(APPEND RME_CORE_LIB_HEADERS ${CORE_SPAWNS_HDRS})
+
 add_library(rme_core_lib STATIC ${RME_CORE_LIB_SOURCES})
 
 # Public include directories for this library

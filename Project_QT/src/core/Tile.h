@@ -13,6 +13,8 @@
 
 namespace RME {
 
+class SpawnData; // Forward declaration
+
 // Tile flags matching original RME concepts, potentially with some Qt-ification
 // These might be a combination of original mapflags and statflags
 enum class TileMapFlag : uint32_t {
@@ -86,6 +88,10 @@ public:
     std::unique_ptr<Spawn> popSpawn();
     bool hasSpawn() const { return spawn != nullptr; }
 
+    // SpawnData Reference (if this tile is a spawn center)
+    RME::SpawnData* getSpawnDataRef() const { return m_spawnDataRef; }
+    void setSpawnDataRef(RME::SpawnData* ref) { m_spawnDataRef = ref; }
+
     // House ID
     uint32_t getHouseId() const { return m_houseId; } // Renamed for consistency
     void setHouseId(uint32_t id) { m_houseId = id; }   // Renamed for consistency
@@ -130,6 +136,7 @@ private:
     QList<std::unique_ptr<Item>> items;
     std::unique_ptr<RME::core::creatures::Creature> creature;
     std::unique_ptr<Spawn> spawn;
+    RME::SpawnData* m_spawnDataRef = nullptr; // Non-owning pointer to a spawn centered here
     uint32_t m_houseId = 0; // Renamed from house_id
     bool m_isHouseExit = false; // New flag
 

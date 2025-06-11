@@ -6,6 +6,7 @@
 #include "Project_QT/src/core/houses/HouseData.h" // Specific include for HouseData
 #include "MapElements.h" // Assuming this is for TownData etc. and does NOT define HouseData
 #include "core/navigation/WaypointData.h" // New WaypointData location
+#include "core/spawns/SpawnData.h" // Provides RME::SpawnData
 
 #include <QString>
 #include <QList>
@@ -77,6 +78,12 @@ public:
     bool addWaypoint(RME::core::navigation::WaypointData waypointData);
     bool removeWaypoint(const QString& name);
 
+    // --- Spawns ---
+    void addSpawn(RME::SpawnData&& spawnData);
+    QList<RME::SpawnData>& getSpawns(); // Non-const
+    const QList<RME::SpawnData>& getSpawns() const; // Const
+    bool removeSpawn(const RME::SpawnData& spawnData); // Returns true if found and removed
+
     // Stubs for complex map-wide operations
     bool convertFormat(quint32 targetOtbmVersion, quint32 targetClientVersion) { setChanged(true); /*TODO*/ return false; }
     bool exportMinimap(const QString& filePath) { /*TODO*/ return false; }
@@ -99,6 +106,7 @@ private:
     QMap<uint32_t, HouseData> m_housesById; // New name and consistent type
     uint32_t m_maxHouseId = 0; // Tracks the highest ID ever used
     QMap<QString, RME::core::navigation::WaypointData> m_waypoints;
+    QList<RME::SpawnData> m_spawns; // Changed to RME::SpawnData
 };
 
 } // namespace RME

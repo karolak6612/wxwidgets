@@ -2,6 +2,7 @@
 #include "Project_QT/src/core/Tile.h" // Needed for removeHouse to update tiles
 #include <algorithm> // For std::max, std::find_if, std::remove_if
 #include <QDebug> // For qWarning, qCritical
+#include "core/spawns/SpawnData.h"
 // No need to include AssetManager.h directly if BaseMap handles it and it's not used otherwise
 
 namespace RME {
@@ -219,6 +220,29 @@ bool Map::removeWaypoint(const QString& name) {
         return true;
     }
     return false;
+}
+
+// --- Spawns ---
+void Map::addSpawn(RME::SpawnData&& spawnData) {
+    m_spawns.append(std::move(spawnData));
+    setChanged(true);
+}
+
+QList<RME::SpawnData>& Map::getSpawns() {
+    return m_spawns;
+}
+
+const QList<RME::SpawnData>& Map::getSpawns() const {
+    return m_spawns;
+}
+
+bool Map::removeSpawn(const RME::SpawnData& spawnData) {
+    // QList::removeOne requires the type to have operator==
+    bool removed = m_spawns.removeOne(spawnData);
+    if (removed) {
+        setChanged(true);
+    }
+    return removed;
 }
 
 } // namespace RME
