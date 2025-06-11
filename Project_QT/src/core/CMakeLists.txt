@@ -47,10 +47,9 @@ set(RME_CORE_LIB_SOURCES
     io/OtbmMapIO.cpp
 
     # CORE-04 Action & History System
-    actions/AppUndoCommand.cpp
-    actions/UndoManager.cpp
-    actions/TileChangeCommand.cpp
-    actions/ChangeSetCommand.cpp
+    actions/appundocommand.cpp
+    actions/changetilecommand.cpp
+    actions/batchcommand.cpp
 )
 
 add_library(rme_core_lib STATIC ${RME_CORE_LIB_SOURCES})

@@ -1,11 +1,11 @@
 #include "test_undoredo.h"
-#include "map.h"        // From CORE-03
-#include "tile.h"       // From CORE-01
-#include "item.h"       // From CORE-01
-#include "position.h"   // From CORE-01
-#include "appundocommand.h" // Base class
-#include "changetilecommand.h"
-#include "batchcommand.h"
+#include "map/map.h"        // From CORE-03
+#include "Tile.h"       // From CORE-01
+#include "Item.h"       // From CORE-01
+#include "Position.h"   // From CORE-01
+#include "actions/appundocommand.h" // Base class
+#include "actions/changetilecommand.h"
+#include "actions/batchcommand.h"
 #include <QUndoStack>
 #include <memory> // For std::make_unique
 

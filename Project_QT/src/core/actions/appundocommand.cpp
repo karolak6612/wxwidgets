@@ -1,5 +1,5 @@
-#include "appundocommand.h"
-#include "map.h" // Include the full definition for Map
+#include "actions/appundocommand.h"
+#include "map/map.h" // Include the full definition for Map
 
 AppUndoCommand::AppUndoCommand(Map* map, QUndoCommand *parent)
     : QUndoCommand(parent),

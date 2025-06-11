@@ -88,7 +88,6 @@ These mandates must be adhered to for all coding tasks:
 All tasks from `tasks_execution_order.md` are listed here. This board will be updated as tasks progress.
 
 ### Backlog (To Do)
-- [ ] CORE-04 (Port Action & History (Undo/Redo) System)
 - [ ] CORE-07-MapIO (Port OTBM Map I/O System)
 - [ ] CORE-08-CreatureOutfit (Port Creature Instance and Outfit Classes)
 - [ ] CORE-11-WaypointSystem (Port Waypoint System Data Structures)
@@ -151,7 +150,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - None
 
 ### In Review
-- None
+- [ ] CORE-04 (Port Action & History (Undo/Redo) System)
 
 ### Completed
 - [x] BUILD-02 (Implement Packaging and Deployment) - Branch: feat/build-02-cpack-packaging

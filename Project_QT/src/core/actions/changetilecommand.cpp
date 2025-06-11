@@ -1,7 +1,7 @@
-#include "changetilecommand.h"
-#include "map.h"
+#include "actions/changetilecommand.h"
+#include "map/map.h"
 #include <QDebug> // For warnings/info
-#include <settings.h> // Assuming a global settings provider (from CORE-06)
+#include "settings/AppSettings.h" // Assuming a global settings provider (from CORE-06)
 
 // Static member initialization
 bool ChangeTileCommand::s_group_actions_enabled = false; // Default: disabled

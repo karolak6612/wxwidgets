@@ -1,37 +1,21 @@
-cmake_minimum_required(VERSION 3.16)
-project(RMECoreActionsTests)
+# CMakeLists.txt for core action tests (undo/redo)
 
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
+find_package(Qt6 REQUIRED COMPONENTS Test Core Gui) # Gui is included as Map might need it via rme_core_lib
 
-# Find necessary Qt packages
-find_package(Qt6 COMPONENTS Core Test REQUIRED)
+add_executable(TestCore_Actions_UndoRedo test_undoredo.cpp)
 
-# Include directories
-# Assuming RME_CORE_LIBRARY_INCLUDE_DIRS is set by a higher-level CMakeLists.txt
-# and points to Project_QT/src (or wherever core headers are)
-# If not, specify directly: include_directories(../../../..) # Adjust path as needed
-include_directories(${RME_SOURCE_DIR}/src) # Provides access to core headers
+# Public include for rme_core_lib is src/core. Headers in actions subdir are found via "actions/header.h"
+# Tests are in src/tests/core/actions. To find rme_core_lib headers:
+# target_include_directories(TestCore_Actions_UndoRedo PRIVATE ../../) would make #include "core/actions/header.h" possible
+# However, rme_core_lib already exports its include directory as "src/core"
+# So includes like "actions/appundocommand.h" should work if CMakeLists for rme_core_lib is set up correctly.
+# And for "map/map.h", "Tile.h" etc.
 
-# Define the test executable
-add_executable(rme_core_actions_tests
-    TestUndoManager.cpp
-    TestTileChangeCommand.cpp
-    TestChangeSetCommand.cpp
-    # Add other test files here as they are created
-)
-
-# Link against Qt and RME core libraries
-# RME_CORE_LIBRARY should be a target defined in a higher-level CMakeLists.txt
-# that represents the compiled library for your core module.
-target_link_libraries(rme_core_actions_tests
-    PRIVATE
-    Qt6::Core
+target_link_libraries(TestCore_Actions_UndoRedo PRIVATE
     Qt6::Test
-    ${RME_CORE_LIBRARY} # Link against your main core library
+    Qt6::Core
+    Qt6::Gui # Added because rme_core_lib links to Widgets, which pulls Gui. Better to be explicit.
+    rme_core_lib
 )
 
-# Add the test to CTest
-include(CTest)
-qt_add_test(rme_core_actions_tests rme_core_actions_tests)
+add_test(NAME TestCore_Actions_UndoRedo COMMAND TestCore_Actions_UndoRedo)

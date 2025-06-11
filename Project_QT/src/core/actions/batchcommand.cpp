@@ -1,5 +1,5 @@
-#include "batchcommand.h"
-#include "map.h" // For AppUndoCommand constructor if BatchCommand derives from it
+#include "actions/batchcommand.h"
+#include "map/map.h" // For AppUndoCommand constructor if BatchCommand derives from it
 
 // Constructor takes ownership of the commands.
 BatchCommand::BatchCommand(Map* map, QList<QUndoCommand*> commands, const QString& text, QUndoCommand *parent)
