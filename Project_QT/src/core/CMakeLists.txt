@@ -5,7 +5,7 @@ set(RME_CORE_LIB_SOURCES
     # CORE-01 files
     Position.cpp
     Item.cpp          # Uses IItemTypeProvider.h
-    Creature.cpp      # Stub
+    creatures/Creature.cpp # Instance of a creature
     Spawn.cpp         # Stub
     Tile.cpp          # Uses Item.h, Creature.h, Spawn.h, Position.h
 

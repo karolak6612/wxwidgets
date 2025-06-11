@@ -147,12 +147,12 @@ Item* Tile::getItemAtStackpos(int stackpos) const {
 }
 
 // Creature Management
-void Tile::setCreature(std::unique_ptr<Creature> newCreature) {
+void Tile::setCreature(std::unique_ptr<RME::core::creatures::Creature> newCreature) {
     creature = std::move(newCreature);
     update();
 }
 
-std::unique_ptr<Creature> Tile::popCreature() {
+std::unique_ptr<RME::core::creatures::Creature> Tile::popCreature() {
     update(); // Creature might affect tile state
     return std::move(creature);
 }
@@ -247,9 +247,9 @@ size_t Tile::estimateMemoryUsage() const {
 
     if (creature) {
         // Assuming Creature class will have estimateMemoryUsage()
-        // For now, using sizeof(Creature) or a placeholder
+        // For now, using sizeof(RME::core::creatures::Creature) or a placeholder
         // memory += creature->estimateMemoryUsage(); // Ideal
-        memory += sizeof(Creature) + 100; // Placeholder for Creature + typical dynamic data
+        memory += sizeof(RME::core::creatures::Creature) + 100; // Placeholder for Creature + typical dynamic data
     }
 
     if (spawn) {
