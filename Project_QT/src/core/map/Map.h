@@ -91,6 +91,27 @@ public:
     const QList<RME::SpawnData>& getSpawns() const; // Const
     bool removeSpawn(const RME::SpawnData& spawnData); // Returns true if found and removed
 
+    // --- Advanced Queries / Tile Property Queries ---
+    /**
+     * @brief Counts how many spawn areas overlap a given position.
+     * Considers the spawn's center, radius, and that the Z-level matches.
+     */
+    int getSpawnOverlapCount(const Position& pos) const;
+
+    /**
+     * @brief Gets the town whose temple is at the given position.
+     * @return Pointer to TownData if found, nullptr otherwise.
+     */
+    TownData* getTownByTempleLocation(const Position& pos);
+    const TownData* getTownByTempleLocation(const Position& pos) const;
+
+    /**
+     * @brief Gets a list of houses that have an exit at the given position.
+     * @return QList of pointers to HouseData. List is empty if no houses have an exit there.
+     */
+    QList<HouseData*> getHousesWithExitAt(const Position& pos);
+    QList<const HouseData*> getHousesWithExitAt(const Position& pos) const; // Const version
+
     // Stubs for complex map-wide operations
     bool convertFormat(quint32 targetOtbmVersion, quint32 targetClientVersion) { setChanged(true); /*TODO*/ return false; }
     bool exportMinimap(const QString& filePath) { /*TODO*/ return false; }

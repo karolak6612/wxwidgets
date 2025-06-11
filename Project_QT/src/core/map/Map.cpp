@@ -311,4 +311,62 @@ bool Map::removeSpawn(const RME::SpawnData& spawnData) {
     return removed;
 }
 
+// --- Advanced Queries / Tile Property Queries ---
+int Map::getSpawnOverlapCount(const Position& pos) const {
+    int count = 0;
+    for (const SpawnData& spawn : m_spawns) {
+        // Check Z-level first
+        if (spawn.getCenter().z != pos.z) {
+            continue;
+        }
+        // Simple circular distance check in XY plane
+        // (dx*dx + dy*dy) <= radius*radius
+        int dx = pos.x - spawn.getCenter().x;
+        int dy = pos.y - spawn.getCenter().y;
+        if ((dx * dx + dy * dy) <= (spawn.getRadius() * spawn.getRadius())) {
+            count++;
+        }
+    }
+    return count;
+}
+
+TownData* Map::getTownByTempleLocation(const Position& pos) {
+    for (auto it = m_townsById.begin(); it != m_townsById.end(); ++it) {
+        if (it.value().getTemplePosition() == pos) {
+            return &it.value();
+        }
+    }
+    return nullptr;
+}
+
+const TownData* Map::getTownByTempleLocation(const Position& pos) const {
+    for (auto it = m_townsById.constBegin(); it != m_townsById.constEnd(); ++it) {
+        if (it.value().getTemplePosition() == pos) {
+            return &it.value();
+        }
+    }
+    return nullptr;
+}
+
+QList<HouseData*> Map::getHousesWithExitAt(const Position& pos) {
+    QList<HouseData*> result;
+    for (auto it = m_housesById.begin(); it != m_housesById.end(); ++it) {
+        // HouseData::getExits() returns QList<Position>
+        if (it.value().getExits().contains(pos)) {
+            result.append(&it.value());
+        }
+    }
+    return result;
+}
+
+QList<const HouseData*> Map::getHousesWithExitAt(const Position& pos) const {
+    QList<const HouseData*> result;
+    for (auto it = m_housesById.constBegin(); it != m_housesById.constEnd(); ++it) {
+        if (it.value().getExits().contains(pos)) {
+            result.append(&it.value());
+        }
+    }
+    return result;
+}
+
 } // namespace RME
