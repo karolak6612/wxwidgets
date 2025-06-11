@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<AIAuditorWorkflow id="RME-Qt6-Migration">
+<AICODERWorkflow id="RME-Qt6-Migration">
   <Preamble>
     <Title># RME-Qt6 Migration: AI-Auditor Workflow</Title>
     <Introduction>
@@ -135,12 +135,12 @@
     <Guideline>Focus on clear, actionable instructions and feedback.</Guideline>
   </CommunicationGuidelines>
 
+<KanbanBoardContent>
 ## Task Kanban Board
 
 All tasks from `tasks_execution_order.md` are listed here. This board will be updated as tasks progress.
 
 ### Backlog (To Do)
-- [ ] UTIL-01-JsonReplacement (Replace json_spirit with Qt JSON for ClientVersion Settings)
 - [ ] CORE-05 (Port Selection & Copy/Paste System)
 - [ ] CORE-09-HouseSystem (Port House System Data Structures)
 - [ ] CORE-10-SpawnSystem (Port Spawn System Data Structures)
@@ -206,6 +206,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [ ] CORE-04 (Port Action & History (Undo/Redo) System)
 
 ### Completed
+- [x] UTIL-01-JsonReplacement (Replace json_spirit with Qt JSON for ClientVersion Settings)
 - [x] BUILD-02 (Implement Packaging and Deployment) - Branch: feat/build-02-cpack-packaging
 - [x] UI-01 (Port Main Application Window (QMainWindow) and Dynamic Menu Bar from XML) - Branch: feat/ui-01-mainwindow-reworked
 - [x] RENDER-01 (Implement Core OpenGL Viewport and Navigation (MapView)) - Branch: feat/render-01-mapview-complete
@@ -237,5 +238,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [ ] TEST-09 (Develop UI Tests for Key Editor Features and Workflows)
 - [ ] TEST-10 (Execute and Document Cross-Platform UI Compatibility Tests)
 
+</KanbanBoardContent>
 ---
 The "Tasks with Unresolved Dependencies" section has been removed from the Kanban board part as the `LOGIC-01` dependency on `BRUSH-LOGIC-ALL` was resolved by removing it, and the new task list in `tasks_execution_order.md` (which this Kanban is based on) reflects this. The specific brush logic tasks are now dependencies of `LOGIC-01`.
+</AICODERWorkflow>
