@@ -86,6 +86,7 @@ struct ClientProfile {
     bool actionInstancing = false;    // Related to how actions are handled/instanced
 
     QString customOtfIndexPath;       // Path to a custom .otfi file, if specified
+    QString userSetClientPath;    // User-defined path to the root of this client version, loaded from/saved to JSON config.
 
     // Helper to get a signature string for display or logging
     QString getDatSignatureString(const QString& key) const {
