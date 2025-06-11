@@ -27,6 +27,7 @@ add_subdirectory(sprites)
 add_subdirectory(map)
 add_subdirectory(settings) # New line for AppSettings tests
 add_subdirectory(actions)
+add_subdirectory(io)
 
 # CTest include is managed at Project_QT/src/tests/CMakeLists.txt.
 # add_test() commands register tests with CTest framework.

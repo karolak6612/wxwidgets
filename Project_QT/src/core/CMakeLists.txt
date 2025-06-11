@@ -41,6 +41,9 @@ set(RME_CORE_LIB_SOURCES
     io/MemoryNodeFileReadHandle.cpp
     io/NodeFileWriteHandle.cpp
     io/MemoryNodeFileWriteHandle.cpp
+    io/DiskNodeFileReadHandle.cpp
+    io/DiskNodeFileWriteHandle.cpp
+    io/OtbmMapIO.cpp
 
     # CORE-04 Action & History System
     actions/AppUndoCommand.cpp
