@@ -12,14 +12,15 @@ set(RME_CORE_LIB_SOURCES
     creatures/Creature.cpp
 
     # CORE-11 files
-    navigation/WaypointData.cpp # Added for CORE-11
+    navigation/WaypointData.cpp
 
-    # CORE-02 asset loading files
+    # CORE-02 & CORE-14 asset loading files
     assets/ClientVersionManager.cpp
     assets/ItemDatabase.cpp
     assets/CreatureDatabase.cpp
-    assets/AssetManager.cpp         # Uses all managers, IItemTypeProvider.h
+    assets/MaterialData.cpp         # Added for CORE-14
     assets/MaterialManager.cpp      # Manages material definitions from XML
+    assets/AssetManager.cpp         # Uses all managers, IItemTypeProvider.h
     sprites/SpriteManager.cpp
 
     # CORE-03 map structure files
@@ -50,12 +51,11 @@ set(RME_CORE_LIB_SOURCES
     io/OtbmMapIO.cpp
 
     # CORE-04 Action & History System
-    actions/appundocommand.cpp # Note: These might be misnamed based on previous CORE-04 work (AppUndoCommand.cpp etc)
+    actions/appundocommand.cpp
     actions/changetilecommand.cpp
     actions/batchcommand.cpp
 
-    # Network files that were part of original RME_CORE_LIB_SOURCES, likely from NET-01/02 if they touched these
-    # These might belong to a separate network library later.
+    # Network files that were part of original RME_CORE_LIB_SOURCES
     network/NetworkMessage.cpp
     network/MapProtocolCodec.cpp
 )

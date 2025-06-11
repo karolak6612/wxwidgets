@@ -21,9 +21,16 @@ add_executable(TestCoreAssets_AssetManager TestAssetManager.cpp)
 target_link_libraries(TestCoreAssets_AssetManager PRIVATE Qt6::Test Qt6::Core rme_core_lib)
 add_test(NAME TestCoreAssets_AssetManager COMMAND TestCoreAssets_AssetManager)
 
+# Existing entry, potentially for older/different tests. Kept for now.
 add_executable(TestCoreAssets_MaterialManager TestMaterialManager.cpp)
 target_link_libraries(TestCoreAssets_MaterialManager PRIVATE Qt6::Test Qt6::Core rme_core_lib)
 add_test(NAME TestCoreAssets_MaterialManager COMMAND TestCoreAssets_MaterialManager)
+
+# Added for CORE-14 Material System tests
+add_executable(TestCoreAssets_MaterialSystem TestMaterialSystem.cpp)
+target_link_libraries(TestCoreAssets_MaterialSystem PRIVATE Qt6::Test Qt6::Core rme_core_lib)
+add_test(NAME TestCoreAssets_MaterialSystem COMMAND TestCoreAssets_MaterialSystem)
+
 
 # Note on sample data:
 # The tests programmatically create their sample data files in the CWD.

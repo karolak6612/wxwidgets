@@ -20,7 +20,8 @@ namespace assets { // Assuming ItemData, CreatureData, SpriteData are in RME::co
     class ItemData;
     class CreatureData;
     class SpriteData;
-    class MaterialData; // New forward declaration
+    class MaterialManager; // Forward declare for getMaterialManager()
+    class MaterialData;
 } // namespace assets
 
 
@@ -44,19 +45,14 @@ public:
     const ItemDatabase& getItemDatabase() const;
     const CreatureDatabase& getCreatureDatabase() const;
     const SpriteManager& getSpriteManager() const;
+    const RME::core::assets::MaterialManager& getMaterialManager() const; // New accessor
 
     // Convenience accessors for specific data
     const ClientProfile* getCurrentClientProfile() const;
     const assets::ItemData* getItemData(quint16 itemId) const; // From ItemDatabase, use namespaced type
     const assets::CreatureData* getCreatureData(const QString& name) const; // From CreatureDatabase, use namespaced type
     const assets::SpriteData* getSpriteData(quint32 spriteId) const; // From SpriteManager, use namespaced type
-
-    /**
-     * @brief Retrieves a material definition by its ID (brush name).
-     * @param id The unique ID (name) of the material.
-     * @return Const pointer to MaterialData if found, nullptr otherwise.
-     */
-    const assets::MaterialData* getMaterialData(const QString& id) const;
+    const assets::MaterialData* getMaterialData(const QString& id) const; // Delegates to MaterialManager
 
     // --- IItemTypeProvider Implementation ---
     // These methods will delegate to the ItemDatabase instance.

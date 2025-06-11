@@ -210,6 +210,8 @@ const ClientVersionManager& AssetManager::getClientVersionManager() const { retu
 const ItemDatabase& AssetManager::getItemDatabase() const { return d->itemDatabase; } // Assuming RME::ItemDatabase
 const CreatureDatabase& AssetManager::getCreatureDatabase() const { return d->creatureDatabase; } // Assuming RME::CreatureDatabase
 const SpriteManager& AssetManager::getSpriteManager() const { return d->spriteManager; } // Assuming RME::core::sprites::SpriteManager
+const RME::core::assets::MaterialManager& AssetManager::getMaterialManager() const { return d->materialManager; }
+
 
 const ClientProfile* AssetManager::getCurrentClientProfile() const { return d->currentClientProfile; }
 
@@ -224,6 +226,7 @@ const RME::core::assets::SpriteData* AssetManager::getSpriteData(quint32 spriteI
 }
 
 const RME::core::assets::MaterialData* AssetManager::getMaterialData(const QString& id) const {
+    // Delegate to MaterialManager instance
     return d->materialManager.getMaterial(id);
 }
 
