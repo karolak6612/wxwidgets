@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<BRUSH-LOGIC-House>
+  <id>BRUSH-LOGIC-House</id>
+  <section>Editor Behavior &amp; Logic</section>
+  <title>Port House Brush Logic</title>
+  <original_input_files>
+    <original_input_file>wxwidgets/house_brush.cpp</original_input_file>
+    <original_input_file>wxwidgets/house_brush.h</original_input_file>
+  </original_input_files>
+  <analyzed_input_files>
+    <analyzed_input_file>
+      <file_path>wxwidgets/house_brush.h</file_path>
+      <description>Defines 'HouseBrush' (inherits 'Brush') for assigning tiles to a house. Stores 'House* draw_house'.</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <file_path>wxwidgets/house_brush.cpp</file_path>
+      <description>Implements 'HouseBrush'. 'draw' assigns current 'draw_house' to tile, sets PZ flag, optionally removes movables or auto-assigns door IDs. 'undraw' clears house ID, PZ, and door IDs.</description>
+    </analyzed_input_file>
+  </analyzed_input_files>
+  <dependencies>
+    <dependencie>CORE-BRUSH-FRAMEWORK</dependencie>
+    <dependencie>CORE-01</dependencie>
+    <dependencie>CORE-09-HouseSystem</dependencie>
+    <dependencie>LOGIC-01</dependencie>
+    <dependencie>CORE-04</dependencie>
+    <dependencie>CORE-06</dependencie>
+  </dependencies>
+  <current_functionality_summary>The 'HouseBrush' assigns a selected house ID to map tiles. It also sets the PZ flag and can optionally remove movable items or auto-assign door IDs to doors on the tile, based on application settings.
+</current_functionality_summary>
+  <qt6_migration_steps>1. Define `mapcore::HouseBrush` class inheriting from `mapcore::Brush`.
+2. Store `mapcore::House* currentDesignatedHouse` (set via palette).
+3. Implement `apply()`:
+   - Get target `Tile`.
+   - If erasing: Clear tile's house ID, PZ flag. If `AUTO_ASSIGN_DOORID` is on, clear door IDs on tile. Remove tile from `currentDesignatedHouse`'s tile list.
+   - If drawing: Set tile's house ID to `currentDesignatedHouse-&gt;getID()`. Set PZ flag. If `HOUSE_BRUSH_REMOVE_ITEMS` setting is on, remove movable items. If `AUTO_ASSIGN_DOORID` is on, assign an empty door ID from `currentDesignatedHouse`. Add tile to `currentDesignatedHouse`'s tile list.
+   - Record changes for undo.
+</qt6_migration_steps>
+  <definition_of_done>- `mapcore::HouseBrush` is implemented.
+- Assigns/unassigns house IDs and PZ flags correctly.
+- Optional item removal and door ID assignment based on settings are functional.
+- Operations are undoable.
+- Unit tests for house assignment, PZ flags, and optional behaviors pass.
+</definition_of_done>
+  <boilerplate_coder_ai_prompt>Port `HouseBrush` from `wxwidgets/house_brush.cpp/h` to `mapcore::HouseBrush`.
+1. Header: `mapcore::HouseBrush : public mapcore::Brush`. Store `mapcore::House* m_currentHouse;`. Method `void setCurrentHouse(mapcore::House* house);`.
+2. Source: Implement `apply()`.
+   - Drawing: `tile-&gt;setHouseId(m_currentHouse-&gt;getId()); tile-&gt;setFlag(TileState::PZ, true);` Add tile to `m_currentHouse-&gt;tiles()`. Handle `AppSettings` for removing items and assigning door IDs (e.g., `m_currentHouse-&gt;assignEmptyDoorId(tile)`).
+   - Erasing: `tile-&gt;setHouseId(0); tile-&gt;setFlag(TileState::PZ, false);` Remove tile from old house's list. Handle door IDs.
+   - All changes via `EditorControllerInterface`.
+</boilerplate_coder_ai_prompt>
+  <documentation_references>
+    <documentation_reference>mapcore::Brush</documentation_reference>
+    <documentation_reference>mapcore::Tile</documentation_reference>
+    <documentation_reference>CORE-09-HouseSystem</documentation_reference>
+    <documentation_reference>CORE-06 AppSettings</documentation_reference>
+  </documentation_references>
+  <estimation_effort>Medium</estimation_effort>
+</BRUSH-LOGIC-House>

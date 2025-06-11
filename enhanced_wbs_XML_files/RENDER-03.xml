@@ -1,0 +1,175 @@
+<?xml version="1.0" ?>
+<RENDER-03>
+  <id>RENDER-03</id>
+  <section>Rendering System</section>
+  <title>Implement Sprite Rendering using Texture Atlases</title>
+  <original_task_id>RENDER-03</original_task_id>
+  <original_input_files>
+    <original_input_file>wxwidgets/graphics.h</original_input_file>
+    <original_input_file>wxwidgets/graphics.cpp</original_input_file>
+    <original_input_file>wxwidgets/sprites.h</original_input_file>
+  </original_input_files>
+  <dependencies>
+    <dependencie>RENDER-02</dependencie>
+    <dependencie>CORE-02</dependencie>
+    <dependencie>CORE-02</dependencie>
+    <dependencie>REFACTOR-01</dependencie>
+  </dependencies>
+  <analyzed_input_files>
+    <analyzed_input_file>
+      <filepath>wxwidgets/graphics.h</filepath>
+      <description>Declares 'GraphicManager', 'GameSprite', 'Sprite', 'EditorSprite', 'Animator', and related helper structures like 'SpriteLight'. 'GameSprite' stores metadata (dimensions, layers, patterns, frames) and a list of 'NormalImage' objects which hold raw pixel data. It has 'getHardwareID()' methods to get an OpenGL texture ID, triggering texture creation if needed. 'GameSprite::TemplateImage' handles dynamic creature outfit colorization by creating new GL textures. 'GraphicManager' loads '.dat' (metadata) and '.spr' (pixel data) files, manages 'GameSprite' instances, and includes a texture garbage collection mechanism.</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <filepath>wxwidgets/graphics.cpp</filepath>
+      <description>Implements 'GraphicManager', 'GameSprite', 'Animator', and 'Image' subclasses ('NormalImage', 'TemplateImage'). 'GraphicManager::loadSpriteMetadata' and 'loadSpriteData' read the respective files. 'GameSprite::NormalImage::getHardwareID' and 'GameSprite::TemplateImage::getHardwareID' are key methods that, if a GL texture isn't loaded ('isGLLoaded'), call 'createGLTexture'. 'createGLTexture' uses 'glBindTexture', 'glTexParameteri', 'glTexImage2D' to upload pixel data (obtained via 'getRGBAData') to a new OpenGL texture. 'TemplateImage::getRGBAData' implements the logic for colorizing base creature sprites based on outfit colors using 'TemplateOutfitLookupTable'.</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <filepath>wxwidgets/sprites.h</filepath>
+      <description>Defines various enums for sprite IDs, including editor-specific sprites (e.g., 'EDITOR_SPRITE_SELECTION_MARKER', brush icons) and some game-specific sprite constants (e.g., 'SPRITE_WAYPOINT', 'SPRITE_SPAWN'). These constants are used to retrieve specific sprites from 'GraphicManager'.</description>
+    </analyzed_input_file>
+  </analyzed_input_files>
+  <current_functionality_summary>In the wxWidgets version:
+- **'GraphicManager'**: Loads sprite metadata ('.dat') and pixel data ('.spr'). It manages instances of 'GameSprite'.
+- **'GameSprite'**: Represents an individual game sprite (item or creature). It contains metadata such as dimensions, number of layers, animation frames, and patterns. It holds a list of 'NormalImage' objects, each corresponding to a specific variation/frame of the sprite and containing the raw pixel data.
+- **Texture Generation ('GameSprite::Image::getHardwareID')**: OpenGL textures are generated on-demand. When a sprite variation needs to be drawn, 'getHardwareID()' is called. If the corresponding 'NormalImage' or 'TemplateImage' (for colorized outfits) hasn't been uploaded to the GPU yet (checked via an 'isGLLoaded' flag), it calls 'createGLTexture'. This function generates a new OpenGL texture ('glGenTextures', 'glBindTexture', 'glTexImage2D') for that specific sprite variation and stores the 'GLuint'.
+- **Creature Outfits ('GameSprite::TemplateImage')**: Creature outfits are handled by dynamically creating new colorized sprite images (and thus new OpenGL textures) by tinting the base creature sprite layers using a lookup table for colors.
+- **Animation:** 'Animator' class calculates the current frame based on frame durations and loop counts. 'GameSprite::getHardwareID' uses this frame to get the correct 'NormalImage'.
+The: system creates many individual small textures on the GPU.
+</current_functionality_summary>
+  <refactoring_suggestions>- **Texture Atlas Strategy:** The on-demand creation of individual textures per sprite variation is inefficient. The Qt 6 version must implement a texture atlas strategy. 'TextureManagerQt' should pack multiple sprites (or their variations) into larger atlas textures. This reduces the number of texture binds and can improve rendering performance.
+- **Creature Outfit Handling with Atlas:**
+  - **Option A (Dynamic Atlas Extension):** When a new outfit combination is needed, the 'TextureManagerQt' could render the colorized outfit onto a free section of an existing atlas or a new atlas page if space runs out. This is similar to the original approach but targets an atlas.
+  - **Option B (Shader-based Tinting):** Store only base creature sprites (grayscale or with default colors) in the atlas. Use a custom GLSL shader to apply outfit colors as tints during rendering. This is more VRAM-efficient but requires more complex shader logic and potentially specially prepared sprite assets (e.g., with alpha masks for colorable areas). The original 'TemplateImage::colorizePixel' logic is a good reference for the tinting algorithm.
+- **Animation State Management:** Animation state (current frame) should be managed efficiently, possibly by 'MapViewQt' or 'EditorController', and passed to 'TextureManagerQt' to get the correct sprite UVs from the atlas.
+- **VRAM Management:** The texture atlas approach helps with VRAM fragmentation compared to many small textures. 'TextureManagerQt' should also handle unloading atlases if they are no longer needed (e.g., when changing client versions).
+</refactoring_suggestions>
+  <qt6_migration_steps>
+    <qt6_migration_step>1. Create 'TextureManagerQt' Class (Application-side, not 'mapcore'): Header ('texturemanagerqt.h'): Include necessary Qt OpenGL headers, 'QHash', 'QRectF', 'QImage'. Forward declare 'mapcore::GraphicManager', 'mapcore::GameSprite', 'mapcore::Outfit'. Define 'struct SpriteAtlasLocation { GLuint atlasTextureId; QRectF uvRect; QSizeF pixelSize; };'. Source ('texturemanagerqt.cpp'): Constructor: Takes 'mapcore::GraphicManager* graphicManager'. 'void initializeAtlases(mapcore::ClientVersionID versionId);': This is the main method to build atlases. 'SpriteAtlasLocation getSpriteInfo(uint16_t clientSpriteId, int animationFrame = 0, int patternX = 0, int patternY = 0, int patternZ = 0, int layers = 0);' 'SpriteAtlasLocation getCreatureSpriteInfo(const mapcore::Outfit&amp; outfit, mapcore::Direction dir, int animationFrame = 0);' Private members: 'mapcore::GraphicManager* m_graphicManager;', 'QList&lt;GLuint&gt; m_atlasTextures;', 'QHash&lt;QString, SpriteAtlasLocation&gt; m_spriteLocationCache;' (key could be a string like 'item_clientID_frame_patternX...').</qt6_migration_step>
+    <qt6_migration_step>2. Implement Texture Atlas Strategy in 'TextureManagerQt::initializeAtlases()': Clear any existing atlases and cache. Iterate through all item sprites available from 'm_graphicManager' for the given 'versionId'. For each 'mapcore::GameSprite' and its variations (frames, patterns, layers): Get raw pixel data (e.g., 'mapcore::GameSprite::NormalImage::getRGBAData()'). This data is typically 32x32 RGBA. Use a texture packing algorithm (e.g., 'QTexturePacker' if available, or a custom implementation like a shelf or skyline packer) to find a position for this sprite image within a large atlas texture. If no space in current atlas, create a new 'GLuint' atlas texture ('glGenTextures', 'glBindTexture', 'glTexImage2D' with a large empty size, e.g., 2048x2048 or 4096x4096). Add to 'm_atlasTextures'. Upload the sprite's pixel data to the allocated position in the atlas using 'glTexSubImage2D'. Calculate normalized UV coordinates ('QRectF') for this sprite within its atlas. Store these UVs and the 'atlasTextureId' in 'm_spriteLocationCache' keyed by a unique identifier for that sprite variation.</qt6_migration_step>
+    <qt6_migration_step>3. Implement 'TextureManagerQt::getSpriteInfo()' and 'getCreatureSpriteInfo()': 'getSpriteInfo()': Construct the key for 'm_spriteLocationCache' from parameters. Return the cached 'SpriteAtlasLocation'. If not found, it might indicate an issue or a sprite that wasn't atlased (log error). 'getCreatureSpriteInfo()': This is more complex. Approach 1 (Dynamic Atlas Entry for Outfits): Get base creature sprite layers from 'm_graphicManager'. Generate a unique key for the 'outfit' and 'animationFrame'/'dir'. If this key is in 'm_spriteLocationCache', return it. Otherwise, dynamically render the colorized outfit onto a temporary 'QImage' (using logic similar to 'GameSprite::TemplateImage::colorizePixel' from the original code). Add this new 'QImage' to an atlas (as in step 2.c-e). Cache and return its location. Approach 2 (Shader-based Tinting - Preferred for VRAM): 'TextureManagerQt' returns 'SpriteAtlasLocation' for the *base* creature sprite layers (uncolorized or default color). 'MapViewQt' will need a specific shader program that can take these base textures and apply the 'outfit.m_head', 'm_body', 'm_legs', 'm_feet' colors as uniforms to tint the appropriate areas of the sprite. This might require mask textures or specific sprite design. The 'SpriteAtlasLocation' might need to include info about which parts are colorable.</qt6_migration_step>
+    <qt6_migration_step>4. Modify 'MapViewQt::paintGL()' (from 'RENDER-02'): Obtain 'TextureManagerQt* m_textureManager' (e.g., passed from 'MainWindow' or a service). Remove the colored quad rendering logic from 'RENDER-02'. For each visible item on a tile: 'mapcore::ItemType&amp; itemType = m_itemManager-&gt;getItemType(item-&gt;getID());' (assuming 'm_itemManager' is accessible via 'ClientDataService' or similar). 'mapcore::GameSprite* sprite = m_graphicManager-&gt;getSprite(itemType.clientID);' 'int frame = sprite-&gt;animator ? sprite-&gt;animator-&gt;getFrame(m_animationTick) : 0;' (see step 5 for 'm_animationTick'). 'SpriteAtlasLocation loc = m_textureManager-&gt;getSpriteInfo(itemType.clientID, frame, /*patterns etc.*/);' Add data to a batch for 'loc.atlasTextureId': vertices for a quad at the item's screen position, and 'loc.uvRect' for texture coordinates. For each visible creature: 'mapcore::CreatureType* creatureType = m_creatureManager-&gt;getCreatureType(creature-&gt;getName());' 'SpriteAtlasLocation loc = m_textureManager-&gt;getCreatureSpriteInfo(creatureType-&gt;outfit, creature-&gt;getDirection(), frame);' Add to batch for 'loc.atlasTextureId' (using appropriate shader if tinting). After iterating all visible elements, iterate through batches grouped by 'atlasTextureId' (and shader program): 'glBindTexture(GL_TEXTURE_2D, atlasId);' 'shaderProgram-&gt;bind();' Upload batched vertex data (positions and UVs) to a VBO. 'glDrawArrays(...)' or 'glDrawElements(...)'.</qt6_migration_step>
+    <qt6_migration_step>5. Implement Animation Handling in 'MapViewQt': Add 'QTimer* m_animationTimer;' and 'int m_animationTick = 0;'. In 'MapViewQt' constructor or 'initializeGL': 'm_animationTimer = new QTimer(this);' 'connect(m_animationTimer, &amp;QTimer::timeout, this, [this]() { m_animationTick++; update(); });' 'm_animationTimer-&gt;start(ANIMATION_FRAME_DURATION_MS); // e.g., 50-100ms' The frame calculation 'sprite-&gt;animator-&gt;getFrame(m_animationTick)' will use 'mapcore::Animator' (ported in 'CORE-02').</qt6_migration_step>
+    <qt6_migration_step>6. Implement Basic Texture Shader: Vertex Shader: Pass through position and UV coordinates. Fragment Shader: 'uniform sampler2D textureSampler; in vec2 v_texCoord; out vec4 FragColor; void main() { FragColor = texture(textureSampler, v_texCoord); }' (If shader-based outfit tinting) Create a more complex fragment shader for creatures.</qt6_migration_step>
+  </qt6_migration_steps>
+  <definition_of_done>
+    <element>A 'TextureManagerQt' class is implemented that loads sprite data (pixel data and metadata) via 'mapcore::GraphicManager'.</element>
+    <element>'TextureManagerQt' creates and manages one or more OpenGL texture atlases, packing individual game sprites into these atlases.</element>
+    <element>'TextureManagerQt' provides a method to get the atlas 'GLuint' and 'QRectF' UV coordinates for any given client sprite ID and its variations (animation frame, pattern).</element>
+    <element>Creature outfits are correctly rendered, either by 'TextureManagerQt' creating dynamic colorized entries in an atlas or by 'MapViewQt' using a specialized shader with base creature sprites from the atlas.</element>
+    <element>'MapViewQt::paintGL' is updated to: Retrieve sprite rendering information (atlas ID, UVs) from 'TextureManagerQt' for all visible items and creatures. Render items and creatures as textured quads using the data from the texture atlas(es). Basic sprite animations are displayed correctly, driven by a 'QTimer' and 'mapcore::Animator'.</element>
+    <element>Rendering uses efficient modern OpenGL (VBOs for batched geometry, GLSL shaders for texture mapping/outfit tinting).</element>
+    <element>The simple colored quad rendering from 'RENDER-02' is fully replaced by sprite-textured rendering for items and creatures.</element>
+  </definition_of_done>
+  <estimation_effort>
+    <element>Very High (25-35 developer days). This is a complex task. Implementing a robust texture atlas strategy, including packing algorithms and managing UV coordinates, is non-trivial. Handling creature outfits efficiently (either dynamic atlas entries or shader-based tinting) is a significant sub-task. Modifying 'MapViewQt' to batch rendering with VBOs and shaders, and integrating animation, requires substantial OpenGL and Qt expertise.</element>
+  </estimation_effort>
+  <known_missing_files/>
+  <boilerplate_coder_ai_prompt>**Objective:** Implement sprite rendering in 'MapViewQt' using a 'TextureManagerQt' that creates and manages texture atlases. Replace the colored quad rendering from 'RENDER-02'.
+
+**1. 'TextureManagerQt.h' (Application-Side):**
+```cpp
+#pragma once
+#include &lt;QObject&gt;
+#include &lt;QHash&gt;
+#include &lt;QRectF&gt;
+#include &lt;QList&gt;
+#include &lt;QOpenGLFunctions_4_3_Core&gt; // Or your chosen version
+#include &quot;mapcore/clientversion.h&quot; // For ClientVersionID
+#include &quot;mapcore/outfit.h&quot;
+#include &quot;mapcore/direction.h&quot;
+
+namespace mapcore { class GraphicManager; class GameSprite; }
+
+struct SpriteAtlasLocation {
+    GLuint atlasTextureId = 0;
+    QRectF uvRect; // Normalized UV coordinates (0.0-1.0)
+    QSizeF pixelSize; // Original pixel size of the sprite
+    QPointF drawOffset; // Original draw offset
+};
+
+class TextureManagerQt : public QObject, protected QOpenGLFunctions_4_3_Core {
+    Q_OBJECT
+public:
+    explicit TextureManagerQt(mapcore::GraphicManager* graphicManager, QObject* parent = nullptr);
+    ~TextureManagerQt() override;
+
+    bool initialize(mapcore::ClientVersionID versionId); // Loads sprites for a version &amp; builds atlases
+    void cleanup(); // Deletes GL textures
+
+    SpriteAtlasLocation getSpriteInfo(uint16_t clientSpriteId,
+                                      int animationFrame = 0,
+                                      int patternX = 0, int patternY = 0, int patternZ = 0,
+                                      int layers = 0); // Assuming 'layers' is part of key if sprites have actual layers
+
+    // Choose one approach for outfits or implement both based on a flag if necessary
+    SpriteAtlasLocation getCreatureSpriteInfo(const mapcore::Outfit&amp; outfit,
+                                              mapcore::Direction dir,
+                                              int animationFrame = 0);
+private:
+    struct AtlasPage {
+        GLuint textureId = 0;
+        QSize size;
+        // Add packing algorithm state if needed (e.g., next available position)
+        // QPoint currentPackPos; int currentMaxHeightInRow;
+    };
+
+    bool addSpriteToAtlas(mapcore::GameSprite* sprite, uint16_t clientSpriteId, int frame, int patX, int patY, int patZ, int layer);
+    bool addColorizedCreatureToAtlas(const mapcore::Outfit&amp; outfit, mapcore::Direction dir, int frame, const QString&amp; cacheKey);
+    QImage applyOutfitToSprite(mapcore::GameSprite* baseSprite, const mapcore::Outfit&amp; outfit, int frame, mapcore::Direction dir);
+
+
+    mapcore::GraphicManager* m_graphicManager;
+    QList&lt;AtlasPage&gt; m_atlasPages;
+    QHash&lt;QString, SpriteAtlasLocation&gt; m_spriteLocationCache; // Key: &quot;item_id_frame_patX_patY_patZ_layer&quot; or &quot;creature_looktype_head_body_legs_feet_addons_dir_frame&quot;
+
+    const int ATLAS_DEFAULT_WIDTH = 2048;
+    const int ATLAS_DEFAULT_HEIGHT = 2048;
+    // Helper for texture packing (e.g., a simple shelf packer or use a library)
+    // QRect findSpaceInAtlas(const QSize&amp; spriteSize, AtlasPage** targetPage);
+};
+```
+
+**2. 'TextureManagerQt.cpp':**
+    - 'initialize()':
+        - Call 'initializeOpenGLFunctions()' if not already done.
+        - Clear existing atlases/cache.
+        - Iterate through all item sprites from 'm_graphicManager-&gt;getItemSpriteMaxID()'. For each, get 'mapcore::GameSprite*'.
+        - For each 'GameSprite' and all its variations (frames, patterns, layers): Call 'addSpriteToAtlas()'.
+        - (Consider doing creature base sprites here too if not dynamically).
+    - 'addSpriteToAtlas()':
+        - Get RGBA pixel data from 'mapcore::GameSprite::NormalImage::getRGBAData()'.
+        - Find space in an 'AtlasPage' (create new if needed: 'glGenTextures', 'glBindTexture', 'glTexImage2D' with null data).
+        - 'glBindTexture(GL_TEXTURE_2D, targetAtlasPage.textureId);'
+        - 'glTexSubImage2D' to upload the sprite pixels.
+        - Calculate UVs, store in 'm_spriteLocationCache'.
+    - 'getSpriteInfo()': Generate key, lookup in 'm_spriteLocationCache'.
+    - 'getCreatureSpriteInfo()':
+        - **If dynamic atlas for outfits:** Generate key. If cached, return. Else, 'applyOutfitToSprite()', then 'addColorizedCreatureToAtlas()' (similar to 'addSpriteToAtlas'), cache, return.
+        - 'applyOutfitToSprite()': Get base creature 'GameSprite'. Get its layers' RGBA data. Create a 'QImage'. Manually apply tinting logic similar to original 'GameSprite::TemplateImage::colorizePixel' and 'TemplateOutfitLookupTable'.
+        - **If shader-based (simpler 'TextureManagerQt'):** Return info for base sprite layers. Shader will handle tinting.
+    - 'cleanup()': Delete all 'GLuint' in 'm_atlasTextures'.
+
+**3. 'MapViewQt.h/.cpp' (from 'RENDER-01', 'RENDER-02'):**
+    - Add 'TextureManagerQt* m_textureManager;'. Initialize after 'mapcore::GraphicManager' is available.
+    - Add 'QTimer* m_animationTimer; int m_animationTick = 0;'. Connect its 'timeout()' to a slot that increments 'm_animationTick' and calls 'update()'. Start timer.
+    - **Shaders:**
+        - Create 'texture_shader.vert' (pass pos, texCoord; MVP transform) and 'texture_shader.frag' ('uniform sampler2D u_texture; in vec2 v_texCoord; out vec4 FragColor; FragColor = texture(u_texture, v_texCoord);').
+        - (If shader outfits) 'outfit_shader.vert'/'.frag' (frag shader takes base tex, mask tex (optional), head/body/legs/feet colors as uniforms, performs tinting).
+        - Compile/link these in 'initializeGL()', store 'QOpenGLShaderProgram' members.
+    - **In 'paintGL()':**
+        - Replace colored quad logic.
+        - Group rendering by 'atlasTextureId' and shader program to minimize binds.
+        - For each visible item/creature:
+            - Get 'clientID' or 'Outfit'.
+            - 'int frame = (sprite &amp;&amp; sprite-&gt;animator) ? sprite-&gt;animator-&gt;getFrame(m_animationTick) : 0;' (Get 'mapcore::Animator' from 'mapcore::GameSprite').
+            - 'SpriteAtlasLocation loc = m_textureManager-&gt;getSpriteInfo(...);' or 'getCreatureSpriteInfo(...)'.
+            - If 'loc.atlasTextureId == 0', skip or draw placeholder.
+            - Calculate screen quad vertices using 'loc.pixelSize' and 'loc.drawOffset' (scaled by zoom).
+            - Add {vertex_pos, uv_coord} to a VBO/vector for the current batch (atlas/shader).
+        - After collecting:
+            - For each batch: 'shader-&gt;bind(); glBindTexture(GL_TEXTURE_2D, atlasId);' Setup VBO with collected data. 'glDrawArrays/Elements'.
+
+**Focus on:** Texture atlas creation, UV coordinate calculation, modifying 'MapViewQt' to request texture info and draw textured quads. Choose one outfit method for now (shader-based is generally preferred for VRAM).
+</boilerplate_coder_ai_prompt>
+</RENDER-03>

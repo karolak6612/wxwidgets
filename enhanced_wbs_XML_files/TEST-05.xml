@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<TEST-05>
+  <id>TEST-05</id>
+  <section>Testing</section>
+  <title>Develop Unit Tests for Map Actions and Selection Logic</title>
+  <original_task_id>TEST-05</original_task_id>
+  <description>Develop unit tests for map action and selection functionalities implemented in Qt6. This includes testing actions like cut, copy, paste, delete, and fill, as well as selection mechanisms (e.g., rectangular, magic wand/smart select), ensuring they correctly modify map data, manage selection state, and interact with the undo/redo system.</description>
+  <dependencies>
+    <dependencie>CORE-05</dependencie>
+    <dependencie>CORE-05</dependencie>
+    <dependencie>CORE-02</dependencie>
+    <dependencie>CORE-14-MaterialSystem</dependencie>
+    <dependencie>CORE-01</dependencie>
+    <dependencie>TEST-01</dependencie>
+    <dependencie>BUILD-01</dependencie>
+  </dependencies>
+  <input_files/>
+  <analyzed_input_files/>
+  <documentation_references>
+    <documentation_reference>Qt Test Framework: https://doc.qt.io/qt-6/qttest-index.html</documentation_reference>
+    <documentation_reference>State-Based Testing: General principles for verifying state changes after actions are performed.</documentation_reference>
+    <documentation_reference>Qt Undo Framework: https://doc.qt.io/qt-6/qtwidgets-tools-undoframework-example.html</documentation_reference>
+  </documentation_references>
+  <current_functionality_summary>This task is focused on creating new unit tests for the Qt6 implementation of interactive map editing functionalities. These functionalities include various selection methods (e.g., rectangular selection, potentially a magic wand/smart selection tool) and map modification actions such as Cut, Copy, Paste, Delete, and Fill. The tests will validate that these operations correctly manipulate 'mapcore::Map' data, manage the state of 'mapcore::Selection' and 'mapcore::CopyBuffer', and integrate properly with the 'mapcore::ActionQueue' (undo/redo system).
+</current_functionality_summary>
+  <definition_of_done>
+    <element>Unit tests using the Qt Test framework are created for core map actions and selection functionalities within the 'mapcore' library or editor controller.</element>
+    <element>Selection Logic Tests: Verify correct tile/object identification and inclusion in 'mapcore::Selection' for rectangular selections (defining an area). If a 'magic wand' or 'smart select' tool (from 'LOGIC-03') is implemented, test its logic for selecting contiguous areas of similar tiles/items, including behavior at boundaries with different elements. Test selection modification operations: adding to selection (e.g., with Shift modifier), subtracting from selection (e.g., with Ctrl modifier), clearing the selection. Verify selection of different entity types (items, creatures, spawns, waypoints on tiles).</element>
+    <element>Copy Action Tests: After performing a 'Copy' action on a populated 'mapcore::Selection', verify that the 'mapcore::CopyBuffer' is accurately populated with deep copies of all selected map elements. This includes ground items, stacked items with all their attributes, creatures, waypoints, spawn data, and house tile information, along with their relative positions within the selection. Ensure the original map data remains unchanged after a Copy operation.</element>
+    <element>Cut Action Tests: Verify 'mapcore::CopyBuffer' content is correct (as per Copy action tests). Verify that the selected area on the original 'mapcore::Map' is correctly cleared: items are removed, ground tiles possibly reverted to a default state, creature/spawn/waypoint/house information is removed from affected tiles. Verify that auto-bordering or other relevant map update logic (e.g., for walls) is triggered for tiles adjacent to the cleared area.</element>
+    <element>Paste Action Tests: Populate 'mapcore::CopyBuffer' with a known set of data. Test pasting this buffer content to an empty area on the 'mapcore::Map', verifying exact replication at the target location. Test pasting that overlaps existing map elements, ensuring correct merging or replacement behavior as per defined rules (e.g., item stacking, ground overwriting). Test pasting partially or fully out-of-bounds of the map dimensions, verifying correct clipping or handling. Ensure special data like waypoints, spawn definitions, and house tile associations are correctly applied to the newly pasted tiles.</element>
+    <element>Delete Action Tests: After selecting diverse elements and performing a 'Delete' action, confirm that all selected elements (items, creatures, waypoints, spawns, house assignments from tiles) are properly removed from the 'mapcore::Map'. Verify that tile properties and adjacent tiles (e.g., borders, walls) are appropriately updated.</element>
+    <element>Fill Action Tests (Area Fill, not brush strokes): Using mock brushes obtained from 'mapcore::MaterialManager'. Select a defined area (e.g., enclosed by other elements). Perform a 'Fill' action with a mock ground brush: verify all tiles within the area change to the new ground type and that auto-bordering logic correctly updates borders within the filled area and with adjacent, unselected tiles. Perform a 'Fill' action with a mock item brush: verify the item is placed on all tiles within the area according to item placement rules.</element>
+    <element>Undo/Redo Functionality (for Cut, Paste, Delete, Fill actions): For each modifying action, after execution, verify that an appropriate undo command representing the change has been pushed onto the 'mapcore::ActionQueue' (undo stack). Perform an 'undo' operation: verify the 'mapcore::Map' (and 'mapcore::Selection' if relevant) reverts to its state *before* the action was performed. Perform a 'redo' operation after an undo: verify the 'mapcore::Map' (and 'mapcore::Selection') is restored to the state *after* the action was initially performed.</element>
+    <element>All tests utilize programmatically created 'mapcore::Map' objects with specific, well-defined pre-action states to ensure predictable and verifiable outcomes. Mock brushes and minimal material definitions are used for fill tests.</element>
+    <element>All created unit tests pass successfully.</element>
+    <element>Tests are integrated into the CMake build system for automated execution via 'ctest'.</element>
+  </definition_of_done>
+  <estimation_effort>
+    <element>Very High (30-40 developer days). Testing actions like Cut, Copy, Paste, and Fill involves complex state setup and verification across map data, selection state, copy buffer, and the undo/redo stack. Verifying deep copies and correct merging/updating of various map elements (items with all attributes, houses, spawns, waypoints) is intricate. Comprehensive undo/redo testing for each action adds significant effort.</element>
+  </estimation_effort>
+  <known_missing_files/>
+  <boilerplate_coder_ai_prompt>Your task is to create unit tests for map action and selection logic within the 'mapcore' library and potentially 'EditorController' of the Qt6 Remere's Map Editor, using the Qt Test framework. This includes testing selections, Cut, Copy, Paste, Delete, and Fill actions, along with their undo/redo capabilities.
+General Test Setup ('TestMapActions.h/.cpp' or similar in 'tests/mapcore/' or 'tests/editor/'): 1. Include necessary headers: 'mapcore/map.h', 'mapcore/tile.h', 'mapcore/item.h', 'mapcore/selection.h', 'mapcore/copybuffer.h', 'mapcore/actionqueue.h', 'mapcore/actions.h' (assuming specific action classes like 'CutAction', 'PasteAction'), 'mapcore/materialmanager.h', 'mapcore/brushes/*'. 2. In test setup ('init()'): 'm_map = new mapcore::Map(); m_map-&gt;resize(20, 20, 1);' 'm_selection = new mapcore::Selection(m_map);' 'm_copyBuffer = new mapcore::CopyBuffer();' 'm_actionQueue = new mapcore::ActionQueue();' 'm_itemManager = new mapcore::ItemManager();' 'm_materialManager = new mapcore::MaterialManager(m_itemManager);' Helper function: 'populateTestMap(m_map, m_itemManager);' to create a known state.
+I. Selection Logic Tests: 'testRectangularSelection()' 'm_selection-&gt;selectArea(mapcore::Rectangle(5,5, 10,10), 0);' 'QCOMPARE(m_selection-&gt;getSelectedTilePositions().size(), 100);' 'QVERIFY(m_selection-&gt;isTileSelected(mapcore::Position(5,5,0)));' 'testMagicWandSelection()' (If implemented) Setup map with areas of same/different ground items. 'm_selection-&gt;performMagicWand(mapcore::Position(x,y,z), m_map);' Assert correct contiguous area is selected. 'testSelectionAddSubtractClear()' Test 'addArea', 'removeArea', 'clear'.
+II. Action Tests (Example: Cut Action): 'testCutAction_Data()' Use 'QTest::addColumn' for various setups. 'testCutAction()' 'QFETCH(MapSetupFunction, setupFunc); QFETCH(SelectionArea, area);' 'setupFunc(m_map, m_itemManager);' 'm_selection-&gt;selectArea(area);' 'mapcore::CutAction cutAction(m_selection, m_copyBuffer, m_map);' 'm_actionQueue-&gt;push(&amp;cutAction);' Assert CopyBuffer: Iterate m_copyBuffer-&gt;getTiles(), compare with original selected tiles. Assert Map State: Iterate selected area in m_map. Verify tiles are cleared. Assert Undo: m_actionQueue-&gt;undo(); Assert map restored to pre-cut state. Assert Redo: m_actionQueue-&gt;redo(); Assert map and CopyBuffer back to post-cut state.
+Copy Action ('testCopyAction()'): Similar to Cut, but assert original map is unchanged after copy. Assert 'CopyBuffer' content. No direct undo/redo for copy itself, but subsequent paste would be.
+Paste Action ('testPasteAction()'): Setup 'm_copyBuffer' with known content. 'mapcore::PasteAction pasteAction(m_copyBuffer, m_map, targetPos);' 'm_actionQueue-&gt;push(&amp;pasteAction);' Assert pasted content is correct at 'targetPos'. Test merging/replacement rules. Test undo/redo.
+Delete Action ('testDeleteAction()'): Select area. 'mapcore::DeleteAction delAction(m_selection, m_map);' 'm_actionQueue-&gt;push(&amp;delAction);' Assert selected elements are removed. Test undo/redo.
+Fill Action ('testFillAction()'): 'mapcore::GroundBrush* mockBrush = m_materialManager-&gt;getGroundBrush(&quot;test_grass_fill&quot;);' 'm_selection-&gt;selectArea(...);' 'mapcore::FillAction fillAction(m_selection, mockBrush, m_map);' 'm_actionQueue-&gt;push(&amp;fillAction);' Assert tiles in selection have new ground ID and borders are updated. Test undo/redo.
+Helper Functions: 'void populateMapWithDiverseElements(mapcore::Map* map, mapcore::ItemManager* itemManager, const QList&lt;mapcore::Position&gt;&amp; positionsToPopulate);' 'bool compareTileContent(const mapcore::Tile* t1, const mapcore::Tile* t2);' (deep item, spawn, waypoint, house comparison) 'bool compareCopyBuffer(const mapcore::CopyBuffer* cb1, const mapcore::CopyBuffer* cb2);'
+Ensure: mock XML for brushes (especially ground/border interactions for Fill tests) is loaded into 'm_materialManager'.
+</boilerplate_coder_ai_prompt>
+</TEST-05>

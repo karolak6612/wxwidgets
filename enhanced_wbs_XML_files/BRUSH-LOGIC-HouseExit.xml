@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<BRUSH-LOGIC-HouseExit>
+  <id>BRUSH-LOGIC-HouseExit</id>
+  <section>Editor Behavior &amp; Logic</section>
+  <title>Port House Exit Brush/Tool Logic</title>
+  <original_input_files>
+    <original_input_file>wxwidgets/house_exit_brush.cpp</original_input_file>
+    <original_input_file>wxwidgets/house_exit_brush.h</original_input_file>
+  </original_input_files>
+  <analyzed_input_files>
+    <analyzed_input_file>
+      <file_path>wxwidgets/house_exit_brush.h</file_path>
+      <description>Defines 'HouseExitBrush' (inherits 'Brush'). Stores 'uint32_t draw_house' (ID). 'draw'/'undraw' assert false; main function is 'canDraw' and holding target house ID.</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <file_path>wxwidgets/house_exit_brush.cpp</file_path>
+      <description>Implements 'HouseExitBrush'. 'setHouse' stores house ID. 'canDraw' checks if exit can be placed (tile exists, ground, not house tile, not blocking). Actual exit setting is a targeted UI action.</description>
+    </analyzed_input_file>
+  </analyzed_input_files>
+  <dependencies>
+    <dependencie>CORE-BRUSH-FRAMEWORK</dependencie>
+    <dependencie>CORE-01</dependencie>
+    <dependencie>CORE-09-HouseSystem</dependencie>
+    <dependencie>LOGIC-01</dependencie>
+    <dependencie>CORE-04</dependencie>
+  </dependencies>
+  <current_functionality_summary>The 'HouseExitBrush' isn't a typical drawing brush. It's used to select a target tile that will become the exit for a pre-selected house. The main logic involves checking if a tile is a valid exit location. The actual `house-&gt;setExit()` call is made by a UI action.
+</current_functionality_summary>
+  <qt6_migration_steps>1. Determine if this remains a &quot;Brush&quot; or becomes a &quot;Tool&quot; mode in Qt6. Assume &quot;Tool&quot; behavior for now, activated by palette.
+2. The `EditorController` will have a mode for &quot;SetHouseExit&quot;.
+3. When this mode is active and a house is selected (from `HousePalette` / `UI-07`):
+   - On map click at `targetPos`:
+     - Call `mapcore::HouseManager::isValidExitLocation(map, targetPos)`.
+     - If valid, create `SetHouseExitCommand(selectedHouse, targetPos, oldExitPos)`.
+     - Command's `redo()`: `selectedHouse-&gt;setExit(targetPos);` (this method in `mapcore::House` updates tile flags on old/new exit tiles).
+     - Command's `undo()`: `selectedHouse-&gt;setExit(oldExitPos);`.
+     - Push command to `QUndoStack`.
+</qt6_migration_steps>
+  <definition_of_done>- Logic for setting a house exit is implemented via `EditorController` and `QUndoCommands`.
+- `mapcore::HouseManager` (or `House`) provides `isValidExitLocation()`.
+- `mapcore::House::setExit()` correctly updates tile states for old and new exits.
+- Operation is undoable.
+- Unit tests for `isValidExitLocation` and `SetHouseExitCommand` pass.
+</definition_of_done>
+  <boilerplate_coder_ai_prompt>Implement the logic for setting a House Exit, likely as a tool mode in `EditorController`.
+1. `mapcore::House` (from `CORE-09-HouseSystem`) needs a method: `bool setExit(const Position&amp; newExitPos);` This method should:
+   - Store `newExitPos`.
+   - Update flags on the old exit tile (if any) to remove exit status.
+   - Update flags on the new exit tile to mark it as an exit.
+   - Return true if successful.
+2. `EditorController` needs a method: `void setHouseExit(mapcore::House* house, const Position&amp; targetPos);`
+   - Check `map-&gt;isValidExitLocation(targetPos)` (helper needed).
+   - If valid, create `SetHouseExitCommand` storing `house`, `targetPos`, and `house-&gt;getExit()` (old exit).
+   - `redo()` calls `house-&gt;setExit(targetPos)`. `undo()` calls `house-&gt;setExit(oldExitPos)`.
+   - Push to `QUndoStack`.
+The UI (`HousePalette` / `UI-07`) will activate this tool mode and provide the selected house and target position to `EditorController`.
+</boilerplate_coder_ai_prompt>
+  <documentation_references>
+    <documentation_reference>CORE-09-HouseSystem</documentation_reference>
+    <documentation_reference>mapcore::Tile</documentation_reference>
+    <documentation_reference>LOGIC-01 EditorController</documentation_reference>
+  </documentation_references>
+  <estimation_effort>Medium</estimation_effort>
+</BRUSH-LOGIC-HouseExit>

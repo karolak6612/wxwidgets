@@ -1,0 +1,151 @@
+<?xml version="1.0" ?>
+<FINAL-04>
+  <id>FINAL-04</id>
+  <section>Integration &amp; Finalization</section>
+  <title>Implement View Menu &amp; Common Tools Menu Operations</title>
+  <original_input_files>
+    <original_input_file>Integrated `MapViewport` and `MainWindow` (with `AppContext`) from `FINAL-01`</original_input_file>
+    <original_input_file>`AppSettings` from `CORE-06`</original_input_file>
+    <original_input_file>View and Tools menu `QAction`s from `UI-02` (Toolbar &amp; Menubar Setup)</original_input_file>
+    <original_input_file>Dockable palette widgets (e.g., TerrainPalette, ItemPalette) from `UI-02`</original_input_file>
+    <original_input_file>`MapDrawingOptions` or similar structure controlling map rendering flags (from `RENDER-01` or `MapViewport`)</original_input_file>
+  </original_input_files>
+  <analyzed_input_files>
+    <analyzed_input_file>
+      <file_path>qtui::MapViewport (from FINAL-01/RENDER-01)</file_path>
+      <description>The Qt widget responsible for rendering the map. It needs methods to:
+- Adjust zoom level (e.g., `setZoom(double)`, `zoomIn()`, `zoomOut()`).
+- Change current floor being viewed (`setCurrentFloor(int)`).
+- Toggle visibility of various map elements (grid, creatures, spawns, lights, etc.), likely by updating a `MapDrawingOptions` struct which it uses during rendering.
+These methods will be called by slots connected to View menu actions.
+</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <file_path>qtui::MainWindow (from FINAL-01/UI-01)</file_path>
+      <description>The main application window containing the View and Tools menus, toolbars, and dock widgets for palettes.
+It needs to:
+- Connect View/Tools menu `QAction`s to handler slots.
+- Manage the visibility of toolbars (`QToolBar`) and dock widgets (`QDockWidget` containing palettes) based on View menu actions.
+- Potentially host dialogs launched from the Tools menu (e.g., Map Properties).
+</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <file_path>core::AppSettings (from CORE-06)</file_path>
+      <description>The application's settings manager. Many View menu options (e.g., show/hide states for UI elements, default visibility flags for map elements)
+should be persisted as application settings using `AppSettings` so they are remembered across sessions.
+</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <file_path>View &amp; Tools Menu QActions (from UI-02)</file_path>
+      <description>The `QAction` objects for various View menu items (Zoom In/Out/Normal, Floor navigation, Show/Hide Grid, Lights, Creatures, Spawns, Toolbars, Palettes)
+and common Tools menu items (e.g., Map Properties, Find Item). Their `triggered()` signals need to be connected to implementing slots.
+Checkable actions should have their state synced with `AppSettings`.
+</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <file_path>Palette Widgets (from UI-02)</file_path>
+      <description>The actual QDockWidget instances containing the different palettes (Terrain, Item, Doodad, etc.).
+Their visibility will be toggled by actions in the View &gt; Palettes submenu.
+</description>
+    </analyzed_input_file>
+  </analyzed_input_files>
+  <dependencies>
+    <dependencie>FINAL-01</dependencie>
+    <dependencie>CORE-06</dependencie>
+    <dependencie>UI-01</dependencie>
+    <dependencie>UI-02</dependencie>
+    <dependencie>RENDER-01</dependencie>
+  </dependencies>
+  <current_functionality_summary>Following `FINAL-03`, the application has integrated core logic, file operations, edit operations, and a preferences dialog.
+The View and Tools menus exist in the UI (from `UI-02`) but their actions are not yet functional.
+The `MapViewport` can display the map, but zoom, floor navigation, and visibility toggles for map elements (grid, creatures, etc.) are not yet controllable through the UI menus.
+Toolbars and dockable palettes exist but their visibility cannot be toggled via the View menu.
+View-related settings might be defined in `AppSettings` but are not yet connected to UI actions.
+</current_functionality_summary>
+  <qt6_migration_steps>1.  **Zoom Functionality (`MainWindow` and `MapViewport`):**
+    -   Connect &quot;View &gt; Zoom &gt; Zoom In&quot;, &quot;Zoom Out&quot;, &quot;Zoom Normal&quot; `QAction`s to slots in `MainWindow`.
+    -   These slots will call methods on the `MapViewport` instance (e.g., `mapViewport-&gt;zoomIn()`, `mapViewport-&gt;zoomOut()`, `mapViewport-&gt;setZoom(1.0)`).
+    -   `MapViewport` needs to implement the actual zoom logic, update its internal zoom factor, and trigger a redraw.
+    -   The current zoom level could be displayed in the status bar.
+2.  **Floor Navigation (`MainWindow` and `MapViewport`):**
+    -   Connect &quot;Navigate &gt; Floor &gt; Floor X&quot; `QAction`s (or a floor selection widget like `QSpinBox` if `UI-02` created one) to a slot in `MainWindow`.
+    -   This slot calls `mapViewport-&gt;setCurrentFloor(floorNum)`.
+    -   `MapViewport` updates its current floor and triggers a redraw.
+    -   The current floor should be displayed in the status bar.
+3.  **Show/Hide Toolbars (`MainWindow`):**
+    -   For each toolbar (e.g., Standard, Brushes, Position), connect its corresponding &quot;View &gt; Toolbars &gt; [Toolbar Name]&quot; checkable `QAction::toggled(bool)` signal to a slot.
+    -   This slot will call `toolbarInstance-&gt;setVisible(bool)` and save the state to `AppSettings`.
+    -   Load initial visibility states from `AppSettings` on startup.
+4.  **Show/Hide Palettes (Dock Widgets in `MainWindow`):**
+    -   For each palette (e.g., Terrain, Item, Creature - hosted in `QDockWidget`s), connect its &quot;View &gt; Palettes &gt; [Palette Name]&quot; checkable `QAction::toggled(bool)` signal to the `QDockWidget::setVisible(bool)` slot.
+    -   Connect the `QDockWidget::visibilityChanged(bool)` signal back to the `QAction::setChecked(bool)` slot to keep them in sync if closed via the dock widget's 'X' button.
+    -   Save/load palette visibility states using `AppSettings` (potentially using `QMainWindow::saveState()` and `restoreState()` for the overall dock layout).
+5.  **Map Element Visibility Toggles (`MainWindow` and `MapViewport`):**
+    -   For each &quot;View &gt; Show &gt; [Element]&quot; or &quot;Show &gt; [Element]&quot; checkable `QAction` (e.g., Grid, Creatures, Spawns, Lights, Houses, Pathing):
+        -   Connect its `toggled(bool)` signal to a slot in `MainWindow`.
+        -   This slot updates the corresponding boolean flag in a `MapDrawingOptions` struct (managed by `MapViewport` or `AppContext`).
+        -   The slot then calls `mapViewport-&gt;updateDrawingOptionsAndRefresh()` or similar to apply changes and trigger a redraw.
+        -   The initial checked state of these actions should be loaded from `AppSettings`. The new state should be saved to `AppSettings` when toggled.
+6.  **Common Tools Menu Actions (`MainWindow`):**
+    -   **Map Properties:** Connect &quot;Tools &gt; Map Properties&quot; (or &quot;File &gt; Map Properties&quot;) to a slot that opens a `MapPropertiesDialog`. This dialog would display information from `AppContext::map()` (description, dimensions) and allow modification, saving changes back to the `Map` object (and making it an undoable action if changes are significant). (Full dialog implementation might be a separate `UI-DIALOGS` task).
+    -   **Find Item:** Connect &quot;Tools &gt; Find Item&quot; (or &quot;Search &gt; Find Item&quot;) to a slot that opens a `FindItemDialog`. (Full dialog and search logic in `LOGIC-FIND` or similar).
+    -   **Other Tools:** Connect other general-purpose tools defined in `menubar.xml` under &quot;Tools&quot; or &quot;Map&quot; to their respective handler slots. These might involve opening dialogs or directly invoking logic on the `AppContext::map()`.
+7.  **Persist View Settings:**
+    -   Ensure all toggleable view options (toolbar visibility, palette visibility, map element visibility flags) are saved to `AppSettings` when changed and loaded from `AppSettings` on application startup to restore user preferences.
+</qt6_migration_steps>
+  <definition_of_done>- All View menu operations are functional:
+  - Zoom In, Zoom Out, Zoom Normal correctly control the map viewport's zoom level.
+  - Floor navigation via menu/widget updates the map viewport's current floor.
+  - Show/Hide actions for all defined toolbars correctly toggle their visibility and persist state.
+  - Show/Hide actions for all defined palettes (dock widgets) correctly toggle their visibility and persist state.
+  - Show/Hide actions for map visual elements (Grid, Lights, Creatures, Spawns, Houses, Pathing, etc.) correctly update the map viewport's rendering and persist state.
+- Selected common Tools menu operations are functional:
+  - &quot;Map Properties&quot; action opens a dialog displaying basic map information.
+  - &quot;Find Item&quot; action opens the Find Item dialog.
+- Relevant view settings (toolbar/palette visibility, map element visibility flags) are persisted using `AppSettings` and restored on application startup.
+- UI elements (e.g., checkable menu items) correctly reflect the current state of these settings.
+</definition_of_done>
+  <boilerplate_coder_ai_prompt>Implement the View menu operations and common Tools menu operations for the Qt6 map editor.
+Assume `AppContext` provides `MapViewport&amp; mapViewport`, `AppSettings&amp; appSettings`, and `MainWindow* mainWindow`.
+Menu `QAction`s are already created in `MainWindow` as per `UI-02`. Palette `QDockWidget`s are created as per `UI-02`.
+
+**1. Zoom and Floor Navigation (in `MainWindow` slots, calling `MapViewport` methods):**
+   - Implement slots for `zoomInAction`, `zoomOutAction`, `zoomNormalAction` to call `mapViewport.zoomIn()`, `mapViewport.zoomOut()`, `mapViewport.setZoom(1.0)`.
+   - Implement a slot for floor change actions/widget to call `mapViewport.setCurrentFloor(newFloor)`.
+   - `MapViewport` must implement these methods and refresh itself.
+
+**2. Toolbar Visibility (in `MainWindow`):**
+   - For each toolbar `QAction` (e.g., `viewStandardToolbarAction`):
+     - Connect `toggled(bool)` to a slot `onViewToolbarToggled(bool visible, QToolBar* toolbar, AppSettings::Key key)`.
+     - Slot: `toolbar-&gt;setVisible(visible); appSettings.setBool(key, visible);`.
+     - On startup, load visibility from `AppSettings` and apply to toolbars and check actions.
+
+**3. Palette Visibility (in `MainWindow`):**
+   - For each palette `QAction` (e.g., `viewTerrainPaletteAction` pointing to `terrainPaletteDockWidget`):
+     - Connect `toggled(bool)` to `paletteDockWidget-&gt;setVisible(bool)`.
+     - Connect `paletteDockWidget-&gt;visibilityChanged(bool)` to `paletteAction-&gt;setChecked(bool)`.
+     - On startup, load visibility from `AppSettings` (or `QMainWindow::restoreState`) and apply. Save state on close.
+
+**4. Map Element Visibility Toggles (in `MainWindow` slots, affecting `MapViewport`):**
+   - For each `QAction` (e.g., `showGridAction`):
+     - Connect `toggled(bool)` to a slot `onShowElementToggled(bool visible, AppSettings::Key key, MapDrawingOptionFlag flag)`.
+     - Slot: `appSettings.setBool(key, visible); mapViewport.setDrawingFlag(flag, visible); mapViewport.update();`.
+     - `MapViewport` needs a `setDrawingFlag(MapDrawingOptionFlag, bool)` method and use these flags in its paint event.
+     - On startup, load settings and apply to actions and `MapViewport`.
+
+**5. Tools Menu Actions (in `MainWindow`):**
+   - `mapPropertiesAction`: Connect `triggered()` to a slot that creates and `exec()`s a `MapPropertiesDialog` (dialog needs to take `AppContext::map()` to display data).
+   - `findItemAction`: Connect `triggered()` to a slot that creates and `exec()`s a `FindItemDialog`.
+
+**6. Settings Persistence:**
+   - All toggleable view states (toolbar visibility, palette visibility, map element visibility) must be saved to `AppSettings` when changed and loaded on startup.
+</boilerplate_coder_ai_prompt>
+  <documentation_references>
+    <documentation_reference>QAction: https://doc.qt.io/qt-6/qaction.html</documentation_reference>
+    <documentation_reference>QToolBar: https://doc.qt.io/qt-6/qtoolbar.html</documentation_reference>
+    <documentation_reference>QDockWidget: https://doc.qt.io/qt-6/qdockwidget.html</documentation_reference>
+    <documentation_reference>QMainWindow::addToolBar, QMainWindow::addDockWidget, QMainWindow::saveState, QMainWindow::restoreState</documentation_reference>
+    <documentation_reference>QSettings: https://doc.qt.io/qt-6/qsettings.html</documentation_reference>
+    <documentation_reference>Customizing OpenGL rendering (for MapViewport flags): No direct Qt link, depends on MapViewport's implementation.</documentation_reference>
+  </documentation_references>
+</FINAL-04>

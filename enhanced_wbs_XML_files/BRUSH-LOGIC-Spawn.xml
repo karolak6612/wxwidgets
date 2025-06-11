@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<BRUSH-LOGIC-Spawn>
+  <id>BRUSH-LOGIC-Spawn</id>
+  <section>Editor Behavior &amp; Logic</section>
+  <title>Port Spawn Brush Logic</title>
+  <original_input_files>
+    <original_input_file>wxwidgets/spawn_brush.cpp</original_input_file>
+    <original_input_file>wxwidgets/spawn_brush.h</original_input_file>
+  </original_input_files>
+  <analyzed_input_files>
+    <analyzed_input_file>
+      <file_path>wxwidgets/spawn_brush.h</file_path>
+      <description>Defines 'SpawnBrush' (inherits 'Brush'). Used to designate tiles as spawn points and set their radius.</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <file_path>wxwidgets/spawn_brush.cpp</file_path>
+      <description>Implements 'SpawnBrush'. 'draw' creates a 'Spawn' object on the tile with radius from brush size. 'undraw' removes 'Spawn' object.</description>
+    </analyzed_input_file>
+  </analyzed_input_files>
+  <dependencies>
+    <dependencie>CORE-BRUSH-FRAMEWORK</dependencie>
+    <dependencie>CORE-01</dependencie>
+    <dependencie>CORE-10-SpawnSystem</dependencie>
+    <dependencie>LOGIC-01</dependencie>
+    <dependencie>CORE-04</dependencie>
+  </dependencies>
+  <current_functionality_summary>The 'SpawnBrush' designates a tile as a spawn point and sets its radius, typically taken from global brush size settings. It doesn't handle the list of creatures to spawn; that's often coupled with creature placement or a separate spawn editing UI.
+</current_functionality_summary>
+  <qt6_migration_steps>1. Define `mapcore::SpawnBrush` class inheriting from `mapcore::Brush`.
+2. Implement `apply()`:
+   - Get target `Tile`. Get desired radius from `BrushSettings`.
+   - If erasing: `tile-&gt;clearSpawnData();` (or equivalent method to remove spawn properties).
+   - If drawing: `tile-&gt;setSpawnData(radius, existingOrEmptyCreatureList, existingOrDefaultSpawnTime);`. The creature list and time might be default or preserved if tile was already a spawn.
+   - Record changes for undo.
+</qt6_migration_steps>
+  <definition_of_done>- `mapcore::SpawnBrush` is implemented.
+- Applying the brush correctly marks/unmarks tiles as spawn points and sets their radius.
+- Operations are undoable.
+- Unit tests for spawn brush functionality pass.
+</definition_of_done>
+  <boilerplate_coder_ai_prompt>Port `SpawnBrush` from `wxwidgets/spawn_brush.cpp/h` to `mapcore::SpawnBrush`.
+1. Header: `mapcore::SpawnBrush : public mapcore::Brush`.
+2. Source: Implement `apply()`. Drawing: `int radius = brushSettings.size; tile-&gt;setSpawnData(radius, tile-&gt;getCreatureSpawnList(), tile-&gt;getSpawnTimeSeconds());` (Preserves existing creature list/time if any, otherwise they'd be default). Erasing: `tile-&gt;clearSpawnData();`. All changes via `EditorControllerInterface`.
+</boilerplate_coder_ai_prompt>
+  <documentation_references>
+    <documentation_reference>mapcore::Brush</documentation_reference>
+    <documentation_reference>mapcore::Tile</documentation_reference>
+    <documentation_reference>CORE-10-SpawnSystem</documentation_reference>
+  </documentation_references>
+  <estimation_effort>Medium</estimation_effort>
+</BRUSH-LOGIC-Spawn>

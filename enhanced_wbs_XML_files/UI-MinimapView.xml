@@ -1,0 +1,144 @@
+<?xml version="1.0" ?>
+<UI-MinimapView>
+  <id>UI-MinimapView</id>
+  <section>UI Elements</section>
+  <title>Implement Minimap View Widget</title>
+  <original_input_files>
+    <original_input_file>wxwidgets/minimap_window.h</original_input_file>
+    <original_input_file>wxwidgets/minimap_window.cpp</original_input_file>
+  </original_input_files>
+  <analyzed_input_files>
+    <analyzed_input_file>
+      <file_path>wxwidgets/minimap_window.h</file_path>
+      <description>Declares `MinimapWindow` (derived from `wxScrolledWindow`).
+Responsible for rendering a scaled-down overview of the current map floor.
+Manages its own rendering logic, viewport calculation based on the main map's
+view, and user interactions (clicking to center main map view).
+</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <file_path>wxwidgets/minimap_window.cpp</file_path>
+      <description>Implements `MinimapWindow`.
+`OnPaint`: Renders the minimap. This involves iterating relevant map tiles,
+determining their color (e.g., based on ground item or special properties),
+and drawing them scaled down.
+`ScreenToMap`: Converts click coordinates on minimap to map coordinates.
+Mouse event handlers: Clicking on the minimap centers the main `MapCanvas`
+to that location. Dragging might select an area or pan the minimap view itself.
+Handles updates when the main map or its view changes.
+</description>
+    </analyzed_input_file>
+  </analyzed_input_files>
+  <dependencies>
+    <dependencie>UI-01</dependencie>
+    <dependencie>RENDER-01</dependencie>
+    <dependencie>CORE-01</dependencie>
+    <dependencie>CORE-02</dependencie>
+    <dependencie>CORE-03</dependencie>
+    <dependencie>REFACTOR-01</dependencie>
+  </dependencies>
+  <current_functionality_summary>The `MinimapWindow` provides a small, zoomed-out overview of the current map floor.
+It renders a simplified version of the map tiles. Clicking on the minimap
+navigates the main map view to the corresponding location. It needs to stay
+synchronized with the main map's data and current viewing floor.
+</current_functionality_summary>
+  <qt6_migration_steps>1. Create `MinimapViewWidget.h/.cpp` inheriting `QWidget`.
+2. Implement `paintEvent(QPaintEvent* event)`:
+   - Get current `mapcore::Map*` and current floor from `EditorStateService`.
+   - If no map, paint a placeholder.
+   - Determine minimap scaling factor based on widget size and map dimensions.
+   - Iterate through tiles of the current floor. For each tile:
+     - Get its color (e.g., `mapcore::Tile::getMinimapColor(ItemManager*)`).
+     - Draw a scaled rectangle or pixel at the corresponding minimap position.
+   - Draw a rectangle indicating the current viewport of the main `MapViewWidget`.
+3. Implement mouse event handlers (`mousePressEvent`, `mouseMoveEvent`):
+   - On click/drag, convert minimap widget coordinates to map coordinates.
+   - Notify `MapViewWidget` (e.g., via a signal to `MainWindow` or directly if coupled)
+     to center its view on these map coordinates.
+4. Implement methods to update the minimap when:
+   - The main map data changes (`mapChangedSlot()`).
+   - The current floor in `EditorStateService` changes (`currentFloorChangedSlot()`).
+   - The main `MapViewWidget`'s viewport changes (`mainViewPortChangedSlot()`).
+5. The `MinimapViewWidget` should be hosted in a `QDockWidget` within `MainWindow`.
+</qt6_migration_steps>
+  <definition_of_done>- A `MinimapViewWidget` Qt class is implemented.
+- It correctly renders a scaled-down overview of the current map floor.
+- Tile colors on the minimap are representative of the actual map content.
+- A rectangle indicating the main map view's current viewport is accurately drawn on the minimap.
+- Clicking or dragging on the minimap navigates the main `MapViewWidget` to the corresponding location.
+- The minimap updates automatically when the main map data, current floor, or main map viewport changes.
+- The minimap is dockable within the `MainWindow`.
+</definition_of_done>
+  <boilerplate_coder_ai_prompt>Implement the `MinimapViewWidget.h` and `MinimapViewWidget.cpp` Qt classes.
+This widget displays a small, zoomed-out overview of the current map floor and allows navigation.
+
+**MinimapViewWidget.h:**
+```cpp
+#include &lt;QWidget&gt;
+#include &lt;QPixmap&gt; // For offscreen rendering buffer
+// Forward declarations
+class EditorStateService;
+class ItemManager;
+namespace mapcore { class Map; class Position; }
+
+class MinimapViewWidget : public QWidget {
+    Q_OBJECT
+public:
+    MinimapViewWidget(EditorStateService* editorState, ItemManager* itemManager, QWidget* parent = nullptr);
+    void setMainMapViewRect(const QRectF&amp; viewRect); // In map coordinates
+
+public slots:
+    void onMapChanged(mapcore::Map* currentMap);
+    void onCurrentFloorChanged(int newFloor);
+    void onMainViewChanged(const mapcore::Position&amp; center, double zoom); // Or a QRectF in map coords
+
+signals:
+    void navigationRequested(const mapcore::Position&amp; mapCenter); // To tell main map view to navigate
+
+protected:
+    void paintEvent(QPaintEvent* event) override;
+    void mousePressEvent(QMouseEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
+    void resizeEvent(QResizeEvent* event) override;
+
+private:
+    void renderMinimap();
+    mapcore::Position widgetToMapCoords(const QPoint&amp; widgetPos);
+
+    EditorStateService* m_editorStateService;
+    ItemManager* m_itemManager;
+    mapcore::Map* m_currentMap = nullptr;
+    int m_currentFloor = 7; // Default
+    QRectF m_mainMapViewRect; // Viewport of main map in map coordinates
+
+    QPixmap m_minimapPixmap; // Offscreen buffer for the minimap rendering
+    bool m_needsFullRedraw = true;
+    QPoint m_dragStartPos;
+    bool m_isDragging = false;
+};
+```
+
+**MinimapViewWidget.cpp:**
+- Constructor: Store services. Initialize `m_minimapPixmap`. Connect to signals from `EditorStateService` for map/floor changes.
+- `onMapChanged`, `onCurrentFloorChanged`: Set `m_currentMap`/`m_currentFloor`, `m_needsFullRedraw = true; update();`.
+- `onMainViewChanged`: Update `m_mainMapViewRect`, `update();` (no full redraw if only view rect changes).
+- `paintEvent`: If `m_needsFullRedraw`, call `renderMinimap()`. Draw `m_minimapPixmap`. Draw `m_mainMapViewRect` on top.
+- `renderMinimap()`:
+  - Get map dimensions. Calculate scale. Resize `m_minimapPixmap`.
+  - Fill pixmap with background.
+  - Iterate visible tiles on `m_currentFloor`. Get `tile-&gt;getMinimapColor()`. Draw scaled rect/pixel on `m_minimapPixmap` using `QPainter`.
+  - `m_needsFullRedraw = false;`.
+- `mousePressEvent`, `mouseMoveEvent`: If dragging, convert `event-&gt;pos()` to map coords using `widgetToMapCoords()`. Emit `navigationRequested(mapCoords)`.
+- `resizeEvent`: `m_needsFullRedraw = true; update();`.
+- `widgetToMapCoords()`: Implement logic to convert widget pixel coords to map tile coords based on `m_minimapPixmap` size and map dimensions.
+</boilerplate_coder_ai_prompt>
+  <documentation_references>
+    <documentation_reference>QWidget</documentation_reference>
+    <documentation_reference>QPixmap</documentation_reference>
+    <documentation_reference>QPainter</documentation_reference>
+    <documentation_reference>EditorStateService from REFACTOR-01</documentation_reference>
+    <documentation_reference>mapcore::Map</documentation_reference>
+    <documentation_reference>mapcore::Tile</documentation_reference>
+  </documentation_references>
+  <estimation_effort>Large</estimation_effort>
+</UI-MinimapView>

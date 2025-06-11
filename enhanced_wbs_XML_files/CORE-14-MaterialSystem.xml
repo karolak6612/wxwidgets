@@ -1,0 +1,133 @@
+<?xml version="1.0" ?>
+<CORE-14-MaterialSystem>
+  <id>CORE-14-MaterialSystem</id>
+  <section>Core Migration Tasks</section>
+  <title>Port Material System Data Structures</title>
+  <original_input_files>
+    <original_input_file>wxwidgets/materials.h</original_input_file>
+    <original_input_file>wxwidgets/materials.cpp</original_input_file>
+    <original_input_file>XML/760/materials.xml</original_input_file>
+  </original_input_files>
+  <analyzed_input_files>
+    <analyzed_input_file>
+      <file_path>wxwidgets/materials.h</file_path>
+      <description>Likely defines a `Material` class or struct to store properties of a map material (e.g., ground types, wall types, doodads that are not items).
+May also define a `MaterialManager` or `MaterialDatabase` class (possibly global) to load and manage all material definitions from `materials.xml`.
+Materials might be referenced by brushes or specific editor tools.
+</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <file_path>wxwidgets/materials.cpp</file_path>
+      <description>Implementation of the `Material` and `MaterialManager`/`MaterialDatabase` classes.
+The manager class would contain logic to parse `materials.xml` (likely using pugixml) and populate its collection of `Material` objects.
+It would provide methods to access materials, perhaps by name or ID.
+</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <file_path>XML/760/materials.xml</file_path>
+      <description>XML file defining various map materials.
+Structure likely involves `&lt;material&gt;` tags with attributes like `name`, `id` (if any), and nested tags defining properties such as associated brush names, sprite IDs, or other rendering/behavioral characteristics.
+This is the primary data source for the Material system.
+</description>
+    </analyzed_input_file>
+  </analyzed_input_files>
+  <dependencies>
+    <dependencie>BUILD-01</dependencie>
+    <dependencie>CORE-02</dependencie>
+  </dependencies>
+  <current_functionality_summary>- A `Material` system (`materials.h/cpp`) likely exists to define and manage non-item map elements like specific ground types, wall variations, or complex doodads that are part of the terrain rather than distinct items.
+- These materials are defined in `materials.xml` and loaded by a `MaterialManager` or `MaterialDatabase`.
+- Brushes and rendering logic might use these material definitions.
+</current_functionality_summary>
+  <qt6_migration_steps>1.  **Define `MaterialData` Struct/Class (in `mapcore/assets/MaterialData.h/cpp`):**
+    -   Create `MaterialData.h` and `MaterialData.cpp`. This class will represent a single material definition.
+    -   Examine `materials.xml` to determine the attributes stored for each material. Common attributes might include:
+        -   `QString id;` (a unique identifier or name for the material).
+        -   `QString description;`
+        -   `QList&lt;uint16_t&gt; spriteItemIds;` (if materials are represented by item sprites).
+        -   `QString brushName;` (if linked to a specific brush type).
+        -   Other properties related to rendering or editor behavior.
+    -   Implement constructor and accessors for these properties.
+
+2.  **Define `MaterialManager` Class (in `mapcore/assets/MaterialManager.h/cpp`):**
+    -   Create `MaterialManager.h` and `MaterialManager.cpp`.
+    -   This class will be responsible for loading and managing `MaterialData`.
+    -   Store `MaterialData` objects, e.g., in a `QMap&lt;QString, MaterialData&gt; materialsById;`.
+    -   Implement `bool loadMaterials(const QString&amp; filePath, AssetManager&amp; assetManager);`
+        -   This method will use the XML parsing solution chosen in `CORE-02` (e.g., TinyXML2, RapidXML, or `QXmlStreamReader`) to parse `materials.xml`.
+        -   Populate `materialsById` with `MaterialData` objects.
+        -   It might need `AssetManager` if materials reference item IDs (e.g., for sprites) to validate them against `ItemDatabase`.
+    -   Implement `const MaterialData* getMaterial(const QString&amp; id) const;`.
+
+3.  **Integrate `MaterialManager` with `AssetManager`:**
+    -   Modify `AssetManager` (from `CORE-02`) to hold an instance of `MaterialManager`.
+    -   Update `AssetManager::loadAllAssets()` to call `materialManager.loadMaterials()`, providing the path to `materials.xml`.
+    -   Provide an accessor in `AssetManager` like `const MaterialData* AssetManager::getMaterialData(const QString&amp; id) const;`.
+
+4.  **Unit Tests:**
+    -   Test `MaterialData` construction and property storage.
+    -   Test `MaterialManager::loadMaterials` with a sample `materials.xml` file:
+        -   Verify correct parsing of material attributes.
+        -   Verify materials are correctly stored and accessible via `getMaterial()`.
+    -   Test integration with `AssetManager`.
+</qt6_migration_steps>
+  <definition_of_done>- A `MaterialData` class/struct is implemented in `mapcore/assets/` to store properties of a map material as defined in `materials.xml`.
+- A `MaterialManager` class is implemented to parse `materials.xml` (using the chosen XML library from `CORE-02`) and manage a collection of `MaterialData` objects.
+- The `AssetManager` (from `CORE-02`) is updated to include and manage the `MaterialManager`.
+- `AssetManager::loadAllAssets()` correctly loads material data.
+- Methods are available to query material data (e.g., via `AssetManager`).
+- Unit tests verify the parsing of `materials.xml` and management of `MaterialData`.
+- The new classes compile successfully within the `mapcore` library.
+</definition_of_done>
+  <boilerplate_coder_ai_prompt>You are to port the Material system from a legacy C++ codebase (based on `materials.h/cpp` and `materials.xml`) to a modern C++/Qt6 environment within the `mapcore` library. This involves defining data structures for materials and a manager class to load them from XML.
+
+**1. `MaterialData` Struct/Class (`mapcore/assets/MaterialData.h/cpp`):**
+   - Define `MaterialData`. Based on typical map editor needs and `materials.xml` structure, include members like:
+     ```cpp
+     #include &lt;QString&gt;
+     #include &lt;QList&gt;
+     #include &lt;cstdint&gt; // For uint16_t
+
+     class MaterialData {
+     public:
+         QString id; // Unique identifier for the material
+         QString description;
+         // Example: If materials are composed of item sprites
+         QList&lt;uint16_t&gt; spriteItemIds;
+         // Example: If materials are associated with specific brushes
+         QString associatedBrush;
+         // Add other properties as identified from materials.xml analysis
+         // (e.g., flags, collision properties, rendering hints)
+
+         // Constructor, getters, setters
+     };
+     ```
+   - Analyze `XML/760/materials.xml` to confirm the exact structure and attributes to include.
+
+**2. `MaterialManager` Class (`mapcore/assets/MaterialManager.h/cpp`):**
+   - Define `MaterialManager`.
+   -   Members: `QMap&lt;QString, MaterialData&gt; materialsById;`
+   -   Method: `bool loadMaterials(const QString&amp; xmlFilePath, class AssetManager&amp; assetManager);`
+       -   Use the XML parsing library chosen in `CORE-02` (e.g., TinyXML2, RapidXML, or `QXmlStreamReader`).
+       -   Parse the `materials.xml` file located at `xmlFilePath`.
+       -   For each material entry, create a `MaterialData` object, populate its fields from the XML attributes/tags, and store it in `materialsById`.
+       -   The `assetManager` parameter can be used if you need to cross-reference item IDs (e.g., for `spriteItemIds`) with `ItemDatabase`.
+   -   Method: `const MaterialData* getMaterial(const QString&amp; id) const;` (returns `nullptr` if not found).
+
+**3. Update `AssetManager` (Modify `mapcore/AssetManager.h/cpp` from `CORE-02`):**
+   - Add an instance of `MaterialManager materialManager;`.
+   - In `AssetManager::loadAllAssets(...)`, add a call to `materialManager.loadMaterials(pathToMaterialsXml, *this);`.
+   - Add an accessor: `const MaterialData* AssetManager::getMaterialData(const QString&amp; id) const { return materialManager.getMaterial(id); }`.
+
+**General Requirements:**
+   - Use C++17/Qt6 types and practices.
+   - Provide header and source files.
+   - Write basic Qt Test unit tests for parsing a sample `materials.xml` and retrieving `MaterialData`.
+</boilerplate_coder_ai_prompt>
+  <documentation_references>
+    <documentation_reference>Selected XML Parsing Library Documentation (e.g., TinyXML2, QXmlStreamReader)</documentation_reference>
+    <documentation_reference>QMap: https://doc.qt.io/qt-6/qmap.html</documentation_reference>
+    <documentation_reference>QList: https://doc.qt.io/qt-6/qlist.html</documentation_reference>
+  </documentation_references>
+  <estimation_effort>Medium</estimation_effort>
+</CORE-14-MaterialSystem>

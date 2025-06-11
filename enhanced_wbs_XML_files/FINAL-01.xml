@@ -1,0 +1,157 @@
+<?xml version="1.0" ?>
+<FINAL-01>
+  <id>FINAL-01</id>
+  <section>Integration &amp; Finalization</section>
+  <title>Integrate Core Map Logic with Main Qt UI</title>
+  <original_input_files>
+    <original_input_file>Ported `Map` class and related logic from `CORE-03`</original_input_file>
+    <original_input_file>Ported `ActionQueue` / `QUndoStack` from `CORE-04`</original_input_file>
+    <original_input_file>Ported `SelectionManager` and `ClipboardManager` from `CORE-05`</original_input_file>
+    <original_input_file>Basic Qt Main Window shell from `UI-01`</original_input_file>
+    <original_input_file>Basic Qt Map Viewport shell from `RENDER-01`</original_input_file>
+    <original_input_file>Asset loading system from `CORE-02`</original_input_file>
+  </original_input_files>
+  <analyzed_input_files>
+    <analyzed_input_file>
+      <file_path>mapcore::Map (from CORE-03)</file_path>
+      <description>The C++ class representing the map's data structure, including tiles, items, creatures, spawns, houses, etc.
+It provides methods for loading, saving (to be fully implemented later), modifying, and querying map data.
+This task will make this data accessible and manipulable through the UI.
+</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <file_path>mapcore::ActionQueue / QUndoStack (from CORE-04)</file_path>
+      <description>The system for managing undo/redo operations. UI actions that modify the map
+(e.g., drawing, pasting, deleting) must be wrapped in commands and pushed onto this stack.
+This task will ensure basic UI operations are correctly registered with the undo system.
+</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <file_path>mapcore::SelectionManager (from CORE-05)</file_path>
+      <description>Manages the set of currently selected map elements. The UI needs to interact with this manager
+to reflect selections visually and to inform core logic about what elements operations should apply to.
+</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <file_path>mapcore::ClipboardManager (from CORE-05)</file_path>
+      <description>Handles copy, cut, and paste operations by serializing/deserializing map data.
+UI actions for copy/cut/paste need to be wired to this manager.
+</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <file_path>qtui::MainWindow (from UI-01)</file_path>
+      <description>The basic Qt main window shell, containing menus, toolbars, and a central area for the map viewport.
+This task will connect its menu actions (e.g., File &gt; Open, Edit &gt; Undo) to the core logic.
+</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <file_path>qtui::MapViewport (from RENDER-01)</file_path>
+      <description>The Qt widget responsible for rendering the map. It needs to be provided with data from the `mapcore::Map`
+and reflect updates, selections, and viewport changes (zoom, scroll).
+</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <file_path>mapcore::AssetManager (from CORE-02)</file_path>
+      <description>The system responsible for loading all game assets (items, creatures, sprites).
+The UI (e.g., File &gt; Open) will trigger asset loading via this manager before loading a map file.
+</description>
+    </analyzed_input_file>
+  </analyzed_input_files>
+  <dependencies>
+    <dependencie>BUILD-01</dependencie>
+    <dependencie>CORE-01</dependencie>
+    <dependencie>CORE-02</dependencie>
+    <dependencie>CORE-03</dependencie>
+    <dependencie>CORE-04</dependencie>
+    <dependencie>CORE-05</dependencie>
+    <dependencie>UI-01</dependencie>
+    <dependencie>RENDER-01</dependencie>
+  </dependencies>
+  <current_functionality_summary>At this stage, core map logic (`mapcore::Map`, `Tile`, `Item`, actions, selection, clipboard, asset loading) has been ported and exists as a library (`mapcore`).
+A basic Qt UI shell (`qtui::MainWindow`) and a map viewport widget (`qtui::MapViewport`) also exist but are not yet fully connected to the `mapcore` functionalities.
+Data cannot yet be loaded, displayed interactively, or modified through the UI in an integrated manner.
+This task is the first step in bridging the `mapcore` library with the `qtui` application.
+</current_functionality_summary>
+  <qt6_migration_steps>1.  **Application Context/Manager:**
+    -   Establish a central application context class (e.g., `AppContext` or enhance `qtui::Application`) to manage instances of key `mapcore` objects like `AssetManager`, `Map`, `QUndoStack`, `SelectionManager`, `ClipboardManager`.
+    -   This context will provide access to these core services for different UI components.
+2.  **Asset Loading Integration:**
+    -   Implement the `File &gt; Open Client Data` (or similar) menu action in `qtui::MainWindow`.
+    -   This action should trigger `AppContext::assetManager().loadAllAssets(dataPath, clientVersion)`.
+    -   Provide UI feedback during asset loading (e.g., progress dialog or status bar updates).
+3.  **Map Loading and Display:**
+    -   Implement the `File &gt; Open Map` menu action in `qtui::MainWindow`.
+    -   This action should use `AppContext::map().load(filePath)` (assuming `load` is part of `Map`'s interface from `CORE-03`).
+    -   Upon successful map loading, the `qtui::MapViewport` must be notified and provided with a reference to the `mapcore::Map` object (or relevant data views/interfaces) to render.
+    -   Implement basic rendering in `MapViewport` to display loaded tiles and items (details in `RENDER-01` refinement).
+4.  **Undo/Redo UI Integration:**
+    -   Connect `Edit &gt; Undo` and `Edit &gt; Redo` menu actions in `qtui::MainWindow` to the `QUndoStack::undo()` and `QUndoStack::redo()` slots held by `AppContext`.
+    -   Update the enabled state of these menu items based on `QUndoStack::canUndoChanged` and `QUndoStack::canRedoChanged` signals.
+5.  **Selection UI Integration (Basic):**
+    -   When the user interacts with `qtui::MapViewport` (e.g., mouse clicks - to be detailed in `RENDER-01`/`LOGIC-01`), these events should eventually call `AppContext::selectionManager().{add,remove,clear}` methods.
+    -   The `SelectionManager` changes (now wrapped in `QUndoCommand`s) should be pushed to the `QUndoStack`.
+    -   The `MapViewport` should visually indicate the current selection (details in `RENDER-01`).
+6.  **Copy/Paste UI Integration (Basic):**
+    -   Connect `Edit &gt; Copy`, `Edit &gt; Cut`, `Edit &gt; Paste` menu actions.
+    -   `Copy`: Calls `AppContext::clipboardManager().copySelection(appContext.selectionManager(), appContext.map())`.
+    -   `Cut`: Calls `AppContext::clipboardManager().cutSelection(appContext.selectionManager(), appContext.map(), appContext.undoStack())`.
+    -   `Paste`: Calls `AppContext::clipboardManager().paste(appContext.map(), currentMouseMapPosition, appContext.undoStack())`.
+7.  **Basic Application State Updates:**
+    -   The main window title should reflect the currently loaded map name and its modified state (e.g., using `*` if `map.hasChanged()`).
+    -   Status bar updates for current map coordinates (from `MapViewport` interaction).
+8.  **Error Handling:** Implement basic error dialogs (e.g., using `QMessageBox`) for failures in loading assets or maps.
+</qt6_migration_steps>
+  <definition_of_done>- The Qt application can successfully load game assets (items, creatures, sprites via `AssetManager`) triggered by a UI action.
+- A map file (.otbm) can be opened via a `File &gt; Open Map` UI action, and its content is loaded into the `mapcore::Map` object.
+- The `qtui::MapViewport` displays a basic visual representation of the loaded map data (tiles and items).
+- Core undo/redo actions (`Edit &gt; Undo`, `Edit &gt; Redo`) are functional and correctly operate on the `QUndoStack`.
+- Basic selection operations initiated from the UI (e.g., selecting a tile conceptually) are registered with the `SelectionManager` and are undoable.
+- Basic copy, cut, and paste actions initiated from the UI are functional, using the `ClipboardManager` and are undoable.
+- The main window title displays the current map name and an indicator for unsaved changes.
+- The application remains stable during these basic integrated operations.
+</definition_of_done>
+  <boilerplate_coder_ai_prompt>You are to integrate core C++ map logic (`mapcore` library) with a basic Qt6 UI shell.
+Assume `mapcore` provides:
+- `AssetManager` for loading game data.
+- `Map` class for holding and manipulating map data.
+- `QUndoStack` (or equivalent `ActionQueue`) for undo/redo.
+- `SelectionManager` for handling selected map elements.
+- `ClipboardManager` for copy/cut/paste.
+
+Assume `qtui` provides:
+- `Application` (main Qt application class).
+- `MainWindow` (main window with menus like File, Edit).
+- `MapViewport` (a widget for displaying the map).
+
+**Tasks:**
+1.  **Create/Use `AppContext`:** Establish a central class (`AppContext`) to own and provide access to `AssetManager`, `Map`, `QUndoStack`, `SelectionManager`, `ClipboardManager` instances.
+2.  **Implement Asset Loading:**
+    -   Connect a `File &gt; Load Client Data` menu action in `MainWindow` to `AppContext::assetManager().loadAllAssets(...)`.
+3.  **Implement Map Loading &amp; Display:**
+    -   Connect `File &gt; Open Map` menu action to `AppContext::map().load(...)`.
+    -   After successful load, pass the `mapcore::Map*` to `MapViewport` and trigger a redraw. (Viewport should render basic tile/item appearance).
+4.  **Wire Undo/Redo:**
+    -   Connect `Edit &gt; Undo` menu action to `QUndoStack::undo()`.
+    -   Connect `Edit &gt; Redo` menu action to `QUndoStack::redo()`.
+    -   Update menu item enabled states based on `QUndoStack::canUndoChanged` and `QUndoStack::canRedoChanged`.
+5.  **Basic Selection Hookup:**
+    -   Conceptually, when `MapViewport` detects a selection attempt (e.g., mouse click), it should call `AppContext::selectionManager().selectObject(object, tile)` which in turn creates a `SelectCommand` and pushes it to the `QUndoStack`.
+    -   `MapViewport` should observe selection changes (e.g., via signals from `SelectionManager` or by querying it) to visually highlight selected elements.
+6.  **Basic Copy/Paste Hookup:**
+    -   Connect `Edit &gt; Copy` to `AppContext::clipboardManager().copySelection(...)`.
+    -   Connect `Edit &gt; Cut` to `AppContext::clipboardManager().cutSelection(...)`.
+    -   Connect `Edit &gt; Paste` to `AppContext::clipboardManager().paste(...)`, passing the current target map position.
+7.  **Window Title &amp; Status:**
+    -   Update `MainWindow` title with map name and modified status (`*`).
+    -   Display basic map coordinates in a status bar.
+8.  Use `QMessageBox` for basic error reporting.
+Focus on the connections and data flow, not complex UI details or rendering specifics beyond basic display.
+</boilerplate_coder_ai_prompt>
+  <documentation_references>
+    <documentation_reference>Qt Signals and Slots: https://doc.qt.io/qt-6/signalsandslots.html</documentation_reference>
+    <documentation_reference>QUndoStack: https://doc.qt.io/qt-6/qundostack.html</documentation_reference>
+    <documentation_reference>QApplication::clipboard(): https://doc.qt.io/qt-6/qapplication.html#clipboard</documentation_reference>
+    <documentation_reference>QMessageBox: https://doc.qt.io/qt-6/qmessagebox.html</documentation_reference>
+    <documentation_reference>Model/View Programming (if considering for later data display): https://doc.qt.io/qt-6/model-view-programming.html</documentation_reference>
+  </documentation_references>
+</FINAL-01>

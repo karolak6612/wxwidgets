@@ -1,0 +1,119 @@
+<?xml version="1.0" ?>
+<TEST-08>
+  <id>TEST-08</id>
+  <section>Testing</section>
+  <title>Develop Integration Tests for Live Collaboration Server and Client</title>
+  <original_task_id>TEST-08</original_task_id>
+  <description>Create integration tests for the live editing server and client. This involves programmatically starting a server instance, connecting one or more clients, performing map editing actions, and verifying that changes are correctly propagated and applied across all instances, ensuring data consistency and proper handling of user interactions like chat and cursor movements.</description>
+  <dependencies>
+    <dependencie>NET-01</dependencie>
+    <dependencie>NET-02</dependencie>
+    <dependencie>NET-03</dependencie>
+    <dependencie>TEST-01</dependencie>
+    <dependencie>TEST-06</dependencie>
+    <dependencie>CORE-01</dependencie>
+    <dependencie>CORE-07-MapIO</dependencie>
+    <dependencie>CORE-05</dependencie>
+    <dependencie>BUILD-01</dependencie>
+  </dependencies>
+  <input_files/>
+  <analyzed_input_files/>
+  <documentation_references>
+    <documentation_reference>Qt Test Framework: https://doc.qt.io/qt-6/qttest-index.html</documentation_reference>
+    <documentation_reference>Qt Network Module (QTcpServer, QTcpSocket): https://doc.qt.io/qt-6/qtnetwork-index.html</documentation_reference>
+    <documentation_reference>QSignalSpy: https://doc.qt.io/qt-6/qtest.html#QSignalSpy (Crucial for asynchronous testing)</documentation_reference>
+    <documentation_reference>Testing Asynchronous Operations in Qt: https://doc.qt.io/qt-6/qttest-overview.html#testing-asynchronous-operations</documentation_reference>
+    <documentation_reference>QProcess (for starting/stopping server if it's an external executable): https://doc.qt.io/qt-6/qprocess.html</documentation_reference>
+  </documentation_references>
+  <current_functionality_summary>This task is dedicated to creating new integration tests for the Qt6-based live collaboration (multi-user editing) system. This system comprises the 'QtLiveServer' (developed in 'NET-02'), the 'QtLiveClient' (developed in 'NET-03'), and the underlying network protocol and data serialization logic from 'mapcore::network' ('NET-01'). These integration tests will simulate a multi-user environment by programmatically starting a server, connecting clients, performing map editing actions from one client, and verifying that these changes are accurately reflected on the server and propagated to other connected clients. The tests will also cover basic interactions like chat and cursor position updates.
+</current_functionality_summary>
+  <definition_of_done>
+    <element>Integration tests using the Qt Test framework are implemented for key live server/client interaction scenarios.</element>
+    <element>Tests can programmatically start a local 'QtLiveServer' instance (either embedded in the test process or as an external 'QProcess') on a specific test port and connect one or more 'QtLiveClient' instances to it.</element>
+    <element>Client Connection &amp; Disconnection: Clients can successfully connect to the server, including any handshake/authentication defined (e.g., sending 'PACKET_HELLO_FROM_CLIENT', receiving 'PACKET_HELLO_FROM_SERVER' and 'PACKET_ACCEPTED_CLIENT'). Clients can gracefully disconnect, and the server correctly updates its list of active clients. Server correctly handles abrupt client disconnections (e.g., socket closed unexpectedly).</element>
+    <element>Map Edit Propagation: Actions performed by one client (e.g., changing a ground tile, placing/modifying/deleting an item, creating a waypoint, defining a spawn area with creatures) are accurately received and processed by the server. The server updates its authoritative 'mapcore::Map' state correctly. The server broadcasts these changes to all other connected clients. Other clients correctly receive these changes, deserialize them using 'MapProtocolCodec', and update their local 'mapcore::Map' states to match the server's state. This involves verifying the 'NetworkedActionQueue' on the client properly processes incoming remote actions.</element>
+    <element>Data Consistency: After a series of actions and propagations, the relevant parts of the map data (modified tiles, items, spawns, etc.) are identical across the server and all client instances. Deep comparison of affected map elements is performed.</element>
+    <element>Initial Map Synchronization: A newly connecting client correctly receives the complete and current map state from the server, including all changes made prior to its connection.</element>
+    <element>User Presence and Interaction: Cursor position updates sent by one client are received by the server and broadcast to other clients, which then update their display of remote cursors. Chat messages sent by one client are relayed through the server to all other clients and displayed correctly in their respective chat UIs (or logged if UI is minimal in test).</element>
+    <element>Tests robustly handle the asynchronous nature of network communication, primarily using 'QSignalSpy' to wait for specific signals (e.g., 'clientConnected', 'mapDataReceived', 'chatMessageArrived') before making assertions. Timeouts are used with 'QSignalSpy::wait()' to prevent tests from hanging indefinitely.</element>
+    <element>All created integration tests pass successfully.</element>
+    <element>Tests are integrated into the CMake build system for automated execution. This might involve starting the server executable as a separate process for some test scenarios.</element>
+  </definition_of_done>
+  <estimation_effort>
+    <element>Very High (35-45 developer days). Setting up a multi-process or multi-threaded testing environment for client-server interactions is complex. Managing asynchronous operations, ensuring proper synchronization for assertions, and testing a wide range of collaborative editing scenarios (including conflict resolution if applicable, though not explicitly mentioned for this phase) requires significant effort. Debugging can also be challenging.</element>
+  </estimation_effort>
+  <known_missing_files/>
+  <boilerplate_coder_ai_prompt>Your task is to create integration tests for the live collaboration server ('QtLiveServer' from 'NET-02') and client ('QtLiveClient' from 'NET-03') of the Qt6 Remere's Map Editor. Use the Qt Test framework and components from 'mapcore::network' ('NET-01').
+I. Test Class Setup ('TestLiveCollaboration.h/.cpp' in 'tests/integration/'): ```cpp #include &lt;QtTest&gt; #include &lt;QCoreApplication&gt; // For event loop #include &lt;QTcpServer&gt; // For finding free port #include &quot;qtliveserver.h&quot;   // Your QtLiveServer class (may need to be included from server executable's sources or a shared lib) #include &quot;qtliveclient.h&quot;   // Your QtLiveClient class #include &quot;mapcore/map.h&quot; #include &quot;mapcore/iomap_otbm.h&quot; // For loading initial map for server #include &quot;mapcore/tile.h&quot; #include &quot;mapcore/item.h&quot; // ... other necessary mapcore and network includes ...
+class TestLiveCollaboration : public QObject {
+    Q_OBJECT
+public:
+    TestLiveCollaboration();
+private slots:
+    void: initTestCase();    // Overall setup (e.g., finding a free port)
+    void: cleanupTestCase(); // Overall cleanup
+    void: init();            // Setup before each test function (start server, init clients)
+    void: cleanup();         // Cleanup after each test function (stop server, disconnect clients)
+
+    // Test Scenarios
+    void: testClientConnectionAndInitialMapSync();
+    void: testMapEditPropagation_SetGroundTile();
+    void: testMapEditPropagation_AddItem();
+    void: testChatMessagePropagation();
+    void: testCursorPositionBroadcast();
+    // ... more scenarios ...
+
+private:
+    quint16: m_testServerPort;
+    QtLiveServer* m_server = nullptr; // Consider running server in separate process for some tests
+    QList&lt;QtLiveClient*&gt; m_clients;
+    QList&lt;mapcore::Map*&gt; m_clientMaps; // Each client works on its own map instance
+    mapcore::Map* m_serverMap = nullptr; // Server's authoritative map
+
+    // Helper to find a free port
+    quint16: findFreePort();
+    // Helper to compare relevant parts of map objects
+    bool compareMapTiles(const mapcore::Map* map1, const mapcore::Map* map2, const mapcore::Position&amp; pos);
+}; ```
+II. Test Implementation Details:
+'findFreePort()': Create a temporary 'QTcpServer', have it listen on port 0 (OS assigns a free port), get the port, then close the server. 'initTestCase()': 'm_testServerPort = findFreePort();' 'init()':
+    - Create 'm_serverMap = new mapcore::Map();' Load a simple base map into it (e.g., 'mapcore::IOMapOTBM::loadMap(*m_serverMap, &quot;testdata/maps/base_empty.otbm&quot;);').
+    - 'm_server = new QtLiveServer(); // Or QProcess to start server executable'
+    - 'QVERIFY(m_server-&gt;startServer(m_testServerPort, &quot;path_to_server_map.otbm&quot; /* or use m_serverMap directly */));'
+    - Create 2-3 'QtLiveClient' instances. For each client:
+        - 'mapcore::Map* clientMap = new mapcore::Map(); m_clientMaps.append(clientMap);'
+        - 'Editor* clientEditor = new Editor( /* ... Minimal setup for client's local map ... */ *clientMap);' // Client needs an Editor-like context
+        - 'QtLiveClient* client = new QtLiveClient(clientEditor); m_clients.append(client);'
+        - 'QSignalSpy connectedSpy(client, &amp;QtLiveClient::connectedSuccessfully);'
+        - 'client-&gt;connectToServer(&quot;127.0.0.1&quot;, m_testServerPort, &quot;TestUser&quot; + QString::number(i), &quot;password&quot;);'
+        - 'QVERIFY(connectedSpy.wait(5000)); // Wait up to 5s for connection'
+        - // Potentially wait for initial map sync signal if your client emits one.
+'cleanup()':
+    - For each client: 'client-&gt;disconnectFromServer(); delete client;'
+    - 'm_clients.clear(); delete m_server; m_server = nullptr;'
+    - For each map: 'delete map; m_clientMaps.clear(); delete m_serverMap; m_serverMap = nullptr;'
+'testClientConnectionAndInitialMapSync()':
+    Covered by 'init()'. Additionally, after connection, compare 'm_clients[0]-&gt;getMap()' with 'm_serverMap' to ensure initial sync was correct.
+'testMapEditPropagation_SetGroundTile()':
+    - 'QtLiveClient* clientA = m_clients[0]; QtLiveClient* clientB = m_clients[1];'
+    - 'mapcore::Position testPos(10, 10, 7);'
+    - 'mapcore::Item* newGround = mapcore::Item::Create(groundBrushIdFromTestItemManager);'
+    - '// Simulate action on Client A that results in sendChanges being called'
+    - 'clientA-&gt;getLocalEditor()-&gt;actionQueue-&gt;beginUndo(); // Or similar to start action'
+    - 'clientA-&gt;getLocalEditor()-&gt;setGround(testPos, newGround); // This should trigger sendChanges via NetworkedActionQueue'
+    - 'clientA-&gt;getLocalEditor()-&gt;actionQueue-&gt;endUndo();'
+    Wait for propagation: Use 'QSignalSpy' on 'clientB' for a signal indicating map update (e.g., 'mapDataUpdated' or a specific 'tileChangedFromServer(Position)'). 'QVERIFY(spy.wait(1000));'
+    Assert Server: 'mapcore::Tile* serverTile = m_serverMap-&gt;getTile(testPos); QCOMPARE(serverTile-&gt;getGroundItem()-&gt;getID(), newGround-&gt;getID());'
+    Assert Client B: 'mapcore::Tile* clientBTile = clientB-&gt;getLocalEditor()-&gt;getMap()-&gt;getTile(testPos); QCOMPARE(clientBTile-&gt;getGroundItem()-&gt;getID(), newGround-&gt;getID());'
+Implement similar tests for other actions: Adding items, creature placement, waypoints, spawns. Always: Action on Client A -&gt; Wait -&gt; Verify Server -&gt; Verify Client B. 'testChatMessagePropagation()':
+    - 'QSignalSpy chatSpyClientB(clientB, &amp;QtLiveClient::chatMessageReceived);'
+    - 'clientA-&gt;sendChatMessage(&quot;Hello from A!&quot;);'
+    - 'QVERIFY(chatSpyClientB.wait(1000));'
+    - 'QCOMPARE(chatSpyClientB.count(), 1);'
+    - 'QList&lt;QVariant&gt; arguments = chatSpyClientB.takeFirst();'
+    - 'QCOMPARE(arguments.at(0).toString(), &quot;TestUserA&quot;); // Assuming clientA's name'
+    - 'QCOMPARE(arguments.at(1).toString(), &quot;Hello from A!&quot;);'
+
+Use 'QTest::qWait()' sparingly if 'QSignalSpy' is difficult for a specific event, but prefer signal spying. Structure: your test OTBM maps carefully to isolate features.
+</boilerplate_coder_ai_prompt>
+</TEST-08>

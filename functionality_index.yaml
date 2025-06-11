@@ -182,7 +182,7 @@ functionality_map:
           - "wxwidgets/find_creature_window.h"
           - "wxwidgets/find_item_window.cpp"
           - "wxwidgets/find_item_window.h"
-          - "enhanced_wbs_yaml_files/UI-11-ItemFinderDialog.yaml"
+          - "enhanced_wbs_XML_files/UI-11-ItemFinderDialog.XML"
           - "Project_QT/src/ui/dialogs/ItemFinderDialogQt.cpp"
           - "Project_QT/src/ui/dialogs/ItemFinderDialogQt.h"
           - "wxwidgets/ground_validation_dialog.cpp"

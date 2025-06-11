@@ -1,0 +1,138 @@
+<?xml version="1.0" ?>
+<CORE-06>
+  <id>CORE-06</id>
+  <section>Configuration</section>
+  <title>Port Settings &amp; Preferences System</title>
+  <original_input_files>
+    <original_input_file>wxwidgets/settings.h</original_input_file>
+    <original_input_file>wxwidgets/settings.cpp</original_input_file>
+  </original_input_files>
+  <analyzed_input_files>
+    <analyzed_input_file>
+      <file_path>wxwidgets/settings.h</file_path>
+      <description>Defines the `Config::Key` enumeration, which is the definitive list of all available application settings. These cover view preferences, editor behavior, graphics options, UI, hotkeys, network, dark mode, LOD controls, etc.
+It also declares the `Settings` class interface (global `g_settings`). `Settings` uses an internal helper class `DynamicValue` (a union-like structure for int, float, string*) to store settings values in memory as a `std::vector&lt;DynamicValue&gt;`.
+</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <file_path>wxwidgets/settings.cpp</file_path>
+      <description>Implements the `Settings` class.
+- Settings are stored in memory in `std::vector&lt;DynamicValue&gt; store`.
+- The core `IO(IOMode mode)` method is central. It uses a series of macros (`section`, `Int`, `Float`, `String`) to define each setting: its string key name (for persistence), C++ data type, and default value. This method handles three modes:
+    - `DEFAULT`: Populates the in-memory `store` with default values.
+    - `LOAD`: Reads settings from `wxConfig` into the in-memory `store`. If a setting is not found in `wxConfig`, its default value is used.
+    - `SAVE`: Writes settings from the in-memory `store` to `wxConfig`.
+- `load()`: Initializes `wxConfigBase`. On Windows, it attempts to use a local `editor.cfg` file first, then falls back to the registry. On Linux/macOS, it tries `./editor.cfg` then a user-specific path (e.g., `~/.config/rme/editor.cfg`). After initializing `wxConfig`, it calls `IO(LOAD)`.
+- `save()`: Calls `IO(SAVE)` and then flushes the `wxConfig` data to disk/registry.
+- Provides typed public getters (`getBoolean`, `getInteger`, `getFloat`, `getString`) and setters which operate on the in-memory `store`.
+</description>
+    </analyzed_input_file>
+  </analyzed_input_files>
+  <dependencies>
+    <dependencie>BUILD-01</dependencie>
+  </dependencies>
+  <current_functionality_summary>The application's settings are managed by the global `g_settings` object, an instance of the `Settings` class.
+- Settings keys are defined in the `Config::Key` enum.
+- Values are stored in memory in a vector of `DynamicValue` (a union-like struct for int, float, string).
+- Persistence is handled by the `wxConfigBase` system (part of wxWidgets). On Windows, it attempts to use a local `editor.cfg` file first, then falls back to the registry. On Linux/macOS, it attempts a local `editor.cfg` then a user-specific configuration file (e.g., `~/.config/rme/editor.cfg`).
+- The `Settings::IO()` method, through a macro system, defines all settings, their types, default values, and handles reading from/writing to `wxConfig`.
+</current_functionality_summary>
+  <qt6_migration_steps>1.  **Define `AppSettings` Class (in `core/settings/` or similar):**
+    -   Create `AppSettings.h` and `AppSettings.cpp`.
+    -   This class will be responsible for managing all application settings. It can be a singleton or a service class.
+    -   Replicate the `Config::Key` enum from `wxwidgets/settings.h` within this new system, possibly as `AppSettings::Key` or in a separate namespace.
+
+2.  **Choose Qt Storage Mechanism:**
+    -   The primary Qt replacement for `wxConfig` is `QSettings`. It provides platform-native storage (registry on Windows, .plist on macOS, .ini files on Linux) and can also be configured to use INI files on all platforms for portability.
+    -   Initialize `QSettings` with organization name (e.g., &quot;RMEditor&quot;) and application name (e.g., &quot;RME-Qt&quot;). This is typically done once, e.g., in `main.cpp` by setting `QCoreApplication::setOrganizationName()` and `QCoreApplication::setApplicationName()`.
+
+3.  **Implement Settings Accessors:**
+    -   In `AppSettings`, create typed getter methods for each setting key (e.g., `bool getBool(Key key, bool defaultValue) const;`, `int getInt(Key key, int defaultValue) const;`, `QString getString(Key key, const QString&amp; defaultValue) const;`, `double getDouble(Key key, double defaultValue) const;`).
+    -   These getters will use `QSettings::value(const QString&amp; key, const QVariant&amp; defaultValue = QVariant())` internally. The key for `QSettings` will be a string version of the enum key (e.g., &quot;View/TransparentFloors&quot;).
+    -   Create typed setter methods (e.g., `void setValue(Key key, const QVariant&amp; value)` or individual `setInt`, `setString`, etc.). These will use `QSettings::setValue(const QString&amp; key, const QVariant&amp; value)`.
+
+4.  **Handle Default Values:**
+    -   The `QSettings::value()` method takes a `defaultValue` parameter. This should be used to provide the default for each setting when it's first accessed or not found in the storage.
+    -   The extensive list of defaults in the original `Settings::IO()` with `mode == DEFAULT` needs to be mapped to these `defaultValue` parameters.
+
+5.  **Loading and Saving:**
+    -   `QSettings` typically handles immediate saving or caches writes and flushes them at appropriate times (e.g., when `QSettings` object is destructed or `sync()` is called). Explicit loading is generally not needed as values are read on demand. An explicit `save()` method in `AppSettings` might call `QSettings::sync()` if immediate persistence is desired after bulk changes.
+
+6.  **Refactor Settings Usage:**
+    -   Replace all calls to `g_settings.getInteger(Config::SOME_KEY)` etc., with calls to the new `AppSettings` instance's methods (e.g., `appSettings-&gt;getInt(AppSettings::Key::SOME_KEY, defaultValue)`).
+    -   Use `QString` for string settings if interfacing heavily with other Qt APIs, or `std::string` if preferred for core logic (with conversions where necessary).
+
+7.  **Configuration File Path:**
+    -   `QSettings` will automatically determine the path based on organization/application names. If a portable `editor.ini` in the application directory is preferred, `QSettings` can be constructed with `QSettings::IniFormat` and `QSettings::UserScope` (or `SystemScope`) and a specific file path. For user-specific settings, `QSettings::UserScope` is standard.
+
+8.  **Unit Tests:**
+    -   Test setting and getting various data types (int, bool, string, float/double).
+    -   Test that default values are correctly returned if a setting is not present.
+    -   Test that settings are persisted and reloaded correctly (by creating a `QSettings` object, writing values, destroying it, creating a new one, and reading values).
+</qt6_migration_steps>
+  <definition_of_done>- An `AppSettings` class (or equivalent) is implemented using `QSettings` for backend storage.
+- All existing application settings defined in `Config::Key` are mapped and accessible via the new `AppSettings` class.
+- Typed getters are provided for all settings, including appropriate default values.
+- Typed setters allow modification of settings.
+- Settings are persisted correctly across application sessions using `QSettings` (e.g., to registry, .plist, or .ini files).
+- The system for defining default settings from the original codebase is replicated.
+- Code that previously accessed `g_settings` is updated to use the new `AppSettings` system.
+- Unit tests verify the functionality of setting, getting, and persisting various types of settings and the correct application of default values.
+- The new settings system compiles successfully within the `mapcore` library or application core.
+</definition_of_done>
+  <boilerplate_coder_ai_prompt>You are to port an application settings system from an old C++/wxWidgets codebase (based on `settings.h` and `settings.cpp`) to a modern C++/Qt6 environment. The new system should use `QSettings`.
+
+**1. `AppSettings` Class Design (`core/settings/AppSettings.h/cpp`):**
+   - Create `AppSettings.h` and `AppSettings.cpp`.
+   - Define an enum `Key` (e.g., `AppSettings::Key`) that meticulously mirrors the original `Config::Key` enum from `wxwidgets/settings.h`.
+   - The `AppSettings` class will manage all settings access. It can be a singleton or an injectable service.
+   - It will internally use a `QSettings` object. Ensure `QCoreApplication::setOrganizationName()` and `QCoreApplication::setApplicationName()` are called appropriately in `main.cpp` (e.g., &quot;RMEditor&quot;, &quot;RME-Qt&quot;) so `QSettings` has a default storage path and format.
+
+**2. Extract Settings Definitions:**
+   - **Crucial Step:** Manually parse the `Settings::IO(IOMode mode)` method in `wxwidgets/settings.cpp`.
+   - For each `Int(key, dflt)`, `Float(key, dflt)`, `String(key, dflt)` macro call, extract:
+      - The group name (from the `section(s)` macro, e.g., &quot;View&quot;, &quot;Editor&quot;).
+      - The setting's string key name (e.g., &quot;TRANSPARENT_FLOORS&quot; from `Int(TRANSPARENT_FLOORS, 0)`).
+      - The C++ data type (int, bool, float/double, std::string).
+      - The default value.
+   - Create a comprehensive list or map of this information. This list is the blueprint for the new getters/setters.
+
+**3. Implement Getters and Setters in `AppSettings`:**
+   - For each extracted setting:
+      - Create a corresponding member in the `AppSettings::Key` enum.
+      - Define a getter method, e.g., `bool isTransparentFloorsEnabled() const;`, `int getUndoSize() const;`, `QString getLiveHost() const;`.
+      - Inside the getter, construct the `QSettings` key string (e.g., &quot;View/TransparentFloors&quot;). Use `QSettings::value(keyString, defaultValue)` to retrieve the value. Ensure the `defaultValue` matches the one extracted from the old code. Convert types as needed (e.g., `QVariant::toBool()`, `QVariant::toInt()`).
+      - Define a setter method, e.g., `void setTransparentFloorsEnabled(bool enabled);`. Inside, use `QSettings::setValue(keyString, value)`.
+   - Group related settings using namespaces or by organizing methods if desired.
+
+**4. Default Value Management:**
+   - Default values are primarily handled by providing them as the second argument to `QSettings::value()`. No explicit &quot;load defaults&quot; method like the original `IO(DEFAULT)` is needed if all getters supply correct defaults.
+
+**5. Persistence:**
+   - `QSettings` handles persistence automatically. Writes may be cached; `QSettings::sync()` can be called for immediate saving if necessary, but often isn't required.
+
+**6. Example Usage (Conceptual):**
+   ```cpp
+   // In main.cpp (or app setup)
+   // QCoreApplication::setOrganizationName(&quot;RMEditor&quot;);
+   // QCoreApplication::setApplicationName(&quot;RME-Qt&quot;);
+   // AppSettings&amp; settings = AppSettings::instance(); // If singleton
+
+   // Elsewhere
+   // bool showGrid = settings.getBool(AppSettings::Key::SHOW_GRID, false); // Or specific getter
+   // settings.setBool(AppSettings::Key::SHOW_GRID, true);
+   ```
+
+**General Requirements:**
+   - Provide `AppSettings.h` and `AppSettings.cpp`.
+   - All settings from the original `Config::Key` enum and `Settings::IO()` method must be implemented with their correct groups, names, types, and default values.
+   - Use `QSettings` for storage.
+   - Write basic Qt Test unit tests for setting/getting a few representative settings of different types and verifying default value logic and persistence.
+</boilerplate_coder_ai_prompt>
+  <documentation_references>
+    <documentation_reference>QSettings: https://doc.qt.io/qt-6/qsettings.html</documentation_reference>
+    <documentation_reference>QVariant: https://doc.qt.io/qt-6/qvariant.html</documentation_reference>
+    <documentation_reference>QCoreApplication (for org/app name): https://doc.qt.io/qt-6/qcoreapplication.html#setOrganizationName</documentation_reference>
+  </documentation_references>
+  <estimation_effort>Large</estimation_effort>
+</CORE-06>

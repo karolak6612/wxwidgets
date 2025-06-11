@@ -50,12 +50,12 @@ bool ClientVersionManager::loadVersions(const QString& filePath) {
                  // For now, let's assume the initial loop structure is okay and parseClientsSection is called for the list tag.
                  // If the list tag is also "clients", the first xml.name()=="clients" check needs to be more specific
                  // or ensure parseClientsSection is robust enough.
-                 // The provided XML structure in YAML was: <clients><otbs>...</otbs><clients>...</clients></clients>
+                 // The provided XML structure in XML was: <clients><otbs>...</otbs><clients>...</clients></clients>
                  // This means the outer "clients" is the root. The inner "clients" is the list.
                  // The current logic should be okay if the first if(xml.name() == "clients") just continues.
                  // The second time it encounters "clients" (the list), it should fall into parseClientsSection.
                  // This was a misinterpretation, the second if should be `xml.name() == "clients_list_tag_name"`
-                 // Let's assume the list tag is also called "clients" as per the YAML example.
+                 // Let's assume the list tag is also called "clients" as per the XML example.
                 parseClientsSection(xml); // This should be called if xml.name() is the *list* of clients.
             }
         }

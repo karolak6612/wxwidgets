@@ -1,0 +1,139 @@
+<?xml version="1.0" ?>
+<UI-06>
+  <id>UI-06</id>
+  <section>UI Elements</section>
+  <title>Port Creature Palette and Placed Creature Editor Dialog</title>
+  <original_task_id>UI-06</original_task_id>
+  <description>Recreate UI for the creature palette (selection, spawn settings, search, loading creature definitions) and a dialog for editing properties of creature instances placed on the map (e.g., direction, spawn interval) using Qt6.</description>
+  <dependencies>
+    <dependencie>UI-02</dependencie>
+    <dependencie>CORE-02</dependencie>
+    <dependencie>CORE-02</dependencie>
+    <dependencie>CORE-10-SpawnSystem</dependencie>
+    <dependencie>REFACTOR-01</dependencie>
+    <dependencie>CORE-02</dependencie>
+    <dependencie>BUILD-01</dependencie>
+    <dependencie>LOGIC-01</dependencie>
+  </dependencies>
+  <input_files>
+    <input_file>wxwidgets/palette_creature.cpp</input_file>
+    <input_file>wxwidgets/palette_creature.h</input_file>
+    <input_file>wxwidgets/old_properties_window.cpp</input_file>
+    <input_file>wxwidgets/old_properties_window.h</input_file>
+  </input_files>
+  <analyzed_input_files>
+    <analyzed_input_file>
+      <filepath>wxwidgets/palette_creature.h</filepath>
+      <description>Declares 'CreaturePalettePanel' (derived from 'PalettePanel'), which is the UI for selecting creature types and configuring creature/spawn brushes. It includes declarations for controls like 'wxChoice' for creature categories (tilesets), 'SortableListBox' for a list view, and custom panels 'CreatureSpritePanel' and 'CreatureSeamlessGridPanel' for sprite-based grid views. Also declares input fields for search, spawn time, spawn radius, and toggle buttons for brush mode (Creature vs. Spawn) and view preferences (list/sprite, sprite size, zoom).</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <filepath>wxwidgets/palette_creature.cpp</filepath>
+      <description>Implements 'CreaturePalettePanel'. It populates creature lists from 'g_materials.tilesets' (specifically categories of type 'TILESET_CREATURE'). Handles creature searching by name or looktype ID. Implements view mode switching between list and sprite grids (including 'CreatureSeamlessGridPanel' with zooming and progressive loading). Manages UI controls for setting spawn time and radius for the spawn brush. Provides functionality to load creature definitions from external NPC/Monster XML folders (using 'g_creatures.importXMLFromOT') and to purge all loaded creatures. Interacts with 'g_gui' to set the active brush to either a 'CreatureBrush' (for placing single creatures) or a 'SpawnBrush' (for defining spawn areas).</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <filepath>wxwidgets/old_properties_window.h</filepath>
+      <description>Declares 'OldPropertiesWindow'. For the scope of UI-06, the relevant part is its constructor 'OldPropertiesWindow(wxWindow* parent, const Map* map, const Tile* tile, Creature* creature, ...)' which is used for editing properties of a creature instance already placed on the map.</description>
+    </analyzed_input_file>
+    <analyzed_input_file>
+      <filepath>wxwidgets/old_properties_window.cpp</filepath>
+      <description>Implements 'OldPropertiesWindow'. The constructor overload for 'Creature*' sets up a simplified UI typically including: displaying the creature's name (read-only), a 'wxSpinCtrl' for its spawn interval (if it's part of a spawn), and a 'wxChoice' to change its facing direction. It does not typically allow editing the fundamental 'CreatureType' (like outfit) for an existing map instance, as that's usually defined by its type.</description>
+    </analyzed_input_file>
+  </analyzed_input_files>
+  <documentation_references>
+    <documentation_reference>QComboBox: https://doc.qt.io/qt-6/qcombobox.html</documentation_reference>
+    <documentation_reference>QLineEdit: https://doc.qt.io/qt-6/qlineedit.html</documentation_reference>
+    <documentation_reference>QListView / QListWidget: https://doc.qt.io/qt-6/qlistwidget.html</documentation_reference>
+    <documentation_reference>QSpinBox: https://doc.qt.io/qt-6/qspinbox.html</documentation_reference>
+    <documentation_reference>QRadioButton / QButtonGroup: https://doc.qt.io/qt-6/qradiobutton.html</documentation_reference>
+    <documentation_reference>QFileDialog::getExistingDirectory: https://doc.qt.io/qt-6/qfiledialog.html#getExistingDirectory</documentation_reference>
+    <documentation_reference>Custom Model/View for QListView: https://doc.qt.io/qt-6/model-view-programming.html</documentation_reference>
+  </documentation_references>
+  <current_functionality_summary>Creature-related UI functionalities in the wxWidgets version are split between a dedicated palette tab and a mode of the 'OldPropertiesWindow':
+
+1.  **'CreaturePalettePanel'**: This is a tab within the main palette system. It allows users to:
+    *   Select a creature category (e.g., &quot;All Creatures,&quot; &quot;NPCs,&quot; &quot;Monsters&quot;) from a dropdown. These categories are populated from 'tilesets.xml' definitions that point to creature brushes.
+    *   View available creatures in the selected category, either as a sortable list ('SortableListBox') or in a sprite-based grid ('CreatureSpritePanel' or the more advanced 'CreatureSeamlessGridPanel' which supports zooming and progressive loading for large lists).
+    *   Search for creatures by name or by &quot;lt:&lt;looktype_id&gt;&quot;.
+    *   Toggle between &quot;Place Single Creature&quot; mode (uses 'CreatureBrush') and &quot;Place Spawn Area&quot; mode (uses 'SpawnBrush').
+    *   Set &quot;Spawn Time&quot; (seconds) and &quot;Spawn Radius&quot; using spin controls when in &quot;Spawn Brush&quot; mode.
+    *   Load additional creature definitions from external XML files located in user-selected NPC or Monster folders.
+    *   Purge all currently loaded creature definitions from the editor's memory and palettes.
+
+2.  **'OldPropertiesWindow' (Creature Editing Mode)**: When a creature already placed on the map is selected and its properties are opened, 'OldPropertiesWindow' displays a specialized UI. This typically includes:
+    *   The creature's name (usually read-only, as it's defined by its type).
+    *   A control to edit the creature's facing direction (e.g., North, South-East).
+    *   A control to edit the spawn interval *if* the creature is part of a spawn defined on that tile.
+    It: generally does not allow editing the fundamental 'CreatureType' aspects like its outfit directly on the map instance; outfits are tied to the 'CreatureType'.
+</current_functionality_summary>
+  <definition_of_done>
+    <element>A 'Creature' tab ('CreaturePaletteQt') is implemented as a custom 'QWidget' and integrated into the main palette 'QTabWidget' (from 'UI-02').</element>
+    <element>'CreaturePaletteQt' includes: A 'QComboBox' ('creatureCategoryCombo') for selecting creature categories/tilesets, populated from 'mapcore::MaterialManager'. A 'QLineEdit' ('creatureSearchEdit') for filtering creatures in the display area by name or 'lt:&lt;looktype_id&gt;'. A display area for creatures (e.g., 'QListView' with custom model/delegate for sprite + name, or a custom 'CreatureGridWidget' if advanced features like zooming from 'CreatureSeamlessGridPanel' are ported). 'QSpinBox' ('spawnTimeSpin') for 'Spawn Time (seconds)' (e.g., range 1-3600). 'QSpinBox' ('spawnRadiusSpin') for 'Spawn Radius' (e.g., range 1-15). 'QRadioButton's ('placeSingleCreatureRadio', 'placeSpawnAreaRadio') grouped to toggle between 'Place Single Creature' and 'Place Spawn Area' modes. 'QPushButton's: 'Load NPCs Folder...', 'Load Monsters Folder...', 'Purge All Creatures'.
+</element>
+    <element>Selecting a creature in the palette updates the 'BrushStateService' to an appropriate 'mapcore::CreatureBrush' or 'mapcore::SpawnBrush' (from 'CORE-04') based on the selected mode.</element>
+    <element>Spawn brush parameters (selected creature, spawn time, radius) are correctly passed from the palette to the 'BrushStateService' or directly to the 'SpawnBrush' instance.</element>
+    <element>Load NPCs/Monsters Folder buttons use 'QFileDialog::getExistingDirectory' and interact with 'mapcore::CreatureManager' to load new creature definitions, then refresh the palette.</element>
+    <element>Purge All Creatures button confirms with 'QMessageBox', then clears data from 'mapcore::CreatureManager' and 'mapcore::MaterialManager', and refreshes the palette.</element>
+    <element>A new 'EditMapCreatureDialogQt' (subclass of 'QDialog') is implemented for editing properties of an existing 'mapcore::Creature' instance from the map.</element>
+    <element>'EditMapCreatureDialogQt' includes: Display of the creature's name (read-only from 'CreatureType'). 'QSpinBox' ('spawnIntervalEdit') to edit the 'Spawn Interval (seconds)' if the creature is part of a spawn on its tile. 'QComboBox' ('directionCombo') to edit the creature's facing 'Direction'. (If applicable based on 'mapcore::Creature' design) Controls for editing individual outfit components if map instances can override type definitions (this was not standard in wxwidgets version for map creatures, mostly for podiums).
+</element>
+    <element>'EditMapCreatureDialogQt' loads data from a copy of the 'mapcore::Creature' object and applies validated changes back to the copy when 'OK' is clicked. The calling code (e.g., 'EditorController') handles creating the undo action.</element>
+    <element>All UI elements have 'objectName' properties for testability.</element>
+  </definition_of_done>
+  <estimation_effort>
+    <element>High (18-25 developer days). The Creature Palette has multiple interconnected UI elements, display modes (list vs. grid, potentially with zoom/sizing for grid), search functionality, and file system interactions for loading creature packs. The 'CreatureSeamlessGridPanel' from wxWidgets, if its advanced features like zooming and progressive loading are to be replicated, would require a complex custom Qt widget. The 'EditMapCreatureDialog' is simpler but adds to the task. Interaction with 'CreatureManager', 'MaterialManager', and 'BrushStateService' needs careful implementation.</element>
+  </estimation_effort>
+  <known_missing_files>
+    <known_missing_file>wxwidgets/creature_sprite_manager.h/cpp</known_missing_file>
+  </known_missing_files>
+  <boilerplate_coder_ai_prompt>Your task is to implement the UI components for creature management in Qt6: the 'Creature' palette tab and the 'EditMapCreatureDialog'. These will interact with 'mapcore::CreatureManager', 'mapcore::MaterialManager', and services like 'BrushStateService'.
+
+I. 'CreaturePaletteQt' (Custom 'QWidget' for the 'Creature' tab in 'UI-02's 'paletteTabWidget'):
+
+Layout: Use 'QVBoxLayout' as main.
+    1.  'QComboBox* m_categoryCombo;' (Populate with creature tileset names from 'MaterialManager').
+    2.  'QLineEdit* m_searchEdit;' (Placeholder text &quot;Search by name or lt:id&quot;).
+    3.  Display Area:
+        Option A (Simpler): 'QListWidget* m_creatureListWidget;' (Set 'setViewMode(QListView::IconMode)' and 'setIconSize()'). Items are 'QListWidgetItem' with creature name as text and 'QIcon' from rendered sprite. Store 'CreatureBrush*' or 'CreatureType*' in 'QListWidgetItem::setData()'.
+        Option B (Advanced, like 'CreatureSeamlessGridPanel'): A custom 'CreatureGridWidget : QAbstractScrollArea' with custom 'paintEvent' to draw sprites in a zoomable grid. This is more complex. For now, aim for Option A unless B is specifically requested later.
+    4.  'QSpinBox* m_spawnTimeSpin;' (Label &quot;Spawn Time (s):&quot;, range e.g., 1-3600, default from 'AppSettings').
+    5.  'QSpinBox* m_spawnRadiusSpin;' (Label &quot;Spawn Radius:&quot;, range e.g., 1-15, default e.g., 3).
+    6.  'QRadioButton* m_creatureBrushRadio;' (Text &quot;Place Creature&quot;, checked true).
+    7.  'QRadioButton* m_spawnBrushRadio;' (Text &quot;Place Spawn&quot;). Group these.
+    8.  'QHBoxLayout' for buttons:
+        - 'QPushButton* m_loadNpcsButton;' (&quot;Load NPCs Folder...&quot;)
+        - 'QPushButton* m_loadMonstersButton;' (&quot;Load Monsters Folder...&quot;)
+        - 'QPushButton* m_purgeCreaturesButton;' (&quot;Purge All Creatures&quot;)
+
+Functionality:
+    -   Constructor: Initialize UI. Load categories into 'm_categoryCombo'. Connect signals.
+    -   'void loadCreatureListForCategory(const QString&amp; categoryName)':
+        - Clear current display. Get 'TilesetCategory*' from 'MaterialManager'.
+        - Iterate 'category-&gt;getBrushes()'. If 'CreatureBrush*', get 'CreatureType*'.
+        - Create 'QListWidgetItem', set text (name), icon (render 'CreatureType' outfit to 'QPixmap'), store 'CreatureBrush*' or 'CreatureType*'. Add to 'm_creatureListWidget'.
+    -   'void filterCreatures(const QString&amp; filterText)': Filter 'm_creatureListWidget' based on name or looktype.
+    -   Slots for 'm_categoryCombo::currentIndexChanged', 'm_searchEdit::textChanged'.
+    -   Slot for 'm_creatureListWidget::currentItemChanged': Get stored 'CreatureBrush*'/'CreatureType*'. Update 'BrushStateService' based on radio button mode.
+    -   Slots for radio buttons: Update 'BrushStateService' with correct brush type ('CreatureBrush' or 'SpawnBrush') and parameters from spin boxes.
+    -   Slots for Load/Purge buttons:
+        - Use 'QFileDialog::getExistingDirectory'.
+        - Call 'CreatureManager::importCreaturesFromFolder(path, type)' (type being NPC/Monster).
+        - Call 'CreatureManager::purgeAllCreatures()'.
+        - After modification, reload categories in 'm_categoryCombo' and refresh the list.
+
+II. 'EditMapCreatureDialogQt' (inherits 'QDialog'):
+Constructor: 'EditMapCreatureDialogQt(QWidget* parent, mapcore::Creature* creatureCopy, mapcore::Map* mapContext);' (Store 'creatureCopy').
+Layout: 'QFormLayout'.
+    - 'QLabel m_nameLabel;' (Set text from 'creatureCopy-&gt;getName()').
+    - 'QSpinBox* m_spawnIntervalSpin;' (Label &quot;Spawn Interval (s):&quot;). Load from 'creatureCopy-&gt;getSpawnTime()'.
+    - 'QComboBox* m_directionCombo;' (Label &quot;Direction:&quot;). Populate N,E,S,W,NE,NW,SE,SW. Set from 'creatureCopy-&gt;getDirection()'.
+    - 'QDialogButtonBox* m_buttonBox;' (OK, Cancel).
+Functionality:
+    - Constructor: Populate controls from 'creatureCopy'.
+    - Slot on OK clicked: Validate. 'creatureCopy-&gt;setSpawnTime(m_spawnIntervalSpin-&gt;value()); creatureCopy-&gt;setDirection(static_cast&lt;mapcore::Direction&gt;(m_directionCombo-&gt;currentData().toInt())); accept();'.
+
+Interaction with Services:
+-   The 'CreaturePaletteQt' will primarily interact with 'BrushStateService' to set the active creature/spawn brush and its parameters.
+-   It will use 'MaterialManager' (via 'ClientDataService' if 'REFACTOR-01' is done) to get creature tileset categories and 'CreatureManager' for loading/purging.
+-   'EditMapCreatureDialogQt' is a passive dialog; 'EditorController' will show it, pass a copy, and if accepted, create an undo action with the modified copy.
+</boilerplate_coder_ai_prompt>
+</UI-06>
