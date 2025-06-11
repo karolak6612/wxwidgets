@@ -88,7 +88,6 @@ These mandates must be adhered to for all coding tasks:
 All tasks from `tasks_execution_order.md` are listed here. This board will be updated as tasks progress.
 
 ### Backlog (To Do)
-- [ ] CORE-04 (Port Action & History (Undo/Redo) System)
 - [ ] CORE-07-MapIO (Port OTBM Map I/O System)
 - [ ] CORE-08-CreatureOutfit (Port Creature Instance and Outfit Classes)
 - [ ] CORE-11-WaypointSystem (Port Waypoint System Data Structures)
@@ -157,7 +156,6 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [x] BUILD-02 (Implement Packaging and Deployment) - Branch: feat/build-02-cpack-packaging
 - [x] UI-01 (Port Main Application Window (QMainWindow) and Dynamic Menu Bar from XML) - Branch: feat/ui-01-mainwindow-reworked
 - [x] RENDER-01 (Implement Core OpenGL Viewport and Navigation (MapView)) - Branch: feat/render-01-mapview-complete
-- [x] NET-01 (Isolate and Port Network Protocol Definition and Serialization Logic) - Branch: feat/net-01-protocol-serialization
 - [x] LOGIC-04 (Port Waypoint System) - Branch: feat/logic-04-waypoint-system
 - [x] CORE-BRUSH-FRAMEWORK (Port Base Brush Class, Implement BrushManager, and Define BrushSettings) - Branch: feat/core-brush-framework
 - [x] BUILD-00 (Create Root CMakeLists.txt and Basic Project Structure) - Branch: feat/build-00-initial-structure
@@ -167,9 +165,11 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [x] CORE-02 (Port Asset Database & Parsers (Items, Creatures, Sprites, Client Versions)) - Branch: feat/core-02-asset-pipeline
 - [x] CORE-03 (Port Map Data Structure & Non-Rendering Logic) - Branch: feat/core-03-map-data-structure
 - [x] CORE-06 (Port Settings & Preferences System) - Branch: feat/core-06-settings-system-complete
-- [x] NET-02 (Port Live Collaboration Server Logic to Qt Network)
+- [x] CORE-04 (Port Action & History (Undo/Redo) System)
 
 ### Blocked / Needs Discussion
+- [ ] NET-01 (Isolate and Port Network Protocol Definition and Serialization Logic) - Branch: feat/net-01-protocol-serialization
+- [ ] NET-02 (Port Live Collaboration Server Logic to Qt Network)
 - [ ] TEST-01 (Develop Unit Tests for Core Qt6 Data Structures)
 - [ ] TEST-02 (Develop Unit Tests for Asset Loading and Parsing Logic)
 - [ ] TEST-03 (Develop Unit Tests for OTBM and OTMM File I/O)
