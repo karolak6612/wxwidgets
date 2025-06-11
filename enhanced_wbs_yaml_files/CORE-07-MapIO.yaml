@@ -1,0 +1,170 @@
+id: CORE-07-MapIO
+section: Core Migration Tasks
+title: Port OTBM Map I/O System
+original_input_files:
+  - wxwidgets/iomap_otbm.h
+  - wxwidgets/iomap_otbm.cpp
+  - wxwidgets/iomap.h
+  - wxwidgets/iomap.cpp
+  - wxwidgets/filehandle.h # For low-level binary read/write utilities
+  - wxwidgets/filehandle.cpp
+  - wxwidgets/map.h # For Map class context
+  - wxwidgets/tile.h # For Tile class context
+  - wxwidgets/items.h # For ItemDatabase (g_items) context
+analyzed_input_files:
+  - file_path: wxwidgets/iomap_otbm.h
+    description: |
+      Declares `IOMapOTBM`, a class likely derived from a base `IOMap` class.
+      Responsible for loading and saving map data in the OTBM (Open Tibia Binary Map) format.
+      Likely contains methods like `load(const std::string& fileName, Map* map, ItemDatabase* item_db)` and `save(const std::string& fileName, const Map* map, bool raw_attributes = false)`.
+      May handle different OTBM versions and their specific node types/attributes.
+  - file_path: wxwidgets/iomap_otbm.cpp
+    description: |
+      Implementation of `IOMapOTBM`.
+      Involves complex binary file parsing: reading OTBM file headers, root nodes, and then recursively parsing child nodes representing map data, item definitions, tiles, creatures, houses, spawns, waypoints etc.
+      Uses `InputFile` (likely from `filehandle.h`) for reading binary data and `OutputFile` for writing.
+      Serializes/deserializes map metadata, tile data (ground, items, creatures), and other map features according to the OTBM specification.
+      Handles various OTBM node types (e.g., `OTBM_NODE_MAP_DATA`, `OTBM_NODE_TILE_AREA`, `OTBM_NODE_TILE`, `OTBM_NODE_ITEM`, `OTBM_NODE_CREATURE`).
+      Interacts with `Map` to populate its structure during load and read from it during save.
+      Uses `ItemDatabase` to look up `ItemType` for items being loaded/saved.
+      May include logic for zlib compression/decompression of node data.
+  - file_path: wxwidgets/iomap.h
+    description: |
+      Likely defines the base interface or abstract class `IOMap` from which specific map format loaders/savers like `IOMapOTBM` derive.
+      May also define common helper functions or data structures used by different I/O classes.
+      Could include error handling mechanisms for I/O operations.
+  - file_path: wxwidgets/iomap.cpp
+    description: |
+      Implementation of `IOMap` base class methods or shared I/O utility functions.
+  - file_path: wxwidgets/filehandle.h
+    description: |
+      Declares classes for low-level file operations, such as `InputFile` and `OutputFile`.
+      These classes likely wrap standard file I/O (like `fopen`, `fread`) or wxWidgets file classes, providing methods for reading/writing basic types (uint8_t, uint16_t, uint32_t, strings) and managing file position.
+      May include zlib integration for compressed stream reading/writing.
+  - file_path: wxwidgets/filehandle.cpp
+    description: |
+      Implementation of `InputFile` and `OutputFile`.
+      Includes logic for opening/closing files, error checking, and binary data serialization/deserialization.
+      If zlib is used, this is where the zlib API calls for compression/decompression would be made.
+  - file_path: wxwidgets/map.h
+    description: (Analyzed in CORE-03) Provides context for the `Map` object that `IOMapOTBM` populates or reads from.
+  - file_path: wxwidgets/tile.h
+    description: (Analyzed in CORE-01) Provides context for `Tile` objects created during map loading.
+  - file_path: wxwidgets/items.h
+    description: (Analyzed in CORE-02) Provides context for `ItemDatabase` used to validate items during map load/save.
+dependencies:
+  - BUILD-01
+  - CORE-01  # For Position, Item, Tile
+  - CORE-02  # For AssetManager (ItemDatabase, ClientVersionManager)
+  - CORE-03  # For Map data structure
+  - CORE-06  # For AppSettings (potentially, map I/O might use some settings)
+current_functionality_summary: |
+  The system loads and saves maps primarily in the OTBM format using the `IOMapOTBM` class.
+  This class handles:
+  - Reading and writing the OTBM file structure, which is a tree of nodes.
+  - Parsing specific node types for map metadata, tile areas, individual tiles, items, creatures, houses, spawns, and waypoints.
+  - Interacting with the `Map` object to populate its data structures during loading and to read data from it during saving.
+  - Using an `ItemDatabase` (via `g_items`) to resolve item types and their properties.
+  - Utilizing helper classes like `InputFile` and `OutputFile` (from `filehandle.h/cpp`) for low-level binary stream operations, which might include zlib compression/decompression.
+  A base `IOMap` class likely provides an interface for different map format handlers.
+qt6_migration_steps: |
+  1.  **Design `IMapIO` Interface (in `mapcore/io/`):**
+      -   Define a C++ interface `IMapIO` with virtual methods like:
+          -   `virtual bool loadMap(const QString& filePath, Map& map, AssetManager& assetManager, AppSettings& settings) = 0;`
+          -   `virtual bool saveMap(const QString& filePath, const Map& map, AssetManager& assetManager, AppSettings& settings) = 0;`
+          -   `virtual QStringList getSupportedFileExtensions() const = 0;`
+          -   `virtual QString getFormatName() const = 0;`
+
+  2.  **Implement `OtbmMapIO` Class (in `mapcore/io/OtbmMapIO.h/cpp`):**
+      -   Derive `OtbmMapIO` from `IMapIO`.
+      -   Port the logic from `IOMapOTBM.cpp`.
+      -   **File Handling:** Replace `InputFile`/`OutputFile` with `QFile` and `QDataStream`. `QDataStream` handles endianness and binary I/O of Qt primitive types. For strings and custom structures, define explicit serialization logic.
+      -   **Zlib Integration:** If OTBM nodes are compressed, use Qt's `qCompress` and `qUncompress` functions or link directly against zlib and use its API. `QDataStream` does not inherently support stream compression beyond what `QIODevice` might offer.
+      -   **Node Parsing:** Replicate the OTBM node parsing logic (node types, attributes). This is the most complex part. Use a stream-based approach with `QDataStream`.
+      -   **Data Mapping:**
+          -   When loading, populate the `Map` object (from `CORE-03`) with tiles, items, creatures (stubs initially), etc., using data from the OTBM. Use `AssetManager` (from `CORE-02`) to validate item types from `ItemDatabase`.
+          -   When saving, read data from the `Map` object and serialize it into the OTBM node structure.
+      -   Error handling is crucial. Report errors clearly (e.g., via exceptions or error codes/messages).
+
+  3.  **Refactor `Map` Class for I/O:**
+      -   The `Map` class itself should not contain direct loading/saving logic. Instead, it might have a method like `bool Map::loadFromFile(const QString& filePath, IMapIO& mapIO, AssetManager& assetManager, AppSettings& settings)` that calls `mapIO.loadMap(...)`.
+
+  4.  **Unit Tests:**
+      -   Create unit tests for `OtbmMapIO`. This is challenging due to the binary format.
+      -   Focus on testing individual node parsing/serialization logic if possible.
+      -   Test loading a minimal, valid OTBM file and verifying the `Map` object's state.
+      -   Test saving a simple `Map` object and (if feasible) comparing the output to a known-good OTBM file or reloading it to check consistency.
+
+definition_of_done: |
+  - An `IMapIO` interface is defined for map loading/saving operations.
+  - An `OtbmMapIO` class implements `IMapIO` for the OTBM format.
+  - `OtbmMapIO` can successfully load map data from valid OTBM files into the `Map` object, correctly parsing:
+    - Map metadata (dimensions, version, description).
+    - Tile areas and individual tiles (ground, items, creatures as stubs).
+    - House, spawn, and waypoint data (as stubs or basic data).
+  - `OtbmMapIO` can successfully save a `Map` object into a valid OTBM file.
+  - `QFile` and `QDataStream` (or equivalent standard C++ I/O) are used for file operations, replacing `InputFile`/`OutputFile`.
+  - Zlib compression/decompression for OTBM nodes is correctly implemented if used by the format.
+  - Dependencies on `wxWidgets` in `iomap*.cpp` and `filehandle*.cpp` are removed.
+  - The new I/O system integrates with `Map` (CORE-03) and `AssetManager` (CORE-02).
+  - Error handling for file operations and format parsing is implemented.
+  - The `mapcore` library components related to OTBM I/O compile successfully.
+  - Basic unit tests demonstrate loading and saving of a simple OTBM file.
+boilerplate_coder_ai_prompt: |
+  You are to port the OTBM map loading and saving functionality from a legacy C++ codebase (based on `iomap_otbm.h/cpp`, `iomap.h/cpp`, `filehandle.h/cpp`) to a modern C++/Qt6 environment within the `mapcore` library. This will involve creating an I/O interface and an OTBM-specific implementation.
+
+  **1. `IMapIO` Interface (`mapcore/io/IMapIO.h`):**
+     - Define an interface `IMapIO` with pure virtual methods:
+       ```cpp
+       class AssetManager; // Forward declare
+       class AppSettings;  // Forward declare
+       class Map;          // Forward declare
+       class IMapIO {
+       public:
+           virtual ~IMapIO() = default;
+           virtual bool loadMap(const QString& filePath, Map& map, AssetManager& assetManager, AppSettings& settings) = 0;
+           virtual bool saveMap(const QString& filePath, const Map& map, AssetManager& assetManager, AppSettings& settings) = 0;
+           virtual QStringList getSupportedFileExtensions() const = 0;
+           virtual QString getFormatName() const = 0;
+       };
+       ```
+
+  **2. `OtbmMapIO` Class (`mapcore/io/OtbmMapIO.h/cpp`):**
+     - Implement `OtbmMapIO` inheriting from `IMapIO`.
+     - **File Handling:** Use `QFile` for file access and `QDataStream` for reading/writing binary data. Set `QDataStream` byte order if necessary (OTBM is little-endian).
+     - **Zlib:** If OTBM nodes are compressed, use `qUncompress` when reading and `qCompress` when writing node data.
+     - **OTBM Structure:**
+        - Replicate the OTBM node parsing logic. An OTBM file starts with a version header, then a root node. Nodes have a type, flags, and attributes (stored as a stream of bytes).
+        - Implement helper methods to read/write OTBM attributes (byte, word, dword, string, coordinates, item data etc.) from/to `QDataStream`.
+        - Recursively parse the node tree during load, and build it during save.
+     - **Loading (`loadMap`):**
+        - Open the file, read header, root node.
+        - Parse map metadata (dimensions, description, OTBM version) and set them in the `Map` object.
+        - Iterate through tile area nodes, then tile nodes. For each tile node:
+           - Read `Position` (x, y, z).
+           - Create a `Tile` object using `map.createTile(pos)`.
+           - Read item nodes within the tile; use `AssetManager::getItemData(itemId)` to get `ItemData`. Create `Item` instances (from `CORE-01`) and add them to the `Tile`.
+           - Read creature nodes (create stubs or basic creature data), house nodes, etc.
+        - Handle different OTBM attributes and flags correctly.
+     - **Saving (`saveMap`):**
+        - Create the root OTBM node.
+        - Write map metadata from the `Map` object.
+        - Iterate through tiles in the `Map` (using `MapIterator` from `CORE-03`). For each `Tile`:
+           - Write tile node with its position and attributes.
+           - Write item nodes for items on the tile.
+           - Write creature nodes, etc.
+     - Implement `getSupportedFileExtensions()` to return `{"*.otbm"}` and `getFormatName()` to return "Open Tibia Binary Map".
+     - Ensure robust error handling (e.g., return `false` on error, log messages).
+
+  **3. General Requirements:**
+     - Use `Map`, `Tile`, `Item`, `Position` from `CORE-01`/`CORE-03`.
+     - Use `AssetManager` from `CORE-02` for item type validation/data.
+     - Replace all wxWidgets types and `InputFile`/`OutputFile` usage.
+     - Provide header and source files.
+     - Write basic Qt Test unit tests (e.g., loading a very simple, known OTBM file, saving a map and checking if it can be reloaded without error or data loss).
+documentation_references:
+  - "QFile: https://doc.qt.io/qt-6/qfile.html"
+  - "QDataStream: https://doc.qt.io/qt-6/qdatastream.html"
+  - "Qt Zlib Compression: qCompress/qUncompress https://doc.qt.io/qt-6/qbytearray.html#qUncompress"
+  - "OTBM format details (community resources, e.g., OTLand, TFS source code if available for reference for structure)"
+estimation_effort: X-Large

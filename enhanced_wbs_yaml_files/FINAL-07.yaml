@@ -1,0 +1,160 @@
+id: FINAL-07
+section: UI Polish & Finalization
+title: Apply Qlementine Styling to Application
+original_input_files:
+  - "All ported Qt UI components (MainWindow, Dialogs, Palettes, Custom Widgets from UI-* and FINAL-* tasks)"
+  - "Qlementine library/stylesheet files"
+analyzed_input_files:
+  - file_path: "All Qt UI Components"
+    description: |
+      The entire suite of user interface elements developed in Qt throughout the project.
+      This includes the main window, all dialogs (preferences, about, welcome, tool-specific dialogs),
+      dockable palettes, toolbars, status bars, and any custom widgets.
+      These components currently use default Qt styling or basic QSS.
+      This task will apply the Qlementine theme globally to ensure a consistent and modern look and feel.
+  - file_path: "Qlementine Library/Stylesheet"
+    description: |
+      The Qlementine style resource itself. This could be a pre-built Qlementine library that needs to be
+      linked via CMake, or a set of QSS files and potentially C++ helper classes provided by Qlementine
+      that need to be integrated into the application. The method of integration (linking vs. direct QSS application)
+      will depend on how Qlementine is distributed and intended to be used.
+dependencies:
+  - BUILD-01 # For CMake to find/link Qlementine if it's a library
+  - UI-01    # MainWindow
+  - UI-02    # Toolbars & Menubar
+  - UI-02 # All palette UIs
+  - UI-04    # All standard dialog UIs (part 1)
+  - UI-05    # All standard dialog UIs (part 2)
+  - FINAL-01 # Core UI Integration
+  - FINAL-02 # File Menu Operations (dialogs like QFileDialog might be affected by global style)
+  - FINAL-03 # Edit Menu & Preferences Dialog
+  - FINAL-04 # View Menu Operations
+  - FINAL-06 # About & Welcome Dialogs
+  # Essentially depends on all tasks that produce UI visible to the user.
+current_functionality_summary: |
+  The application's UI has been ported to Qt6, and various UI components (main window, dialogs, palettes)
+  are functional. However, they currently use the default Qt styling for the platform, or potentially
+  some basic custom QSS for specific widgets. There is no unified, modern application-wide theme applied.
+  The Qlementine library/stylesheet has been identified as the desired theming solution but has not yet been integrated.
+qt6_migration_steps: |-
+  1.  **Integrate Qlementine Library/Files:**
+      -   If Qlementine is a compiled library:
+          -   Update the main `CMakeLists.txt` to find and link the Qlementine library (e.g., using `find_package(Qlementine REQUIRED)` if it provides CMake config files, or by specifying paths to its library and include files directly).
+          -   Include necessary Qlementine headers in `main.cpp` or the custom `QApplication` subclass.
+      -   If Qlementine is primarily a QSS file(s) with optional helper C++ classes:
+          -   Add the QSS file(s) (e.g., `qlementine.qss`) to the project, typically as a Qt resource (`.qrc`).
+          -   Compile any helper C++ classes into the main application or a utility library.
+  2.  **Initialize Qlementine Style:**
+      -   In `main.cpp`, after `QApplication app(argc, argv);`, initialize and apply the Qlementine style.
+      -   The primary method is to instantiate `oclero::qlementine::QlementineStyle` and set it using `QApplication::setStyle()`.
+          ```cpp
+          // In main.cpp, after QApplication app(argc, argv);
+          #include <oclero/qlementine.hpp> // Ensure this include is present
+
+          // ...
+          auto* style = new oclero::qlementine::QlementineStyle(&app); // Or other appropriate parent like &app if 'app' is the QApplication instance
+          QApplication::setStyle(style);
+          ```
+      -   Loading QSS files directly via `qApp->setStyleSheet()` is generally a secondary approach for Qlementine, which promotes its `QStyle` subclass for deeper integration.
+  3.  **Theme Selection (if Qlementine offers multiple themes like light/dark):**
+      -   If `FINAL-03` (Preferences Dialog) or `CORE-06` (AppSettings) included a setting for theme choice (e.g., light/dark), use this setting to apply the correct Qlementine theme.
+      -   Qlementine provides mechanisms for this:
+          -   **1. Direct theme setting on the style instance:**
+              ```cpp
+              // auto* style = qobject_cast<oclero::qlementine::QlementineStyle*>(QApplication::style());
+              // if (style) {
+              //    style->setThemeJsonPath(":/themes/your_light_theme.json"); // Or dark theme
+              // }
+              ```
+              *(Note: The theme path should point to a theme JSON file, typically included via Qt resources).*
+          -   **2. Using `oclero::qlementine::ThemeManager` (Recommended for multiple themes):**
+              ```cpp
+              // In main.cpp or where you manage application style
+              // auto* qlementineStyle = qobject_cast<oclero::qlementine::QlementineStyle*>(QApplication::style());
+              // if (qlementineStyle) {
+              //    auto* themeManager = new oclero::qlementine::ThemeManager(qlementineStyle);
+              //    themeManager->loadDirectory(":/themes"); // Directory in resources (e.g., :/themes/light.json, :/themes/dark.json)
+              //    // Set theme based on AppSettings
+              //    // QString currentTheme = AppSettings::getInstance().getTheme(); // "Light" or "Dark"
+              //    // themeManager->setCurrentTheme(currentTheme);
+              // }
+              ```
+      -   The `ThemeManager` is preferred if multiple themes are bundled or user-selectable. Ensure theme files (e.g., `light.json`, `dark.json`) are included in your Qt resources (e.g., in a `:/themes/` prefix).
+  4.  **Review and Test UI Components:**
+      -   Thoroughly test all parts of the application UI with Qlementine applied:
+          -   `MainWindow`, menus, toolbars, status bar.
+          -   All dialogs (Preferences, About, Welcome, File, tool-specific dialogs).
+          -   All palettes (dock widgets and their contents).
+          -   The `MapViewport` itself (Qlementine might not directly style custom OpenGL rendering, but borders and surrounding elements will be affected).
+          -   Standard Qt widgets used throughout (`QPushButton`, `QLineEdit`, `QComboBox`, `QListWidget`, `QTreeView`, etc.).
+  5.  **Custom QSS Adjustments (if needed):**
+      -   Identify any UI elements that do not style correctly with Qlementine out-of-the-box or require specific adjustments to fit the application's design.
+      -   Create an additional application-specific QSS file (e.g., `custom_styles.qss`) that is loaded *after* the main Qlementine stylesheet.
+      -   Add rules to `custom_styles.qss` to tweak or fix styling for these specific elements. Use specific Qt object names or CSS selectors to target widgets precisely.
+  6.  **Verify Consistency:**
+      -   Ensure consistent look and feel across all parts of the application.
+      -   Check for readability, usability issues, and platform-specific rendering quirks with Qlementine applied.
+definition_of_done: |
+  - The Qlementine style is successfully integrated and applied globally to the Qt6 application.
+  - All major UI components (MainWindow, dialogs, palettes, standard controls) are styled by Qlementine, providing a consistent and modern look and feel.
+  - Theme selection (e.g., light/dark variants of Qlementine, if available and configured via `AppSettings`) works correctly.
+  - Any necessary custom QSS adjustments for specific widgets or to override Qlementine defaults are implemented and do not break the overall theme.
+  - The application is visually appealing, readable, and usable with the Qlementine theme applied on target platforms (Windows, macOS, Linux).
+  - There are no significant rendering artifacts, layout issues, or performance regressions due to the new styling.
+boilerplate_coder_ai_prompt: |
+  Apply the Qlementine styling system globally to the RME-Qt application.
+  Assume all UI components (MainWindow, dialogs, palettes) have been ported to Qt6.
+
+  **1. Integrate Qlementine:**
+     -   **If Qlementine is a library:**
+         -   Update `CMakeLists.txt` to find and link Qlementine.
+         -   In `main.cpp`, include necessary Qlementine headers. Before creating `QApplication` or very early in its lifecycle, instantiate and set the Qlementine style:
+           ```cpp
+           // Example if Qlementine provides a QStyle subclass
+           // #include <QlementineStyle.h>
+           // QApplication::setStyle(new QlementineStyle());
+           ```
+           Refer to Qlementine's documentation for the exact setup procedure.
+     -   **If Qlementine is primarily QSS-based:**
+         -   Add `qlementine.qss` (and any variants like `qlementine_dark.qss`) to your project's Qt resources (`.qrc`).
+         -   In `main.cpp`, load the QSS content from resources and apply it:
+           ```cpp
+           // QFile file(":/styles/qlementine.qss"); // Or path to specific theme variant
+           // if (file.open(QFile::ReadOnly | QFile::Text)) {
+           //     QTextStream stream(&file);
+           //     qApp->setStyleSheet(stream.readAll());
+           //     file.close();
+           // }
+           ```
+
+  **2. Theme Selection (if applicable):**
+     -   If Qlementine supports light/dark themes and you have an `AppSettings` key for this:
+         -   Read the setting.
+         -   Load the appropriate Qlementine QSS variant or call the appropriate Qlementine C++ API function to set the theme.
+         -   This logic should be part of a `ThemeManager` or be callable when the setting changes in the Preferences dialog.
+
+  **3. Testing and Customization:**
+     -   Thoroughly test all application windows, dialogs, and widgets to ensure they are styled correctly by Qlementine.
+     -   If specific widgets look out of place or need adjustments:
+         -   Create a `custom_styles.qss` file.
+         -   Add custom QSS rules to target these specific widgets (using object names `setObjectName("MyWidget")` and selectors like `#MyWidget { ... }` or class selectors).
+         -   Load `custom_styles.qss` *after* the main Qlementine stylesheet so its rules can override or augment Qlementine's.
+           ```cpp
+           // QString finalStyleSheet = qlementineStyleSheet + customStyleSheet;
+           // qApp->setStyleSheet(finalStyleSheet);
+           ```
+
+  **4. Verification:**
+     -   Ensure the application has a consistent, modern look and feel.
+     -   Check for any styling conflicts or visual glitches.
+documentation_references:
+  - "qlementine/README.md (local copy)"
+  - "qlementine/docs/usage.md (local copy, for C++ setup and ThemeManager)"
+  - "qlementine/docs/theme.md (local copy, for JSON theme structure)"
+  - "qlementine/docs/widgets.md (local copy, for available Qlementine specific widgets)"
+  - "Qt Style Sheets: https://doc.qt.io/qt-6/stylesheet.html"
+  - "Qt Style Sheets Syntax: https://doc.qt.io/qt-6/stylesheet-syntax.html"
+  - "Qt Style Sheets Examples: https://doc.qt.io/qt-6/stylesheet-examples.html"
+  - "QApplication::setStyleSheet(): https://doc.qt.io/qt-6/qapplication.html#styleSheet-prop"
+  - "QApplication::setStyle(): https://doc.qt.io/qt-6/qapplication.html#setStyle"
+  - "Qt Resource System: https://doc.qt.io/qt-6/resources.html"

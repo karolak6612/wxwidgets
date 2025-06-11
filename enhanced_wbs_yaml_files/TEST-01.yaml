@@ -1,0 +1,74 @@
+id: TEST-01 # Changed from wbs_item_id for consistency
+section: Testing # Added section for clarity
+title: "Develop Unit Tests for Core Qt6 Data Structures"
+original_task_id: TEST-01 # Assuming this is the original ID
+description: Develop unit tests for the core data structures ported or created in Qt6. This includes testing functionalities of classes like mapcore::Item, mapcore::Container, mapcore::Creature, mapcore::Tile, mapcore::Map, mapcore::Waypoint, mapcore::Spawn, etc., focusing on their methods, data integrity, and edge cases.
+dependencies:
+  - "CORE-01" # mapcore::Position, mapcore::Tile, mapcore::Map, mapcore::Floor, mapcore::QTreeNode
+  - "CORE-02" # mapcore::Item, mapcore::Container, mapcore::ItemType, mapcore::Creature, mapcore::Outfit, mapcore::SpriteData, mapcore::GraphicManager
+  - "CORE-03" # mapcore::IOMapOTBM and related (for potential test data loading, though mocking is preferred)
+  - "CORE-02" # mapcore::ItemManager (formerly ItemDatabase)
+  - "CORE-11-WaypointSystem" # mapcore::Waypoint, mapcore::WaypointManager
+  - "CORE-10-SpawnSystem" # mapcore::SpawnProperties, mapcore::SpawnManager
+  - "BUILD-01" # For CMake setup to build and run tests
+input_files: [] # No wxWidgets files to port for this task
+analyzed_input_files: [] # No legacy files to analyze for this task
+documentation_references:
+  - 'Qt Test Framework: https://doc.qt.io/qt-6/qttest-index.html'
+  - 'Qt Test Tutorial: https://doc.qt.io/qt-6/qttestlib-tutorial1.html'
+  - 'GoogleTest for Qt (alternative if preferred, though Qt Test is standard): https://github.com/google/googletest'
+current_functionality_summary: |
+  This task is focused on the creation of new unit tests for the core data structures of the Remere's Map Editor after their porting or implementation in C++ with Qt 6. There are no existing unit tests from the original wxWidgets codebase that are being ported for these specific low-level data classes. The objective is to build a robust test suite using the Qt Test framework to verify the correctness, data integrity, and behavior of these foundational components, such as 'mapcore::Item', 'mapcore::Tile', 'mapcore::Map', 'mapcore::WaypointManager', 'mapcore::ItemManager', etc.
+definition_of_done:
+  - A comprehensive suite of unit tests using the Qt Test framework is created for each core Qt6 data structure within the 'mapcore' library.
+  - "Tested Classes/Structs Include (but not limited to): 'mapcore::Position', 'mapcore::ItemType' (and related attribute/flag structures), 'mapcore::Outfit' and its components, 'mapcore::CreatureType', 'mapcore::Item', 'mapcore::Container' (subclass of 'mapcore::Item'), 'mapcore::Tile', 'mapcore::Floor', 'mapcore::QTreeNode' (basic functionality, not necessarily the whole tree logic if complex), 'mapcore::Map', 'mapcore::Waypoint', 'mapcore::WaypointManager', 'mapcore::SpawnProperties', 'mapcore::SpawnManager', 'mapcore::ItemManager' (formerly 'ItemDatabase'), 'mapcore::CreatureManager'"
+  - "Test Coverage Aspects for Each Class: Object construction (default, copy, parameterized constructors). Attribute access and modification (getters/setters), ensuring properties are correctly stored and retrieved. Method logic: Testing return values and side effects of key public methods. Data integrity under various operations (e.g., adding/removing items from a container or tile). Handling of boundary conditions, invalid inputs, and edge cases (e.g., null pointers where applicable, out-of-range values)."
+  - "Specific Tests for Container/Manager Classes (e.g., 'ItemManager', 'WaypointManager', 'Map'): Correct addition, removal, and lookup of elements (e.g., items by ID, waypoints by name/position). Behavior when dealing with existing or non-existing elements. Iteration over stored elements (if applicable). Size/count correctness."
+  - "Specific Tests for 'mapcore::Tile': Item stack manipulation (adding, removing, order, top item). Setting/getting ground item. Correct association/disassociation and querying of waypoint and spawn metadata. Pathfinding flags and properties (e.g., 'isPathable()', 'isBlocking()')."
+  - "Specific Tests for 'mapcore::Map': Tile creation, retrieval (valid and invalid positions/floors). Management of dimensions. Basic interaction with its aggregated managers (though managers are also tested independently)."
+  - Mocking or simplified test doubles are used for complex external dependencies (e.g., file I/O for 'ItemManager' loading) to ensure unit tests are focused and fast. Pre-populated data structures or small test data files can be used.
+  - All created unit tests pass successfully.
+  - The tests are integrated into the CMake build system (e.g., using 'qt_add_test' or 'add_executable' with 'QTEST_MAIN') and can be executed automatically (e.g., via 'ctest').
+  - A code coverage report (e.g., using gcov/lcov) is generated for the tested 'mapcore' data structures, aiming for a high level of coverage for their public APIs.
+estimation_effort:
+  - "High (20-30 developer days). Writing comprehensive unit tests for numerous core classes, covering various scenarios including edge cases, is time-consuming. Setting up mock data and ensuring high code coverage adds to the effort."
+known_missing_files: [] # Not applicable as this is new code creation
+boilerplate_coder_ai_prompt: >
+  Your task is to create a comprehensive suite of unit tests for the core data structures of the Qt6 Remere's Map Editor, which reside in the 'mapcore' library. Use the Qt Test framework.
+
+  General Guidelines for All Test Classes:
+  1.  For each core data structure (class/struct) from the 'mapcore' library, create a corresponding test class in the 'tests/mapcore/' directory (e.g., 'TestItem.h/.cpp', 'TestTile.h/.cpp').
+  2.  Test classes must inherit from 'QObject'.
+  3.  Use private slots for individual test functions (e.g., 'void testDefaultConstructor();', 'void testAddItemToTile();'). Test function names should be descriptive.
+  4.  Utilize Qt Test macros: 'QCOMPARE()', 'QVERIFY()', 'QVERIFY2()', 'QTEST_ASSERT()', 'QFAIL()', 'QSKIP()'.
+  5.  Employ data-driven testing ('QTest::addColumn()', 'QTest::newRow()') for methods that should be tested with multiple input-output combinations.
+  6.  For each test class, include 'QTEST_MAIN(YourTestClassName)' if it's a standalone test executable, or ensure it's part of a larger test runner. In CMake, use 'qt_add_test' or 'add_executable' and link against 'Qt::Test'.
+  7.  Strive for high test coverage of the public API of each class.
+
+  Specific 'mapcore' Classes to Test (and examples of test cases):
+
+  1. 'Position' ('mapcore/position.h'): 'testConstructors' Default, (x,y,z), copy. 'testEqualityOperators' '==' and '!='. 'testAdditionSubtraction' Operator '+' and '-' with other 'Position's. 'testIsValid' Check for valid and invalid map coordinates. 'testLessThanOperator' For use in 'std::map' keys.
+
+  2. 'ItemType' ('mapcore/itemattributes.h' or similar): 'testConstruction' Default, with ID, name, various flags. 'testGetters' Verify all getters return correct initial values. 'testFlags' Test boolean flag methods like 'isStackable()', 'isPickupable()', 'isBlocking()', 'isGroundTile()', etc., for different flag combinations. 'testSpriteProperties' Test storage/retrieval of sprite metadata if part of 'ItemType'.
+
+  3. 'Outfit' ('mapcore/outfit.h'): 'testConstruction' Default, parameterized (looktype, head, body, etc.). 'testSettersGetters' For all outfit components. 'testIsInvisible' Check logic for determining invisibility. 'testEqualityOperator'.
+
+  4. 'CreatureType' ('mapcore/creaturetype.h' or similar): 'testConstruction' Name, outfit. 'testGettersSetters'.
+
+  5. 'Item' ('mapcore/item.h'): 'testFactoryCreate' 'Item::Create(id)' for valid and invalid IDs. 'testGettersSetters' ID, name (via 'ItemType'), count/subtype, action ID, unique ID, text. 'testFlags' Querying flags inherited from 'ItemType'. 'testCloning' 'deepCopy()' method. 'testSerialization' If basic serialization methods exist (though full file I/O is for 'CORE-03').
+
+  6. 'Container' ('mapcore/container.h' - subclass of 'Item'): 'testAddItem' Adding items, respecting capacity, volume. 'testRemoveItem'. 'testGetItem', 'getItemCount'. 'testIterators' (if provided).
+
+  7. 'Tile' ('mapcore/tile.h'): 'testConstruction' With position. 'testAddItem_RemoveItem' Order of items, ground item vs. non-ground, stackables, top item logic. 'testGetItems', 'getGroundItem', 'getTopItem', 'getDownItemCount'. 'testProperties' 'isPathable()', 'isBlocking()', 'isEmpty()'. 'testHouseId' Setting/getting house ID. 'testWaypoint' 'setWaypoint()', 'getWaypoint()', 'removeWaypoint()'. 'testSpawn' 'setSpawn()', 'getSpawn()', 'removeSpawn()', 'addCreatureToSpawnList()', 'removeCreatureFromSpawnList()'. 'testFlags' 'setMapFlags()', 'getMapFlags()', 'isPZ()', etc. 'testClean' Removing items, creatures, spawns.
+
+  8. 'Map' ('mapcore/map.h'): 'testGetTile_CreateTile' For various positions, including edges and invalid ones. 'testDimensions' 'setWidth()', 'setHeight()', 'getWidth()', 'getHeight()'. 'testWaypointManagerAccess' 'getWaypointManager()'. 'testSpawnManagerAccess' 'getSpawnManager()'. 'testItemManagerAccess' 'getItemManager()'. 'testHouseManagerAccess' 'getHouseManager()'. (More complex map operations might be integration tests, focus on direct Map class methods here).
+
+  9. 'Waypoint' & 'WaypointManager' ('mapcore/waypoint.h', 'mapcore/waypointmanager.h'): 'Waypoint' Construction, getters for name/position. 'WaypointManager' 'addWaypoint()', 'removeWaypoint()', 'getWaypointByName()', 'getWaypointByPosition()'. Test name uniqueness, updating tile associations.
+
+  10. 'SpawnProperties' & 'SpawnManager' ('mapcore/spawn.h', 'mapcore/spawnmanager.h'): 'SpawnProperties' Radius getter/setter. 'SpawnManager' 'addSpawn()', 'removeSpawn()', 'getSpawn()'. Test tile associations.
+
+  11. 'ItemManager' ('mapcore/itemmanager.h'): 'loadItems(source)' Test with a mock/small data source. Verify items are loaded correctly. 'getItemType(id)' Retrieve existing and non-existing items. 'findItemTypeByName(name)'.
+
+  12. 'CreatureManager' ('mapcore/creaturemanager.h'): 'loadCreatures(source)' Test with a mock/small data source. 'getCreatureType(name)'.
+
+  Mocking/Test Data: For 'ItemManager', 'CreatureManager' Instead of loading full XML files, use small, inline XML strings or directly populate the manager with a few test 'ItemType'/'CreatureType' objects. For 'Map' tests needing many tiles, consider helper functions to populate sections of the map programmatically.

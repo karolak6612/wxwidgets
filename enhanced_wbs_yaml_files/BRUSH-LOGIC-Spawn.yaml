@@ -1,0 +1,37 @@
+id: BRUSH-LOGIC-Spawn
+section: Editor Behavior & Logic
+title: Port Spawn Brush Logic
+original_input_files:
+  - wxwidgets/spawn_brush.cpp
+  - wxwidgets/spawn_brush.h
+analyzed_input_files:
+  - file_path: wxwidgets/spawn_brush.h
+    description: Defines 'SpawnBrush' (inherits 'Brush'). Used to designate tiles as spawn points and set their radius.
+  - file_path: wxwidgets/spawn_brush.cpp
+    description: Implements 'SpawnBrush'. 'draw' creates a 'Spawn' object on the tile with radius from brush size. 'undraw' removes 'Spawn' object.
+dependencies:
+  - CORE-BRUSH-FRAMEWORK
+  - CORE-01
+  - CORE-10-SpawnSystem # For mapcore::SpawnData
+  - LOGIC-01
+  - CORE-04
+current_functionality_summary: |
+  The 'SpawnBrush' designates a tile as a spawn point and sets its radius, typically taken from global brush size settings. It doesn't handle the list of creatures to spawn; that's often coupled with creature placement or a separate spawn editing UI.
+qt6_migration_steps: |
+  1. Define `mapcore::SpawnBrush` class inheriting from `mapcore::Brush`.
+  2. Implement `apply()`:
+     - Get target `Tile`. Get desired radius from `BrushSettings`.
+     - If erasing: `tile->clearSpawnData();` (or equivalent method to remove spawn properties).
+     - If drawing: `tile->setSpawnData(radius, existingOrEmptyCreatureList, existingOrDefaultSpawnTime);`. The creature list and time might be default or preserved if tile was already a spawn.
+     - Record changes for undo.
+definition_of_done: |
+  - `mapcore::SpawnBrush` is implemented.
+  - Applying the brush correctly marks/unmarks tiles as spawn points and sets their radius.
+  - Operations are undoable.
+  - Unit tests for spawn brush functionality pass.
+boilerplate_coder_ai_prompt: |
+  Port `SpawnBrush` from `wxwidgets/spawn_brush.cpp/h` to `mapcore::SpawnBrush`.
+  1. Header: `mapcore::SpawnBrush : public mapcore::Brush`.
+  2. Source: Implement `apply()`. Drawing: `int radius = brushSettings.size; tile->setSpawnData(radius, tile->getCreatureSpawnList(), tile->getSpawnTimeSeconds());` (Preserves existing creature list/time if any, otherwise they'd be default). Erasing: `tile->clearSpawnData();`. All changes via `EditorControllerInterface`.
+documentation_references: ["mapcore::Brush", "mapcore::Tile", "CORE-10-SpawnSystem"]
+estimation_effort: Medium

@@ -1,0 +1,160 @@
+id: LOGIC-02
+section: Editor Behavior & Logic
+title: Implement Bounding-Box Selection Logic
+original_input_files:
+  - wxwidgets/selection.h
+  - wxwidgets/selection.cpp
+  - wxwidgets/map_display.h
+  - wxwidgets/map_display.cpp
+analyzed_input_files:
+  - file_path: wxwidgets/selection.h
+    description: |
+      Declares the `Selection` class and the `SelectionThread` class.
+      - `Selection`: Manages a `TileSet`. For bounding box selection, its `add(Tile*)` method is iteratively called. Session management (`start`, `commit`, `finish`) groups a multi-tile selection into a single undoable `Action` (or `BatchAction`).
+      - `SelectionThread`: A `wxThread` used by `MapCanvas` for large area selections. Its `Entry()` method iterates coordinates based on start/end positions passed to its constructor and calls its local `selection.add(Tile*)` for each tile. It considers `Config::COMPENSATED_SELECT` for floor iteration logic. The resulting `Action*` is stored in `result` for the main thread.
+  - file_path: wxwidgets/selection.cpp
+    description: |
+      Implements `Selection` and `SelectionThread`.
+      - `Selection::add(Tile*)`: Creates a deep copy of the tile, marks the copy and its contents as selected, and adds a `Change` object (with the copy) to the current `Action` (`subsession`). This is the core method used by `SelectionThread` and synchronous bounding box selection.
+      - `SelectionThread::Entry()`: Iterates X, Y, Z coordinates. The Z loop depends on `start.z` and `end.z`. The `COMPENSATED_SELECT` logic adjusts X and Y iteration ranges for floors below ground level if `z <= GROUND_LAYER`.
+  - file_path: wxwidgets/map_display.h
+    description: |
+      Declares the `MapCanvas` class (equivalent to the future `MapView`). Relevant members for bounding box selection:
+      - `boundbox_selection` (bool): Flag indicating if a bounding box selection is active.
+      - Mouse event handlers: `OnMouseMove`, `OnMouseLeftClick`, `OnMouseLeftRelease` (and equivalents for other buttons if swapped via settings).
+      - `MapDrawer* drawer`: Pointer to the rendering component, used to draw the visual selection rectangle.
+      - `last_click_map_x/y`: Stores the map coordinates of the initial mouse click that started the bounding box.
+  - file_path: wxwidgets/map_display.cpp
+    description: |
+      Implements `MapCanvas`.
+      - Mouse Click Handlers (e.g., `OnMouseActionClick`, `OnMousePropertiesClick`): If Shift is pressed, sets `boundbox_selection = true`. Records `last_click_map_x/y`. If Ctrl is not pressed, it clears the previous selection by creating and committing a selection action.
+      - `OnMouseMove()`: If `boundbox_selection` is true, it calls `Refresh()` to trigger `OnPaint`.
+      - `OnPaint()`: Sets `drawer->getOptions().dragging = boundbox_selection;`. The `MapDrawer` (external to this WBS) then uses current mouse position and `last_click_map_x/y` (converted to screen coordinates) to draw the rectangle.
+      - Mouse Release Handlers (e.g., `OnMouseActionRelease`, `OnMousePropertiesRelease`): If `boundbox_selection` was true:
+        - Normalizes coordinates: `last_click_map_x` and current `mouse_map_x` are sorted to get min/max X, similarly for Y.
+        - Floor range calculation (`Config::SELECTION_TYPE`):
+            - `SELECT_CURRENT_FLOOR`: Z is current `floor`.
+            - `SELECT_ALL_FLOORS`: Z iterates from `MAP_MAX_LAYER` down to current `floor`. `Config::COMPENSATED_SELECT` adjusts X/Y ranges for floors below ground.
+            - `SELECT_VISIBLE_FLOORS`: Z iterates from `GROUND_LAYER` (or `floor+2` if above ground) down to current `floor`. `Config::COMPENSATED_SELECT` adjusts X/Y.
+        - If `numtiles < 500` (or few worker threads), selection is synchronous: `editor.selection.start()`, loop tiles, `editor.selection.add(tile)`, `editor.selection.finish()`.
+        - Otherwise, it divides the X-range among `SelectionThread`s, starts them, then joins them using `editor.selection.join(thread)`. The entire operation is wrapped in `editor.selection.start()` and `editor.selection.finish()`.
+      - `ScreenToMap()`: Converts screen (mouse) coordinates to map coordinates, applying zoom and Z-level compensation.
+dependencies:
+  - BUILD-01                # CMake project setup
+  - CORE-01                 # For Position, Tile, Item definitions
+  - CORE-03                 # For Map data structure (getting tiles)
+  - CORE-04                 # For Action/History system (QUndoStack for selection actions)
+  - CORE-05                 # For SelectionManager class (which will be used by EditorController)
+  - CORE-06                 # For AppSettings (reading selection mode settings)
+  - LOGIC-01                # For EditorController, which will orchestrate the selection action
+  - RENDER-01               # For MapView, which needs to draw the visual selection rectangle (and provides mouse events)
+current_functionality_summary: |
+  When the user Shift-drags the mouse in selection mode on `MapCanvas` (`map_display.cpp`), the `boundbox_selection` flag is set.
+  - `MapCanvas::OnMouseMove` tracks the mouse and triggers repaints.
+  - `MapDrawer` (called from `MapCanvas::OnPaint`) renders a visual rectangle based on the drag points.
+  - Upon mouse release (`MapCanvas::OnMouseActionRelease` or `OnMousePropertiesRelease`), the map coordinates of the rectangle are determined.
+  - The application iterates through all tiles within this rectangle, considering settings like `Config::SELECTION_TYPE` (current floor, all floors, visible floors) and `Config::COMPENSATED_SELECT`.
+  - For each tile in the rectangle, `Selection::add(Tile*)` is called (potentially via `SelectionThread` for large areas to avoid UI freeze).
+  - The `Selection::add` method creates a deep copy of the tile, marks it and its contents as selected, and this change is recorded as part of an `Action` within an ongoing selection "session".
+  - When the selection session is finished (`Selection::finish()`), the encompassing `Action` (potentially a `BatchAction`) is pushed to the `ActionQueue`, making the entire bounding box selection operation undoable.
+qt6_migration_steps: |-
+  1.  **`MapView` Mouse Event Handling (from `RENDER-01` as it's the MapView provider):**
+      -   In `MapView::mousePressEvent()`: If Shift key is pressed (and in a selection tool mode):
+          -   Store `dragStartScreenPoint` (QPoint) and convert to `dragStartMapPosition` (map coordinates).
+          -   If Ctrl key is NOT pressed, call `editorController->clearSelection()` (which should create an undoable command).
+          -   Set a flag `isPerformingBoundingBoxSelection = true`.
+          -   Accept the event.
+      -   In `MapView::mouseMoveEvent()`: If `isPerformingBoundingBoxSelection == true`:
+          -   Store `currentDragScreenPoint`.
+          -   Call `update()` on `MapView` to trigger `paintEvent` for drawing the rectangle.
+      -   In `MapView::mouseReleaseEvent()`: If `isPerformingBoundingBoxSelection == true`:
+          -   Set `isPerformingBoundingBoxSelection = false`.
+          -   Convert `currentDragScreenPoint` to `currentDragMapPosition`.
+          -   Call `editorController->performBoundingBoxSelection(dragStartMapPosition, currentDragMapPosition, QGuiApplication::keyboardModifiers())`.
+          -   Call `update()` to clear the visual rectangle.
+
+  2.  **`MapView` Visual Feedback (from `RENDER-01`):**
+      -   In `MapView::paintEvent()` (or an overlay paint method):
+          -   If `isPerformingBoundingBoxSelection == true`, convert `dragStartScreenPoint` and `currentDragScreenPoint` to a `QRect`.
+          -   Draw this `QRect` using `QPainter` with a distinct style (e.g., dashed lines, semi-transparent fill).
+
+  3.  **`EditorController::performBoundingBoxSelection(const Position& p1, const Position& p2, Qt::KeyboardModifiers modifiers)` (from `LOGIC-01`):**
+      -   Determine the min/max map coordinates (x, y) from `p1` and `p2` to define the selection rectangle.
+      -   Retrieve selection settings from `AppSettings` (e.g., `SELECTION_TYPE`, `COMPENSATED_SELECT`).
+      -   Use these settings to determine the range of floors (z-levels) and any coordinate adjustments (compensation).
+      -   Create a new `SelectionCommand : QUndoCommand` (from `CORE-04`). Its constructor will take the rectangle definition and selection settings.
+      -   `SelectionCommand::redo()`:
+          -   If Ctrl key was NOT pressed during the drag (check `modifiers`), it should first clear the previous selection by calling `selectionManager->clearSelection(false)` (false to indicate it's part of this command).
+          -   Iterate through all tiles within the calculated rectangle and floor range.
+          -   For each `Tile* tile = map->getTile(currentPos);`:
+              -   If `tile` exists, call `selectionManager->addTileToSelection(tile, false)` (false to indicate it's part of this command, not a new undoable step). This method in `SelectionManager` marks the tile and its contents as selected.
+          -   Store necessary data for `undo()` (e.g., the list of tiles whose selection state was changed, or their previous selection states).
+      -   `SelectionCommand::undo()`:
+          -   Revert the selection state of the affected tiles to their state before this command.
+      -   Push the `SelectionCommand` to the `QUndoStack`.
+      -   (Consideration for large selections: The iteration and tile state changes within `SelectionCommand::redo/undo` could be lengthy. For now, assume synchronous execution. A future optimization might involve `QtConcurrent::run` within the command, but this adds complexity to undo/redo state management).
+
+  4.  **`SelectionManager` Update (from `CORE-05`):**
+      -   Ensure `SelectionManager::addTileToSelection(Tile* tile, bool createUndoCommand)` and `clearSelection(bool createUndoCommand)` can be called without creating their own `QUndoCommand`s when `createUndoCommand` is false, as they are being managed by `SelectionCommand`. They should just update the internal selection state.
+
+  5.  **UI Notification:**
+      -   After `SelectionCommand` is executed/undone/redone by `QUndoStack`, signals from `QUndoStack` or `SelectionManager` should trigger `MapView` to repaint and the status bar to update the selection count.
+definition_of_done: |
+  - When the user holds Shift and drags the mouse (left or right button based on settings) in a selection tool mode within the `MapView`:
+    - A visual rectangle is drawn on the screen following the mouse cursor, indicating the area being selected.
+  - Upon mouse release:
+    - All applicable map tiles (and their contents like items, creatures, spawns) within the defined rectangle are added to (or set as) the current selection in `SelectionManager`.
+    - The selection logic correctly respects settings for floor depth (current, all, visible) and coordinate compensation (`COMPENSATED_SELECT`).
+    - If Ctrl was not held during the drag, the previous selection is cleared before the new bounding box selection is applied. If Ctrl was held, the new selection is added to the existing selection.
+    - The entire bounding box selection operation (including any initial clearing) is a single undoable action on the `QUndoStack`.
+  - The `MapView` correctly updates to visually reflect the new selection state.
+  - Performance is acceptable for reasonably sized bounding box selections. (Large area selections using `SelectionThread` equivalent can be a follow-up optimization if needed).
+boilerplate_coder_ai_prompt: |
+  Implement bounding-box selection functionality. This involves handling mouse events in `MapView` to draw the selection rectangle and then, upon completion, using `EditorController` to process the selection with `SelectionManager` and make it an undoable action via `QUndoStack`.
+
+  **1. In `MapView` (`qtui/map_viewport.cpp`):**
+     -   Add member variables: `bool isPerformingBoundingBoxSelection = false; QPoint dragStartScreenPoint; QPoint currentDragScreenPoint;`.
+     -   `mousePressEvent(QMouseEvent* event)`:
+         -   If (e.g., left button) + `event->modifiers() & Qt::ShiftModifier` and current tool is a selection tool:
+             -   `isPerformingBoundingBoxSelection = true;`
+             -   `dragStartScreenPoint = event->pos();`
+             -   `currentDragScreenPoint = event->pos();`
+             -   If `!(event->modifiers() & Qt::ControlModifier)`, call `editorController->clearCurrentSelection();` (this method on controller should create an undoable command to clear previous selection and push it).
+             -   `update(); // For initial rectangle draw if needed`
+     -   `mouseMoveEvent(QMouseEvent* event)`:
+         -   If `isPerformingBoundingBoxSelection`:
+             -   `currentDragScreenPoint = event->pos();`
+             -   `update(); // To repaint the selection rectangle`
+     -   `mouseReleaseEvent(QMouseEvent* event)`:
+         -   If `isPerformingBoundingBoxSelection`:
+             -   `isPerformingBoundingBoxSelection = false;`
+             -   Convert `dragStartScreenPoint` and `currentDragScreenPoint` to map `Position p1, p2`.
+             -   Call `editorController->applyBoundingBoxSelection(p1, p2, event->modifiers());`
+             -   `update(); // To clear the rectangle and show final selection`
+     -   `paintEvent(QPaintEvent* event)` (or an overlay paint method):
+         -   If `isPerformingBoundingBoxSelection`:
+             -   `QPainter painter(this);`
+             -   `painter.setPen(Qt::DashLine);`
+             -   `painter.drawRect(QRect(dragStartScreenPoint, currentDragScreenPoint));`
+
+  **2. In `EditorController` (`editor/EditorController.cpp`):**
+     -   `void clearCurrentSelection()`:
+         -   Creates a `ClearSelectionCommand(selectionManager)` and pushes it to `undoStack`.
+     -   `void applyBoundingBoxSelection(const Position& p1, const Position& p2, Qt::KeyboardModifiers modifiers)`:
+         -   Determine min/max map coordinates from `p1, p2`.
+         -   Read selection settings from `appSettings` (floor range, compensation).
+         -   Calculate the final list of `Tile*` to be selected.
+         -   Create `BoundingBoxSelectCommand(selectionManager, map, tileList, modifiers & Qt::ControlModifier)` and push to `undoStack`.
+         -   `BoundingBoxSelectCommand::redo()`: Stores pre-selection state of affected tiles. If not additive, clears previous `selectionManager` state (for this command's scope). Calls `selectionManager->addTilesToSelectionInternal(tileList)` (a method that doesn't create its own undo command).
+         -   `BoundingBoxSelectCommand::undo()`: Restores pre-selection state.
+
+  **3. In `SelectionManager` (`mapcore/selection/SelectionManager.cpp` from `CORE-05`):**
+     -   Add `void addTilesToSelectionInternal(const QList<Tile*>& tiles)` and `void clearSelectionInternal()` that modify the selection state without creating `QUndoCommand`s themselves. These are called by the commands.
+     -   Ensure signals are emitted when selection changes to update UI.
+documentation_references:
+  - "Qt Mouse Events: https://doc.qt.io/qt-6/qmouseevent.html"
+  - "QPainter: https://doc.qt.io/qt-6/qpainter.html"
+  - "Coordinate Systems in Qt: https://doc.qt.io/qt-6/coordsys.html"
+  - "QUndoStack & QUndoCommand (from CORE-04): https://doc.qt.io/qt-6/qundostack.html"
+  - "QtConcurrent::run (for potential future optimization of large selections): https://doc.qt.io/qt-6/qtconcurrentrun.html"
+estimation_effort: Large

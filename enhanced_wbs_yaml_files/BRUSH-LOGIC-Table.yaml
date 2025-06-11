@@ -1,0 +1,39 @@
+id: BRUSH-LOGIC-Table
+section: Editor Behavior & Logic
+title: Port Table Brush Logic
+original_input_files:
+  - wxwidgets/table_brush.cpp
+  - wxwidgets/table_brush.h
+analyzed_input_files:
+  - file_path: wxwidgets/table_brush.h
+    description: Defines 'TableBrush' (inherits 'Brush'). Includes structures for 'TableType' (item ID and chance) and 'TableNode' for different alignments.
+  - file_path: wxwidgets/table_brush.cpp
+    description: Implements 'TableBrush'. Handles loading definitions from XML. 'doTables' method calculates and applies the correct table segment based on adjacent table pieces.
+dependencies:
+  - CORE-BRUSH-FRAMEWORK
+  - CORE-01
+  - CORE-02 # For ItemManager/ItemType
+  - LOGIC-01
+  - CORE-04
+  - CORE-14-MaterialSystem # Table brush definitions loaded via MaterialManager
+current_functionality_summary: |
+  The 'TableBrush' draws table-like items, automatically selecting the correct segment (vertical, horizontal, ends, alone) based on adjacent table pieces. Definitions are loaded from XML.
+qt6_migration_steps: |
+  1. Define `mapcore::TableBrush` class inheriting from `mapcore::Brush`.
+  2. Store current table brush definition (item IDs for alignments) loaded from `MaterialManager`.
+  3. Implement `apply()`:
+     - If erasing: Remove table item. Trigger updates for neighbors.
+     - If drawing: Implement 'doTables' logic: Analyze neighbors to select correct table segment item ID. Place item.
+     - Record changes for undo.
+definition_of_done: |
+  - `mapcore::TableBrush` is implemented.
+  - Table brush definitions are loaded and used.
+  - Auto-alignment logic correctly places table segments.
+  - Operations are undoable.
+  - Unit tests for table placement and alignment pass.
+boilerplate_coder_ai_prompt: |
+  Port `TableBrush` from `wxwidgets/table_brush.cpp/h` to `mapcore::TableBrush`.
+  1. Header: `mapcore::TableBrush : public mapcore::Brush`. Store current table definition (from `MaterialManager`).
+  2. Source: Implement `apply()`. Core logic is similar to `CarpetBrush` or `WallBrush` - check neighbors to determine which table segment item ID to use from the definition. Place/remove item. All changes via `EditorControllerInterface`.
+documentation_references: ["mapcore::Brush", "CORE-14-MaterialSystem", "mapcore::Tile", "mapcore::Item"]
+estimation_effort: Large

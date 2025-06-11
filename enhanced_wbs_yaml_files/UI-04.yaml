@@ -1,0 +1,138 @@
+id: UI-04
+section: UI Elements
+title: "Port Item, Creature, and Spawn Properties Dialogs"
+original_task_id: UI-04
+description: Recreate UI dialogs for viewing and editing properties of map items (general, container contents, custom attributes, type-specific attributes), creatures (spawn time, direction), and spawns (radius) using Qt6.
+dependencies:
+  - "CORE-01"  # For mapcore::Map, mapcore::Tile, mapcore::Item, mapcore::Creature, mapcore::Spawn, mapcore::Position
+  - "CORE-02"  # For mapcore::ItemType, mapcore::CreatureType, mapcore::Outfit definitions
+  - "LOGIC-02" # mapcore::ItemManager (to get ItemType details)
+  - "LOGIC-04" # mapcore::WaypointManager (if waypoints are linked in properties, though less likely here)
+  - "LOGIC-05" # mapcore::HouseManager, mapcore::TownManager (for depot town list, door house links)
+  - "LOGIC-07" # mapcore::SpawnProperties (for spawn radius)
+  - "UI-11"    # ItemFinderDialogQt (used by container editor tab for adding items to containers)
+  - "REFACTOR-01" # AppSettings (e.g., for USE_LARGE_CONTAINER_ICONS)
+  - "BUILD-01"   # CMake setup
+input_files:
+  - "wxwidgets/properties_window.cpp"
+  - "wxwidgets/properties_window.h"
+  - "wxwidgets/old_properties_window.cpp"
+  - "wxwidgets/old_properties_window.h"
+  - "wxwidgets/container_properties_window.cpp"
+  - "wxwidgets/container_properties_window.h"
+analyzed_input_files:
+  - filepath: "wxwidgets/properties_window.h"
+    description: "Declares 'PropertiesWindow' (derived from 'ObjectPropertiesWindowBase', a 'wxDialog'). This class is a newer, item-specific properties editor. It uses a 'wxNotebook' to manage different property editing panels for an 'Item'. Panels include 'Simple' (general attributes like ActionID, UniqueID), 'Contents' (for containers, using 'ContainerItemButton's), and 'Advanced' (for custom key-value attributes using 'wxGrid')."
+  - filepath: "wxwidgets/properties_window.cpp"
+    description: "Implements 'PropertiesWindow'. 'createGeneralPanel' sets up basic item ID display and 'wxSpinCtrl' for ActionID/UniqueID. 'createContainerPanel' creates a grid of 'ContainerItemButton' widgets to manage items within a container. 'createAttributesPanel' sets up a 'wxGrid' for custom attributes, allowing users to add/remove/edit keys and their typed values (String, Number, Float, Boolean), using 'wxGridCellChoiceEditor' for type selection and appropriate editors for values. 'OnClickOK' saves data from the active panel back to the 'Item' copy. 'OnGridValueChanged' handles type changes in the attributes grid."
+  - filepath: "wxwidgets/old_properties_window.h"
+    description: "Declares 'OldPropertiesWindow' (derived from 'ObjectPropertiesWindowBase', a 'wxDialog'). This is an older, versatile dialog that dynamically adjusts its layout and controls based on the type of object being edited: 'Item', 'Creature', or 'Spawn'. It holds pointers to various 'wxSpinCtrl', 'wxTextCtrl', 'wxChoice', and 'wxCheckBox' widgets for these different properties."
+  - filepath: "wxwidgets/old_properties_window.cpp"
+    description: |-
+      Implements: 'OldPropertiesWindow'. The constructor inspects the type of 'edit_item', 'edit_creature', or 'edit_spawn'.
+      - "For Items: It dynamically creates UI controls for common attributes (ActionID, UniqueID, Count/Subtype) and specialized fields based on 'ItemType' properties:"
+          - Containers: Displays items using 'ContainerItemButton's.
+          - Writeables/Books: 'wxTextCtrl' for text.
+          - Splashes/Fluids: 'wxChoice' for liquid type.
+          - Depots: 'wxChoice' for Town ID (from 'map->towns').
+          - Doors: 'wxSpinCtrl' for Door ID (enabled if on a house tile).
+          - Teleports: 'wxSpinCtrl's for Destination X, Y, Z.
+          - Podiums: 'wxChoice' for Direction; 'wxCheckBox'es for Show Outfit/Mount/Platform; 'wxSpinCtrl's for LookType, Head, Body, Legs, Feet, Addons, LookMount, and mount color components.
+          - Tiered Items: 'wxSpinCtrl' for Tier (for newer client versions).
+      - "For Creatures: Creates 'wxSpinCtrl' for spawn interval ('count_field' in this context) and 'wxChoice' for direction ('direction_field')."
+      - "For Spawns: Creates 'wxSpinCtrl' for spawn radius ('count_field' in this context)."
+      'OnClickOK' validates inputs (e.g., UID/AID ranges, text lengths, valid depot/town IDs, podium looktypes/colors) and saves the changes back to the edited object copy.
+  - filepath: "wxwidgets/container_properties_window.h"
+    description: "Declares 'ContainerItemButton' (custom 'ItemButton' for displaying items within a container editor UI, handling left/right clicks) and 'ContainerItemPopupMenu' (a 'wxMenu' for actions like Add/Edit/Remove item in a container slot). These are helper components used by 'PropertiesWindow' and 'OldPropertiesWindow'."
+  - filepath: "wxwidgets/container_properties_window.cpp"
+    description: "Implements 'ContainerItemButton' and 'ContainerItemPopupMenu'. 'ContainerItemButton::OnMouseDoubleLeftClick' triggers edit (if item exists) or add. 'ContainerItemButton::OnMouseRightRelease' shows the 'ContainerItemPopupMenu'. Menu actions ('OnAddItem', 'OnEditItem', 'OnRemoveItem') either open 'FindItemDialog' to add an item, open a new properties dialog ('PropertiesWindow' or 'OldPropertiesWindow') for the contained item, or remove the item from the parent 'Container`'s item vector. Updates the parent properties window after modification."
+documentation_references:
+  - 'QDialog: https://doc.qt.io/qt-6/qdialog.html'
+  - 'QTabWidget: https://doc.qt.io/qt-6/qtabwidget.html'
+  - 'QSpinBox, QLineEdit, QTextEdit, QComboBox, QCheckBox: Standard input widgets.'
+  - 'QTableWidget: https://doc.qt.io/qt-6/qtablewidget.html (for custom attributes)'
+  - 'QStyledItemDelegate: https://doc.qt.io/qt-6/qstyleditemdelegate.html (for custom editors in QTableWidget)'
+  - 'QListView with IconMode: https://doc.qt.io/qt-6/qlistview.html#viewMode-prop (for container contents)'
+  - 'QGridLayout, QFormLayout, QVBoxLayout, QHBoxLayout: For arranging widgets.'
+current_functionality_summary: |
+  The wxWidgets application provides item property editing through two main dialogs, with helper classes for container item display:
+  1.  **'OldPropertiesWindow'**: A versatile modal dialog that dynamically changes its layout and available fields based on the type of object being edited (Item, Creature, or Spawn).
+      *   For **Items**, it handles common attributes (ActionID, UniqueID, Count/Subtype) and specialized fields for types like: Containers (displaying items within using 'ContainerItemButton's), Writeables/Books (multi-line text input), Splashes/Fluids (liquid type selection), Depots (town ID selection), Doors (Door ID if on a house tile), Teleports (destination X,Y,Z), Podiums (direction, outfit display flags, detailed outfit/mount looktype and color inputs), and Tiered Items (tier value for newer client versions).
+      *   For **Creatures**: Edits spawn interval and facing direction.
+      *   For **Spawns**: Edits spawn radius.
+  2.  **'PropertiesWindow'** (newer, also modal): Provides a tabbed interface specifically for **Items**:
+      *   *'Simple'* Tab: Displays Item ID, Name (read-only), and allows editing ActionID, UniqueID.
+      *   *'Contents'* Tab: For container items, displays items in a grid of 'ContainerItemButton's. Allows adding (via item finder), editing (opens new properties dialog for the contained item), or removing items from the container via a context menu ('ContainerItemPopupMenu').
+      *   *'Advanced'* Tab: A 'wxGrid' for managing arbitrary key-value attributes (String, Number, Float, Boolean types) for an item, with type selection per attribute.
+  Both: dialogs operate on copies of the game objects, and changes are applied upon clicking "OK".
+definition_of_done:
+  - A Qt6 'ItemPropertiesDialogQt' (subclass of 'QDialog') is implemented, using a 'QTabWidget' for 'General', 'Contents', and 'Advanced Attributes' sections, serving as the primary dialog for item editing.
+  - "'ItemPropertiesDialogQt' - 'General' Tab: Displays read-only Item ID and Name (from 'mapcore::ItemType'). Provides 'QSpinBox' controls for Action ID and Unique ID. Dynamically populates additional controls within a dedicated area of this tab based on the 'mapcore::ItemType' of the item being edited, covering functionalities from 'OldPropertiesWindow' for specific item types: Stackables/Fluids/Charges ('QSpinBox' for count/subtype, 'QComboBox' for liquid type), Writeables ('QTextEdit' for text content), Depots ('QComboBox' for Town ID populated from 'TownManager'), Doors ('QSpinBox' for Door ID conditionally enabled if on a house tile), Teleports ('QSpinBox'es for Destination X, Y, Z), Podiums ('QComboBox' for Direction; 'QCheckBox'es for Show Outfit/Mount/Platform; multiple 'QSpinBox'es for LookType, Head, Body, Legs, Feet, Addons, LookMount, and mount color components), and Tiered Items ('QSpinBox' for Tier)."
+  - "'ItemPropertiesDialogQt' - 'Contents' Tab (for Container Items): Visible and enabled only if the edited item is a 'mapcore::Container'. Displays contained items in a grid view (e.g., 'QListView' in 'IconMode' using a custom model, or a custom grid of 'QPushButton'-like widgets displaying item sprites). Each cell represents a container slot. A context menu ('QMenu') on container slots/items allows 'Add Item...' (opens 'ItemFinderDialogQt'), 'Edit Item Properties...' (opens a new 'ItemPropertiesDialogQt' for a copy of the selected contained item), and 'Remove Item'."
+  - "'ItemPropertiesDialogQt' - 'Advanced Attributes' Tab: A 'QTableWidget' (columns: Key, Type, Value) allows viewing, adding, removing, and editing custom key-value attributes stored on the 'mapcore::Item'. The 'Type' column uses a 'QComboBox' (String, Integer, Float, Boolean). The 'Value' cell uses an appropriate editor widget ('QLineEdit', 'QSpinBox', 'QDoubleSpinBox', 'QCheckBox') based on the selected type, potentially using 'QTableWidget::setCellWidget' or a 'QStyledItemDelegate'."
+  - "Separate, simpler 'QDialog' subclasses are created for non-item objects: 'CreaturePropertiesDialogQt' (Edits a creature's spawn interval using 'QSpinBox' and direction using 'QComboBox' for North, East, South, West, etc.) and 'SpawnPropertiesDialogQt' (Edits a spawn's radius using 'QSpinBox')."
+  - All dialogs correctly load properties from the passed-in (copied) 'mapcore::Item', 'mapcore::Creature', or 'mapcore::SpawnProperties' object when shown.
+  - On 'OK' click, dialogs validate input and apply changes back to the *copied* object. The calling code (e.g., 'EditorController') is responsible for creating an undo action with this modified copy and applying it to the actual map data.
+  - Input validation is performed for relevant fields (e.g., numeric ranges, string lengths).
+  - Dialogs are modal, matching the original behavior.
+  - All UI elements have 'objectName' properties for testability.
+estimation_effort:
+  - "Very High (30-40 developer days). The 'ItemPropertiesDialogQt' is highly complex due to its dynamic 'General' tab needing to replicate many specific UIs from 'OldPropertiesWindow', plus the 'Contents' tab with its item grid and context menus, and the 'Advanced Attributes' tab with its typed editors. The separate Creature and Spawn dialogs are simpler but add to the total. Ensuring data is correctly loaded and saved back to item copies for undo integration is key."
+known_missing_files: []
+boilerplate_coder_ai_prompt: >
+  Your task is to port item, creature, and spawn properties editing dialogs from wxWidgets to Qt6. The main item dialog should be tabbed. These dialogs will edit copies of game objects, with the caller handling undo actions.
+
+  I. 'ItemPropertiesDialogQt' (Main Dialog, inherits 'QDialog'):
+  *   Constructor: 'ItemPropertiesDialogQt(QWidget* parent, const mapcore::Map* map, const mapcore::Tile* tileContext, mapcore::Item* itemCopy);' (Store 'itemCopy' to modify, 'map' and 'tileContext' for context like house tile status or town lists).
+  *   Use a 'QTabWidget'. Add 'QDialogButtonBox' (OK, Cancel).
+
+  1. 'General' Tab ('QWidget'):
+      - Layout: 'QFormLayout' or 'QGridLayout'.
+      - Read-only: 'QLabel' for Item ID, Item Name (populated from 'itemCopy->getItemType()').
+      - Editable: 'QSpinBox* m_actionIdSpin;', 'QSpinBox* m_uniqueIdSpin;' (ranges 0-65535, with 0 meaning not set; UIDs 1-999 might be reserved or invalid).
+      - Dynamic Section ('QWidget* m_typeSpecificWidgetArea' with 'QVBoxLayout* m_typeSpecificLayout'):
+          - In 'ItemPropertiesDialogQt' constructor, populate this area based on 'itemCopy->getItemType()':
+              - If stackable/fluid/charges: Add 'QLabel("Count/Subtype:")', 'QSpinBox m_countSpin;' (appropriate range based on item type).
+              - If fluid container or splash: Add 'QLabel("Liquid Type:")', 'QComboBox m_liquidTypeCombo;' (populate with known liquid types like "None", "Water", "Blood", etc., storing corresponding integer values).
+              - If writeable (book, letter): Add 'QLabel("Text:")', 'QTextEdit m_textEdit;' (set max length if applicable from 'ItemType').
+              - If depot: Add 'QLabel("Depot Town:")', 'QComboBox m_depotTownCombo;' (populate from 'map->getTownManager()->getTowns()', store town IDs).
+              - If door: Add 'QLabel("Door ID:")', 'QSpinBox m_doorIdSpin;' (conditionally enable if 'tileContext' is a house tile).
+              - If teleport: Add 'QLabel's and 'QSpinBox'es for "Dest X", "Dest Y", "Dest Z" ('m_destXSpin', 'm_destYSpin', 'm_destZSpin').
+              - If podium: Add 'QLabel("Direction:")', 'QComboBox m_podiumDirectionCombo;'. Add 'QCheckBox'es: 'm_showOutfitCheck', 'm_showMountCheck', 'm_showPlatformCheck'. Add 'QLabel's and 'QSpinBox'es for Outfit (LookType, Head, Body, Legs, Feet, Addons) and Mount (LookMount, Head, Body, Legs, Feet colors). Max color value typically 132 or 133. Addon range 0-3.
+              - If tiered item: Add 'QLabel("Tier:")', 'QSpinBox m_tierSpin;' (range 0-255).
+          - Populate these dynamic controls from 'itemCopy`'s current values.
+
+  2. 'Contents' Tab ('QWidget' - Visible and enabled only for Container Items):
+      - Layout: 'QVBoxLayout'.
+      - 'QListView* m_contentsView;' Set 'setViewMode(QListView::IconMode)' and 'setMovement(QListView::SnapGrid)' and 'setFlow(QListView::LeftToRight)'.
+      - 'QStandardItemModel* m_contentsModel;' Each 'QStandardItem' should display the item sprite ('setIcon') and count if >1 ('setText'). Store a *copy* of the 'mapcore::Item' in the 'QStandardItem' using 'setData(QVariant::fromValue(itemCopyPtr), Qt::UserRole)'.
+      - Buttons: 'QPushButton m_addItemButton;', 'QPushButton m_editItemButton;', 'QPushButton m_removeItemButton;'.
+      - Implement context menu on 'm_contentsView' with "Add Item...", "Edit Item Properties...", "Remove Item".
+      - Logic:
+          - 'onAddItem()': Open 'ItemFinderDialogQt' (from 'UI-11'). If an item is selected, create a copy, add to 'm_itemCopy' (the container being edited), and update 'm_contentsModel'.
+          - 'onEditItem()': For selected item in 'm_contentsView', get its stored 'mapcore::Item*' copy. Create another copy for editing. Open a new 'ItemPropertiesDialogQt' for this sub-item copy. If dialog is accepted, replace the item in 'm_itemCopy`'s contents with the edited sub-item copy and refresh 'm_contentsModel'.
+          - 'onRemoveItem()': Remove selected item from 'm_itemCopy`'s contents and 'm_contentsModel'.
+
+  3. 'Advanced Attributes' Tab ('QWidget'):
+      - Layout: 'QVBoxLayout'.
+      - 'QTableWidget* m_attributesTable;' (Columns: "Key" (QString), "Type" (QComboBox: String, Integer, Float, Boolean), "Value" (variant)).
+      - 'QPushButton m_addAttributeButton, m_removeAttributeButton;'.
+      - Logic:
+          - Populate table from 'itemCopy->getAttributes()'. For each attribute, set Key, select Type in QComboBox, set Value.
+          - 'onAddAttribute()': Add new row. "Key" is editable 'QLineEdit'. "Type" is 'QComboBox'. "Value" cell editor changes based on "Type" selection.
+          - When "Type" 'QComboBox' in a row changes, update the editor for the "Value" cell (e.g., 'QLineEdit' for String, 'QSpinBox' for Integer, 'QDoubleSpinBox' for Float, 'QCheckBox' for Boolean). This can be done using 'QTableWidget::setCellWidget' or a custom 'QStyledItemDelegate'.
+
+  4. Dialog Logic (ItemPropertiesDialogQt):
+      - 'void loadData()': Called in constructor. Populate all controls on all tabs from 'm_itemCopy'. Disable 'Contents' tab if not a container.
+      - 'void applyChanges()': Called internally when OK is clicked. Validate all inputs. Update 'm_itemCopy' with values from all controls, including parsing the 'Advanced Attributes' table and updating 'm_itemCopy->getAttributes()'.
+      - Connect 'QDialogButtonBox::accepted' to a slot that calls 'applyChanges()' then 'accept()'.
+
+  II. 'CreaturePropertiesDialogQt(QWidget* parent, mapcore::Creature* creatureCopy)' (inherits 'QDialog'):
+  *   UI: 'QFormLayout'. 'QLabel' for Name (read-only from 'creatureCopy->getType()->getName()'). 'QSpinBox m_spawnIntervalSpin;' (Spawn Interval in seconds). 'QComboBox m_directionCombo;' (N, E, S, W, NE, NW, SE, SW). 'QDialogButtonBox'.
+  *   Logic: Load data from 'creatureCopy' into controls. On OK, validate and update 'creatureCopy->setSpawnTime()' and 'creatureCopy->setDirection()'.
+
+  III. 'SpawnPropertiesDialogQt(QWidget* parent, mapcore::SpawnProperties* spawnPropsCopy)' (inherits 'QDialog'):
+  *   UI: 'QFormLayout'. 'QSpinBox m_spawnRadiusSpin;'. 'QDialogButtonBox'.
+  *   Logic: Load data from 'spawnPropsCopy->getSize()'. On OK, validate and update 'spawnPropsCopy->setSize()'.
+
+  Ensure all dialogs are modal. The caller (e.g., an 'EditorController') will handle creating copies of game objects, showing the dialog, and if 'exec() == QDialog::Accepted', creating and pushing an undo action with the modified copy.

@@ -1,0 +1,292 @@
+id: BUILD-02
+section: Build, Deployment, & Documentation
+title: Implement Packaging and Deployment
+description: Create platform-native installers and packages for Windows (MSI), macOS (.app in DMG), and Linux (.deb/.rpm) using CPack, including application icons and bundled dependencies.
+dependencies:
+  - "BUILD-01" # Depends on the initial CMake setup
+current_functionality_summary: The application's primary icon is `editor_icon.xpm`, loaded in `application.cpp` and set dynamically after a possible hue shift. `artprovider.cpp` handles other UI icons. For packaging, the core task is bundling this primary icon (`editor_icon.xpm` or a converted version) with platform-native installers. The current CMake setup (from BUILD-01) does not include packaging or installation capabilities.
+original_input_files:
+  - wxwidgets/application.cpp
+  - wxwidgets/artprovider.cpp
+analyzed_input_files:
+  - file_path: wxwidgets/application.cpp
+    description: |
+      Handles main application lifecycle and window setup.
+      Crucially, in `Application::OnInit()`, it loads the primary application icon from an XPM file (`../brushes/icon/editor_icon.xpm`, which resolves to `wxwidgets/brushes/icon/editor_icon.xpm`).
+      This XPM is converted to `wxBitmap`, then `wxImage` (allowing for dynamic hue shifts), and finally set as a `wxIcon` for the main application frame.
+      This file is key for identifying the source of the main application icon that needs to be processed (converted to .ico, .icns, high-res .png) for platform-native packaging.
+  - file_path: wxwidgets/artprovider.cpp
+    description: |
+      Implements `ArtProvider` (a `wxArtProvider`) to supply various UI icons, primarily for toolbars.
+      It directly includes multiple XPM files (e.g., `circular_1.xpm`, `door_normal_small.xpm`) and provides them as `wxBitmap` objects based on requested IDs.
+      While these are not the main application icon, they represent other image assets embedded in the application. For a Qt6 migration, these would typically be converted to PNGs and managed via Qt's Resource System or installed as assets.
+      This file's main relevance to this WBS task is informational, confirming the project uses embedded XPMs for UI elements beyond the main application icon. The core packaging work for BUILD-02 will focus on the main application icon identified in `application.cpp`.
+qt6_migration_steps: |
+  1. **Locate Icon Source:** The primary application icon is `editor_icon.xpm`, found within `wxwidgets/brushes/icon/`.
+  2. **Convert Icon Formats:**
+     - Create a high-resolution PNG from `editor_icon.xpm` (e.g., 512x512 or 1024x1024).
+     - For Windows: Generate an `.ico` file containing multiple sizes (e.g., 16x16, 32x32, 48x48, 256x256) from the high-res PNG.
+     - For macOS: Generate a set of PNGs (16x16, 32x32, 64x64, 128x128, 256x256, 512x512, 1024x1024) and package them into an `.icns` file.
+     - For Linux: Prepare PNG icons in various sizes (e.g., 64x64, 128x128, 256x256, 512x512).
+     - Store these converted icons in a new `packaging/icons/` directory within the source tree.
+  3. **Integrate CPack:**
+     - In the root `CMakeLists.txt` (from `BUILD-01`), include the CPack module: `include(CPack)`.
+  4. **Configure CPack Variables (in `CMakeLists.txt` or a `CPackConfig.cmake` file):**
+     - `SET(CPACK_PACKAGE_NAME "RME-Qt")`
+     - `SET(CPACK_PACKAGE_VERSION_MAJOR "0")` (Adjust as per project versioning)
+     - `SET(CPACK_PACKAGE_VERSION_MINOR "1")`
+     - `SET(CPACK_PACKAGE_VERSION_PATCH "0")`
+     - `SET(CPACK_PACKAGE_VENDOR "Remere's Map Editor Team")`
+     - `SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A modern map editor for OTBM maps")`
+     - `SET(CPACK_PACKAGE_CONTACT "YourContactEmailOrProjectURL")`
+     - `SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/COPYING")` (Assuming COPYING file exists)
+     - `SET(CPACK_PACKAGE_INSTALL_DIRECTORY "RME-Qt")`
+  5. **Platform-Specific CPack Settings:**
+     - **Windows (WIX):**
+       - `SET(CPACK_GENERATOR "WIX")`
+       - `SET(CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/packaging/icons/RME-Qt.ico")`
+       - `SET(CPACK_WIX_UPGRADE_GUID "YOUR_UNIQUE_GUID_HERE")` (Generate a new GUID)
+       - `SET(CPACK_WIX_PRODUCT_ICON "${CMAKE_CURRENT_SOURCE_DIR}/packaging/icons/RME-Qt.ico")`
+       - Consider `CPACK_WIX_UI_REF` for custom UI elements if needed (e.g., `WixUI_InstallDir`).
+     - **macOS (Bundle or DragNDrop for DMG):**
+       - `SET(CPACK_GENERATOR "Bundle;DragNDrop")` (Generates .app then DMG)
+       - Set `MACOSX_BUNDLE_ICON_FILE` target property for `RME_Qt` executable to `packaging/icons/RME-Qt.icns`.
+       - `SET(CPACK_BUNDLE_NAME "RME-Qt")`
+       - `SET(CPACK_BUNDLE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/packaging/icons/RME-Qt.icns")`
+       - `SET(CPACK_BUNDLE_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/packaging/macos/Info.plist")` (Create a basic Info.plist if not already managed by CMake)
+     - **Linux (DEB and RPM):**
+       - `SET(CPACK_GENERATOR "DEB;RPM")`
+       - `SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Your Name <your.email@example.com>")`
+       - `SET(CPACK_DEBIAN_PACKAGE_SECTION "editors")`
+       - `SET(CPACK_RPM_PACKAGE_GROUP "Applications/Editors")`
+       - `SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.md")` (if applicable)
+  6. **CMake `install()` Rules:**
+     - Main Executable: `install(TARGETS RME_Qt RUNTIME DESTINATION bin BUNDLE DESTINATION .)`
+     - Icons:
+       - Windows: Icon embedding in executable typically handled by setting `WIN32_EXECUTABLE` and an `.rc` file. CPack uses `CPACK_PACKAGE_ICON`.
+       - macOS: `MACOSX_BUNDLE_ICON_FILE` handles .app icon. `CPACK_BUNDLE_ICON` for DMG.
+       - Linux: `install(FILES packaging/icons/RME-Qt-256.png DESTINATION share/pixmaps RENAME ${CPACK_PACKAGE_NAME}.png)` (and other sizes if needed in `share/icons/hicolor/...`).
+     - `.desktop` file (Linux):
+       - Create `packaging/linux/RME-Qt.desktop` file.
+       - `install(FILES packaging/linux/RME-Qt.desktop DESTINATION share/applications)`
+       - (Consider using `ECMGenerateDesktopFile` from KDE's Extra CMake Modules for more robust generation).
+     - Data Files: `install(DIRECTORY XML/ DESTINATION data/XML/)` (Ensure paths are correct for runtime access, potentially using `CMAKE_INSTALL_PREFIX`).
+  7. **Qt Runtime Bundling:**
+     - Windows: Use `windeployqt` (can be an `install(CODE ...)` step or a post-build script).
+       `install(CODE "execute_process(COMMAND windeployqt --qmldir \"${CMAKE_SOURCE_DIR}\" \"$<TARGET_FILE:RME_Qt>\" --copydll 1 --compiler-runtime)")` (Adjust paths and options).
+     - macOS: Use `macdeployqt`.
+       `install(CODE "execute_process(COMMAND macdeployqt \"$<TARGET_FILE_DIR:RME_Qt>/RME-Qt.app\" -dmg)")`
+     - Linux: Set `CMAKE_INSTALL_RPATH` appropriately and ensure users have Qt6 runtime. `INSTALL_RPATH "\$ORIGIN:\$ORIGIN/../lib"` is common.
+  8. **Testing:** Build packages (`make package` or `cpack`) and test installation on each target platform.
+definition_of_done: |
+  - The CMake build system (from BUILD-01) is extended with CPack configurations to produce platform-native installers/packages.
+  - Generates an MSI installer for Windows.
+  - Generates a DMG image (containing an .app bundle) for macOS.
+  - Generates a .deb package for Debian-based Linux (RPM is optional but good).
+  - The application icon (derived from `wxwidgets/brushes/icon/editor_icon.xpm` and stored in `packaging/icons/`) is correctly:
+    - Displayed by the installers/packages (where applicable).
+    - Associated with the installed application (e.g., in shortcuts, .app bundle, window decorations).
+    - Visible in the respective OS application menus/launchers (via `.desktop` file on Linux).
+  - CPack configuration includes necessary metadata (name, version, vendor, description, license).
+  - Installers correctly place executables, essential data files (like `XML/clients.xml`), and icons in standard/appropriate locations.
+  - The created packages are installable, and the application launches correctly from the installed location, finding all its resources.
+  - Qt runtime dependencies are correctly bundled for Windows and macOS, and RPATH settings are appropriate for Linux.
+estimation_effort: Medium-High (10-15 developer days)
+boilerplate_coder_ai_prompt: |
+  Extend the CMake build system (from task BUILD-01) to support packaging with CPack for Windows (MSI), macOS (DMG with .app bundle), and Linux (.deb).
+
+  **Assumptions:**
+  - Main executable target is `RME_Qt`.
+  - Source for icons: `wxwidgets/brushes/icon/editor_icon.xpm`.
+  - Data files (e.g., `XML/clients.xml`) are located in an `XML/` directory at the project root.
+
+  **Tasks:**
+  1.  **Icon Preparation (Manual Step - User action required, AI cannot perform this):**
+      - Convert `editor_icon.xpm` (located in `wxwidgets/brushes/icon/`) into:
+          - `packaging/icons/RME-Qt.ico` (for Windows, multi-resolution: 16x16, 32x32, 48x48, 256x256).
+          - `packaging/icons/RME-Qt.icns` (for macOS, from multiple PNGs e.g., 16,32,64,128,256,512,1024px).
+          - `packaging/icons/RME-Qt-256.png` (or similar high-res PNG for Linux, e.g., 256x256 or 512x512).
+      - Create the `packaging/icons/` directory in the project root and add these converted icon files.
+
+  2.  **CMakeLists.txt Modifications (for the AI Coder):**
+      The following CMake script block should be added/integrated into the main `CMakeLists.txt` (presumably extended by BUILD-01).
+
+      ```cmake
+      # (Existing CMake setup from BUILD-00 and BUILD-01)
+      # ...
+
+      # --- CPack Integration ---
+      # Ensure CPack is included after all install rules and main target definitions.
+      # General CPack settings
+      set(CPACK_PACKAGE_NAME "RME-Qt")
+      set(CPACK_PACKAGE_VERSION_MAJOR "0") # Adjust as per project versioning
+      set(CPACK_PACKAGE_VERSION_MINOR "1")
+      set(CPACK_PACKAGE_VERSION_PATCH "0")
+      set(CPACK_PACKAGE_VERSION "\${CPACK_PACKAGE_VERSION_MAJOR}.\${CPACK_PACKAGE_VERSION_MINOR}.\${CPACK_PACKAGE_VERSION_PATCH}")
+      set(CPACK_PACKAGE_VENDOR "Remere's Map Editor Team") # Or appropriate name
+      set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A modern map editor for OTBM maps using Qt6")
+      set(CPACK_PACKAGE_CONTACT "https://github.com/rme-mapeditor/rme-qt") # Official project URL or contact
+      if(EXISTS "\${CMAKE_CURRENT_SOURCE_DIR}/COPYING") # Assuming a COPYING or LICENSE file
+          set(CPACK_RESOURCE_FILE_LICENSE "\${CMAKE_CURRENT_SOURCE_DIR}/COPYING")
+      endif()
+      set(CPACK_PACKAGE_INSTALL_DIRECTORY "RME-Qt") # Default installation directory component
+
+      # Windows specific (WIX)
+      if(WIN32)
+          set(CPACK_GENERATOR "WIX")
+          set(CPACK_PACKAGE_ICON "\${CMAKE_CURRENT_SOURCE_DIR}/packaging/icons/RME-Qt.ico") # Icon for installer
+          set(CPACK_WIX_PRODUCT_ICON "\${CMAKE_CURRENT_SOURCE_DIR}/packaging/icons/RME-Qt.ico") # Icon for Add/Remove Programs
+          # Generate a new GUID for your project: e.g., using https://www.guidgenerator.com/
+          set(CPACK_WIX_UPGRADE_GUID "PUT_A_REAL_UNIQUE_GUID_HERE_LATER") # Replace with a persistent unique GUID
+          set(CPACK_WIX_UI_REF "WixUI_InstallDir") # Standard UI allowing directory choice
+          # Note: Embedding icon into the .exe itself is usually done via a resource file (.rc) linked during compilation.
+          # CMake's `WIN32_EXECUTABLE` property on `add_executable` can be used if an .rc file is added to sources.
+      endif()
+
+      # macOS specific (Bundle & DragNDrop for DMG)
+      if(APPLE)
+          # Using "Bundle" first ensures the .app is correctly structured by CMake for CPack.
+          # "DragNDrop" then creates a DMG from this .app.
+          set(CPACK_GENERATOR "Bundle;DragNDrop")
+          # Set MACOSX_BUNDLE properties on the RME_Qt target (defined in BUILD-01)
+          set_target_properties(RME_Qt PROPERTIES
+              MACOSX_BUNDLE_ICON_FILE "\${CMAKE_CURRENT_SOURCE_DIR}/packaging/icons/RME-Qt.icns"
+              MACOSX_BUNDLE_BUNDLE_NAME "RME-Qt" # Name of the .app bundle
+              # MACOSX_BUNDLE_INFO_PLIST "\${CMAKE_CURRENT_SOURCE_DIR}/packaging/macos/Info.plist.in" # Optional: path to a custom Info.plist template
+          )
+          # CPack settings for the DMG appearance (optional)
+          # set(CPACK_DMG_BACKGROUND_IMAGE "\${CMAKE_CURRENT_SOURCE_DIR}/packaging/macos/dmg_background.png")
+          # set(CPACK_DMG_WINDOW_POSITION "200 120")
+          # set(CPACK_DMG_WINDOW_SIZE "600 400")
+          # set(CPACK_DMG_DS_STORE_SETUP_SCRIPT "\${CMAKE_CURRENT_SOURCE_DIR}/packaging/macos/setup_dmg_ds_store.sh") # For custom DMG layout
+          set(CPACK_PACKAGE_ICON "\${CMAKE_CURRENT_SOURCE_DIR}/packaging/icons/RME-Qt.icns") # Icon for the DMG itself
+      endif()
+
+      # Linux specific (DEB & RPM)
+      if(UNIX AND NOT APPLE)
+          set(CPACK_GENERATOR "DEB;RPM") # Build both, or user can select one via `cpack -G DEB`
+          set(CPACK_DEBIAN_PACKAGE_MAINTAINER "RME Team <contact@example.com>") # Replace with actual maintainer
+          set(CPACK_DEBIAN_PACKAGE_SECTION "editors")
+          # Example dependency, ensure this matches actual Qt6 component requirements and versions
+          set(CPACK_DEBIAN_PACKAGE_DEPENDS "qt6-base-gui (>= 6.2.0), libqt6opengl6 (>= 6.2.0)")
+          set(CPACK_RPM_PACKAGE_GROUP "Applications/Editors")
+          set(CPACK_RPM_PACKAGE_REQUIRES "qt6-qtbase-gui >= 6.2.0, libqt6-qtopengl >= 6.2.0") # Example
+          if(EXISTS "\${CMAKE_CURRENT_SOURCE_DIR}/README.md")
+              set(CPACK_PACKAGE_DESCRIPTION_FILE "\${CMAKE_CURRENT_SOURCE_DIR}/README.md")
+          endif()
+          # Linux icon installation is handled by `install(FILES ...)` rules below.
+      endif()
+
+      # --- Installation Rules (ensure these are correctly defined for RME_Qt target and resources) ---
+      # Example: install main executable (RME_Qt should be defined in BUILD-01)
+      install(TARGETS RME_Qt
+          RUNTIME DESTINATION bin    # Installs executable to 'bin' (e.g., /usr/local/bin or C:/Program Files/RME-Qt/bin)
+          BUNDLE DESTINATION .      # For macOS, installs RME-Qt.app into the root of the DMG
+          LIBRARY DESTINATION lib    # For shared libraries if the project builds any
+          ARCHIVE DESTINATION lib    # For static libraries if the project builds any
+      )
+
+      # Install data files (e.g., XML configurations from XML/ directory)
+      install(DIRECTORY "\${CMAKE_CURRENT_SOURCE_DIR}/XML/"
+          DESTINATION data/XML  # Relative to CMAKE_INSTALL_PREFIX, e.g., /usr/local/data/XML or C:/Program Files/RME-Qt/data/XML
+          FILES_MATCHING PATTERN "*.xml" PATTERN "*.otb" PATTERN "*.otfi" # Add other patterns if needed
+      )
+      # Add other install rules for assets like spritesheets if not embedded via Qt Resource System.
+
+      if(UNIX AND NOT APPLE) # Linux specific installations
+          # Install Linux application icon (e.g., PNG)
+          # Using a common size like 256x256 for general pixmaps, or multiple sizes to standard icon theme directories.
+          install(FILES "\${CMAKE_CURRENT_SOURCE_DIR}/packaging/icons/RME-Qt-256.png"
+              DESTINATION share/pixmaps RENAME "\${CPACK_PACKAGE_NAME}.png") # e.g. /usr/share/pixmaps/RME-Qt.png
+
+          # Create and install .desktop file for application menu integration
+          # A template file `RME-Qt.desktop.in` can be used with `configure_file` to insert version etc.
+          # Example content for packaging/linux/RME-Qt.desktop:
+          # [Desktop Entry]
+          # Name=RME-Qt
+          # Comment=Remere's Map Editor - Qt Version
+          # Exec=RME-Qt %f
+          # Icon=\${CPACK_PACKAGE_NAME}
+          # Terminal=false
+          # Type=Application
+          # Categories=Development;Graphics;2DGraphics;
+          # StartupWMClass=RME-Qt
+          # MimeType=application/octet-stream;application/x-otbm; # Adjust MimeType as appropriate
+          #
+          # For simplicity, assuming a static file named RME-Qt.desktop exists in packaging/linux/
+          install(FILES "\${CMAKE_CURRENT_SOURCE_DIR}/packaging/linux/RME-Qt.desktop"
+              DESTINATION share/applications) # e.g. /usr/share/applications/RME-Qt.desktop
+      endif()
+
+      # --- Qt Runtime Bundling (using install(CODE) for CPack post-processing) ---
+      # This ensures that when 'make package' or 'cpack' is run, these commands are executed
+      # after the installation phase and before packaging, operating on the files in the CPack staging area.
+      # The paths used by windeployqt/macdeployqt must refer to the CPack staging directory.
+      # CMAKE_INSTALL_PREFIX within install(CODE) here refers to the temporary CPack install root.
+
+      if(WIN32)
+          # Qt6_BIN_DIR should be available if Qt6 was found correctly (e.g. C:/Qt/6.x.y/msvc_version/bin)
+          install(CODE "
+              message(STATUS \"Running windeployqt for RME_Qt...\")
+              execute_process(
+                  COMMAND \${Qt6_BIN_DIR}/windeployqt.exe
+                      --qmldir \"\${CMAKE_CURRENT_SOURCE_DIR}\" # Path to your QML sources, if any
+                      --verbose 1
+                      --dir \"\${CMAKE_INSTALL_PREFIX}/bin\"     # Directory where RME_Qt.exe is installed by CPack
+                      \"\${CMAKE_INSTALL_PREFIX}/bin/RME_Qt.exe\" # Path to the RME_Qt.exe in CPack staging area
+                  RESULT_VARIABLE _windeployqt_result
+              )
+              if(NOT _windeployqt_result EQUAL 0)
+                  message(FATAL_ERROR \"windeployqt failed with exit code: \${_windeployqt_result}\")
+              endif()
+          ")
+      elseif(APPLE)
+          # Qt6_BIN_DIR should point to Qt's bin directory (e.g., /Users/user/Qt/6.x.y/macos/bin)
+          install(CODE "
+              message(STATUS \"Running macdeployqt for RME-Qt.app...\")
+              execute_process(
+                  COMMAND \${Qt6_BIN_DIR}/macdeployqt
+                      \"\${CMAKE_INSTALL_PREFIX}/RME-Qt.app\" # Path to RME-Qt.app in CPack staging area
+                      -dmg # Optional: creates a DMG automatically
+                      # -codesign=\"Your Developer ID Application\" # Optional: for code signing
+                  RESULT_VARIABLE _macdeployqt_result
+              )
+              if(NOT _macdeployqt_result EQUAL 0)
+                  message(FATAL_ERROR \"macdeployqt failed with exit code: \${_macdeployqt_result}\")
+              endif()
+          ")
+      else() # Linux
+          # For Linux, RPATH settings are usually preferred over bundling Qt libs.
+          # Ensure CMAKE_INSTALL_RPATH is set appropriately in the main CMakeLists.txt (BUILD-01 or BUILD-00)
+          # e.g., set(CMAKE_INSTALL_RPATH "\$ORIGIN:\$ORIGIN/../lib")
+          # And ensure CMAKE_BUILD_WITH_INSTALL_RPATH is ON.
+          # CPack will respect these RPATHs.
+          message(STATUS "Linux: Relying on RPATH settings for Qt dependencies.")
+      endif()
+
+      # This line must be at the very end of the root CMakeLists.txt, after all targets and install rules.
+      include(CPack)
+      ```
+
+  **User Notes & Setup:**
+  - **Icon Files:** You (the user) must create the `packaging/icons/` directory and populate it with the converted icon files (`RME-Qt.ico`, `RME-Qt.icns`, `RME-Qt-256.png`) as described in "Icon Preparation".
+  - **Linux Desktop File:** You (the user) must create a `packaging/linux/RME-Qt.desktop` file. A basic example is provided in the comments within the CMake script block above.
+  - **macOS Customization (Optional):** For a customized DMG appearance on macOS, you might need to create `packaging/macos/dmg_background.png` or a `packaging/macos/setup_dmg_ds_store.sh` script, and potentially a custom `Info.plist` template.
+  - **GUID for WiX:** For Windows MSI installers, a unique `CPACK_WIX_UPGRADE_GUID` needs to be generated once and then kept stable for the project to allow seamless upgrades. The placeholder needs to be replaced.
+  - **Qt Paths:** The `Qt6_BIN_DIR` variable is used to locate `windeployqt` and `macdeployqt`. This relies on Qt6 being found correctly by `find_package(Qt6 ...)` in an earlier build step (e.g., BUILD-01).
+  - **Testing:** Thorough testing of the generated installers/packages on each target platform (Windows, macOS, Linux) is crucial. This includes checking installation, uninstallation, icon display, and application launch.
+documentation_references:
+  - "https://cmake.org/cmake/help/latest/module/CPack.html"
+  - "https://cmake.org/cmake/help/latest/module/CPackComponent.html"
+documentation_references:
+  - "https://cmake.org/cmake/help/latest/module/CPack.html"
+  - "https://cmake.org/cmake/help/latest/module/CPackComponent.html"
+  - "https://cmake.org/cmake/help/latest/cpack_gen/wix.html"
+  - "https://cmake.org/cmake/help/latest/cpack_gen/dmg.html"
+  - "https://cmake.org/cmake/help/latest/cpack_gen/deb.html"
+  - "https://cmake.org/cmake/help/latest/cpack_gen/bundle.html"
+  - "https://doc.qt.io/qt-6/linux-deployment.html"
+  - "https://doc.qt.io/qt-6/windows-deployment.html"
+  - "https://doc.qt.io/qt-6/macos-deployment.html"
+  - "https://specifications.freedesktop.org/desktop-entry-spec/latest/"
+  - "https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFBundles/BundleTypes/BundleTypes.html#//apple_ref/doc/uid/10000123i-CH101-SW1"

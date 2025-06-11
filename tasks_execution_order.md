@@ -1,6 +1,6 @@
 # Suggested Task Execution Order
 
-This order is based on a topological sort of the dependencies declared in the 82 currently known and processed XML task files.
+This order is based on a topological sort of the dependencies declared in the 82 currently known and processed YAML task files.
 
 ## Starting Point Tasks (No prerequisites within the processed set):
 - BUILD-00 (Create Root CMakeLists.txt and Basic Project Structure)
@@ -97,25 +97,25 @@ This order is based on a topological sort of the dependencies declared in the 82
 ## Tasks with Unresolved Dependencies (Meta or Pointing to Missing Files):
 - LOGIC-01: depends on BRUSH-LOGIC-ALL
 
-## Additional Necessary Tasks (Potentially Missing XML Files)
+## Additional Necessary Tasks (Potentially Missing YAML Files)
 
-The following task IDs were part of an idealized comprehensive list of components. While dedicated XML files with these exact IDs were not found among the 82 processed files, their functionality is covered by other existing, broader WBS items:
+The following task IDs were part of an idealized comprehensive list of components. While dedicated YAML files with these exact IDs were not found among the 82 processed files, their functionality is covered by other existing, broader WBS items:
 
--   **PALETTE-Creature**: Covered by `UI-06.XML` (Port Creature Palette and Placed Creature Editor Dialog).
--   **PALETTE-House**: Covered by `UI-07.XML` (Port House Palette, Waypoint Palette, and EditHouseDialog).
--   **PALETTE-RAW**: Covered by `UI-10.XML` (Define RAW Items Palette and Terrain Brushes Palette).
--   **PALETTE-Terrain**: Covered by `UI-10.XML` (Define RAW Items Palette and Terrain Brushes Palette).
--   **PALETTE-Waypoints**: Covered by `UI-07.XML` (Port House Palette, Waypoint Palette, and EditHouseDialog).
--   **UI-MenuBar**: Functionality covered by `UI-01.XML` (Port Main Application Window (QMainWindow) and Dynamic Menu Bar from XML).
--   **UI-StatusBar**: Functionality covered by `UI-01.XML` (Port Main Application Window (QMainWindow) and Dynamic Menu Bar from XML).
--   **UI-TabBar**: Functionality (tabbed document interface for editors) covered by `UI-EditorWindow.XML`.
--   **UI-ToolBar**: Functionality (main application toolbars) covered by `UI-02.XML` (Port Main Application Toolbars and Comprehensive Palette System).
+-   **PALETTE-Creature**: Covered by `UI-06.yaml` (Port Creature Palette and Placed Creature Editor Dialog).
+-   **PALETTE-House**: Covered by `UI-07.yaml` (Port House Palette, Waypoint Palette, and EditHouseDialog).
+-   **PALETTE-RAW**: Covered by `UI-10.yaml` (Define RAW Items Palette and Terrain Brushes Palette).
+-   **PALETTE-Terrain**: Covered by `UI-10.yaml` (Define RAW Items Palette and Terrain Brushes Palette).
+-   **PALETTE-Waypoints**: Covered by `UI-07.yaml` (Port House Palette, Waypoint Palette, and EditHouseDialog).
+-   **UI-MenuBar**: Functionality covered by `UI-01.yaml` (Port Main Application Window (QMainWindow) and Dynamic Menu Bar from XML).
+-   **UI-StatusBar**: Functionality covered by `UI-01.yaml` (Port Main Application Window (QMainWindow) and Dynamic Menu Bar from XML).
+-   **UI-TabBar**: Functionality (tabbed document interface for editors) covered by `UI-EditorWindow.yaml`.
+-   **UI-ToolBar**: Functionality (main application toolbars) covered by `UI-02.yaml` (Port Main Application Toolbars and Comprehensive Palette System).
 
-Therefore, no new XML files need to be created for these specific IDs.
+Therefore, no new YAML files need to be created for these specific IDs.
 
 ### Likely Prerequisites for These Additional Tasks (General Notes):
 (This sub-section provides general guidance for any *truly* new tasks of these types if identified later)
 - All `BRUSH-LOGIC-*` tasks would generally depend on `CORE-BRUSH-FRAMEWORK` and relevant `CORE-*` data tasks.
 - All `PALETTE-*` tasks would generally depend on `UI-02` (Palette System) and the data/logic tasks for the items they display.
 - Specific `UI-*` component tasks would depend on `UI-01` (MainWindow) and relevant `RENDER-*` or `LOGIC-*` tasks.
-- `START.XML` (which was created) would likely be one of the very first tasks.
+- `START.yaml` (which was created) would likely be one of the very first tasks.

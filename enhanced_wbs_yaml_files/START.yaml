@@ -1,0 +1,33 @@
+id: START
+section: Project Management
+title: Project Start and Overall WBS Definition
+original_input_files: []
+analyzed_input_files: []
+dependencies:
+  # This task conceptually depends on the initiation of the build system.
+  - BUILD-00
+current_functionality_summary: |
+  This YAML file represents the conceptual start of the Work Breakdown Structure
+  for the RME-Qt migration project. It can serve as a root node in a project
+  management view or as a placeholder for listing all major top-level tasks or phases.
+  It does not correspond to a specific piece of code to be ported but rather to the
+  overall project definition itself.
+qt6_migration_steps: |
+  1. Define all major task categories (BUILD, CORE, DATA (now part of CORE), DOCS, FINAL, LOGIC, NET, REFACTOR, RENDER, TEST, UI).
+  2. List all top-level WBS items (YAML files) under their respective categories.
+  3. (Optional) Define project phases if applicable (e.g., Phase 1: Core Porting, Phase 2: UI Implementation, Phase 3: Testing & Finalization).
+  4. This file can be used by project management tools or scripts to get an overview of all defined tasks.
+definition_of_done: |
+  - `START.yaml` is created.
+  - It provides a high-level overview or entry point for understanding the project's WBS structure.
+  - (Optional) It lists major task categories or phases and references key top-level tasks.
+boilerplate_coder_ai_prompt: |
+  Create the `START.yaml` file.
+  Its purpose is to be the root or entry point for the WBS.
+  - Set `id: START`
+  - Set `section: Project Management`
+  - Set `title: Project Start and Overall WBS Definition`
+  - Dependencies can include the very first task, e.g., `BUILD-00`.
+  - The description fields should explain its role as a meta-task for project organization.
+documentation_references: []
+estimation_effort: Small
