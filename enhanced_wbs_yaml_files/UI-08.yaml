@@ -9,6 +9,7 @@ dependencies:
   - "CORE-02"      # For mapcore::CreatureType definitions (used when adding creatures to a spawn).
   - "REFACTOR-01"  # For AppSettings, potentially for default spawn values.
   - "BUILD-01"     # CMake setup.
+  - "LOGIC-01"
 input_files:
   - "wxwidgets/palette_creature.cpp"
   - "wxwidgets/palette_creature.h"

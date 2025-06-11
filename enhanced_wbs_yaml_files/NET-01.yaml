@@ -10,7 +10,7 @@ original_input_files:
   - "wxwidgets/live_socket.cpp"
 dependencies:
   - "CORE-01" # For Position, Tile, Item, Floor, QTreeNode definitions
-  - "CORE-03" # For MemoryNodeFileReadHandle, MemoryNodeFileWriteHandle, BinaryNode
+  - "CORE-07" # For MemoryNodeFileReadHandle, MemoryNodeFileWriteHandle, BinaryNode
   - "BUILD-01" # For mapcore library CMake setup
 analyzed_input_files:
   - filepath: "wxwidgets/live_packets.h"

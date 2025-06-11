@@ -102,6 +102,7 @@ analyzed_input_files:
 dependencies:
   - UI-01
   - BUILD-01
+  - LOGIC-01 
   - CORE-06 # AppSettings for palette styles, icon sizes
   - RENDER-01 # MapView (for context menu interactions, if any)
   - RENDER-03 # TextureManager (for sprite previews in palettes)

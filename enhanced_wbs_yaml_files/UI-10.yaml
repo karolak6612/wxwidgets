@@ -44,6 +44,7 @@ dependencies:
   - LOGIC-02
   - LOGIC-03
   - LOGIC-04
+  - LOGIC-01
 current_functionality_summary: |
   RAW items and various terrain brushes (grounds, walls, etc.) are likely selected in the legacy UI through dedicated palette sections. These sections would list items/brushes parsed from their respective XML definitions (`raw_palette.xml`, `grounds.xml`, `walls.xml`, `tilesets.xml`). The `palette_brushlist.cpp` and `palette_window.cpp` provide the general framework for displaying such lists and integrating them into the main palette UI.
 qt6_migration_steps: |-

@@ -24,6 +24,7 @@ dependencies:
   - CORE-BRUSH-FRAMEWORK   # For BrushManagerService (to set the active brush to a RAW-like brush)
   - REFACTOR-01            # For BrushStateService
   - RENDER-03              # For TextureManager (to render item sprites in the palette)
+  - LOGIC-01
 current_functionality_summary: |
   The legacy system likely had an item palette (or used parts of `BrushPalettePanel` for items)
   that displayed game items from `g_items` (ItemDatabase) for selection. Selecting an item

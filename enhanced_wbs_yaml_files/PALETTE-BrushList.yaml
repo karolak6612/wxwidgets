@@ -24,6 +24,7 @@ dependencies:
   - UI-02                  # Main Palette System framework
   - CORE-BRUSH-FRAMEWORK   # For BrushManagerService to get list of available brushes
   - REFACTOR-01            # For BrushStateService (if this palette directly sets active brush)
+  - LOGIC-01
 current_functionality_summary: |
   The legacy system has components like `BrushListBox` and `BrushPanel` within the
   overall palette framework (`PaletteWindow`) that can display lists of brushes.

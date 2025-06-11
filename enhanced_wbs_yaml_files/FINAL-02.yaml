@@ -32,6 +32,8 @@ dependencies:
   - CORE-03  # Specifically for Map::load/save and metadata methods
   - CORE-04  # For QUndoStack interaction (clearing, setClean)
   - CORE-07-MapIO # For map I/O operations
+  - UI-01     # Provides the MainWindow container 
+  - UI-02     # Provides the File Menu QAction objects 
 current_functionality_summary: |
   Following `FINAL-01`, the core map logic is minimally integrated with the Qt UI shell.
   Basic map data might be displayable. Undo/Redo and Selection/Clipboard systems are conceptually wired up.

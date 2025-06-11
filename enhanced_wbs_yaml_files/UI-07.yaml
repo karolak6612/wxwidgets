@@ -9,6 +9,7 @@ dependencies:
   - "CORE-11-WaypointSystem"     # For mapcore::WaypointManager
   - "CORE-09-HouseSystem"     # For mapcore::HouseManager, mapcore::TownManager
   - "BUILD-01"     # CMake setup
+  - "LOGIC-01"
 input_files:
   - "wxwidgets/palette_house.cpp"
   - "wxwidgets/palette_house.h"

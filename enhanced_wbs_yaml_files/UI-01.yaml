@@ -6,7 +6,6 @@ description: Recreate the main application window (as a 'QMainWindow' subclass) 
 dependencies:
   - "BUILD-01"   # CMake setup for the Qt application
   - "CORE-06"    # AppSettings (for persisting window state, recent files)
-  - "FINAL-02"   # main() application entry point, where MainWindow will be instantiated
 input_files:
   - "wxwidgets/application.h"
   - "wxwidgets/application.cpp"

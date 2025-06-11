@@ -24,6 +24,7 @@ dependencies:
   - LOGIC-01            # EditorController (to send user actions like brush strokes, selections)
   - REFACTOR-01         # For services like BrushStateService, EditorStateService to get current tool/mode
   - CORE-06             # AppSettings (for view preferences like scroll speed, zoom levels)
+  - LOGIC-01
 current_functionality_summary: |
   The `MapCanvas` in wxWidgets is a `wxGLCanvas` that not only renders the map
   (via `MapDrawer`) but also handles all mouse and keyboard input for interacting

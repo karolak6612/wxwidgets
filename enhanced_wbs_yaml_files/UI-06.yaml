@@ -11,6 +11,7 @@ dependencies:
   - "REFACTOR-01"  # Services like BrushStateService, EditorStateService
   - "CORE-02"      # Creature data and XML file structures (creatures.xml)
   - "BUILD-01"     # CMake setup
+  - "LOGIC-01"
 input_files:
   - "wxwidgets/palette_creature.cpp"
   - "wxwidgets/palette_creature.h"
