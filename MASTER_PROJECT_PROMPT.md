@@ -21,7 +21,7 @@ To understand your tasks and our workflow, you **MUST** familiarize yourself wit
 -   **`enhanced_wbs_yaml_files/` (Directory):** Contains all individual YAML files defining each specific migration task (e.g., `CORE-01.yaml`, `UI-02.yaml`). Each YAML includes:
     -   `id`: The unique task identifier.
     -   `title`: A human-readable title.
-    -   `original_input_files`: Key `wxwidgets` source files to analyze.
+    -   `original_input_files`: Key `wxwidgets` source files to you have to analyze. IT'S MANDATORY.
     -   `dependencies`: A list of other task IDs that must be completed before this task can start.
     -   `current_functionality_summary`: Description of the legacy feature.
     -   `qt6_migration_steps`: High-level plan for porting.

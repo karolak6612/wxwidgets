@@ -1,96 +1,68 @@
-#ifndef RME_APP_UNDO_COMMAND_H
-#define RME_APP_UNDO_COMMAND_H
+#ifndef APPUNDOCOMMAND_H
+#define APPUNDOCOMMAND_H
 
-#include <QUndoCommand> // From QtWidgets module
-#include <QList>        // For QList<Position> for signals
-#include "core/Position.h" // For RME::core::Position
+#include <QUndoCommand>
+// #include <QObject> // Required for signals/slots - Not using QObject for commands now
+#include <QDateTime>
+#include <QList>   // For QList<Position>
+#include "Position.h" // Ensure Position is known
 
 // Forward declaration
-namespace RME {
-namespace core {
-    class Map; // Forward declare Map
-} // namespace core
-} // namespace RME
-
-namespace RME {
-namespace core {
-namespace actions {
+class Map;
 
 /**
- * @brief Base class for all undoable commands in the application.
+ * @brief Base class for all application-specific undo commands.
  *
- * AppUndoCommand extends QUndoCommand to provide a common interface for commands
- * that operate on the RME::core::Map or other application components.
- * It includes functionality for tracking affected map positions and potentially
- * merging commands.
+ * AppUndoCommand extends QUndoCommand to provide common functionalities
+ * for commands within Remere's Map Editor, such as access to the Map object
+ * and a creation timestamp.
  */
-class AppUndoCommand : public QUndoCommand {
-    // Q_OBJECT // Not strictly necessary for QUndoCommand unless it has its own signals/slots
+class AppUndoCommand : public QUndoCommand // No QObject inheritance here for simplicity now
+{
 public:
     /**
      * @brief Constructs an AppUndoCommand.
-     * @param map Pointer to the map instance the command will operate on.
-     * @param parent Parent command, if any.
+     * @param map Pointer to the main Map object. Commands interact with this map. Non-owning.
+     * @param parent Optional parent QUndoCommand for macro commands.
      */
-    explicit AppUndoCommand(RME::core::Map* map, QUndoCommand* parent = nullptr);
+    explicit AppUndoCommand(Map* map, QUndoCommand *parent = nullptr);
+
     /**
-     * @brief Destroys the AppUndoCommand.
+     * @brief Destructor.
      */
     ~AppUndoCommand() override;
 
     /**
-     * @brief Returns a unique ID for the command type.
-     *
-     * This ID is used by QUndoStack to determine if commands can be merged.
-     * Commands with the same non-negative ID and that are consecutive in the stack
-     * can be merged if mergeWith() returns true.
-     * @return int The command ID. Default is -1 (no merging).
+     * @brief Gets the Map object associated with this command.
+     * @return Pointer to the Map object.
      */
-    int id() const override;
+    Map* getMap() const;
+
     /**
-     * @brief Attempts to merge this command with a subsequent command.
-     *
-     * This method is called by QUndoStack when a new command is pushed and has the
-     * same ID as the top command. If merging is possible (e.g., two consecutive
-     * paint operations on the same tile), this method should perform the merge and
-     * return true.
-     * @param other The command to merge with.
-     * @return bool True if merging was successful, false otherwise.
+     * @brief Gets the creation timestamp of this command.
+     * @return Timestamp in milliseconds since epoch when the command was created.
      */
-    bool mergeWith(const QUndoCommand* other) override;
+    qint64 creationTimestamp() const;
+
+    /**
+     * @brief Returns an ID for the command type.
+     * Used by QUndoStack to determine if commands can be merged.
+     * Default is -1 (not mergeable by type unless other also returns -1).
+     * @return Integer ID for the command type.
+     */
+    int id() const override { return -1; }
 
     /**
      * @brief Retrieves a list of map positions affected by this command.
-     *
-     * This method is used to identify which parts of the map need to be redrawn
-     * or updated after the command is executed or undone.
-     * @return QList<RME::core::Position> A list of affected positions.
+     * This method should be overridden by concrete commands to report the specific
+     * areas they modified, allowing for optimized UI updates.
+     * @return A QList of Position objects. Default implementation returns an empty list.
      */
-    virtual QList<RME::core::Position> getAffectedPositions() const;
-
-    /**
-     * @brief Estimates the memory cost of this command.
-     *
-     * QUndoStack can use this information if its undo limit is interpreted
-     * as a memory limit. The cost should be an estimate of the command's
-     * memory footprint in bytes. A cost of 0 is ignored by QUndoStack,
-     * and a cost of -1 makes the command un-undoable via the limit.
-     * Derived classes should override this to provide a more accurate cost.
-     *
-     * @return int The estimated memory cost of the command. Must be >= 1.
-     */
-    int cost() const override;
-
-signals:
-    // Example signal if commands were QObjects, but typically QUndoStack signals are used.
-    // void commandExecuted(const QList<RME::core::Position>& affectedPositions);
+    virtual QList<Position> getChangedPositions() const;
 
 protected:
-    RME::core::Map* m_map; // Non-owning pointer to the map instance
+    Map* m_map; ///< Non-owning pointer to the map data.
+    qint64 m_creation_timestamp; ///< Timestamp of command creation.
 };
 
-} // namespace actions
-} // namespace core
-} // namespace RME
-
-#endif // RME_APP_UNDO_COMMAND_H
+#endif // APPUNDOCOMMAND_H
