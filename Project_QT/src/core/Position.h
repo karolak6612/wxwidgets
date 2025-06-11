@@ -3,6 +3,7 @@
 
 #include "map_constants.h" // For validation
 #include <functional> // For std::hash
+#include <QtGlobal> // For qHash and uint
 
 // Forward declaration for ostream/istream operators if needed outside class
 // class QDataStream; // Example for Qt's serialization
@@ -45,6 +46,20 @@ struct Position {
 // If Qt's QDebug is to be used for logging Positions
 // class QDebug;
 // QDebug operator<<(QDebug dbg, const Position& pos);
+
+// qHash overload for RME::Position, enabling its use as a key in QHash, QMap, QSet, etc.
+inline uint qHash(const Position& key, uint seed = 0) {
+    // A common way to combine hashes for struct members
+    uint h1 = qHash(key.x, seed);
+    uint h2 = qHash(key.y, seed);
+    uint h3 = qHash(key.z, seed);
+    // Simple XOR combination, can be made more sophisticated if needed
+    return h1 ^ (h2 << 1) ^ (h3 << 2);
+    // Alternative from example:
+    // return qHash(key.x, seed) ^ qHash(key.y, seed << 1) ^ qHash(key.z, seed << 2);
+    // Or a more robust combination to better distribute hash values:
+    // return ((h1 << 16) | (h1 >> 16)) ^ h2 ^ ((h3 << 8) | (h3 >> 8)) ;
+}
 
 } // namespace RME
 

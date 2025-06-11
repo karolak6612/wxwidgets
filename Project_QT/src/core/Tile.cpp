@@ -8,7 +8,8 @@ Tile::Tile(const Position& pos, IItemTypeProvider* provider)
       ground(nullptr),
       creature(nullptr),
       spawn(nullptr),
-      house_id(0),
+      m_houseId(0), // Renamed
+      m_isHouseExit(false), // Added
       itemTypeProvider(provider),
       m_waypointCount(0)
 {
@@ -24,7 +25,8 @@ Tile::Tile(int x, int y, int z, IItemTypeProvider* provider)
       ground(nullptr),
       creature(nullptr),
       spawn(nullptr),
-      house_id(0),
+      m_houseId(0), // Renamed
+      m_isHouseExit(false), // Added
       itemTypeProvider(provider),
       m_waypointCount(0)
 {
@@ -36,7 +38,8 @@ Tile::Tile(int x, int y, int z, IItemTypeProvider* provider)
 // Copy constructor
 Tile::Tile(const Tile& other)
     : position(other.position),
-      house_id(other.house_id),
+      m_houseId(other.m_houseId), // Renamed
+      m_isHouseExit(other.m_isHouseExit), // Added
       mapFlags(other.mapFlags),
       stateFlags(other.stateFlags),
       itemTypeProvider(other.itemTypeProvider), // Copy non-owning pointer
@@ -51,7 +54,8 @@ Tile& Tile::operator=(const Tile& other) {
         return *this;
     }
     position = other.position;
-    house_id = other.house_id;
+    m_houseId = other.m_houseId; // Renamed
+    m_isHouseExit = other.m_isHouseExit; // Added
     mapFlags = other.mapFlags;
     stateFlags = other.stateFlags;
     itemTypeProvider = other.itemTypeProvider; // Copy non-owning pointer
@@ -74,14 +78,16 @@ Tile::Tile(Tile&& other) noexcept
       items(std::move(other.items)),
       creature(std::move(other.creature)),
       spawn(std::move(other.spawn)),
-      house_id(other.house_id),
+      m_houseId(other.m_houseId), // Renamed
+      m_isHouseExit(other.m_isHouseExit), // Added
       mapFlags(other.mapFlags),
       stateFlags(other.stateFlags),
       itemTypeProvider(other.itemTypeProvider),
       m_waypointCount(other.m_waypointCount)
 {
     // Reset simple types in source to a valid state if necessary, though for int/enum it's not critical
-    other.house_id = 0;
+    other.m_houseId = 0; // Renamed
+    other.m_isHouseExit = false; // Added
     other.mapFlags = TileMapFlag::NO_FLAGS;
     other.stateFlags = TileStateFlag::NO_FLAGS;
     other.itemTypeProvider = nullptr; // Source should not use this after move
@@ -98,13 +104,15 @@ Tile& Tile::operator=(Tile&& other) noexcept {
     items = std::move(other.items);
     creature = std::move(other.creature);
     spawn = std::move(other.spawn);
-    house_id = other.house_id;
+    m_houseId = other.m_houseId; // Renamed
+    m_isHouseExit = other.m_isHouseExit; // Added
     mapFlags = other.mapFlags;
     stateFlags = other.stateFlags;
     itemTypeProvider = other.itemTypeProvider;
     m_waypointCount = other.m_waypointCount;
 
-    other.house_id = 0;
+    other.m_houseId = 0; // Renamed
+    other.m_isHouseExit = false; // Added
     other.mapFlags = TileMapFlag::NO_FLAGS;
     other.stateFlags = TileStateFlag::NO_FLAGS;
     other.itemTypeProvider = nullptr;
@@ -332,5 +340,39 @@ size_t Tile::estimateMemoryUsage() const {
 void Tile::increaseWaypointCount() { ++m_waypointCount; }
 void Tile::decreaseWaypointCount() { if (m_waypointCount > 0) --m_waypointCount; }
 int Tile::getWaypointCount() const { return m_waypointCount; }
+
+// --- House-related Method Implementations ---
+
+// getHouseId() and setHouseId() might already exist if house_id member was present
+// Ensure they use m_houseId
+uint32_t Tile::getHouseId() const {
+    return m_houseId;
+}
+
+void Tile::setHouseId(uint32_t houseId) {
+    if (m_houseId != houseId) {
+        m_houseId = houseId;
+        // TODO: If the map is live, mark this tile dirty for rendering/saving
+        // if (getMap()) { // Assuming tile has a pointer to its map context via getMap()
+        //     getMap()->markTileDirty(getPosition());
+        // }
+        // addStateFlag(TileStateFlag::MODIFIED); // Or similar mechanism
+    }
+}
+
+bool Tile::isHouseExit() const {
+    return m_isHouseExit;
+}
+
+void Tile::setIsHouseExit(bool isExit) {
+    if (m_isHouseExit != isExit) {
+        m_isHouseExit = isExit;
+        // TODO: If the map is live, mark this tile dirty
+        // if (getMap()) {
+        //     getMap()->markTileDirty(getPosition());
+        // }
+        // addStateFlag(TileStateFlag::MODIFIED); // Or similar mechanism
+    }
+}
 
 } // namespace RME

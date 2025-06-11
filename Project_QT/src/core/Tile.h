@@ -87,8 +87,11 @@ public:
     bool hasSpawn() const { return spawn != nullptr; }
 
     // House ID
-    uint32_t getHouseID() const { return house_id; }
-    void setHouseID(uint32_t id) { house_id = id; }
+    uint32_t getHouseId() const { return m_houseId; } // Renamed for consistency
+    void setHouseId(uint32_t id) { m_houseId = id; }   // Renamed for consistency
+
+    bool isHouseExit() const;
+    void setIsHouseExit(bool isExit);
 
     // Flags
     TileMapFlags getMapFlags() const { return mapFlags; }
@@ -127,7 +130,8 @@ private:
     QList<std::unique_ptr<Item>> items;
     std::unique_ptr<RME::core::creatures::Creature> creature;
     std::unique_ptr<Spawn> spawn;
-    uint32_t house_id = 0;
+    uint32_t m_houseId = 0; // Renamed from house_id
+    bool m_isHouseExit = false; // New flag
 
     TileMapFlags mapFlags = TileMapFlag::NO_FLAGS;
     TileStateFlags stateFlags = TileStateFlag::NO_FLAGS;
