@@ -63,12 +63,19 @@ constexpr uint8_t OTBM_ATTR_DEPOT_ID            = 0x26; // U16 (Depot chest ID)
 constexpr uint8_t OTBM_ATTR_CHARGES             = OTBM_ATTR_COUNT; // Often same ID, context implies meaning
 
 // HACK attributes for NodeData simulation (remove when NodeFileWriteHandle supports raw node data)
-constexpr uint8_t OTBM_ATTR_AREA_BASE_X_HACK    = 0xF0;
-constexpr uint8_t OTBM_ATTR_AREA_BASE_Y_HACK    = 0xF1;
-constexpr uint8_t OTBM_ATTR_AREA_BASE_Z_HACK    = 0xF2;
-constexpr uint8_t OTBM_ATTR_TILE_REL_X_HACK     = 0xF3;
-constexpr uint8_t OTBM_ATTR_TILE_REL_Y_HACK     = 0xF4;
-constexpr uint8_t OTBM_ATTR_ITEM_ID_HACK        = 0xF5;
+constexpr uint8_t OTBM_ATTR_AREA_BASE_X_HACK    = 0xF0; // Used in save path for now
+constexpr uint8_t OTBM_ATTR_AREA_BASE_Y_HACK    = 0xF1; // Used in save path for now
+constexpr uint8_t OTBM_ATTR_AREA_BASE_Z_HACK    = 0xF2; // Used in save path for now
+constexpr uint8_t OTBM_ATTR_TILE_REL_X_HACK     = 0xF3; // Used in save path for now
+constexpr uint8_t OTBM_ATTR_TILE_REL_Y_HACK     = 0xF4; // Used in save path for now
+constexpr uint8_t OTBM_ATTR_ITEM_ID_HACK        = 0xF5; // Used in save path for now
+
+// OTBM Waypoint Attributes (for OTBM_NODE_WAYPOINT)
+constexpr uint8_t OTBM_ATTR_WAYPOINT_NAME           = 0x30; // String (Waypoint name itself is often node data or a primary fixed attribute)
+constexpr uint8_t OTBM_ATTR_WAYPOINT_POSITION_X     = 0x31; // U16 (Position X)
+constexpr uint8_t OTBM_ATTR_WAYPOINT_POSITION_Y     = 0x32; // U16 (Position Y)
+constexpr uint8_t OTBM_ATTR_WAYPOINT_POSITION_Z     = 0x33; // U8  (Position Z)
+constexpr uint8_t OTBM_ATTR_WAYPOINT_CONNECTION_TO  = 0x34; // String (Name of connected waypoint, can appear multiple times)
 
 
 // OTBM Tile Flags (bitfield for OTBM_ATTR_TILE_FLAGS)

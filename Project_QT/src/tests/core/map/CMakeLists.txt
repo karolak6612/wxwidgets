@@ -19,6 +19,10 @@ add_executable(TestCoreMap_Map TestMap.cpp)
 target_link_libraries(TestCoreMap_Map PRIVATE Qt6::Test Qt6::Core rme_core_lib)
 add_test(NAME TestCoreMap_Map COMMAND TestCoreMap_Map)
 
+add_executable(TestCoreMap_WaypointData TestWaypointData.cpp)
+target_link_libraries(TestCoreMap_WaypointData PRIVATE Qt6::Test Qt6::Core rme_core_lib)
+add_test(NAME TestCoreMap_WaypointData COMMAND TestCoreMap_WaypointData)
+
 # Note: The sample data files are created programmatically within each test's initTestCase().
 # This makes tests self-contained for this phase.
 # For CI/CD or more complex data, copying test data via CMake install rules

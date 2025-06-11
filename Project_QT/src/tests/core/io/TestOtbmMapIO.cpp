@@ -11,6 +11,7 @@
 #include "core/assets/ItemDatabase.h" // For ItemType
 #include "core/settings/AppSettings.h"
 #include "core/IItemTypeProvider.h" // For MockItemTypeProvider
+#include "core/map/MapElements.h"   // For WaypointData
 
 // A simple mock item type provider for testing purposes
 // In a real scenario, this would be in a shared test utility.
@@ -100,6 +101,7 @@ private slots:
     void testLoad_NonExistentFile();
     void testGetSupportedFileExtensions();
     void testGetFormatName();
+    void testSaveAndLoad_MapWithWaypointConnections();
 
 private:
     MockItemTypeProvider* m_mockItemProvider; // Owned by AssetManager
@@ -255,4 +257,65 @@ void TestOtbmMapIO::testGetFormatName() {
 }
 
 // QTEST_MAIN(TestOtbmMapIO) // Will be run by rme_core_io_tests
+
+void TestOtbmMapIO::testSaveAndLoad_MapWithWaypointConnections() {
+    m_map->setDescription("Map With Waypoint Connections");
+    m_map->setWidth(200); // Ensure enough space if positions are far
+    m_map->setHeight(200);
+    m_map->setDepth(8);
+
+    // Create Waypoints
+    RME::WaypointData wp1("CentralHub", {100, 100, 7});
+    wp1.addConnection("NorthExit");
+    wp1.addConnection("SouthPost");
+    m_map->addWaypoint(wp1); // Map::addWaypoint should handle copying/moving
+
+    RME::WaypointData wp2("NorthExit", {100, 50, 7});
+    wp2.addConnection("CentralHub");
+    m_map->addWaypoint(wp2);
+
+    RME::WaypointData wp3("SouthPost", {100, 150, 7});
+    wp3.addConnection("CentralHub");
+    m_map->addWaypoint(wp3);
+
+    // Save the map
+    QString filePath = m_tempDir.filePath("map_with_wp_connections.otbm");
+    bool saveResult = m_mapIO->saveMap(filePath, *m_map, *m_assetManager, *m_appSettings);
+    QVERIFY2(saveResult, qPrintable("Save failed: " + m_mapIO->getLastError()));
+
+    // Load into a new map
+    RME::core::Map targetMap(&(m_assetManager->getItemDatabase()));
+    bool loadResult = m_mapIO->loadMap(filePath, targetMap, *m_assetManager, *m_appSettings);
+    QVERIFY2(loadResult, qPrintable("Load failed: " + m_mapIO->getLastError()));
+
+    // Verify Waypoints and Connections
+    QCOMPARE(targetMap.getWaypoints().size(), 3);
+
+    const RME::WaypointData* loadedWp1 = targetMap.getWaypoint("CentralHub");
+    QVERIFY2(loadedWp1 != nullptr, "Waypoint 'CentralHub' not found after load.");
+    if (loadedWp1) {
+        QCOMPARE(loadedWp1->position, RME::Position(100, 100, 7));
+        QCOMPARE(loadedWp1->getConnections().size(), 2);
+        QVERIFY(loadedWp1->isConnectedTo("NorthExit"));
+        QVERIFY(loadedWp1->isConnectedTo("SouthPost"));
+    }
+
+    const RME::WaypointData* loadedWp2 = targetMap.getWaypoint("NorthExit");
+    QVERIFY2(loadedWp2 != nullptr, "Waypoint 'NorthExit' not found after load.");
+    if (loadedWp2) {
+        QCOMPARE(loadedWp2->position, RME::Position(100, 50, 7));
+        QCOMPARE(loadedWp2->getConnections().size(), 1);
+        QVERIFY(loadedWp2->isConnectedTo("CentralHub"));
+    }
+
+    const RME::WaypointData* loadedWp3 = targetMap.getWaypoint("SouthPost");
+    QVERIFY2(loadedWp3 != nullptr, "Waypoint 'SouthPost' not found after load.");
+    if (loadedWp3) {
+        QCOMPARE(loadedWp3->position, RME::Position(100, 150, 7));
+        QCOMPARE(loadedWp3->getConnections().size(), 1);
+        QVERIFY(loadedWp3->isConnectedTo("CentralHub"));
+    }
+}
+
+
 #include "TestOtbmMapIO.moc" // Must be last line for MOC to work
