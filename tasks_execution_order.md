@@ -68,30 +68,31 @@ This order is based on a topological sort of the dependencies declared in the 82
 58. PALETTE-Item: Implement General Item Palette/Browser
 59. RENDER-04-LightingSystem: Port Lighting System
 60. REFACTOR-01: Decouple UI State and Services from Global Access (Refactor Conceptual GuiManager)
-61. TEST-04: Develop Unit Tests for Brush Application and Material System Logic
-62. TEST-05: Develop Unit Tests for Map Actions and Selection Logic
-63. UI-05: Port Brush & Material Editor
-64. UI-06: Port Creature Palette and Placed Creature Editor Dialog
-65. UI-07: Port House Palette, Waypoint Palette, and EditHouseDialog
-66. UI-10: Define RAW Items Palette and Terrain Brushes Palette
-67. UI-MinimapView: Implement Minimap View Widget
-68. DOCS-02: Create User Manual and Feature Documentation
-69. FINAL-02: Implement File Menu Operations (New, Open, Save, Save As, Close)
-70. FINAL-03: Implement Edit Menu Operations & Link Preferences Dialog
-71. TEST-07: Develop Integration Tests for Map Rendering System
-72. UI-DIALOGS-LIVE-CONNECT: Implement Live Collaboration Connection Dialog
-73. FINAL-04: Implement View Menu & Common Tools Menu Operations
-74. UI-08: Port Spawn Creation Settings and Spawn Properties Editor
-75. UI-09: Port Live Server Control Panel
-76. FINAL-05: Implement Live Collaboration Client Functionality
-77. FINAL-06: Implement About Dialog & Welcome Screen
-78. TEST-08: Develop Integration Tests for Live Collaboration Server and Client
-79. UI-04: Port Item, Creature, and Spawn Properties Dialogs
-80. FINAL-07: Apply Qlementine Styling to Application
-81. TEST-09: Develop UI Tests for Key Editor Features and Workflows
-82. REFACTOR-02: Define and Execute Performance & Memory Profiling Strategy for Qt Application
-83. TEST-10: Execute and Document Cross-Platform UI Compatibility Tests
-84. REFACTOR-03: Implement Rendering Optimizations Based on Profiling Report
+61. UI-11: Port Item Finder Dialog
+62. TEST-04: Develop Unit Tests for Brush Application and Material System Logic
+63. TEST-05: Develop Unit Tests for Map Actions and Selection Logic
+64. UI-05: Port Brush & Material Editor
+65. UI-06: Port Creature Palette and Placed Creature Editor Dialog
+66. UI-07: Port House Palette, Waypoint Palette, and EditHouseDialog
+67. UI-10: Define RAW Items Palette and Terrain Brushes Palette
+68. UI-MinimapView: Implement Minimap View Widget
+69. DOCS-02: Create User Manual and Feature Documentation
+70. FINAL-02: Implement File Menu Operations (New, Open, Save, Save As, Close)
+71. FINAL-03: Implement Edit Menu Operations & Link Preferences Dialog
+72. TEST-07: Develop Integration Tests for Map Rendering System
+73. UI-DIALOGS-LIVE-CONNECT: Implement Live Collaboration Connection Dialog
+74. FINAL-04: Implement View Menu & Common Tools Menu Operations
+75. UI-08: Port Spawn Creation Settings and Spawn Properties Editor
+76. UI-09: Port Live Server Control Panel
+77. FINAL-05: Implement Live Collaboration Client Functionality
+78. FINAL-06: Implement About Dialog & Welcome Screen
+79. TEST-08: Develop Integration Tests for Live Collaboration Server and Client
+80. UI-04: Port Item, Creature, and Spawn Properties Dialogs
+81. FINAL-07: Apply Qlementine Styling to Application
+82. TEST-09: Develop UI Tests for Key Editor Features and Workflows
+83. REFACTOR-02: Define and Execute Performance & Memory Profiling Strategy for Qt Application
+84. TEST-10: Execute and Document Cross-Platform UI Compatibility Tests
+85. REFACTOR-03: Implement Rendering Optimizations Based on Profiling Report
 
 ## Tasks with Unresolved Dependencies (Meta or Pointing to Missing Files):
 - LOGIC-01: depends on BRUSH-LOGIC-ALL

@@ -132,6 +132,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [ ] UI-06 (Port Creature Palette and Placed Creature Editor Dialog)
 - [ ] UI-07 (Port House Palette, Waypoint Palette, and EditHouseDialog)
 - [ ] UI-10 (Define RAW Items Palette and Terrain Brushes Palette)
+- [ ] UI-11 (Port Item Finder Dialog) - [YAML](enhanced_wbs_yaml_files/UI-11-ItemFinderDialog.yaml)
 - [ ] UI-MinimapView (Implement Minimap View Widget)
 - [ ] FINAL-02 (Implement File Menu Operations (New, Open, Save, Save As, Close))
 - [ ] FINAL-03 (Implement Edit Menu Operations & Link Preferences Dialog)
