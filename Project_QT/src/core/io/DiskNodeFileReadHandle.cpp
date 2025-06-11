@@ -1,135 +1,121 @@
 #include "core/io/DiskNodeFileReadHandle.h"
-// #include "core/io/otbm_constants.h" // Base class NodeFileReadHandle includes this if needed for its parsing logic
-
-#include <QDebug> // For potential logging
+#include "core/io/otbm_constants.h" // For error codes
+#include <QDebug>                   // For qWarning
+#include <QtEndian>                 // For qFromLittleEndian (if reading header values)
 
 namespace RME {
 namespace core {
 namespace io {
 
-/**
- * @brief Constructs a DiskNodeFileReadHandle.
- * @param filePath The path to the OTBM file to be read.
- */
-DiskNodeFileReadHandle::DiskNodeFileReadHandle(const QString& filePath) :
-    NodeFileReadHandle(), m_file(filePath) {
+DiskNodeFileReadHandle::DiskNodeFileReadHandle(const QString& filePath)
+    : NodeFileReadHandle() // Call base constructor
+    , m_file(filePath)
+    // m_stream is initialized after file is opened
+{
     if (!m_file.open(QIODevice::ReadOnly)) {
-        m_error = RME_OTBM_IO_ERROR_FILE_OPEN; // Use defined error code
+        m_error = RME_OTBM_IO_ERROR_FILE_OPEN;
         qWarning() << "DiskNodeFileReadHandle: Failed to open file:" << filePath << "Error:" << m_file.errorString();
         return;
     }
+
     m_stream.setDevice(&m_file);
     m_stream.setByteOrder(QDataStream::LittleEndian); // OTBM is typically little-endian
 
-    // The base class constructor NodeFileReadHandle() or an explicit init method
-    // in NodeFileReadHandle would typically call getRootNode() or similar,
-    // which then uses ensureBytesAvailable and readByteUnsafe.
-    // No explicit priming is needed here beyond setting up the stream.
+    // Handle OTBM File Identifier (first 4 bytes)
+    // Common practice: 0x00000000 or "OTBM".
+    // wxDiskNodeFileReadHandle reads this and validates against acceptable_identifiers.
+    // For this version, we'll read it. Strict validation can be added or be OtbmMapIO's job.
+    if (m_file.size() < 4) {
+        m_error = RME_OTBM_IO_ERROR_SYNTAX; // Or a more specific header error
+        qWarning() << "DiskNodeFileReadHandle: File too short for OTBM identifier:" << filePath;
+        m_file.close();
+        return;
+    }
+
+    char identifier[4];
+    qint64 bytesRead = m_stream.readRawData(identifier, 4);
+
+    if (bytesRead != 4) {
+        m_error = RME_OTBM_IO_ERROR_READ_FAILED;
+        qWarning() << "DiskNodeFileReadHandle: Failed to read OTBM identifier from:" << filePath << "Stream status:" << m_stream.status();
+        m_file.close();
+        return;
+    }
+
+    // Basic check: could compare against known identifiers like "OTBM" or check if first byte is NODE_START
+    // For now, we just consume these 4 bytes. NodeFileReadHandle::getRootNode() expects to see NODE_START next.
+    // If these 4 bytes *were* the NODE_START and type etc., then NodeFileReadHandle logic would be different.
+    // But typical OTBM has these as a preamble.
+    // Example validation (can be expanded):
+    // uint32_t magic = qFromLittleEndian<quint32>(reinterpret_cast<const uchar*>(identifier));
+    // if (magic != 0x00000000 && !(identifier[0]=='O' && identifier[1]=='T' && identifier[2]=='B' && identifier[3]=='M')) {
+    //     qWarning() << "DiskNodeFileReadHandle: Invalid OTBM identifier.";
+    //     m_error = RME_OTBM_IO_ERROR_SYNTAX;
+    //     m_file.close();
+    //     return;
+    // }
+
+    // If the identifier itself was NODE_START, then we need to unread or adjust.
+    // However, typical OTBM has this 4-byte header *before* the first NODE_START.
+    // So, after reading these 4 bytes, the stream should be positioned at the first NODE_START.
 }
 
-/**
- * @brief Destroys the DiskNodeFileReadHandle.
- * Closes the file if it is open.
- */
 DiskNodeFileReadHandle::~DiskNodeFileReadHandle() {
     if (m_file.isOpen()) {
         m_file.close();
     }
 }
 
-/**
- * @brief Gets the current read position in the file.
- * @return Current position in bytes, or 0 on error/closed file.
- */
 size_t DiskNodeFileReadHandle::tell() const {
     if (!m_file.isOpen() || m_error != RME_OTBM_IO_NO_ERROR) {
-        // It might be better to throw an exception or return a specific error value like static_cast<size_t>(-1)
-        // if the design allows for it, rather than returning 0 which could be a valid position.
-        // However, consistency with base class or typical stream behavior is also important.
-        return 0;
+        return 0; // Or some other error indicator if size_t can't be -1
     }
+    // Returns position from start of file, which is what's needed.
+    // The initial 4 bytes are already consumed from m_stream's perspective if constructor succeeded.
+    // Base NodeFileReadHandle works on the stream *after* this header.
     return static_cast<size_t>(m_file.pos());
 }
 
-/**
- * @brief Checks if the end of the file has been reached.
- * @return True if EOF is reached or file is not open/error, false otherwise.
- */
 bool DiskNodeFileReadHandle::isEof() const {
-    if (!m_file.isOpen() || m_error != RME_OTBM_IO_NO_ERROR) {
-        return true; // If there's an error or not open, treat as EOF
+    if (m_error != RME_OTBM_IO_NO_ERROR || !m_file.isOpen()) {
+        return true; // Treat error or closed file as EOF
     }
-    return m_stream.atEnd();
+    return m_stream.atEnd(); // QDataStream::atEnd is usually reliable
 }
 
-/**
- * @brief Ensures that the specified number of bytes are available to be read.
- * Sets an error flag if not enough bytes are available or if already in an error state.
- * @param bytes Number of bytes to check for availability.
- * @return True if bytes are available, false otherwise.
- */
 bool DiskNodeFileReadHandle::ensureBytesAvailable(size_t bytes) {
-    if (m_error != RME_OTBM_IO_NO_ERROR) {
-        return false; // Already in an error state
-    }
+    if (m_error != RME_OTBM_IO_NO_ERROR) return false;
     if (!m_file.isOpen()) {
-        m_error = RME_OTBM_IO_ERROR_FILE_NOT_OPEN; // Should not happen if constructor succeeded
+        m_error = RME_OTBM_IO_ERROR_FILE_NOT_OPEN;
         return false;
     }
+    if (bytes == 0) return true;
 
-    // Check if trying to read 0 bytes, which is always "available" (no-op)
-    if (bytes == 0) {
-        return true;
-    }
-
-    // QDataStream's atEnd() is reliable. If it's true, no more data can be read.
-    if (m_stream.atEnd()) {
-        m_error = RME_OTBM_IO_ERROR_UNEXPECTED_EOF; // Trying to read past EOF
-        return false;
-    }
-
-    // For QDataStream, a more robust check for available bytes for a specific read
-    // often involves attempting the read and checking QDataStream::status().
-    // However, `bytesAvailable()` on the device can give some indication,
-    // but it might not account for QDataStream's internal buffer.
-    // A simple check: if (current_pos + requested_bytes > file_size) -> error
-    // This check helps prevent QDataStream from trying to read past the physical end of file
-    // if its internal buffer logic isn't perfectly aligned with our needs here.
-    if ((static_cast<qint64>(m_file.pos()) + static_cast<qint64>(bytes)) > m_file.size()) {
+    // Check against file size from current position
+    if (static_cast<qint64>(m_file.pos()) + static_cast<qint64>(bytes) > m_file.size()) {
         m_error = RME_OTBM_IO_ERROR_UNEXPECTED_EOF;
         return false;
     }
-
-    return true; // Assume QDataStream will handle it, or readByteUnsafe will catch issues.
+    // QDataStream also has internal buffering, but this check against physical EOF is a good safeguard.
+    return true;
 }
 
-/**
- * @brief Reads a single byte from the stream.
- * Sets an error flag if the read fails.
- * @return The byte read. Returns 0 if an error occurred.
- */
 uint8_t DiskNodeFileReadHandle::readByteUnsafe() {
-    if (m_error != RME_OTBM_IO_NO_ERROR) { // Should not be called if already in error state
-        return 0;
-    }
-     if (!m_file.isOpen() || m_stream.atEnd()) { // Double check, though ensureBytesAvailable should prevent this
-        m_error = RME_OTBM_IO_ERROR_UNEXPECTED_EOF;
-        return 0;
-    }
-
-    uint8_t byte;
-    int bytesRead = m_stream.readRawData(reinterpret_cast<char*>(&byte), 1);
+    // This method assumes ensureBytesAvailable(1) was called and returned true.
+    // And m_error is RME_OTBM_IO_NO_ERROR.
+    char byte_char;
+    qint64 bytesRead = m_stream.readRawData(&byte_char, 1);
 
     if (bytesRead != 1) {
-        // An error occurred during read (e.g., actual EOF reached, or other I/O error)
-        m_error = RME_OTBM_IO_ERROR_READ_FAILED; // Or more specific based on m_stream.status()
+        // This indicates an issue, e.g., actual EOF or stream error.
+        m_error = RME_OTBM_IO_ERROR_READ_FAILED;
         if (m_stream.status() == QDataStream::ReadPastEnd) {
-             m_error = RME_OTBM_IO_ERROR_UNEXPECTED_EOF;
+            m_error = RME_OTBM_IO_ERROR_UNEXPECTED_EOF;
         }
         // qWarning() << "DiskNodeFileReadHandle: Failed to read byte. Stream status:" << m_stream.status();
         return 0; // Return dummy value
     }
-    return byte;
+    return static_cast<uint8_t>(byte_char);
 }
 
 } // namespace io

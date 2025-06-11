@@ -1,161 +1,100 @@
-#ifndef RME_MATERIAL_MANAGER_H
-#define RME_MATERIAL_MANAGER_H
+#ifndef RME_MATERIALMANAGER_H
+#define RME_MATERIALMANAGER_H
 
-#include "core/assets/MaterialData.h" // Needs full definition
+#include "core/assets/MaterialData.h"
 #include <QMap>
 #include <QString>
-#include <QSet> // For tracking processed includes
+#include <QXmlStreamReader> // For private method declaration
 
-// Forward declaration for AssetManager to break potential include cycle
+// Forward declare AssetManager to break potential circular dependency / reduce header load
+// AssetManager will include MaterialManager.h for its member.
+// MaterialManager needs AssetManager& for context during loading (e.g., item ID validation).
 namespace RME {
 namespace core {
 namespace assets {
-    class AssetManager; // Forward declared, full definition in AssetManager.h
+    class AssetManager;
 } // namespace assets
 } // namespace core
 } // namespace RME
 
-// Forward declaration for QXmlStreamReader
-QT_BEGIN_NAMESPACE
-class QXmlStreamReader;
-QT_END_NAMESPACE
-
 namespace RME {
 namespace core {
 namespace assets {
 
-/**
- * @brief Manages loading, storage, and access of material definitions from XML files.
- *
- * The MaterialManager is responsible for parsing the material XML files (e.g., materials.xml)
- * including handling <include> directives to load definitions from multiple files.
- * It stores the parsed MaterialData objects and provides methods to retrieve them.
- */
 class MaterialManager {
 public:
-    /**
-     * @brief Default constructor.
-     */
     MaterialManager();
-
-    /**
-     * @brief Destructor.
-     */
     ~MaterialManager();
 
-    // Prevent copying and assignment
-    MaterialManager(const MaterialManager&) = delete;
-    MaterialManager& operator=(const MaterialManager&) = delete;
-
     /**
-     * @brief Loads all materials starting from a main XML file within a specified directory.
-     * This method handles <include> directives to parse multiple related XML files recursively.
-     * @param directoryPath The base directory where material XML files are located.
-     * @param mainFileName The name of the root material XML file (e.g., "materials.xml").
-     * @param assetManager Reference to the AssetManager, which might be used for validating
-     *                     item IDs referenced within materials or for other cross-asset lookups.
-     * @return True if loading was successful (at least the main file was parsed without fatal errors),
-     *         false otherwise (e.g., main file not found or major parsing error).
+     * @brief Loads materials from a main XML file and any files it includes.
+     * @param baseDir The base directory from which relative paths in include tags are resolved.
+     * @param mainXmlFile The name of the main materials XML file (e.g., "materials.xml").
+     * @param assetManager Reference to the asset manager for context (e.g., item validation).
+     * @return True if loading was successful (or partially successful with warnings), false on critical failure.
      */
-    bool loadMaterialsFromDirectory(const QString& directoryPath, const QString& mainFileName, AssetManager& assetManager);
+    bool loadMaterialsFromDirectory(const QString& baseDir, const QString& mainXmlFile, AssetManager& assetManager);
 
     /**
-     * @brief Retrieves a material definition by its unique ID (brush name).
-     * @param id The unique ID (name attribute from <brush name="...">) of the material.
-     * @return A const pointer to the MaterialData if found, otherwise nullptr.
+     * @brief Retrieves a material by its ID (brush name).
+     * @param id The unique ID (name) of the material.
+     * @return Const pointer to MaterialData if found, nullptr otherwise.
      */
     const MaterialData* getMaterial(const QString& id) const;
 
     /**
-     * @brief Gets all loaded materials.
-     * @return A const reference to the QMap storing all materials, keyed by their ID.
+     * @brief Gets a map of all loaded materials, keyed by their ID.
+     * @return Const reference to the QMap of materials.
      */
-    const QMap<QString, MaterialData>& getAllMaterials() const { return m_materialsById; }
+    const QMap<QString, MaterialData>& getAllMaterials() const;
 
     /**
-     * @brief Gets the last error message encountered during loading.
-     * @return QString The last error message.
+     * @brief Gets the last error message from loading.
+     * @return QString containing the error message, or empty if no error.
      */
     QString getLastError() const { return m_lastError; }
 
 private:
-    /**
-     * @brief Parses a single material XML file.
-     * This method is called recursively to handle <include> directives.
-     * @param xmlFilePath Absolute path to the XML file to parse.
-     * @param directoryPath Base directory of XMLs, used for resolving relative paths in <include> tags.
-     * @param assetManager Reference to AssetManager for potential validation or lookups.
-     * @param processedIncludes A set of already processed absolute file paths to prevent circular includes.
-     */
-    void parseMaterialFile(const QString& xmlFilePath, const QString& directoryPath, AssetManager& assetManager, QSet<QString>& processedIncludes);
-
-    // --- Helper methods to parse specific XML elements into MaterialData fields ---
+    QMap<QString, MaterialData> m_materialsById;
+    QString m_lastError;
+    QSet<QString> m_parsedFiles; // To prevent circular includes and redundant parsing
 
     /**
-     * @brief Parses a <brush> XML element and its children into a MaterialData object.
-     * @param reader Reference to the QXmlStreamReader, positioned at the start of a <brush> element.
-     * @param materialData The MaterialData object to populate.
-     * @param assetManager Reference to AssetManager.
+     * @brief Parses a single XML file for material definitions.
+     * @param filePath Full path to the XML file.
+     * @param assetManager Reference to the asset manager.
+     * @param currentDir The directory of the currently parsed file, for resolving relative includes.
+     * @return True on success, false on critical failure for this file.
      */
-    void parseBrushElement(QXmlStreamReader& reader, MaterialData& materialData, AssetManager& assetManager);
+    bool parseXmlFile(const QString& filePath, AssetManager& assetManager, const QString& currentDir);
 
     /**
-     * @brief Parses an <item> child element of a <brush> or <wall> element.
-     * @param reader Reference to the QXmlStreamReader, positioned at the start of an <item> element.
-     * @param materialData The MaterialData object to add the primary item to (if child of <brush>).
-     * @param wallPart Optional: Pointer to a MaterialWallPart if this item is part of a wall.
+     * @brief Parses a <brush> XML element and its children.
+     * @param xml The QXmlStreamReader positioned at the start of a <brush> element.
+     * @param assetManager Reference to the asset manager.
+     * @param currentDir The directory of the currently parsed file for resolving any further relative paths if needed.
+     * @return True if parsing this brush was successful, false otherwise.
      */
-    void parseItemChild(QXmlStreamReader& reader, MaterialData& materialData, MaterialWallPart* wallPart = nullptr);
+    bool parseBrushElement(QXmlStreamReader& xml, AssetManager& assetManager, const QString& currentDir);
 
-    /**
-     * @brief Parses a <border> child element of a <brush> element.
-     * @param reader Reference to the QXmlStreamReader, positioned at the start of a <border> element.
-     * @param materialData The MaterialData object to add the border definition to.
-     */
-    void parseBorderChild(QXmlStreamReader& reader, MaterialData& materialData);
+    // --- Private helper methods for parsing specific parts of a <brush> element ---
+    // These will populate the MaterialData object passed to them.
 
-    /**
-     * @brief Parses a <friend name="..."/> child element of a <brush> element.
-     * @param reader Reference to the QXmlStreamReader, positioned at the start of a <friend> element.
-     * @param materialData The MaterialData object to add the friend material name to.
-     */
-    void parseFriendChild(QXmlStreamReader& reader, MaterialData& materialData);
+    void parseBrushItems(QXmlStreamReader& xml, MaterialData& materialData);
+    void parseBrushBorders(QXmlStreamReader& xml, MaterialData& materialData);
+    void parseBrushFriends(QXmlStreamReader& xml, MaterialData& materialData);
+    void parseBrushOptionals(QXmlStreamReader& xml, MaterialData& materialData);
+    void parseBrushWallParts(QXmlStreamReader& xml, MaterialData& materialData);
+    void parseBrushAlternates(QXmlStreamReader& xml, MaterialData& materialData);
+    void parseBrushCarpetParts(QXmlStreamReader& xml, MaterialData& materialData); // Also for tables
+    // void parseBrushTableParts(QXmlStreamReader& xml, MaterialData& materialData); // Covered by CarpetParts
 
-    /**
-     * @brief Parses an <optional id="..."/> child element of a <brush> element.
-     * @param reader Reference to the QXmlStreamReader, positioned at the start of an <optional> element.
-     * @param materialData The MaterialData object to add the optional border set ID to.
-     */
-    void parseOptionalChild(QXmlStreamReader& reader, MaterialData& materialData);
-
-    /**
-     * @brief Parses a <wall type="..."> child element of a <brush type="wall"> element.
-     * @param reader Reference to the QXmlStreamReader, positioned at the start of a <wall> element.
-     * @param materialData The MaterialData object (must be of brushType "wall").
-     */
-    void parseWallChild(QXmlStreamReader& reader, MaterialData& materialData);
-
-    /**
-     * @brief Parses a <door .../> child element of a <wall> element.
-     * @param reader Reference to the QXmlStreamReader, positioned at the start of a <door> element.
-     * @param wallPart The MaterialWallPart object to add the door definition to.
-     */
-    void parseDoorChild(QXmlStreamReader& reader, MaterialWallPart& wallPart);
-
-    /**
-     * @brief Parses a <composite> child element of a <brush type="doodad"> element.
-     * @param reader Reference to the QXmlStreamReader, positioned at the start of a <composite> element.
-     * @param materialData The MaterialData object (must be of brushType "doodad").
-     */
-    void parseCompositeChild(QXmlStreamReader& reader, MaterialData& materialData);
-
-
-    QMap<QString, MaterialData> m_materialsById; ///< Stores all loaded materials, keyed by their unique ID.
-    QString m_lastError;                         ///< For storing error messages from parsing.
+    // Helper to parse a <tile> element within a <composite>
+    void parseCompositeTile(QXmlStreamReader& xml, MaterialCompositeTile& compositeTile);
 };
 
 } // namespace assets
 } // namespace core
 } // namespace RME
 
-#endif // RME_MATERIAL_MANAGER_H
+#endif // RME_MATERIALMANAGER_H

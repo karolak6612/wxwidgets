@@ -140,10 +140,6 @@
 All tasks from `tasks_execution_order.md` are listed here. This board will be updated as tasks progress.
 
 ### Backlog (To Do)
-- [ ] CORE-07-MapIO (Port OTBM Map I/O System)
-- [ ] CORE-08-CreatureOutfit (Port Creature Instance and Outfit Classes)
-- [ ] CORE-11-WaypointSystem (Port Waypoint System Data Structures)
-- [ ] CORE-14-MaterialSystem (Port Material System Data Structures)
 - [ ] UTIL-01-JsonReplacement (Replace json_spirit with Qt JSON for ClientVersion Settings)
 - [ ] CORE-05 (Port Selection & Copy/Paste System)
 - [ ] CORE-09-HouseSystem (Port House System Data Structures)
@@ -203,6 +199,10 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - None
 
 ### In Review
+- [ ] CORE-14-MaterialSystem (Port Material System Data Structures) - Branch: feature/CORE-14-MaterialSystem-partial
+- [ ] CORE-11-WaypointSystem (Port Waypoint System Data Structures) - Branch: feature/CORE-11-WaypointSystem-partial
+- [ ] CORE-08-CreatureOutfit (Port Creature Instance and Outfit Classes) - Branch: feature/CORE-08-CreatureOutfit
+- [ ] CORE-07-MapIO (Port OTBM Map I/O System) - Branch: feature/CORE-07-MapIO-reimplementation-completed
 - [ ] CORE-04 (Port Action & History (Undo/Redo) System)
 
 ### Completed

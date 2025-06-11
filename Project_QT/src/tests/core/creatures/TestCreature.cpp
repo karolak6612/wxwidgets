@@ -1,15 +1,28 @@
 #include <QtTest/QtTest>
-#include <QDebug> // For QVERIFY2 messages
+#include <QString>
+#include <memory>
 
 #include "core/creatures/Creature.h"
-#include "core/assets/CreatureData.h" // Assuming this defines CreatureData
-#include "core/assets/Outfit.h"       // Assuming this defines Outfit
+#include "core/creatures/Outfit.h"
+#include "core/assets/CreatureData.h" // For RME::core::assets::CreatureData
 #include "core/Position.h"
 
-// Using namespace for convenience in test file
-using namespace RME::core;
-using namespace RME::core::assets;
-using namespace RME::core::creatures;
+// Mock CreatureData for testing purposes
+struct MockCreatureData : public RME::core::assets::CreatureData {
+    MockCreatureData(uint16_t id, const QString& n, bool npc = false, bool passable = true) {
+        this->id = id; // Assuming CreatureData has an 'id' field or similar identifier
+        this->name = n;
+        this->isNpc = npc;
+        this->isPassable = passable;
+        // Setup a default outfit
+        this->defaultOutfit.lookType = 128; // Example default
+        this->defaultOutfit.lookHead = 78;
+        this->defaultOutfit.lookBody = 95;
+        this->defaultOutfit.lookLegs = 114;
+        this->defaultOutfit.lookFeet = 115;
+        this->defaultOutfit.lookAddons = 1;
+    }
+};
 
 class TestCreature : public QObject
 {
@@ -26,210 +39,187 @@ private slots:
     void cleanup();
 
     void testConstruction();
-    void testSettersAndGetters();
-    void testFlagManagement();
+    void testOutfitModification();
     void testDeepCopy();
-    void testDelegationGetters();
+    void testFlagManagement();
+    void testDelegatedGetters();
+    void testPositionManagement();
+    void testCopyAndMoveSemantics();
 
 private:
-    // Test fixture members
-    // These need to be pointers if we want to new/delete them in init/cleanup,
-    // or ensure they have default constructors and can be assigned.
-    // For complex types like CreatureData that might not have trivial default constructors,
-    // pointers or std::optional/unique_ptr are better for fixtures.
-    // However, the prompt shows them as direct members. This implies they have default constructors
-    // or will be constructed in the TestCreature constructor / initList.
-    // Let's make them direct members and initialize in init().
-    CreatureData m_testCreatureData1;
-    CreatureData m_testCreatureData2;
+    MockCreatureData* m_mockType1;       // e.g., a monster type
+    MockCreatureData* m_mockType2_npc;   // e.g., an NPC type
+    RME::core::creatures::Creature* m_creature; // Creature under test
 };
 
-// Constructor for the test class
-TestCreature::TestCreature() {
-    // If m_testCreatureData1/2 needed complex construction not suitable for init(),
-    // it could be done here or in initTestCase if they are static.
-    // For now, init() will handle their setup.
-}
-
+TestCreature::TestCreature() : m_mockType1(nullptr), m_mockType2_npc(nullptr), m_creature(nullptr) {}
 TestCreature::~TestCreature() {
+    // initTestCase and cleanupTestCase handle m_mockType1 and m_mockType2_npc
+    // init and cleanup handle m_creature
 }
 
 void TestCreature::initTestCase() {
-    // Global setup for all tests in this class, if any.
-    // For example, loading some global asset definition if CreatureData relied on it.
+    m_mockType1 = new MockCreatureData(1, "Dragon", false, false); // name, isNpc, isPassable
+    m_mockType1->defaultOutfit.lookType = 100;
+    m_mockType1->defaultOutfit.lookAddons = 0;
+
+    m_mockType2_npc = new MockCreatureData(2, "Guard", true, true);
+    m_mockType2_npc->defaultOutfit.lookType = 130; // Human male
+    m_mockType2_npc->defaultOutfit.lookAddons = 3; // Addons 1 & 2
 }
 
 void TestCreature::cleanupTestCase() {
-    // Global cleanup.
+    delete m_mockType1;
+    m_mockType1 = nullptr;
+    delete m_mockType2_npc;
+    m_mockType2_npc = nullptr;
 }
 
 void TestCreature::init() {
-    // Per-test setup. Initialize CreatureData instances.
-    // This assumes CreatureData can be default constructed then members set,
-    // or has appropriate setters/constructor.
-
-    // Setup for m_testCreatureData1
-    m_testCreatureData1.name = "Goblin";
-    m_testCreatureData1.defaultOutfit.lookType = 100;
-    m_testCreatureData1.defaultOutfit.lookHead = 1;
-    m_testCreatureData1.defaultOutfit.lookBody = 2;
-    m_testCreatureData1.defaultOutfit.lookLegs = 3;
-    m_testCreatureData1.defaultOutfit.lookFeet = 4;
-    m_testCreatureData1.defaultOutfit.lookAddons = 0;
-    m_testCreatureData1.defaultOutfit.lookMount = 0;
-    // Assuming CreatureData has a field for flags that can be converted/used
-    // For now, let's say CreatureData itself doesn't store CreatureFlags directly
-    // but has a property that isNpc() in Creature::isNpc() will use.
-    m_testCreatureData1.isNpc = false; // Example: Goblin is not an NPC by default type
-
-    // Setup for m_testCreatureData2
-    m_testCreatureData2.name = "Sheep";
-    m_testCreatureData2.defaultOutfit.lookType = 101;
-    m_testCreatureData2.defaultOutfit.lookHead = 5;
-    m_testCreatureData2.defaultOutfit.lookBody = 5;
-    m_testCreatureData2.defaultOutfit.lookLegs = 5;
-    m_testCreatureData2.defaultOutfit.lookFeet = 5;
-    m_testCreatureData2.defaultOutfit.lookAddons = 1;
-    m_testCreatureData2.defaultOutfit.lookMount = 0;
-    m_testCreatureData2.isNpc = true; // Example: Sheep is an NPC by default type
+    // Default creature for most tests
+    RME::core::Position startPos(10, 20, 7);
+    m_creature = new RME::core::creatures::Creature(m_mockType1, startPos);
 }
 
 void TestCreature::cleanup() {
-    // Per-test cleanup.
+    delete m_creature;
+    m_creature = nullptr;
 }
 
 void TestCreature::testConstruction() {
-    Position pos(10, 20, 7);
-    Creature creature(&m_testCreatureData1, pos);
+    QVERIFY(m_creature != nullptr);
+    QCOMPARE(m_creature->getType(), m_mockType1);
+    QCOMPARE(m_creature->getPosition(), RME::core::Position(10, 20, 7));
+    QCOMPARE(m_creature->getOutfit(), m_mockType1->defaultOutfit); // Check if default outfit is copied
 
-    QCOMPARE(creature.getType(), &m_testCreatureData1);
-    QCOMPARE(creature.getPosition(), pos);
-    QCOMPARE(creature.getOutfit(), m_testCreatureData1.defaultOutfit); // Assumes Outfit has operator==
-    QCOMPARE(creature.getInstanceName(), m_testCreatureData1.name);
+    // Check initial flags based on CreatureData
+    QVERIFY(m_creature->hasFlag(RME::core::creatures::CreatureFlag::UNPASSABLE)); // From m_mockType1->isPassable = false
+    QVERIFY(!m_creature->hasFlag(RME::core::creatures::CreatureFlag::NPC));      // From m_mockType1->isNpc = false
 
-    // Initial flags might be default (NONE) or copied from CreatureData if such a field existed.
-    // The Creature constructor initializes m_flags to NONE unless CreatureData provides initial flags.
-    // For this test, let's assume it initializes to NONE then copies type-specific behavioral flags.
-    // This depends on Creature constructor and CreatureData fields.
-    // If CreatureData had `defaultCreatureFlags`, we'd compare to that.
-    // For now, assume Creature constructor sets some defaults or copies from type.
-    // The current Creature constructor just sets m_flags to NONE.
-    QCOMPARE(creature.getFlags(), CreatureFlags(CreatureFlagValue::NONE));
+    RME::core::Position npcPos(5,5,5);
+    RME::core::creatures::Creature npcCreature(m_mockType2_npc, npcPos);
+    QCOMPARE(npcCreature.getOutfit(), m_mockType2_npc->defaultOutfit);
+    QVERIFY(npcCreature.hasFlag(RME::core::creatures::CreatureFlag::NPC));
+    QVERIFY(!npcCreature.hasFlag(RME::core::creatures::CreatureFlag::UNPASSABLE)); // From m_mockType2_npc->isPassable = true
 }
 
-void TestCreature::testSettersAndGetters() {
-    Position initialPos(10, 10, 7);
-    Creature creature(&m_testCreatureData1, initialPos);
+void TestCreature::testOutfitModification() {
+    RME::core::creatures::Outfit newOutfit(133, 1,2,3,4, 1, 1288, 0);
+    m_creature->setOutfit(newOutfit);
+    QCOMPARE(m_creature->getOutfit(), newOutfit);
 
-    // Test Position
-    Position newPos(20, 30, 7);
-    creature.setPosition(newPos);
-    QCOMPARE(creature.getPosition(), newPos);
+    m_creature->setLookType(140);
+    QCOMPARE(m_creature->getOutfit().lookType, static_cast<uint16_t>(140));
 
-    // Test Instance Name
-    QString newInstanceName = "Gobbly";
-    creature.setInstanceName(newInstanceName);
-    QCOMPARE(creature.getInstanceName(), newInstanceName);
-    QCOMPARE(creature.getStaticName(), m_testCreatureData1.name); // Static name should remain
+    m_creature->setLookAddons(3);
+    QCOMPARE(m_creature->getOutfit().lookAddons, static_cast<uint8_t>(3));
+    QVERIFY(m_creature->getOutfit().hasAddon(1));
+    QVERIFY(m_creature->getOutfit().hasAddon(2));
 
-    // Test Full Outfit
-    Outfit newOutfit;
-    newOutfit.lookType = 200;
-    newOutfit.lookHead = 10; newOutfit.lookBody = 11; newOutfit.lookLegs = 12; newOutfit.lookFeet = 13;
-    newOutfit.lookAddons = 2; newOutfit.lookMount = 201;
-    creature.setOutfit(newOutfit);
-    QCOMPARE(creature.getOutfit(), newOutfit); // Assumes Outfit has operator==
-
-    // Test Individual Outfit Parts
-    creature.setLookType(250);
-    QCOMPARE(creature.getOutfit().lookType, static_cast<quint16>(250));
-    creature.setLookHead(15);
-    QCOMPARE(creature.getOutfit().lookHead, static_cast<quint8>(15));
-    creature.setLookBody(16);
-    QCOMPARE(creature.getOutfit().lookBody, static_cast<quint8>(16));
-    creature.setLookLegs(17);
-    QCOMPARE(creature.getOutfit().lookLegs, static_cast<quint8>(17));
-    creature.setLookFeet(18);
-    QCOMPARE(creature.getOutfit().lookFeet, static_cast<quint8>(18));
-    creature.setLookAddons(3);
-    QCOMPARE(creature.getOutfit().lookAddons, static_cast<quint8>(3));
-    creature.setLookMount(251);
-    QCOMPARE(creature.getOutfit().lookMount, static_cast<quint16>(251));
-}
-
-void TestCreature::testFlagManagement() {
-    Creature creature(&m_testCreatureData1, {0,0,0});
-
-    QCOMPARE(creature.getFlags(), CreatureFlags(CreatureFlagValue::NONE)); // Initial state
-
-    // Set multiple flags
-    CreatureFlags flagsToSet = CreatureFlagValue::CAN_SUMMON | CreatureFlagValue::IS_HOSTILE;
-    creature.setFlags(flagsToSet);
-    QCOMPARE(creature.getFlags(), flagsToSet);
-    QVERIFY(creature.hasFlag(CreatureFlagValue::CAN_SUMMON));
-    QVERIFY(creature.hasFlag(CreatureFlagValue::IS_HOSTILE));
-    QVERIFY(!creature.hasFlag(CreatureFlagValue::PUSHABLE));
-
-    // Add a flag
-    creature.addFlag(CreatureFlagValue::PUSHABLE);
-    QVERIFY(creature.hasFlag(CreatureFlagValue::PUSHABLE));
-    QVERIFY(creature.hasFlag(CreatureFlagValue::CAN_SUMMON)); // Should still be there
-
-    // Remove a flag
-    creature.removeFlag(CreatureFlagValue::CAN_SUMMON);
-    QVERIFY(!creature.hasFlag(CreatureFlagValue::CAN_SUMMON));
-    QVERIFY(creature.hasFlag(CreatureFlagValue::IS_HOSTILE)); // Should still be there
-    QVERIFY(creature.hasFlag(CreatureFlagValue::PUSHABLE));   // Should still be there
-
-    // Set back to NONE
-    creature.setFlags(CreatureFlagValue::NONE);
-    QCOMPARE(creature.getFlags(), CreatureFlags(CreatureFlagValue::NONE));
+    m_creature->setAddonFlag(1, false); // Remove addon 1
+    QVERIFY(!m_creature->getOutfit().hasAddon(1));
+    QVERIFY(m_creature->getOutfit().hasAddon(2));
+    QCOMPARE(m_creature->getOutfit().lookAddons, static_cast<uint8_t>(2));
 }
 
 void TestCreature::testDeepCopy() {
-    Position originalPos(5,5,5);
-    Creature original(&m_testCreatureData1, originalPos);
-    original.setInstanceName("Original Goblin");
-    original.addFlag(CreatureFlagValue::LIGHT_EMITTING);
-    Outfit modifiedOutfit = original.getOutfit();
-    modifiedOutfit.lookBody = 50;
-    original.setOutfit(modifiedOutfit);
+    m_creature->setLookType(155);
+    m_creature->addFlag(RME::core::creatures::CreatureFlag::SUMMON);
+    m_creature->setPosition({1,2,3});
 
-    std::unique_ptr<Creature> copy = original.deepCopy();
+    std::unique_ptr<RME::core::creatures::Creature> copiedCreature = m_creature->deepCopy();
+    QVERIFY(copiedCreature != nullptr);
+    QVERIFY(copiedCreature.get() != m_creature); // Ensure it's a different object
 
-    QVERIFY(copy != nullptr);
-    QVERIFY(copy.get() != &original);
-
-    QCOMPARE(copy->getType(), original.getType());
-    QCOMPARE(copy->getPosition(), original.getPosition());
-    QCOMPARE(copy->getOutfit(), original.getOutfit()); // Assumes Outfit has operator==
-    QCOMPARE(copy->getFlags(), original.getFlags());
-    QCOMPARE(copy->getInstanceName(), original.getInstanceName());
-
-    // Modify copy and check original is not affected
-    copy->setInstanceName("Copied Goblin");
-    Outfit copyOutfit = copy->getOutfit();
-    copyOutfit.lookBody = 60;
-    copy->setOutfit(copyOutfit);
-    copy->addFlag(CreatureFlagValue::CAN_SUMMON);
-
-    QCOMPARE(original.getInstanceName(), QString("Original Goblin"));
-    QCOMPARE(original.getOutfit().lookBody, static_cast<quint8>(50));
-    QVERIFY(original.hasFlag(CreatureFlagValue::LIGHT_EMITTING));
-    QVERIFY(!original.hasFlag(CreatureFlagValue::CAN_SUMMON));
+    QCOMPARE(copiedCreature->getType(), m_creature->getType()); // Pointer to type should be same
+    QCOMPARE(copiedCreature->getPosition(), m_creature->getPosition());
+    QCOMPARE(copiedCreature->getOutfit(), m_creature->getOutfit());
+    QCOMPARE(copiedCreature->getFlags(), m_creature->getFlags());
+    QVERIFY(copiedCreature->hasFlag(RME::core::creatures::CreatureFlag::SUMMON));
+    QVERIFY(copiedCreature->hasFlag(RME::core::creatures::CreatureFlag::UNPASSABLE));
 }
 
-void TestCreature::testDelegationGetters() {
-    Creature creature1(&m_testCreatureData1, {0,0,0}); // Goblin, isNpc = false in init()
-    Creature creature2(&m_testCreatureData2, {1,1,1}); // Sheep, isNpc = true in init()
+void TestCreature::testFlagManagement() {
+    m_creature->setFlags(RME::core::creatures::CreatureFlag::NONE);
+    QCOMPARE(m_creature->getFlags(), RME::core::creatures::CreatureFlag::NONE);
 
-    QCOMPARE(creature1.getStaticName(), m_testCreatureData1.name); // "Goblin"
-    QCOMPARE(creature1.isNpc(), false); // Based on m_testCreatureData1.isNpc set in init()
+    m_creature->addFlag(RME::core::creatures::CreatureFlag::SUMMON);
+    QVERIFY(m_creature->hasFlag(RME::core::creatures::CreatureFlag::SUMMON));
+    QVERIFY((m_creature->getFlags() & RME::core::creatures::CreatureFlag::SUMMON) != RME::core::creatures::CreatureFlag::NONE);
 
-    QCOMPARE(creature2.getStaticName(), m_testCreatureData2.name); // "Sheep"
-    QCOMPARE(creature2.isNpc(), true);  // Based on m_testCreatureData2.isNpc set in init()
+    m_creature->addFlag(RME::core::creatures::CreatureFlag::PERSISTENT);
+    QVERIFY(m_creature->hasFlag(RME::core::creatures::CreatureFlag::SUMMON));
+    QVERIFY(m_creature->hasFlag(RME::core::creatures::CreatureFlag::PERSISTENT));
+
+    m_creature->removeFlag(RME::core::creatures::CreatureFlag::SUMMON);
+    QVERIFY(!m_creature->hasFlag(RME::core::creatures::CreatureFlag::SUMMON));
+    QVERIFY(m_creature->hasFlag(RME::core::creatures::CreatureFlag::PERSISTENT));
+}
+
+void TestCreature::testDelegatedGetters() {
+    QCOMPARE(m_creature->getName(), m_mockType1->name);
+
+    RME::core::Position npcPos(1,1,1);
+    RME::core::creatures::Creature npcCreature(m_mockType2_npc, npcPos);
+    QCOMPARE(npcCreature.getName(), m_mockType2_npc->name);
+    QVERIFY(npcCreature.isNpc());
+}
+
+void TestCreature::testPositionManagement() {
+    RME::core::Position newPos(100, 200, 3);
+    m_creature->setPosition(newPos);
+    QCOMPARE(m_creature->getPosition(), newPos);
+}
+
+void TestCreature::testCopyAndMoveSemantics(){
+    RME::core::creatures::Creature original(m_mockType1, {1,1,1});
+    original.setLookType(188);
+    original.addFlag(RME::core::creatures::CreatureFlag::SUMMON);
+
+    // Test Copy Constructor
+    RME::core::creatures::Creature copied(original);
+    QCOMPARE(copied.getType(), original.getType());
+    QCOMPARE(copied.getPosition(), original.getPosition());
+    QCOMPARE(copied.getOutfit(), original.getOutfit());
+    QCOMPARE(copied.getFlags(), original.getFlags());
+
+    // Test Copy Assignment
+    RME::core::creatures::Creature assigned(m_mockType2_npc, {2,2,2});
+    assigned = original;
+    QCOMPARE(assigned.getType(), original.getType());
+    QCOMPARE(assigned.getPosition(), original.getPosition());
+    QCOMPARE(assigned.getOutfit(), original.getOutfit());
+    QCOMPARE(assigned.getFlags(), original.getFlags());
+
+    // Test Move Constructor
+    RME::core::creatures::Outfit originalOutfit = original.getOutfit(); // Save for comparison
+    RME::core::Position originalPosition = original.getPosition();
+    RME::core::creatures::CreatureFlag originalFlags = original.getFlags();
+
+    RME::core::creatures::Creature moved(std::move(original));
+    QCOMPARE(moved.getType(), m_mockType1);
+    QCOMPARE(moved.getPosition(), originalPosition);
+    QCOMPARE(moved.getOutfit(), originalOutfit);
+    QCOMPARE(moved.getFlags(), originalFlags);
+    // `original` is now in a valid but unspecified state. Its members might be cleared or reset.
+
+    // Test Move Assignment
+    // Re-initialize 'original' to a known state for move assignment test
+    original = RME::core::creatures::Creature(m_mockType1, {3,3,3});
+    original.setLookType(199);
+    original.addFlag(RME::core::creatures::CreatureFlag::PERSISTENT);
+    RME::core::Outfit outfitForMoveAssign = original.getOutfit();
+    RME::core::Position posForMoveAssign = original.getPosition();
+    RME::core::creatures::CreatureFlag flagsForMoveAssign = original.getFlags();
+
+    RME::core::creatures::Creature move_assigned_to(m_mockType2_npc, {4,4,4});
+    move_assigned_to = std::move(original);
+    QCOMPARE(move_assigned_to.getType(), m_mockType1);
+    QCOMPARE(move_assigned_to.getPosition(), posForMoveAssign);
+    QCOMPARE(move_assigned_to.getOutfit(), outfitForMoveAssign);
+    QCOMPARE(move_assigned_to.getFlags(), flagsForMoveAssign);
 }
 
 
-// QTEST_MAIN(TestCreature) // Will be run by rme_core_creatures_tests
-#include "TestCreature.moc" // Must be last line
+// QTEST_MAIN(TestCreature) // Will be run by a main test runner
+#include "TestCreature.moc" // Must be last line for MOC to work

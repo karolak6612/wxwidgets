@@ -1,222 +1,214 @@
-#ifndef RME_MATERIAL_DATA_H
-#define RME_MATERIAL_DATA_H
+#ifndef RME_MATERIALDATA_H
+#define RME_MATERIALDATA_H
 
 #include <QString>
 #include <QList>
+#include <QSet>
 #include <QMap>
-#include <cstdint> // For uint16_t, etc.
+#include <variant>
+#include <cstdint>
 
 namespace RME {
 namespace core {
 namespace assets {
 
-/**
- * @brief Represents an item that can be part of a material brush, with a chance.
- * Typically used for ground brushes or as primary items in other brush types.
- */
-struct MaterialItem {
-    quint16 itemId = 0; ///< The server ID of the item.
-    int chance = 100;   ///< The chance for this item to be chosen (interpretation depends on brush logic).
+// --- Type-specific data structures for MaterialData ---
 
-    /**
-     * @brief Default constructor.
-     */
-    MaterialItem() = default;
+struct MaterialItemEntry {
+    uint16_t itemId = 0;
+    int chance = 100; // Default chance
 
-    /**
-     * @brief Constructs a MaterialItem with an item ID and chance.
-     * @param id The server item ID.
-     * @param ch The chance value.
-     */
-    MaterialItem(quint16 id, int ch = 100) : itemId(id), chance(ch) {}
+    bool operator==(const MaterialItemEntry& other) const {
+        return itemId == other.itemId && chance == other.chance;
+    }
 };
 
-/**
- * @brief Defines auto-bordering properties for a material.
- * Specifies how this material should border against other materials or itself.
- */
-struct MaterialBorder {
-    QString align;              ///< Alignment of the border (e.g., "outer", "inner").
-    QString borderSetId;        ///< Identifier for a set of border items/rules (references another definition).
-    QString toMaterialName;     ///< Optional: Name of the material this border applies against.
-    quint16 groundEquivalentId = 0; ///< Optional: An item ID that acts as a ground equivalent for border calculations.
-    bool isSuper = false;       ///< If true, this border takes precedence.
+struct MaterialBorderRule {
+    QString align; // e.g., "outer", "inner"
+    QString toBrushName; // Name of the brush this border applies to, or "none"
+    uint16_t borderItemId = 0;
+    bool isSuper = false;
+    uint16_t groundEquivalent = 0;
+    // For <specific> conditions/actions, a more complex structure would be needed.
+    // For now, keeping it simple, assuming these are less common or handled by specific brush logic.
 
-    /**
-     * @brief Default constructor.
-     */
-    MaterialBorder() = default;
+    bool operator==(const MaterialBorderRule& other) const {
+        return align == other.align && toBrushName == other.toBrushName &&
+               borderItemId == other.borderItemId && isSuper == other.isSuper &&
+               groundEquivalent == other.groundEquivalent;
+    }
 };
 
-/**
- * @brief Represents an item used within a specific part of a wall material (e.g., a piece of a horizontal wall).
- */
-struct MaterialWallPartItem {
-    quint16 itemId = 0; ///< The server ID of the item.
-    int chance = 100;   ///< Chance for this item to be used in this wall part.
+struct MaterialGroundSpecifics {
+    QList<MaterialItemEntry> items;      // For <item id="..." chance="..."/>
+    QList<MaterialBorderRule> borders;   // For <border .../>
+    QSet<QString> friends;               // For <friend name="..."/>
+    QList<uint16_t> optionals;           // For <optional id="..."/> (item IDs)
 
-    /**
-     * @brief Default constructor.
-     */
-    MaterialWallPartItem() = default;
-    /**
-     * @brief Constructs a MaterialWallPartItem.
-     * @param id The server item ID.
-     * @param ch The chance value.
-     */
-    MaterialWallPartItem(quint16 id, int ch = 100) : itemId(id), chance(ch) {}
+    bool operator==(const MaterialGroundSpecifics& other) const {
+        return items == other.items && borders == other.borders &&
+               friends == other.friends && optionals == other.optionals;
+    }
 };
 
-/**
- * @brief Represents a door that can be part of a wall material.
- */
-struct MaterialDoor {
-    quint16 itemId = 0;     ///< The server ID of the door item.
-    QString type;         ///< Type of the door (e.g., "normal", "locked", "quest").
-    bool isOpen = false;    ///< Default state of the door (open or closed).
-    bool isLocked = false;  ///< If the door is locked by default (if applicable to type).
+struct MaterialDoorDefinition {
+    uint16_t id = 0;
+    QString doorType; // e.g., "normal", "locked", "archway", "window"
+    bool isOpen = false;
+    bool isLocked = false; // Relevant for "normal" or "locked" door types
 
-    /**
-     * @brief Default constructor.
-     */
-    MaterialDoor() = default;
-
-    /**
-     * @brief Constructs a MaterialDoor.
-     * @param id Server item ID of the door.
-     * @param t Type string of the door.
-     * @param open Default open state.
-     * @param locked Default locked state.
-     */
-    MaterialDoor(quint16 id, const QString& t = QString(), bool open = false, bool locked = false)
-        : itemId(id), type(t), isOpen(open), isLocked(locked) {}
+    bool operator==(const MaterialDoorDefinition& other) const {
+        return id == other.id && doorType == other.doorType &&
+               isOpen == other.isOpen && isLocked == other.isLocked;
+    }
 };
 
-/**
- * @brief Defines a specific visual representation for a part of a wall material.
- * For example, a horizontal section, a vertical section, a corner, a T-junction, or a pole.
- * Each part can consist of multiple items (chosen by chance) and can contain door definitions.
- */
 struct MaterialWallPart {
-    QString type;                       ///< Type of the wall part (e.g., "horizontal", "vertical", "pole").
-    QList<MaterialWallPartItem> items;  ///< List of items that can form this wall part.
-    QList<MaterialDoor> doors;          ///< List of possible doors for this wall part.
+    QString orientationType; // e.g., "horizontal", "vertical", "pole", "corner"
+    QList<MaterialItemEntry> items; // Items for this wall part
+    QList<MaterialDoorDefinition> doors; // Doors defined for this wall part
 
-    /**
-     * @brief Default constructor.
-     */
-    MaterialWallPart() = default;
-
-    /**
-     * @brief Constructs a MaterialWallPart with a specific type.
-     * @param t The type string (e.g., "horizontal").
-     */
-    explicit MaterialWallPart(const QString& t) : type(t) {}
+    bool operator==(const MaterialWallPart& other) const {
+        return orientationType == other.orientationType && items == other.items && doors == other.doors;
+    }
 };
 
-/**
- * @brief Represents a single tile within a composite material (e.g., a multi-tile doodad).
- * Specifies the item ID and its relative position within the composite structure.
- */
+struct MaterialWallSpecifics {
+    QList<MaterialWallPart> parts;
+
+    bool operator==(const MaterialWallSpecifics& other) const {
+        return parts == other.parts;
+    }
+};
+
 struct MaterialCompositeTile {
-    int relativeX = 0;  ///< Relative X offset from the composite's anchor point.
-    int relativeY = 0;  ///< Relative Y offset from the composite's anchor point.
-    quint16 itemId = 0; ///< The server ID of the item for this tile of the composite.
+    int x = 0, y = 0, z = 0; // Relative offsets
+    QList<uint16_t> itemIds; // Items on this composite tile part
 
-    /**
-     * @brief Default constructor.
-     */
-    MaterialCompositeTile() = default;
-
-    /**
-     * @brief Constructs a MaterialCompositeTile.
-     * @param rx Relative X offset.
-     * @param ry Relative Y offset.
-     * @param id Server item ID.
-     */
-    MaterialCompositeTile(int rx, int ry, quint16 id) : relativeX(rx), relativeY(ry), itemId(id) {}
+    bool operator==(const MaterialCompositeTile& other) const {
+        return x == other.x && y == other.y && z == other.z && itemIds == other.itemIds;
+    }
 };
 
-/**
- * @brief Defines a composite material, typically a multi-tile doodad.
- * Consists of a list of tiles that form the complete structure, with a chance for this
- * specific arrangement to be chosen if multiple composites are defined for a doodad material.
- */
-struct MaterialComposite {
-    int chance = 100;                   ///< Chance for this composite arrangement to be chosen.
-    QList<MaterialCompositeTile> tiles; ///< List of tiles forming this composite structure.
+struct MaterialAlternate {
+    int chance = 100;
+    QList<uint16_t> singleItemIds; // For simple <alternate><item id="..."/></alternate>
+    QList<MaterialCompositeTile> compositeTiles; // For <alternate><composite><tile>...</composite></alternate>
+    // An alternate contains EITHER singleItemIds OR compositeTiles, not both typically.
 
-    /**
-     * @brief Default constructor.
-     */
-    MaterialComposite() = default;
-
-    /**
-     * @brief Constructs a MaterialComposite with a specific chance.
-     * @param ch The chance value.
-     */
-    MaterialComposite(int ch) : chance(ch) {}
+    bool operator==(const MaterialAlternate& other) const {
+        return chance == other.chance && singleItemIds == other.singleItemIds &&
+               compositeTiles == other.compositeTiles;
+    }
 };
 
-/**
- * @brief Main class to store all data related to a single material brush definition.
- * This class aggregates all properties and specific data structures for different
- * types of material brushes like ground, wall, doodad, etc., as parsed from
- * RME's material XML files.
- */
+struct MaterialDoodadSpecifics {
+    bool draggable = false;
+    bool onBlocking = false; // If the doodad itself is considered blocking
+    QString thickness;       // e.g., "100/100"
+    bool oneSize = false;
+    bool redoBorders = false;
+    bool onDuplicate = false; // New attribute found in some doodads
+    QList<MaterialAlternate> alternates;
+
+    bool operator==(const MaterialDoodadSpecifics& other) const {
+        return draggable == other.draggable && onBlocking == other.onBlocking &&
+               thickness == other.thickness && oneSize == other.oneSize &&
+               redoBorders == other.redoBorders && onDuplicate == other.onDuplicate &&
+               alternates == other.alternates;
+    }
+};
+
+struct MaterialOrientedPart { // For carpets, tables
+    QString align; // e.g., "s", "cne", "center"
+    QList<MaterialItemEntry> items;
+
+    bool operator==(const MaterialOrientedPart& other) const {
+        return align == other.align && items == other.items;
+    }
+};
+
+struct MaterialCarpetSpecifics {
+    QList<MaterialOrientedPart> parts;
+    bool onBlocking = true; // Carpets often have this attribute
+
+    bool operator==(const MaterialCarpetSpecifics& other) const {
+        return parts == other.parts && onBlocking == other.onBlocking;
+    }
+};
+
+struct MaterialTableSpecifics { // Similar to Carpet
+    QList<MaterialOrientedPart> parts;
+    bool onBlocking = true;
+
+    bool operator==(const MaterialTableSpecifics& other) const {
+        return parts == other.parts && onBlocking == other.onBlocking;
+    }
+};
+
+// Main MaterialData class
 class MaterialData {
 public:
-    QString id;                 ///< Unique identifier for the material (from <brush name="...">).
-    QString brushType;          ///< Type of the brush (e.g., "ground", "wall", "doodad", "table").
-    quint16 serverLookId = 0;   ///< Server look ID, typically for items placed by the brush.
-    quint16 lookId = 0;         ///< Client look ID, if different from server_lookid or as a fallback.
-    int zOrder = 0;             ///< Z-ordering hint for items placed by this material.
-    bool soloOptional = false;  ///< If true, this material might not be placed if it's alone (specific to some brush logic).
+    QString id;                 // From <brush name="...">
+    QString typeAttribute;      // From <brush type="...">
+    uint16_t serverLookId = 0;
+    uint16_t lookId = 0;
+    int zOrder = 0;
 
-    // Common brush properties potentially applicable to multiple types
-    bool onBlocking = false;    ///< If true, brush can be placed on blocking tiles (e.g. walls).
-    bool redoBorders = false;   ///< If true, existing borders should be re-evaluated after placing this material.
-    bool oneSize = false;       ///< If true, the brush places a single, non-variable item/structure.
-    QString thickness;          ///< Thickness string (e.g., "100/100"), interpretation depends on brush type.
+    // Doodad-specific attributes (might also apply to others, but common for doodads)
+    // These are here for convenience if they are top-level <brush> attributes
+    bool isDraggable = false;
+    bool isOnBlocking = false;
+    QString brushThickness;
+    bool isOneSize = false;
+    bool isRedoBorders = false;
+    bool isOnDuplicate = false; // From some doodad brushes
 
-    QList<MaterialItem> primaryItems;         ///< Primary items for the brush (e.g., ground items, doodad items).
-    QList<MaterialBorder> borders;            ///< Definitions for auto-bordering.
-    QList<QString> friendMaterials;           ///< List of material names considered "friends" for bordering.
-    QList<QString> optionalBorderSetIds;      ///< List of optional border set IDs to apply.
+    // Using std::variant to hold one of the type-specific data structures
+    std::variant<
+        std::monostate, // Represents no specific data / uninitialized / error
+        MaterialGroundSpecifics,
+        MaterialWallSpecifics,
+        MaterialDoodadSpecifics,
+        MaterialCarpetSpecifics,
+        MaterialTableSpecifics
+    > specificData;
 
-    // Type-specific data structures
-    /** @brief For brushType="wall", stores definitions for different wall parts (horizontal, vertical, etc.), keyed by part type string. */
-    QMap<QString, MaterialWallPart> wallParts;
-    /** @brief For brushType="doodad" with <composite> child elements, stores definitions of multi-tile composite structures. */
-    QList<MaterialComposite> composites;
+    MaterialData(QString brushId = QString(), QString brushType = QString())
+        : id(std::move(brushId)), typeAttribute(std::move(brushType)) {}
 
-    /**
-     * @brief Default constructor.
-     */
-    MaterialData() = default;
+    // Convenience type checkers
+    bool isGround() const { return typeAttribute.compare("ground", Qt::CaseInsensitive) == 0; }
+    bool isWall() const { return typeAttribute.compare("wall", Qt::CaseInsensitive) == 0; }
+    bool isDoodad() const { return typeAttribute.compare("doodad", Qt::CaseInsensitive) == 0; }
+    bool isCarpet() const { return typeAttribute.compare("carpet", Qt::CaseInsensitive) == 0; }
+    bool isTable() const { return typeAttribute.compare("table", Qt::CaseInsensitive) == 0; }
 
-    /**
-     * @brief Constructs MaterialData with an ID and optionally a brush type.
-     * @param matId The unique identifier for the material.
-     * @param bType The type of the brush (e.g., "ground", "wall").
-     */
-    explicit MaterialData(const QString& matId, const QString& bType = QString()) : id(matId), brushType(bType) {}
+    // Getters for specific data (example for Ground)
+    const MaterialGroundSpecifics* getGroundSpecifics() const {
+        return std::get_if<MaterialGroundSpecifics>(&specificData);
+    }
+    MaterialGroundSpecifics* getGroundSpecifics() {
+        return std::get_if<MaterialGroundSpecifics>(&specificData);
+    }
+    // Similar getters can be added for Wall, Doodad, Carpet, Table
 
-    /**
-     * @brief Convenience method for wall brushes to get or create a MaterialWallPart.
-     * If a wall part of the given type does not exist, it is created.
-     * @param wallPartType The type of the wall part (e.g., "horizontal", "vertical_end_south").
-     * @return A reference to the MaterialWallPart for the given type.
-     */
-    MaterialWallPart& getOrCreateWallPart(const QString& wallPartType) {
-        // QMap::operator[] default-constructs if key doesn't exist, then returns a reference.
-        // If MaterialWallPart needs specific construction with type, this is slightly less direct.
-        // However, our MaterialWallPart default constructor is fine, we can set type after.
-        MaterialWallPart& part = wallParts[wallPartType];
-        if (part.type.isEmpty()) { // If it was just default-constructed by operator[]
-            part.type = wallPartType;
-        }
-        return part;
+    bool operator==(const MaterialData& other) const {
+        return id == other.id &&
+               typeAttribute == other.typeAttribute &&
+               serverLookId == other.serverLookId &&
+               lookId == other.lookId &&
+               zOrder == other.zOrder &&
+               isDraggable == other.isDraggable &&
+               isOnBlocking == other.isOnBlocking &&
+               brushThickness == other.brushThickness &&
+               isOneSize == other.isOneSize &&
+               isRedoBorders == other.isRedoBorders &&
+               isOnDuplicate == other.isOnDuplicate &&
+               specificData == other.specificData;
+    }
+     bool operator!=(const MaterialData& other) const {
+        return !(*this == other);
     }
 };
 
@@ -224,4 +216,4 @@ public:
 } // namespace core
 } // namespace RME
 
-#endif // RME_MATERIAL_DATA_H
+#endif // RME_MATERIALDATA_H

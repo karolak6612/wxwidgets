@@ -2,6 +2,9 @@
 #include <QFile>
 #include <QXmlStreamReader>
 #include <QDebug> // For error reporting
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 
 namespace RME {
 
@@ -94,11 +97,25 @@ bool ClientVersionManager::loadVersions(const QString& filePath) {
     // Populate lookup maps
     // Need to use a different loop variable name to avoid shadowing if this code is moved
     for (int i = 0; i < d->clientProfiles.size(); ++i) {
-        d->profileByVersionString.insert(d->clientProfiles[i].versionString, &d->clientProfiles[i]);
+        // Ensure profile is mutable to set userSetClientPath later
+        ClientProfile& profile = d->clientProfiles[i];
+        d->profileByVersionString.insert(profile.versionString, &profile);
     }
     for (int i = 0; i < d->otbVersions.size(); ++i) {
         d->otbById.insert(d->otbVersions[i].clientID, &d->otbVersions[i]);
         d->otbByName.insert(d->otbVersions[i].name, &d->otbVersions[i]);
+    }
+
+    // Load custom client paths after parsing clients.xml and populating profiles
+    QString clientPathsJsonPath;
+    QFileInfo clientsXmlInfo(filePath); // filePath is the path to clients.xml
+    clientPathsJsonPath = clientsXmlInfo.dir().filePath("client_custom_paths.json");
+    // TODO: Consider making client_custom_paths.json location configurable or also checking user config dirs.
+
+    qInfo() << "ClientVersionManager: Attempting to load custom client paths from:" << clientPathsJsonPath;
+    if (!loadClientPaths(clientPathsJsonPath)) {
+        qWarning() << "ClientVersionManager: Failed to load or parse custom client paths from" << clientPathsJsonPath << ". Proceeding without them.";
+        // This is not a fatal error for loadVersions itself.
     }
 
     qInfo() << "ClientVersionManager: Successfully loaded" << d->clientProfiles.size() << "client profiles and"
@@ -276,6 +293,95 @@ const OtbVersion* ClientVersionManager::getOtbVersionById(quint32 id) const {
 
 const OtbVersion* ClientVersionManager::getOtbVersionByName(const QString& name) const {
     return d->otbByName.value(name, nullptr);
+}
+
+bool ClientVersionManager::saveClientPaths(const QString& saveFilePath) const {
+    QJsonArray clientsArray;
+    for (const ClientProfile& profile : d->clientProfiles) {
+        if (!profile.userSetClientPath.isEmpty()) {
+            QJsonObject profileObject;
+            profileObject[QStringLiteral("id")] = profile.versionString; // Use versionString as the persistent ID
+            profileObject[QStringLiteral("path")] = profile.userSetClientPath;
+            clientsArray.append(profileObject);
+        }
+    }
+
+    QJsonDocument doc(clientsArray);
+    QFile jsonFile(saveFilePath);
+    if (!jsonFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        qWarning() << "ClientVersionManager: Failed to open client paths file for writing:" << saveFilePath;
+        return false;
+    }
+
+    qint64 bytesWritten = jsonFile.write(doc.toJson(QJsonDocument::Indented));
+    jsonFile.close();
+
+    if (bytesWritten == -1) {
+        qWarning() << "ClientVersionManager: Failed to write to client paths file:" << saveFilePath;
+        return false;
+    }
+    return true;
+}
+
+bool ClientVersionManager::loadClientPaths(const QString& loadFilePath) {
+    QFile jsonFile(loadFilePath);
+    if (!jsonFile.exists()) {
+        qInfo() << "ClientVersionManager: Client paths file not found, no custom paths loaded:" << loadFilePath;
+        return true; // Not an error if the file doesn't exist, just no custom paths.
+    }
+    if (!jsonFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qWarning() << "ClientVersionManager: Failed to open client paths file for reading:" << loadFilePath;
+        return false;
+    }
+
+    QByteArray jsonData = jsonFile.readAll();
+    jsonFile.close();
+
+    QJsonParseError parseError;
+    QJsonDocument doc = QJsonDocument::fromJson(jsonData, &parseError);
+
+    if (parseError.error != QJsonParseError::NoError) {
+        qWarning() << "ClientVersionManager: Failed to parse client paths JSON from" << loadFilePath << "Error:" << parseError.errorString();
+        return false;
+    }
+
+    if (!doc.isArray()) {
+        qWarning() << "ClientVersionManager: Client paths JSON root is not an array in" << loadFilePath;
+        return false;
+    }
+
+    QJsonArray clientsArray = doc.array();
+    for (const QJsonValue& val : clientsArray) {
+        if (!val.isObject()) {
+            qWarning() << "ClientVersionManager: Found non-object value in client paths array in" << loadFilePath;
+            continue;
+        }
+        QJsonObject profileObject = val.toObject();
+        if (profileObject.contains(QStringLiteral("id")) && profileObject.contains(QStringLiteral("path"))) {
+            QString versionId = profileObject[QStringLiteral("id")].toString();
+            QString path = profileObject[QStringLiteral("path")].toString();
+
+            // Find the ClientProfile by versionString (which we stored as 'id')
+            // Important: Need to modify the actual ClientProfile in d->clientProfiles, not a copy.
+            ClientProfile* profile = nullptr;
+            for (ClientProfile& p : d->clientProfiles) { // Iterate by reference
+                if (p.versionString == versionId) {
+                    profile = &p;
+                    break;
+                }
+            }
+
+            if (profile) {
+                profile->userSetClientPath = path;
+                qDebug() << "ClientVersionManager: Loaded custom path for" << versionId << ":" << path;
+            } else {
+                qWarning() << "ClientVersionManager: Could not find client profile for id '" << versionId << "' when loading custom paths from" << loadFilePath;
+            }
+        } else {
+            qWarning() << "ClientVersionManager: Client path entry missing 'id' or 'path' in" << loadFilePath;
+        }
+    }
+    return true;
 }
 
 } // namespace RME

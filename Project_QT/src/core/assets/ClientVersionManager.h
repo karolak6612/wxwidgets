@@ -26,6 +26,8 @@ public:
     const OtbVersion* getOtbVersionById(quint32 id) const;
     const OtbVersion* getOtbVersionByName(const QString& name) const;
 
+    bool saveClientPaths(const QString& saveFilePath) const;
+    bool loadClientPaths(const QString& loadFilePath);
 
 private:
     // Internal methods for parsing different sections of clients.xml
