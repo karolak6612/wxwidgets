@@ -88,9 +88,6 @@ These mandates must be adhered to for all coding tasks:
 All tasks from `tasks_execution_order.md` are listed here. This board will be updated as tasks progress.
 
 ### Backlog (To Do)
-- [ ] UTIL-01-JsonReplacement (Replace json_spirit with Qt JSON for ClientVersion Settings)
-- [ ] CORE-05 (Port Selection & Copy/Paste System)
-- [ ] CORE-09-HouseSystem (Port House System Data Structures)
 - [ ] CORE-10-SpawnSystem (Port Spawn System Data Structures)
 - [ ] CORE-12-ComplexItemSystem (Port Complex Item System Data Structures)
 - [ ] CORE-13-TownSystem (Port Town System Data Structures)
@@ -128,7 +125,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [ ] UI-06 (Port Creature Palette and Placed Creature Editor Dialog)
 - [ ] UI-07 (Port House Palette, Waypoint Palette, and EditHouseDialog)
 - [ ] UI-10 (Define RAW Items Palette and Terrain Brushes Palette)
-- [ ] UI-11 (Port Item Finder Dialog) - [YAML](enhanced_wbs_yaml_files/UI-11-ItemFinderDialog.yaml)
+- [ ] UI-11 (Port Item Finder Dialog)
 - [ ] UI-MinimapView (Implement Minimap View Widget)
 - [ ] FINAL-02 (Implement File Menu Operations (New, Open, Save, Save As, Close))
 - [ ] FINAL-03 (Implement Edit Menu Operations & Link Preferences Dialog)
@@ -147,11 +144,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - None
 
 ### In Review
-- [ ] CORE-14-MaterialSystem (Port Material System Data Structures) - Branch: feature/CORE-14-MaterialSystem-partial
-- [ ] CORE-11-WaypointSystem (Port Waypoint System Data Structures) - Branch: feature/CORE-11-WaypointSystem-partial
-- [ ] CORE-08-CreatureOutfit (Port Creature Instance and Outfit Classes) - Branch: feature/CORE-08-CreatureOutfit
-- [ ] CORE-07-MapIO (Port OTBM Map I/O System) - Branch: feature/CORE-07-MapIO-reimplementation-completed
-- [ ] CORE-04 (Port Action & History (Undo/Redo) System)
+
 
 ### Completed
 - [x] BUILD-02 (Implement Packaging and Deployment) - Branch: feat/build-02-cpack-packaging
@@ -166,6 +159,14 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [x] CORE-02 (Port Asset Database & Parsers (Items, Creatures, Sprites, Client Versions)) - Branch: feat/core-02-asset-pipeline
 - [x] CORE-03 (Port Map Data Structure & Non-Rendering Logic) - Branch: feat/core-03-map-data-structure
 - [x] CORE-06 (Port Settings & Preferences System) - Branch: feat/core-06-settings-system-complete
+- [x] CORE-04 (Port Action & History (Undo/Redo) System)
+- [x] UTIL-01-JsonReplacement (Replace json_spirit with Qt JSON for ClientVersion Settings)
+- [x] CORE-05 (Port Selection & Copy/Paste System)
+- [x] CORE-09-HouseSystem (Port House System Data Structures)
+- [x] CORE-14-MaterialSystem (Port Material System Data Structures) - Branch: feature/CORE-14-MaterialSystem-partial
+- [x] CORE-11-WaypointSystem (Port Waypoint System Data Structures) - Branch: feature/CORE-11-WaypointSystem-partial
+- [x] CORE-08-CreatureOutfit (Port Creature Instance and Outfit Classes) - Branch: feature/CORE-08-CreatureOutfit
+- [x] CORE-07-MapIO (Port OTBM Map I/O System) - Branch: feature/CORE-07-MapIO-reimplementation-completed
 - [x] CORE-04 (Port Action & History (Undo/Redo) System)
 
 ### Blocked / Needs Discussion
