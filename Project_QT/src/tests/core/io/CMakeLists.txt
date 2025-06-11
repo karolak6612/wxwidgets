@@ -16,7 +16,8 @@ include_directories(${RME_SOURCE_DIR}/src) # Provides access to core headers
 # Define the test executable
 add_executable(rme_core_io_tests
     TestOtbmMapIO.cpp
-    # Add other test files here as they are created
+    TestBinaryNode.cpp     # Added
+    TestNodeFileHandle.cpp # Added
 )
 
 # Link against Qt and RME core libraries

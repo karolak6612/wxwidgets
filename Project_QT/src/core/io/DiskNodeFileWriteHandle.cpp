@@ -1,106 +1,101 @@
 #include "core/io/DiskNodeFileWriteHandle.h"
-#include "core/io/otbm_constants.h" // For NODE_START, NODE_END, ESCAPE_CHAR
-
-#include <QDebug> // For potential logging
+#include "core/io/otbm_constants.h" // For error codes and special byte values
+#include <QDebug>                   // For qWarning
+#include <QtEndian>                 // For qToLittleEndian
 
 namespace RME {
 namespace core {
 namespace io {
 
-/**
- * @brief Constructs a DiskNodeFileWriteHandle.
- * @param filePath The path to the OTBM file to be written.
- */
-DiskNodeFileWriteHandle::DiskNodeFileWriteHandle(const QString& filePath) :
-    NodeFileWriteHandle(), m_file(filePath) {
+DiskNodeFileWriteHandle::DiskNodeFileWriteHandle(const QString& filePath)
+    : NodeFileWriteHandle() // Call base constructor
+    , m_file(filePath)
+{
     if (!m_file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        m_error = RME_OTBM_IO_ERROR_FILE_OPEN_WRITE; // Use defined error code
+        m_error = RME_OTBM_IO_ERROR_FILE_OPEN_WRITE;
         qWarning() << "DiskNodeFileWriteHandle: Failed to open file for writing:" << filePath << "Error:" << m_file.errorString();
         return;
     }
+
     m_stream.setDevice(&m_file);
-    m_stream.setByteOrder(QDataStream::LittleEndian); // OTBM is typically little-endian
+    m_stream.setByteOrder(QDataStream::LittleEndian);
+
+    // Write a default 4-byte OTBM identifier (e.g., 0x00000000 or 'OTBM')
+    // wxDiskNodeFileWriteHandle took an identifier. We'll use a common default.
+    // A common practice is four zero bytes, or the characters 'O','T','B','M'.
+    // Let's use four zero bytes as a neutral default for now.
+    quint32 defaultIdentifier = 0x00000000;
+    char identifierBytes[4];
+    qToLittleEndian(defaultIdentifier, reinterpret_cast<uchar*>(identifierBytes));
+
+    if (m_stream.writeRawData(identifierBytes, 4) != 4) {
+        m_error = RME_OTBM_IO_ERROR_WRITE_FAILED;
+        qWarning() << "DiskNodeFileWriteHandle: Failed to write OTBM identifier to:" << filePath << "Stream status:" << m_stream.status();
+        m_file.close(); // Attempt to close the file on error
+        return;
+    }
 }
 
-/**
- * @brief Destroys the DiskNodeFileWriteHandle.
- * Flushes data and closes the file if it is open.
- */
 DiskNodeFileWriteHandle::~DiskNodeFileWriteHandle() {
     if (m_file.isOpen()) {
-        // QDataStream doesn't have its own flush. Flushing the device is correct.
-        if (m_error == RME_OTBM_IO_NO_ERROR) { // Only attempt flush if no prior critical error prevented writes
-             m_file.flush(); // Best effort flush
+        if (m_error == RME_OTBM_IO_NO_ERROR) {
+            // Only attempt flush if no prior critical error likely made the stream unusable
+            // QDataStream doesn't have its own flush. Flushing the device is correct.
+            if (!m_file.flush()) {
+                 // Set error, but proceed to close. This error might not be catchable by user easily at destructor time.
+                 // qWarning() << "DiskNodeFileWriteHandle: Failed to flush file on close:" << m_file.fileName() << "Error:" << m_file.errorString();
+                 // If m_error is already set, don't overwrite it with a flush error unless it's more critical.
+                 if(m_error == RME_OTBM_IO_NO_ERROR) m_error = RME_OTBM_IO_ERROR_WRITE_FAILED;
+            }
         }
         m_file.close();
     }
 }
 
-/**
- * @brief Clears the handle's state.
- * For disk files opened with Truncate, this mainly resets error state.
- */
 void DiskNodeFileWriteHandle::clear() {
-    // If NodeFileWriteHandle::clear() was intended to reset the buffer (like m_buffer in MemoryNodeFileWriteHandle),
-    // this class doesn't have such an explicit buffer; QDataStream and QFile handle buffering.
-    // If an error occurred, the handle is likely in an unusable state for further writes
-    // without closing and reopening the file.
-    // Resetting m_error here might be risky if the stream/file is still in a bad state.
-    // A robust clear might involve re-opening the file with Truncate, but that's complex for a clear().
-    // For now, if an error has occurred, this clear does not attempt to fix the stream.
-    // It primarily fulfills the interface, and base class clear() might reset its own state.
-    if (m_error != RME_OTBM_IO_NO_ERROR) {
-        // Log or indicate that an error had occurred.
-        // qWarning() << "DiskNodeFileWriteHandle: clear() called on a handle with an existing error.";
-        return; // Don't try to operate on a bad stream.
+    // The base class NodeFileWriteHandle::m_attributeBuffer should be cleared by its own logic if necessary.
+    // For DiskNodeFileWriteHandle, if an error occurred, the stream is likely bad.
+    // Re-opening with Truncate would be a full reset but is too complex for clear().
+    // If the file is still open and no error, clear primarily resets our error state.
+    // The file was opened with QIODevice::Truncate, so it's "clear" from the start of its life.
+    if (m_file.isOpen() && m_error != RME_OTBM_IO_NO_ERROR) {
+        // If an error occurred, the handle might be in an inconsistent state.
+        // Resetting error without addressing the cause could be problematic.
+        // However, the interface requires a clear() method.
+        // qWarning() << "DiskNodeFileWriteHandle::clear() called on a handle with an existing error state.";
     }
-    if (!m_file.isOpen()) {
-         m_error = RME_OTBM_IO_ERROR_FILE_NOT_OPEN;
-         return;
-    }
-    // The file was opened with QIODevice::Truncate, so it's "clear" from the start.
-    // If we need to allow writing to the same file object after a "clear" mid-operation,
-    // we might need to m_file.seek(0) and m_file.resize(0).
-    // However, the base class `NodeFileWriteHandle::clear()` primarily clears its own buffer.
-    // This implementation will just ensure the error state is consistent.
-    // No specific action needed for QDataStream on a Truncated file beyond error checks.
+    m_error = RME_OTBM_IO_NO_ERROR; // Reset error state. User must ensure stream is still valid.
+    // The base NodeFileWriteHandle should also have its clear() called if it has state (e.g. m_attributeBuffer).
+    // This will be handled if a user calls (BaseClass*)this->clear(), or if NodeFileWriteHandle::clear() is not pure virtual and called from here.
+    // Since it IS pure virtual, derived class must implement. We don't call base's version directly.
+    // The crucial part is m_attributeBuffer in base class, which is cleared by NodeFileWriteHandle::addNode and endNode.
 }
 
-/**
- * @brief Flushes buffered data to the disk file.
- * @return True if successful or no error, false on error or if file not open.
- */
 bool DiskNodeFileWriteHandle::flush() {
-    if (m_error != RME_OTBM_IO_NO_ERROR || !m_file.isOpen()) {
+    if (m_error != RME_OTBM_IO_NO_ERROR) return false;
+    if (!m_file.isOpen()) {
+        m_error = RME_OTBM_IO_ERROR_FILE_NOT_OPEN;
         return false;
     }
     if (!m_file.flush()) {
-        m_error = RME_OTBM_IO_ERROR_WRITE_FAILED; // Or a specific flush error
-        // qWarning() << "DiskNodeFileWriteHandle: Failed to flush file:" << m_file.errorString();
+        m_error = RME_OTBM_IO_ERROR_WRITE_FAILED;
+        qWarning() << "DiskNodeFileWriteHandle: Failed to flush file:" << m_file.fileName() << "Error:" << m_file.errorString();
         return false;
     }
     return true;
 }
 
-/**
- * @brief Writes a sequence of bytes to the file stream, escaping special OTBM characters.
- * @param data Pointer to the byte array.
- * @param length Number of bytes to write.
- */
 void DiskNodeFileWriteHandle::writeEscapedBytesInternal(const char* data, qsizetype length) {
-    if (m_error != RME_OTBM_IO_NO_ERROR || !m_file.isOpen()) {
-        return;
-    }
+    if (m_error != RME_OTBM_IO_NO_ERROR) return;
+    if (!m_file.isOpen()) { m_error = RME_OTBM_IO_ERROR_FILE_NOT_OPEN; return; }
 
     for (qsizetype i = 0; i < length; ++i) {
         char byte = data[i];
-        // Note: OTBM_ESCAPE_CHAR is uint8_t, direct comparison with char might be problematic
-        // if char is signed and its value is > 127. Best to cast byte to uint8_t for comparison.
         uint8_t ubyte = static_cast<uint8_t>(byte);
-        bool needsEscape = (ubyte == OTBM_NODE_START || ubyte == OTBM_NODE_END || ubyte == OTBM_ESCAPE_CHAR);
+        bool needsEscape = (ubyte == NODE_START || ubyte == NODE_END || ubyte == ESCAPE_CHAR);
 
         if (needsEscape) {
-            char escapeChar = static_cast<char>(OTBM_ESCAPE_CHAR);
+            char escapeChar = static_cast<char>(ESCAPE_CHAR);
             if (m_stream.writeRawData(&escapeChar, 1) != 1) {
                 m_error = RME_OTBM_IO_ERROR_WRITE_FAILED;
                 return;
@@ -111,27 +106,24 @@ void DiskNodeFileWriteHandle::writeEscapedBytesInternal(const char* data, qsizet
             return;
         }
     }
+    // Check stream status after loop for robustness, though individual write failures should set m_error.
     if (m_stream.status() != QDataStream::Ok) {
         m_error = RME_OTBM_IO_ERROR_WRITE_FAILED;
     }
 }
 
-/**
- * @brief Writes a sequence of raw bytes to the output stream (no escaping).
- * @param data Pointer to the byte array.
- * @param length Number of bytes to write.
- */
 void DiskNodeFileWriteHandle::writeRawBytesInternal(const char* data, qsizetype length) {
-    if (m_error != RME_OTBM_IO_NO_ERROR || !m_file.isOpen()) {
-        return;
-    }
+    if (m_error != RME_OTBM_IO_NO_ERROR) return;
+    if (!m_file.isOpen()) { m_error = RME_OTBM_IO_ERROR_FILE_NOT_OPEN; return; }
+    if (length == 0) return;
+
     if (m_stream.writeRawData(data, static_cast<int>(length)) != static_cast<int>(length)) {
         m_error = RME_OTBM_IO_ERROR_WRITE_FAILED;
     }
     // QDataStream status check might be redundant if writeRawData returns correct length or -1 on error.
-    // However, it's safer.
+    // However, it's safer for conditions where writeRawData might not reflect underlying stream errors immediately.
     if (m_stream.status() != QDataStream::Ok && m_error == RME_OTBM_IO_NO_ERROR) {
-         m_error = RME_OTBM_IO_ERROR_WRITE_FAILED; // Catch if writeRawData didn't set error but stream is bad
+         m_error = RME_OTBM_IO_ERROR_WRITE_FAILED;
     }
 }
 
