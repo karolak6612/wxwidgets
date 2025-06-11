@@ -10,7 +10,7 @@ dependencies:
   - "LOGIC-04" # mapcore::WaypointManager (if waypoints are linked in properties, though less likely here)
   - "LOGIC-05" # mapcore::HouseManager, mapcore::TownManager (for depot town list, door house links)
   - "LOGIC-07" # mapcore::SpawnProperties (for spawn radius)
-  - "UI-06"    # Item Finder Dialog (used by container editor tab, though UI-06 was found to be Creature Palette, an ItemFinderDialog will be needed)
+  - "UI-11"    # ItemFinderDialogQt (used by container editor tab for adding items to containers)
   - "REFACTOR-01" # AppSettings (e.g., for USE_LARGE_CONTAINER_ICONS)
   - "BUILD-01"   # CMake setup
 input_files:
@@ -109,7 +109,7 @@ boilerplate_coder_ai_prompt: >
       - Buttons: 'QPushButton m_addItemButton;', 'QPushButton m_editItemButton;', 'QPushButton m_removeItemButton;'.
       - Implement context menu on 'm_contentsView' with "Add Item...", "Edit Item Properties...", "Remove Item".
       - Logic:
-          - 'onAddItem()': Open 'ItemFinderDialogQt' (from 'UI-06'). If an item is selected, create a copy, add to 'm_itemCopy' (the container being edited), and update 'm_contentsModel'.
+          - 'onAddItem()': Open 'ItemFinderDialogQt' (from 'UI-11'). If an item is selected, create a copy, add to 'm_itemCopy' (the container being edited), and update 'm_contentsModel'.
           - 'onEditItem()': For selected item in 'm_contentsView', get its stored 'mapcore::Item*' copy. Create another copy for editing. Open a new 'ItemPropertiesDialogQt' for this sub-item copy. If dialog is accepted, replace the item in 'm_itemCopy`'s contents with the edited sub-item copy and refresh 'm_contentsModel'.
           - 'onRemoveItem()': Remove selected item from 'm_itemCopy`'s contents and 'm_contentsModel'.
 
