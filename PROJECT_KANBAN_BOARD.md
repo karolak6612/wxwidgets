@@ -154,7 +154,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [ ] TEST-10 (Execute and Document Cross-Platform UI Compatibility Tests)
 
 ### In Progress
-- CORE-14-MaterialSystem (Port Material System Data Structures) - Branch: feat/core-14-material-system
+- None
 
 ### In Review
 - None
@@ -177,6 +177,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [x] CORE-07-MapIO (Port OTBM Map I/O System) - Branch: feat/core-07-otbm-io
 - [x] CORE-08-CreatureOutfit (Port Creature Instance and Outfit Classes) - Branch: feat/core-08-creature-outfit
 - [x] CORE-11-WaypointSystem (Port Waypoint System Data Structures) - Branch: feat/core-11-waypoint-system
+- [x] CORE-14-MaterialSystem (Port Material System Data Structures) - Branch: feat/core-14-material-system
 
 ### Blocked / Needs Discussion
 - [ ] DOCS-01 (Generate Developer API Documentation (Doxygen))
