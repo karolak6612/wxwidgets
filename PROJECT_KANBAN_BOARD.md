@@ -88,7 +88,6 @@ These mandates must be adhered to for all coding tasks:
 All tasks from `tasks_execution_order.md` are listed here. This board will be updated as tasks progress.
 
 ### Backlog (To Do)
-- [ ] CORE-12-ComplexItemSystem (Port Complex Item System Data Structures)
 - [ ] CORE-13-TownSystem (Port Town System Data Structures)
 - [ ] CORE-15-MapRegionSystem (Port Map Region Logic)
 - [ ] RENDER-02 (Implement Basic Tile Rendering (Colored Quads with Ghosting))
@@ -144,6 +143,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 
 ### In Review
 - [ ] CORE-10-SpawnSystem (Port Spawn System Data Structures) - Branch: feature/CORE-10-SpawnSystem
+- [ ] CORE-12-ComplexItemSystem (Port Complex Item System Data Structures) - Branch: feature/CORE-12-ComplexItemSystem
 
 ### Completed
 - [x] BUILD-02 (Implement Packaging and Deployment) - Branch: feat/build-02-cpack-packaging

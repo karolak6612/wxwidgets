@@ -5,6 +5,7 @@
 // #include "MapElements.h" // For TownData, HouseData - Replaced by specific includes
 #include "Project_QT/src/core/houses/HouseData.h" // Specific include for HouseData
 #include "MapElements.h" // Assuming this is for TownData etc. and does NOT define HouseData
+#include "core/world/TownData.h" // New TownData location
 #include "core/navigation/WaypointData.h" // New WaypointData location
 #include "core/spawns/SpawnData.h" // Provides RME::SpawnData
 
@@ -47,11 +48,17 @@ public:
     void setChanged(bool c = true) { m_changed = c; }
 
     // --- Towns ---
-    const QList<TownData>& getTowns() const { return m_towns; }
-    TownData* getTown(quint32 townId);
-    const TownData* getTown(quint32 townId) const;
-    void addTown(const TownData& town);
-    bool removeTown(quint32 townId);
+    // const QList<TownData>& getTowns() const { return m_towns; } // OLD - RME::TownData is now in core/world/
+    // TownData* getTown(quint32 townId); // OLD
+    // const TownData* getTown(quint32 townId) const; // OLD
+    // void addTown(const TownData& town); // OLD
+    // bool removeTown(quint32 townId); // OLD
+    bool addTown(RME::TownData&& townData);
+    RME::TownData* getTown(uint32_t townId); // Changed to new RME::TownData
+    const RME::TownData* getTown(uint32_t townId) const; // Changed to new RME::TownData
+    bool removeTown(uint32_t townId); // Changed to new RME::TownData
+    const QMap<uint32_t, RME::TownData>& getTownsById() const { return m_townsById; }
+    uint32_t getUnusedTownId() const;
 
     // --- Houses ---
     // const QMap<quint32, HouseData>& getHouses() const { return m_houses; } // Old
@@ -101,7 +108,10 @@ private:
 
     bool m_changed = false;
 
-    QList<TownData> m_towns;
+    // QList<TownData> m_towns; // OLD - Replaced by m_townsById
+    QMap<uint32_t, RME::TownData> m_townsById; // New
+    uint32_t m_maxTownId = 0; // New
+
     // QMap<quint32, HouseData> m_houses; // Old
     QMap<uint32_t, HouseData> m_housesById; // New name and consistent type
     uint32_t m_maxHouseId = 0; // Tracks the highest ID ever used

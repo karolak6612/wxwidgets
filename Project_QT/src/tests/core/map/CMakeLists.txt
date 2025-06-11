@@ -42,3 +42,17 @@ target_link_libraries(TestCoreMap_Spawns PRIVATE
 set_target_properties(TestCoreMap_Spawns PROPERTIES AUTOMOC ON)
 
 add_test(NAME TestCoreMap_Spawns COMMAND TestCoreMap_Spawns)
+
+# Test executable for Map town functionality
+add_executable(TestCoreMap_Towns TestMapTowns.cpp)
+
+target_link_libraries(TestCoreMap_Towns PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib # Link against the main core library
+)
+
+# Enable automatic MOC, UIC, RCC handling for Qt
+set_target_properties(TestCoreMap_Towns PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestCoreMap_Towns COMMAND TestCoreMap_Towns)

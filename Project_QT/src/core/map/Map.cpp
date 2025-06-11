@@ -1,5 +1,6 @@
 #include "Map.h"
 #include "Project_QT/src/core/Tile.h" // Needed for removeHouse to update tiles
+#include "core/world/TownData.h" // For RME::TownData
 #include <algorithm> // For std::max, std::find_if, std::remove_if
 #include <QDebug> // For qWarning, qCritical
 #include "core/spawns/SpawnData.h"
@@ -16,6 +17,7 @@ Map::Map(int mapWidth, int mapHeight, int mapFloors, RME::core::assets::AssetMan
 }
 
 // --- Towns ---
+/* OLD IMPLEMENTATIONS
 TownData* Map::getTown(quint32 townId) {
     for (TownData& town : m_towns) {
         if (town.id == townId) {
@@ -49,6 +51,70 @@ bool Map::removeTown(quint32 townId) {
         return true;
     }
     return false;
+}
+*/
+
+bool Map::addTown(RME::TownData&& townData) {
+    uint32_t townId = townData.getId();
+    if (townId == 0) {
+        qWarning("Map::addTown: Town ID 0 is invalid.");
+        return false;
+    }
+    if (m_townsById.contains(townId)) {
+        qWarning("Map::addTown: Town ID %u already exists.", townId);
+        return false; // Or overwrite and return true, but false for "already exists" is common
+    }
+    m_townsById.insert(townId, std::move(townData));
+    m_maxTownId = std::max(m_maxTownId, townId);
+    setChanged(true);
+    return true;
+}
+
+RME::TownData* Map::getTown(uint32_t townId) {
+    auto it = m_townsById.find(townId);
+    if (it != m_townsById.end()) {
+        return &it.value();
+    }
+    return nullptr;
+}
+
+const RME::TownData* Map::getTown(uint32_t townId) const {
+    auto it = m_townsById.constFind(townId);
+    if (it != m_townsById.constEnd()) {
+        return &it.value();
+    }
+    return nullptr;
+}
+
+bool Map::removeTown(uint32_t townId) {
+    if (m_townsById.remove(townId) > 0) {
+        setChanged(true);
+        // Update m_maxTownId if the removed ID was the max
+        if (townId == m_maxTownId) {
+            m_maxTownId = 0;
+            for (uint32_t id : m_townsById.keys()) {
+                if (id > m_maxTownId) {
+                    m_maxTownId = id;
+                }
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+uint32_t Map::getUnusedTownId() const {
+    uint32_t currentId = m_maxTownId + 1;
+    if (currentId == 0) currentId = 1; // Handle overflow or initial state (0 is invalid)
+
+    while (m_townsById.contains(currentId)) {
+        currentId++;
+        if (currentId == 0) { // Wrapped around, very unlikely in practice
+            qCritical("Map::getUnusedTownId: Could not find an unused town ID, wrapped around.");
+            return 0; // Indicate error
+        }
+    }
+    return currentId;
 }
 
 // --- Houses ---

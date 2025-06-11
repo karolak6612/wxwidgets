@@ -154,6 +154,18 @@ set(CORE_ITEMS_DERIVED_SRCS
 list(APPEND RME_CORE_LIB_SOURCES ${CORE_ITEMS_DERIVED_SRCS})
 list(APPEND RME_CORE_LIB_HEADERS ${CORE_ITEMS_DERIVED_HDRS})
 
+# Town System (World Data)
+set(CORE_WORLD_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/world/TownData.h
+)
+
+set(CORE_WORLD_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/world/TownData.cpp
+)
+
+list(APPEND RME_CORE_LIB_SOURCES ${CORE_WORLD_SRCS})
+list(APPEND RME_CORE_LIB_HEADERS ${CORE_WORLD_HDRS})
+
 add_library(rme_core_lib STATIC ${RME_CORE_LIB_SOURCES})
 
 # Public include directories for this library
