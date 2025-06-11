@@ -110,6 +110,18 @@ set(CORE_ACTIONS_SRCS
 list(APPEND RME_CORE_LIB_SOURCES ${CORE_ACTIONS_SRCS})
 list(APPEND RME_CORE_LIB_HEADERS ${CORE_ACTIONS_HDRS}) # Add new action headers to the list
 
+# House System
+set(CORE_HOUSES_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/houses/HouseData.h
+)
+
+set(CORE_HOUSES_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/houses/HouseData.cpp
+)
+
+list(APPEND RME_CORE_LIB_SOURCES ${CORE_HOUSES_SRCS})
+list(APPEND RME_CORE_LIB_HEADERS ${CORE_HOUSES_HDRS})
+
 add_library(rme_core_lib STATIC ${RME_CORE_LIB_SOURCES})
 
 # Public include directories for this library

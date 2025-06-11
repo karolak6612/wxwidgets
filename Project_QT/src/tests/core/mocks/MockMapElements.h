@@ -75,6 +75,9 @@ public:
     bool addCreature(const QString&, int) override { return false; }
     void clearCreatures() override {}
     const QList<RME::SpawnCreature>& getCreatureList() const override { static QList<RME::SpawnCreature> l; return l; }
+    // Added from RME::Spawn in CORE-01
+    void setTile(RME::Tile*) override {} // No-op for mock
+    RME::Tile* getTile() const override { return nullptr; } // No-op for mock
 
 
 private:
@@ -91,9 +94,16 @@ public:
 
     // RME::Tile interface
     const RME::Position& getPosition() const override { return m_position; }
-    void setPosition(const RME::Position& pos) override { m_position = pos; }
+    // setPosition is not virtual in RME::Tile from CORE-01, so cannot override.
+    // void setPosition(const RME::Position& pos) override { m_position = pos; }
     bool isSelected() const override { return m_selected; }
     void setSelected(bool selected) override { m_selected = selected; }
+
+    // House related methods from RME::Tile, overridden for mock control
+    uint32_t getHouseId() const override { return m_houseId_mock; }
+    void setHouseId(uint32_t houseId) override { m_houseId_mock = houseId; }
+    bool isHouseExit() const override { return m_isHouseExit_mock; }
+    void setIsHouseExit(bool isExit) override { m_isHouseExit_mock = isExit; }
 
     QList<RME::Item*> getItems() const override { return m_items; }
     void addItem(RME::Item* item, bool autodelete_on_fail = false) override { if(item) m_items.append(item); else if(autodelete_on_fail && item) delete item; }
@@ -162,6 +172,9 @@ public: // Mock-specific helpers
     uint32_t m_houseId;
     uint32_t m_flags;
     RME::Map* m_map;
+    // Mock-specific members for house properties if we override getters/setters
+    uint32_t m_houseId_mock = 0;
+    bool m_isHouseExit_mock = false;
 };
 
 // --- MockMap ---

@@ -87,6 +87,27 @@ target_link_libraries(test_clipboardmanager PRIVATE
 set_target_properties(test_clipboardmanager PROPERTIES AUTOMOC ON)
 add_test(NAME test_clipboardmanager COMMAND test_clipboardmanager)
 
+# --- House System Tests ---
+add_executable(test_housesystem
+    houses/test_housesystem.cpp
+    ${TEST_CORE_MOCKS_SRCS} # Mocks are used for tiles within the real Map
+)
+
+target_include_directories(test_housesystem PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/mocks
+    ${CMAKE_SOURCE_DIR}/Project_QT/src/core
+    ${CMAKE_CURRENT_BINARY_DIR}
+)
+
+target_link_libraries(test_housesystem PRIVATE
+    Qt6::Core
+    Qt6::Test
+    rme_core_lib
+)
+
+set_target_properties(test_housesystem PROPERTIES AUTOMOC ON)
+add_test(NAME test_housesystem COMMAND test_housesystem)
+
 
 # CTest include is managed at Project_QT/src/tests/CMakeLists.txt.
 # add_test() commands register tests with CTest framework.
