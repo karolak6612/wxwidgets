@@ -168,7 +168,8 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [x] CORE-04 (Port Action & History (Undo/Redo) System)
 
 ### Blocked / Needs Discussion
-- [ ] NET-01 (Isolate and Port Network Protocol Definition and Serialization Logic) - Branch: feat/net-01-protocol-serialization
+- [ ] NET-01 (Isolate and Port Network Protocol Definition and Serialization Logic) - Branch: feat/net-01-protocol-serialization #WAS MADE BEFORE CORE-07, COMPLETLY FUCKED UP /IO SYSTEM. TO BE REWORKED
+- [ ] NET-02 (Port Live Collaboration Server Logic to Qt Network) ##WAS MADE BEFORE CORE-07, COMPLETLY FUCKED UP /IO SYSTEM. TO BE REWORKED
 - [ ] NET-02 (Port Live Collaboration Server Logic to Qt Network)
 - [ ] TEST-01 (Develop Unit Tests for Core Qt6 Data Structures)
 - [ ] TEST-02 (Develop Unit Tests for Asset Loading and Parsing Logic)
