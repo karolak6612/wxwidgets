@@ -5,13 +5,14 @@ set(RME_CORE_LIB_SOURCES
     # CORE-01 files
     Position.cpp
     Item.cpp          # Uses IItemTypeProvider.h
-    # Creature.cpp from CORE-01 was a stub or basic version, actual in creatures subdir.
-    # That top-level core/Creature.cpp might need to be removed or reconciled if it exists and conflicts.
     Spawn.cpp         # Stub
     Tile.cpp          # Uses Item.h, Creature.h, Spawn.h, Position.h
 
     # CORE-08 files
-    creatures/Creature.cpp # Added for CORE-08
+    creatures/Creature.cpp
+
+    # CORE-11 files
+    navigation/WaypointData.cpp # Added for CORE-11
 
     # CORE-02 asset loading files
     assets/ClientVersionManager.cpp
@@ -35,12 +36,10 @@ set(RME_CORE_LIB_SOURCES
     brush/Brush.cpp
     brush/BrushManagerService.cpp
 
-    # LOGIC-04 Waypoint System files
+    # LOGIC-04 Waypoint System files (This is WaypointManager, distinct from WaypointData)
     waypoints/WaypointManager.cpp
 
-    # NET-01 Network Protocol & IO Handlers (from CORE-07)
-    network/NetworkMessage.cpp
-    network/MapProtocolCodec.cpp
+    # IO Handlers (from CORE-07)
     io/BinaryNode.cpp
     io/NodeFileReadHandle.cpp
     io/MemoryNodeFileReadHandle.cpp
@@ -51,26 +50,25 @@ set(RME_CORE_LIB_SOURCES
     io/OtbmMapIO.cpp
 
     # CORE-04 Action & History System
-    actions/appundocommand.cpp
+    actions/appundocommand.cpp # Note: These might be misnamed based on previous CORE-04 work (AppUndoCommand.cpp etc)
     actions/changetilecommand.cpp
     actions/batchcommand.cpp
+
+    # Network files that were part of original RME_CORE_LIB_SOURCES, likely from NET-01/02 if they touched these
+    # These might belong to a separate network library later.
+    network/NetworkMessage.cpp
+    network/MapProtocolCodec.cpp
 )
 
 add_library(rme_core_lib STATIC ${RME_CORE_LIB_SOURCES})
 
 # Public include directories for this library
-# This allows other targets linking against rme_core_lib to find its headers
-# e.g., #include "Position.h", #include "assets/AssetManager.h", #include "settings/AppSettings.h"
-# It implicitly adds the current source dir and its subdirectories if headers are structured like core/subdir/header.h
 target_include_directories(rme_core_lib PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR} # Exposes Project_QT/src/core/ and its subdirectories like core/creatures/
+    ${CMAKE_CURRENT_SOURCE_DIR} # Exposes Project_QT/src/core/ and its subdirectories
 )
 
-# Link against Qt6 Core as QSettings, QXmlStreamReader, QFile, QDataStream, QString, QList, QMap, QVariant etc. are used.
-# QVector is also in Core. QDebug is in Core.
+# Link against Qt6 Core and Widgets
 target_link_libraries(rme_core_lib PRIVATE
     Qt6::Core
-    Qt6::Widgets # Added for QUndoStack, QUndoCommand, QObject signals/slots in UndoManager
+    Qt6::Widgets
 )
-
-# Add other dependencies if necessary

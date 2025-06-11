@@ -10,7 +10,7 @@
 #include "core/Position.h"
 #include "core/assets/AssetManager.h" // Full definition
 #include "core/settings/AppSettings.h" // Full definition
-#include "core/map/MapElements.h" // For WaypointData
+#include "core/navigation/WaypointData.h" // New WaypointData location
 #include "core/Container.h" // Required for casting and accessing items in a container
 
 
@@ -221,7 +221,7 @@ bool OtbmMapIO::parseTileAreaNode(BinaryNode* tileAreaNode, Map& map, AssetManag
     BinaryNode* tileNode = tileAreaNode->getChild();
     while(tileNode) {
         if (tileNode->getType() == OTBM_NODE_TILE || tileNode->getType() == OTBM_NODE_HOUSETILE) {
-            if (!parseTileNode(tileNode, map, assetManager, areaBasePos, settings)) return false;
+            if (!parseTileNode(tileNode, map, assetManager, areaBasePos, settings)) return false; // Pass settings
         } else {
             qWarning() << "OtbmMapIO: Unknown child node type" << tileNode->getType() << "in TILE_AREA at base" << areaBasePos.toString();
         }
@@ -498,32 +498,36 @@ bool OtbmMapIO::serializeMapDataNode(NodeFileWriteHandle& writer, const Map& map
     // TODO: Write map client version attributes (OTBM_ATTR_MAP_VERSION_MAJOR, etc.) from map.getVersionInfo()
 
     // Iterate map by 256x256x1 areas (per floor)
-    for (int z = 0; z < map.getFloors(); ++z) {
-        for (int y_base = 0; y_base < map.getHeight(); y_base += 256) {
-            for (int x_base = 0; x_base < map.getWidth(); x_base += 256) {
-                // Check if this specific x_base, y_base, z area has any tiles to save
-                bool areaHasTiles = false;
-                for (int y_off = 0; y_off < 256 && (y_base + y_off) < map.getHeight(); ++y_off) {
-                    for (int x_off = 0; x_off < 256 && (x_base + x_off) < map.getWidth(); ++x_off) {
-                        if (map.getTile(Position(x_base + x_off, y_base + y_off, z))) {
-                            areaHasTiles = true; break;
+    // Ensure map dimensions are positive before iterating
+    if (map.getWidth() > 0 && map.getHeight() > 0 && map.getFloors() > 0) {
+        for (int z = 0; z < map.getFloors(); ++z) {
+            for (int y_base = 0; y_base < map.getHeight(); y_base += 256) {
+                for (int x_base = 0; x_base < map.getWidth(); x_base += 256) {
+                    // Check if this specific x_base, y_base, z area has any tiles to save
+                    bool areaHasTiles = false;
+                    for (int y_off = 0; y_off < 256 && (y_base + y_off) < map.getHeight(); ++y_off) {
+                        for (int x_off = 0; x_off < 256 && (x_base + x_off) < map.getWidth(); ++x_off) {
+                            if (map.getTile(Position(x_base + x_off, y_base + y_off, z))) {
+                                areaHasTiles = true; break;
+                            }
                         }
+                        if (areaHasTiles) break;
                     }
-                    if (areaHasTiles) break;
-                }
 
-                if (areaHasTiles) {
-                    if (!serializeTileAreaNode(writer, map, Position(x_base, y_base, z), assetManager, settings)) { // Pass assetManager & settings
-                        return false; // m_lastError set by callee
+                    if (areaHasTiles) {
+                        if (!serializeTileAreaNode(writer, map, Position(x_base, y_base, z), assetManager, settings)) {
+                            return false; // m_lastError set by callee
+                        }
                     }
                 }
             }
         }
     }
 
+
     // Serialize Waypoints if any
     if (!map.getWaypoints().isEmpty()) {
-        if (!serializeWaypointsContainerNode(writer, map, assetManager, settings)) { // Pass assetManager & settings
+        if (!serializeWaypointsContainerNode(writer, map, assetManager, settings)) {
             return false; // m_lastError set by callee
         }
     }
@@ -719,7 +723,7 @@ bool OtbmMapIO::serializeItemNode(NodeFileWriteHandle& writer, const Item* item,
     return true;
 }
 
-// --- Waypoint Specific Parsing/Serialization (Stubs from header, to be implemented) ---
+    // --- Waypoint Specific Parsing/Serialization ---
 bool OtbmMapIO::parseWaypointsContainerNode(BinaryNode* containerNode, Map& map, AssetManager& assetManager, AppSettings& settings) {
     BinaryNode* waypointNode = containerNode->getChild();
     while(waypointNode) {
@@ -737,7 +741,8 @@ bool OtbmMapIO::parseWaypointsContainerNode(BinaryNode* containerNode, Map& map,
 
 bool OtbmMapIO::parseWaypointNode(BinaryNode* waypointNode, Map& map, AssetManager& assetManager, AppSettings& settings) {
     QString wpName;
-    Position wpPos; // Will store absolute coordinates
+    Position wpPos;
+    RME::core::navigation::WaypointData newWaypoint; // Use the new type
 
     waypointNode->resetReadOffset();
     while(waypointNode->hasMoreProperties()) {
@@ -769,6 +774,22 @@ bool OtbmMapIO::parseWaypointNode(BinaryNode* waypointNode, Map& map, AssetManag
                 wpPos.setZ(z);
                 break;
             }
+            case OTBM_ATTR_WAYPOINT_CONNECTION_TO: {
+                std::string connectedName_std;
+                if (!waypointNode->getString(connectedName_std)) {
+                    m_lastError = "Failed to read waypoint connection name.";
+                    return false;
+                }
+                // newWaypoint will be fully formed after loop, then add connections
+                // For now, store them temporarily if needed, or rely on setting after main props.
+                // This part is tricky as newWaypoint isn't fully named/positioned yet.
+                // Better to collect all attributes, then create WaypointData, then add connections.
+                // For now, this will add to a default-constructed newWaypoint if OTBM_ATTR_WAYPOINT_NAME comes after.
+                // This needs to be handled by ensuring WaypointData is constructed after name/pos are known.
+                // Let's assume for now this attribute is read after name/pos.
+                newWaypoint.addConnection(QString::fromStdString(connectedName_std));
+                break;
+            }
             default: {
                 m_lastError = QString("Unknown attribute type %1 for WAYPOINT node.").arg(attribute);
                 qWarning() << "OtbmMapIO::parseWaypointNode:" << m_lastError;
@@ -782,7 +803,18 @@ bool OtbmMapIO::parseWaypointNode(BinaryNode* waypointNode, Map& map, AssetManag
         qWarning() << "OtbmMapIO::parseWaypointNode:" << m_lastError;
         return false;
     }
-    map.addWaypoint(WaypointData(wpName, wpPos));
+
+    // Construct WaypointData fully here before adding connections if they were temporarily stored
+    newWaypoint.name = wpName;
+    newWaypoint.position = wpPos;
+    // If connections were stored in a temp list, add them to newWaypoint now.
+    // The current structure adds connections to a potentially default-named newWaypoint if
+    // OTBM_ATTR_WAYPOINT_CONNECTION_TO appears before OTBM_ATTR_WAYPOINT_NAME.
+    // For a robust solution, all attributes should be read into temporary variables,
+    // then the WaypointData object constructed and populated.
+    // For this simplified update, we assume name/pos are parsed before connections.
+
+    map.addWaypoint(std::move(newWaypoint));
     return true;
 }
 
@@ -794,9 +826,9 @@ bool OtbmMapIO::serializeWaypointsContainerNode(NodeFileWriteHandle& writer, con
         m_lastError = "Failed to start WAYPOINTS_CONTAINER node."; return false;
     }
 
-    const auto& waypointsMap = map.getWaypoints(); // Get the map of waypoints
+    const auto& waypointsMap = map.getWaypoints();
     for (auto it = waypointsMap.constBegin(); it != waypointsMap.constEnd(); ++it) {
-        const WaypointData& waypoint = it.value(); // Access WaypointData
+        const RME::core::navigation::WaypointData& waypoint = it.value();
         if (!serializeWaypointNode(writer, waypoint, assetManager, settings)) {
             return false;
         }
@@ -808,7 +840,7 @@ bool OtbmMapIO::serializeWaypointsContainerNode(NodeFileWriteHandle& writer, con
     return true;
 }
 
-bool OtbmMapIO::serializeWaypointNode(NodeFileWriteHandle& writer, const WaypointData& waypoint, AssetManager& assetManager, AppSettings& settings) {
+bool OtbmMapIO::serializeWaypointNode(NodeFileWriteHandle& writer, const RME::core::navigation::WaypointData& waypoint, AssetManager& assetManager, AppSettings& settings) {
     if (!writer.addNode(OTBM_NODE_WAYPOINT, false)) {
         m_lastError = "Failed to start WAYPOINT node for: " + waypoint.name;
         return false;
@@ -827,7 +859,14 @@ bool OtbmMapIO::serializeWaypointNode(NodeFileWriteHandle& writer, const Waypoin
     if (!writer.addU8(OTBM_ATTR_WAYPOINT_POSITION_Z) || !writer.addU8(static_cast<uint8_t>(waypoint.position.z()))) {
          m_lastError = "Failed to write waypoint pos Z for: " + waypoint.name; return false;
     }
-    // Note: Waypoint connections are not handled in this simplified version / not in WaypointData struct from MapElements.h
+
+    // Serialize connections
+    for (const QString& connectedName : waypoint.getConnections()) {
+        if (!writer.addU8(OTBM_ATTR_WAYPOINT_CONNECTION_TO) || !writer.addString(connectedName)) {
+            m_lastError = "Failed to write waypoint connection to '" + connectedName + "' for waypoint '" + waypoint.name + "'.";
+            return false;
+        }
+    }
 
     if (!writer.endNode()) {
         m_lastError = "Failed to end WAYPOINT node for: " + waypoint.name; return false;

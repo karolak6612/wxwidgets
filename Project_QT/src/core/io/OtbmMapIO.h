@@ -3,6 +3,7 @@
 
 #include "core/io/IMapIO.h"
 #include "core/io/otbm_constants.h" // For node type constants
+#include "core/navigation/WaypointData.h" // New WaypointData location
 #include <QVariantMap> // For passing attributes around if needed
 #include <QByteArray>  // For compress/decompress helpers
 
@@ -90,10 +91,11 @@ private:
      * Extracts map attributes and then processes child nodes like tile areas.
      * @param mapDataNode The BinaryNode representing map data.
      * @param map The Map object to populate.
+     * @param assetManager For item validation.
      * @param settings Application settings.
      * @return True on success, false on failure.
      */
-    bool parseMapDataNode(BinaryNode* mapDataNode, Map& map, AppSettings& settings);
+    bool parseMapDataNode(BinaryNode* mapDataNode, Map& map, AssetManager& assetManager, AppSettings& settings);
 
     /**
      * @brief Parses a tile area node (OTBM_NODE_TILE_AREA).
@@ -101,9 +103,10 @@ private:
      * @param tileAreaNode The BinaryNode for the tile area.
      * @param map The Map object to populate.
      * @param assetManager For item validation.
+     * @param settings Application settings.
      * @return True on success, false on failure.
      */
-    bool parseTileAreaNode(BinaryNode* tileAreaNode, Map& map, AssetManager& assetManager);
+    bool parseTileAreaNode(BinaryNode* tileAreaNode, Map& map, AssetManager& assetManager, AppSettings& settings);
 
     /**
      * @brief Parses a single tile node (OTBM_NODE_TILE or OTBM_NODE_HOUSETILE).
@@ -112,9 +115,10 @@ private:
      * @param map The Map object.
      * @param assetManager For item validation.
      * @param areaBasePos The base position of the current tile area.
+     * @param settings Application settings.
      * @return True on success, false on failure.
      */
-    bool parseTileNode(BinaryNode* tileNode, Map& map, AssetManager& assetManager, const Position& areaBasePos);
+    bool parseTileNode(BinaryNode* tileNode, Map& map, AssetManager& assetManager, const Position& areaBasePos, AppSettings& settings);
 
     /**
      * @brief Parses an item node (OTBM_NODE_ITEM).
@@ -122,17 +126,24 @@ private:
      * @param itemNode The BinaryNode for the item.
      * @param tile The Tile object to add the item to.
      * @param assetManager For item validation and creation.
+     * @param settings Application settings.
      * @return True on success, false on failure.
      */
-    bool parseItemNode(BinaryNode* itemNode, Tile* tile, AssetManager& assetManager);
-    // TODO: Add more parsers as needed (parseCreatureNode, parseSpawnNode, parseWaypointNode, parseTownNode etc.)
+    bool parseItemNode(BinaryNode* itemNode, Tile* tile, AssetManager& assetManager, AppSettings& settings);
+    // TODO: Add parseCreatureNode, parseSpawnNode, parseTownNode etc.
+    bool parseWaypointsContainerNode(BinaryNode* containerNode, Map& map, AssetManager& assetManager, AppSettings& settings);
+    bool parseWaypointNode(BinaryNode* waypointNode, Map& map, AssetManager& assetManager, AppSettings& settings);
 
     // --- Helper methods for saving (declarations) ---
-    bool serializeMapDataNode(NodeFileWriteHandle& writer, const Map& map, AppSettings& settings);
-    bool serializeTileAreaNode(NodeFileWriteHandle& writer, const Map& map, const Position& areaBasePos, uint16_t areaWidth, uint16_t areaHeight, AssetManager& assetManager);
-    bool serializeTileNode(NodeFileWriteHandle& writer, const Tile* tile, AssetManager& assetManager);
-    bool serializeItemNode(NodeFileWriteHandle& writer, const Item* item, AssetManager& assetManager);
-    // TODO: Add more serializers
+    bool serializeMapDataNode(NodeFileWriteHandle& writer, const Map& map, AssetManager& assetManager, AppSettings& settings);
+    bool serializeTileAreaNode(NodeFileWriteHandle& writer, const Map& map,
+                                   const Position& areaBasePos,
+                                   AssetManager& assetManager, AppSettings& settings);
+    bool serializeTileNode(NodeFileWriteHandle& writer, const Tile* tile, AssetManager& assetManager, AppSettings& settings);
+    bool serializeItemNode(NodeFileWriteHandle& writer, const Item* item, AssetManager& assetManager, AppSettings& settings);
+    // TODO: Add serializeCreatureNode, serializeSpawnNode, serializeTownNode etc.
+    bool serializeWaypointsContainerNode(NodeFileWriteHandle& writer, const Map& map, AssetManager& assetManager, AppSettings& settings);
+    bool serializeWaypointNode(NodeFileWriteHandle& writer, const RME::core::navigation::WaypointData& waypoint, AssetManager& assetManager, AppSettings& settings);
 
     // --- Helper for zlib compression/decompression ---
     /**

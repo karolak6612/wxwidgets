@@ -29,6 +29,7 @@ add_subdirectory(settings) # New line for AppSettings tests
 add_subdirectory(actions)
 add_subdirectory(io)
 add_subdirectory(creatures)
+add_subdirectory(navigation) # Added for CORE-11 WaypointData tests
 
 # CTest include is managed at Project_QT/src/tests/CMakeLists.txt.
 # add_test() commands register tests with CTest framework.
