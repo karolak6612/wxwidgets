@@ -60,6 +60,56 @@ set(RME_CORE_LIB_SOURCES
     network/MapProtocolCodec.cpp
 )
 
+# Selection system
+set(CORE_SELECTION_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/selection/SelectionManager.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/selection/SelectionCommand.h
+)
+
+set(CORE_SELECTION_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/selection/SelectionManager.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/selection/SelectionCommand.cpp
+)
+
+list(APPEND RME_CORE_LIB_SOURCES ${CORE_SELECTION_SRCS})
+# Headers are made available via target_include_directories for CORE_SELECTION_HDRS.
+
+# Clipboard system
+set(CORE_CLIPBOARD_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/clipboard/ClipboardData.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/clipboard/ClipboardManager.h
+)
+
+set(CORE_CLIPBOARD_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/clipboard/ClipboardData.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/clipboard/ClipboardManager.cpp
+)
+
+list(APPEND RME_CORE_LIB_SOURCES ${CORE_CLIPBOARD_SRCS})
+# Define RME_CORE_LIB_HEADERS if it's intended to be a comprehensive list, otherwise headers are found via include_directories
+set(RME_CORE_LIB_HEADERS ${CORE_SELECTION_HDRS} ${CORE_CLIPBOARD_HDRS})
+# Note: RME_CORE_LIB_HEADERS is defined here but not explicitly used by add_library or target_sources.
+# It's good for organization or if other CMake scripts consume it.
+# Primary mechanism for header availability is target_include_directories.
+
+# Actions (Undo/Redo Commands)
+set(CORE_ACTIONS_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/actions/appundocommand.h # Already existed, ensure it's part of this logical group
+    ${CMAKE_CURRENT_SOURCE_DIR}/actions/changetilecommand.h # Already existed
+    ${CMAKE_CURRENT_SOURCE_DIR}/actions/batchcommand.h # Already existed
+    ${CMAKE_CURRENT_SOURCE_DIR}/actions/DeleteCommand.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/actions/PasteCommand.h
+)
+
+set(CORE_ACTIONS_SRCS
+    # appundocommand.cpp, changetilecommand.cpp, batchcommand.cpp are already in RME_CORE_LIB_SOURCES directly
+    ${CMAKE_CURRENT_SOURCE_DIR}/actions/DeleteCommand.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/actions/PasteCommand.cpp
+)
+
+list(APPEND RME_CORE_LIB_SOURCES ${CORE_ACTIONS_SRCS})
+list(APPEND RME_CORE_LIB_HEADERS ${CORE_ACTIONS_HDRS}) # Add new action headers to the list
+
 add_library(rme_core_lib STATIC ${RME_CORE_LIB_SOURCES})
 
 # Public include directories for this library

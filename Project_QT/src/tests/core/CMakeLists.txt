@@ -31,5 +31,62 @@ add_subdirectory(io)
 add_subdirectory(creatures)
 add_subdirectory(navigation) # Added for CORE-11 WaypointData tests
 
+# --- Mock Objects (Common for core tests if needed, or defined per test) ---
+# These mocks are specific to the tests in this directory or its subdirectories.
+set(TEST_CORE_MOCKS_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/mocks/MockMapElements.h
+)
+set(TEST_CORE_MOCKS_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/mocks/MockMapElements.cpp
+)
+
+# --- Test Executable: test_selectionmanager ---
+add_executable(test_selectionmanager
+    selection/test_selectionmanager.cpp
+    ${TEST_CORE_MOCKS_SRCS} # Compile mocks with the test
+)
+
+# Include directories for the test executable:
+target_include_directories(test_selectionmanager PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/mocks
+    ${CMAKE_SOURCE_DIR}/Project_QT/src/core # To find headers of the library being tested
+    ${CMAKE_CURRENT_BINARY_DIR} # For MOC outputs from this test
+)
+
+# Link test_selectionmanager against Qt Core, Qt Test, and rme_core_lib
+target_link_libraries(test_selectionmanager PRIVATE
+    Qt6::Core
+    Qt6::Test
+    rme_core_lib
+)
+
+# Enable automatic MOC, UIC, RCC handling for Qt
+set_target_properties(test_selectionmanager PROPERTIES AUTOMOC ON)
+
+# Add the test to CTest
+add_test(NAME test_selectionmanager COMMAND test_selectionmanager)
+
+# --- Test Executable: test_clipboardmanager ---
+add_executable(test_clipboardmanager
+    clipboard/test_clipboardmanager.cpp
+    ${TEST_CORE_MOCKS_SRCS} # Compile mocks with the test
+)
+
+target_include_directories(test_clipboardmanager PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/mocks
+    ${CMAKE_SOURCE_DIR}/Project_QT/src/core # To find headers of the library being tested
+    ${CMAKE_CURRENT_BINARY_DIR} # For MOC outputs from this test
+)
+
+target_link_libraries(test_clipboardmanager PRIVATE
+    Qt6::Core
+    Qt6::Test
+    rme_core_lib
+)
+
+set_target_properties(test_clipboardmanager PROPERTIES AUTOMOC ON)
+add_test(NAME test_clipboardmanager COMMAND test_clipboardmanager)
+
+
 # CTest include is managed at Project_QT/src/tests/CMakeLists.txt.
 # add_test() commands register tests with CTest framework.
