@@ -112,6 +112,15 @@ public:
     QList<HouseData*> getHousesWithExitAt(const Position& pos);
     QList<const HouseData*> getHousesWithExitAt(const Position& pos) const; // Const version
 
+    /**
+     * @brief Checks if a given position is a valid location for a house exit.
+     * A valid location typically must exist, have ground, not be part of an existing house,
+     * and not be blocking (i.e., be walkable).
+     * @param pos The position to check.
+     * @return True if the location is valid for a house exit, false otherwise.
+     */
+    bool isValidHouseExitLocation(const Position& pos) const;
+
     // Tile change notification
     void notifyTileChanged(const Position& pos);
 

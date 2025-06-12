@@ -91,7 +91,6 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [ ] RENDER-02 (Implement Basic Tile Rendering (Colored Quads with Ghosting))
 - [ ] UI-02 (Port Main Application Toolbars and Comprehensive Palette System)
 - [ ] BRUSH-LOGIC-Spawn (Port Spawn Brush Logic)
-- [ ] BRUSH-LOGIC-House (Port House Brush Logic)
 - [ ] BRUSH-LOGIC-HouseExit (Port House Exit Brush/Tool Logic)
 - [ ] BRUSH-LOGIC-Creature (Port Creature Brush Logic)
 - [ ] BRUSH-LOGIC-Ground (Port Ground Brush Logic)
@@ -144,6 +143,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [ ] BRUSH-LOGIC-RAW (Port RAW Brush Logic) - Branch: feature/BRUSH-LOGIC-RAW #Deferred: RAW_LIKE_SIMONE setting pending REFACTOR-01
 - [ ] BRUSH-LOGIC-Eraser (Port Eraser Brush Logic) - Branch: feature/BRUSH-LOGIC-Eraser #Deferred: ERASER_LEAVE_UNIQUE setting pending REFACTOR-01
 - [ ] BRUSH-LOGIC-Waypoint (Port Waypoint Brush/Tool Logic) - Branch: feature/BRUSH-LOGIC-Waypoint
+- [ ] BRUSH-LOGIC-House (Port House Brush Logic) - Branch: feature/BRUSH-LOGIC-House #Deferred: Settings-dependent features (item removal, door ID assignment) pending REFACTOR-01
 
 ### Completed
 - [x] BUILD-02 (Implement Packaging and Deployment) - Branch: feat/build-02-cpack-packaging

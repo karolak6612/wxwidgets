@@ -34,6 +34,14 @@ namespace RME {
         void applyBrushStroke(const QList<core::Position>& positions, const core::BrushSettings& settings, bool isEraseOperation);
         void deleteSelection();
         void placeOrMoveWaypoint(const QString& name, const RME::core::Position& targetPos);
+        /**
+         * @brief Sets or updates the exit point for a given house.
+         * Validates the target position before creating an undoable command.
+         * @param houseId The ID of the house to modify.
+         * @param targetPos The new target position for the house exit.
+         *                  If targetPos is not valid (e.g. default-constructed Position) it might clear the exit.
+         */
+        void setHouseExit(uint32_t houseId, const RME::core::Position& targetPos);
 
     private:
         Map* m_map = nullptr;

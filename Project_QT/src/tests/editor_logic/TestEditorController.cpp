@@ -11,6 +11,9 @@
 #include "core/Item.h" // For creating items in tiles for tests
 #include "tests/core/MockItemTypeProvider.h" // For item creation
 #include "MockBrush.h" // Our new mock brush
+#include "core/waypoints/WaypointManager.h"   // For EditorController constructor
+#include "core/houses/HouseData.h"           // For adding houses to map
+#include "editor_logic/commands/SetHouseExitCommand.h" // For command ID checks
 
 class TestEditorController : public QObject {
     Q_OBJECT
@@ -20,36 +23,34 @@ private:
     QUndoStack* m_undoStack = nullptr;
     RME::SelectionManager* m_selectionManager = nullptr;
     RME::BrushManagerService* m_brushManagerService = nullptr;
+    RME::core::WaypointManager* m_waypointManager = nullptr; // Added
     RME::EditorController* m_editorController = nullptr;
     RME::MockItemTypeProvider* m_mockItemProvider = nullptr;
-    RME::MockBrush* m_mockBrushInstance = nullptr; // Keep a non-owning pointer to the brush instance added to BMS
+    RME::MockBrush* m_mockBrushInstance = nullptr;
 
 private slots:
     void init() {
         m_mockItemProvider = new RME::MockItemTypeProvider();
-        // Map constructor takes RME::core::assets::AssetManager*.
-        // For these tests, AssetManager features are not directly used by tile operations.
         m_map = new RME::Map(100, 100, 8, nullptr /* AssetManager* */);
         m_undoStack = new QUndoStack(this);
-        // Assuming SelectionManager constructor is: SelectionManager(Map* map, QUndoStack* undoStack, QObject* parent)
         m_selectionManager = new RME::SelectionManager(m_map, m_undoStack, this);
         m_brushManagerService = new RME::BrushManagerService(this);
+        m_waypointManager = new RME::core::WaypointManager(m_map); // Added
 
-        // Create the mock brush and add it to the service. BMS takes ownership.
         auto mockBrushOwned = std::make_unique<RME::MockBrush>("TestBrush1");
-        m_mockBrushInstance = mockBrushOwned.get(); // Store non-owning pointer for spying
+        m_mockBrushInstance = mockBrushOwned.get();
         m_brushManagerService->addBrush(std::move(mockBrushOwned));
-        m_brushManagerService->setActiveBrush("TestBrush1"); // Assumes this method exists
+        m_brushManagerService->setActiveBrush("TestBrush1");
 
-        m_editorController = new RME::EditorController(m_map, m_undoStack, m_selectionManager, m_brushManagerService, this);
+        m_editorController = new RME::EditorController(m_map, m_undoStack, m_selectionManager, m_brushManagerService, m_waypointManager, this); // Added m_waypointManager
     }
 
     void cleanup() {
         delete m_editorController; m_editorController = nullptr;
-        // m_brushManagerService owns m_mockBrushInstance now, so it will be deleted by BMS's destructor.
         m_mockBrushInstance = nullptr;
         delete m_brushManagerService; m_brushManagerService = nullptr;
         delete m_selectionManager; m_selectionManager = nullptr;
+        delete m_waypointManager; m_waypointManager = nullptr; // Added
         delete m_undoStack; m_undoStack = nullptr;
         delete m_map; m_map = nullptr;
         delete m_mockItemProvider; m_mockItemProvider = nullptr;
@@ -165,6 +166,121 @@ private slots:
         QVERIFY(m_map->getTile(pos1) == nullptr);
         QVERIFY(m_map->getTile(pos2) == nullptr);
         QVERIFY(m_selectionManager->getSelectedTiles().isEmpty());
+    }
+
+    // --- House Exit Tests ---
+    void testSetHouseExit_NewExit() {
+        uint32_t houseId = 1;
+        // Map::addHouse takes HouseData by rvalue reference.
+        // Create it, then move it.
+        RME::HouseData newHouse(houseId, "TestHouse1");
+        m_map->addHouse(std::move(newHouse));
+
+        RME::Position newExitPos(5,5,7);
+        bool created; // dummy
+        m_map->getOrCreateTile(newExitPos, created)->addItem(RME::Item::create(1, m_mockItemProvider)); // Add ground
+
+        m_editorController->setHouseExit(houseId, newExitPos);
+        QCOMPARE(m_undoStack->count(), 1);
+        const QUndoCommand* command = m_undoStack->command(0);
+        QCOMPARE(command->id(), RME_COMMANDS::SetHouseExitCommandId);
+
+        RME::HouseData* house = m_map->getHouse(houseId);
+        QVERIFY(house);
+        QCOMPARE(house->getEntryPoint(), newExitPos);
+        RME::Tile* exitTile = m_map->getTile(newExitPos);
+        QVERIFY(exitTile && exitTile->isHouseExit());
+
+        m_undoStack->undo();
+        QVERIFY(house->getEntryPoint() != newExitPos);
+        QVERIFY(exitTile && !exitTile->isHouseExit());
+
+        m_undoStack->redo();
+        QCOMPARE(house->getEntryPoint(), newExitPos);
+        QVERIFY(exitTile && exitTile->isHouseExit());
+    }
+
+    void testSetHouseExit_ChangeExit() {
+        uint32_t houseId = 2;
+        RME::Position oldExitPos(6,6,7);
+        RME::Position newExitPos(7,7,7);
+        bool created; // dummy
+        m_map->getOrCreateTile(oldExitPos, created)->addItem(RME::Item::create(1, m_mockItemProvider));
+        m_map->getOrCreateTile(newExitPos, created)->addItem(RME::Item::create(1, m_mockItemProvider));
+
+        RME::HouseData houseSetup(houseId, "TestHouse2");
+        // Set initial exit directly on HouseData *before* adding to map,
+        // because addHouse moves it and we can't modify houseSetup after that.
+        // Also, houseSetup.setEntryPoint needs the map context.
+        m_map->addHouse(std::move(houseSetup));
+        RME::HouseData* house = m_map->getHouse(houseId);
+        QVERIFY(house);
+        house->setEntryPoint(oldExitPos, m_map); // Set initial exit after adding to map
+
+        m_editorController->setHouseExit(houseId, newExitPos);
+        QCOMPARE(m_undoStack->count(), 1);
+        QCOMPARE(house->getEntryPoint(), newExitPos);
+        RME::Tile* oldTile = m_map->getTile(oldExitPos);
+        QVERIFY(oldTile && !oldTile->isHouseExit());
+        RME::Tile* newTile = m_map->getTile(newExitPos);
+        QVERIFY(newTile && newTile->isHouseExit());
+
+        m_undoStack->undo();
+        QCOMPARE(house->getEntryPoint(), oldExitPos);
+        QVERIFY(oldTile && oldTile->isHouseExit());
+        QVERIFY(newTile && !newTile->isHouseExit());
+    }
+
+    void testSetHouseExit_ClearExit() {
+        uint32_t houseId = 3;
+        RME::Position oldExitPos(8,8,7);
+        RME::Position invalidPos; // Default, to clear
+        bool created; // dummy
+        m_map->getOrCreateTile(oldExitPos, created)->addItem(RME::Item::create(1, m_mockItemProvider));
+
+        RME::HouseData houseSetup(houseId, "TestHouse3");
+        m_map->addHouse(std::move(houseSetup));
+        RME::HouseData* house = m_map->getHouse(houseId);
+        QVERIFY(house);
+        house->setEntryPoint(oldExitPos, m_map);
+
+        m_editorController->setHouseExit(houseId, invalidPos);
+        QCOMPARE(m_undoStack->count(), 1);
+        QCOMPARE(house->getEntryPoint(), invalidPos);
+        RME::Tile* oldTile = m_map->getTile(oldExitPos);
+        QVERIFY(oldTile && !oldTile->isHouseExit());
+
+        m_undoStack->undo();
+        QCOMPARE(house->getEntryPoint(), oldExitPos);
+        QVERIFY(oldTile && oldTile->isHouseExit());
+    }
+
+    void testSetHouseExit_InvalidLocation() {
+        uint32_t houseId = 4;
+        RME::HouseData newHouse(houseId, "TestHouse4");
+        m_map->addHouse(std::move(newHouse));
+        RME::Position invalidTarget(9,9,7);
+        bool created; // dummy
+        m_map->getOrCreateTile(invalidTarget, created); // No ground added, so invalid exit location
+
+        m_editorController->setHouseExit(houseId, invalidTarget);
+        QCOMPARE(m_undoStack->count(), 0);
+    }
+
+    void testSetHouseExit_NoChange() {
+        uint32_t houseId = 5;
+        RME::Position currentExit(10,10,7);
+        bool created; // dummy
+        m_map->getOrCreateTile(currentExit, created)->addItem(RME::Item::create(1, m_mockItemProvider));
+
+        RME::HouseData houseSetup(houseId, "TestHouse5");
+        m_map->addHouse(std::move(houseSetup));
+        RME::HouseData* house = m_map->getHouse(houseId);
+        QVERIFY(house);
+        house->setEntryPoint(currentExit, m_map);
+
+        m_editorController->setHouseExit(houseId, currentExit); // Target is same as current
+        QCOMPARE(m_undoStack->count(), 0);
     }
 };
 // QTEST_APPLESS_MAIN(TestEditorController)

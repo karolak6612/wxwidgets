@@ -8,11 +8,13 @@
 #include "core/Position.h"
 #include "core/waypoints/WaypointManager.h" // Added
 #include "core/waypoints/Waypoint.h"       // Added
+#include "core/houses/HouseData.h"         // Added
 #include <QUndoStack>
 #include "commands/BrushStrokeCommand.h"
 #include "commands/DeleteCommand.h"
-#include "commands/AddWaypointCommand.h"   // Added
-#include "commands/MoveWaypointCommand.h"  // Added
+#include "commands/AddWaypointCommand.h"
+#include "commands/MoveWaypointCommand.h"
+#include "commands/SetHouseExitCommand.h"  // Added
 #include <QDebug> // For qWarning (optional)
 
 namespace RME {
@@ -114,6 +116,53 @@ void EditorController::placeOrMoveWaypoint(const QString& name, const RME::core:
             targetPos
         ));
     }
+}
+
+void EditorController::setHouseExit(uint32_t houseId, const RME::core::Position& targetPos) {
+    if (!m_map || !m_undoStack) {
+        qWarning("EditorController::setHouseExit: Map or UndoStack component is null.");
+        return;
+    }
+    if (houseId == 0) {
+        qWarning("EditorController::setHouseExit: Invalid house ID 0.");
+        return;
+    }
+
+    HouseData* house = m_map->getHouse(houseId);
+    if (!house) {
+        qWarning("EditorController::setHouseExit: House with ID %u not found.", houseId);
+        return;
+    }
+
+    // If targetPos is the same as the current entry point, do nothing.
+    if (house->getEntryPoint() == targetPos) {
+        // qInfo("EditorController::setHouseExit: Target position is same as current for house %u.", houseId);
+        return;
+    }
+
+    // Validate the new target position if it's a "real" position.
+    // A default-constructed Position might signify clearing the exit.
+    // Position::isValid() might return true for (0,0,0) if it's a valid map coord.
+    // Map::isValidHouseExitLocation() performs more specific checks.
+    if (targetPos != RME::core::Position()) { // Assuming default Position means "clear" or "no specific new target"
+                                         // Or better: if targetPos has some sentinel values for "clear".
+                                         // For now, any non-default position is validated.
+        if (!m_map->isValidHouseExitLocation(targetPos)) {
+            qWarning("EditorController::setHouseExit: Target position (%d,%d,%d) is not a valid house exit location.",
+                     targetPos.x, targetPos.y, targetPos.z);
+            return;
+        }
+    }
+    // If targetPos is default RME::core::Position(), it implies clearing the exit.
+    // HouseData::setEntryPoint should handle this by clearing the old tile's flag
+    // and not setting a new one if the new position is not valid for an exit (e.g. default).
+
+    m_undoStack->push(new RME_COMMANDS::SetHouseExitCommand(
+        m_map,
+        houseId,
+        house->getEntryPoint(), // old position
+        targetPos             // new position
+    ));
 }
 
 } // namespace RME

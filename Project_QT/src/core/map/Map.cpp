@@ -379,4 +379,32 @@ void Map::notifyTileChanged(const Position& pos) {
     // qInfo() << "Map tile changed at:" << pos.x << pos.y << pos.z; // Optional debug log
 }
 
+bool Map::isValidHouseExitLocation(const Position& pos) const {
+    if (!isPositionValid(pos)) { // Basic map bounds check from BaseMap
+        return false;
+    }
+
+    const Tile* tile = getTile(pos);
+
+    if (!tile) { // Tile must exist
+        return false;
+    }
+    if (!tile->getGround()) { // Must have a ground item
+        return false;
+    }
+    if (tile->getHouseId() != 0) { // Must not already be part of a house
+        return false;
+    }
+    if (tile->isBlocking()) { // Tile must not be blocking (i.e., should be walkable)
+                               // Tile::isBlocking() considers items, creatures.
+        return false;
+    }
+
+    // Potentially add other checks, e.g., ensure it's not an exit for another house already
+    // if (tile->isHouseExit()) { return false; }
+    // This check might be too restrictive if merely moving an exit.
+
+    return true;
+}
+
 } // namespace RME
