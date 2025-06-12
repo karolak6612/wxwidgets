@@ -37,12 +37,8 @@ public:
                   const RME::core::BrushSettings& settings) const override;
 
     // Specific static initialization for GroundBrush, if needed (e.g., for border_types table)
-    static void initializeStaticData(); // Declaration
 
 private:
-    void doAutoBorders(RME::core::editor::EditorControllerInterface* controller,
-                       const RME::core::Position& targetPos,
-                       const RME::core::BrushSettings& settings);
 
     // Helper to get ground specifics from m_material
     const RME::core::assets::MaterialGroundSpecifics* getCurrentGroundSpecifics() const;
@@ -51,8 +47,6 @@ private:
 
     // The border_types lookup table, similar to wxwidgets.
     // It maps an 8-bit neighbor configuration to up to 4 border types (encoded in a uint32_t).
-    static uint32_t s_border_types[256];
-    static bool s_staticDataInitialized;
 };
 
 } // namespace core
