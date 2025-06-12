@@ -169,13 +169,15 @@ list(APPEND RME_CORE_LIB_HEADERS ${CORE_WORLD_HDRS})
 # Specific Brush Logics
 set(CORE_BRUSHES_LOGIC_HDRS
     ${CMAKE_CURRENT_SOURCE_DIR}/brush/RawBrush.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/brush/EraserBrush.h # New line
+    ${CMAKE_CURRENT_SOURCE_DIR}/brush/EraserBrush.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/brush/HouseBrush.h # New line
     # Add other specific brush headers here in future tasks
 )
 
 set(CORE_BRUSHES_LOGIC_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/brush/RawBrush.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/brush/EraserBrush.cpp # New line
+    ${CMAKE_CURRENT_SOURCE_DIR}/brush/EraserBrush.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/brush/HouseBrush.cpp # New line
     # Add other specific brush sources here in future tasks
 )
 

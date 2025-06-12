@@ -47,3 +47,17 @@ target_link_libraries(TestCoreBrush_EraserBrush PRIVATE
 set_target_properties(TestCoreBrush_EraserBrush PROPERTIES AUTOMOC ON)
 
 add_test(NAME TestCoreBrush_EraserBrush COMMAND TestCoreBrush_EraserBrush)
+
+# Test for HouseBrush
+# MockEditorController.h is included by TestHouseBrush.cpp
+add_executable(TestCoreBrush_HouseBrush TestHouseBrush.cpp)
+
+target_link_libraries(TestCoreBrush_HouseBrush PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib
+)
+
+set_target_properties(TestCoreBrush_HouseBrush PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestCoreBrush_HouseBrush COMMAND TestCoreBrush_HouseBrush)
