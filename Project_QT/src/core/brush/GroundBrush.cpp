@@ -6,23 +6,460 @@
 #include "core/editor/EditorControllerInterface.h"
 #include "core/assets/AssetManager.h"
 #include "core/brush/BrushEnums.h"
-// #include "core/assets/ItemData.h" // For ItemData::materialId // Removed
-// #include "core/assets/ItemDatabase.h" // For AssetManager::getItemDatabase() // Removed
+#include "core/assets/ItemData.h" // For ItemData::materialId
+#include "core/assets/ItemDatabase.h" // For AssetManager::getItemDatabase()
+#include "core/assets/MaterialManager.h" // For AssetManager::getMaterialManager()
 
 #include <QRandomGenerator>
 #include <QDebug>
-// #include <array> // For std::array // Removed
-// #include <algorithm> // For std::sort and std::find // Removed
+#include <array> // For std::array
+#include <algorithm> // For std::sort
 
-// Static member definitions (as before)
-// bool RME::core::GroundBrush::s_staticDataInitialized = false; // This will be removed from the header later
+
+namespace { // Anonymous namespace for helpers
+
+const RME::core::assets::MaterialData* getMaterialFromTile(
+    const RME::core::Tile* tile,
+    const RME::core::assets::AssetManager* assetManager) {
+
+    if (!tile || !tile->getGround() || !assetManager) {
+        return nullptr;
+    }
+
+    const RME::core::Item* groundItem = tile->getGround();
+    uint16_t groundItemId = groundItem->getID();
+
+    const RME::core::assets::ItemDatabase* itemDb = assetManager->getItemDatabase();
+    const RME::core::assets::MaterialManager* materialMgr = assetManager->getMaterialManager();
+
+    if (!itemDb || !materialMgr) { // Also check materialMgr
+        qWarning("getMaterialFromTile: ItemDatabase or MaterialManager not available via AssetManager.");
+        return nullptr;
+    }
+
+    const RME::core::assets::ItemData* itemData = itemDb->getItemData(groundItemId);
+    if (!itemData) {
+        // qWarning("getMaterialFromTile: ItemData not found for ground item ID %u.", groundItemId); // Less verbose
+        return nullptr;
+    }
+
+    if (!itemData->materialId.isEmpty()) {
+        const RME::core::assets::MaterialData* foundMaterial = materialMgr->getMaterial(itemData->materialId);
+        // if (!foundMaterial) { // Less verbose
+        //     qDebug("getMaterialFromTile: Material ID '%s' from ItemData (item %u) not found in MaterialManager.",
+        //            qUtf8Printable(itemData->materialId), groundItemId);
+        // }
+        return foundMaterial;
+    } else {
+        // qDebug("getMaterialFromTile: Item ID %u (name: '%s') has no associated materialId in its ItemData.",
+        //        groundItemId, qUtf8Printable(itemData->name)); // Less verbose
+        return nullptr;
+    }
+}
+
+QString determineAlignString(
+    RME::BorderType pieceType,
+    uint8_t /*tiledata*/, // tiledata might be used for more complex inner/outer distinctions later
+    const std::array<const RME::core::assets::MaterialData*, 8>& /*neighborMaterials*/,
+    const RME::core::assets::MaterialData* /*currentTileMaterial*/
+) {
+    switch (pieceType) {
+        case RME::BorderType::WX_NORTH_HORIZONTAL:
+        case RME::BorderType::WX_EAST_HORIZONTAL:
+        case RME::BorderType::WX_SOUTH_HORIZONTAL:
+        case RME::BorderType::WX_WEST_HORIZONTAL:
+        case RME::BorderType::WX_NORTHWEST_CORNER:
+        case RME::BorderType::WX_NORTHEAST_CORNER:
+        case RME::BorderType::WX_SOUTHWEST_CORNER:
+        case RME::BorderType::WX_SOUTHEAST_CORNER:
+        case RME::BorderType::WX_NORTHWEST_DIAGONAL:
+        case RME::BorderType::WX_NORTHEAST_DIAGONAL:
+        case RME::BorderType::WX_SOUTHWEST_DIAGONAL:
+        case RME::BorderType::WX_SOUTHEAST_DIAGONAL:
+            return QStringLiteral("outer"); // Most ground borders are outer borders
+
+        case RME::BorderType::NONE:
+        default:
+            if (pieceType == RME::BorderType::NONE) return QStringLiteral("none");
+            qWarning("determineAlignString: Unhandled BorderType %d, defaulting align to 'outer'.", static_cast<int>(pieceType));
+            return QStringLiteral("outer");
+    }
+}
+
+QString determineToBrushName(
+    RME::BorderType pieceType,
+    uint8_t tiledata, // Used to know *which* neighbors are different
+    const std::array<const RME::core::assets::MaterialData*, 8>& neighborMaterials,
+    const RME::core::assets::MaterialData* currentTileMaterial // The material of the tile we are placing borders on
+) {
+    // Helper to check if a neighbor at index 'idx' is different and not a friend
+    auto isNeighborDifferentNonFriend = [&](int idx) {
+        if (idx < 0 || idx >= 8) return false;
+
+        bool tileIsDifferentBit = (tiledata & (1 << idx));
+        if (!tileIsDifferentBit) return false; // This neighbor was not marked as 'different' by tiledata calculation
+
+        if (neighborMaterials[idx]) {
+            return true; // It's different and was included in tiledata (implies not friend or different ID)
+        } else {
+            return true; // It's void, thus different
+        }
+    };
+
+    // Indices for neighbors: NW(0), N(1), NE(2), W(3), E(4), SW(5), S(6), SE(7)
+    switch (pieceType) {
+        case RME::BorderType::WX_NORTH_HORIZONTAL: // Border against North
+            if (isNeighborDifferentNonFriend(1)) return neighborMaterials[1] ? neighborMaterials[1]->id : QStringLiteral("none");
+            break;
+        case RME::BorderType::WX_EAST_HORIZONTAL:  // Border against East
+            if (isNeighborDifferentNonFriend(4)) return neighborMaterials[4] ? neighborMaterials[4]->id : QStringLiteral("none");
+            break;
+        case RME::BorderType::WX_SOUTH_HORIZONTAL: // Border against South
+            if (isNeighborDifferentNonFriend(6)) return neighborMaterials[6] ? neighborMaterials[6]->id : QStringLiteral("none");
+            break;
+        case RME::BorderType::WX_WEST_HORIZONTAL:  // Border against West
+            if (isNeighborDifferentNonFriend(3)) return neighborMaterials[3] ? neighborMaterials[3]->id : QStringLiteral("none");
+            break;
+
+        case RME::BorderType::WX_NORTHWEST_CORNER: // Against N or W or NW
+            if (isNeighborDifferentNonFriend(1)) return neighborMaterials[1] ? neighborMaterials[1]->id : QStringLiteral("none"); // Prioritize N
+            if (isNeighborDifferentNonFriend(3)) return neighborMaterials[3] ? neighborMaterials[3]->id : QStringLiteral("none"); // Then W
+            if (isNeighborDifferentNonFriend(0)) return neighborMaterials[0] ? neighborMaterials[0]->id : QStringLiteral("none"); // Then NW
+            break;
+        case RME::BorderType::WX_NORTHEAST_CORNER: // Against N or E or NE
+            if (isNeighborDifferentNonFriend(1)) return neighborMaterials[1] ? neighborMaterials[1]->id : QStringLiteral("none"); // N
+            if (isNeighborDifferentNonFriend(4)) return neighborMaterials[4] ? neighborMaterials[4]->id : QStringLiteral("none"); // E
+            if (isNeighborDifferentNonFriend(2)) return neighborMaterials[2] ? neighborMaterials[2]->id : QStringLiteral("none"); // NE
+            break;
+        case RME::BorderType::WX_SOUTHWEST_CORNER: // Against S or W or SW
+            if (isNeighborDifferentNonFriend(6)) return neighborMaterials[6] ? neighborMaterials[6]->id : QStringLiteral("none"); // S
+            if (isNeighborDifferentNonFriend(3)) return neighborMaterials[3] ? neighborMaterials[3]->id : QStringLiteral("none"); // W
+            if (isNeighborDifferentNonFriend(5)) return neighborMaterials[5] ? neighborMaterials[5]->id : QStringLiteral("none"); // SW
+            break;
+        case RME::BorderType::WX_SOUTHEAST_CORNER: // Against S or E or SE
+            if (isNeighborDifferentNonFriend(6)) return neighborMaterials[6] ? neighborMaterials[6]->id : QStringLiteral("none"); // S
+            if (isNeighborDifferentNonFriend(4)) return neighborMaterials[4] ? neighborMaterials[4]->id : QStringLiteral("none"); // E
+            if (isNeighborDifferentNonFriend(7)) return neighborMaterials[7] ? neighborMaterials[7]->id : QStringLiteral("none"); // SE
+            break;
+        case RME::BorderType::WX_NORTHWEST_DIAGONAL: // N and W are different
+            if (isNeighborDifferentNonFriend(1)) return neighborMaterials[1] ? neighborMaterials[1]->id : QStringLiteral("none"); // Check N
+            if (isNeighborDifferentNonFriend(3)) return neighborMaterials[3] ? neighborMaterials[3]->id : QStringLiteral("none"); // Check W
+            break;
+        case RME::BorderType::WX_NORTHEAST_DIAGONAL: // N and E are different
+            if (isNeighborDifferentNonFriend(1)) return neighborMaterials[1] ? neighborMaterials[1]->id : QStringLiteral("none");
+            if (isNeighborDifferentNonFriend(4)) return neighborMaterials[4] ? neighborMaterials[4]->id : QStringLiteral("none");
+            break;
+        case RME::BorderType::WX_SOUTHWEST_DIAGONAL: // S and W are different
+            if (isNeighborDifferentNonFriend(6)) return neighborMaterials[6] ? neighborMaterials[6]->id : QStringLiteral("none");
+            if (isNeighborDifferentNonFriend(3)) return neighborMaterials[3] ? neighborMaterials[3]->id : QStringLiteral("none");
+            break;
+        case RME::BorderType::WX_SOUTHEAST_DIAGONAL: // S and E are different
+            if (isNeighborDifferentNonFriend(6)) return neighborMaterials[6] ? neighborMaterials[6]->id : QStringLiteral("none");
+            if (isNeighborDifferentNonFriend(4)) return neighborMaterials[4] ? neighborMaterials[4]->id : QStringLiteral("none");
+            break;
+
+        case RME::BorderType::NONE:
+            return QStringLiteral("none");
+        default:
+            break;
+    }
+    qWarning("determineToBrushName: Could not determine a single target brush for BorderType %d with tiledata %u. Defaulting to 'none'. Rule matching might need 'all'.",
+             static_cast<int>(pieceType), tiledata);
+    return QStringLiteral("none");
+}
+
+} // end anonymous namespace
+
+
+// Static member definitions
+uint32_t RME::core::GroundBrush::s_border_types[256];
+bool RME::core::GroundBrush::s_staticDataInitialized = false;
 
 namespace RME {
 namespace core {
 
+void GroundBrush::initializeStaticData() {
+    if (s_staticDataInitialized) {
+        return;
+    }
+
+    using namespace RME; // For TILE_... constants
+    using BT = RME::BorderType; // Alias for RME::BorderType
+
+    // Initialize all to BORDER_NONE first, as a base.
+    for (int i = 0; i < 256; ++i) {
+        s_border_types[i] = packBorderTypes(BT::NONE);
+    }
+
+    // --- Ported data from wxwidgets/brush_tables.cpp GroundBrush::init() ---
+    // GroundBrush::border_types in wxWidgets stores packed uint32_t.
+    // Each component is a BorderType enum value.
+    // packBorderTypes(p1, p2, p3, p4) creates this uint32_t.
+
+    s_border_types[0] = packBorderTypes(BT::NONE);
+    s_border_types[TILE_NW] = packBorderTypes(BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_N] = packBorderTypes(BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_NE] = packBorderTypes(BT::WX_NORTHEAST_CORNER);
+    s_border_types[TILE_NE | TILE_NW] = packBorderTypes(BT::WX_NORTHWEST_CORNER, BT::WX_NORTHEAST_CORNER);
+    s_border_types[TILE_NE | TILE_N] = packBorderTypes(BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_W] = packBorderTypes(BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_W | TILE_NW] = packBorderTypes(BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_W | TILE_N] = packBorderTypes(BT::WX_NORTHWEST_DIAGONAL);
+    s_border_types[TILE_W | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTHWEST_DIAGONAL);
+    s_border_types[TILE_W | TILE_NE] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_NORTHEAST_CORNER);
+    s_border_types[TILE_W | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_NORTHEAST_CORNER);
+    s_border_types[TILE_W | TILE_NE | TILE_N] = packBorderTypes(BT::WX_NORTHWEST_DIAGONAL);
+    s_border_types[TILE_W | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTHWEST_DIAGONAL);
+    s_border_types[TILE_E] = packBorderTypes(BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_E | TILE_NW] = packBorderTypes(BT::WX_NORTHWEST_CORNER, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_E | TILE_N] = packBorderTypes(BT::WX_NORTHEAST_DIAGONAL);
+    s_border_types[TILE_E | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTHEAST_DIAGONAL);
+    s_border_types[TILE_E | TILE_NE] = packBorderTypes(BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_E | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_NORTHWEST_CORNER, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_E | TILE_NE | TILE_N] = packBorderTypes(BT::WX_NORTHEAST_DIAGONAL);
+    s_border_types[TILE_E | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTHEAST_DIAGONAL);
+    s_border_types[TILE_E | TILE_W] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_E | TILE_W | TILE_NW] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_E | TILE_W | TILE_N] = packBorderTypes(BT::WX_NORTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_E | TILE_W | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_E | TILE_W | TILE_NE] = packBorderTypes(BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_E | TILE_W | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_E | TILE_W | TILE_NE | TILE_N] = packBorderTypes(BT::WX_NORTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_SW] = packBorderTypes(BT::WX_SOUTHWEST_CORNER);
+    s_border_types[TILE_SW | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_SW | TILE_N] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_SW | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_SW | TILE_NE] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTHEAST_CORNER);
+    s_border_types[TILE_SW | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTHEAST_CORNER, BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_SW | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_SW | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_SW | TILE_W] = packBorderTypes(BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_SW | TILE_W | TILE_NW] = packBorderTypes(BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_SW | TILE_W | TILE_N] = packBorderTypes(BT::WX_NORTHWEST_DIAGONAL);
+    s_border_types[TILE_SW | TILE_W | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTHWEST_DIAGONAL);
+    s_border_types[TILE_SW | TILE_W | TILE_NE] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_NORTHEAST_CORNER);
+    s_border_types[TILE_SW | TILE_W | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_NORTHEAST_CORNER);
+    s_border_types[TILE_SW | TILE_W | TILE_NE | TILE_N] = packBorderTypes(BT::WX_NORTHWEST_DIAGONAL);
+    s_border_types[TILE_SW | TILE_W | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTHWEST_DIAGONAL);
+    s_border_types[TILE_SW | TILE_E] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_SW | TILE_E | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_EAST_HORIZONTAL, BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_SW | TILE_E | TILE_N] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTHEAST_DIAGONAL);
+    s_border_types[TILE_SW | TILE_E | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTHEAST_DIAGONAL);
+    s_border_types[TILE_SW | TILE_E | TILE_NE] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_SW | TILE_E | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_EAST_HORIZONTAL, BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_SW | TILE_E | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTHEAST_DIAGONAL);
+    s_border_types[TILE_SW | TILE_E | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTHEAST_DIAGONAL);
+    s_border_types[TILE_SW | TILE_E | TILE_W] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_SW | TILE_E | TILE_W | TILE_NW] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_SW | TILE_E | TILE_W | TILE_N] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_SW | TILE_E | TILE_W | TILE_N | TILE_NW] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_SW | TILE_E | TILE_W | TILE_NE] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_S | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_NE] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTHEAST_CORNER);
+    s_border_types[TILE_S | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTHEAST_CORNER, BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_S | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_W] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL);
+    s_border_types[TILE_S | TILE_W | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL);
+    s_border_types[TILE_S | TILE_W | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_W | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_W | TILE_NE] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_NORTHEAST_CORNER);
+    s_border_types[TILE_S | TILE_W | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_NORTHEAST_CORNER);
+    s_border_types[TILE_S | TILE_W | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_W | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_E] = packBorderTypes(BT::WX_SOUTHEAST_DIAGONAL);
+    s_border_types[TILE_S | TILE_E | TILE_NW] = packBorderTypes(BT::WX_SOUTHEAST_DIAGONAL, BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_S | TILE_E | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_E | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_E | TILE_NE] = packBorderTypes(BT::WX_SOUTHEAST_DIAGONAL);
+    s_border_types[TILE_S | TILE_E | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTHEAST_DIAGONAL, BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_S | TILE_E | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_E | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_E | TILE_W] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_E | TILE_W | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_E | TILE_W | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_E | TILE_W | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_E | TILE_W | TILE_NE] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_E | TILE_W | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_E | TILE_W | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_S | TILE_SW | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_NE] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTHEAST_CORNER);
+    s_border_types[TILE_S | TILE_SW | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTHWEST_CORNER, BT::WX_NORTHEAST_CORNER);
+    s_border_types[TILE_S | TILE_SW | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_W] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL);
+    s_border_types[TILE_S | TILE_SW | TILE_W | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL);
+    s_border_types[TILE_S | TILE_SW | TILE_W | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_W | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_W | TILE_NE] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_NORTHEAST_CORNER);
+    s_border_types[TILE_S | TILE_SW | TILE_W | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_NORTHEAST_CORNER);
+    s_border_types[TILE_S | TILE_SW | TILE_W | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_W | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_E] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_EAST_HORIZONTAL); // Strict port
+    s_border_types[TILE_S | TILE_SW | TILE_E | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SW | TILE_E | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_E | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_E | TILE_NE] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_EAST_HORIZONTAL); // Strict port
+    s_border_types[TILE_S | TILE_SW | TILE_E | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SW | TILE_E | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_E | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_E | TILE_W] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_E | TILE_W | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_E | TILE_W | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_E | TILE_W | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_E | TILE_W | TILE_NE] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_SE] = packBorderTypes(BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_NW] = packBorderTypes(BT::WX_NORTHWEST_CORNER, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_N] = packBorderTypes(BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_NE] = packBorderTypes(BT::WX_NORTHEAST_CORNER, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_NORTHEAST_CORNER, BT::WX_NORTHWEST_CORNER, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_NE | TILE_N] = packBorderTypes(BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_W] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_W | TILE_NW] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_SOUTHEAST_CORNER, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_W | TILE_N] = packBorderTypes(BT::WX_NORTHWEST_DIAGONAL, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_W | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTHWEST_DIAGONAL, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_W | TILE_NE] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_NORTHEAST_CORNER, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_W | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_WEST_HORIZONTAL, BT::WX_NORTHEAST_CORNER, BT::WX_SOUTHEAST_CORNER, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_W | TILE_NE | TILE_N] = packBorderTypes(BT::WX_NORTHWEST_DIAGONAL, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_W | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTHWEST_DIAGONAL, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_E] = packBorderTypes(BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_SE | TILE_E | TILE_NW] = packBorderTypes(BT::WX_EAST_HORIZONTAL, BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_SE | TILE_E | TILE_N] = packBorderTypes(BT::WX_NORTHEAST_DIAGONAL);
+    s_border_types[TILE_SE | TILE_E | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTHEAST_DIAGONAL);
+    s_border_types[TILE_SE | TILE_E | TILE_NE] = packBorderTypes(BT::WX_EAST_HORIZONTAL);
+    s_border_types[TILE_SE | TILE_E | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_EAST_HORIZONTAL, BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_SE | TILE_E | TILE_NE | TILE_N] = packBorderTypes(BT::WX_NORTHEAST_DIAGONAL);
+    s_border_types[TILE_SE | TILE_E | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTHEAST_DIAGONAL);
+    s_border_types[TILE_SE | TILE_E | TILE_W] = packBorderTypes(BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_SE | TILE_E | TILE_W | TILE_NW] = packBorderTypes(BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_E | TILE_W | TILE_N] = packBorderTypes(BT::WX_NORTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_SE | TILE_E | TILE_W | TILE_N | TILE_NW] = packBorderTypes(BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_E | TILE_W | TILE_NE] = packBorderTypes(BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_SE | TILE_E | TILE_W | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_E | TILE_W | TILE_NE | TILE_N] = packBorderTypes(BT::WX_NORTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_SE | TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_SW] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_SW | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTHWEST_CORNER, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_SW | TILE_N] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_SW | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_SW | TILE_NE] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTHEAST_CORNER, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_SW | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTHEAST_CORNER, BT::WX_NORTHWEST_CORNER, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_SW | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_SW | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_CORNER, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_SW | TILE_W] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_SOUTHEAST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_SW | TILE_W | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_SOUTHEAST_CORNER, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_SW | TILE_W | TILE_N] = packBorderTypes(BT::WX_NORTHWEST_DIAGONAL, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_SW | TILE_W | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTHWEST_DIAGONAL, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_SW | TILE_W | TILE_NE] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_NORTHEAST_CORNER, BT::WX_SOUTHEAST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_SW | TILE_W | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_NORTHEAST_CORNER, BT::WX_SOUTHEAST_CORNER, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_SW | TILE_W | TILE_NE | TILE_N] = packBorderTypes(BT::WX_NORTHWEST_DIAGONAL, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_SW | TILE_W | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_NORTHWEST_DIAGONAL, BT::WX_SOUTHEAST_CORNER);
+    s_border_types[TILE_SE | TILE_SW | TILE_E] = packBorderTypes(BT::WX_SOUTHEAST_DIAGONAL, BT::WX_SOUTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_SW | TILE_E | TILE_NW] = packBorderTypes(BT::WX_SOUTHEAST_DIAGONAL, BT::WX_SOUTHWEST_CORNER, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_SW | TILE_E | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_SW | TILE_E | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_SW | TILE_E | TILE_NE] = packBorderTypes(BT::WX_SOUTHEAST_DIAGONAL, BT::WX_SOUTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_SW | TILE_E | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTHEAST_DIAGONAL, BT::WX_SOUTHWEST_CORNER, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_SW | TILE_E | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_SW | TILE_E | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_SW | TILE_E | TILE_W] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_S | TILE_SE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_NE] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTHEAST_CORNER);
+    s_border_types[TILE_S | TILE_SE | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTHEAST_CORNER, BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_S | TILE_SE | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_W] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_SOUTHEAST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_W | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_SOUTHEAST_CORNER, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_W | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHEAST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_W | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHEAST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_W | TILE_NE] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_NORTHEAST_CORNER, BT::WX_SOUTHEAST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_W | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_NORTHEAST_CORNER, BT::WX_SOUTHEAST_CORNER, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_W | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHEAST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_W | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHEAST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_E] = packBorderTypes(BT::WX_SOUTHEAST_DIAGONAL);
+    s_border_types[TILE_S | TILE_SE | TILE_E | TILE_NW] = packBorderTypes(BT::WX_SOUTHEAST_DIAGONAL, BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_S | TILE_SE | TILE_E | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_E | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_E | TILE_NE] = packBorderTypes(BT::WX_SOUTHEAST_DIAGONAL);
+    s_border_types[TILE_S | TILE_SE | TILE_E | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTHEAST_DIAGONAL, BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_S | TILE_SE | TILE_E | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_E | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_E | TILE_W] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_E | TILE_W | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_E | TILE_W | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_E | TILE_W | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_E | TILE_W | TILE_NE] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_E | TILE_W | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_E | TILE_W | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_NE] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTHEAST_CORNER);
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTHEAST_CORNER, BT::WX_NORTHWEST_CORNER);
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_W] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_SOUTHEAST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_W | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_SOUTHEAST_CORNER, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_W | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHEAST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_W | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHEAST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_W | TILE_NE] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_NORTHEAST_CORNER, BT::WX_SOUTHEAST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_W | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTHWEST_DIAGONAL, BT::WX_NORTHEAST_CORNER, BT::WX_SOUTHEAST_CORNER, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_W | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHEAST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_W | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHEAST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E] = packBorderTypes(BT::WX_SOUTHEAST_DIAGONAL, BT::WX_SOUTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_NW] = packBorderTypes(BT::WX_SOUTHEAST_DIAGONAL, BT::WX_SOUTHWEST_CORNER, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_NE] = packBorderTypes(BT::WX_SOUTHEAST_DIAGONAL, BT::WX_SOUTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTHEAST_DIAGONAL, BT::WX_SOUTHWEST_CORNER, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_SOUTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
+    s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
+
+    qInfo("GroundBrush::s_border_types table has been fully initialized by porting static assignments from wxwidgets/brush_tables.cpp.");
+    s_staticDataInitialized = true;
+}
+
 // Constructor and other methods (as before)
 GroundBrush::GroundBrush() : m_materialData(nullptr) {
-    // initializeStaticData(); // Removed
+    initializeStaticData();
 }
 
 void GroundBrush::setMaterial(const RME::core::assets::MaterialData* materialData) {
@@ -157,28 +594,171 @@ void GroundBrush::apply(RME::core::editor::EditorControllerInterface* controller
         qDebug() << "GroundBrush: Called recordSetGroundItem to draw ground item" << selectedItemId << "at" << pos.x << pos.y << pos.z << "(old was " << oldGroundItemId << ")";
     }
 
-    // Auto-Bordering Phase (remains the same)
-    // doAutoBorders(controller, pos, settings); // Removed
+    // --- Auto-Bordering Phase ---
+    doAutoBorders(controller, pos); // For the primary tile
 
-    // static const int dx[] = {-1, 0, 1, -1, 1, -1, 0, 1}; // Removed
-    // static const int dy[] = {-1, -1, -1, 0, 0, 1, 1, 1}; // Removed
+    static const int dx[] = {-1, 0, 1, -1, 1, -1, 0, 1}; // NW, N, NE, W, E, SW, S, SE
+    static const int dy[] = {-1, -1, -1, 0, 0, 1, 1, 1};
 
-    // for (int i = 0; i < 8; ++i) { // Removed
-    //     RMEPosition neighborPos(pos.x + dx[i], pos.y + dy[i], pos.z);
-    //     if (map->isPositionValid(neighborPos)) {
-    //         doAutoBorders(controller, neighborPos, settings);
-    //     }
-    // }
+    for (int i = 0; i < 8; ++i) {
+        RME::core::Position neighborPos(pos.x + dx[i], pos.y + dy[i], pos.z);
+        if (map->isPositionValid(neighborPos)) { // Check validity before calling
+            doAutoBorders(controller, neighborPos);
+        }
+    }
 
-    controller->notifyTileChanged(pos);
-    // for (int i = 0; i < 8; ++i) { // Removed
-    //     RMEPosition neighborPos(pos.x + dx[i], pos.y + dy[i], pos.z);
-    //     if (map->isPositionValid(neighborPos)) {
-    //         controller->notifyTileChanged(neighborPos);
-    //     }
-    // }
+    // --- Notify Changes ---
+    controller->notifyTileChanged(pos); // Notify primary tile
+
+    for (int i = 0; i < 8; ++i) { // dx, dy are from the block above
+        RME::core::Position neighborPos(pos.x + dx[i], pos.y + dy[i], pos.z);
+        if (map->isPositionValid(neighborPos)) {
+            controller->notifyTileChanged(neighborPos);
+        }
+    }
 }
 
 // ... (apply method and other GroundBrush methods as before) ...
 } // namespace core
 } // namespace RME
+
+void RME::core::GroundBrush::doAutoBorders(RME::core::editor::EditorControllerInterface* controller,
+                                           const RME::core::Position& targetPos) {
+    if (!s_staticDataInitialized) {
+        qCritical("GroundBrush::doAutoBorders: s_border_types not initialized!");
+        // initializeStaticData(); // Constructor should have handled this.
+        if (!s_staticDataInitialized) {
+            qCritical("GroundBrush::doAutoBorders: Initialization failed even after explicit call. Aborting.");
+            return;
+        }
+    }
+
+    RME::core::map::Map* map = controller->getMap();
+    RME::core::assets::AssetManager* assetManager = controller->getAssetManager();
+
+    if (!map || !assetManager) {
+        qWarning("GroundBrush::doAutoBorders: Map or AssetManager not available from controller for pos %s.", qUtf8Printable(targetPos.toString()));
+        return;
+    }
+
+    const RME::core::assets::ItemDatabase* itemDb = assetManager->getItemDatabase();
+    if (!itemDb) {
+        qWarning("GroundBrush::doAutoBorders: ItemDatabase not available for pos %s.", qUtf8Printable(targetPos.toString()));
+        return;
+    }
+
+    const RME::core::Tile* targetTile = map->getTile(targetPos);
+    if (!targetTile) {
+        qDebug("GroundBrush::doAutoBorders: Target tile not found at %s. No borders will be applied.", qUtf8Printable(targetPos.toString()));
+        return;
+    }
+
+    // 1. Collect old border item IDs
+    QList<uint16_t> oldBorderItemIds;
+    for (const auto& itemPtr : targetTile->getItems()) {
+        if (itemPtr) {
+            const RME::core::assets::ItemData* itemData = itemDb->getItemData(itemPtr->getID());
+            if (itemData) {
+                 oldBorderItemIds.append(itemPtr->getID());
+            }
+        }
+    }
+    std::sort(oldBorderItemIds.begin(), oldBorderItemIds.end());
+
+    // 2. Get current tile's material
+    const RME::core::assets::MaterialData* currentTileMaterial = ::getMaterialFromTile(targetTile, assetManager);
+    const RME::core::assets::MaterialGroundSpecifics* currentTileSpecifics = nullptr;
+    if (currentTileMaterial && currentTileMaterial->isGround()) {
+        currentTileSpecifics = std::get_if<RME::core::assets::MaterialGroundSpecifics>(&currentTileMaterial->specificData);
+    }
+
+    QList<uint16_t> newBorderItemIds;
+
+    if (currentTileMaterial && currentTileSpecifics) {
+        // 4. Calculate tiledata
+        uint8_t tiledata = 0;
+        std::array<const RME::core::assets::MaterialData*, 8> neighborMaterials;
+        static const std::array<std::pair<int, int>, 8> neighborOffsets = {{
+            {-1,-1}, {0,-1}, {1,-1}, {-1,0}, {1,0}, {-1,1}, {0,1}, {1,1}
+        }};
+
+        for (int i = 0; i < 8; ++i) {
+            RME::core::Position neighborPos(targetPos.x + neighborOffsets[i].first,
+                                            targetPos.y + neighborOffsets[i].second,
+                                            targetPos.z);
+            const RME::core::Tile* neighborTile = map->getTile(neighborPos);
+            neighborMaterials[i] = ::getMaterialFromTile(neighborTile, assetManager);
+
+            bool isDifferent = false;
+            if (!neighborMaterials[i]) {
+                isDifferent = true;
+            } else if (neighborMaterials[i]->id != currentTileMaterial->id) {
+                bool areFriends = currentTileSpecifics->friends.contains(neighborMaterials[i]->id);
+                if (!areFriends) {
+                    isDifferent = true;
+                }
+            }
+
+            if (isDifferent) {
+                tiledata |= (1 << i);
+            }
+        }
+
+        // 5. Lookup and Unpack Border Types
+        uint32_t packedComputedBorderTypes = s_border_types[tiledata];
+
+        // 6. Determine newBorderItemIds based on rules
+        QList<const RME::core::assets::MaterialBorderRule*> matchedSuperRules;
+        QList<const RME::core::assets::MaterialBorderRule*> matchedNormalRules;
+
+        for (int pieceNum = 0; pieceNum < 4; ++pieceNum) {
+            RME::BorderType piece = RME::unpackBorderType(packedComputedBorderTypes, pieceNum);
+            if (piece == RME::BorderType::NONE) continue;
+
+            QString alignStr = ::determineAlignString(piece, tiledata, neighborMaterials, currentTileMaterial);
+            QString toBrushIdStr = ::determineToBrushName(piece, tiledata, neighborMaterials, currentTileMaterial);
+
+            if (alignStr == QLatin1String("none") && piece != RME::BorderType::NONE) {
+                 qDebug("GroundBrush::doAutoBorders: alignStr is 'none' for a valid pieceType %d for tile %s. Skipping rule matching for this piece.", static_cast<int>(piece), qUtf8Printable(targetPos.toString()));
+                 continue;
+            }
+
+            for (const auto& rule : currentTileSpecifics->borders) {
+                bool alignMatch = (rule.align.compare(alignStr, Qt::CaseInsensitive) == 0 ||
+                                   rule.align.compare(QStringLiteral("any"), Qt::CaseInsensitive) == 0);
+
+                bool toBrushMatch = (rule.toBrushName.compare(toBrushIdStr, Qt::CaseInsensitive) == 0 ||
+                                     rule.toBrushName.compare(QStringLiteral("all"), Qt::CaseInsensitive) == 0 ||
+                                     (toBrushIdStr == QLatin1String("none") && rule.toBrushName.compare(QStringLiteral("none"), Qt::CaseInsensitive) == 0));
+
+                if (alignMatch && toBrushMatch) {
+                    if (rule.isSuper) {
+                        matchedSuperRules.append(&rule);
+                    } else {
+                        matchedNormalRules.append(&rule);
+                    }
+                }
+            }
+        }
+
+        for (const auto* rule : matchedSuperRules) {
+            if (rule->borderItemId != 0 && !newBorderItemIds.contains(rule->borderItemId)) {
+                newBorderItemIds.append(rule->borderItemId);
+            }
+        }
+        for (const auto* rule : matchedNormalRules) {
+             if (rule->borderItemId != 0 && !newBorderItemIds.contains(rule->borderItemId)) {
+                newBorderItemIds.append(rule->borderItemId);
+            }
+        }
+    }
+
+    // 7. Apply Changes
+    std::sort(newBorderItemIds.begin(), newBorderItemIds.end());
+    if (oldBorderItemIds != newBorderItemIds) {
+        qDebug() << "GroundBrush::doAutoBorders: Tile" << targetPos.toString() << "borders changing. Old:" << oldBorderItemIds << "New:" << newBorderItemIds;
+        controller->recordSetBorderItems(targetPos, newBorderItemIds, oldBorderItemIds);
+    } else {
+        // qDebug() << "GroundBrush::doAutoBorders: Tile" << targetPos.toString() << "borders did not change.";
+    }
+}
