@@ -380,31 +380,42 @@ void Map::notifyTileChanged(const Position& pos) {
 }
 
 bool Map::isValidHouseExitLocation(const Position& pos) const {
-    if (!isPositionValid(pos)) { // Basic map bounds check from BaseMap
+    if (!isPositionValid(pos)) {
+        qDebug("Map::isValidHouseExitLocation: Position %s is outside map bounds.", qUtf8Printable(pos.toString()));
         return false;
     }
 
     const Tile* tile = getTile(pos);
 
-    if (!tile) { // Tile must exist
-        return false;
-    }
-    if (!tile->getGround()) { // Must have a ground item
-        return false;
-    }
-    if (tile->getHouseId() != 0) { // Must not already be part of a house
-        return false;
-    }
-    if (tile->isBlocking()) { // Tile must not be blocking (i.e., should be walkable)
-                               // Tile::isBlocking() considers items, creatures.
-        return false;
+    if (!tile) {
+        qDebug("Map::isValidHouseExitLocation: No tile at %s", qUtf8Printable(pos.toString()));
+        return false; // Tile must exist
     }
 
-    // Potentially add other checks, e.g., ensure it's not an exit for another house already
-    // if (tile->isHouseExit()) { return false; }
-    // This check might be too restrictive if merely moving an exit.
+    if (!tile->getGround()) {
+        qDebug("Map::isValidHouseExitLocation: Tile at %s has no ground.", qUtf8Printable(pos.toString()));
+        return false; // Tile must have ground
+    }
 
-    return true;
+    if (tile->getHouseId() != 0) {
+        qDebug("Map::isValidHouseExitLocation: Tile at %s is already part of a house (ID: %u).",
+                qUtf8Printable(pos.toString()), tile->getHouseId());
+        return false; // Tile must not be a house tile itself
+    }
+
+    if (tile->isBlocking()) {
+        // isBlocking considers items and ground.
+        // For an exit, we might also want to ensure no creatures block it,
+        // but isBlocking() usually covers impassable items/ground.
+        qDebug("Map::isValidHouseExitLocation: Tile at %s is blocking.", qUtf8Printable(pos.toString()));
+        return false; // Tile must not be blocking
+    }
+
+    // Add any other game-specific rules for exits if necessary.
+    // For example, some servers might restrict exits from being too close to other exits,
+    // or require specific surrounding tiles. For now, these are the core RME checks.
+
+    return true; // All checks passed
 }
 
 } // namespace RME
