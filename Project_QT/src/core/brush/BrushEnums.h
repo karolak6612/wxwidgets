@@ -72,7 +72,26 @@ enum class BorderType : uint8_t {
     TABLE_SOUTH_END = 17,    // Points South (connector is North)
     TABLE_EAST_END = 18,     // Points East (connector is West)
     TABLE_NORTH_END = 19,    // Points North (connector is South)
-    TABLE_WEST_END = 20      // Points West (connector is East)
+    TABLE_WEST_END = 20,     // Points West (connector is East)
+
+    // Wall Segment Types (start from 21)
+    WALL_POLE = 21,
+    WALL_VERTICAL = 22,
+    WALL_HORIZONTAL = 23,
+    WALL_SOUTH_END = 24,    // Connector N, points S
+    WALL_EAST_END = 25,     // Connector W, points E
+    WALL_NORTH_END = 26,    // Connector S, points N
+    WALL_WEST_END = 27,     // Connector E, points W
+    WALL_NORTH_T = 28,      // Opening S
+    WALL_EAST_T = 29,       // Opening W
+    WALL_SOUTH_T = 30,      // Opening N
+    WALL_WEST_T = 31,       // Opening E
+    WALL_INTERSECTION = 32,
+    WALL_NORTHEAST_DIAGONAL = 33, // These might be for corners or actual diagonal walls
+    WALL_NORTHWEST_DIAGONAL = 34,
+    WALL_SOUTHEAST_DIAGONAL = 35,
+    WALL_SOUTHWEST_DIAGONAL = 36,
+    WALL_UNTOUCHABLE = 37   // Special type, may not be a typical segment from lookup tables
 };
 
 // Helper function to pack up to 4 BorderTypes into a uint32_t
