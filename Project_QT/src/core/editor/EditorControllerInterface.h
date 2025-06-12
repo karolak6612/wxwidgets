@@ -65,8 +65,15 @@ public:
                                    const RME::core::SpawnData& newSpawnData) = 0;
 
     // --- Tile Content Specific Actions ---
-    virtual void recordSetGroundItem(const RME::core::Position& pos, uint16_t newGroundItemId, uint16_t oldGroundItemId) = 0; // NEW
-    virtual void recordSetBorderItems(const RME::core::Position& pos, const QList<uint16_t>& newBorderItemIds, const QList<uint16_t>& oldBorderItemIds) = 0; // NEW
+    virtual void recordSetGroundItem(const RME::core::Position& pos, uint16_t newGroundItemId, uint16_t oldGroundItemId) = 0;
+    virtual void recordSetBorderItems(const RME::core::Position& pos, const QList<uint16_t>& newBorderItemIds, const QList<uint16_t>& oldBorderItemIds) = 0;
+
+    // --- Generic Item Manipulation Actions ---
+    // Adds an item to the top of the stack at the given position.
+    virtual void recordAddItem(const RME::core::Position& pos, uint16_t itemId) = 0; // NEW
+
+    // Removes the topmost item matching the given ID at the position.
+    virtual void recordRemoveItem(const RME::core::Position& pos, uint16_t itemId) = 0; // NEW
 
     // --- Notifications ---
     virtual void notifyTileChanged(const RME::core::Position& pos) = 0; // If map needs explicit notification

@@ -2,6 +2,7 @@
 #include "core/brush/Brush.h" // Required for Brush class definition
 #include "core/brush/CreatureBrush.h" // Added for CreatureBrush
 #include "core/brush/GroundBrush.h" // Added for GroundBrush
+#include "core/brush/CarpetBrush.h" // Added for CarpetBrush
 #include <utility> // For std::move
 #include <QDebug> // Added for qDebug and qWarning
 
@@ -34,6 +35,15 @@ BrushManagerService::BrushManagerService(QObject *parent) : QObject(parent) {
         qDebug() << "Registered GroundBrush"; // Temporary debug output
     } else {
         qWarning() << "Failed to create and register GroundBrush";
+    }
+
+    // Register CarpetBrush
+    auto carpetBrush = std::make_unique<RME::core::CarpetBrush>();
+    if (carpetBrush) {
+        registerBrush(std::move(carpetBrush));
+        qDebug() << "Registered CarpetBrush"; // Temporary debug output
+    } else {
+        qWarning() << "Failed to create and register CarpetBrush";
     }
 }
 

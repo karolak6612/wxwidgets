@@ -218,6 +218,15 @@ public:
         calls.append({"recordSetBorderItems", pos, newBorderItemIds, oldBorderItemIds});
     }
 
+    // --- Generic Item Manipulation Actions ---
+    void recordAddItem(const RME::core::Position& pos, uint16_t itemId) override {
+        calls.append({"recordAddItem", pos, itemId});
+    }
+
+    void recordRemoveItem(const RME::core::Position& pos, uint16_t itemId) override {
+        calls.append({"recordRemoveItem", pos, itemId});
+    }
+
     void notifyTileChanged(const RMEPosition& pos) override {
         calls.append({"notifyTileChanged", pos});
     }
