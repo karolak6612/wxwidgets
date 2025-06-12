@@ -19,12 +19,14 @@ public:
     int getRadius() const;
     int getIntervalSeconds() const;
     const QStringList& getCreatureTypes() const;
+    bool isAutoCreated() const { return m_isAutoCreated; } // New getter
 
     // Mutators
     void setCenter(const RME::Position& center);
     void setRadius(int radius);
     void setIntervalSeconds(int intervalSeconds);
     void setCreatureTypes(const QStringList& creatureTypes);
+    void setIsAutoCreated(bool val) { m_isAutoCreated = val; } // New setter
 
     // Utility methods
     void addCreatureType(const QString& type);
@@ -39,6 +41,7 @@ private:
     int m_radius = 0;
     int m_intervalSeconds = 60; // Default as per YAML
     QStringList m_creatureTypes;
+    bool m_isAutoCreated = false; // New member
 };
 
 } // namespace RME

@@ -1,6 +1,8 @@
 #include "core/brush/BrushManagerService.h"
 #include "core/brush/Brush.h" // Required for Brush class definition
+#include "core/brush/CreatureBrush.h" // Added for CreatureBrush
 #include <utility> // For std::move
+#include <QDebug> // Added for qDebug and qWarning
 
 namespace RME {
 namespace core {
@@ -12,6 +14,17 @@ BrushManagerService::BrushManagerService(QObject *parent) : QObject(parent) {
     m_currentSettings.variation = 0;
     m_currentSettings.isEraseMode = false;
     m_currentSettings.activeBrushName = ""; // No active brush initially
+
+    // Register standard brushes
+    // Assuming other brushes like RawBrush, EraserBrush might be registered similarly.
+    // For now, specifically adding CreatureBrush.
+    auto creatureBrush = std::make_unique<CreatureBrush>();
+    if (creatureBrush) { // Check if make_unique succeeded (it should)
+        registerBrush(std::move(creatureBrush));
+        qDebug() << "Registered CreatureBrush"; // Temporary debug output
+    } else {
+        qWarning() << "Failed to create and register CreatureBrush";
+    }
 }
 
 BrushManagerService::~BrushManagerService() = default;
