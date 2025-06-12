@@ -1,9 +1,27 @@
 #ifndef RME_BRUSH_ENUMS_H
 #define RME_BRUSH_ENUMS_H
 
-#include <cstdint> // For uint8_t
+#include <cstdint> // For uint8_t, uint32_t
 
 namespace RME {
+
+// --- TILE NEIGHBOR BITMASK CONSTANTS ---
+// Used for 8-neighbor analysis in brushes (Ground, Carpet, etc.)
+// Bit order: 0=NW, 1=N, 2=NE, 3=W, 4=E, 5=SW, 6=S, 7=SE
+static constexpr uint8_t TILE_NW = (1 << 0); // 0x01 North-West
+static constexpr uint8_t TILE_N  = (1 << 1); // 0x02 North
+static constexpr uint8_t TILE_NE = (1 << 2); // 0x04 North-East
+static constexpr uint8_t TILE_W  = (1 << 3); // 0x08 West
+static constexpr uint8_t TILE_E  = (1 << 4); // 0x10 East
+static constexpr uint8_t TILE_SW = (1 << 5); // 0x20 South-West
+static constexpr uint8_t TILE_S  = (1 << 6); // 0x40 South
+static constexpr uint8_t TILE_SE = (1 << 7); // 0x80 South-East
+
+// Helper function to check for a specific neighbor flag in a bitmask
+inline constexpr bool hasNeighbor(uint8_t neighborBitmask, uint8_t directionFlag) {
+    return (neighborBitmask & directionFlag) != 0;
+}
+
 
 enum class BrushShape {
     SQUARE,

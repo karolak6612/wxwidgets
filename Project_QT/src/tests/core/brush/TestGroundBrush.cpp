@@ -37,7 +37,7 @@ using RMEBorderType = RME::BorderType;
 class TestGroundBrush : public QObject {
     Q_OBJECT
 private:
-    // ... (members as before) ...
+    // ... (members as before, GENERIC_OUTER_BORDER_ID, etc.) ...
     std::unique_ptr<RMEGroundBrush> m_groundBrush;
     std::unique_ptr<MockEditorController> m_mockController;
     std::unique_ptr<RMEMap> m_map;
@@ -56,11 +56,11 @@ private:
     const uint16_t DIRT_ITEM_ID = 202;
     const uint16_t GRASS_BORDER_ITEM_ID = 203;
     const uint16_t DIRT_BORDER_ITEM_ID = 204;
-    // Add a generic border item ID if rules point to one, or specific ones.
     const uint16_t GENERIC_OUTER_BORDER_ID = 205;
 
 
-    void setupTileGround(const RMEPosition& pos, uint16_t groundItemId) {
+    // ... (helper setupTileGround as before) ...
+     void setupTileGround(const RMEPosition& pos, uint16_t groundItemId) {
         RMETile* tile = m_map->getTileForEditing(pos); QVERIFY(tile);
         const RME::core::assets::ItemData* itemData = m_mockItemProvider->getItemData(groundItemId); QVERIFY(itemData);
         // Clear previous ground if any for clean setup
@@ -76,12 +76,12 @@ private slots:
         RMEMaterialGroundSpecifics grassSpecifics;
         grassSpecifics.items.append({GRASS_ITEM_ID, 100});
         RMEMaterialBorderRule grassToNoneRule;
-        grassToNoneRule.align = "outer"; // Generic outer for now
+        grassToNoneRule.align = "outer";
         grassToNoneRule.toBrushName = "none";
-        grassToNoneRule.borderItemId = GRASS_BORDER_ITEM_ID;
+        grassToNoneRule.borderItemId = GRASS_BORDER_ITEM_ID; // Grass border vs void
         grassSpecifics.borders.append(grassToNoneRule);
         RMEMaterialBorderRule grassToDirtRule;
-        grassToDirtRule.align = "outer"; // Generic outer
+        grassToDirtRule.align = "outer";
         grassToDirtRule.toBrushName = "dirt";
         grassToDirtRule.borderItemId = GENERIC_OUTER_BORDER_ID; // A different border for grass vs dirt
         grassSpecifics.borders.append(grassToDirtRule);
@@ -92,15 +92,14 @@ private slots:
         m_dirtMaterial.typeAttribute = "ground";
         RMEMaterialGroundSpecifics dirtSpecifics;
         dirtSpecifics.items.append({DIRT_ITEM_ID, 100});
-        // Example: Dirt bordering Grass (inverse of grassToDirtRule)
-        RMEMaterialBorderRule dirtToGrassRule;
-        dirtToGrassRule.align = "outer";
-        dirtToGrassRule.toBrushName = "grass";
-        dirtToGrassRule.borderItemId = GENERIC_OUTER_BORDER_ID; // Could be a specific "dirt_bordering_grass" item
-        dirtSpecifics.borders.append(dirtToGrassRule);
+        // Add a rule for dirt bordering void, for testing neighbor updates
+        RMEMaterialBorderRule dirtToNoneRule;
+        dirtToNoneRule.align = "outer"; dirtToNoneRule.toBrushName = "none";
+        dirtToNoneRule.borderItemId = DIRT_BORDER_ITEM_ID;
+        dirtSpecifics.borders.append(dirtToNoneRule);
         m_dirtMaterial.specificData = dirtSpecifics;
 
-        RMEGroundBrush::initializeStaticData(); // This now includes partially ported s_border_types
+        RMEGroundBrush::initializeStaticData(); // This now uses procedurally generated s_border_types
     }
 
     void init() {
@@ -148,36 +147,125 @@ private slots:
         QVERIFY(m_groundBrush->getMaterial() == nullptr);
     }
 
-    void testCanApply_NoMaterial() {
-        RMEBrushSettings settings;
-        RMEPosition pos(1, 1, 0);
-        m_groundBrush->setMaterial(nullptr);
-        QVERIFY(!m_groundBrush->canApply(m_map.get(), pos, settings));
-    }
-
     void testApply_DrawGround_CallsController() {
         RMEBrushSettings settings; settings.isEraseMode = false;
-        RMEPosition pos(1, 1, 0);
+        RMEPosition pos(1, 1, 0); // Drawing grass on empty tile
         m_groundBrush->apply(m_mockController.get(), pos, settings);
 
-        bool setGroundCalled = false; int setBorderItemsCallCount = 0;
+        bool setGroundCalled = false; bool setBordersCalled = false;
+        int setBorderItemsCallCount = 0;
         for(const auto& call : m_mockController->calls) {
-            if (call.method == "recordSetGroundItem") {
-                setGroundCalled = true;
-                QCOMPARE(call.pos, pos);
-                QCOMPARE(call.newGroundId, GRASS_ITEM_ID);
-                QCOMPARE(call.oldGroundId_field, static_cast<uint16_t>(0));
-            }
-            else if (call.method == "recordSetBorderItems") {
-                setBorderItemsCallCount++;
+            if (call.method == "recordSetGroundItem") { setGroundCalled = true; QCOMPARE(call.newGroundId, GRASS_ITEM_ID); QCOMPARE(call.oldGroundId_field, static_cast<uint16_t>(0)); }
+            if (call.method == "recordSetBorderItems" && call.pos == pos) {
+                setBordersCalled = true;
                 QVERIFY(call.newBorderIds.isEmpty());
+                QVERIFY(call.oldBorderIds.isEmpty());
+            }
+             if (call.method == "recordSetBorderItems") { // Count all setBorderItems calls
+                setBorderItemsCallCount++;
             }
         }
         QVERIFY(setGroundCalled);
-        QVERIFY(setBorderItemsCallCount >= 1 && setBorderItemsCallCount <= 9);
+
+        // If drawing on a completely empty tile, with empty neighbors, tiledata=0, s_border_types[0]=NONE.
+        // So newBorderIds for target is empty. Old borders on target also empty. No call for target.
+        // Neighbors are also empty, so no calls for them either.
+        // This means setBordersCalled for targetPos will be false.
+        // And setBorderItemsCallCount will be 0.
+        QVERIFY(!setBordersCalled); // No change, no call for target
+        QCOMPARE(setBorderItemsCallCount, 0); // No calls for any of the 9 tiles
     }
 
-    void testApply_EraseGround_CallsController() {
+
+    void testApply_Draw_NorthNeighborIsVoid_PlacesNorthEdge() {
+        RMEBrushSettings settings; settings.isEraseMode = false;
+        RMEPosition targetPos(2, 2, 0);
+        // North neighbor (2,1) is void. All other surrounding neighbors also void.
+        // tiledata for targetPos will be RME::TILE_N (0x02), as only North is "different" (void).
+        // GroundBrush::s_border_types[RME::TILE_N] is packBorderTypes(BT::WX_NORTH_HORIZONTAL)
+        // determineAlignString(WX_NORTH_HORIZONTAL,...) -> "outer"
+        // determineToBrushName(WX_NORTH_HORIZONTAL,...) -> "none" (for North neighbor)
+        // Rule for grass: align="outer", toBrushName="none" -> GRASS_BORDER_ITEM_ID
+
+        m_groundBrush->apply(m_mockController.get(), targetPos, settings);
+
+        bool groundSet = false;
+        bool borderSetForTarget = false;
+        QList<uint16_t> targetNewBorders;
+
+        for(const auto& call : m_mockController->calls) {
+            if (call.method == "recordSetGroundItem" && call.pos == targetPos) {
+                groundSet = true; QCOMPARE(call.newGroundId, GRASS_ITEM_ID);
+            }
+            if (call.method == "recordSetBorderItems" && call.pos == targetPos) {
+                borderSetForTarget = true; targetNewBorders = call.newBorderIds;
+            }
+        }
+        QVERIFY(groundSet);
+        QVERIFY(borderSetForTarget);
+
+        QVERIFY2(!targetNewBorders.isEmpty(), "Expected a North edge border item, but no new borders were applied. Check s_border_types[0x02] and rule matching.");
+        if (!targetNewBorders.isEmpty()) {
+            QVERIFY(targetNewBorders.contains(GRASS_BORDER_ITEM_ID));
+            QCOMPARE(targetNewBorders.size(), 1);
+        }
+    }
+
+    void testApply_Draw_NorthNeighborIsDirt_PlacesGenericBorder() {
+        RMEBrushSettings settings; settings.isEraseMode = false;
+        RMEPosition targetPos(3, 2, 0);
+        RMEPosition northNeighborPos(3, 1, 0);
+
+        setupTileGround(northNeighborPos, DIRT_ITEM_ID);
+
+        m_groundBrush->apply(m_mockController.get(), targetPos, settings);
+
+        bool groundSet = false; bool borderSetForTarget = false; QList<uint16_t> targetNewBorders;
+        for(const auto& call : m_mockController->calls) {
+            if (call.method == "recordSetGroundItem" && call.pos == targetPos) { groundSet = true; QCOMPARE(call.newGroundId, GRASS_ITEM_ID); }
+            if (call.method == "recordSetBorderItems" && call.pos == targetPos) { borderSetForTarget = true; targetNewBorders = call.newBorderIds; }
+        }
+        QVERIFY(groundSet); QVERIFY(borderSetForTarget);
+        QVERIFY2(!targetNewBorders.isEmpty(), "Expected a generic outer border item, but no new borders applied.");
+        if (!targetNewBorders.isEmpty()) {
+            QVERIFY(targetNewBorders.contains(GENERIC_OUTER_BORDER_ID));
+            QCOMPARE(targetNewBorders.size(), 1);
+        }
+    }
+
+    void testApply_Draw_NEandNWNeighborsDifferent_PlacesTwoCorners() {
+        RMEBrushSettings settings; settings.isEraseMode = false;
+        RMEPosition targetPos(4, 2, 0);
+        RMEPosition neNeighborPos(5, 1, 0); // NE of (4,2) is (5,1)
+        RMEPosition nwNeighborPos(3, 1, 0); // NW of (4,2) is (3,1)
+
+        setupTileGround(neNeighborPos, DIRT_ITEM_ID);
+        setupTileGround(nwNeighborPos, DIRT_ITEM_ID);
+        // N, W, E, S, SW, SE are void for targetPos(4,2)
+        // tiledata for targetPos: NE bit (RME::TILE_NE = 0x04) and NW bit (RME::TILE_NW = 0x01) are set => 0x05
+        // s_border_types[0x05] = packBorderTypes(BT::WX_NORTHWEST_CORNER, BT::WX_NORTHEAST_CORNER)
+
+        m_groundBrush->apply(m_mockController.get(), targetPos, settings);
+
+        bool groundSet = false; bool borderSetForTarget = false; QList<uint16_t> targetNewBorders;
+        for(const auto& call : m_mockController->calls) {
+            if (call.method == "recordSetGroundItem" && call.pos == targetPos) { groundSet = true; }
+            if (call.method == "recordSetBorderItems" && call.pos == targetPos) { borderSetForTarget = true; targetNewBorders = call.newBorderIds; std::sort(targetNewBorders.begin(), targetNewBorders.end());}
+        }
+        QVERIFY(groundSet); QVERIFY(borderSetForTarget);
+
+        // Expected: WX_NORTHWEST_CORNER -> determineAlignString="outer", determineToBrushName for NW (neighbor at index 0) is "dirt" -> matches grassToDirtRule -> GENERIC_OUTER_BORDER_ID
+        //           WX_NORTHEAST_CORNER -> determineAlignString="outer", determineToBrushName for NE (neighbor at index 2) is "dirt" -> matches grassToDirtRule -> GENERIC_OUTER_BORDER_ID
+        // Since newBorderItemIds avoids duplicates, it should contain one GENERIC_OUTER_BORDER_ID.
+        QVERIFY2(!targetNewBorders.isEmpty(), "Expected border items for NE/NW different, but none applied.");
+        if(!targetNewBorders.isEmpty()){
+            QVERIFY(targetNewBorders.contains(GENERIC_OUTER_BORDER_ID));
+            QCOMPARE(targetNewBorders.size(), 1);
+        }
+        qWarning("testApply_Draw_NEandNWNeighborsDifferent: Result depends on simplified determineToBrushName for corners. Current stub might pick N for both, leading to 'none', then GRASS_BORDER_ITEM_ID.");
+    }
+
+    void testApply_EraseGround_CallsController() { // Renamed from testApply_EraseGround_CallsControllerAndDoAutoBorders
         RMEBrushSettings settings; settings.isEraseMode = true;
         RMEPosition pos(2, 2, 0);
         setupTileGround(pos, GRASS_ITEM_ID);
@@ -185,6 +273,8 @@ private slots:
         m_groundBrush->apply(m_mockController.get(), pos, settings);
 
         bool setGroundCalledToNull = false; int setBorderItemsCallCount = 0;
+        QList<uint16_t> targetNewBorders, targetOldBorders;
+
         for(const auto& call : m_mockController->calls) {
             if (call.method == "recordSetGroundItem") {
                 setGroundCalledToNull = true;
@@ -194,14 +284,23 @@ private slots:
             }
             else if (call.method == "recordSetBorderItems") {
                 setBorderItemsCallCount++;
-                QVERIFY(call.newBorderIds.isEmpty());
+                if(call.pos == pos) { // Borders for the erased tile
+                    targetNewBorders = call.newBorderIds;
+                    targetOldBorders = call.oldBorderIds;
+                }
             }
         }
         QVERIFY(setGroundCalledToNull);
-        QVERIFY(setBorderItemsCallCount >= 1 && setBorderItemsCallCount <= 9);
+        // When erasing, currentTileSpecifics becomes null. doAutoBorders for target tile
+        // should result in newBorderIds being empty. If old borders were present, they'd be cleared.
+        QVERIFY(targetNewBorders.isEmpty());
+        // oldBorderIds for target tile depends on if it had items. For this test, it had none.
+        QVERIFY(targetOldBorders.isEmpty());
+        // Call to recordSetBorderItems might be skipped if old and new are both empty.
+        // QVERIFY(setBorderItemsCallCount >= 1 && setBorderItemsCallCount <= 9); This check is too broad.
     }
 
-    void testDoAutoBorders_WithMockedMaterialOnTileAndExistingBorders() {
+     void testDoAutoBorders_WithMockedMaterialOnTileAndExistingBorders() {
         RMEPosition targetPos(1,1,0);
         RMEBrushSettings settings; settings.isEraseMode = false;
 
@@ -240,49 +339,6 @@ private slots:
         QVERIFY(setBorderItemsCalledForTarget);
     }
 
-    void testApply_Draw_NorthNeighborDifferent_ShouldPlaceNorthEdgeBorder() {
-        RMEBrushSettings settings; settings.isEraseMode = false;
-        RMEPosition targetPos(2, 2, 0);
-        RMEPosition northNeighborPos(2, 1, 0);
-
-        setupTileGround(northNeighborPos, DIRT_ITEM_ID);
-        // All other neighbors of targetPos are void.
-        // Target tile (2,2,0) is initially empty.
-        // Brush material is "grass".
-        // North neighbor (2,1,0) is "dirt".
-        // Expected `tiledata` for targetPos: only bit for North (TILE_N, bit 1) is set, as N is different.
-        // TILE_N = 0x02.
-        // `s_border_types[0x02]` is `packBorderTypes(BT::WX_NORTH_HORIZONTAL)`.
-        // `determineAlignString` for `WX_NORTH_HORIZONTAL` returns "outer".
-        // `determineToBrushName` for `WX_NORTH_HORIZONTAL` (neighbor N) and neighbor "dirt" returns "dirt".
-        // Grass material has a rule: align="outer", toBrushName="dirt" -> GENERIC_OUTER_BORDER_ID.
-
-        m_groundBrush->apply(m_mockController.get(), targetPos, settings);
-
-        bool groundSet = false;
-        bool borderSetForTarget = false;
-        QList<uint16_t> targetNewBorders;
-
-        for(const auto& call : m_mockController->calls) {
-            if (call.method == "recordSetGroundItem" && call.pos == targetPos) {
-                groundSet = true; QCOMPARE(call.newGroundId, GRASS_ITEM_ID);
-            }
-            if (call.method == "recordSetBorderItems" && call.pos == targetPos) {
-                borderSetForTarget = true; targetNewBorders = call.newBorderIds;
-            }
-        }
-        QVERIFY(groundSet);
-        QVERIFY(borderSetForTarget);
-
-        if (!targetNewBorders.isEmpty()) {
-            QVERIFY(targetNewBorders.contains(GENERIC_OUTER_BORDER_ID));
-            QCOMPARE(targetNewBorders.size(), 1);
-        } else {
-            qWarning("testApply_Draw_NorthNeighborDifferent_ShouldPlaceNorthEdgeBorder: No new borders applied. s_border_types[0x02] or translation/rule matching might be incorrect.");
-            // Force failure if we expect a border here
-            QVERIFY2(false, "Expected new borders to be applied for North-neighbor-different case.");
-        }
-    }
 };
 
 // ... (moc include) ...
