@@ -61,3 +61,17 @@ target_link_libraries(TestCoreBrush_HouseBrush PRIVATE
 set_target_properties(TestCoreBrush_HouseBrush PROPERTIES AUTOMOC ON)
 
 add_test(NAME TestCoreBrush_HouseBrush COMMAND TestCoreBrush_HouseBrush)
+
+# Test for CarpetBrush
+# MockEditorController.h is included by TestCarpetBrush.cpp
+add_executable(TestCoreBrush_CarpetBrush TestCarpetBrush.cpp)
+
+target_link_libraries(TestCoreBrush_CarpetBrush PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib
+)
+
+set_target_properties(TestCoreBrush_CarpetBrush PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestCoreBrush_CarpetBrush COMMAND TestCoreBrush_CarpetBrush)
