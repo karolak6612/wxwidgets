@@ -101,3 +101,16 @@ target_link_libraries(TestCoreBrush_WallBrush PRIVATE
 set_target_properties(TestCoreBrush_WallBrush PROPERTIES AUTOMOC ON)
 
 add_test(NAME TestCoreBrush_WallBrush COMMAND TestCoreBrush_WallBrush)
+
+# Test for DoodadBrush
+add_executable(TestCoreBrush_DoodadBrush TestDoodadBrush.cpp)
+
+target_link_libraries(TestCoreBrush_DoodadBrush PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib
+)
+
+set_target_properties(TestCoreBrush_DoodadBrush PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestCoreBrush_DoodadBrush COMMAND TestCoreBrush_DoodadBrush)
