@@ -166,6 +166,20 @@ set(CORE_WORLD_SRCS
 list(APPEND RME_CORE_LIB_SOURCES ${CORE_WORLD_SRCS})
 list(APPEND RME_CORE_LIB_HEADERS ${CORE_WORLD_HDRS})
 
+# Specific Brush Logics
+set(CORE_BRUSHES_LOGIC_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/brush/RawBrush.h
+    # Add other specific brush headers here in future tasks
+)
+
+set(CORE_BRUSHES_LOGIC_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/brush/RawBrush.cpp
+    # Add other specific brush sources here in future tasks
+)
+
+list(APPEND RME_CORE_LIB_SOURCES ${CORE_BRUSHES_LOGIC_SRCS})
+list(APPEND RME_CORE_LIB_HEADERS ${CORE_BRUSHES_LOGIC_HDRS}) # Assuming RME_CORE_LIB_HEADERS is used
+
 add_library(rme_core_lib STATIC ${RME_CORE_LIB_SOURCES})
 
 # Public include directories for this library

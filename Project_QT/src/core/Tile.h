@@ -75,6 +75,22 @@ public:
     bool hasItemOfType(uint16_t id) const; // Example utility
     Item* getItemById(uint16_t id) const; // Example utility
 
+    /**
+     * @brief Sets the ground item for this tile.
+     * Takes ownership of the newGround item. Replaces any existing ground item.
+     * If newGround is nullptr, the ground item is cleared.
+     * @param newGround A unique_ptr to the new ground item, or nullptr to clear.
+     */
+    void setGround(std::unique_ptr<Item> newGround);
+
+    /**
+     * @brief Removes the first item (ground or stacked) matching the given ID.
+     * If a ground item matches, it's removed. Otherwise, searches stacked items.
+     * @param itemId The ID of the item to remove.
+     * @return True if an item was found and removed, false otherwise.
+     */
+    bool removeItemById(uint16_t itemId);
+
     // Creature Management
     const RME::core::creatures::Creature* getCreature() const { return creature.get(); }
     RME::core::creatures::Creature* getCreature() { return creature.get(); } // Non-const version

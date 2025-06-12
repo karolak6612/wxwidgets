@@ -102,7 +102,6 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [ ] BRUSH-LOGIC-Doodad (Port Doodad Brush Logic)
 - [ ] BRUSH-LOGIC-Table (Port Table Brush Logic)
 - [ ] BRUSH-LOGIC-Wall (Port Wall Brush Logic)
-- [ ] LOGIC-01 (Implement Core Drawing, Deletion, and Modification Logic Controller)
 - [ ] LOGIC-02 (Implement Bounding-Box Selection Logic)
 - [ ] LOGIC-05 (Port House System Logic & Data Management)
 - [ ] LOGIC-07 (Port Creature & Spawn System (Data and Brushes))
@@ -144,6 +143,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [ ] CORE-12-ComplexItemSystem (Port Complex Item System Data Structures) - Branch: feature/CORE-12-ComplexItemSystem
 - [ ] CORE-13-TownSystem (Port Town System Data Structures) - Branch: feature/CORE-13-TownSystem
 - [ ] CORE-15-MapRegionSystem (Port Map Region Logic) - Branch: feature/CORE-15-MapRegionSystem
+- [ ] LOGIC-01 (Implement Core Drawing, Deletion, and Modification Logic Controller) - Branch: feature/LOGIC-01-EditorController
 
 ### Completed
 - [x] BUILD-02 (Implement Packaging and Deployment) - Branch: feat/build-02-cpack-packaging
