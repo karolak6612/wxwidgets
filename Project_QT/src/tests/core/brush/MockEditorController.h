@@ -16,10 +16,11 @@
 #include "core/map/Map.h" // For RME::core::map::Map
 #include "core/settings/AppSettings.h" // For RME::core::AppSettings
 #include "core/assets/CreatureData.h" // For RME::core::assets::CreatureData
-#include "core/assets/CreatureDatabase.h" // For RME::core::assets::CreatureDatabase
+// #include "core/assets/CreatureDatabase.h" // No longer directly needed
+#include "core/assets/AssetManager.h" // Base class for AssetManager type
+#include "tests/core/assets/MockAssetManager.h" // Added for actual mock instance
 #include "core/spawns/SpawnData.h" // For RME::core::SpawnData
 #include "core/actions/AppUndoCommand.h" // For RME::core::actions::AppUndoCommand
-
 
 #include <QList>
 #include <QString>
@@ -44,14 +45,15 @@ public:
     using RMETile = RME::core::Tile;
     using RMEAppSettings = RME::core::AppSettings;
     using RMECreatureData = RME::core::assets::CreatureData;
-    using RMECreatureDatabase = RME::core::assets::CreatureDatabase;
+    // using RMECreatureDatabase = RME::core::assets::CreatureDatabase; // Replaced
+    using RMEAssetManager = RME::core::assets::AssetManager; // Added
     using RMESpawnData = RME::core::SpawnData;
     using RMEAppUndoCommand = RME::core::actions::AppUndoCommand;
 
     // Mocked member variables to be returned by getter methods
     RMEMap* m_mockMap = nullptr;
     RMEAppSettings* m_mockAppSettings = nullptr;
-    RMECreatureDatabase* m_mockCreatureDatabase = nullptr;
+    RMEAssetManager* m_mockAssetManager = nullptr; // MODIFIED from m_mockCreatureDatabase
     RMETile* m_mockTileForEditing = nullptr; // If getTileForEditing should return a specific mock tile
 
 
@@ -63,14 +65,20 @@ public:
         bool leaveUnique = false;
         // Fields for HouseBrush
         uint32_t houseId = 0;
-        uint32_t oldHouseId = 0;
+        uint32_t oldHouseId_field = 0; // Renamed to avoid conflict with method param in constructor
         RMETileMapFlag mapFlag = RMETileMapFlag::NO_FLAGS;
         bool flagSet = false;
         // Fields for CreatureBrush
         const RMECreatureData* creatureType = nullptr;
-        RMESpawnData spawnData; // Store by value or relevant parts
+        RMESpawnData spawnData_field; // Renamed
         QString commandType; // For generic recordAction
-        // Store old/new tile states if needed for recordTileChange, or just log call
+
+        // Fields for GroundBrush
+        uint16_t newGroundId = 0;
+        uint16_t oldGroundId_field = 0; // Renamed
+        QList<uint16_t> newBorderIds;
+        QList<uint16_t> oldBorderIds;
+
 
         // Default constructor
         CallRecord(QString m = "", RMEPosition p = RMEPosition()) : method(m), pos(p) {}
@@ -83,13 +91,20 @@ public:
         // Constructor for HouseBrush setTileMapFlag
         CallRecord(QString m, RMEPosition p, RMETileMapFlag flagVal, bool setVal) : method(m), pos(p), mapFlag(flagVal), flagSet(setVal) {}
         // Constructor for HouseBrush assignHouseDoorIdToTileDoors
-        CallRecord(QString m, RMEPosition p, uint32_t currentHId, uint32_t oldHId) : method(m), pos(p), houseId(currentHId), oldHouseId(oldHId) {}
+        CallRecord(QString m, RMEPosition p, uint32_t currentHId, uint32_t oldHIdParam) : method(m), pos(p), houseId(currentHId), oldHouseId_field(oldHIdParam) {}
         // Constructor for Creature calls
         CallRecord(QString m, RMEPosition p, const RMECreatureData* ct) : method(m), pos(p), creatureType(ct) {}
         // Constructor for SpawnData calls
-        CallRecord(QString m, RMEPosition p, const RMESpawnData& sd) : method(m), pos(p), spawnData(sd) {}
+        CallRecord(QString m, RMEPosition p, const RMESpawnData& sd) : method(m), pos(p), spawnData_field(sd) {}
          // Constructor for general action command
         CallRecord(QString m, QString cmdType) : method(m), commandType(cmdType) {}
+        // Constructor for setGroundItem
+        CallRecord(QString m, RMEPosition p, uint16_t newId, uint16_t oldIdParam)
+            : method(m), pos(p), newGroundId(newId), oldGroundId_field(oldIdParam) {}
+        // Constructor for setBorderItems
+        CallRecord(QString m, RMEPosition p, const QList<uint16_t>& newIds, const QList<uint16_t>& oldIds)
+            : method(m), pos(p), newBorderIds(newIds), oldBorderIds(oldIds) {}
+
 
     };
     QList<CallRecord> calls;
@@ -153,7 +168,16 @@ public:
     }
 
     RMEAppSettings* getAppSettings() override { calls.append({"getAppSettings"}); return m_mockAppSettings; }
-    RMECreatureDatabase* getCreatureDatabase() override { calls.append({"getCreatureDatabase"}); return m_mockCreatureDatabase; }
+
+    // --- Asset Manager related ---
+    RME::core::assets::AssetManager* getAssetManager() override {
+        calls.append({"getAssetManager"});
+        return m_mockAssetManager;
+    }
+    // Setter for tests to inject the MockAssetManager
+    void setMockAssetManager(RME::core::assets::AssetManager* assetManager) {
+        m_mockAssetManager = assetManager;
+    }
 
     void recordAction(std::unique_ptr<RMEAppUndoCommand> command) override {
         calls.append({"recordAction", command ? command->text() : "UnknownCommand"});
@@ -181,8 +205,17 @@ public:
     void recordUpdateSpawn(const RMEPosition& spawnCenterPos, const RMESpawnData& oldSpawnData, const RMESpawnData& newSpawnData) override {
         // Could store both old and new spawn data if needed for complex verification
         CallRecord cr("recordUpdateSpawn", spawnCenterPos, newSpawnData);
-        // cr.oldSpawnData = oldSpawnData; // If CallRecord is extended
+        // cr.oldSpawnData_field = oldSpawnData; // If CallRecord is extended
         calls.append(cr);
+    }
+
+    // --- Tile Content Specific Actions ---
+    void recordSetGroundItem(const RMEPosition& pos, uint16_t newGroundItemId, uint16_t oldGroundItemId) override {
+        calls.append({"recordSetGroundItem", pos, newGroundItemId, oldGroundItemId});
+    }
+
+    void recordSetBorderItems(const RMEPosition& pos, const QList<uint16_t>& newBorderItemIds, const QList<uint16_t>& oldBorderItemIds) override {
+        calls.append({"recordSetBorderItems", pos, newBorderItemIds, oldBorderItemIds});
     }
 
     void notifyTileChanged(const RMEPosition& pos) override {
@@ -194,7 +227,7 @@ public:
         mock_current_tile_house_id = 0;
         m_mockMap = nullptr;
         m_mockAppSettings = nullptr;
-        m_mockCreatureDatabase = nullptr;
+        m_mockAssetManager = nullptr; // MODIFIED
         m_mockTileForEditing = nullptr;
     }
 };

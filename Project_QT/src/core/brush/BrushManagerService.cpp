@@ -1,6 +1,7 @@
 #include "core/brush/BrushManagerService.h"
 #include "core/brush/Brush.h" // Required for Brush class definition
 #include "core/brush/CreatureBrush.h" // Added for CreatureBrush
+#include "core/brush/GroundBrush.h" // Added for GroundBrush
 #include <utility> // For std::move
 #include <QDebug> // Added for qDebug and qWarning
 
@@ -24,6 +25,15 @@ BrushManagerService::BrushManagerService(QObject *parent) : QObject(parent) {
         qDebug() << "Registered CreatureBrush"; // Temporary debug output
     } else {
         qWarning() << "Failed to create and register CreatureBrush";
+    }
+
+    // Register GroundBrush
+    auto groundBrush = std::make_unique<RME::core::GroundBrush>();
+    if (groundBrush) {
+        registerBrush(std::move(groundBrush));
+        qDebug() << "Registered GroundBrush"; // Temporary debug output
+    } else {
+        qWarning() << "Failed to create and register GroundBrush";
     }
 }
 

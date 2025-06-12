@@ -2,6 +2,7 @@
 #define RME_EDITOR_CONTROLLER_INTERFACE_H
 
 #include <memory> // For std::unique_ptr
+#include <QList> // For QList
 
 // Forward declarations for types used by controller methods
 namespace RME {
@@ -36,10 +37,7 @@ public:
 
     // --- Settings & Asset Access ---
     virtual RME::core::AppSettings* getAppSettings() = 0;
-    // Option 1: Direct database access (if controller manages them explicitly)
-    virtual RME::core::assets::CreatureDatabase* getCreatureDatabase() = 0;
-    // Option 2: General AssetManager (preferred if it exists and provides databases)
-    // virtual RME::core::assets::AssetManager* getAssetManager() = 0;
+    virtual RME::core::assets::AssetManager* getAssetManager() = 0; // MODIFIED
 
 
     // --- Undoable Action Recording ---
@@ -65,6 +63,10 @@ public:
     virtual void recordUpdateSpawn(const RME::core::Position& spawnCenterPos,
                                    const RME::core::SpawnData& oldSpawnData,
                                    const RME::core::SpawnData& newSpawnData) = 0;
+
+    // --- Tile Content Specific Actions ---
+    virtual void recordSetGroundItem(const RME::core::Position& pos, uint16_t newGroundItemId, uint16_t oldGroundItemId) = 0; // NEW
+    virtual void recordSetBorderItems(const RME::core::Position& pos, const QList<uint16_t>& newBorderItemIds, const QList<uint16_t>& oldBorderItemIds) = 0; // NEW
 
     // --- Notifications ---
     virtual void notifyTileChanged(const RME::core::Position& pos) = 0; // If map needs explicit notification
