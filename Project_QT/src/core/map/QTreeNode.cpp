@@ -227,4 +227,56 @@ bool QTreeNode::isEmpty() const {
     }
 }
 
+void QTreeNode::setTile(const Position& pos, std::unique_ptr<Tile> newTile) {
+    if (pos.x < x_coord || pos.x >= x_coord + size ||
+        pos.y < y_coord || pos.y >= y_coord + size) {
+        qWarning("QTreeNode::setTile: Position is outside node bounds.");
+        // If newTile is not null, its ownership is not taken, will be destructed by caller.
+        return;
+    }
+
+    if (depth < MAX_DEPTH) {
+        if (isLeaf()) { // This node is a leaf but not at max depth, needs to subdivide.
+            if (!newTile) return; // If trying to set a null tile and path doesn't exist, do nothing.
+            subdivide();
+            if (isLeaf()) { // Subdivision failed (e.g. child size would be 0)
+                 qCritical("QTreeNode::setTile: Failed to subdivide node at depth %d to set tile.", depth);
+                 return; // Cannot proceed.
+            }
+        }
+        // Delegate to the appropriate child.
+        children[getQuadrant(pos.x, pos.y)]->setTile(pos, std::move(newTile));
+    } else { // At MAX_DEPTH, this must be a leaf node.
+        if (!isLeaf()) {
+            qCritical("QTreeNode::setTile: Node at MAX_DEPTH is not a leaf. Inconsistent state.");
+            return; // Cannot proceed.
+        }
+
+        auto& floorPtr = z_level_floors[pos.z]; // operator[] creates if not exists
+        if (!floorPtr) { // Floor doesn't exist for this Z level
+            if (!newTile) return; // Nothing to remove, nothing to add if floor doesn't exist
+            // Create floor if we are adding a tile
+            floorPtr = std::make_unique<Floor>(pos.z, assetManager);
+        }
+
+        // Calculate local coordinates within the floor sector.
+        // x_coord, y_coord are the global top-left of this QTreeNode (which is a sector).
+        int localX = pos.x - this->x_coord;
+        int localY = pos.y - this->y_coord;
+
+        // Pass the newTile (which could be nullptr to remove a tile)
+        floorPtr->setTile(localX, localY, std::move(newTile));
+
+        // If the floor became empty after setting the tile (e.g., removing the last tile)
+        if (floorPtr->isEmpty()) {
+            z_level_floors.remove(pos.z); // Remove the empty floor from the map
+        }
+    }
+
+    // After modification, check if this node itself has become empty and can be pruned.
+    // This is typically done by the caller (e.g., BaseMap or Map) after a set of operations,
+    // or could be triggered here if appropriate. For now, let BaseMap manage tree cleaning.
+    // cleanTree(); // Potentially clean if this operation made children empty.
+}
+
 } // namespace RME

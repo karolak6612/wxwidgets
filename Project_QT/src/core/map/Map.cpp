@@ -369,4 +369,14 @@ QList<const HouseData*> Map::getHousesWithExitAt(const Position& pos) const {
     return result;
 }
 
+void Map::notifyTileChanged(const Position& pos) {
+    // TODO: Add any internal map state updates if needed (e.g., dirty flags for minimap regions)
+    setChanged(true); // Mark map as changed
+    // Since Map is not a QObject, we cannot emit Qt signals directly.
+    // If direct UI updates are needed, an observer pattern or callback list
+    // would be implemented here, or EditorController could manage this.
+    // For now, just marking the map as dirty is the primary effect.
+    // qInfo() << "Map tile changed at:" << pos.x << pos.y << pos.z; // Optional debug log
+}
+
 } // namespace RME

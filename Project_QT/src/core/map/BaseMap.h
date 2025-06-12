@@ -20,6 +20,7 @@ public:
     const Tile* getTile(const Position& pos) const;
     Tile* getOrCreateTile(const Position& pos, bool& created);
     bool removeTile(const Position& pos);
+    void setTile(const Position& pos, std::unique_ptr<Tile> newTile);
 
     int getWidth() const { return width; }
     int getHeight() const { return height; }

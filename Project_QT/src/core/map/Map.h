@@ -112,6 +112,9 @@ public:
     QList<HouseData*> getHousesWithExitAt(const Position& pos);
     QList<const HouseData*> getHousesWithExitAt(const Position& pos) const; // Const version
 
+    // Tile change notification
+    void notifyTileChanged(const Position& pos);
+
     // Stubs for complex map-wide operations
     bool convertFormat(quint32 targetOtbmVersion, quint32 targetClientVersion) { setChanged(true); /*TODO*/ return false; }
     bool exportMinimap(const QString& filePath) { /*TODO*/ return false; }

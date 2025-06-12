@@ -26,6 +26,7 @@ public:
     Tile* getOrCreateTile(int localX, int localY, bool& created, const Position& globalPositionForNewTile);
 
     bool removeTile(int localX, int localY);
+    void setTile(int localX, int localY, std::unique_ptr<Tile> newTile);
     bool isEmpty() const;
     int getZLevel() const { return zLevel; }
 
