@@ -33,3 +33,17 @@ target_link_libraries(TestCoreBrush_RawBrush PRIVATE
 set_target_properties(TestCoreBrush_RawBrush PROPERTIES AUTOMOC ON)
 
 add_test(NAME TestCoreBrush_RawBrush COMMAND TestCoreBrush_RawBrush)
+
+# Test for EraserBrush
+# MockEditorController.h is included by TestEraserBrush.cpp
+add_executable(TestCoreBrush_EraserBrush TestEraserBrush.cpp)
+
+target_link_libraries(TestCoreBrush_EraserBrush PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib
+)
+
+set_target_properties(TestCoreBrush_EraserBrush PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestCoreBrush_EraserBrush COMMAND TestCoreBrush_EraserBrush)
