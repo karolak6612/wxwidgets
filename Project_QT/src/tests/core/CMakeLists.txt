@@ -30,6 +30,11 @@ add_subdirectory(actions)
 add_subdirectory(io)
 add_subdirectory(creatures)
 add_subdirectory(navigation) # Added for CORE-11 WaypointData tests
+add_subdirectory(spawns)
+add_subdirectory(items) # New line for derived item tests
+add_subdirectory(world) # New line for world (town) tests
+add_subdirectory(brush) # New line for brush logic tests
+add_subdirectory(waypoints) # New line for WaypointManager tests
 
 # --- Mock Objects (Common for core tests if needed, or defined per test) ---
 # These mocks are specific to the tests in this directory or its subdirectories.

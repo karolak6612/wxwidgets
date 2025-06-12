@@ -37,6 +37,15 @@ public:
     // Gets a list of all waypoints.
     QList<Waypoint*> getAllWaypoints() const;
 
+    /**
+     * @brief Updates the position of an existing waypoint.
+     * Handles decrementing waypoint count on the old tile and incrementing on the new tile.
+     * @param name The name of the waypoint to update (case-insensitive).
+     * @param newPosition The new position for the waypoint.
+     * @return True if the waypoint was found and updated, false otherwise.
+     */
+    bool updateWaypointPosition(const QString& name, const Position& newPosition);
+
     // Typedef for iterator for convenience
     typedef QHash<QString, std::unique_ptr<Waypoint>>::const_iterator const_iterator;
 

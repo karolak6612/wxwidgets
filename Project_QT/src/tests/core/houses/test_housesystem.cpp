@@ -47,6 +47,7 @@ private slots:
     void testMap_ChangeHouseId();
     void testMap_ChangeHouseId_UpdatesTiles();
     void testMap_ChangeHouseId_EdgeCases();
+    void testSetEntryPoint_TileFlags();
 
 
 private:
@@ -346,6 +347,48 @@ void TestHouseSystem::testMap_ChangeHouseId_EdgeCases() {
 
     QVERIFY(m_map->getHouse(1) != nullptr);
     QVERIFY(m_map->getHouse(2) != nullptr);
+}
+
+void TestHouseSystem::testSetEntryPoint_TileFlags() {
+    RME::HouseData house(1, "Test House");
+    RME::core::Position pos1(5,5,7);
+    RME::core::Position pos2(6,6,7);
+    RME::core::Position invalidPos; // Default constructor for Position
+
+    // Initial set
+    house.setEntryPoint(pos1, m_map);
+    QCOMPARE(house.getEntryPoint(), pos1);
+    RME::Tile* tile1 = m_map->getTile(pos1);
+    QVERIFY(tile1);
+    QVERIFY(tile1->isHouseExit());
+
+    // Change entry point
+    house.setEntryPoint(pos2, m_map);
+    QCOMPARE(house.getEntryPoint(), pos2);
+    tile1 = m_map->getTile(pos1);
+    QVERIFY(tile1);
+    QVERIFY(!tile1->isHouseExit()); // Old tile should no longer be exit
+    RME::Tile* tile2 = m_map->getTile(pos2);
+    QVERIFY(tile2);
+    QVERIFY(tile2->isHouseExit()); // New tile should be exit
+
+    // Clear entry point by setting an invalid/default position
+    // This assumes Position() default constructor creates an "invalid" position for setEntryPoint's logic.
+    // HouseData::setEntryPoint will not call getOrCreateTile for invalidPos if it's not pos.isValid().
+    // If invalidPos IS valid (e.g. 0,0,0 on map), a tile might be created there.
+    // The crucial part is that the flag on tile2 is cleared.
+    house.setEntryPoint(invalidPos, m_map);
+    QCOMPARE(house.getEntryPoint(), invalidPos);
+    tile2 = m_map->getTile(pos2);
+    QVERIFY(tile2);
+    QVERIFY(!tile2->isHouseExit()); // Old exit (pos2) should be cleared
+
+    // Test with null map (should just set internal m_entryPoint)
+    RME::HouseData houseNullMap(2, "Null Map House");
+    RME::core::Position posForNullMap(10,10,7);
+    houseNullMap.setEntryPoint(posForNullMap, nullptr);
+    QCOMPARE(houseNullMap.getEntryPoint(), posForNullMap); // Internal position updated
+    // No tile flags to check as map was null, and no crash should occur.
 }
 
 

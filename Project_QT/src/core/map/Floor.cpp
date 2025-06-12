@@ -79,6 +79,41 @@ bool Floor::removeTile(int localX, int localY) {
     return false;
 }
 
+void Floor::setTile(int localX, int localY, std::unique_ptr<Tile> newTile) {
+    if (!isCoordValid(localX, localY)) {
+        qWarning("Floor::setTile: Invalid local coordinates (%d, %d) for Z: %d", localX, localY, zLevel);
+        return;
+    }
+    int index = localY * SECTOR_WIDTH_TILES + localX;
+    // Basic bounds check, though isCoordValid should cover it.
+    if (index < 0 || index >= tiles.size()) {
+         qWarning("Floor::setTile: Calculated index out of bounds: %d for Z: %d", index, zLevel);
+        return;
+    }
+
+    if (newTile) {
+        // Ensure new tile's internal Z-coordinate is consistent with this floor.
+        // The X and Y coordinates are local to the floor sector.
+        // The Tile object itself stores its global Position.
+        // This consistency check is important.
+        if (newTile->getPosition().z != this->zLevel) {
+            // This is a significant issue. The tile being placed has a Z coordinate
+            // that doesn't match the floor it's being placed on.
+            // This could lead to inconsistencies if not handled.
+            // For now, we'll log a warning and proceed, but this indicates
+            // a potential problem in how tiles are created or moved.
+            qWarning("Floor::setTile: Tile Z (%d) does not match Floor Z (%d) at local (%d, %d). Tile's global pos: (%d,%d,%d)",
+                     newTile->getPosition().z, this->zLevel, localX, localY,
+                     newTile->getPosition().x, newTile->getPosition().y, newTile->getPosition().z);
+            // Option: Correct the tile's Z? Or reject? For now, allow but warn.
+        }
+        tiles[index] = std::move(newTile);
+    } else {
+        tiles[index].reset(); // Effectively removes the tile
+    }
+    // No direct notification from Floor, Map will handle it.
+}
+
 bool Floor::isEmpty() const {
     for (const auto& tilePtr : tiles) {
         if (tilePtr) {

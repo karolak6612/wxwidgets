@@ -86,6 +86,49 @@ bool BaseMap::removeTile(const Position& pos) {
     return rootNode->removeTile(pos);
 }
 
+void BaseMap::setTile(const Position& pos, std::unique_ptr<Tile> newTile) {
+    // Allow setting/removing tiles even outside strict map dimensions if root node covers it
+    // This is to handle cases where maps might have tiles slightly outside their declared width/height
+    // due to sector alignment or previous editor versions.
+    // However, creating new tiles should ideally be within valid map dimensions.
+    if (!newTile && !isPositionValid(pos)) {
+        // If trying to remove a tile from an invalid position,
+        // and it's truly outside any reasonable boundary covered by rootNode,
+        // then rootNode->setTile will handle it (e.g. by doing nothing if pos is outside root).
+        // If strict boundaries are needed for removal too:
+        // if (!isPositionValid(pos)) return;
+    }
+
+    if (newTile && !isPositionValid(pos)) {
+        qWarning("BaseMap::setTile: Attempt to set a new tile at invalid map position (%d,%d,%d).",
+                 pos.x, pos.y, pos.z);
+        return; // Do not place new tiles outside logical map boundaries.
+    }
+
+    if (!rootNode) {
+        qWarning("BaseMap::setTile: Root node is null.");
+        return;
+    }
+
+    // The Tile object, if not null, should have its internal position set correctly by its constructor.
+    // When undoing, a deep-copied tile is passed in; its internal position should match 'pos'.
+    if (newTile && newTile->getPosition() != pos) {
+        // This is a critical check. The tile passed must be for this specific position.
+        // A Tile's Position is immutable after construction.
+        qCritical("BaseMap::setTile: Mismatch between target Position (%d,%d,%d) and Tile's internal Position (%d,%d,%d). Aborting.",
+                  pos.x, pos.y, pos.z,
+                  newTile->getPosition().x, newTile->getPosition().y, newTile->getPosition().z);
+        // Not setting the tile to prevent potential corruption or hard-to-debug issues.
+        // The unique_ptr will be destroyed, releasing the tile.
+        return;
+    }
+
+    rootNode->setTile(pos, std::move(newTile));
+    // After setting a tile, especially to nullptr, the QTreeNode might have become empty
+    // and could be pruned. This can be done periodically or after certain operations.
+    // rootNode->cleanTree(); // This might be too frequent here.
+}
+
 // --- Iterator Methods ---
 MapIterator BaseMap::begin() {
     if (!rootNode) {

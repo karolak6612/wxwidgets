@@ -238,6 +238,37 @@ Item* Tile::getItemById(uint16_t id) const {
     return nullptr;
 }
 
+void Tile::setGround(std::unique_ptr<Item> newGround) {
+    // Ensure the new ground item, if not null, is actually a ground item type.
+    // This check might be optional here if Item::create and brush logic already ensure this.
+    if (newGround && itemTypeProvider && !itemTypeProvider->isGround(newGround->getID())) {
+        // qWarning("Tile::setGround: Attempted to set a non-ground item type (ID: %d) as ground.", newGround->getID());
+        // Decide on behavior: reject, or allow and let visual/logic issues occur elsewhere.
+        // For now, allow, but this could be stricter.
+    }
+    ground = std::move(newGround);
+    update(); // Call update to refresh tile state (e.g., blocking, walkable ground flags)
+}
+
+bool Tile::removeItemById(uint16_t itemId) {
+    // Check ground item first
+    if (ground && ground->getID() == itemId) {
+        ground.reset(); // Clears the ground item
+        update();
+        return true;
+    }
+
+    // Check stacked items
+    for (int i = 0; i < items.size(); ++i) {
+        if (items[i] && items[i]->getID() == itemId) {
+            items.removeAt(i); // Removes the item and shifts subsequent elements
+            update();
+            return true;
+        }
+    }
+    return false; // Item not found
+}
+
 // Creature Management
 void Tile::setCreature(std::unique_ptr<RME::core::creatures::Creature> newCreature) {
     creature = std::move(newCreature);

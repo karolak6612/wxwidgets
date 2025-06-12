@@ -122,6 +122,68 @@ set(CORE_HOUSES_SRCS
 list(APPEND RME_CORE_LIB_SOURCES ${CORE_HOUSES_SRCS})
 list(APPEND RME_CORE_LIB_HEADERS ${CORE_HOUSES_HDRS})
 
+# Spawn System
+set(CORE_SPAWNS_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/spawns/SpawnData.h
+)
+
+set(CORE_SPAWNS_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/spawns/SpawnData.cpp
+)
+
+list(APPEND RME_CORE_LIB_SOURCES ${CORE_SPAWNS_SRCS})
+list(APPEND RME_CORE_LIB_HEADERS ${CORE_SPAWNS_HDRS})
+
+# Derived Item System (Complex Items)
+set(CORE_ITEMS_DERIVED_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/ContainerItem.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/TeleportItem.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/DoorItem.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/DepotItem.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/PodiumItem.h
+)
+
+set(CORE_ITEMS_DERIVED_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/ContainerItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/TeleportItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/DoorItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/DepotItem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/items/PodiumItem.cpp
+)
+
+list(APPEND RME_CORE_LIB_SOURCES ${CORE_ITEMS_DERIVED_SRCS})
+list(APPEND RME_CORE_LIB_HEADERS ${CORE_ITEMS_DERIVED_HDRS})
+
+# Town System (World Data)
+set(CORE_WORLD_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/world/TownData.h
+)
+
+set(CORE_WORLD_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/world/TownData.cpp
+)
+
+list(APPEND RME_CORE_LIB_SOURCES ${CORE_WORLD_SRCS})
+list(APPEND RME_CORE_LIB_HEADERS ${CORE_WORLD_HDRS})
+
+# Specific Brush Logics
+set(CORE_BRUSHES_LOGIC_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/brush/RawBrush.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/brush/EraserBrush.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/brush/HouseBrush.h # New line
+    # Add other specific brush headers here in future tasks
+)
+
+set(CORE_BRUSHES_LOGIC_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/brush/RawBrush.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/brush/EraserBrush.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/brush/HouseBrush.cpp # New line
+    # Add other specific brush sources here in future tasks
+)
+
+list(APPEND RME_CORE_LIB_SOURCES ${CORE_BRUSHES_LOGIC_SRCS})
+list(APPEND RME_CORE_LIB_HEADERS ${CORE_BRUSHES_LOGIC_HDRS}) # Assuming RME_CORE_LIB_HEADERS is used
+
 add_library(rme_core_lib STATIC ${RME_CORE_LIB_SOURCES})
 
 # Public include directories for this library

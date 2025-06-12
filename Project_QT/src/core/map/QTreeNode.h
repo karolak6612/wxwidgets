@@ -37,6 +37,7 @@ public:
     Tile* getTile(const Position& pos); // Read-only access
     const Tile* getTile(const Position& pos) const; // Const version
     bool removeTile(const Position& pos);
+    void setTile(const Position& pos, std::unique_ptr<Tile> newTile);
 
     // Recursively removes empty floors and nodes to save memory
     void cleanTree();

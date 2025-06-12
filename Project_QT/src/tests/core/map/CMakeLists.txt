@@ -27,3 +27,47 @@ add_test(NAME TestCoreMap_WaypointData COMMAND TestCoreMap_WaypointData)
 # This makes tests self-contained for this phase.
 # For CI/CD or more complex data, copying test data via CMake install rules
 # or setting WORKING_DIRECTORY for tests would be preferred.
+
+# Test executable for Map spawn functionality
+add_executable(TestCoreMap_Spawns TestMapSpawns.cpp)
+
+target_link_libraries(TestCoreMap_Spawns PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib # Link against the main core library
+)
+
+# Enable automatic MOC, UIC, RCC handling for Qt
+# Required because TestMapSpawns uses Q_OBJECT
+set_target_properties(TestCoreMap_Spawns PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestCoreMap_Spawns COMMAND TestCoreMap_Spawns)
+
+# Test executable for Map town functionality
+add_executable(TestCoreMap_Towns TestMapTowns.cpp)
+
+target_link_libraries(TestCoreMap_Towns PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib # Link against the main core library
+)
+
+# Enable automatic MOC, UIC, RCC handling for Qt
+set_target_properties(TestCoreMap_Towns PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestCoreMap_Towns COMMAND TestCoreMap_Towns)
+
+# Test executable for Map query functionality
+add_executable(TestCoreMap_Queries TestMapQueries.cpp)
+
+target_link_libraries(TestCoreMap_Queries PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib # Link against the main core library
+)
+
+# Enable automatic MOC, UIC, RCC handling for Qt
+# Required because TestMapQueries uses Q_OBJECT
+set_target_properties(TestCoreMap_Queries PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestCoreMap_Queries COMMAND TestCoreMap_Queries)

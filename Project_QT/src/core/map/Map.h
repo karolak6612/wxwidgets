@@ -5,7 +5,9 @@
 // #include "MapElements.h" // For TownData, HouseData - Replaced by specific includes
 #include "Project_QT/src/core/houses/HouseData.h" // Specific include for HouseData
 #include "MapElements.h" // Assuming this is for TownData etc. and does NOT define HouseData
+#include "core/world/TownData.h" // New TownData location
 #include "core/navigation/WaypointData.h" // New WaypointData location
+#include "core/spawns/SpawnData.h" // Provides RME::SpawnData
 
 #include <QString>
 #include <QList>
@@ -46,11 +48,17 @@ public:
     void setChanged(bool c = true) { m_changed = c; }
 
     // --- Towns ---
-    const QList<TownData>& getTowns() const { return m_towns; }
-    TownData* getTown(quint32 townId);
-    const TownData* getTown(quint32 townId) const;
-    void addTown(const TownData& town);
-    bool removeTown(quint32 townId);
+    // const QList<TownData>& getTowns() const { return m_towns; } // OLD - RME::TownData is now in core/world/
+    // TownData* getTown(quint32 townId); // OLD
+    // const TownData* getTown(quint32 townId) const; // OLD
+    // void addTown(const TownData& town); // OLD
+    // bool removeTown(quint32 townId); // OLD
+    bool addTown(RME::TownData&& townData);
+    RME::TownData* getTown(uint32_t townId); // Changed to new RME::TownData
+    const RME::TownData* getTown(uint32_t townId) const; // Changed to new RME::TownData
+    bool removeTown(uint32_t townId); // Changed to new RME::TownData
+    const QMap<uint32_t, RME::TownData>& getTownsById() const { return m_townsById; }
+    uint32_t getUnusedTownId() const;
 
     // --- Houses ---
     // const QMap<quint32, HouseData>& getHouses() const { return m_houses; } // Old
@@ -77,6 +85,45 @@ public:
     bool addWaypoint(RME::core::navigation::WaypointData waypointData);
     bool removeWaypoint(const QString& name);
 
+    // --- Spawns ---
+    void addSpawn(RME::SpawnData&& spawnData);
+    QList<RME::SpawnData>& getSpawns(); // Non-const
+    const QList<RME::SpawnData>& getSpawns() const; // Const
+    bool removeSpawn(const RME::SpawnData& spawnData); // Returns true if found and removed
+
+    // --- Advanced Queries / Tile Property Queries ---
+    /**
+     * @brief Counts how many spawn areas overlap a given position.
+     * Considers the spawn's center, radius, and that the Z-level matches.
+     */
+    int getSpawnOverlapCount(const Position& pos) const;
+
+    /**
+     * @brief Gets the town whose temple is at the given position.
+     * @return Pointer to TownData if found, nullptr otherwise.
+     */
+    TownData* getTownByTempleLocation(const Position& pos);
+    const TownData* getTownByTempleLocation(const Position& pos) const;
+
+    /**
+     * @brief Gets a list of houses that have an exit at the given position.
+     * @return QList of pointers to HouseData. List is empty if no houses have an exit there.
+     */
+    QList<HouseData*> getHousesWithExitAt(const Position& pos);
+    QList<const HouseData*> getHousesWithExitAt(const Position& pos) const; // Const version
+
+    /**
+     * @brief Checks if a given position is a valid location for a house exit.
+     * A valid location typically must exist, have ground, not be part of an existing house,
+     * and not be blocking (i.e., be walkable).
+     * @param pos The position to check.
+     * @return True if the location is valid for a house exit, false otherwise.
+     */
+    bool isValidHouseExitLocation(const Position& pos) const;
+
+    // Tile change notification
+    void notifyTileChanged(const Position& pos);
+
     // Stubs for complex map-wide operations
     bool convertFormat(quint32 targetOtbmVersion, quint32 targetClientVersion) { setChanged(true); /*TODO*/ return false; }
     bool exportMinimap(const QString& filePath) { /*TODO*/ return false; }
@@ -94,11 +141,15 @@ private:
 
     bool m_changed = false;
 
-    QList<TownData> m_towns;
+    // QList<TownData> m_towns; // OLD - Replaced by m_townsById
+    QMap<uint32_t, RME::TownData> m_townsById; // New
+    uint32_t m_maxTownId = 0; // New
+
     // QMap<quint32, HouseData> m_houses; // Old
     QMap<uint32_t, HouseData> m_housesById; // New name and consistent type
     uint32_t m_maxHouseId = 0; // Tracks the highest ID ever used
     QMap<QString, RME::core::navigation::WaypointData> m_waypoints;
+    QList<RME::SpawnData> m_spawns; // Changed to RME::SpawnData
 };
 
 } // namespace RME

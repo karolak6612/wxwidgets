@@ -1,5 +1,6 @@
 # Add subdirectories for different modules/libraries
 add_subdirectory(core)
+add_subdirectory(editor_logic) # New line
 add_subdirectory(ui)
 
 # Define application source files
@@ -39,6 +40,7 @@ target_link_libraries(rme_qt_app PRIVATE
     Qt6::Concurrent
     oclero::qlementine # Qlementine library target
     rme_core_lib       # Our core library
+    rme_editor_logic_lib # Our new editor logic library
     rme_ui_lib         # Our new UI library
 )
 

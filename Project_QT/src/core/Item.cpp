@@ -1,4 +1,9 @@
 #include "Item.h"
+#include "items/ContainerItem.h"
+#include "items/TeleportItem.h"
+#include "items/DoorItem.h"
+#include "items/DepotItem.h"
+#include "items/PodiumItem.h"
 #include <stdexcept> // For potential errors if provider is null
 
 namespace RME {
@@ -13,10 +18,26 @@ Item::Item(uint16_t item_id, IItemTypeProvider* provider, uint16_t item_subtype)
 }
 
 std::unique_ptr<Item> Item::create(uint16_t id, IItemTypeProvider* provider, uint16_t subtype) {
-    // For now, Item::create always returns a base Item.
-    // Later, this factory can check item properties (via provider)
-    // and instantiate derived types like ContainerItem, DoorItem, etc.
-    // e.g. if (provider && provider->isContainer(id)) { return std::make_unique<ContainerItem>(...); }
+    if (!provider) {
+        // Fallback or error if no provider, though Item constructor might also handle this.
+        // For safety, if provider is null, creating a base Item might be the only option.
+        return std::make_unique<Item>(id, provider, subtype);
+    }
+
+    // Check for specialized types using the provider
+    if (provider->isContainer(id)) {
+        return std::make_unique<ContainerItem>(id, provider, subtype);
+    } else if (provider->isTeleport(id)) {
+        return std::make_unique<TeleportItem>(id, provider, subtype);
+    } else if (provider->isDoor(id)) {
+        return std::make_unique<DoorItem>(id, provider, subtype);
+    } else if (provider->isDepot(id)) { // Assuming isDepot exists on provider
+        return std::make_unique<DepotItem>(id, provider, subtype);
+    } else if (provider->isPodium(id)) { // Assuming isPodium exists on provider
+        return std::make_unique<PodiumItem>(id, provider, subtype);
+    }
+
+    // Default case: create a base Item
     return std::make_unique<Item>(id, provider, subtype);
 }
 
@@ -174,6 +195,15 @@ size_t Item::estimateMemoryUsage() const {
     // }
     memory += attributes.size() * (sizeof(QString) + sizeof(QVariant) + 30); // Rough estimate per attribute
     return memory + 50; // Placeholder for basic item + general overhead
+}
+
+// OTBM Attribute Handling
+bool Item::deserializeOtbmAttribute(uint8_t /*attributeId*/, RME::core::io::BinaryNode* /*node*/, RME::core::assets::AssetManager* /*assetManager*/) {
+    return false; // Base implementation: unhandled attribute
+}
+
+void Item::serializeOtbmAttributes(RME::core::io::NodeFileWriteHandle& /*writer*/, RME::core::assets::AssetManager* /*assetManager*/) const {
+    // Base implementation: no specific attributes to write
 }
 
 } // namespace RME

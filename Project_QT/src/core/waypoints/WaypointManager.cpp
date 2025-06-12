@@ -106,5 +106,64 @@ QList<Waypoint*> WaypointManager::getAllWaypoints() const {
 
 // Iterators are defined inline in the header.
 
+bool WaypointManager::updateWaypointPosition(const QString& name, const Position& newPosition) {
+    QString normalizedName = normalizeName(name);
+    auto it = m_waypoints.find(normalizedName);
+    if (it == m_waypoints.end()) {
+        // qWarning() << "WaypointManager::updateWaypointPosition: Waypoint" << name << "not found.";
+        return false; // Waypoint not found
+    }
+
+    Waypoint* waypointToUpdate = it.value().get();
+    if (!waypointToUpdate) { // Should not happen if find() was successful
+        // qCritical() << "WaypointManager::updateWaypointPosition: Null waypoint pointer for name" << name;
+        return false;
+    }
+
+    Position oldPosition = waypointToUpdate->position;
+
+    // If position hasn't changed, do nothing but report success.
+    if (oldPosition == newPosition) {
+        return true;
+    }
+
+    // Decrement count at old position (if valid)
+    if (m_map && oldPosition.isValid()) {
+        Tile* oldTile = m_map->getTile(oldPosition);
+        if (oldTile) {
+            oldTile->decreaseWaypointCount();
+        } else {
+            // qWarning() << "WaypointManager::updateWaypointPosition: Could not get old tile at"
+            //            << oldPosition.x << "," << oldPosition.y << "," << oldPosition.z
+            //            << "for waypoint" << name;
+        }
+    }
+
+    // Update waypoint's position
+    waypointToUpdate->position = newPosition;
+
+    // Increment count at new position (if valid)
+    if (m_map && newPosition.isValid()) {
+        bool created = false; // To satisfy getOrCreateTile
+        Tile* newTile = m_map->getOrCreateTile(newPosition, created); // Ensure tile exists
+        if (newTile) {
+            newTile->increaseWaypointCount();
+        } else {
+            // qWarning() << "WaypointManager::updateWaypointPosition: Could not get/create new tile at"
+            //            << newPosition.x << "," << newPosition.y << "," << newPosition.z
+            //            << "for waypoint" << name;
+            // Waypoint position updated, but tile count might be inconsistent if tile creation failed.
+        }
+    }
+
+    // TODO: Consider if the map should be marked as dirty.
+    // This function modifies waypoint data which is part of map state.
+    // If m_map is RME::Map (not just BaseMap), and has setChanged():
+    // RME::Map* rmeMap = dynamic_cast<RME::Map*>(m_map);
+    // if (rmeMap) rmeMap->setChanged(true);
+
+    return true;
+}
+
 } // namespace core
 } // namespace RME

@@ -24,6 +24,51 @@ HouseData::HouseData(uint32_t houseId, const QString& houseName) :
 {
 }
 
+void HouseData::setEntryPoint(const Position& newEntryPoint, Map* map) {
+    if (!map) {
+        // qWarning("HouseData::setEntryPoint called with null Map context. Tile flags will not be updated.");
+        m_entryPoint = newEntryPoint; // Update internal position anyway
+        return;
+    }
+
+    Position oldEntryPoint = m_entryPoint;
+
+    // If new entry point is same as old, nothing to do for flags or position.
+    if (oldEntryPoint == newEntryPoint) {
+        return;
+    }
+
+    // Clear flag on old entry point tile
+    if (oldEntryPoint.isValid()) {
+        Tile* oldTile = map->getTile(oldEntryPoint);
+        if (oldTile) {
+            oldTile->setIsHouseExit(false);
+            map->notifyTileChanged(oldEntryPoint);
+        } else {
+            // qWarning("HouseData::setEntryPoint: Could not find old entry point tile at (%d,%d,%d) to clear exit flag.",
+            //          oldEntryPoint.x, oldEntryPoint.y, oldEntryPoint.z);
+        }
+    }
+
+    // Update the entry point
+    m_entryPoint = newEntryPoint;
+
+    // Set flag on new entry point tile
+    if (m_entryPoint.isValid()) {
+        bool created = false;
+        Tile* newTile = map->getOrCreateTile(m_entryPoint, created); // Ensure tile exists
+        if (newTile) {
+            newTile->setIsHouseExit(true);
+            map->notifyTileChanged(m_entryPoint);
+        } else {
+            // qWarning("HouseData::setEntryPoint: Could not get/create new entry point tile at (%d,%d,%d) to set exit flag.",
+            //          m_entryPoint.x, m_entryPoint.y, m_entryPoint.z);
+        }
+    }
+    // The HouseData object itself might be considered "changed" for saving purposes
+    // if it's managed by a system that tracks changes.
+}
+
 // --- Exits Management ---
 void HouseData::addExit(const Position& pos) {
     if (!m_exits.contains(pos)) {

@@ -13,6 +13,16 @@
 
 namespace RME {
 
+namespace core {
+    namespace io {
+        class BinaryNode;
+        class NodeFileWriteHandle;
+    } // namespace io
+    namespace assets {
+        class AssetManager;
+    } // namespace assets
+} // namespace core
+
 class Item {
 public:
     // Attributes map type
@@ -104,6 +114,10 @@ public:
      * @return size_t Estimated memory usage in bytes.
      */
     virtual size_t estimateMemoryUsage() const;
+
+    // OTBM Attribute Handling
+    virtual bool deserializeOtbmAttribute(uint8_t attributeId, RME::core::io::BinaryNode* node, RME::core::assets::AssetManager* assetManager);
+    virtual void serializeOtbmAttributes(RME::core::io::NodeFileWriteHandle& writer, RME::core::assets::AssetManager* assetManager) const;
 
 protected:
     // Helper for deep copy of base members

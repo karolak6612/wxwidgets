@@ -10,7 +10,7 @@ include(CTest)
 
 # Add subdirectories for different test categories
 add_subdirectory(core)
+add_subdirectory(editor_logic) # New line
 
 # Add other test categories later, e.g.:
-# add_subdirectory(editor_logic)
 # add_subdirectory(ui)

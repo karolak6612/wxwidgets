@@ -1,6 +1,11 @@
 #include <QtTest/QtTest>
 #include "core/Item.h" // Class to test
 #include "MockItemTypeProvider.h" // Mock provider
+#include "core/items/ContainerItem.h"
+#include "core/items/TeleportItem.h"
+#include "core/items/DoorItem.h"
+#include "core/items/DepotItem.h"
+#include "core/items/PodiumItem.h"
 
 using namespace RME;
 
@@ -26,6 +31,7 @@ private slots:
     void testDeepCopy();
     void testPropertyDelegation();
     void testWeightCalculation();
+    void itemCreateFactory();
 };
 
 void TestItem::initTestCase() {
@@ -154,6 +160,62 @@ void TestItem::testWeightCalculation()
     QCOMPARE(goldHundred->getWeight(), 10.0); // 0.1 * 100
 }
 
+void TestItem::itemCreateFactory() {
+    RME::MockItemTypeProvider provider;
 
-QTEST_MAIN(TestItem)
+    // Setup mock data for different types
+    uint16_t baseId = 1000, containerId = 1001, teleportId = 1002, doorId = 1003, depotId = 1004, podiumId = 1005;
+    MockItemData baseData; /* default */
+    MockItemData containerData; containerData.isContainer = true;
+    MockItemData teleportData; teleportData.isTeleport = true;
+    MockItemData doorData; doorData.isDoor = true;
+    MockItemData depotData; depotData.isDepot = true;
+    MockItemData podiumData; podiumData.isPodium = true;
+
+    provider.setMockData(baseId, baseData);
+    provider.setMockData(containerId, containerData);
+    provider.setMockData(teleportId, teleportData);
+    provider.setMockData(doorId, doorData);
+    provider.setMockData(depotId, depotData);
+    provider.setMockData(podiumId, podiumData);
+
+    // Test creation of base item
+    auto itemBase = RME::Item::create(baseId, &provider);
+    QVERIFY(itemBase != nullptr);
+    QVERIFY(dynamic_cast<RME::Item*>(itemBase.get()) != nullptr);
+    QVERIFY(dynamic_cast<RME::ContainerItem*>(itemBase.get()) == nullptr); // Should not be a container
+
+    // Test creation of ContainerItem
+    auto itemContainer = RME::Item::create(containerId, &provider);
+    QVERIFY(itemContainer != nullptr);
+    QVERIFY(dynamic_cast<RME::ContainerItem*>(itemContainer.get()) != nullptr);
+
+    // Test creation of TeleportItem
+    auto itemTeleport = RME::Item::create(teleportId, &provider);
+    QVERIFY(itemTeleport != nullptr);
+    QVERIFY(dynamic_cast<RME::TeleportItem*>(itemTeleport.get()) != nullptr);
+
+    // Test creation of DoorItem
+    auto itemDoor = RME::Item::create(doorId, &provider);
+    QVERIFY(itemDoor != nullptr);
+    QVERIFY(dynamic_cast<RME::DoorItem*>(itemDoor.get()) != nullptr);
+
+    // Test creation of DepotItem
+    auto itemDepot = RME::Item::create(depotId, &provider);
+    QVERIFY(itemDepot != nullptr);
+    QVERIFY(dynamic_cast<RME::DepotItem*>(itemDepot.get()) != nullptr);
+
+    // Test creation of PodiumItem
+    auto itemPodium = RME::Item::create(podiumId, &provider);
+    QVERIFY(itemPodium != nullptr);
+    QVERIFY(dynamic_cast<RME::PodiumItem*>(itemPodium.get()) != nullptr);
+
+    // Test with null provider (should create base Item)
+    auto itemNullProvider = RME::Item::create(containerId, nullptr);
+    QVERIFY(itemNullProvider != nullptr);
+    QVERIFY(dynamic_cast<RME::Item*>(itemNullProvider.get()) != nullptr);
+    QVERIFY(dynamic_cast<RME::ContainerItem*>(itemNullProvider.get()) == nullptr);
+}
+
+// QTEST_MAIN(TestItem) // Will be handled by a central test runner
 #include "TestItem.moc"

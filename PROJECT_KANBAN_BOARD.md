@@ -88,17 +88,9 @@ These mandates must be adhered to for all coding tasks:
 All tasks from `tasks_execution_order.md` are listed here. This board will be updated as tasks progress.
 
 ### Backlog (To Do)
-- [ ] CORE-10-SpawnSystem (Port Spawn System Data Structures)
-- [ ] CORE-12-ComplexItemSystem (Port Complex Item System Data Structures)
-- [ ] CORE-13-TownSystem (Port Town System Data Structures)
-- [ ] CORE-15-MapRegionSystem (Port Map Region Logic)
 - [ ] RENDER-02 (Implement Basic Tile Rendering (Colored Quads with Ghosting))
 - [ ] UI-02 (Port Main Application Toolbars and Comprehensive Palette System)
-- [ ] BRUSH-LOGIC-RAW (Port RAW Brush Logic)
-- [ ] BRUSH-LOGIC-Eraser (Port Eraser Brush Logic)
 - [ ] BRUSH-LOGIC-Spawn (Port Spawn Brush Logic)
-- [ ] BRUSH-LOGIC-Waypoint (Port Waypoint Brush/Tool Logic)
-- [ ] BRUSH-LOGIC-House (Port House Brush Logic)
 - [ ] BRUSH-LOGIC-HouseExit (Port House Exit Brush/Tool Logic)
 - [ ] BRUSH-LOGIC-Creature (Port Creature Brush Logic)
 - [ ] BRUSH-LOGIC-Ground (Port Ground Brush Logic)
@@ -106,7 +98,6 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [ ] BRUSH-LOGIC-Doodad (Port Doodad Brush Logic)
 - [ ] BRUSH-LOGIC-Table (Port Table Brush Logic)
 - [ ] BRUSH-LOGIC-Wall (Port Wall Brush Logic)
-- [ ] LOGIC-01 (Implement Core Drawing, Deletion, and Modification Logic Controller)
 - [ ] LOGIC-02 (Implement Bounding-Box Selection Logic)
 - [ ] LOGIC-05 (Port House System Logic & Data Management)
 - [ ] LOGIC-07 (Port Creature & Spawn System (Data and Brushes))
@@ -144,7 +135,15 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - None
 
 ### In Review
-
+- [ ] CORE-10-SpawnSystem (Port Spawn System Data Structures) - Branch: feature/CORE-10-SpawnSystem
+- [ ] CORE-12-ComplexItemSystem (Port Complex Item System Data Structures) - Branch: feature/CORE-12-ComplexItemSystem
+- [ ] CORE-13-TownSystem (Port Town System Data Structures) - Branch: feature/CORE-13-TownSystem
+- [ ] CORE-15-MapRegionSystem (Port Map Region Logic) - Branch: feature/CORE-15-MapRegionSystem
+- [ ] LOGIC-01 (Implement Core Drawing, Deletion, and Modification Logic Controller) - Branch: feature/LOGIC-01-EditorController
+- [ ] BRUSH-LOGIC-RAW (Port RAW Brush Logic) - Branch: feature/BRUSH-LOGIC-RAW #Deferred: RAW_LIKE_SIMONE setting pending REFACTOR-01
+- [ ] BRUSH-LOGIC-Eraser (Port Eraser Brush Logic) - Branch: feature/BRUSH-LOGIC-Eraser #Deferred: ERASER_LEAVE_UNIQUE setting pending REFACTOR-01
+- [ ] BRUSH-LOGIC-Waypoint (Port Waypoint Brush/Tool Logic) - Branch: feature/BRUSH-LOGIC-Waypoint
+- [ ] BRUSH-LOGIC-House (Port House Brush Logic) - Branch: feature/BRUSH-LOGIC-House #Deferred: Settings-dependent features (item removal, door ID assignment) pending REFACTOR-01
 
 ### Completed
 - [x] BUILD-02 (Implement Packaging and Deployment) - Branch: feat/build-02-cpack-packaging

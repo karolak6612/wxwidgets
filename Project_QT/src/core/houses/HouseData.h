@@ -42,7 +42,7 @@ public:
     void setTownId(uint32_t townId) { m_townId = townId; }
 
     const Position& getEntryPoint() const { return m_entryPoint; }
-    void setEntryPoint(const Position& entryPoint) { m_entryPoint = entryPoint; }
+    void setEntryPoint(const Position& newEntryPoint, Map* map); // Map context needed to update tiles
 
     uint32_t getRent() const { return m_rent; }
     void setRent(uint32_t rent) { m_rent = rent; }
