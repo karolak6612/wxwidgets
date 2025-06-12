@@ -6,10 +6,13 @@
 #include "core/editor/EditorControllerInterface.h"
 #include "core/assets/AssetManager.h"
 #include "core/brush/BrushEnums.h"
+#include "core/assets/ItemData.h" // For ItemData::materialId
+#include "core/assets/ItemDatabase.h" // For AssetManager::getItemDatabase()
 
 #include <QRandomGenerator>
 #include <QDebug>
 #include <array> // For std::array
+#include <algorithm> // For std::sort and std::find
 
 // Static member definitions (as before)
 uint32_t RME::core::GroundBrush::s_border_types[256];
@@ -98,14 +101,11 @@ void GroundBrush::apply(RME::core::editor::EditorControllerInterface* controller
         qWarning() << "GroundBrush::apply: Null controller.";
         return;
     }
-    // ... (apply implementation as before) ...
-    // Get map and tile for editing
     RME::core::map::Map* map = controller->getMap();
     if (!map) {
         qWarning() << "GroundBrush::apply: Null map from controller.";
         return;
     }
-     // Ensure materialData is valid before proceeding
     if (!m_materialData) {
         qWarning() << "GroundBrush::apply: No material set.";
         return;
@@ -113,10 +113,8 @@ void GroundBrush::apply(RME::core::editor::EditorControllerInterface* controller
     const auto* materialSpecifics = getCurrentGroundSpecifics();
     if (!materialSpecifics || (!settings.isEraseMode && materialSpecifics->items.empty())) {
         qWarning() << "GroundBrush::apply: Material has no ground items defined for drawing.";
-        // Allow erase even if items list is empty, as it might just be clearing.
         if (!settings.isEraseMode) return;
     }
-
 
     RME::core::Tile* tile = controller->getTileForEditing(pos);
     if (!tile) {
@@ -124,41 +122,39 @@ void GroundBrush::apply(RME::core::editor::EditorControllerInterface* controller
         return;
     }
 
-    uint16_t oldGroundId = 0;
+    uint16_t oldGroundItemId = 0;
     const Item* currentGround = tile->getGround();
     if (currentGround) {
-        oldGroundId = currentGround->getID();
+        oldGroundItemId = currentGround->getID();
     }
 
-    // Determine the material of the current ground item on the tile for accurate `doAutoBorders` later
-    // This is important because `doAutoBorders` for neighbors relies on knowing the *new* state of this tile.
-    // const assets::MaterialData* newTileMaterialForBordering = nullptr; // This variable is not used later
-
     if (settings.isEraseMode) {
-        if (oldGroundId != 0) {
-            // controller->recordSetGroundItem(pos, 0, oldGroundId); // Action: remove ground
-            // The controller action should effectively do: tile->setGround(nullptr);
-            // For simulation here if controller doesn't update tile immediately:
-            // tile->setGround(nullptr);
-            qDebug() << "GroundBrush: Erasing ground at" << pos.x << pos.y << pos.z << "(was " << oldGroundId << ")";
+        if (oldGroundItemId != 0) {
+            controller->recordSetGroundItem(pos, 0, oldGroundItemId); // Erase: new ID is 0
+            qDebug() << "GroundBrush: Called recordSetGroundItem to erase ground at" << pos.x << pos.y << pos.z << "(was " << oldGroundItemId << ")";
+        } else {
+            qDebug() << "GroundBrush: Erase mode, but no ground to erase at" << pos.x << pos.y << pos.z;
+            // No ground change, but borders might still need update if neighbors changed.
         }
-        // newTileMaterialForBordering = nullptr; // Tile becomes empty // Not used
-    } else {
+    } else { // Drawing mode
+        // This check should be done before `materialSpecifics->items.empty()` if materialSpecifics can be null.
+        // It was done at the start of the function.
+        // if (!materialSpecifics || materialSpecifics->items.empty()) { /* already handled */ }
+
         int totalChance = 0;
-        if (materialSpecifics){ // Check if materialSpecifics is not null
+        if (materialSpecifics){ // materialSpecifics is already checked for null at the start of the function along with items.empty() for non-erase mode
             for (const auto& itemEntry : materialSpecifics->items) {
                 totalChance += itemEntry.chance;
             }
-            if (totalChance == 0 && !materialSpecifics->items.empty()) { // if items exist but total chance is 0, use first.
-                 totalChance = materialSpecifics->items.first().chance > 0 ? materialSpecifics->items.first().chance : 1;
+            if (totalChance == 0 && !materialSpecifics->items.empty()) {
+                 totalChance = materialSpecifics->items.first().chance > 0 ? materialSpecifics->items.first().chance : 1; // Ensure some chance if items exist
             }
         }
 
-        if (totalChance == 0) { // Still 0 means no items or all items have 0 chance.
-             qWarning() << "GroundBrush::apply: Total chance for ground items is 0 and no items to pick.";
+        if (totalChance == 0) { // Still 0 means no items or all items have 0 chance and items list was empty.
+             qWarning() << "GroundBrush::apply: Total chance for ground items is 0.";
             return;
         }
-
 
         uint16_t selectedItemId = materialSpecifics->items.first().itemId;
         int randomValue = QRandomGenerator::global()->bounded(totalChance);
@@ -171,38 +167,26 @@ void GroundBrush::apply(RME::core::editor::EditorControllerInterface* controller
             }
         }
 
-        if (oldGroundId != selectedItemId) {
-            // controller->recordSetGroundItem(pos, selectedItemId, oldGroundId); // Action: set/replace ground
-            // The controller action should effectively do: tile->setGround(Item::Create(selectedItemId));
-            // For simulation:
-            // tile->setGround(Item::Create(selectedItemId, controller->getAssetManager())); // Assuming Item::Create needs AssetManager
-            qDebug() << "GroundBrush: Drawing ground item" << selectedItemId << "at" << pos.x << pos.y << pos.z;
-        } else {
-            qDebug() << "GroundBrush: Ground item" << selectedItemId << "already present at" << pos.x << pos.y << pos.z;
-        }
-        // newTileMaterialForBordering = m_materialData; // New state is this brush's material // Not used
+        // Record action even if item ID is the same, as this ensures undo stack consistency
+        // and allows the controller's action to handle no-op if necessary.
+        // Or, add a check: if (oldGroundItemId != selectedItemId)
+        controller->recordSetGroundItem(pos, selectedItemId, oldGroundItemId);
+        qDebug() << "GroundBrush: Called recordSetGroundItem to draw ground item" << selectedItemId << "at" << pos.x << pos.y << pos.z << "(old was " << oldGroundItemId << ")";
     }
 
-    // Auto-Bordering Phase
-    // Pass the 'newTileMaterialForBordering' to doAutoBorders if its logic needs to know the *intended* state
-    // rather than re-querying the tile which might not yet reflect the change if controller actions are deferred.
-    // However, doAutoBorders typically reads the map state as it is.
-    // For now, doAutoBorders will read from the map.
-    doAutoBorders(controller, pos, settings); // Borders for the current tile
+    // Auto-Bordering Phase (remains the same)
+    doAutoBorders(controller, pos, settings);
 
-    static const int dx[] = {-1, 0, 1, -1, 1, -1, 0, 1}; // NW, N, NE, W, E, SW, S, SE
-    static const int dy[] = {-1, -1, -1, 0, 0, 1, 1, 1}; // Matched to typical neighbor iteration order
+    static const int dx[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+    static const int dy[] = {-1, -1, -1, 0, 0, 1, 1, 1};
 
     for (int i = 0; i < 8; ++i) {
         RMEPosition neighborPos(pos.x + dx[i], pos.y + dy[i], pos.z);
         if (map->isPositionValid(neighborPos)) {
-            doAutoBorders(controller, neighborPos, settings); // Borders for each neighbor
+            doAutoBorders(controller, neighborPos, settings);
         }
     }
 
-    // Notifications are now assumed to be handled by the controller actions
-    // For example, if recordSetGroundItem or recordSetBorderItems also call notifyTileChanged.
-    // If not, explicit notification is needed. The original code had this:
     controller->notifyTileChanged(pos);
     for (int i = 0; i < 8; ++i) {
         RMEPosition neighborPos(pos.x + dx[i], pos.y + dy[i], pos.z);
@@ -212,179 +196,249 @@ void GroundBrush::apply(RME::core::editor::EditorControllerInterface* controller
     }
 }
 
+// Anonymous namespace for helpers
+namespace {
 
-// Helper to get MaterialData from a tile's ground item
-const assets::MaterialData* getMaterialFromTile(const Tile* tile, [[maybe_unused]] const assets::AssetManager* assetManager) { // assetManager marked maybe_unused
-    if (!tile || !tile->getGround() /*|| !assetManager*/) { // assetManager check commented out
+const assets::MaterialData* getMaterialFromTile(
+    const Tile* tile,
+    const assets::AssetManager* assetManager) {
+
+    if (!tile || !tile->getGround() || !assetManager) {
         return nullptr;
     }
-    // This assumes Item has a way to get its brush name or that AssetManager
-    // can map item ID to MaterialData. Let's assume Item stores its source brush name/ID.
-    // Or, more realistically, that MaterialManager itself is the source.
-    // This part is complex: mapping ground item ID back to a MaterialData.
-    // For now, placeholder:
-    // return assetManager->getMaterialManager()->getMaterialForItem(tile->getGround()->getID());
-    // A simpler way for now: if Item itself stored a pointer or ID to its MaterialData.
-    // Or if ItemType in ItemDatabase had a link to material_id.
-    // This is a known gap from wxwidgets where ItemType had ->brush pointer.
-    // Let's assume for the sake of structure:
-    // return tile->getGround()->getMaterialData(); // If Item could provide this
-    qWarning() << "getMaterialFromTile: Critical lookup function not fully implemented. Returning nullptr.";
-    return nullptr; // Placeholder - this is a critical lookup.
+
+    const Item* groundItem = tile->getGround();
+    uint16_t groundItemId = groundItem->getID();
+
+    const assets::ItemDatabase* itemDb = assetManager->getItemDatabase();
+    const assets::MaterialManager* materialMgr = assetManager->getMaterialManager();
+
+    if (!itemDb) {
+        qWarning("getMaterialFromTile: ItemDatabase not available via AssetManager.");
+        return nullptr;
+    }
+
+    const assets::ItemData* itemData = itemDb->getItemData(groundItemId);
+    if (!itemData) {
+        qWarning("getMaterialFromTile: ItemData not found for ground item ID %u.", groundItemId);
+        return nullptr;
+    }
+
+    if (!itemData->materialId.isEmpty()) {
+        if (materialMgr) {
+            const assets::MaterialData* foundMaterial = materialMgr->getMaterial(itemData->materialId);
+            if (!foundMaterial) {
+                qDebug("getMaterialFromTile: Material ID '%s' from ItemData (item %u) not found in MaterialManager.",
+                       qUtf8Printable(itemData->materialId), groundItemId);
+            }
+            return foundMaterial;
+        } else {
+            qDebug("getMaterialFromTile: MaterialManager is null, cannot look up material ID '%s' for item %u.",
+                   qUtf8Printable(itemData->materialId), groundItemId);
+            return nullptr;
+        }
+    } else {
+        qDebug("getMaterialFromTile: Item ID %u (name: '%s') has no associated materialId in its ItemData.",
+               groundItemId, qUtf8Printable(itemData->name));
+        return nullptr;
+    }
 }
 
+} // end anonymous namespace
+
+namespace { // Anonymous namespace for new helpers
+
+// CRITICAL STUB: This function needs to translate an abstract border piece type
+// and its context (neighbor configuration) into an "align" string
+// that matches MaterialBorderRule.align (e.g., "outer", "inner",
+// or potentially more specific like "outer_edge_n", "inner_corner_nw").
+QString determineAlignString(
+    BorderType pieceType,
+    uint8_t tiledata, // Full 8-neighbor configuration
+    const std::array<const assets::MaterialData*, 8>& /*neighborMaterials*/, // Materials of neighbors
+    const assets::MaterialData* /*currentTileMaterial*/
+) {
+    Q_UNUSED(tiledata);
+    // This is highly dependent on how s_border_types is structured and how
+    // MaterialBorderRule.align is defined in the XMLs.
+    // Example: if pieceType indicates a primary edge (N,E,S,W) it's likely "outer".
+    // If it's a corner type, it could be "outer_corner" or "inner_corner".
+    // The original RME used BorderBlock->outer (bool) to distinguish.
+    // For now, a very crude placeholder:
+    if (pieceType >= BorderType::WX_NORTH_HORIZONTAL && pieceType <= BorderType::WX_WEST_HORIZONTAL) return "outer";
+    if (pieceType >= BorderType::WX_NORTHWEST_CORNER && pieceType <= BorderType::WX_SOUTHWEST_CORNER) return "outer_corner"; // Or just "outer"
+    if (pieceType >= BorderType::INNER_NORTH_WEST && pieceType <= BorderType::INNER_SOUTH_WEST) return "inner_corner"; // Or just "inner"
+
+    qWarning("determineAlignString: Placeholder cannot determine align for BorderType %d", static_cast<int>(pieceType));
+    return "unknown_align_from_stub";
+}
+
+// CRITICAL STUB: This function needs to determine the relevant "toBrushName"
+// for a given border piece type by looking at the implicated neighbor(s).
+QString determineToBrushName(
+    BorderType pieceType,
+    uint8_t tiledata, // Full 8-neighbor configuration
+    const std::array<const assets::MaterialData*, 8>& neighborMaterials,
+    const assets::MaterialData* currentTileMaterial
+) {
+    Q_UNUSED(tiledata);
+    Q_UNUSED(currentTileMaterial);
+    // This needs to map the 'pieceType' to the specific neighbor(s) it's interacting with.
+    // E.g., WX_NORTH_HORIZONTAL interacts with neighbor at index 1 (North).
+    // WX_NORTHWEST_CORNER interacts with NW, N, W (indices 0, 1, 3).
+    // If interacting with multiple different neighbors, the rule is complex.
+    // For simplicity, RME rules often border "none" or a specific type.
+    // Placeholder logic:
+    int relevantNeighborIndex = -1;
+    if (pieceType == BorderType::WX_NORTH_HORIZONTAL) relevantNeighborIndex = 1; // N
+    else if (pieceType == BorderType::WX_EAST_HORIZONTAL) relevantNeighborIndex = 4; // E
+    else if (pieceType == BorderType::WX_SOUTH_HORIZONTAL) relevantNeighborIndex = 6; // S
+    else if (pieceType == BorderType::WX_WEST_HORIZONTAL) relevantNeighborIndex = 3; // W
+    // Simplified: corners and other types just check one primary neighbor for now or default to "none"
+    else if (pieceType == BorderType::WX_NORTHWEST_CORNER) relevantNeighborIndex = 0; // NW (or N or W)
+    else if (pieceType == BorderType::WX_NORTHEAST_CORNER) relevantNeighborIndex = 2; // NE (or N or E)
+    else if (pieceType == BorderType::WX_SOUTHEAST_CORNER) relevantNeighborIndex = 7; // SE (or S or E)
+    else if (pieceType == BorderType::WX_SOUTHWEST_CORNER) relevantNeighborIndex = 5; // SW (or S or W)
+
+    if (relevantNeighborIndex != -1) {
+        if (neighborMaterials[relevantNeighborIndex]) {
+            return neighborMaterials[relevantNeighborIndex]->id;
+        } else {
+            return "none"; // Explicitly bordering void
+        }
+    }
+    qWarning("determineToBrushName: Placeholder cannot determine toBrushName for BorderType %d", static_cast<int>(pieceType));
+    return "unknown_tobrush_from_stub";
+}
+
+} // end anonymous namespace
 
 // --- doAutoBorders Implementation ---
 void GroundBrush::doAutoBorders(RME::core::editor::EditorControllerInterface* controller,
                                   const RME::core::Position& targetPos,
-                                  const RME::core::BrushSettings& /*settings*/) { // settings might be used for custom border mode later
+                                  const RME::core::BrushSettings& settings) {
     if (!s_staticDataInitialized) {
         qCritical("GroundBrush::doAutoBorders: static data not initialized!");
         initializeStaticData();
     }
 
     RME::core::map::Map* map = controller->getMap();
-    // RME::core::assets::AssetManager* assetManager = controller->getAssetManager(); // Assuming controller provides this
-    // For now, getMaterialFromTile is stubbed and doesn't use assetManager.
-    if (!map) {
-        qWarning("GroundBrush::doAutoBorders: Map not available from controller.");
+    RME::core::assets::AssetManager* assetManager = controller->getAssetManager();
+    if (!map || !assetManager) {
+        qWarning("GroundBrush::doAutoBorders: Map or AssetManager not available from controller.");
         return;
     }
 
     const Tile* currentTile = map->getTile(targetPos);
     if (!currentTile) {
-        qWarning("GroundBrush::doAutoBorders: Target tile not found at" << targetPos.x << targetPos.y << targetPos.z);
+        qWarning("GroundBrush::doAutoBorders: Target tile not found at %s.", qUtf8Printable(targetPos.toString()));
         return;
     }
 
-    // Material of the current tile (the one whose borders are being calculated)
-    // This material's 'borders' rules will be used.
-    const assets::MaterialData* currentTileMaterial = getMaterialFromTile(currentTile, nullptr /*assetManager*/); // Pass nullptr for now
+    // 1. Collect oldBorderItemIds
+    QList<uint16_t> oldBorderItemIds;
+    const QList<std::unique_ptr<Item>>& itemsOnTile = currentTile->getItems();
+    for (const auto& itemPtr : itemsOnTile) {
+        if (itemPtr) {
+            // Ideally, filter for actual border items:
+            // const assets::ItemData* itemData = assetManager->getItemDatabase()->getItemData(itemPtr->getID());
+            // if (itemData && itemData->isBorder) {
+            //     oldBorderItemIds.append(itemPtr->getID());
+            // }
+            // Simplified: collecting all non-ground items.
+            oldBorderItemIds.append(itemPtr->getID());
+        }
+    }
+    std::sort(oldBorderItemIds.begin(), oldBorderItemIds.end());
+
+
+    const assets::MaterialData* currentTileMaterial = getMaterialFromTile(currentTile, assetManager);
     const assets::MaterialGroundSpecifics* currentTileSpecifics = nullptr;
     if (currentTileMaterial && currentTileMaterial->isGround()) {
         currentTileSpecifics = std::get_if<assets::MaterialGroundSpecifics>(&currentTileMaterial->specificData);
     }
 
-    if (!currentTileSpecifics) {
-        // If the current tile has no ground or its ground isn't a known material,
-        // it might still need its borders cleared if it previously had some.
-        // controller->recordClearBorderItems(targetPos); // Action to remove all non-ground items
-        qDebug() << "GroundBrush::doAutoBorders: No ground material on target tile" << targetPos.x << targetPos.y << targetPos.z << "or material has no ground specifics. Clearing borders (conceptually).";
-        // Actual border clearing action would be: controller->recordClearBorderItems(targetPos);
-        return;
-    }
-
-    // 1. Analyze 8 neighbors and build tiledata bitmask
-    uint8_t tiledata = 0;
-    std::array<const assets::MaterialData*, 8> neighborMaterials;
-
-    static const std::array<std::pair<int, int>, 8> neighborOffsets = {{
-        {-1,-1}, {0,-1}, {1,-1}, {-1,0}, {1,0}, {-1,1}, {0,1}, {1,1}
-    }}; // NW, N, NE, W, E, SW, S, SE
-
-
-    for (int i = 0; i < 8; ++i) {
-        RMEPosition neighborPos(targetPos.x + neighborOffsets[i].first,
-                                targetPos.y + neighborOffsets[i].second,
-                                targetPos.z);
-        const Tile* neighborTile = map->getTile(neighborPos); // Read-only get
-        neighborMaterials[i] = getMaterialFromTile(neighborTile, nullptr /*assetManager*/); // Pass nullptr for now
-
-        bool isDifferent = false;
-        if (!neighborMaterials[i]) {
-            isDifferent = true;
-        } else if (neighborMaterials[i]->id != currentTileMaterial->id) {
-            bool areFriends = false;
-            if(currentTileSpecifics) { // Check currentTileSpecifics is not null
-                 areFriends = currentTileSpecifics->friends.contains(neighborMaterials[i]->id);
-            }
-            // Also check if neighbor considers current tile a friend
-            const auto* neighborSpecifics = std::get_if<assets::MaterialGroundSpecifics>(&neighborMaterials[i]->specificData);
-            if(neighborSpecifics && !areFriends){ // check neighborSpecifics is not null
-                areFriends = neighborSpecifics->friends.contains(currentTileMaterial->id);
-            }
-
-            if (!areFriends) {
-                isDifferent = true;
-            }
-        }
-        // TODO: Add settings check for WALLS_REPEL_BORDERS from AppSettings via controller
-        // RME::AppSettings* appSettings = controller->getAppSettings();
-        // if (appSettings && appSettings->isWallsRepelBordersEnabled() && neighborTile && neighborTile->hasWall()) isDifferent = false;
-
-        if (isDifferent) {
-            tiledata |= (1 << i);
-        }
-    }
-
-    // 2. Use s_border_types[tiledata] to get packed BorderType enums
-    uint32_t packedComputedBorderTypes = s_border_types[tiledata];
-    if (packedComputedBorderTypes == 0 && tiledata != 0) {
-         qWarning() << "GroundBrush::doAutoBorders: s_border_types lookup for tiledata" << Qt::bin << tiledata << "resulted in NO BORDERS. Table might be empty or this configuration yields no borders.";
-    }
-
-    // Action: Clear existing non-ground items (borders) before adding new ones
-    // controller->recordClearBorderItems(targetPos);
-    qDebug() << "GroundBrush::doAutoBorders: Conceptually clearing existing borders on tile" << targetPos.x << targetPos.y << targetPos.z;
-
-
     QList<uint16_t> newBorderItemIds;
 
-    for (int pieceNum = 0; pieceNum < 4; ++pieceNum) {
-        BorderType computedPiece = unpackBorderType(packedComputedBorderTypes, pieceNum);
-        if (computedPiece == BorderType::NONE) {
-            continue;
+    if (!currentTileSpecifics) {
+        qDebug() << "GroundBrush::doAutoBorders: No ground material on target tile" << targetPos.toString() << "or material has no specifics. Existing borders will be evaluated for removal.";
+        // newBorderItemIds remains empty, so if oldBorderItemIds is not empty, it means clear borders.
+    } else {
+        uint8_t tiledata = 0;
+        std::array<const assets::MaterialData*, 8> neighborMaterials;
+        static const std::array<std::pair<int, int>, 8> neighborOffsets = {{
+            {-1,-1}, {0,-1}, {1,-1}, {-1,0}, {1,0}, {-1,1}, {0,1}, {1,1}
+        }};
+
+        for (int i = 0; i < 8; ++i) {
+            RMEPosition neighborPos(targetPos.x + neighborOffsets[i].first,
+                                    targetPos.y + neighborOffsets[i].second,
+                                    targetPos.z);
+            const Tile* neighborTile = map->getTile(neighborPos);
+            neighborMaterials[i] = getMaterialFromTile(neighborTile, assetManager);
+
+            bool isDifferent = false;
+            if (!neighborMaterials[i]) { isDifferent = true; }
+            else if (currentTileMaterial && neighborMaterials[i]->id != currentTileMaterial->id) {
+                bool areFriends = currentTileSpecifics->friends.contains(neighborMaterials[i]->id);
+                 if (!areFriends) { // Check reverse friendship only if not already friends
+                    const auto* neighborSpecifics = std::get_if<assets::MaterialGroundSpecifics>(&neighborMaterials[i]->specificData);
+                    if (neighborSpecifics && currentTileMaterial && neighborSpecifics->friends.contains(currentTileMaterial->id)) {
+                        areFriends = true;
+                    }
+                }
+                if (!areFriends) { isDifferent = true; }
+            } else if (!currentTileMaterial && neighborMaterials[i]) { // Current is void, neighbor is not
+                isDifferent = true;
+            }
+            if (isDifferent) { tiledata |= (1 << i); }
         }
 
-        qDebug() << "GroundBrush::doAutoBorders: Computed border piece" << static_cast<int>(computedPiece) << "for tiledata" << Qt::bin << tiledata;
+        uint32_t packedComputedBorderTypes = s_border_types[tiledata];
+        if (packedComputedBorderTypes == 0 && tiledata != 0) {
+             qWarning() << "GroundBrush::doAutoBorders: s_border_types lookup for tiledata" << Qt::bin << tiledata << "resulted in NO BORDERS. Table might be empty or this is a valid no-border case.";
+        }
 
-        QString alignStr = "unknown_align_placeholder";
-        QString toBrushId = "unknown_neighbor_material_placeholder";
+        QList<const assets::MaterialBorderRule*> matchedSuperRules;
+        QList<const assets::MaterialBorderRule*> matchedNormalRules;
 
-        // --- Placeholder for complex translation logic: computedPiece + neighbor data -> alignStr, toBrushId ---
-        // This requires mapping BorderType enum (which might be WX_NORTH_HORIZONTAL etc.)
-        // to an "align" string like "outer", "inner", "outer_n", "corner_nw", etc.
-        // AND identifying which neighbor(s) this border piece is "against" to get 'toBrushId'.
-        // This is a large piece of logic from the original RME.
-        qWarning() << "GroundBrush::doAutoBorders: CRITICAL - Translation from BorderType to align/toBrushName not implemented.";
+        for (int pieceNum = 0; pieceNum < 4; ++pieceNum) {
+            BorderType computedPiece = unpackBorderType(packedComputedBorderTypes, pieceNum);
+            if (computedPiece == BorderType::NONE) continue;
 
+            QString alignStr = determineAlignString(computedPiece, tiledata, neighborMaterials, currentTileMaterial);
+            QString toBrushIdStr = determineToBrushName(computedPiece, tiledata, neighborMaterials, currentTileMaterial);
 
-        bool ruleFound = false;
-        if(currentTileSpecifics){ // Check currentTileSpecifics is not null
+            if (alignStr.startsWith("unknown") || toBrushIdStr.startsWith("unknown")) {
+                qWarning("GroundBrush::doAutoBorders: Skipping piece %d due to unknown align/toBrush translation.", static_cast<int>(computedPiece));
+                continue;
+            }
+
             for (const auto& rule : currentTileSpecifics->borders) {
-                // TODO: Refine matching for 'alignStr'.
-                bool alignMatch = (rule.align == alignStr); // This will likely always fail with placeholder alignStr
-                // A temporary, very loose match for testing structure:
-                // if (computedPiece != BorderType::NONE) alignMatch = true;
-
-
-                if (alignMatch && (rule.toBrushName == toBrushId || rule.toBrushName == "all")) {
-                    // TODO: Handle 'super' rules (priority)
-                    newBorderItemIds.append(rule.borderItemId);
-                    ruleFound = true;
-                    qDebug() << "GroundBrush::doAutoBorders: Applying rule for align" << rule.align << "to" << toBrushId << "item" << rule.borderItemId;
-                    break;
+                // More precise matching attempt
+                if ((rule.align.compare(alignStr, Qt::CaseInsensitive) == 0 || rule.align.compare("any", Qt::CaseInsensitive) == 0) &&
+                    (rule.toBrushName.compare(toBrushIdStr, Qt::CaseInsensitive) == 0 || rule.toBrushName.compare("all", Qt::CaseInsensitive) == 0)) {
+                    if (rule.isSuper) {
+                        matchedSuperRules.append(&rule);
+                    } else {
+                        matchedNormalRules.append(&rule);
+                    }
                 }
             }
         }
-        if (!ruleFound && computedPiece != BorderType::NONE) {
-             qDebug() << "GroundBrush::doAutoBorders: No specific MaterialBorderRule found for piece" << static_cast<int>(computedPiece) << "against" << toBrushId << "with align" << alignStr;
-        }
+        for (const auto* rule : matchedSuperRules) { if (std::find(newBorderItemIds.begin(), newBorderItemIds.end(), rule->borderItemId) == newBorderItemIds.end()) newBorderItemIds.append(rule->borderItemId); }
+        for (const auto* rule : matchedNormalRules) { if (std::find(newBorderItemIds.begin(), newBorderItemIds.end(), rule->borderItemId) == newBorderItemIds.end()) newBorderItemIds.append(rule->borderItemId); }
     }
 
-    // 5. Apply new borders (after clearing old ones)
-    if (!newBorderItemIds.isEmpty()) {
-        // controller->recordSetBorderItems(targetPos, newBorderItemIds); // New controller action needed
-        qDebug() << "GroundBrush::doAutoBorders: Would apply new border items to" << targetPos.x << targetPos.y << targetPos.z << ":" << newBorderItemIds;
-    } else if (tiledata != 0 && packedComputedBorderTypes != 0) { // If there was a border config, but no rules matched
-        qDebug() << "GroundBrush::doAutoBorders: Border configuration found (tiledata" << Qt::bin << tiledata << ", packed" << packedComputedBorderTypes << ") but no matching rules led to new border items for" << targetPos.x << targetPos.y << targetPos.z;
+    std::sort(newBorderItemIds.begin(), newBorderItemIds.end());
+    if (oldBorderItemIds != newBorderItemIds) {
+        controller->recordSetBorderItems(targetPos, newBorderItemIds, oldBorderItemIds);
+        qDebug() << "GroundBrush::doAutoBorders: Tile" << targetPos.toString() << "borders changed. Old:" << oldBorderItemIds << "New:" << newBorderItemIds << ". Called recordSetBorderItems.";
     } else {
-         // This case is normal if tiledata was 0 (no borders needed) or s_border_types[tiledata] was 0.
+        qDebug() << "GroundBrush::doAutoBorders: Tile" << targetPos.toString() << "borders did not change.";
     }
-
-    // TODO: Implement "specific cases" logic if required.
 }
 
-
+// ... (apply method and other GroundBrush methods as before) ...
 } // namespace core
 } // namespace RME
