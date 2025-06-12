@@ -1,120 +1,104 @@
-#ifndef RME_MOCK_ITEM_TYPE_PROVIDER_H
-#define RME_MOCK_ITEM_TYPE_PROVIDER_H
+#ifndef MOCK_ITEMTYPEPROVIDER_H
+#define MOCK_ITEMTYPEPROVIDER_H
 
-#include "core/IItemTypeProvider.h" // Original interface
+#include "core/assets/IItemTypeProvider.h"
+#include "core/assets/ItemData.h" // For RME::core::assets::ItemData definition
 #include <QMap>
 #include <QString>
-#include <cstdint>
+#include <cstdint> // For uint16_t
 
-// Basic struct to hold mock item properties
-struct MockItemData {
-    QString name = "Mock Item";
-    QString description = "A mock item type.";
-    uint32_t flags = 0;
-    double weight = 1.0;
-    bool isBlocking = false;
-    bool isProjectileBlocking = false;
-    bool isPathBlocking = false;
-    bool isWalkable = true;
-    bool isStackable = false;
-    bool isGround = false;
-    bool isAlwaysOnTop = false;
-    bool isReadable = false;
-    bool isWriteable = false;
-    bool isFluidContainer = false;
-    bool isSplash = false;
-    bool isMoveable = true;
-    bool hasHeight = false;
-    bool isContainer = false;
-    bool isTeleport = false;
-    bool isDoor = false;
-    bool isPodium = false;
-    bool isDepot = false;
-};
+// Forward declare AssetManager if it's part of IItemTypeProvider's interface
+// namespace RME { namespace core { namespace assets { class AssetManager; }}}
+
 
 namespace RME {
+namespace tests {
 
-class MockItemTypeProvider : public IItemTypeProvider {
-public:
-    QMap<uint16_t, MockItemData> mockData;
+// This struct is used internally by MockItemTypeProvider to store mock data.
+// It should mirror relevant fields from RME::core::assets::ItemData for testing.
+struct MockItemData {
+    QString name = "Unknown Mock Item";
+    uint16_t id = 0; // Typically server ID
+    bool isGround = false;
+    bool isBorder = false;
+    // Add other flags/attributes as needed for different brush tests
+    uint16_t clientID = 0; // Often same as ID if not specified
+    QString materialId;    // NEW FIELD
 
-    MockItemTypeProvider() = default;
-    ~MockItemTypeProvider() override = default;
+    // Default constructor
+    MockItemData() = default;
 
-    // Helper to easily add or modify mock item data for tests
-    void setMockData(uint16_t id, const MockItemData& data) {
-        mockData[id] = data;
-    }
-
-    QString getName(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).name;
-    }
-    QString getDescription(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).description;
-    }
-    uint32_t getFlags(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).flags;
-    }
-    double getWeight(uint16_t id, uint16_t subtype) const override {
-        const auto& data = mockData.value(id, MockItemData());
-        return data.isStackable && subtype > 0 ? data.weight * subtype : data.weight;
-    }
-    bool isBlocking(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).isBlocking;
-    }
-    bool isProjectileBlocking(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).isProjectileBlocking;
-    }
-    bool isPathBlocking(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).isPathBlocking;
-    }
-    bool isWalkable(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).isWalkable;
-    }
-    bool isStackable(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).isStackable;
-    }
-    bool isGround(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).isGround;
-    }
-    bool isAlwaysOnTop(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).isAlwaysOnTop;
-    }
-    bool isReadable(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).isReadable;
-    }
-    bool isWriteable(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).isWriteable;
-    }
-    bool isFluidContainer(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).isFluidContainer;
-    }
-    bool isSplash(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).isSplash;
-    }
-    bool isMoveable(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).isMoveable;
-    }
-    bool hasHeight(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).hasHeight;
-    }
-    bool isContainer(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).isContainer;
-    }
-    bool isTeleport(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).isTeleport;
-    }
-    bool isDoor(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).isDoor;
-    }
-    bool isPodium(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).isPodium;
-    }
-    bool isDepot(uint16_t id) const override {
-        return mockData.value(id, MockItemData()).isDepot;
-    }
+    // Constructor for easier initialization in tests
+    MockItemData(QString n, uint16_t an_id, bool ground, bool border = false, QString matId = QString(), uint16_t cId = 0)
+        : name(n), id(an_id), isGround(ground), isBorder(border), materialId(matId), clientID(cId == 0 ? an_id : cId) {}
 };
 
+
+class MockItemTypeProvider : public RME::core::assets::IItemTypeProvider {
+public:
+    MockItemTypeProvider() = default;
+
+    void setMockData(uint16_t itemId, const MockItemData& data) {
+        m_mockData[itemId] = data;
+        // Invalidate cache for this item if it's updated
+        if (m_convertedDataCache.contains(itemId)) {
+            m_convertedDataCache.remove(itemId);
+        }
+    }
+
+    // --- Implementation of IItemTypeProvider ---
+    const RME::core::assets::ItemData* getItemData(uint16_t server_id) const override {
+        auto it = m_mockData.constFind(server_id);
+        if (it != m_mockData.constEnd()) {
+            // Need to convert MockItemData to RME::core::assets::ItemData
+            // This is problematic if we only store MockItemData.
+            // For tests to work, this should return a real ItemData struct.
+            // Let's store RME::core::assets::ItemData directly, populated from MockItemData.
+
+            // If m_convertedDataCache is not populated for server_id, create it.
+            // This is a bit inefficient for a const method, ideally populate on setMockData.
+            // For simplicity in mock:
+            if (m_convertedDataCache.constFind(server_id) == m_convertedDataCache.constEnd()) {
+                RME::core::assets::ItemData realData;
+                realData.serverID = it.value().id;
+                realData.clientID = it.value().clientID != 0 ? it.value().clientID : it.value().id;
+                realData.name = it.value().name;
+                realData.isGround = it.value().isGround;
+                realData.isBorder = it.value().isBorder;
+                realData.materialId = it.value().materialId; // Copy the new field
+                // Copy other relevant fields from MockItemData to ItemData as needed by tests
+                m_convertedDataCache.insert(server_id, realData);
+            }
+            return &m_convertedDataCache[server_id];
+        }
+        return nullptr; // Not found
+    }
+
+    // getItemType is an old name, getItemData is current.
+    // const RME::core::assets::ItemType* getItemType(uint16_t server_id) const override {
+    //     return getItemData(server_id); // Assuming ItemType is typedef or same as ItemData
+    // }
+
+
+    // getAssetManager() might not be relevant for a pure ItemTypeProvider mock,
+    // unless ItemData itself needs it for some deeper lookups (unlikely for static data).
+    // If IItemTypeProvider has this method, it needs to be implemented.
+    // RME::core::assets::AssetManager* getAssetManager() const override {
+    //     return nullptr; // Or a mock asset manager if needed by ItemData methods
+    // }
+
+    void clear() {
+        m_mockData.clear();
+        m_convertedDataCache.clear();
+    }
+
+private:
+    QMap<uint16_t, MockItemData> m_mockData; // Internal storage using simple struct
+    // Cache to hold converted RME::core::assets::ItemData objects
+    mutable QMap<uint16_t, RME::core::assets::ItemData> m_convertedDataCache;
+};
+
+} // namespace tests
 } // namespace RME
 
-#endif // RME_MOCK_ITEM_TYPE_PROVIDER_H
+#endif // MOCK_ITEMTYPEPROVIDER_H
