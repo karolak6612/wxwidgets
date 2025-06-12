@@ -75,3 +75,16 @@ target_link_libraries(TestCoreBrush_CarpetBrush PRIVATE
 set_target_properties(TestCoreBrush_CarpetBrush PROPERTIES AUTOMOC ON)
 
 add_test(NAME TestCoreBrush_CarpetBrush COMMAND TestCoreBrush_CarpetBrush)
+
+# Test for TableBrush
+add_executable(TestCoreBrush_TableBrush TestTableBrush.cpp)
+
+target_link_libraries(TestCoreBrush_TableBrush PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib
+)
+
+set_target_properties(TestCoreBrush_TableBrush PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestCoreBrush_TableBrush COMMAND TestCoreBrush_TableBrush)

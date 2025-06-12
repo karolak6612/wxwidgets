@@ -64,6 +64,15 @@ enum class BorderType : uint8_t {
     // The more abstract conceptual types like NORTH_EDGE are removed to avoid redundancy,
     // as the WX_ values are what the lookup tables (s_border_types, s_carpet_types)
     // are expected to produce based on original RME logic.
+
+    // Table Segment Types (start from 14)
+    TABLE_ALONE = 14,
+    TABLE_VERTICAL = 15,
+    TABLE_HORIZONTAL = 16,
+    TABLE_SOUTH_END = 17,    // Points South (connector is North)
+    TABLE_EAST_END = 18,     // Points East (connector is West)
+    TABLE_NORTH_END = 19,    // Points North (connector is South)
+    TABLE_WEST_END = 20      // Points West (connector is East)
 };
 
 // Helper function to pack up to 4 BorderTypes into a uint32_t
