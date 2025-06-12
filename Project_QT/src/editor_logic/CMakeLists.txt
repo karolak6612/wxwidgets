@@ -4,12 +4,16 @@ set(RME_EDITOR_LOGIC_LIB_SOURCES
     EditorController.cpp
     commands/BrushStrokeCommand.cpp
     commands/DeleteCommand.cpp
+    commands/AddWaypointCommand.cpp   # New line
+    commands/MoveWaypointCommand.cpp  # New line
 )
 
 set(RME_EDITOR_LOGIC_LIB_HEADERS
     EditorController.h
     commands/BrushStrokeCommand.h
     commands/DeleteCommand.h
+    commands/AddWaypointCommand.h   # New line
+    commands/MoveWaypointCommand.h  # New line
 )
 # Note: RME_EDITOR_LOGIC_LIB_HEADERS is for organization/completeness,
 # actual header availability is via target_include_directories.

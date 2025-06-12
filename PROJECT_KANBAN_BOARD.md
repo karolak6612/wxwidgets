@@ -90,8 +90,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 ### Backlog (To Do)
 - [ ] RENDER-02 (Implement Basic Tile Rendering (Colored Quads with Ghosting))
 - [ ] UI-02 (Port Main Application Toolbars and Comprehensive Palette System)
-- [ ] BRUSH-LOGIC-Eraser (Port Eraser Brush Logic)
-- [ ] BRUSH-LOGIC_Spawn (Port Spawn Brush Logic)
+- [ ] BRUSH-LOGIC-Spawn (Port Spawn Brush Logic)
 - [ ] BRUSH-LOGIC-Waypoint (Port Waypoint Brush/Tool Logic)
 - [ ] BRUSH-LOGIC-House (Port House Brush Logic)
 - [ ] BRUSH-LOGIC-HouseExit (Port House Exit Brush/Tool Logic)
@@ -144,6 +143,7 @@ All tasks from `tasks_execution_order.md` are listed here. This board will be up
 - [ ] CORE-15-MapRegionSystem (Port Map Region Logic) - Branch: feature/CORE-15-MapRegionSystem
 - [ ] LOGIC-01 (Implement Core Drawing, Deletion, and Modification Logic Controller) - Branch: feature/LOGIC-01-EditorController
 - [ ] BRUSH-LOGIC-RAW (Port RAW Brush Logic) - Branch: feature/BRUSH-LOGIC-RAW #Deferred: RAW_LIKE_SIMONE setting pending REFACTOR-01
+- [ ] BRUSH-LOGIC-Eraser (Port Eraser Brush Logic) - Branch: feature/BRUSH-LOGIC-Eraser #Deferred: ERASER_LEAVE_UNIQUE setting pending REFACTOR-01
 
 ### Completed
 - [x] BUILD-02 (Implement Packaging and Deployment) - Branch: feat/build-02-cpack-packaging

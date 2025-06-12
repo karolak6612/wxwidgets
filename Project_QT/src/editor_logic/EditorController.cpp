@@ -6,9 +6,13 @@
 #include "core/brush/Brush.h"
 #include "core/brush/BrushSettings.h"
 #include "core/Position.h"
+#include "core/waypoints/WaypointManager.h" // Added
+#include "core/waypoints/Waypoint.h"       // Added
 #include <QUndoStack>
 #include "commands/BrushStrokeCommand.h"
-#include "commands/DeleteCommand.h"      // Added DeleteCommand
+#include "commands/DeleteCommand.h"
+#include "commands/AddWaypointCommand.h"   // Added
+#include "commands/MoveWaypointCommand.h"  // Added
 #include <QDebug> // For qWarning (optional)
 
 namespace RME {
@@ -18,13 +22,20 @@ EditorController::EditorController(
     QUndoStack* undoStack,
     SelectionManager* selectionManager,
     BrushManagerService* brushManagerService,
+    RME::core::WaypointManager* waypointManager, // Added
     QObject* parent
 ) : QObject(parent),
     m_map(map),
     m_undoStack(undoStack),
     m_selectionManager(selectionManager),
-    m_brushManagerService(brushManagerService) {
+    m_brushManagerService(brushManagerService),
+    m_waypointManager(waypointManager) { // Added
     // TODO: Assert that pointers are not null
+    Q_ASSERT(m_map);
+    Q_ASSERT(m_undoStack);
+    Q_ASSERT(m_selectionManager);
+    Q_ASSERT(m_brushManagerService);
+    Q_ASSERT(m_waypointManager);
 }
 
 EditorController::~EditorController() {
@@ -64,6 +75,45 @@ void EditorController::deleteSelection() {
         return;
     }
     m_undoStack->push(new RME_COMMANDS::DeleteCommand(m_map, m_selectionManager));
+}
+
+void EditorController::placeOrMoveWaypoint(const QString& name, const RME::core::Position& targetPos) {
+    if (!m_map || !m_undoStack || !m_waypointManager) { // Check m_waypointManager
+        qWarning("EditorController::placeOrMoveWaypoint: Core component (map, undoStack, or waypointManager) is null.");
+        return;
+    }
+    if (name.isEmpty()) {
+        qWarning("EditorController::placeOrMoveWaypoint: Waypoint name cannot be empty.");
+        return;
+    }
+    // Assuming Position::isValid() checks for reasonable map coordinates, not just non-default.
+    // Map::isPositionValid might be more appropriate if it checks against map boundaries.
+    if (!m_map->isPositionValid(targetPos)) {
+        qWarning("EditorController::placeOrMoveWaypoint: Target position %d,%d,%d is invalid for the current map.",
+                 targetPos.x, targetPos.y, targetPos.z);
+        return;
+    }
+
+    RME::core::Waypoint* existingWp = m_waypointManager->getWaypoint(name);
+
+    if (existingWp) { // Waypoint with this name exists, so it's a move operation
+        if (existingWp->position == targetPos) {
+            // qInfo("EditorController::placeOrMoveWaypoint: Target position is same as current for waypoint '%s'. No action.", qPrintable(name));
+            return; // No change needed
+        }
+        m_undoStack->push(new RME_COMMANDS::MoveWaypointCommand(
+            m_waypointManager,
+            name,
+            existingWp->position,
+            targetPos
+        ));
+    } else { // Waypoint with this name does not exist, so it's an add operation
+        m_undoStack->push(new RME_COMMANDS::AddWaypointCommand(
+            m_waypointManager,
+            name,
+            targetPos
+        ));
+    }
 }
 
 } // namespace RME
