@@ -35,6 +35,7 @@ add_subdirectory(items) # New line for derived item tests
 add_subdirectory(world) # New line for world (town) tests
 add_subdirectory(brush) # New line for brush logic tests
 add_subdirectory(waypoints) # New line for WaypointManager tests
+add_subdirectory(houses)    # Added for new House and Houses tests
 
 # --- Mock Objects (Common for core tests if needed, or defined per test) ---
 # These mocks are specific to the tests in this directory or its subdirectories.
@@ -92,27 +93,7 @@ target_link_libraries(test_clipboardmanager PRIVATE
 set_target_properties(test_clipboardmanager PROPERTIES AUTOMOC ON)
 add_test(NAME test_clipboardmanager COMMAND test_clipboardmanager)
 
-# --- House System Tests ---
-add_executable(test_housesystem
-    houses/test_housesystem.cpp
-    ${TEST_CORE_MOCKS_SRCS} # Mocks are used for tiles within the real Map
-)
-
-target_include_directories(test_housesystem PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/mocks
-    ${CMAKE_SOURCE_DIR}/Project_QT/src/core
-    ${CMAKE_CURRENT_BINARY_DIR}
-)
-
-target_link_libraries(test_housesystem PRIVATE
-    Qt6::Core
-    Qt6::Test
-    rme_core_lib
-)
-
-set_target_properties(test_housesystem PROPERTIES AUTOMOC ON)
-add_test(NAME test_housesystem COMMAND test_housesystem)
-
+# Old "House System Tests" block removed as new tests are in 'houses' subdirectory.
 
 # CTest include is managed at Project_QT/src/tests/CMakeLists.txt.
 # add_test() commands register tests with CTest framework.

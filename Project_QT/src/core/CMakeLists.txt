@@ -113,10 +113,14 @@ list(APPEND RME_CORE_LIB_HEADERS ${CORE_ACTIONS_HDRS}) # Add new action headers 
 # House System
 set(CORE_HOUSES_HDRS
     ${CMAKE_CURRENT_SOURCE_DIR}/houses/HouseData.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/houses/House.h     # Added
+    ${CMAKE_CURRENT_SOURCE_DIR}/houses/Houses.h    # Added
 )
 
 set(CORE_HOUSES_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/houses/HouseData.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/houses/House.cpp     # Added
+    ${CMAKE_CURRENT_SOURCE_DIR}/houses/Houses.cpp    # Added
 )
 
 list(APPEND RME_CORE_LIB_SOURCES ${CORE_HOUSES_SRCS})

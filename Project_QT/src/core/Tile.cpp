@@ -8,8 +8,9 @@ Tile::Tile(const Position& pos, IItemTypeProvider* provider)
       ground(nullptr),
       creature(nullptr),
       spawn(nullptr),
-      m_houseId(0), // Renamed
-      m_isHouseExit(false), // Added
+      m_houseId(0),
+      m_isHouseExit(false),
+      m_isProtectionZone(false), // Added
       itemTypeProvider(provider),
       m_waypointCount(0)
 {
@@ -25,8 +26,9 @@ Tile::Tile(int x, int y, int z, IItemTypeProvider* provider)
       ground(nullptr),
       creature(nullptr),
       spawn(nullptr),
-      m_houseId(0), // Renamed
-      m_isHouseExit(false), // Added
+      m_houseId(0),
+      m_isHouseExit(false),
+      m_isProtectionZone(false), // Added
       itemTypeProvider(provider),
       m_waypointCount(0)
 {
@@ -38,11 +40,12 @@ Tile::Tile(int x, int y, int z, IItemTypeProvider* provider)
 // Copy constructor
 Tile::Tile(const Tile& other)
     : position(other.position),
-      m_houseId(other.m_houseId), // Renamed
-      m_isHouseExit(other.m_isHouseExit), // Added
+      m_houseId(other.m_houseId),
+      m_isHouseExit(other.m_isHouseExit),
+      m_isProtectionZone(other.m_isProtectionZone), // Added
       mapFlags(other.mapFlags),
       stateFlags(other.stateFlags),
-      itemTypeProvider(other.itemTypeProvider), // Copy non-owning pointer
+      itemTypeProvider(other.itemTypeProvider),
       m_waypointCount(other.m_waypointCount)
 {
     copyMembersTo(*this); // Use helper to deep copy owning members
@@ -54,11 +57,12 @@ Tile& Tile::operator=(const Tile& other) {
         return *this;
     }
     position = other.position;
-    m_houseId = other.m_houseId; // Renamed
-    m_isHouseExit = other.m_isHouseExit; // Added
+    m_houseId = other.m_houseId;
+    m_isHouseExit = other.m_isHouseExit;
+    m_isProtectionZone = other.m_isProtectionZone; // Added
     mapFlags = other.mapFlags;
     stateFlags = other.stateFlags;
-    itemTypeProvider = other.itemTypeProvider; // Copy non-owning pointer
+    itemTypeProvider = other.itemTypeProvider;
     m_waypointCount = other.m_waypointCount;
 
     // Clear existing owned members before copying new ones
@@ -78,19 +82,21 @@ Tile::Tile(Tile&& other) noexcept
       items(std::move(other.items)),
       creature(std::move(other.creature)),
       spawn(std::move(other.spawn)),
-      m_houseId(other.m_houseId), // Renamed
-      m_isHouseExit(other.m_isHouseExit), // Added
+      m_houseId(other.m_houseId),
+      m_isHouseExit(other.m_isHouseExit),
+      m_isProtectionZone(other.m_isProtectionZone), // Added
       mapFlags(other.mapFlags),
       stateFlags(other.stateFlags),
       itemTypeProvider(other.itemTypeProvider),
       m_waypointCount(other.m_waypointCount)
 {
-    // Reset simple types in source to a valid state if necessary, though for int/enum it's not critical
-    other.m_houseId = 0; // Renamed
-    other.m_isHouseExit = false; // Added
+    // Reset simple types in source to a valid state
+    other.m_houseId = 0;
+    other.m_isHouseExit = false;
+    other.m_isProtectionZone = false; // Added
     other.mapFlags = TileMapFlag::NO_FLAGS;
     other.stateFlags = TileStateFlag::NO_FLAGS;
-    other.itemTypeProvider = nullptr; // Source should not use this after move
+    other.itemTypeProvider = nullptr;
     other.m_waypointCount = 0;
 }
 
@@ -104,15 +110,17 @@ Tile& Tile::operator=(Tile&& other) noexcept {
     items = std::move(other.items);
     creature = std::move(other.creature);
     spawn = std::move(other.spawn);
-    m_houseId = other.m_houseId; // Renamed
-    m_isHouseExit = other.m_isHouseExit; // Added
+    m_houseId = other.m_houseId;
+    m_isHouseExit = other.m_isHouseExit;
+    m_isProtectionZone = other.m_isProtectionZone; // Added
     mapFlags = other.mapFlags;
     stateFlags = other.stateFlags;
     itemTypeProvider = other.itemTypeProvider;
     m_waypointCount = other.m_waypointCount;
 
-    other.m_houseId = 0; // Renamed
-    other.m_isHouseExit = false; // Added
+    other.m_houseId = 0;
+    other.m_isHouseExit = false;
+    other.m_isProtectionZone = false; // Added
     other.mapFlags = TileMapFlag::NO_FLAGS;
     other.stateFlags = TileStateFlag::NO_FLAGS;
     other.itemTypeProvider = nullptr;
@@ -128,10 +136,11 @@ std::unique_ptr<Tile> Tile::deepCopy() const {
     // Copy primitive members not handled by constructor or copyMembersTo if they differ from default
     newTile->m_houseId = this->m_houseId;
     newTile->m_isHouseExit = this->m_isHouseExit;
+    newTile->m_isProtectionZone = this->m_isProtectionZone; // Added
     newTile->mapFlags = this->mapFlags;
     newTile->stateFlags = this->stateFlags; // This might need selective copying, e.g. not MODIFIED
     newTile->m_spawnDataRef = this->m_spawnDataRef; // Copy non-owning pointer
-    newTile->m_waypointCount = this->m_waypointCount; // Ensure waypointCount is copied
+    newTile->m_waypointCount = this->m_waypointCount;
 
     copyMembersTo(*newTile); // Call the helper for unique_ptr members
     return newTile;
@@ -413,6 +422,25 @@ void Tile::setIsHouseExit(bool isExit) {
         // }
         // addStateFlag(TileStateFlag::MODIFIED); // Or similar mechanism
     }
+}
+
+// --- Protection Zone ---
+void Tile::setIsProtectionZone(bool isPZ) {
+    if (m_isProtectionZone != isPZ) {
+        m_isProtectionZone = isPZ;
+        // If this direct flag should also set the TileMapFlag (and vice-versa), that logic would go here.
+        // For now, they are separate. If TileMapFlag::PROTECTION_ZONE implies m_isProtectionZone,
+        // then this setter might also call addMapFlag or removeMapFlag.
+        // And isProtectionZone() might check both this flag AND the mapFlag.
+        // For now, keeping them distinct as per simple member addition.
+    }
+}
+
+bool Tile::isProtectionZone() const {
+    // This returns the state of the direct boolean member.
+    // The existing isPZ() returns based on TileMapFlag.
+    // Depending on design, these might need to be reconciled or one might be preferred.
+    return m_isProtectionZone;
 }
 
 } // namespace RME

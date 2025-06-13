@@ -12,7 +12,10 @@ namespace data_transfer {
 // Deep copy constructor
 TileData::TileData(const TileData& other)
     : position(other.position),
-      waypointCount(other.waypointCount) // Added
+      waypointCount(other.waypointCount),
+      houseId(other.houseId),             // Added
+      isHouseExit(other.isHouseExit),       // Added
+      isProtectionZone(other.isProtectionZone) // Added
 {
     if (other.ground) ground = other.ground->deepCopy();
     for (const auto& item_ptr : other.items) {
@@ -28,7 +31,10 @@ TileData& TileData::operator=(const TileData& other) {
     if (this == &other) return *this;
 
     position = other.position;
-    waypointCount = other.waypointCount; // Added
+    waypointCount = other.waypointCount;
+    houseId = other.houseId;                   // Added
+    isHouseExit = other.isHouseExit;             // Added
+    isProtectionZone = other.isProtectionZone;   // Added
     ground.reset();
     if (other.ground) ground = other.ground->deepCopy();
 
@@ -64,7 +70,10 @@ TileData TileData::fromTile(const RME::core::Tile* tile) {
     if (tile->getCreature()) {
         data.creature = tile->getCreature()->deepCopy();
     }
-    data.waypointCount = tile->getWaypointCount(); // Added
+    data.waypointCount = tile->getWaypointCount();
+    data.houseId = tile->getHouseId();                   // Added
+    data.isHouseExit = tile->isHouseExit();             // Added
+    data.isProtectionZone = tile->isProtectionZone();   // Added
     return data;
 }
 
@@ -76,10 +85,18 @@ void TileData::applyToTile(RME::core::Tile* targetTile) const {
     targetTile->clearItems();
     targetTile->setSpawn(nullptr);
     targetTile->setCreature(nullptr);
-    targetTile->m_waypointCount = 0; // Added: Reset waypoint count before applying.
-                                     // Assumes direct access or friend/setter.
+    // Assuming direct access to m_waypointCount or a setter like setWaypointCount(0) for reset
+    // For now, using direct access as per TileData.cpp's current m_waypointCount logic.
+    // If Tile::m_waypointCount is private, this needs a public setter on Tile.
+    targetTile->m_waypointCount = 0; // Reset before applying new count.
 
-    // Apply new contents from TileData
+    // Apply new settings from TileData
+    targetTile->setHouseId(this->houseId);                // Added
+    targetTile->setIsHouseExit(this->isHouseExit);          // Added
+    targetTile->setIsProtectionZone(this->isProtectionZone); // Added
+    // Note: If setIsProtectionZone should also manage TileMapFlag, that logic is in Tile setter.
+
+    // Apply new items from TileData
     if (this->ground) {
         targetTile->setGround(this->ground->deepCopy());
     }
@@ -94,8 +111,8 @@ void TileData::applyToTile(RME::core::Tile* targetTile) const {
     if (this->creature) {
         targetTile->setCreature(this->creature->deepCopy());
     }
-    targetTile->m_waypointCount = this->waypointCount; // Added: Set waypoint count.
-                                                       // Assumes direct access or friend/setter.
+    // Apply waypoint count - assuming direct access or a public setter on Tile
+    targetTile->m_waypointCount = this->waypointCount;
 }
 
 } // namespace data_transfer

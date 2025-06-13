@@ -109,11 +109,14 @@ public:
     void setSpawnDataRef(RME::SpawnData* ref) { m_spawnDataRef = ref; }
 
     // House ID
-    uint32_t getHouseId() const { return m_houseId; } // Renamed for consistency
-    void setHouseId(uint32_t id) { m_houseId = id; }   // Renamed for consistency
+    uint32_t getHouseId() const { return m_houseId; }
+    void setHouseId(uint32_t id) { m_houseId = id; }
 
     bool isHouseExit() const;
     void setIsHouseExit(bool isExit);
+
+    void setIsProtectionZone(bool isPZ); // Added
+    bool isProtectionZone() const;       // Added
 
     // Flags
     TileMapFlags getMapFlags() const { return mapFlags; }
@@ -161,6 +164,7 @@ private:
 
     IItemTypeProvider* itemTypeProvider;
     int m_waypointCount = 0;
+    bool m_isProtectionZone = false; // Added
 
     void copyMembersTo(Tile& target) const;
 };

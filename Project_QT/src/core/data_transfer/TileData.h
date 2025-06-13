@@ -25,7 +25,10 @@ struct TileData {
     QList<std::unique_ptr<Item>> items;
     std::unique_ptr<Spawn> spawn = nullptr;
     std::unique_ptr<Creature> creature = nullptr;
-    int waypointCount = 0; // Added
+    int waypointCount = 0;
+    quint32 houseId = 0;         // Added
+    bool isHouseExit = false;      // Added
+    bool isProtectionZone = false; // Added
 
     TileData() = default; // Default constructor
     TileData(const Position& pos) : position(pos) {} // Constructor with position
@@ -44,9 +47,10 @@ struct TileData {
     // Method to apply this TileData to a live Tile
     void applyToTile(RME::core::Tile* targetTile) const;
 
-    // Helper to check if it's essentially empty (no ground, items, spawn, creature)
+    // Helper to check if it's essentially empty
     bool isEmpty() const {
-        return !ground && items.isEmpty() && !spawn && !creature && waypointCount == 0;
+        return !ground && items.isEmpty() && !spawn && !creature &&
+               waypointCount == 0 && houseId == 0 && !isHouseExit && !isProtectionZone;
     }
 };
 
