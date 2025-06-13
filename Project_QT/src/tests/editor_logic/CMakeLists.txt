@@ -87,3 +87,20 @@ target_link_libraries(TestEditorCommands_RecordAddRemoveItem PRIVATE
 set_target_properties(TestEditorCommands_RecordAddRemoveItem PROPERTIES AUTOMOC ON)
 
 add_test(NAME TestEditorCommands_RecordAddRemoveItem COMMAND TestEditorCommands_RecordAddRemoveItem)
+
+# Test for RecordModifyTileContentsCommand
+add_executable(TestEditorCommands_RecordModifyTileContents
+    commands/TestRecordModifyTileContentsCommand.cpp
+    ../core/brush/MockEditorController.h  # Common mock
+)
+
+target_link_libraries(TestEditorCommands_RecordModifyTileContents PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For Tile, Item, Map, AssetManager, Spawn, Creature
+    rme_editor_logic_lib # For RecordModifyTileContentsCommand, EditorControllerInterface
+)
+
+set_target_properties(TestEditorCommands_RecordModifyTileContents PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestEditorCommands_RecordModifyTileContents COMMAND TestEditorCommands_RecordModifyTileContents)

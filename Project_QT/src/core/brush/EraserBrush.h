@@ -1,44 +1,54 @@
-#ifndef RME_ERASERBRUSH_H
-#define RME_ERASERBRUSH_H
+#ifndef RME_ERASER_BRUSH_H
+#define RME_ERASER_BRUSH_H
 
-#include "core/brush/Brush.h" // Base RME::core::Brush
+#include "core/brush/Brush.h"
+#include "core/Position.h" // For RME::core::Position
+#include <QString>
 
-// Forward declarations from RME::core
+// Forward declarations
 namespace RME {
 namespace core {
-    class Position;
-    struct BrushSettings;
+    class BrushSettings;
     namespace map { class Map; }
     namespace editor { class EditorControllerInterface; }
-} // namespace core
-} // namespace RME
+}
+}
+
+// Forward declaration for potential test class
+class TestEraserBrush;
 
 namespace RME {
 namespace core {
 namespace brush {
 
-// Placeholder for a global constant, or define appropriately
-const int EDITOR_SPRITE_ERASER_LOOKID = 99001; // Example value
+class EraserBrush : public RME::core::Brush {
+    friend class ::TestEraserBrush; // Friend class for testing
 
-class EraserBrush : public Brush { // Inherits RME::core::Brush
 public:
     EraserBrush();
     ~EraserBrush() override = default;
 
-    // RME::core::Brush interface overrides
+    // Overridden methods from Brush
+    void apply(RME::core::editor::EditorControllerInterface* controller,
+               const RME::core::Position& pos,
+               const RME::core::BrushSettings& settings) override;
+
     QString getName() const override;
-    int getLookID(const BrushSettings& settings) const override;
+    int getLookID(const RME::core::BrushSettings& settings) const override;
+    bool canApply(const RME::core::map::Map* map,
+                  const RME::core::Position& pos,
+                  const RME::core::BrushSettings& settings) const override;
 
-    void apply(editor::EditorControllerInterface* controller, const Position& pos, const BrushSettings& settings) override;
-    bool canApply(const map::Map* map, const Position& pos, const BrushSettings& settings) const override;
+    // EraserBrush does not use materials
+    bool hasMaterial() const override { return false; }
 
-    // Brush specific flags/properties
-    bool isEraser() const override { return true; }
-    bool canDrag() const override { return true; }
-    bool needsBorders() const override { return true; } // Original EraserBrush needed borders
+private:
+    // No specific members needed for EraserBrush if logic is self-contained in apply()
+    // and driven by BrushSettings and global AppSettings.
 };
 
 } // namespace brush
 } // namespace core
 } // namespace RME
-#endif // RME_ERASERBRUSH_H
+
+#endif // RME_ERASER_BRUSH_H

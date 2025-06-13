@@ -36,6 +36,7 @@ target_link_libraries(TestCoreBrush_EraserBrush PRIVATE
     Qt6::Test
     Qt6::Core
     rme_core_lib
+    rme_editor_logic_lib # Added: EraserBrush uses commands from editor_logic
 )
 
 set_target_properties(TestCoreBrush_EraserBrush PROPERTIES AUTOMOC ON)

@@ -10,6 +10,7 @@ set(RME_EDITOR_LOGIC_LIB_SOURCES
     commands/RecordSetSpawnCommand.cpp
     commands/RecordSetGroundCommand.cpp     # Added
     commands/RecordAddRemoveItemCommand.cpp # Added
+    commands/RecordModifyTileContentsCommand.cpp # Added
 )
 
 set(RME_EDITOR_LOGIC_LIB_HEADERS
@@ -22,6 +23,7 @@ set(RME_EDITOR_LOGIC_LIB_HEADERS
     commands/RecordSetSpawnCommand.h
     commands/RecordSetGroundCommand.h       # Added
     commands/RecordAddRemoveItemCommand.h   # Added
+    commands/RecordModifyTileContentsCommand.h # Added
 )
 # Note: RME_EDITOR_LOGIC_LIB_HEADERS is for organization/completeness,
 # actual header availability is via target_include_directories.
