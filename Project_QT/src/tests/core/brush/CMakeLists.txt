@@ -114,3 +114,17 @@ target_link_libraries(TestCoreBrush_DoodadBrush PRIVATE
 set_target_properties(TestCoreBrush_DoodadBrush PROPERTIES AUTOMOC ON)
 
 add_test(NAME TestCoreBrush_DoodadBrush COMMAND TestCoreBrush_DoodadBrush)
+
+# Test for SpawnBrush
+add_executable(TestCoreBrush_SpawnBrush TestSpawnBrush.cpp)
+
+target_link_libraries(TestCoreBrush_SpawnBrush PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib
+    rme_editor_logic_lib # For RecordSetSpawnCommand if SpawnBrush::apply uses it directly
+)
+
+set_target_properties(TestCoreBrush_SpawnBrush PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestCoreBrush_SpawnBrush COMMAND TestCoreBrush_SpawnBrush)

@@ -6,7 +6,8 @@ set(RME_EDITOR_LOGIC_LIB_SOURCES
     commands/DeleteCommand.cpp
     commands/AddWaypointCommand.cpp
     commands/MoveWaypointCommand.cpp
-    commands/SetHouseExitCommand.cpp   # New line
+    commands/SetHouseExitCommand.cpp
+    commands/RecordSetSpawnCommand.cpp
 )
 
 set(RME_EDITOR_LOGIC_LIB_HEADERS
@@ -15,7 +16,8 @@ set(RME_EDITOR_LOGIC_LIB_HEADERS
     commands/DeleteCommand.h
     commands/AddWaypointCommand.h
     commands/MoveWaypointCommand.h
-    commands/SetHouseExitCommand.h   # New line
+    commands/SetHouseExitCommand.h
+    commands/RecordSetSpawnCommand.h
 )
 # Note: RME_EDITOR_LOGIC_LIB_HEADERS is for organization/completeness,
 # actual header availability is via target_include_directories.
