@@ -186,6 +186,106 @@ static QString borderTypeToEdgeKey(RME::BorderType pieceType) {
     }
 }
 
+// Placeholder for evaluating specific conditions
+static bool evaluateSpecificConditions(
+    const QList<RME::core::assets::SpecificCondition>& conditions,
+    const RME::core::Tile* targetTile,
+    const RME::core::assets::AssetManager* assetManager,
+    const std::array<const RME::core::assets::MaterialData*, 8>& /*neighborMaterials*/, // For future use
+    const QList<uint16_t>& oldBorderItemIds) {
+
+    if (!targetTile || !assetManager) return false;
+
+    for (const auto& cond : conditions) {
+        bool currentConditionMet = false;
+        switch (cond.type) {
+            case RME::core::assets::SpecificConditionType::MATCH_BORDER: {
+                bool ok = false;
+                uint16_t matchItemId = cond.targetId.toUShort(&ok);
+                if (ok) {
+                    if (oldBorderItemIds.contains(matchItemId)) {
+                        currentConditionMet = true;
+                    }
+                    if (!cond.edge.isEmpty()) {
+                        qWarning("GroundBrush::evaluateSpecificConditions: MATCH_BORDER condition for item %u. Edge '%s' specific matching is NOT YET IMPLEMENTED. Condition currently checks for item presence anywhere on tile.", matchItemId, qUtf8Printable(cond.edge));
+                    }
+                } else {
+                    qWarning("GroundBrush::evaluateSpecificConditions: Invalid item ID '%s' in MATCH_BORDER condition.", qUtf8Printable(cond.targetId));
+                }
+                break;
+            }
+            case RME::core::assets::SpecificConditionType::MATCH_GROUND: {
+                const RME::core::assets::MaterialData* groundMaterial = ::getMaterialFromTile(targetTile, assetManager);
+                if (groundMaterial && groundMaterial->id == cond.targetId) {
+                    currentConditionMet = true;
+                } else if (!groundMaterial && cond.targetId.compare("none", Qt::CaseInsensitive) == 0) { // Matching void ground
+                    currentConditionMet = true;
+                }
+                break;
+            }
+            case RME::core::assets::SpecificConditionType::UNKNOWN:
+            default:
+                qWarning("GroundBrush::evaluateSpecificConditions: Unknown or UNKNOWN condition type encountered.");
+                break; // Fails this condition
+        }
+        if (!currentConditionMet) return false; // All conditions must be met
+    }
+    return true; // All conditions met, or no conditions to meet
+}
+
+// Placeholder for applying specific actions
+static void applySpecificActions(
+    QList<uint16_t>& itemsForPiece, // Items determined so far for this specific geometric piece
+    const QList<RME::core::assets::SpecificAction>& actions,
+    uint16_t baseItemIdForThisPiece, // The item ID derived from ruleTargetId or BorderSet for this piece
+    bool keepBaseBorderFromSpecificCase) {
+
+    if (!keepBaseBorderFromSpecificCase && baseItemIdForThisPiece != 0) {
+        itemsForPiece.removeAll(baseItemIdForThisPiece);
+    }
+
+    for (const auto& act : actions) {
+        switch (act.type) {
+            case RME::core::assets::SpecificActionType::REPLACE_BORDER: {
+                bool ok = false;
+                uint16_t originalItemId = act.targetId.toUShort(&ok); // Item to be replaced on this edge
+
+                qWarning("GroundBrush::applySpecificActions: REPLACE_BORDER action. Edge '%s' specific replacement for item %u with %u is NOT YET FULLY IMPLEMENTED. Action defaults to replacing any instance of item %u or adding %u if original not present.",
+                         qUtf8Printable(act.edge), originalItemId, act.withItemId, originalItemId, act.withItemId );
+
+                if (ok && originalItemId != 0) {
+                    itemsForPiece.removeAll(originalItemId);
+                }
+                if (act.withItemId != 0 && !itemsForPiece.contains(act.withItemId)) {
+                    itemsForPiece.append(act.withItemId);
+                }
+                break;
+            }
+            case RME::core::assets::SpecificActionType::ADD_ITEM: {
+                if (act.affectedItemId != 0 && !itemsForPiece.contains(act.affectedItemId)) {
+                    itemsForPiece.append(act.affectedItemId);
+                }
+                break;
+            }
+            case RME::core::assets::SpecificActionType::UNKNOWN:
+            default:
+                qWarning("GroundBrush::applySpecificActions: Unknown or UNKNOWN action type encountered.");
+                break;
+        }
+    }
+
+    if (keepBaseBorderFromSpecificCase && baseItemIdForThisPiece != 0) {
+        if (!itemsForPiece.contains(baseItemIdForThisPiece)) {
+            itemsForPiece.append(baseItemIdForThisPiece);
+        }
+    }
+    // Ensure uniqueness by converting to set and back, if QList operations weren't careful
+    // QSet<uint16_t> uniqueItems(itemsForPiece.begin(), itemsForPiece.end());
+    // itemsForPiece = QList<uint16_t>(uniqueItems.begin(), uniqueItems.end());
+    // For now, rely on .contains() checks.
+}
+
+
 } // end anonymous namespace
 
 
@@ -740,13 +840,11 @@ void RME::core::GroundBrush::doAutoBorders(RME::core::editor::EditorControllerIn
             uint16_t directItemId = rule->ruleTargetId.toUShort(&conversionOk);
 
             if (conversionOk && directItemId != 0) {
-                // It's a direct item ID specified in the rule itself
                 return directItemId;
             } else {
-                // Assume ruleTargetId is a reference to a BorderSet
                 const RME::core::assets::BorderSetData* borderSet = materialManager->getBorderSet(rule->ruleTargetId);
                 if (borderSet) {
-                    QString edgeKey = ::borderTypeToEdgeKey(pieceType); // Use the new helper
+                    QString edgeKey = ::borderTypeToEdgeKey(pieceType);
                     if (!edgeKey.isEmpty()) {
                         return borderSet->edgeItems.value(edgeKey, 0);
                     } else {
@@ -754,30 +852,26 @@ void RME::core::GroundBrush::doAutoBorders(RME::core::editor::EditorControllerIn
                                  static_cast<int>(pieceType), qUtf8Printable(rule->ruleTargetId));
                     }
                 } else {
-                    // Not a direct item ID and not a found border set.
-                    // If ruleTargetId was purely numeric but toUShort failed (e.g. "0"), or set not found.
-                    if (!conversionOk || directItemId == 0) { // Only warn if it wasn't a valid direct item ID either
+                    if (!conversionOk || directItemId == 0) {
                          qWarning("GroundBrush::doAutoBorders: ruleTargetId '%s' for align '%s' to '%s' is not a valid direct item ID and not a found BorderSet.",
                                  qUtf8Printable(rule->ruleTargetId), qUtf8Printable(rule->align), qUtf8Printable(rule->toBrushName));
                     }
                 }
             }
-            return 0; // No item found
+            return 0;
         };
-
-        // 6. Determine newBorderItemIds based on rules
-        // The resolveItemForRuleAndPiece lambda is already defined above, within the scope of `doAutoBorders`
-        // and captures materialManager.
 
         for (int pieceNum = 0; pieceNum < 4; ++pieceNum) {
             RME::BorderType piece = RME::unpackBorderType(packedComputedBorderTypes, pieceNum);
             if (piece == RME::BorderType::NONE) continue;
 
+            QList<uint16_t> itemsForThisPiece; // Holds items specifically for this geometric piece
+
             QString alignStr = ::determineAlignString(piece, tiledata, neighborMaterials, currentTileMaterial);
             QString toBrushIdStr = ::determineToBrushName(piece, tiledata, neighborMaterials, currentTileMaterial);
 
             if (alignStr == QLatin1String("none") && piece != RME::BorderType::NONE) {
-                 qDebug("GroundBrush::doAutoBorders: alignStr is 'none' for a valid pieceType %d for tile %s. Skipping rule matching for this piece.", static_cast<int>(piece), qUtf8Printable(targetPos.toString()));
+                 qDebug("GroundBrush::doAutoBorders: alignStr is 'none' for a valid pieceType %d for tile %s. Skipping.", static_cast<int>(piece), qUtf8Printable(targetPos.toString()));
                  continue;
             }
 
@@ -787,58 +881,85 @@ void RME::core::GroundBrush::doAutoBorders(RME::core::editor::EditorControllerIn
             for (const auto& rule : currentTileSpecifics->borders) {
                 bool alignMatch = (rule.align.compare(alignStr, Qt::CaseInsensitive) == 0 ||
                                    rule.align.compare(QStringLiteral("any"), Qt::CaseInsensitive) == 0);
-
                 bool toBrushMatch = (rule.toBrushName.compare(toBrushIdStr, Qt::CaseInsensitive) == 0 ||
                                      rule.toBrushName.compare(QStringLiteral("all"), Qt::CaseInsensitive) == 0 ||
                                      (toBrushIdStr == QLatin1String("none") && rule.toBrushName.compare(QStringLiteral("none"), Qt::CaseInsensitive) == 0));
-
                 if (alignMatch && toBrushMatch) {
-                    if (rule.isSuper) {
-                        pieceMatchedSuperRules.append(&rule);
-                    } else {
-                        pieceMatchedNormalRules.append(&rule);
-                    }
+                    if (rule.isSuper) pieceMatchedSuperRules.append(&rule);
+                    else pieceMatchedNormalRules.append(&rule);
                 }
             }
 
-            // Process super rules for the current 'piece'
+            bool superRuleGeneratedItemsForThisPiece = false;
             for (const auto* rule : pieceMatchedSuperRules) {
-                uint16_t itemId = resolveItemForRuleAndPiece(rule, piece);
-                if (itemId != 0 && !newBorderItemIds.contains(itemId)) {
-                    newBorderItemIds.append(itemId);
-                }
-            }
-            // Process normal rules for the current 'piece'
-            // Original RME behavior: if super rules apply and add items, normal rules for that piece might be skipped or handled differently.
-            // For now, let's assume normal rules apply if super rules didn't add anything for this specific piece,
-            // or if their items were all 0. A more nuanced approach might be needed.
-            // A simple check: if newBorderItemIds hasn't grown after super rules for this piece, try normal.
-            // This requires tracking if items were added by super rules *for this piece*.
-            // Simpler for now: if super rules are empty, or if they exist but all resolved to 0 for this piece.
-            bool superRuleAddedItemForThisPiece = false;
-            if (!pieceMatchedSuperRules.isEmpty()) {
-                // Check if any item was actually added by these super rules.
-                // This is tricky as newBorderItemIds is cumulative.
-                // Better: just check if any super rule for this piece resolves to a non-zero item.
-                for (const auto* rule : pieceMatchedSuperRules) {
-                    if (resolveItemForRuleAndPiece(rule, piece) != 0) {
-                        superRuleAddedItemForThisPiece = true;
-                        break;
+                uint16_t baseItemId = resolveItemForRuleAndPiece(rule, piece);
+                QList<uint16_t> resolvedItemsForRule; // Items from this rule after specific cases
+
+                if (rule->specificRuleCases.isEmpty()) {
+                    if (baseItemId != 0) resolvedItemsForRule.append(baseItemId);
+                } else {
+                    bool specificCaseApplied = false;
+                    for (const auto& specificCase : rule->specificRuleCases) {
+                        if (::evaluateSpecificConditions(specificCase.conditions, targetTile, assetManager, neighborMaterials, oldBorderItemIds)) {
+                            QList<uint16_t> tempItemsForAction = resolvedItemsForRule; // Or start fresh?
+                            if (specificCase.keepBaseBorder && baseItemId != 0 && !tempItemsForAction.contains(baseItemId)) {
+                                tempItemsForAction.append(baseItemId);
+                            }
+                            ::applySpecificActions(tempItemsForAction, specificCase.actions, baseItemId, specificCase.keepBaseBorder);
+                            resolvedItemsForRule = tempItemsForAction; // Update with items after actions
+                            specificCaseApplied = true;
+                            break;
+                        }
+                    }
+                    if (!specificCaseApplied && baseItemId != 0) { // No specific case met, use base
+                        resolvedItemsForRule.append(baseItemId);
                     }
                 }
+                for (uint16_t item : resolvedItemsForRule) {
+                    if (item != 0 && !itemsForThisPiece.contains(item)) itemsForThisPiece.append(item);
+                }
+            }
+            if (!itemsForThisPiece.isEmpty()) {
+                superRuleGeneratedItemsForThisPiece = true;
             }
 
-
-            if (!superRuleAddedItemForThisPiece) {
+            if (!superRuleGeneratedItemsForThisPiece) {
                 for (const auto* rule : pieceMatchedNormalRules) {
-                     uint16_t itemId = resolveItemForRuleAndPiece(rule, piece);
-                     if (itemId != 0 && !newBorderItemIds.contains(itemId)) {
-                        newBorderItemIds.append(itemId);
+                    uint16_t baseItemId = resolveItemForRuleAndPiece(rule, piece);
+                    QList<uint16_t> resolvedItemsForRule;
+                    if (rule->specificRuleCases.isEmpty()) {
+                        if (baseItemId != 0) resolvedItemsForRule.append(baseItemId);
+                    } else {
+                        bool specificCaseApplied = false;
+                        for (const auto& specificCase : rule->specificRuleCases) {
+                            if (::evaluateSpecificConditions(specificCase.conditions, targetTile, assetManager, neighborMaterials, oldBorderItemIds)) {
+                                QList<uint16_t> tempItemsForAction = resolvedItemsForRule;
+                                if (specificCase.keepBaseBorder && baseItemId != 0 && !tempItemsForAction.contains(baseItemId)) {
+                                     tempItemsForAction.append(baseItemId);
+                                }
+                                ::applySpecificActions(tempItemsForAction, specificCase.actions, baseItemId, specificCase.keepBaseBorder);
+                                resolvedItemsForRule = tempItemsForAction;
+                                specificCaseApplied = true;
+                                break;
+                            }
+                        }
+                        if (!specificCaseApplied && baseItemId != 0) {
+                             resolvedItemsForRule.append(baseItemId);
+                        }
+                    }
+                    for (uint16_t item : resolvedItemsForRule) {
+                        if (item != 0 && !itemsForThisPiece.contains(item)) itemsForThisPiece.append(item);
                     }
                 }
             }
-        } // End of pieceNum loop. newBorderItemIds now contains all items for all pieces.
-    } // End of the `if (currentTileMaterial && currentTileSpecifics)` block
+            // Add all unique items for this piece to the main list
+            for (uint16_t item : itemsForThisPiece) {
+                if (item != 0 && !newBorderItemIds.contains(item)) {
+                    newBorderItemIds.append(item);
+                }
+            }
+        }
+    }
 
     // 7. Apply Changes
     std::sort(newBorderItemIds.begin(), newBorderItemIds.end());

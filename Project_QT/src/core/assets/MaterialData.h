@@ -23,6 +23,57 @@ struct MaterialItemEntry {
     }
 };
 
+enum class SpecificConditionType {
+    UNKNOWN,
+    MATCH_BORDER,   // Example: <match_border id="41" edge="s" />
+    MATCH_GROUND    // Example: <match_ground id="101" /> (hypothetical)
+    // Add other condition types as identified from XML or needed
+};
+
+struct SpecificCondition {
+    SpecificConditionType type = SpecificConditionType::UNKNOWN;
+    QString targetId;      // For MATCH_BORDER (item ID), MATCH_GROUND (material ID or item ID)
+    QString edge;          // For MATCH_BORDER
+    // QString propertyName;  // For future generic property checks
+    // QString propertyValue;
+
+    bool operator==(const SpecificCondition& other) const {
+        return type == other.type && targetId == other.targetId && edge == other.edge;
+    }
+};
+
+enum class SpecificActionType {
+    UNKNOWN,
+    REPLACE_BORDER, // Example: <replace_border id="41" edge="s" with="4661" />
+    ADD_ITEM        // Example: <add_item id="X" /> (hypothetical)
+    // Add other action types as identified
+};
+
+struct SpecificAction {
+    SpecificActionType type = SpecificActionType::UNKNOWN;
+    QString targetId;       // For REPLACE_BORDER (original item ID to be replaced on a specific edge)
+    QString edge;           // For REPLACE_BORDER (which edge's item to replace)
+    uint16_t withItemId = 0;  // For REPLACE_BORDER (the new item ID)
+    // uint16_t affectedItemId; // Could be targetId for REMOVE_ITEM, or newItemId for ADD_ITEM
+
+    bool operator==(const SpecificAction& other) const {
+        return type == other.type && targetId == other.targetId &&
+               edge == other.edge && withItemId == other.withItemId;
+    }
+};
+
+struct SpecificRuleCase {
+    bool keepBaseBorder = false; // From keep_border attribute
+    QList<SpecificCondition> conditions;
+    QList<SpecificAction> actions;
+
+    bool operator==(const SpecificRuleCase& other) const {
+        return keepBaseBorder == other.keepBaseBorder &&
+               conditions == other.conditions &&
+               actions == other.actions;
+    }
+};
+
 struct BorderSetData {
     QString id; // The ID of this border set (e.g., "1", "38")
     QMap<QString, uint16_t> edgeItems; // Maps edge string (e.g., "n", "s", "cne") to item ID
@@ -42,14 +93,15 @@ struct MaterialBorderRule {
     QString ruleTargetId; // Stores the raw 'id' attribute from XML (can be item ID or set ID)
     bool isSuper = false;
     uint16_t groundEquivalent = 0;
-    // For <specific> conditions/actions, a more complex structure would be needed.
-    // For now, keeping it simple, assuming these are less common or handled by specific brush logic.
+    QList<SpecificRuleCase> specificRuleCases; // NEW
 
     bool operator==(const MaterialBorderRule& other) const {
-        return align == other.align && toBrushName == other.toBrushName &&
-               ruleTargetId == other.ruleTargetId && // Changed from borderItemId
+        return align == other.align &&
+               toBrushName == other.toBrushName &&
+               ruleTargetId == other.ruleTargetId &&
                isSuper == other.isSuper &&
-               groundEquivalent == other.groundEquivalent;
+               groundEquivalent == other.groundEquivalent &&
+               specificRuleCases == other.specificRuleCases; // ADDED
     }
 };
 
