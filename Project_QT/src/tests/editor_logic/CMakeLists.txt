@@ -104,3 +104,23 @@ target_link_libraries(TestEditorCommands_RecordModifyTileContents PRIVATE
 set_target_properties(TestEditorCommands_RecordModifyTileContents PROPERTIES AUTOMOC ON)
 
 add_test(NAME TestEditorCommands_RecordModifyTileContents COMMAND TestEditorCommands_RecordModifyTileContents)
+
+# Test for DeleteSelectionCommand
+add_executable(TestEditorCommands_DeleteSelection
+    commands/TestDeleteSelectionCommand.cpp
+    # No specific mock header needed here if TestDeleteSelectionCommand.cpp includes what it needs
+    # and those mocks don't require AUTOMOC processing themselves.
+    # If MockEditorController.h is used and has Q_OBJECT, it could be added like:
+    # ../core/brush/MockEditorController.h
+)
+
+target_link_libraries(TestEditorCommands_DeleteSelection PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For Map, Tile, Item, etc.
+    rme_editor_logic_lib # For DeleteSelectionCommand, EditorControllerInterface
+)
+
+set_target_properties(TestEditorCommands_DeleteSelection PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestEditorCommands_DeleteSelection COMMAND TestEditorCommands_DeleteSelection)

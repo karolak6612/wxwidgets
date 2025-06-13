@@ -1,168 +1,198 @@
-#include "EditorController.h"
-// Required full includes for implementation details (will be needed for command creation)
+#include "editor_logic/EditorController.h"
 #include "core/map/Map.h"
-#include "core/selection/SelectionManager.h"
-#include "core/brush/BrushManagerService.h"
 #include "core/brush/Brush.h"
-#include "core/brush/BrushSettings.h"
-#include "core/Position.h"
-#include "core/waypoints/WaypointManager.h" // Added
-#include "core/waypoints/Waypoint.h"       // Added
-#include "core/houses/HouseData.h"         // Added
+#include "core/brush/BrushManager.h"
+#include "core/selection/SelectionManager.h"
+#include "core/settings/BrushSettings.h"
+#include "core/settings/AppSettings.h"
+#include "core/assets/AssetManager.h"
+#include "editor_logic/commands/DeleteSelectionCommand.h" // Required for deleteSelection
+#include "core/Tile.h" // For getTileForEditing, notifyTileChanged
+#include "core/SpawnData.h" // For record methods
+#include "core/assets/CreatureData.h" // For record methods, ensure this is the correct header for CreatureData struct/class
+#include "core/actions/AppUndoCommand.h" // For recordAction
+
 #include <QUndoStack>
-#include "commands/BrushStrokeCommand.h"
-#include "commands/DeleteCommand.h"
-#include "commands/AddWaypointCommand.h"
-#include "commands/MoveWaypointCommand.h"
-#include "commands/SetHouseExitCommand.h"  // Added
-#include <QDebug> // For qWarning (optional)
+#include <QUndoCommand> // For pushCommand std::unique_ptr
+#include <QList>
+#include <QDebug>
 
 namespace RME {
+namespace editor_logic {
 
 EditorController::EditorController(
-    Map* map,
+    RME::core::Map* map,
     QUndoStack* undoStack,
-    SelectionManager* selectionManager,
-    BrushManagerService* brushManagerService,
-    RME::core::WaypointManager* waypointManager, // Added
-    QObject* parent
-) : QObject(parent),
-    m_map(map),
+    RME::core::selection::SelectionManager* selectionManager,
+    RME::core::brush::BrushManager* brushManager,
+    RME::core::settings::AppSettings* appSettings,
+    RME::core::assets::AssetManager* assetManager
+) : m_map(map),
     m_undoStack(undoStack),
     m_selectionManager(selectionManager),
-    m_brushManagerService(brushManagerService),
-    m_waypointManager(waypointManager) { // Added
-    // TODO: Assert that pointers are not null
+    m_brushManager(brushManager),
+    m_appSettings(appSettings),
+    m_assetManager(assetManager)
+{
     Q_ASSERT(m_map);
     Q_ASSERT(m_undoStack);
     Q_ASSERT(m_selectionManager);
-    Q_ASSERT(m_brushManagerService);
-    Q_ASSERT(m_waypointManager);
+    Q_ASSERT(m_brushManager);
+    Q_ASSERT(m_appSettings);
+    Q_ASSERT(m_assetManager);
 }
 
-EditorController::~EditorController() {
-    // Destructor
-}
-
-void EditorController::applyBrushStroke(const QList<Position>& positions, const BrushSettings& settings, bool isEraseOperation) {
-    if (!m_map || !m_undoStack || !m_brushManagerService || positions.isEmpty()) {
-        if (positions.isEmpty()) {
-             qWarning("EditorController::applyBrushStroke: Attempted to apply brush stroke with empty positions list.");
-        }
+// --- Core editing operations ---
+void EditorController::applyBrushStroke(const QList<RME::core::Position>& positions, const RME::core::BrushSettings& settings) {
+    if (!m_brushManager) {
+        qWarning("EditorController::applyBrushStroke: BrushManager is null.");
         return;
     }
 
-    // Assuming BrushSettings contains the name of the brush to be used.
-    // This name is then used to retrieve the Brush instance from BrushManagerService.
-    // This interaction detail depends on how BrushManagerService and BrushSettings are designed.
-    Brush* currentBrush = m_brushManagerService->getBrush(settings.getName());
-
-    if (!currentBrush) {
-        qWarning("EditorController::applyBrushStroke: Could not find brush '%s'", qPrintable(settings.getName()));
+    RME::core::brush::Brush* activeBrush = m_brushManager->getActiveBrush();
+    if (!activeBrush) {
+        qWarning("EditorController::applyBrushStroke: No active brush found.");
         return;
     }
 
-    m_undoStack->push(new RME_COMMANDS::BrushStrokeCommand(m_map, currentBrush, positions, settings, isEraseOperation));
+    if (positions.isEmpty()) {
+        return;
+    }
+
+    QString macroText = QString("%1 Stroke").arg(activeBrush->getName());
+    // Assuming BrushSettings has isEraseMode and Brush has canBeErasingTool
+    if(settings.isEraseMode && activeBrush->canBeErasingTool()) {
+         macroText = QString("Erase Stroke (%1)").arg(activeBrush->getName());
+    }
+
+    m_undoStack->beginMacro(macroText);
+    for (const RME::core::Position& pos : positions) {
+        activeBrush->apply(this, pos, settings);
+    }
+    m_undoStack->endMacro();
 }
 
 void EditorController::deleteSelection() {
-    if (!m_map || !m_undoStack || !m_selectionManager) {
-        qWarning("EditorController::deleteSelection: Core component is null.");
+    if (!m_selectionManager) {
+        qWarning("EditorController::deleteSelection: SelectionManager is null.");
         return;
     }
-    // Check if selection is empty to avoid pushing an empty command
-    if (m_selectionManager->getSelectedTiles().isEmpty()) {
-        // Optionally provide user feedback e.g. via status bar
-        // qInfo("EditorController::deleteSelection: Selection is empty, nothing to delete.");
-        return;
+    if (m_selectionManager->isEmpty()) {
+        qDebug("EditorController::deleteSelection: Selection is empty.");
     }
-    m_undoStack->push(new RME_COMMANDS::DeleteCommand(m_map, m_selectionManager));
+    pushCommand(std::make_unique<RME_COMMANDS::DeleteSelectionCommand>(m_map, m_selectionManager, this));
 }
 
-void EditorController::placeOrMoveWaypoint(const QString& name, const RME::core::Position& targetPos) {
-    if (!m_map || !m_undoStack || !m_waypointManager) { // Check m_waypointManager
-        qWarning("EditorController::placeOrMoveWaypoint: Core component (map, undoStack, or waypointManager) is null.");
-        return;
-    }
-    if (name.isEmpty()) {
-        qWarning("EditorController::placeOrMoveWaypoint: Waypoint name cannot be empty.");
-        return;
-    }
-    // Assuming Position::isValid() checks for reasonable map coordinates, not just non-default.
-    // Map::isPositionValid might be more appropriate if it checks against map boundaries.
-    if (!m_map->isPositionValid(targetPos)) {
-        qWarning("EditorController::placeOrMoveWaypoint: Target position %d,%d,%d is invalid for the current map.",
-                 targetPos.x, targetPos.y, targetPos.z);
-        return;
-    }
+// --- Implementation of EditorControllerInterface ---
+RME::core::Map* EditorController::getMap() {
+    return m_map;
+}
 
-    RME::core::Waypoint* existingWp = m_waypointManager->getWaypoint(name);
+const RME::core::Map* EditorController::getMap() const {
+    return m_map;
+}
 
-    if (existingWp) { // Waypoint with this name exists, so it's a move operation
-        if (existingWp->position == targetPos) {
-            // qInfo("EditorController::placeOrMoveWaypoint: Target position is same as current for waypoint '%s'. No action.", qPrintable(name));
-            return; // No change needed
-        }
-        m_undoStack->push(new RME_COMMANDS::MoveWaypointCommand(
-            m_waypointManager,
-            name,
-            existingWp->position,
-            targetPos
-        ));
-    } else { // Waypoint with this name does not exist, so it's an add operation
-        m_undoStack->push(new RME_COMMANDS::AddWaypointCommand(
-            m_waypointManager,
-            name,
-            targetPos
-        ));
+QUndoStack* EditorController::getUndoStack() {
+    return m_undoStack;
+}
+
+RME::core::assets::AssetManager* EditorController::getAssetManager() {
+    return m_assetManager;
+}
+
+const RME::core::assets::AssetManager* EditorController::getAssetManager() const {
+    return m_assetManager;
+}
+
+RME::core::settings::AppSettings& EditorController::getAppSettings() {
+    Q_ASSERT(m_appSettings);
+    return *m_appSettings;
+}
+
+const RME::core::settings::AppSettings& EditorController::getAppSettings() const {
+    Q_ASSERT(m_appSettings);
+    return *m_appSettings;
+}
+
+void EditorController::pushCommand(std::unique_ptr<QUndoCommand> command) {
+    if (command) {
+        m_undoStack->push(command.release());
     }
 }
 
-void EditorController::setHouseExit(uint32_t houseId, const RME::core::Position& targetPos) {
-    if (!m_map || !m_undoStack) {
-        qWarning("EditorController::setHouseExit: Map or UndoStack component is null.");
-        return;
+// Tile/Notification related methods
+void EditorController::notifyTileChanged(const RME::core::Position& pos) {
+    if (m_map) {
+        m_map->notifyTileChanged(pos);
     }
-    if (houseId == 0) {
-        qWarning("EditorController::setHouseExit: Invalid house ID 0.");
-        return;
-    }
-
-    HouseData* house = m_map->getHouse(houseId);
-    if (!house) {
-        qWarning("EditorController::setHouseExit: House with ID %u not found.", houseId);
-        return;
-    }
-
-    // If targetPos is the same as the current entry point, do nothing.
-    if (house->getEntryPoint() == targetPos) {
-        // qInfo("EditorController::setHouseExit: Target position is same as current for house %u.", houseId);
-        return;
-    }
-
-    // Validate the new target position if it's a "real" position.
-    // A default-constructed Position might signify clearing the exit.
-    // Position::isValid() might return true for (0,0,0) if it's a valid map coord.
-    // Map::isValidHouseExitLocation() performs more specific checks.
-    if (targetPos != RME::core::Position()) { // Assuming default Position means "clear" or "no specific new target"
-                                         // Or better: if targetPos has some sentinel values for "clear".
-                                         // For now, any non-default position is validated.
-        if (!m_map->isValidHouseExitLocation(targetPos)) {
-            qWarning("EditorController::setHouseExit: Target position (%d,%d,%d) is not a valid house exit location.",
-                     targetPos.x, targetPos.y, targetPos.z);
-            return;
-        }
-    }
-    // If targetPos is default RME::core::Position(), it implies clearing the exit.
-    // HouseData::setEntryPoint should handle this by clearing the old tile's flag
-    // and not setting a new one if the new position is not valid for an exit (e.g. default).
-
-    m_undoStack->push(new RME_COMMANDS::SetHouseExitCommand(
-        m_map,
-        houseId,
-        house->getEntryPoint(), // old position
-        targetPos             // new position
-    ));
 }
 
+RME::core::Tile* EditorController::getTileForEditing(const RME::core::Position& pos) {
+    if (m_map) {
+        return m_map->getTileForEditing(pos);
+    }
+    qWarning("EditorController::getTileForEditing: Map is null. Position: (%d,%d,%d)", pos.x, pos.y, pos.z);
+    return nullptr;
+}
+
+// --- Record methods (placeholders or to be implemented with generic commands) ---
+void EditorController::recordAction(std::unique_ptr<RME::core::actions::AppUndoCommand> command) {
+    // If AppUndoCommand inherits QUndoCommand, this is valid:
+    pushCommand(std::unique_ptr<QUndoCommand>(static_cast<QUndoCommand*>(command.release())));
+    // If not, a wrapper or different push mechanism is needed.
+    // qWarning("EditorController::recordAction: Generic AppUndoCommand recording might need specific handling if not QUndoCommand.");
+}
+
+void EditorController::recordTileChange(const RME::core::Position& pos,
+                                      std::unique_ptr<RME::core::Tile> /*oldTileState*/,
+                                      std::unique_ptr<RME::core::Tile> /*newTileState*/) {
+    qWarning("EditorController::recordTileChange: Not implemented. Tile Pos: (%d,%d,%d)", pos.x, pos.y, pos.z);
+}
+
+void EditorController::recordAddCreature(const RME::core::Position& tilePos, const RME::core::CreatureData* creatureType) {
+    qWarning("EditorController::recordAddCreature: Not implemented. Pos: (%d,%d,%d) Creature: %s",
+        tilePos.x, tilePos.y, tilePos.z, creatureType ? qUtf8Printable(creatureType->name) : "null");
+}
+
+void EditorController::recordRemoveCreature(const RME::core::Position& tilePos, const RME::core::CreatureData* creatureType) {
+    qWarning("EditorController::recordRemoveCreature: Not implemented. Pos: (%d,%d,%d) Creature: %s",
+        tilePos.x, tilePos.y, tilePos.z, creatureType ? qUtf8Printable(creatureType->name) : "null");
+}
+
+void EditorController::recordAddSpawn(const RME::core::SpawnData& spawnData) {
+    qWarning("EditorController::recordAddSpawn: Not implemented. Pos: (%d,%d,%d)",
+        spawnData.getCenter().x, spawnData.getCenter().y, spawnData.getCenter().z);
+}
+
+void EditorController::recordRemoveSpawn(const RME::core::Position& spawnCenterPos) {
+    qWarning("EditorController::recordRemoveSpawn: Not implemented. Pos: (%d,%d,%d)",
+        spawnCenterPos.x, spawnCenterPos.y, spawnCenterPos.z);
+}
+
+void EditorController::recordUpdateSpawn(const RME::core::Position& spawnCenterPos,
+                                       const RME::core::SpawnData& /*oldSpawnData*/,
+                                       const RME::core::SpawnData& /*newSpawnData*/) {
+    qWarning("EditorController::recordUpdateSpawn: Not implemented. Pos: (%d,%d,%d)",
+        spawnCenterPos.x, spawnCenterPos.y, spawnCenterPos.z);
+}
+
+void EditorController::recordSetGroundItem(const RME::core::Position& pos, uint16_t /*newGroundItemId*/, uint16_t /*oldGroundItemId*/) {
+     qWarning("EditorController::recordSetGroundItem: Not implemented. Pos: (%d,%d,%d)", pos.x, pos.y, pos.z);
+}
+
+void EditorController::recordSetBorderItems(const RME::core::Position& pos,
+                                          const QList<uint16_t>& /*newBorderItemIds*/,
+                                          const QList<uint16_t>& /*oldBorderItemIds*/) {
+     qWarning("EditorController::recordSetBorderItems: Not implemented. Pos: (%d,%d,%d)", pos.x, pos.y, pos.z);
+}
+
+void EditorController::recordAddItem(const RME::core::Position& pos, uint16_t itemId) {
+     qWarning("EditorController::recordAddItem: Not implemented. Pos: (%d,%d,%d), ItemID: %d", pos.x, pos.y, pos.z, itemId);
+}
+
+void EditorController::recordRemoveItem(const RME::core::Position& pos, uint16_t itemId) {
+     qWarning("EditorController::recordRemoveItem: Not implemented. Pos: (%d,%d,%d), ItemID: %d", pos.x, pos.y, pos.z, itemId);
+}
+
+} // namespace editor_logic
 } // namespace RME

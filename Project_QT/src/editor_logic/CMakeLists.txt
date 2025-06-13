@@ -11,6 +11,7 @@ set(RME_EDITOR_LOGIC_LIB_SOURCES
     commands/RecordSetGroundCommand.cpp     # Added
     commands/RecordAddRemoveItemCommand.cpp # Added
     commands/RecordModifyTileContentsCommand.cpp # Added
+    commands/DeleteSelectionCommand.cpp      # Added
 )
 
 set(RME_EDITOR_LOGIC_LIB_HEADERS
@@ -24,6 +25,7 @@ set(RME_EDITOR_LOGIC_LIB_HEADERS
     commands/RecordSetGroundCommand.h       # Added
     commands/RecordAddRemoveItemCommand.h   # Added
     commands/RecordModifyTileContentsCommand.h # Added
+    commands/DeleteSelectionCommand.h        # Added
 )
 # Note: RME_EDITOR_LOGIC_LIB_HEADERS is for organization/completeness,
 # actual header availability is via target_include_directories.
