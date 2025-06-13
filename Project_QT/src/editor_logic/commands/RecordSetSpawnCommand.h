@@ -40,6 +40,10 @@ public:
     int id() const override { return RecordSetSpawnCommandId; }
     // bool mergeWith(const QUndoCommand* command) override; // Optional
 
+    // Getters for test verification
+    const RME::core::Spawn* getSpawnForUndoState() const { return m_spawnStateForUndo.get(); }
+    const RME::core::Spawn* getSpawnForRedoState() const { return m_spawnStateForRedo.get(); }
+
 private:
     RME::core::Tile* m_tile;
     std::unique_ptr<RME::core::Spawn> m_spawnStateForRedo; // Stores the state to apply on redo

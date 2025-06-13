@@ -4,7 +4,7 @@
 #include "core/Spawn.h"           // For RME::Spawn object
 #include "core/editor/EditorControllerInterface.h" // For recording changes
 #include "core/settings/BrushSettings.h"   // For getting spawn radius (brush size)
-// No AssetManager/ItemDatabase typically needed for basic spawn brush logic itself
+#include "editor_logic/commands/RecordSetSpawnCommand.h" // Added for the new command
 
 #include <QDebug> // For qDebug, qWarning
 #include <memory> // For std::unique_ptr
@@ -66,24 +66,19 @@ void SpawnBrush::apply(RME::core::editor::EditorControllerInterface* controller,
     std::unique_ptr<Spawn> oldSpawn = tile->popSpawn();
 
     if (settings.isEraseMode) {
-        if (oldSpawn) {
-            qDebug("SpawnBrush::apply (erase): Cleared spawn at %s", qUtf8Printable(pos.toString()));
-            // Using a raw pointer capture for oldSpawn's data for undo lambda.
-            // The unique_ptr itself is moved into redo lambda's capture to destroy it on redo.
-            Spawn* rawOldSpawnPtr = oldSpawn.get(); // Get raw pointer before move
-             RME::Spawn tempOldSpawnCopy = *rawOldSpawnPtr; // Make a copy of data for undo
-
-            controller->recordGenericChange(
-                QString("Erase Spawn at %1,%2,%3").arg(pos.x).arg(pos.y).arg(pos.z),
-                [tile, capturedOldSpawnUniquePtr = std::move(oldSpawn)]() mutable { // Redo: clear spawn
-                    tile->setSpawn(nullptr);
-                    // capturedOldSpawnUniquePtr goes out of scope and deletes the Spawn object
-                },
-                [tile, tempOldSpawnCopy]() mutable { // Undo: restore old spawn from copy
-                    tile->setSpawn(std::make_unique<Spawn>(tempOldSpawnCopy));
-                }
+        if (oldSpawn) { // If there was a spawn to erase
+            qDebug("SpawnBrush::apply (erase): Clearing spawn at %s", qUtf8Printable(pos.toString()));
+            // newSpawn is nullptr because we are erasing.
+            // oldSpawn is moved into the command.
+            auto command = std::make_unique<RME_COMMANDS::RecordSetSpawnCommand>(
+                tile,           // The tile being modified
+                nullptr,        // newSpawn state (nullptr for erase)
+                std::move(oldSpawn), // oldSpawn state
+                controller      // The editor controller
             );
+            controller->pushCommand(std::move(command));
         }
+        // If oldSpawn was already null, nothing to do for erase mode.
     } else { // Drawing mode
         int radius = settings.getSize();
         if (radius <= 0) radius = 1;
@@ -91,44 +86,39 @@ void SpawnBrush::apply(RME::core::editor::EditorControllerInterface* controller,
         QList<SpawnCreatureInfo> creatureList;
         int intervalSeconds = DEFAULT_SPAWN_INTERVAL_SECONDS;
 
-        Spawn* rawOldSpawnPtrForDataCopy = oldSpawn.get(); // Get raw ptr before potential move for redo
-        RME::Spawn tempOldSpawnCopyForUndo;
-        bool hadOldSpawn = (oldSpawn != nullptr);
-        if (hadOldSpawn) {
-            tempOldSpawnCopyForUndo = *rawOldSpawnPtrForDataCopy; // Copy data for undo
+        if (radius <= 0) radius = 1;
+
+        QList<SpawnCreatureInfo> creatureList; // To preserve existing creatures if any
+        int intervalSeconds = DEFAULT_SPAWN_INTERVAL_SECONDS; // Default interval
+
+        // If there was an old spawn, preserve its creature list and interval unless overwritten by settings.
+        // For this example, we assume brush settings don't specify new creatures/interval,
+        // so we reuse from oldSpawn if it exists.
+        if (oldSpawn) {
             creatureList = oldSpawn->getCreatureTypes();
             intervalSeconds = oldSpawn->getIntervalSeconds();
         }
+        // Note: If BrushSettings had options for creatures or interval, you'd use them here.
 
         std::unique_ptr<Spawn> newSpawn = std::make_unique<Spawn>(static_cast<uint16_t>(radius), intervalSeconds);
         for(const auto& creatureInfo : creatureList) {
+            // Assuming addCreatureType takes const QString& or similar from SpawnCreatureInfo
             newSpawn->addCreatureType(creatureInfo.name);
         }
 
-        qDebug("SpawnBrush::apply (draw): Set spawn at %s with radius %d", qUtf8Printable(pos.toString()), radius);
+        qDebug("SpawnBrush::apply (draw): Setting spawn at %s with radius %d", qUtf8Printable(pos.toString()), radius);
 
-        // Capture new spawn's state for redo by copying its data
-        RME::Spawn newSpawnDataCopy = *newSpawn;
-
-        controller->recordGenericChange(
-            QString("Set Spawn at %1,%2,%3").arg(pos.x).arg(pos.y).arg(pos.z),
-            [tile, newSpawnDataCopy]() mutable { // Redo: set new/updated spawn
-                tile->setSpawn(std::make_unique<Spawn>(newSpawnDataCopy));
-            },
-            [tile, hadOldSpawn, tempOldSpawnCopyForUndo]() mutable { // Undo: restore old (or clear if old was null)
-                if(hadOldSpawn){
-                    tile->setSpawn(std::make_unique<Spawn>(tempOldSpawnCopyForUndo));
-                } else {
-                    tile->setSpawn(nullptr);
-                }
-            }
+        // oldSpawn is already unique_ptr from tile->popSpawn(), newSpawn is created above.
+        // Both are std::moved into the command.
+        auto command = std::make_unique<RME_COMMANDS::RecordSetSpawnCommand>(
+            tile,
+            std::move(newSpawn),
+            std::move(oldSpawn),
+            controller
         );
-        // After capture, if newSpawn wasn't std::moved, it's fine.
-        // If the redo lambda std::moves from newSpawn, then the original must not be used after this.
-        // The current capture copies data (newSpawnDataCopy) so newSpawn itself is not moved.
+        controller->pushCommand(std::move(command));
     }
-    // Tile notification should be handled by the command or explicitly here if command doesn't.
-    map->notifyTileChanged(pos);
+    // map->notifyTileChanged(pos); // This should now be handled by RecordSetSpawnCommand's undo/redo.
 }
 
 } // namespace brush

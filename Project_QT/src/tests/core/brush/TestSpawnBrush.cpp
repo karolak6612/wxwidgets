@@ -8,7 +8,7 @@
 #include "core/Spawn.h"
 #include "core/Item.h"
 #include "core/assets/ItemData.h"
-// #include "editor_logic/commands/RecordSetSpawnCommand.h" // Not directly tested here, but brush uses it
+#include "editor_logic/commands/RecordSetSpawnCommand.h" // Now needed for casting
 
 #include "tests/core/brush/MockEditorController.h"
 #include "tests/core/assets/MockAssetManager.h"
@@ -179,10 +179,21 @@ void TestSpawnBrush::testApply_DrawNewSpawn() {
 
     // The command applies the change. We check the command recorded.
     QVERIFY(m_mockController->pushCommandCalled);
-    QVERIFY(m_mockController->lastPushedCommandText.contains("Set Spawn"));
-    // To check tile state, we'd need to execute the command or inspect its contents.
-    // For now, assume command construction implies intent.
-    // If RecordSetSpawnCommand was used, we could try to cast lastPushedCommand if it's stored.
+    QVERIFY(m_mockController->lastPushedCommand);
+
+    auto* cmd = dynamic_cast<RME_COMMANDS::RecordSetSpawnCommand*>(m_mockController->lastPushedCommand.get());
+    QVERIFY(cmd);
+
+    const RMESpawn* undoState = cmd->getSpawnForUndoState();
+    const RMESpawn* redoState = cmd->getSpawnForRedoState();
+
+    QVERIFY(undoState == nullptr); // No spawn before
+    QVERIFY(redoState != nullptr);
+    if (redoState) {
+        QCOMPARE(redoState->getRadius(), static_cast<uint16_t>(5)); // Brush size was 5
+        QCOMPARE(redoState->getIntervalSeconds(), DEFAULT_SPAWN_INTERVAL_SECONDS);
+        QVERIFY(redoState->getCreatureTypes().isEmpty());
+    }
 }
 
 void TestSpawnBrush::testApply_DrawUpdateExistingSpawn() {
@@ -196,14 +207,39 @@ void TestSpawnBrush::testApply_DrawUpdateExistingSpawn() {
     tile->setSpawn(std::move(initialSpawn)); // Directly set for pre-condition
     QVERIFY(tile->getSpawn());
 
-    m_brushSettings->setSize(4);
+    m_brushSettings->setSize(4); // New radius
 
     m_mockController->reset();
     m_spawnBrush->apply(m_mockController.get(), pos, *m_brushSettings.get());
 
     QVERIFY(m_mockController->pushCommandCalled);
-    QVERIFY(m_mockController->lastPushedCommandText.contains("Set Spawn"));
-    // Further checks would involve executing the command and then verifying tile state.
+    QVERIFY(m_mockController->lastPushedCommand);
+
+    auto* cmd = dynamic_cast<RME_COMMANDS::RecordSetSpawnCommand*>(m_mockController->lastPushedCommand.get());
+    QVERIFY(cmd);
+
+    const RMESpawn* undoState = cmd->getSpawnForUndoState();
+    const RMESpawn* redoState = cmd->getSpawnForRedoState();
+
+    QVERIFY(undoState != nullptr);
+    if (undoState) {
+        QCOMPARE(undoState->getRadius(), static_cast<uint16_t>(2));
+        QCOMPARE(undoState->getIntervalSeconds(), 30);
+        QCOMPARE(undoState->getCreatureTypes().size(), 1);
+        if (!undoState->getCreatureTypes().isEmpty()) {
+            QCOMPARE(undoState->getCreatureTypes().first().name, QString("Dragon"));
+        }
+    }
+
+    QVERIFY(redoState != nullptr);
+    if (redoState) {
+        QCOMPARE(redoState->getRadius(), static_cast<uint16_t>(4)); // New radius
+        QCOMPARE(redoState->getIntervalSeconds(), 30); // Preserved interval
+        QCOMPARE(redoState->getCreatureTypes().size(), 1); // Preserved creatures
+        if (!redoState->getCreatureTypes().isEmpty()) {
+            QCOMPARE(redoState->getCreatureTypes().first().name, QString("Dragon"));
+        }
+    }
 }
 
 
@@ -212,15 +248,35 @@ void TestSpawnBrush::testApply_EraseSpawn() {
     RMETile* tile = m_map->getOrCreateTile(pos);
     QVERIFY(tile);
     tile->setGround(std::make_unique<RMEItem>(GROUND_ITEM_ID, m_itemDatabase->getItemData(GROUND_ITEM_ID)));
-    tile->setSpawn(std::make_unique<RMESpawn>(3));
-    QVERIFY(tile->getSpawn());
+    auto originalSpawn = std::make_unique<RMESpawn>(3); // Radius 3
+    originalSpawn->addCreatureType("Goblin");
+    tile->setSpawn(std::move(originalSpawn));
+    QVERIFY(tile->getSpawn()); // Should be null after popSpawn in apply, but this check is before apply.
+                               // The actual spawn is re-set by command's redo. This check is for pre-condition.
 
     m_brushSettings->isEraseMode = true;
     m_mockController->reset();
     m_spawnBrush->apply(m_mockController.get(), pos, *m_brushSettings.get());
 
     QVERIFY(m_mockController->pushCommandCalled);
-    QVERIFY(m_mockController->lastPushedCommandText.contains("Erase Spawn"));
+    QVERIFY(m_mockController->lastPushedCommand);
+
+    auto* cmd = dynamic_cast<RME_COMMANDS::RecordSetSpawnCommand*>(m_mockController->lastPushedCommand.get());
+    QVERIFY(cmd);
+
+    const RMESpawn* undoState = cmd->getSpawnForUndoState();
+    const RMESpawn* redoState = cmd->getSpawnForRedoState();
+
+    QVERIFY(undoState != nullptr);
+    if (undoState) {
+        QCOMPARE(undoState->getRadius(), static_cast<uint16_t>(3));
+        QCOMPARE(undoState->getIntervalSeconds(), DEFAULT_SPAWN_INTERVAL_SECONDS); // Was default
+        QCOMPARE(undoState->getCreatureTypes().size(), 1);
+        if(!undoState->getCreatureTypes().isEmpty()){
+            QCOMPARE(undoState->getCreatureTypes().first().name, QString("Goblin"));
+        }
+    }
+    QVERIFY(redoState == nullptr); // Erasing means redo state is no spawn
 }
 
 void TestSpawnBrush::testApply_EraseEmpty() {
@@ -235,6 +291,7 @@ void TestSpawnBrush::testApply_EraseEmpty() {
     m_spawnBrush->apply(m_mockController.get(), pos, *m_brushSettings.get());
 
     QVERIFY(!m_mockController->pushCommandCalled);
+    QVERIFY(m_mockController->lastPushedCommand == nullptr);
 }
 
 // #include "TestSpawnBrush.moc" // For AUTOMOC

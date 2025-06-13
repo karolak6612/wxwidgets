@@ -35,3 +35,21 @@ target_link_libraries(TestEditorCommands_SetHouseExit PRIVATE
 set_target_properties(TestEditorCommands_SetHouseExit PROPERTIES AUTOMOC ON)
 
 add_test(NAME TestEditorCommands_SetHouseExit COMMAND TestEditorCommands_SetHouseExit)
+
+# Test for RecordSetSpawnCommand
+add_executable(TestEditorCommands_RecordSetSpawn
+    commands/TestRecordSetSpawnCommand.cpp
+    ../core/brush/MockEditorController.h  # Corrected path
+    ../mocks/MockMap.h                    # Path remains correct
+)
+
+target_link_libraries(TestEditorCommands_RecordSetSpawn PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For Map, Tile, Position
+    rme_editor_logic_lib # For RecordSetSpawnCommand, EditorController
+)
+
+set_target_properties(TestEditorCommands_RecordSetSpawn PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestEditorCommands_RecordSetSpawn COMMAND TestEditorCommands_RecordSetSpawn)
