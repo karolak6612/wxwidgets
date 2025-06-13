@@ -49,6 +49,13 @@ public:
     const QMap<QString, MaterialData>& getAllMaterials() const;
 
     /**
+     * @brief Retrieves a defined border set by its ID.
+     * @param setId The ID of the border set (e.g., "1", "38").
+     * @return Const pointer to BorderSetData if found, nullptr otherwise.
+     */
+    const BorderSetData* getBorderSet(const QString& setId) const;
+
+    /**
      * @brief Gets the last error message from loading.
      * @return QString containing the error message, or empty if no error.
      */
@@ -56,6 +63,7 @@ public:
 
 private:
     QMap<QString, MaterialData> m_materialsById;
+    QMap<QString, BorderSetData> m_borderSetsById; // Stores parsed border sets from borders.xml
     QString m_lastError;
     QSet<QString> m_parsedFiles; // To prevent circular includes and redundant parsing
 
@@ -76,6 +84,13 @@ private:
      * @return True if parsing this brush was successful, false otherwise.
      */
     bool parseBrushElement(QXmlStreamReader& xml, AssetManager& assetManager, const QString& currentDir);
+
+    /**
+     * @brief Parses a <border id="SET_ID"> element from borders.xml and its children.
+     * @param xml The QXmlStreamReader positioned at the start of a <border> element (from borders.xml).
+     * @return True if parsing this border set was successful, false otherwise.
+     */
+    bool parseBordersFileEntry(QXmlStreamReader& xml); // Changed to bool to allow error reporting
 
     // --- Private helper methods for parsing specific parts of a <brush> element ---
     // These will populate the MaterialData object passed to them.

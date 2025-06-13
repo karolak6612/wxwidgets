@@ -23,10 +23,23 @@ struct MaterialItemEntry {
     }
 };
 
+struct BorderSetData {
+    QString id; // The ID of this border set (e.g., "1", "38")
+    QMap<QString, uint16_t> edgeItems; // Maps edge string (e.g., "n", "s", "cne") to item ID
+
+    // Optional: Add default constructor or other helpers if needed
+    BorderSetData() = default;
+    explicit BorderSetData(QString setId) : id(std::move(setId)) {}
+
+    bool operator==(const BorderSetData& other) const {
+        return id == other.id && edgeItems == other.edgeItems;
+    }
+};
+
 struct MaterialBorderRule {
     QString align; // e.g., "outer", "inner"
     QString toBrushName; // Name of the brush this border applies to, or "none"
-    uint16_t borderItemId = 0;
+    QString ruleTargetId; // Stores the raw 'id' attribute from XML (can be item ID or set ID)
     bool isSuper = false;
     uint16_t groundEquivalent = 0;
     // For <specific> conditions/actions, a more complex structure would be needed.
@@ -34,7 +47,8 @@ struct MaterialBorderRule {
 
     bool operator==(const MaterialBorderRule& other) const {
         return align == other.align && toBrushName == other.toBrushName &&
-               borderItemId == other.borderItemId && isSuper == other.isSuper &&
+               ruleTargetId == other.ruleTargetId && // Changed from borderItemId
+               isSuper == other.isSuper &&
                groundEquivalent == other.groundEquivalent;
     }
 };
