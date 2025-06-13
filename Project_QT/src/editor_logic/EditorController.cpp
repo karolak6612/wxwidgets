@@ -23,6 +23,7 @@
 #include <QUndoStack>
 #include <QUndoCommand> // For pushCommand std::unique_ptr
 #include <QList>
+#include <memory>      // For std::make_unique
 #include <QDebug>
 #include <algorithm> // For std::min, std::max
 #include "core/map_constants.h" // For MAP_MAX_Z_VALUE, GROUND_LAYER
@@ -345,31 +346,45 @@ void EditorController::recordRemoveItem(const RME::core::Position& pos, uint16_t
 
 // --- House-specific operations ---
 void EditorController::setHouseExit(quint32 houseId, const RME::core::Position& exitPos) {
-    if (!m_housesManager) { // Use the member directly now
+    if (!m_housesManager) {
         qWarning("EditorController::setHouseExit: HousesManager is null.");
         return;
     }
     RME::core::houses::House* house = m_housesManager->getHouse(houseId);
     if (!house) {
-        qWarning("EditorController::setHouseExit: House with ID %u not found.").arg(houseId);
+        qWarning("EditorController::setHouseExit: House with ID %u not found.", houseId);
+        return;
+    }
+    if (!m_map) {
+        qWarning("EditorController::setHouseExit: Map instance is null.");
         return;
     }
 
-    bool currentExitIsValid = house->getExitPos().isValid();
-    bool newExitIsValid = exitPos.isValid();
+    RME::core::Position currentExit = house->getExitPos();
 
-    if (house->getExitPos() == exitPos) {
-        qDebug("EditorController::setHouseExit: New exit position is the same as current for house %u.").arg(houseId);
+    if (currentExit == exitPos) {
+        qDebug("EditorController::setHouseExit: New exit position is the same as current for house ID %u.", houseId);
         return;
     }
 
-    if (!newExitIsValid && !currentExitIsValid) {
-         qDebug("EditorController::setHouseExit: Attempting to clear an already non-existent exit for house %u.").arg(houseId);
-         return;
+    // If new exitPos is valid, it must be a valid location.
+    // If new exitPos is invalid, it means we are clearing the exit.
+    if (exitPos.isValid()) {
+        if (!m_map->isValidHouseExitLocation(exitPos)) {
+            qWarning("EditorController::setHouseExit: Attempted to set invalid new exit location (%s) for house ID %u.",
+                     qUtf8Printable(exitPos.toString()), houseId);
+            return;
+        }
+    } else { // We are trying to clear the exit (newExitPos is invalid)
+        if (!currentExit.isValid()) { // And there's no current exit to clear
+            qDebug("EditorController::setHouseExit: Attempting to clear an already non-existent exit for house ID %u.", houseId);
+            return;
+        }
     }
 
-    // QUndoStack takes ownership of raw pointer.
-    m_undoStack->push(new RME_COMMANDS::SetHouseExitCommand(house, exitPos, this));
+    // Proceed to create and push the command
+    // Using SetHouseExitCommand directly as it's not in RME_COMMANDS namespace per previous task.
+    pushCommand(std::make_unique<SetHouseExitCommand>(house, exitPos, m_map));
 }
 
 } // namespace editor_logic
