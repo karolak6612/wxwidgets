@@ -16,6 +16,9 @@
 #include "core/SpawnData.h" // For record methods
 #include "core/assets/CreatureData.h" // For record methods, ensure this is the correct header for CreatureData struct/class
 #include "core/actions/AppUndoCommand.h" // For recordAction
+#include "core/houses/Houses.h"        // Added
+#include "core/houses/House.h"           // Added
+#include "editor_logic/commands/SetHouseExitCommand.h" // Added
 
 #include <QUndoStack>
 #include <QUndoCommand> // For pushCommand std::unique_ptr
@@ -33,13 +36,15 @@ EditorController::EditorController(
     RME::core::selection::SelectionManager* selectionManager,
     RME::core::brush::BrushManager* brushManager,
     RME::core::settings::AppSettings* appSettings,
-    RME::core::assets::AssetManager* assetManager
+    RME::core::assets::AssetManager* assetManager,
+    RME::core::houses::Houses* housesManager // Added
 ) : m_map(map),
     m_undoStack(undoStack),
     m_selectionManager(selectionManager),
     m_brushManager(brushManager),
     m_appSettings(appSettings),
-    m_assetManager(assetManager)
+    m_assetManager(assetManager),
+    m_housesManager(housesManager) // Added
 {
     Q_ASSERT(m_map);
     Q_ASSERT(m_undoStack);
@@ -47,6 +52,7 @@ EditorController::EditorController(
     Q_ASSERT(m_brushManager);
     Q_ASSERT(m_appSettings);
     Q_ASSERT(m_assetManager);
+    Q_ASSERT(m_housesManager); // Added
 }
 
 // --- Core editing operations ---
@@ -249,6 +255,14 @@ const RME::core::settings::AppSettings& EditorController::getAppSettings() const
     return *m_appSettings;
 }
 
+RME::core::houses::Houses* EditorController::getHousesManager() { // Added
+    return m_housesManager;
+}
+
+const RME::core::houses::Houses* EditorController::getHousesManager() const { // Added
+    return m_housesManager;
+}
+
 void EditorController::pushCommand(std::unique_ptr<QUndoCommand> command) {
     if (command) {
         m_undoStack->push(command.release());
@@ -327,6 +341,35 @@ void EditorController::recordAddItem(const RME::core::Position& pos, uint16_t it
 
 void EditorController::recordRemoveItem(const RME::core::Position& pos, uint16_t itemId) {
      qWarning("EditorController::recordRemoveItem: Not implemented. Pos: (%d,%d,%d), ItemID: %d", pos.x, pos.y, pos.z, itemId);
+}
+
+// --- House-specific operations ---
+void EditorController::setHouseExit(quint32 houseId, const RME::core::Position& exitPos) {
+    if (!m_housesManager) { // Use the member directly now
+        qWarning("EditorController::setHouseExit: HousesManager is null.");
+        return;
+    }
+    RME::core::houses::House* house = m_housesManager->getHouse(houseId);
+    if (!house) {
+        qWarning("EditorController::setHouseExit: House with ID %u not found.").arg(houseId);
+        return;
+    }
+
+    bool currentExitIsValid = house->getExitPos().isValid();
+    bool newExitIsValid = exitPos.isValid();
+
+    if (house->getExitPos() == exitPos) {
+        qDebug("EditorController::setHouseExit: New exit position is the same as current for house %u.").arg(houseId);
+        return;
+    }
+
+    if (!newExitIsValid && !currentExitIsValid) {
+         qDebug("EditorController::setHouseExit: Attempting to clear an already non-existent exit for house %u.").arg(houseId);
+         return;
+    }
+
+    // QUndoStack takes ownership of raw pointer.
+    m_undoStack->push(new RME_COMMANDS::SetHouseExitCommand(house, exitPos, this));
 }
 
 } // namespace editor_logic

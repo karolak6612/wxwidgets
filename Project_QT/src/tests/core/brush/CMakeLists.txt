@@ -51,6 +51,7 @@ target_link_libraries(TestCoreBrush_HouseBrush PRIVATE
     Qt6::Test
     Qt6::Core
     rme_core_lib
+    rme_editor_logic_lib # Added: HouseBrush uses commands from editor_logic
 )
 
 set_target_properties(TestCoreBrush_HouseBrush PROPERTIES AUTOMOC ON)

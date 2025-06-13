@@ -21,6 +21,7 @@ namespace core {
     namespace selection { class SelectionManager; }
     namespace settings { class AppSettings; }
     namespace assets { class AssetManager; }
+    namespace houses { class Houses; } // Added Forward declaration
     class Tile; // For getTileForEditing
     class SpawnData; // For recordAddSpawn etc.
     struct CreatureData; // For recordAddCreature etc. (often a struct in assets namespace)
@@ -39,7 +40,8 @@ public:
         RME::core::selection::SelectionManager* selectionManager,
         RME::core::brush::BrushManager* brushManager,
         RME::core::settings::AppSettings* appSettings,
-        RME::core::assets::AssetManager* assetManager
+        RME::core::assets::AssetManager* assetManager,
+        RME::core::houses::Houses* housesManager // Added
     );
     ~EditorController() override = default;
 
@@ -48,10 +50,15 @@ public:
     void deleteSelection();
     void clearCurrentSelection();
     void performBoundingBoxSelection(const RME::core::Position& p1, const RME::core::Position& p2, Qt::KeyboardModifiers modifiers, const RME::core::BrushSettings& currentBrushSettings);
-    void handleDeleteSelection(); // Added
+    void handleDeleteSelection();
+
+    // House-specific operations
+    void setHouseExit(quint32 houseId, const RME::core::Position& exitPos);
 
     // --- Implementation of EditorControllerInterface ---
     // Basic accessors
+    RME::core::houses::Houses* getHousesManager() override; // Added
+    const RME::core::houses::Houses* getHousesManager() const override; // Added
     RME::core::Map* getMap() override;
     const RME::core::Map* getMap() const override;
     QUndoStack* getUndoStack() override;
@@ -95,6 +102,7 @@ private:
     RME::core::brush::BrushManager* m_brushManager;
     RME::core::settings::AppSettings* m_appSettings;
     RME::core::assets::AssetManager* m_assetManager;
+    RME::core::houses::Houses* m_housesManager; // Added
 };
 
 } // namespace editor_logic

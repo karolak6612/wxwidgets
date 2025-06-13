@@ -1,100 +1,141 @@
 #include "core/brush/HouseBrush.h"
 #include "core/map/Map.h"
-#include "core/brush/BrushSettings.h"
-#include "core/editor_logic/EditorControllerInterface.h"
-#include "core/Tile.h" // For RME::TileMapFlag
-#include "core/Position.h"
-#include <QString>
-#include <QDebug>
-#include <QObject> // For QObject::tr
+#include "core/Tile.h"
+#include "core/houses/House.h" // For RME::core::houses::House
+#include "core/houses/Houses.h" // For EditorControllerInterface::getHousesManager()
+#include "core/editor/EditorControllerInterface.h"
+#include "core/settings/BrushSettings.h"
+#include "core/settings/AppSettings.h" // For future settings like remove items/door IDs
+#include "editor_logic/commands/SetHouseTileCommand.h"
+
+#include <QDebug> // For qWarning, qDebug
+#include <memory>   // For std::make_unique if commands were owned here
+
+// Placeholder for a house brush sprite ID, replace with actual if available
+const int EDITOR_SPRITE_HOUSE_BRUSH_LOOK_ID = 0; // Or some defined constant
 
 namespace RME {
 namespace core {
 namespace brush {
 
-HouseBrush::HouseBrush() : Brush(), m_currentHouseId(0) {
+HouseBrush::HouseBrush()
+    : m_currentHouseId(0) // Default to no house selected
+{
 }
 
-void HouseBrush::setCurrentHouseId(uint32_t houseId) {
+void HouseBrush::setCurrentHouseId(quint32 houseId) {
     m_currentHouseId = houseId;
+}
+
+quint32 HouseBrush::getCurrentHouseId() const {
+    return m_currentHouseId;
 }
 
 QString HouseBrush::getName() const {
     if (m_currentHouseId == 0) {
-        return QObject::tr("House Brush (Eraser)");
+        return QStringLiteral("House Brush (Generic Erase / No House Selected)");
     }
-    return QObject::tr("House Brush (ID: %1)").arg(m_currentHouseId);
+    return QStringLiteral("House Brush (ID: %1)").arg(m_currentHouseId);
 }
 
-int HouseBrush::getLookID(const BrushSettings& /*settings*/) const {
-    return EDITOR_SPRITE_HOUSE_BRUSH_LOOKID;
+int HouseBrush::getLookID(const RME::core::BrushSettings& /*settings*/) const {
+    return EDITOR_SPRITE_HOUSE_BRUSH_LOOK_ID;
 }
 
-bool HouseBrush::canApply(const map::Map* map, const Position& pos, const BrushSettings& /*settings*/) const {
+bool HouseBrush::canApply(const RME::core::map::Map* map,
+                            const RME::core::Position& pos,
+                            const RME::core::BrushSettings& settings) const {
     if (!map || !map->isPositionValid(pos)) {
+        return false;
+    }
+    // If not erasing, a house ID must be selected.
+    if (!settings.isEraseMode && m_currentHouseId == 0) {
+        // This check is more for UI enabling/disabling the brush tool.
+        // The apply() method will also check this and return if no ID is set for drawing.
+        return false;
+    }
+    // Tile must exist to apply house brush (cannot create tiles with house brush)
+    if (!map->getTile(pos)) { // Use const getTile
         return false;
     }
     return true;
 }
 
-void HouseBrush::apply(editor::EditorControllerInterface* controller, const Position& pos, const BrushSettings& settings) {
-    if (!controller) {
-        qWarning("HouseBrush::apply: EditorControllerInterface is null for position (%d,%d,%d).", pos.x, pos.y, pos.z);
+void HouseBrush::apply(RME::core::editor::EditorControllerInterface* controller,
+                         const RME::core::Position& pos,
+                         const RME::core::BrushSettings& settings) {
+
+    if (!controller || !controller->getMap() || !controller->getHousesManager()) {
+        qWarning("HouseBrush::apply: Controller, Map, or HousesManager is null.");
         return;
     }
 
-    // TODO: Get these from AppSettings via REFACTOR-01 (passed through settings or controller context)
-    bool setting_autoAssignDoorId = false;
-    bool setting_houseBrushRemoveItems = false;
-    // qInfo("HouseBrush::apply: 'AUTO_ASSIGN_DOORID' is currently hardcoded to %s for pos (%d,%d,%d).",
-    //       setting_autoAssignDoorId ? "true" : "false", pos.x, pos.y, pos.z);
-    // qInfo("HouseBrush::apply: 'HOUSE_BRUSH_REMOVE_ITEMS' is currently hardcoded to %s for pos (%d,%d,%d).",
-    //       setting_houseBrushRemoveItems ? "true" : "false", pos.x, pos.y, pos.z);
+    Map* map = controller->getMap();
+    // Re-check canApply with live map, although it's mostly position validation here
+    if (!canApply(map, pos, settings)) {
+        qDebug("HouseBrush::apply: Preconditions not met at %s.", qUtf8Printable(pos.toString()));
+        return;
+    }
 
-    uint32_t currentTileHouseId = controller->getTileHouseId(pos); // Conceptual: Get current house ID of the tile
+    Tile* tile = map->getTileForEditing(pos);
+    if (!tile) {
+        qWarning("HouseBrush::apply: Tile not found at position %s, though canApply passed (should check getTile).").arg(pos.toString());
+        return;
+    }
 
-    if (settings.isEraseMode()) { // Erasing house assignment
-        qInfo("HouseBrush::apply (Erase Mode) for tile at (%d,%d,%d)", pos.x, pos.y, pos.z);
-        if (currentTileHouseId != 0) { // Only act if the tile actually belongs to a house
-            controller->setTileHouseId(pos, 0); // Conceptual
-            controller->setTileMapFlag(pos, RME::TileMapFlag::PROTECTION_ZONE, false); // Clear PZ (RME::TileMapFlag)
+    bool assignToHouse = !settings.isEraseMode;
+    RME::core::houses::Houses* housesManager = controller->getHousesManager();
 
-            if (setting_autoAssignDoorId) {
-                // controller->clearDoorIdsOnTile(pos); // Conceptual
-                qWarning("HouseBrush::apply (Erase): AUTO_ASSIGN_DOORID logic is TODO for tile (%d,%d,%d).", pos.x, pos.y, pos.z);
-            }
-            controller->removeTilePositionFromHouse(currentTileHouseId, pos); // Conceptual
-        }
-    } else { // Assigning house
+    if (assignToHouse) {
         if (m_currentHouseId == 0) {
-            qWarning("HouseBrush::apply (Draw Mode): No current house ID set (or trying to assign ID 0) for tile (%d,%d,%d). Brush should be configured with a valid house ID.", pos.x, pos.y, pos.z);
+            qDebug("HouseBrush::apply (assign): No current house ID selected. Cannot assign 'no house'.");
             return;
         }
-        qInfo("HouseBrush::apply (Draw Mode) house ID %d to tile at (%d,%d,%d)", m_currentHouseId, pos.x, pos.y, pos.z);
-
-        // If tile already belongs to a different house, remove it from old house first
-        if (currentTileHouseId != 0 && currentTileHouseId != m_currentHouseId) {
-            controller->removeTilePositionFromHouse(currentTileHouseId, pos); // Conceptual
+        RME::core::houses::House* houseToAssign = housesManager->getHouse(m_currentHouseId);
+        if (!houseToAssign) {
+            qWarning("HouseBrush::apply (assign): House with ID %u not found in HousesManager.").arg(m_currentHouseId);
+            return;
         }
 
-        // Assign to new house if not already assigned to this house
-        if (currentTileHouseId != m_currentHouseId) {
-            controller->setTileHouseId(pos, m_currentHouseId); // Conceptual
-            controller->addTilePositionToHouse(m_currentHouseId, pos); // Conceptual
+        if (tile->getHouseId() != 0 && tile->getHouseId() != m_currentHouseId) {
+            qInfo("HouseBrush: Tile at %s (belonging to house %u) will be reassigned to house %u.")
+                .arg(pos.toString()).arg(tile->getHouseId()).arg(m_currentHouseId);
+        } else if (tile->getHouseId() == m_currentHouseId) {
+            qDebug("HouseBrush::apply (assign): Tile at %s already belongs to house %u. No change.").arg(pos.toString()).arg(m_currentHouseId);
+            return;
         }
-        controller->setTileMapFlag(pos, RME::TileMapFlag::PROTECTION_ZONE, true); // Set PZ (RME::TileMapFlag)
 
-        if (setting_houseBrushRemoveItems) {
-            // controller->removeMovablesFromTile(pos); // Conceptual
-            qWarning("HouseBrush::apply (Draw): HOUSE_BRUSH_REMOVE_ITEMS logic is TODO for tile (%d,%d,%d).", pos.x, pos.y, pos.z);
+        // QUndoStack takes ownership of raw pointer.
+        // SetHouseTileCommand's constructor was: House*, Tile*, bool, Controller*, Parent*
+        controller->pushCommand(new RME_COMMANDS::SetHouseTileCommand(houseToAssign, tile, true, controller));
+
+    } else { // Erase mode
+        quint32 currentTileHouseId = tile->getHouseId();
+        if (currentTileHouseId == 0) {
+            qDebug("HouseBrush::apply (erase): Tile at %s has no house assignment. No action.").arg(pos.toString());
+            return;
         }
-        if (setting_autoAssignDoorId) {
-            // controller->assignHouseDoorIdToTileDoors(pos, m_currentHouseId, currentTileHouseId); // Conceptual
-            qWarning("HouseBrush::apply (Draw): AUTO_ASSIGN_DOORID logic is TODO for tile (%d,%d,%d).", pos.x, pos.y, pos.z);
+
+        RME::core::houses::House* houseOfTile = housesManager->getHouse(currentTileHouseId);
+        if (!houseOfTile) {
+            qWarning("HouseBrush::apply (erase): Tile at %s has house ID %u, but house not found in manager. Cannot create command to update house's tile list correctly.")
+                .arg(pos.toString()).arg(currentTileHouseId);
+            // Not pushing command because SetHouseTileCommand requires a valid House* to update its tile list.
+            return;
+        }
+
+        if (m_currentHouseId == 0) { // Generic erase: remove any house assignment
+            controller->pushCommand(new RME_COMMANDS::SetHouseTileCommand(houseOfTile, tile, false, controller));
+        } else { // Specific erase: only remove if tile belongs to m_currentHouseId
+            if (currentTileHouseId == m_currentHouseId) {
+                // houseOfTile is the same as housesManager->getHouse(m_currentHouseId) here.
+                controller->pushCommand(new RME_COMMANDS::SetHouseTileCommand(houseOfTile, tile, false, controller));
+            } else {
+                qDebug("HouseBrush::apply (specific erase): Tile at %s (house %u) does not match brush's target house ID %u. No action.")
+                    .arg(pos.toString()).arg(currentTileHouseId).arg(m_currentHouseId);
+            }
         }
     }
-    // Border updates are handled by the EditorController if brush->needsBorders() is true.
-    // HouseBrush::needsBorders() currently returns false (default from base Brush).
 }
 
 } // namespace brush

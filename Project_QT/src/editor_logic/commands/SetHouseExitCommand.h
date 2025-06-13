@@ -34,6 +34,11 @@ public:
 
     int id() const override { return SetHouseExitCommandId; }
 
+    // For testing
+    const RME::core::houses::House* getHouse() const { return m_house; }
+    const RME::core::Position& getNewExitPosition() const { return m_newExitPos; }
+    const RME::core::Position& getOldExitPosition() const { return m_oldExitPos; }
+
 private:
     RME::core::houses::House* m_house; // Non-owning
     RME::core::editor::EditorControllerInterface* m_controller;

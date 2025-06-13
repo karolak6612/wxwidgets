@@ -25,9 +25,12 @@
 
 // Commands used
 #include "editor_logic/commands/DeleteSelectionCommand.h"
-#include "editor_logic/commands/ClearSelectionCommand.h"      // Added
-#include "editor_logic/commands/BoundingBoxSelectCommand.h" // Added
-#include "core/map_constants.h" // Added for RME::core::MAP_MAX_Z_VALUE, RME::core::GROUND_LAYER
+#include "editor_logic/commands/ClearSelectionCommand.h"
+#include "editor_logic/commands/BoundingBoxSelectCommand.h"
+#include "editor_logic/commands/SetHouseExitCommand.h" // Added
+#include "core/map_constants.h"
+#include "core/houses/Houses.h" // Added
+#include "core/houses/House.h"  // Added
 
 // Qt classes
 #include <QUndoStack>
@@ -183,58 +186,58 @@ public:
 
 class MockSelectionManager : public RME::core::selection::SelectionManager {
 public:
-    MockSelectionManager(RME::core::Map* map) : RME::core::selection::SelectionManager(map) {}
-    bool isEmpty() const override { return m_selectedPositions.isEmpty(); }
+    MockSelectionManager(RME::core::Map* map) : RME::core::selection::SelectionManager(map, nullptr) {} // Pass nullptr for QUndoStack
 
-    QList<RME::core::Position> m_selectedPositions;
-    void clearSelection() { m_selectedPositions.clear(); }
-    void addSelectedPosition(const RME::core::Position& pos) { m_selectedPositions.append(pos); }
-
-    // This method is what DeleteSelectionCommand.cpp expects to use to populate its m_affectedPositions
-    // This is a simplified assumption for the test.
-    // const QList<RME::core::Position>& getSelectedTilePositions() const { return m_selectedPositions; }
-
-    // Enhanced MockSelectionManager for BoundingBoxSelection tests
     QList<RME::core::Tile*> m_currentSelectedTiles_mock_list;
+
+    bool isEmpty() const override { return m_currentSelectedTiles_mock_list.isEmpty(); }
 
     void MOCK_setSelectedTiles(const QList<RME::core::Tile*>& tiles) {
         m_currentSelectedTiles_mock_list = tiles;
-        // Simulate actual selection logic from base if necessary for signals etc.
-        // For internal methods test:
-        // clearSelectionInternal();
-        // addTilesToSelectionInternal(tiles);
     }
 
-    // Overrides for internal methods if SelectionManager base class is more complex
-    // For now, assume base SelectionManager has these and they work with its own state.
-    // This mock will use its own state for testing commands that use these.
+    void MOCK_addTileToSelection(RME::core::Tile* tile) {
+        if (tile && !m_currentSelectedTiles_mock_list.contains(tile)) {
+            m_currentSelectedTiles_mock_list.append(tile);
+        }
+    }
+
     void clearSelectionInternal() override {
+        bool changed = !m_currentSelectedTiles_mock_list.isEmpty();
         m_currentSelectedTiles_mock_list.clear();
-        // emit selectionChanged();
+        if (changed) { /*emit selectionChanged();*/ }
     }
     void addTilesToSelectionInternal(const QList<RME::core::Tile*>& tilesToAdd) override {
+        bool changed = false;
         for (RME::core::Tile* tile : tilesToAdd) {
             if (tile && !m_currentSelectedTiles_mock_list.contains(tile)) {
                 m_currentSelectedTiles_mock_list.append(tile);
+                changed = true;
             }
         }
-        // emit selectionChanged();
+        if (changed) { /*emit selectionChanged();*/ }
     }
     void removeTilesFromSelectionInternal(const QList<RME::core::Tile*>& tilesToDeselect) override {
+        bool changed = false;
         for (RME::core::Tile* tile : tilesToDeselect) {
-            m_currentSelectedTiles_mock_list.removeAll(tile);
+            if (m_currentSelectedTiles_mock_list.removeAll(tile) > 0) {
+                changed = true;
+            }
         }
-        // emit selectionChanged();
+        if (changed) { /*emit selectionChanged();*/ }
     }
     void setSelectedTilesInternal(const QList<RME::core::Tile*>& tilesToSelect) override {
+        bool changed = (QSet<RME::core::Tile*>::fromList(m_currentSelectedTiles_mock_list) != QSet<RME::core::Tile*>::fromList(tilesToSelect));
         m_currentSelectedTiles_mock_list = tilesToSelect;
-        // emit selectionChanged();
+        if (changed) { /*emit selectionChanged();*/ }
     }
     QList<RME::core::Tile*> getCurrentSelectedTilesList() const override {
         return m_currentSelectedTiles_mock_list;
     }
-    // The m_selectedPositions from before might be kept if some tests rely on position-based selection setup
-    // For new tests, m_currentSelectedTiles_mock_list is primary.
+
+    void resetMockState() {
+        m_currentSelectedTiles_mock_list.clear();
+    }
 };
 
 class MockAppSettings : public RME::core::settings::AppSettings {
@@ -293,11 +296,16 @@ private slots:
     void testPerformBoundingBoxSelection_Additive_CurrentFloor();
     // void testPerformBoundingBoxSelection_AllFloors(); // Optional, more complex map setup
 
+    // Tests for setHouseExit
+    void testSetHouseExit_ValidHouseAndPosition();
+    void testSetHouseExit_InvalidHouseId();
+    void testSetHouseExit_SamePosition_NoCommand();
+
 private:
     std::unique_ptr<RME::editor_logic::EditorController> m_editorController;
 
     std::unique_ptr<MockMap> m_ownedMockMap;
-    MockMap* m_mockMapRawPtr; // Renamed for clarity, points to m_ownedMockMap's object
+    MockMap* m_mockMapRawPtr;
 
     // Tiles owned by the test fixture for MockMap to serve
     QMap<RME::core::Position, RME::core::Tile> m_fixtureTiles;
@@ -309,6 +317,7 @@ private:
     std::unique_ptr<MockBrushManager> m_mockBrushManager;
     std::unique_ptr<MockSelectionManager> m_mockSelectionManager;
     std::unique_ptr<MockAppSettings> m_mockAppSettings;
+    std::unique_ptr<RME::core::houses::Houses> m_realHousesManager; // Added
 
     std::unique_ptr<RME::core::assets::ClientVersionManager> m_clientVersionManager;
     std::unique_ptr<RME::core::assets::ItemDatabase> m_itemDatabase;
@@ -347,15 +356,30 @@ void TestEditorController::init() {
     m_mockSelectionManager = std::make_unique<MockSelectionManager>(m_mockMapRawPtr);
     m_mockAppSettings = std::make_unique<MockAppSettings>();
 
-    // EditorController takes raw pointers, but the mocks are owned by unique_ptrs in this test class
+    // EditorController constructor was updated to include HousesManager
+    m_mockSelectionManager = std::make_unique<MockSelectionManager>(m_mockMapRawPtr);
+    m_mockAppSettings = std::make_unique<MockAppSettings>();
+    m_realHousesManager = std::make_unique<RME::core::houses::Houses>(m_mockMapRawPtr); // Initialize HousesManager
+
     m_editorController = std::make_unique<RME::editor_logic::EditorController>(
         m_mockMapRawPtr,
         m_mockUndoStack.get(),
         m_mockSelectionManager.get(),
         m_mockBrushManager.get(),
         m_mockAppSettings.get(),
-        m_assetManager.get()
+        m_assetManager.get(),
+        m_realHousesManager.get() // Pass real HousesManager
     );
+
+    // Reset all mocks
+    m_mockUndoStack->resetMockState();
+    m_mockSelectionManager->resetMockState(); // Added
+    m_mockAppSettings->resetMockState();
+    if (m_mockBrushManager->getMockActiveBrush()) {
+         m_mockBrushManager->getMockActiveBrush()->resetMockState();
+    }
+    m_mockBrushManager->resetMockState();
+    m_mockMapRawPtr->resetNotifications();
 }
 
 void TestEditorController::cleanup() {
@@ -366,8 +390,9 @@ void TestEditorController::cleanup() {
     m_mockUndoStack.reset();
     m_ownedMockMap.reset();
     m_mockMapRawPtr = nullptr;
-    MockMap::m_testTilesOwner = nullptr; // Clear static pointer
+    MockMap::m_testTilesOwner = nullptr;
     m_fixtureTiles.clear();
+    m_realHousesManager.reset(); // Added cleanup
 
     m_assetManager.reset();
     m_materialManager.reset();
@@ -461,11 +486,10 @@ void TestEditorController::testDeleteSelection_Empty() {
     QVERIFY(m_mockUndoStack->pushCalled);
     QVERIFY(m_mockUndoStack->lastPushedCommandRaw != nullptr);
     auto* cmd = dynamic_cast<RME_COMMANDS::DeleteSelectionCommand*>(m_mockUndoStack->lastPushedCommandRaw);
-    QVERIFY(cmd != nullptr);
-    // DeleteSelectionCommand's redo() is expected to handle the case of empty selection
-    // (e.g., by doing nothing or setting appropriate text like "Delete Selection (nothing selected)").
+    // DeleteSelectionCommand's redo() is expected to handle the case of empty selection.
 }
 
+// Test methods for handleDeleteSelection (replaces old testDeleteSelection_*)
 void TestEditorController::testHandleDeleteSelection_WithSelection() {
     // Setup: MockSelectionManager has a selection
     RME::core::Tile testTile(RME::core::Position(1,1,7)); // Dummy tile for selection list
@@ -608,6 +632,54 @@ void TestEditorController::testPerformBoundingBoxSelection_Additive_CurrentFloor
     QCOMPARE(stateAfter.size(), 2); // initialSelTile + (0,0,7)
     QVERIFY(stateAfter.contains(&initialSelTile));
     QVERIFY(stateAfter.contains(m_mockMapRawPtr->getTile(RME::core::Position(0,0,RME::core::GROUND_LAYER))));
+}
+
+// --- Tests for setHouseExit ---
+void TestEditorController::testSetHouseExit_ValidHouseAndPosition() {
+    QVERIFY(m_realHousesManager);
+    RME::core::houses::House* testHouse = m_realHousesManager->createNewHouse(1);
+    QVERIFY(testHouse);
+    quint32 houseId = testHouse->getId();
+    RME::core::Position exitPos(5,5,7);
+    m_mockMapRawPtr->getOrCreateTile(exitPos); // Ensure tile exists for House::setExit to flag
+
+    m_mockUndoStack->resetMockState();
+    m_editorController->setHouseExit(houseId, exitPos);
+
+    QVERIFY(m_mockUndoStack->pushCalled);
+    QVERIFY(m_mockUndoStack->lastPushedCommandRaw != nullptr);
+    auto* cmd = dynamic_cast<RME_COMMANDS::SetHouseExitCommand*>(m_mockUndoStack->lastPushedCommandRaw);
+    QVERIFY(cmd != nullptr);
+    if (cmd) {
+        QCOMPARE(cmd->getHouse(), testHouse);
+        QCOMPARE(cmd->getNewExitPosition(), exitPos);
+    }
+}
+
+void TestEditorController::testSetHouseExit_InvalidHouseId() {
+    RME::core::Position exitPos(5,5,7);
+    m_mockUndoStack->resetMockState();
+
+    m_editorController->setHouseExit(999 /*non-existent ID*/, exitPos);
+
+    QVERIFY(!m_mockUndoStack->pushCalled);
+}
+
+void TestEditorController::testSetHouseExit_SamePosition_NoCommand() {
+    QVERIFY(m_realHousesManager);
+    RME::core::houses::House* testHouse = m_realHousesManager->createNewHouse(1);
+    QVERIFY(testHouse);
+    quint32 houseId = testHouse->getId();
+    RME::core::Position initialExitPos(5,5,7);
+
+    m_mockMapRawPtr->getOrCreateTile(initialExitPos); // Ensure tile exists
+    testHouse->setExit(initialExitPos); // Directly set initial exit
+    QCOMPARE(testHouse->getExitPos(), initialExitPos);
+
+    m_mockUndoStack->resetMockState();
+    m_editorController->setHouseExit(houseId, initialExitPos); // Attempt to set to same pos
+
+    QVERIFY(!m_mockUndoStack->pushCalled); // No command should be pushed
 }
 
 

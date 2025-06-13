@@ -18,6 +18,7 @@
 #include "core/assets/CreatureData.h" // For RME::core::assets::CreatureData
 // #include "core/assets/CreatureDatabase.h" // No longer directly needed
 #include "core/assets/AssetManager.h" // Base class for AssetManager type
+#include "core/houses/Houses.h"       // Added: Forward Declaration or include if needed for HousesManager
 #include "tests/core/assets/MockAssetManager.h" // Added for actual mock instance
 #include "core/spawns/SpawnData.h" // For RME::core::SpawnData
 #include "core/actions/AppUndoCommand.h" // For RME::core::actions::AppUndoCommand
@@ -61,7 +62,8 @@ public:
 
     // Mocked member variables to be returned by getter methods
     RMEAppSettings* m_mockAppSettings = nullptr;
-    RMEAssetManager* m_mockAssetManager = nullptr; // MODIFIED from m_mockCreatureDatabase
+    RMEAssetManager* m_mockAssetManager = nullptr;
+    RME::core::houses::Houses* m_mockHousesManager = nullptr; // Added
     RMETile* m_mockTileForEditing = nullptr; // If getTileForEditing should return a specific mock tile
 
     // Owns the MockMap instance
@@ -200,6 +202,26 @@ public:
     void setMockAssetManager(RME::core::assets::AssetManager* assetManager) {
         m_mockAssetManager = assetManager;
     }
+    // Setter for tests to inject AppSettings
+    void setMockAppSettings(RME::core::settings::AppSettings* appSettings) { // Added
+        m_mockAppSettings = appSettings;
+    }
+    // Setter for tests to inject HousesManager
+    void setMockHousesManager(RME::core::houses::Houses* housesManager) { // Added
+        m_mockHousesManager = housesManager;
+    }
+
+    // Getter for HousesManager (assuming it's part of EditorControllerInterface)
+    RME::core::houses::Houses* getHousesManager() override { // Added
+        calls.append({"getHousesManager"});
+        return m_mockHousesManager;
+    }
+    // Const version if interface has it
+    // const RME::core::houses::Houses* getHousesManager() const override {
+    //     calls.append({"getHousesManager_const"});
+    //     return m_mockHousesManager;
+    // }
+
 
     void recordAction(std::unique_ptr<RMEAppUndoCommand> command) override {
         calls.append({"recordAction", command ? command->text() : "UnknownCommand"});
@@ -275,9 +297,10 @@ public:
     void reset() {
         calls.clear();
         mock_current_tile_house_id = 0;
-        // m_mockMap is managed by m_concreteMockMap, so it's reset when MockEditorController is newed.
+        // m_mockMap is managed by m_concreteMockMap.
         m_mockAppSettings = nullptr;
-        m_mockAssetManager = nullptr; // MODIFIED
+        m_mockAssetManager = nullptr;
+        m_mockHousesManager = nullptr; // Added
         m_mockTileForEditing = nullptr;
         m_tileChangedNotified = false;
         m_notifiedPosition = RMEPosition(); // Reset to default
