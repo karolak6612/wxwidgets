@@ -21,3 +21,17 @@ target_link_libraries(TestEditorLogic_EditorController PRIVATE
 set_target_properties(TestEditorLogic_EditorController PROPERTIES AUTOMOC ON)
 
 add_test(NAME TestEditorLogic_EditorController COMMAND TestEditorLogic_EditorController)
+
+# Test for SetHouseExitCommand
+add_executable(TestEditorCommands_SetHouseExit commands/TestSetHouseExitCommand.cpp)
+
+target_link_libraries(TestEditorCommands_SetHouseExit PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For Map, HouseData, Tile, Position
+    rme_editor_logic_lib # For SetHouseExitCommand itself
+)
+
+set_target_properties(TestEditorCommands_SetHouseExit PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestEditorCommands_SetHouseExit COMMAND TestEditorCommands_SetHouseExit)
