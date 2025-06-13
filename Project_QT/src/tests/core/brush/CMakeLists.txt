@@ -11,14 +11,8 @@ add_executable(TestCoreBrush_RawBrush TestRawBrush.cpp MockEditorController.h)
 target_link_libraries(TestCoreBrush_RawBrush PRIVATE
     Qt6::Test
     Qt6::Core
-    rme_core_lib # For Base Brush, Map, Tile, Item, AssetManager access etc.
-    # rme_editor_logic_lib # Not strictly needed if MockEditorController.h defines its own
-                           # minimal interface or includes the real one from editor_logic,
-                           # and the test links rme_core_lib which provides BrushSettings etc.
-                           # If EditorControllerInterface.h is in rme_editor_logic_lib and included
-                           # by MockEditorController.h, then this link would be necessary.
-                           # For now, assuming this test is self-contained with mocks or
-                           # that rme_core_lib provides enough (like BrushSettings).
+    rme_core_lib         # For Base Brush, Map, Tile, Item, AssetManager access etc.
+    rme_editor_logic_lib # Added: RawBrush uses commands from editor_logic
 )
 
 # Ensure tests can find headers from the main src/core directory

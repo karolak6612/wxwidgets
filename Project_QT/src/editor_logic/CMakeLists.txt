@@ -8,6 +8,8 @@ set(RME_EDITOR_LOGIC_LIB_SOURCES
     commands/MoveWaypointCommand.cpp
     commands/SetHouseExitCommand.cpp
     commands/RecordSetSpawnCommand.cpp
+    commands/RecordSetGroundCommand.cpp     # Added
+    commands/RecordAddRemoveItemCommand.cpp # Added
 )
 
 set(RME_EDITOR_LOGIC_LIB_HEADERS
@@ -18,6 +20,8 @@ set(RME_EDITOR_LOGIC_LIB_HEADERS
     commands/MoveWaypointCommand.h
     commands/SetHouseExitCommand.h
     commands/RecordSetSpawnCommand.h
+    commands/RecordSetGroundCommand.h       # Added
+    commands/RecordAddRemoveItemCommand.h   # Added
 )
 # Note: RME_EDITOR_LOGIC_LIB_HEADERS is for organization/completeness,
 # actual header availability is via target_include_directories.

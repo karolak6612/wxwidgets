@@ -1,51 +1,60 @@
-#ifndef RME_RAWBRUSH_H
-#define RME_RAWBRUSH_H
+#ifndef RME_RAW_BRUSH_H
+#define RME_RAW_BRUSH_H
 
-#include "core/brush/Brush.h" // Base RME::core::Brush
-#include <cstdint>           // For uint16_t
+#include "core/brush/Brush.h"
+#include "core/Position.h" // For RME::core::Position
+#include <QString>
+#include <cstdint> // For uint16_t
 
-// Forward declarations from RME::core
+// Forward declarations
 namespace RME {
 namespace core {
-    class Position; // Defined in core/Position.h
-    struct BrushSettings; // Defined in core/brush/BrushSettings.h
-    namespace map { class Map; } // Defined in core/map/Map.h
-    namespace assets { struct ItemType; } // Defined in core/assets/ItemData.h
-    namespace editor { class EditorControllerInterface; } // To be defined
-} // namespace core
-} // namespace RME
+    class BrushSettings;
+    namespace map { class Map; }
+    namespace editor { class EditorControllerInterface; }
+    class ItemData; // Forward declare ItemData if getLookID needs it via AssetManager
+}
+}
 
+// Forward declaration for potential test class
+class TestRawBrush;
 
 namespace RME {
 namespace core {
 namespace brush {
 
-class RawBrush : public Brush { // Inherits RME::core::Brush
+class RawBrush : public RME::core::Brush {
+    friend class ::TestRawBrush; // Friend class for testing
+
 public:
-    RawBrush();
+    RawBrush(uint16_t itemId = 0);
     ~RawBrush() override = default;
 
-    void setItemId(uint16_t id);
-    uint16_t getItemId() const { return m_itemId; }
+    void setItemId(uint16_t itemId);
+    uint16_t getItemId() const;
 
-    // RME::core::Brush interface overrides
+    // Overridden methods from Brush
+    void apply(RME::core::editor::EditorControllerInterface* controller,
+               const RME::core::Position& pos,
+               const RME::core::BrushSettings& settings) override;
+
     QString getName() const override;
-    // getLookID now takes BrushSettings to potentially get ItemTypeProvider
-    int getLookID(const BrushSettings& settings) const override;
-    bool canDrag() const override { return true; } // Specific to RawBrush
-    bool isRaw() const override { return true; }   // Specific to RawBrush
+    // getLookID might need ItemData from AssetManager if it's to return clientID
+    // For now, let's assume it might just return m_itemId or a generic icon ID
+    int getLookID(const RME::core::BrushSettings& settings) const override;
+    bool canApply(const RME::core::map::Map* map,
+                  const RME::core::Position& pos,
+                  const RME::core::BrushSettings& settings) const override;
 
-    void apply(RME::core::editor::EditorControllerInterface* controller, const Position& pos, const BrushSettings& settings) override;
-    bool canApply(const RME::core::map::Map* map, const Position& pos, const BrushSettings& settings) const override;
+    // Specific to RawBrush, indicates it doesn't use material system like some other brushes
+    bool hasMaterial() const override { return false; }
 
 private:
-    // Helper to get ItemType, needs access to IItemTypeProvider via BrushSettings or similar
-    const RME::core::assets::ItemType* getItemTypeData(const BrushSettings& settings) const;
-
-    uint16_t m_itemId = 0;
+    uint16_t m_itemId;
 };
 
 } // namespace brush
 } // namespace core
 } // namespace RME
-#endif // RME_RAWBRUSH_H
+
+#endif // RME_RAW_BRUSH_H
