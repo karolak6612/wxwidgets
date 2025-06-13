@@ -4,6 +4,8 @@
 #include <QMap>     // For storing actions
 #include <QList>    // For QList<QAction*> m_recentFileActions
 
+#include "widgets/MapView.h" // For RME::ui::widgets::MapView
+
 // Forward declarations for Qt classes
 class QAction;
 class QMenu;
@@ -39,6 +41,7 @@ private:
     void loadWindowSettings();
     void saveWindowSettings();
     void updateRecentFilesMenu();
+    void connectMapViewActions(); // Connect actions to MapView slots
 
     // QMenuBar* m_menuBar; // QMainWindow has one implicitly via menuBar()
     QStatusBar* m_statusBar = nullptr; // Initialized in constructor
@@ -51,6 +54,8 @@ private:
     // For simplicity, using a const int member, or it can be defined in .cpp
     static const int MaxRecentFiles = 10;
     QList<QAction*> m_recentFileActions; // To keep track of dynamically created recent file actions for easy clearing
+
+    RME::ui::widgets::MapView* m_mapView = nullptr; // The MapView instance
 };
 
 } // namespace ui

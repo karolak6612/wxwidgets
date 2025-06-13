@@ -45,8 +45,12 @@ MainWindow::MainWindow(QWidget *parent)
         m_statusBar->showMessage(tr("Welcome to RME-Qt!"), 2000); // Message for 2 seconds
     }
 
+    m_mapView = new RME::ui::widgets::MapView(this); // Instantiate MapView
+    setCentralWidget(m_mapView);                   // Set MapView as the central widget
+
     // Placeholder calls, actual menu creation will be called after this
     createMenusFromXML(":/menubar.xml"); // Will be called after stubs are filled
+    connectMapViewActions(); // Connect actions to MapView slots
     updateRecentFilesMenu();
     updateMenus();
 
@@ -380,6 +384,56 @@ void MainWindow::updateMenus() {
     //     m_actions.value(QLatin1String("VIEW_TOGGLE_GRID"))->setChecked(gridVisible);
     // }
     qDebug() << "MainWindow::updateMenus called (currently enables all actions).";
+}
+
+void MainWindow::connectMapViewActions() {
+    if (!m_mapView) {
+        qWarning("MainWindow::connectMapViewActions: m_mapView is null!");
+        return;
+    }
+
+    // Helper lambda to disconnect the placeholder and connect the new action
+    auto reconnectAction = [this](const QString& actionName, auto&& slot) {
+        if (m_actions.contains(actionName)) {
+            QAction* action = m_actions[actionName];
+            disconnect(action, &QAction::triggered, this, &MainWindow::onPlaceholderActionTriggered);
+            connect(action, &QAction::triggered, this, std::forward<decltype(slot)>(slot));
+        } else {
+            qWarning() << "MainWindow::connectMapViewActions: Action" << actionName << "not found.";
+        }
+    };
+
+    // Zoom actions
+    reconnectAction("ZOOM_IN", [this]() {
+        if (m_mapView) {
+            m_mapView->setZoom(m_mapView->getZoomFactor() * 1.12); // Approx. ZOOM_STEP_MULTIPLIER
+        }
+    });
+    reconnectAction("ZOOM_OUT", [this]() {
+        if (m_mapView) {
+            m_mapView->setZoom(m_mapView->getZoomFactor() / 1.12); // Approx. ZOOM_STEP_MULTIPLIER
+        }
+    });
+    reconnectAction("ZOOM_NORMAL", [this]() {
+        if (m_mapView) {
+            m_mapView->setZoom(1.0);
+        }
+    });
+
+    // Floor actions
+    for (int i = 0; i <= 15; ++i) {
+        QString actionName = QString("FLOOR_%1").arg(i);
+        // Check if action exists before attempting to reconnect
+        if (m_actions.contains(actionName)) {
+            reconnectAction(actionName, [this, i]() {
+                if (m_mapView) {
+                    m_mapView->setCurrentFloor(i);
+                }
+            });
+        }
+    }
+    // Note: menubar.xml does not have direct FLOOR_UP / FLOOR_DOWN actions.
+    // These are typically handled by PageUp/PageDown keys directly in MapView's keyPressEvent.
 }
 
 } // namespace ui
