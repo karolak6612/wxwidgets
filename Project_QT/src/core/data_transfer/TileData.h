@@ -25,6 +25,7 @@ struct TileData {
     QList<std::unique_ptr<Item>> items;
     std::unique_ptr<Spawn> spawn = nullptr;
     std::unique_ptr<Creature> creature = nullptr;
+    int waypointCount = 0; // Added
 
     TileData() = default; // Default constructor
     TileData(const Position& pos) : position(pos) {} // Constructor with position
@@ -45,7 +46,7 @@ struct TileData {
 
     // Helper to check if it's essentially empty (no ground, items, spawn, creature)
     bool isEmpty() const {
-        return !ground && items.isEmpty() && !spawn && !creature;
+        return !ground && items.isEmpty() && !spawn && !creature && waypointCount == 0;
     }
 };
 

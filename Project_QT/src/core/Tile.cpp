@@ -124,7 +124,16 @@ Tile& Tile::operator=(Tile&& other) noexcept {
 std::unique_ptr<Tile> Tile::deepCopy() const {
     // Constructor now takes itemTypeProvider
     auto newTile = std::make_unique<Tile>(this->position, this->itemTypeProvider);
-    copyMembersTo(*newTile); // Call the existing helper
+
+    // Copy primitive members not handled by constructor or copyMembersTo if they differ from default
+    newTile->m_houseId = this->m_houseId;
+    newTile->m_isHouseExit = this->m_isHouseExit;
+    newTile->mapFlags = this->mapFlags;
+    newTile->stateFlags = this->stateFlags; // This might need selective copying, e.g. not MODIFIED
+    newTile->m_spawnDataRef = this->m_spawnDataRef; // Copy non-owning pointer
+    newTile->m_waypointCount = this->m_waypointCount; // Ensure waypointCount is copied
+
+    copyMembersTo(*newTile); // Call the helper for unique_ptr members
     return newTile;
 }
 

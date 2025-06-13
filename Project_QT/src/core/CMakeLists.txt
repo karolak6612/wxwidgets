@@ -176,6 +176,14 @@ set(CORE_DATA_TRANSFER_SRCS
 list(APPEND RME_CORE_LIB_SOURCES ${CORE_DATA_TRANSFER_SRCS})
 list(APPEND RME_CORE_LIB_HEADERS ${CORE_DATA_TRANSFER_HDRS})
 
+# Waypoint System (LOGIC-04 definitions, distinct from navigation/WaypointData.cpp)
+set(CORE_WAYPOINTS_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/waypoints/Waypoint.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/waypoints/WaypointManager.h
+)
+# WaypointManager.cpp is already in RME_CORE_LIB_SOURCES
+list(APPEND RME_CORE_LIB_HEADERS ${CORE_WAYPOINTS_HDRS})
+
 # Specific Brush Logics
 set(CORE_BRUSHES_LOGIC_HDRS
     ${CMAKE_CURRENT_SOURCE_DIR}/brush/RawBrush.h
