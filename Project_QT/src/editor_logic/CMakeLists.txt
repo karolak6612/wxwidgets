@@ -14,6 +14,7 @@ set(RME_EDITOR_LOGIC_LIB_SOURCES
     commands/DeleteSelectionCommand.cpp      # Added
     commands/ClearSelectionCommand.cpp       # Added
     commands/BoundingBoxSelectCommand.cpp    # Added
+    commands/SetHouseTileCommand.cpp         # Added
 )
 
 set(RME_EDITOR_LOGIC_LIB_HEADERS
@@ -22,7 +23,7 @@ set(RME_EDITOR_LOGIC_LIB_HEADERS
     commands/DeleteCommand.h
     commands/AddWaypointCommand.h
     commands/MoveWaypointCommand.h
-    commands/SetHouseExitCommand.h
+    commands/SetHouseExitCommand.h           # Verified
     commands/RecordSetSpawnCommand.h
     commands/RecordSetGroundCommand.h       # Added
     commands/RecordAddRemoveItemCommand.h   # Added
@@ -30,6 +31,7 @@ set(RME_EDITOR_LOGIC_LIB_HEADERS
     commands/DeleteSelectionCommand.h        # Added
     commands/ClearSelectionCommand.h         # Added
     commands/BoundingBoxSelectCommand.h      # Added
+    commands/SetHouseTileCommand.h           # Added
 )
 # Note: RME_EDITOR_LOGIC_LIB_HEADERS is for organization/completeness,
 # actual header availability is via target_include_directories.

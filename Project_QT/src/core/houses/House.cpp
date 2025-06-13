@@ -1,7 +1,7 @@
 #include "core/houses/House.h"
-#include "core/map/Map.h" // For RME::core::Map, if needed for validation or context
-#include "core/Tile.h"    // For RME::core::Tile, for future methods like linkTile
-#include <algorithm>   // For std::remove
+#include "core/map/Map.h"
+#include "core/Tile.h"
+#include <algorithm>   // For std::remove for QList, though QList::removeAll is better
 #include <QDebug>      // For Q_ASSERT and qWarning
 
 namespace RME {
@@ -10,31 +10,24 @@ namespace houses {
 
 House::House(quint32 id, RME::core::Map* map)
     : m_id(id),
-      m_name(), // Default QString is empty
+      m_name(),
       m_rent(0),
       m_townId(0),
       m_isGuildhall(false),
-      m_exitPos(), // Default Position is invalid
+      m_exitPos(),
       m_tilePositions(),
       m_map(map)
 {
-    Q_ASSERT(m_map != nullptr); // A house must belong to a map context
-    // If id is 0, it might indicate an issue or a temporary state before a real ID is assigned.
-    // The Houses manager should typically assign a valid, non-zero ID.
+    Q_ASSERT(m_map != nullptr);
     if (m_id == 0) {
-        qWarning("House created with ID 0. This might need to be updated by Houses manager.");
+        qWarning("House created with ID 0. This should be updated by Houses manager.");
     }
 }
 
-// --- Getters implemented in header as they are simple ---
-// getId, getName, getRent, getTownId, isGuildhall, getExitPos, getMap, getTilePositions
+// Basic getters/setters are inlined in House.h
 
-// --- Setters implemented in header as they are simple ---
-// setName, setRent, setTownId, setIsGuildhall, setExitPosInternal
-
-// --- Tile List Management ---
 void House::addTilePosition(const RME::core::Position& pos) {
-    if (!pos.isValid()) { // Assuming Position::isValid() exists
+    if (!pos.isValid()) {
         qWarning("House::addTilePosition: Attempted to add invalid position.");
         return;
     }
@@ -44,96 +37,126 @@ void House::addTilePosition(const RME::core::Position& pos) {
 }
 
 void House::removeTilePosition(const RME::core::Position& pos) {
-    m_tilePositions.removeAll(pos); // QList::removeAll removes all occurrences
+    m_tilePositions.removeAll(pos);
 }
 
 bool House::hasTilePosition(const RME::core::Position& pos) const {
     return m_tilePositions.contains(pos);
 }
 
-// clearTilePositions() is simple enough for header: m_tilePositions.clear();
-// getTileCount() is simple enough for header: return m_tilePositions.size();
-
-// --- Tile Interaction Logic (Placeholders/Stubs for now as per plan) ---
 void House::linkTile(RME::core::Tile* tile) {
-    if (!tile || !m_map) return;
-    // Basic link: add position, set house ID on tile
-    // Full logic might involve undo/redo commands if called directly outside HouseBrush.
-    // For now, HouseBrush will handle command creation.
+    if (!tile || !m_map) {
+        qWarning("House::linkTile: Tile or map pointer is null.");
+        return;
+    }
+    // Ensure this tile is actually on the map this house belongs to (optional check)
+    // if (m_map->getTile(tile->getPosition()) != tile) {
+    //     qWarning("House::linkTile: Tile does not belong to the house's map context.");
+    //     return;
+    // }
+
     addTilePosition(tile->getPosition());
     tile->setHouseId(m_id);
-    // qCDebug(LogHouse) << "House" << m_id << "linked to tile" << tile->getPosition();
+    // PZ flag might be set by brush, not automatically by linkTile.
+    // Example: tile->setIsProtectionZone(true);
+    // Based on LOGIC-05, PZ is handled by HouseBrush, not directly here.
 }
 
 void House::unlinkTile(RME::core::Tile* tile) {
-    if (!tile || !m_map) return;
-    // Basic unlink: remove position, clear house ID on tile
-    removeTilePosition(tile->getPosition());
+    if (!tile || !m_map) {
+        qWarning("House::unlinkTile: Tile or map pointer is null.");
+        return;
+    }
+
+    removeTilePosition(tile->getPosition()); // Remove from this house's list
     if (tile->getHouseId() == m_id) { // Only unlink if it actually belongs to this house
         tile->setHouseId(0);
+        tile->setIsProtectionZone(false); // Typically PZ is removed when house is unlinked
+                                          // And also when house exit flag is cleared from a tile
     }
-    // qCDebug(LogHouse) << "House" << m_id << "unlinked from tile" << tile->getPosition();
+    // If this tile was the house exit, clear its exit flag too
+    if (m_exitPos == tile->getPosition() && tile->isHouseExit()) {
+        tile->setIsHouseExit(false);
+        // m_exitPos itself should be cleared by setExit(invalid_pos) if house no longer has this exit
+    }
 }
 
 void House::setExit(const RME::core::Position& newExitPos) {
-    if (!m_map) return;
+    if (!m_map) {
+        qWarning("House::setExit: Map pointer is null.");
+        return;
+    }
 
-    RME::core::Position oldExitPos = m_exitPos;
-    m_exitPos = newExitPos; // Store new exit position internally
+    RME::core::Position oldExit = m_exitPos;
 
-    // Update tile flags on the map
-    if (oldExitPos.isValid()) {
-        Tile* oldExitTile = m_map->getTile(oldExitPos);
-        if (oldExitTile && oldExitTile->isHouseExit()) { // Check if it was actually this house's exit
-            // Heuristic: if this tile is part of THIS house, it's unlikely to be an exit for THIS house.
-            // Exits are usually outside. But if it IS flagged, clear it.
-            // More robustly, Tile should store which house ID it's an exit FOR if multiple houses share exits.
-            // For now, simple clear if it was an exit.
-            oldExitTile->setIsHouseExit(false);
-            // m_map->notifyTileChanged(oldExitPos); // Done by command
+    if (oldExit == newExitPos) {
+        return; // No change
+    }
+
+    // Clear the old exit flag if it was valid
+    if (oldExit.isValid()) {
+        Tile* oldExitTile = m_map->getTile(oldExit);
+        if (oldExitTile) {
+            // Check if it was this house's exit. For simplicity, if it's an exit and matches our old pos, assume it was.
+            // A more robust system might involve the tile storing which house ID it's an exit for.
+            if (oldExitTile->isHouseExit()) {
+                oldExitTile->setIsHouseExit(false);
+                // The command would notify this tile change
+            }
         }
     }
 
+    m_exitPos = newExitPos; // Update internal exit position
+
+    // Set the new exit flag if the new position is valid
     if (m_exitPos.isValid()) {
-        Tile* newExitTile = m_map->getOrCreateTile(m_exitPos); // Exits might be on non-house tiles, ensure tile exists
+        // Exits might be on tiles that don't exist yet.
+        // getOrCreateTile would modify map state, which should be command's job.
+        // Using getTile: if tile doesn't exist, flag isn't set on map, but m_exitPos is stored.
+        Tile* newExitTile = m_map->getTile(m_exitPos);
         if (newExitTile) {
             newExitTile->setIsHouseExit(true);
-            // m_map->notifyTileChanged(m_exitPos); // Done by command
+            // The command would notify this tile change
+        } else if (m_map->isPositionValid(m_exitPos)) {
+            // Tile doesn't exist at valid map position.
+            // HouseBrush/Tool should ensure tile exists and is suitable (e.g. ground) before setting exit.
+            // qWarning() << "House::setExit: New exit tile at" << m_exitPos << "does not exist. Exit stored but not flagged on map.";
         }
     }
-    // This whole operation should be wrapped in a QUndoCommand by the caller (e.g. a UI action or tool)
-    // qCDebug(LogHouse) << "House" << m_id << "exit set to" << newExitPos;
+    // Actual map notifications (notifyTileChanged for old and new exit tiles)
+    // are handled by the QUndoCommand that calls this method.
 }
 
 void House::cleanAllTileLinks() {
-    if (!m_map) return;
-    // Create a copy of positions because unlinkTile might modify m_tilePositions if called directly,
-    // though current unlinkTile(Tile*) doesn't modify this House's list, only the tile's ID.
-    // This method is about ensuring all tiles on map that think they belong to this house are updated.
-    QList<RME::core::Position> currentPositions = m_tilePositions;
-    m_tilePositions.clear(); // Clear internal list first
-
-    for (const RME::core::Position& pos : currentPositions) {
-        Tile* tile = m_map->getTile(pos);
-        if (tile && tile->getHouseId() == m_id) { // Double check it's still this house's tile
-            tile->setHouseId(0);
-            tile->setIsProtectionZone(false); // Also clear PZ when house is unlinked
-            // m_map->notifyTileChanged(pos); // Done by command or caller
-        }
+    if (!m_map) {
+        qWarning("House::cleanAllTileLinks: Map pointer is null.");
+        return;
     }
 
-    // Also clear the exit flag if this house had one
+    QList<RME::core::Position> currentPositionsSnapshot = m_tilePositions;
+
+    for (const RME::core::Position& pos : currentPositionsSnapshot) {
+        Tile* tile = m_map->getTile(pos);
+        if (tile) {
+            if (tile->getHouseId() == m_id) {
+                tile->setHouseId(0);
+                tile->setIsProtectionZone(false);
+                // Map notifications handled by the command wrapping this operation.
+            }
+        }
+    }
+    m_tilePositions.clear(); // Clear the list in the House object after processing map tiles.
+
     if (m_exitPos.isValid()) {
         Tile* exitTile = m_map->getTile(m_exitPos);
-        if (exitTile && exitTile->isHouseExit()) { // Check if it was this house's exit (heuristic)
-            // This needs a way for Tile to know *which* house's exit it is if shared exits are possible.
-            // For now, if it's an exit and this house is being cleaned, assume it's this house's exit.
-            exitTile->setIsHouseExit(false);
-            // m_map->notifyTileChanged(m_exitPos);
+        if (exitTile) {
+            if (exitTile->isHouseExit()) {
+                // Similar to setExit, assume if it's flagged and m_exitPos matched, it's ours.
+                exitTile->setIsHouseExit(false);
+            }
         }
-        m_exitPos = RME::core::Position(); // Clear internal exit position
+        m_exitPos = RME::core::Position(); // Clear internal exit position (marks as invalid)
     }
-    // qCDebug(LogHouse) << "House" << m_id << "cleaned all tile links.";
 }
 
 } // namespace houses

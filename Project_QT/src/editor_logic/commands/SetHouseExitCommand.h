@@ -3,43 +3,43 @@
 
 #include <QUndoCommand>
 #include <QString>
-#include "core/Position.h" // RME::core::Position
-#include <cstdint>        // For uint32_t
+#include "core/Position.h"
 
 // Forward declarations
-namespace RME { // RME::Map is directly in RME namespace
-    class Map;
+namespace RME {
+namespace core {
+    class Map; // For notifications via controller
+    namespace editor { class EditorControllerInterface; }
+    namespace houses { class House; }
 }
-// Forward declare RME::core::Position if not fully included by "core/Position.h" above (it is)
-// namespace RME { namespace core { class Position; }}
-
+}
 
 namespace RME_COMMANDS {
 
-const int SetHouseExitCommandId = 1005; // Unique ID for this command type
+const int SetHouseExitCommandId = 1015; // Choose a unique ID
 
 class SetHouseExitCommand : public QUndoCommand {
 public:
     SetHouseExitCommand(
-        RME::Map* map,
-        uint32_t houseId,
-        const RME::core::Position& oldExitPos, // Position of the exit *before* this command
-        const RME::core::Position& newExitPos, // New position for the exit
+        RME::core::houses::House* house,
+        const RME::core::Position& newExitPos, // New exit. Invalid position means clear exit.
+        RME::core::editor::EditorControllerInterface* controller,
         QUndoCommand* parent = nullptr
     );
+
     ~SetHouseExitCommand() override = default;
 
     void undo() override;
     void redo() override;
 
     int id() const override { return SetHouseExitCommandId; }
-    // bool mergeWith(const QUndoCommand* command) override; // Optional for merging consecutive exit sets
 
 private:
-    RME::Map* m_map;
-    uint32_t m_houseId;
-    RME::core::Position m_oldExitPos; // Stored for undo
-    RME::core::Position m_newExitPos; // Stored for redo
+    RME::core::houses::House* m_house; // Non-owning
+    RME::core::editor::EditorControllerInterface* m_controller;
+
+    RME::core::Position m_newExitPos; // Target exit position for redo()
+    RME::core::Position m_oldExitPos; // Original exit position, for undo()
 };
 
 } // namespace RME_COMMANDS

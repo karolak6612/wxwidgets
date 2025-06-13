@@ -175,3 +175,31 @@ target_link_libraries(TestEditorCommands_DeleteLogic03 PRIVATE
 set_target_properties(TestEditorCommands_DeleteLogic03 PROPERTIES AUTOMOC ON)
 
 add_test(NAME TestEditorCommands_DeleteLogic03 COMMAND TestEditorCommands_DeleteLogic03)
+
+# Test for SetHouseTileCommand (LOGIC-05)
+add_executable(TestEditorCommands_SetHouseTile commands/TestSetHouseTileCommand.cpp)
+target_link_libraries(TestEditorCommands_SetHouseTile PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For House, Tile, Map, EditorControllerInterface context
+    rme_editor_logic_lib # For SetHouseTileCommand
+)
+set_target_properties(TestEditorCommands_SetHouseTile PROPERTIES AUTOMOC ON)
+add_test(NAME TestEditorCommands_SetHouseTile COMMAND TestEditorCommands_SetHouseTile)
+
+# Test for SetHouseExitCommand (LOGIC-05 tests, distinct target name)
+# Note: An add_executable for commands/TestSetHouseExitCommand.cpp already exists higher up.
+# This new target TestEditorCommands_SetHouseExitLogic05 points to the same source file.
+# This is unusual. If the source file is the same, the tests should ideally be merged or
+# the old target removed if this new one supersedes it with more/different tests for LOGIC-05.
+# For this task, I will add it as requested, but this might lead to compiling the same source twice
+# if the old target isn't removed or guarded.
+add_executable(TestEditorCommands_SetHouseExitLogic05 commands/TestSetHouseExitCommand.cpp)
+target_link_libraries(TestEditorCommands_SetHouseExitLogic05 PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For House, Tile, Map, EditorControllerInterface context
+    rme_editor_logic_lib # For SetHouseExitCommand
+)
+set_target_properties(TestEditorCommands_SetHouseExitLogic05 PROPERTIES AUTOMOC ON)
+add_test(NAME TestEditorCommands_SetHouseExitLogic05 COMMAND TestEditorCommands_SetHouseExitLogic05)
