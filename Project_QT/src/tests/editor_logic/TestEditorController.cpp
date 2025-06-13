@@ -25,6 +25,9 @@
 
 // Commands used
 #include "editor_logic/commands/DeleteSelectionCommand.h"
+#include "editor_logic/commands/ClearSelectionCommand.h"      // Added
+#include "editor_logic/commands/BoundingBoxSelectCommand.h" // Added
+#include "core/map_constants.h" // Added for RME::core::MAP_MAX_Z_VALUE, RME::core::GROUND_LAYER
 
 // Qt classes
 #include <QUndoStack>
@@ -53,14 +56,27 @@ public:
         return m_tilesInternal[pos].get();
     }
     RME::core::Tile* getTile(const RME::core::Position& pos) const override {
-        return m_tilesInternal.value(pos).get();
+        // Test specific: return from a predefined set of tiles if pos matches.
+        // This requires TestEditorController to own some tiles and MockMap to have access.
+        // For now, this mock will return tiles from m_tilesInternal if they exist via getTileForEditing.
+        // If a test needs specific tiles at specific locations without calling getOrCreateTile first,
+        // m_tilesInternal needs to be populated by the test setup.
+        if (m_testTilesOwner && m_testTilesOwner->contains(pos)) {
+            return m_testTilesOwner->value(pos);
+        }
+        return m_tilesInternal.value(pos).get(); // Fallback to existing logic
     }
     RME::core::Tile* getOrCreateTile(const RME::core::Position& pos) override {
-        // getTileForEditing already has create logic.
+        if (m_testTilesOwner && m_testTilesOwner->contains(pos)) {
+            // If test framework provides a specific tile for this position, use it.
+            // This part of the logic might be complex depending on how TestEditorController manages its test tiles.
+            // For simplicity, getTileForEditing handles creation if not found.
+        }
         return getTileForEditing(pos);
     }
     bool isPositionValid(const RME::core::Position& pos) const override {
-        return pos.x >= 0 && pos.x < getWidth() && pos.y >= 0 && pos.y < getHeight() && pos.z >=0 && pos.z < getDepth();
+        // Allow a slightly larger range for bounding box tests that might go slightly out of 10x10
+        return pos.x >= 0 && pos.x < 20 && pos.y >= 0 && pos.y < 20 && pos.z >=0 && pos.z < RME::core::MAP_MAX_Z_VALUE + 1;
     }
     void notifyTileChanged(const RME::core::Position& pos) override {
         tileChangedNotified = true;
@@ -176,26 +192,77 @@ public:
 
     // This method is what DeleteSelectionCommand.cpp expects to use to populate its m_affectedPositions
     // This is a simplified assumption for the test.
-    const QList<RME::core::Position>& getSelectedTilePositions() const { return m_selectedPositions; }
+    // const QList<RME::core::Position>& getSelectedTilePositions() const { return m_selectedPositions; }
+
+    // Enhanced MockSelectionManager for BoundingBoxSelection tests
+    QList<RME::core::Tile*> m_currentSelectedTiles_mock_list;
+
+    void MOCK_setSelectedTiles(const QList<RME::core::Tile*>& tiles) {
+        m_currentSelectedTiles_mock_list = tiles;
+        // Simulate actual selection logic from base if necessary for signals etc.
+        // For internal methods test:
+        // clearSelectionInternal();
+        // addTilesToSelectionInternal(tiles);
+    }
+
+    // Overrides for internal methods if SelectionManager base class is more complex
+    // For now, assume base SelectionManager has these and they work with its own state.
+    // This mock will use its own state for testing commands that use these.
+    void clearSelectionInternal() override {
+        m_currentSelectedTiles_mock_list.clear();
+        // emit selectionChanged();
+    }
+    void addTilesToSelectionInternal(const QList<RME::core::Tile*>& tilesToAdd) override {
+        for (RME::core::Tile* tile : tilesToAdd) {
+            if (tile && !m_currentSelectedTiles_mock_list.contains(tile)) {
+                m_currentSelectedTiles_mock_list.append(tile);
+            }
+        }
+        // emit selectionChanged();
+    }
+    void removeTilesFromSelectionInternal(const QList<RME::core::Tile*>& tilesToDeselect) override {
+        for (RME::core::Tile* tile : tilesToDeselect) {
+            m_currentSelectedTiles_mock_list.removeAll(tile);
+        }
+        // emit selectionChanged();
+    }
+    void setSelectedTilesInternal(const QList<RME::core::Tile*>& tilesToSelect) override {
+        m_currentSelectedTiles_mock_list = tilesToSelect;
+        // emit selectionChanged();
+    }
+    QList<RME::core::Tile*> getCurrentSelectedTilesList() const override {
+        return m_currentSelectedTiles_mock_list;
+    }
+    // The m_selectedPositions from before might be kept if some tests rely on position-based selection setup
+    // For new tests, m_currentSelectedTiles_mock_list is primary.
 };
 
 class MockAppSettings : public RME::core::settings::AppSettings {
 public:
     bool getBool(const QString& key, bool defaultValue) const override {
-        if (m_boolSettings.contains(key)) {
-            return m_boolSettings.value(key);
-        }
+        if (m_boolSettings.contains(key)) return m_boolSettings.value(key);
         return defaultValue;
     }
-    void setBoolValue(const QString& key, bool value) {
-        m_boolSettings[key] = value;
+    QString getString(const QString& key, const QString& defaultValue) const override {
+        if (m_stringSettings.contains(key)) return m_stringSettings.value(key);
+        return defaultValue;
     }
+
+    // For test setup
+    void setBoolValue(const QString& key, bool value) { m_boolSettings[key] = value; }
+    void setStringValue(const QString& key, const QString& value) { m_stringSettings[key] = value; }
+
     void resetMockState() {
         m_boolSettings.clear();
+        m_stringSettings.clear();
     }
 private:
     QMap<QString, bool> m_boolSettings;
+    QMap<QString, QString> m_stringSettings;
 };
+
+// Make MockMap aware of TestEditorController's tiles for getTile
+QMap<RME::core::Position, RME::core::Tile*>* MockMap::m_testTilesOwner = nullptr;
 
 
 class TestEditorController : public QObject {
@@ -218,12 +285,24 @@ private slots:
     void testDeleteSelection_NotEmpty();
     void testDeleteSelection_Empty();
 
+    // New tests
+    void testClearSelection_NotEmpty();
+    void testClearSelection_Empty();
+    void testPerformBoundingBoxSelection_NonAdditive_CurrentFloor();
+    void testPerformBoundingBoxSelection_Additive_CurrentFloor();
+    // void testPerformBoundingBoxSelection_AllFloors(); // Optional, more complex map setup
+
 private:
     std::unique_ptr<RME::editor_logic::EditorController> m_editorController;
 
-    // Dependencies are now owned by unique_ptrs and raw pointers are passed to EditorController
     std::unique_ptr<MockMap> m_ownedMockMap;
-    MockMap* m_mockMap; // Raw pointer for convenience, points to m_ownedMockMap's object
+    MockMap* m_mockMapRawPtr; // Renamed for clarity, points to m_ownedMockMap's object
+
+    // Tiles owned by the test fixture for MockMap to serve
+    QMap<RME::core::Position, RME::core::Tile> m_fixtureTiles;
+    // Helper to populate m_fixtureTiles and set MockMap::m_testTilesOwner
+    void setupFixtureTiles();
+
 
     std::unique_ptr<MockUndoStack> m_mockUndoStack;
     std::unique_ptr<MockBrushManager> m_mockBrushManager;
@@ -259,16 +338,17 @@ void TestEditorController::init() {
     );
 
     m_ownedMockMap = std::make_unique<MockMap>(m_assetManager.get());
-    m_mockMap = m_ownedMockMap.get();
+    m_mockMapRawPtr = m_ownedMockMap.get();
+    setupFixtureTiles(); // Initialize fixture tiles and inform MockMap
 
     m_mockUndoStack = std::make_unique<MockUndoStack>();
     m_mockBrushManager = std::make_unique<MockBrushManager>();
-    m_mockSelectionManager = std::make_unique<MockSelectionManager>(m_mockMap);
+    m_mockSelectionManager = std::make_unique<MockSelectionManager>(m_mockMapRawPtr);
     m_mockAppSettings = std::make_unique<MockAppSettings>();
 
     // EditorController takes raw pointers, but the mocks are owned by unique_ptrs in this test class
     m_editorController = std::make_unique<RME::editor_logic::EditorController>(
-        m_mockMap, // Pass raw pointer, ownership is with m_ownedMockMap
+        m_mockMapRawPtr,
         m_mockUndoStack.get(),
         m_mockSelectionManager.get(),
         m_mockBrushManager.get(),
@@ -283,8 +363,10 @@ void TestEditorController::cleanup() {
     m_mockSelectionManager.reset();
     m_mockBrushManager.reset();
     m_mockUndoStack.reset();
-    m_ownedMockMap.reset(); // This owns the map
-    m_mockMap = nullptr;
+    m_ownedMockMap.reset();
+    m_mockMapRawPtr = nullptr;
+    MockMap::m_testTilesOwner = nullptr; // Clear static pointer
+    m_fixtureTiles.clear();
 
     m_assetManager.reset();
     m_materialManager.reset();
@@ -383,5 +465,125 @@ void TestEditorController::testDeleteSelection_Empty() {
     // (e.g., by doing nothing or setting appropriate text like "Delete Selection (nothing selected)").
 }
 
+void TestEditorController::setupFixtureTiles() {
+    m_fixtureTiles.clear();
+    // Create a few tiles for specific positions
+    // Example: 3x3 area on current floor (e.g. Z=7)
+    for (int y = 0; y < 3; ++y) {
+        for (int x = 0; x < 3; ++x) {
+            RME::core::Position pos(x, y, RME::core::GROUND_LAYER); // Assuming GROUND_LAYER = 7
+            m_fixtureTiles.insert(pos, RME::core::Tile(pos));
+        }
+    }
+    // Make MockMap aware of these tiles
+    // This requires MockMap to have a static or settable pointer to this map.
+    // For simplicity, using a static member in MockMap (defined outside class).
+    static QMap<RME::core::Position, RME::core::Tile*> tilePtrMap;
+    tilePtrMap.clear();
+    for(auto it = m_fixtureTiles.begin(); it != m_fixtureTiles.end(); ++it) {
+        tilePtrMap.insert(it.key(), &it.value());
+    }
+    MockMap::m_testTilesOwner = &tilePtrMap;
+}
+
+
+void TestEditorController::testClearSelection_NotEmpty() {
+    RME::core::Tile testTile1(RME::core::Position(1,1,7));
+    RME::core::Tile testTile2(RME::core::Position(1,2,7));
+    QList<RME::core::Tile*> initialSelection = {&testTile1, &testTile2};
+    m_mockSelectionManager->MOCK_setSelectedTiles(initialSelection);
+
+    QVERIFY(!m_mockSelectionManager->isEmpty());
+    m_mockUndoStack->resetMockState();
+
+    m_editorController->clearCurrentSelection();
+
+    QVERIFY(m_mockUndoStack->pushCalled);
+    QVERIFY(m_mockUndoStack->lastPushedCommandRaw != nullptr);
+    auto* cmd = dynamic_cast<RME_COMMANDS::ClearSelectionCommand*>(m_mockUndoStack->lastPushedCommandRaw);
+    QVERIFY(cmd != nullptr);
+
+    // Verify the command captured the correct old selection
+    QCOMPARE(cmd->getOldSelectedTiles().size(), 2);
+    QVERIFY(cmd->getOldSelectedTiles().contains(&testTile1));
+    QVERIFY(cmd->getOldSelectedTiles().contains(&testTile2));
+}
+
+void TestEditorController::testClearSelection_Empty() {
+    m_mockSelectionManager->MOCK_setSelectedTiles({}); // Empty selection
+    QVERIFY(m_mockSelectionManager->isEmpty());
+    m_mockUndoStack->resetMockState();
+
+    m_editorController->clearCurrentSelection();
+
+    QVERIFY(!m_mockUndoStack->pushCalled); // Should not push a command if selection is already empty
+}
+
+void TestEditorController::testPerformBoundingBoxSelection_NonAdditive_CurrentFloor() {
+    // Setup fixture tiles (e.g. 0,0,7 to 2,2,7) by calling setupFixtureTiles() in init()
+    // Initial selection (e.g., one tile outside the coming box)
+    RME::core::Tile initialSelTile(RME::core::Position(5,5,7));
+    QList<RME::core::Tile*> initialSelection = {&initialSelTile};
+    m_mockSelectionManager->MOCK_setSelectedTiles(initialSelection);
+
+    m_mockAppSettings->setMockStringValue("SELECTION_TYPE", "CurrentFloor");
+    m_mockAppSettings->setBoolValue("COMPENSATED_SELECT", false);
+
+    RME::core::BrushSettings currentBrushSettings;
+    currentBrushSettings.setActiveZ(RME::core::GROUND_LAYER); // e.g. 7
+
+    RME::core::Position p1(0,0, RME::core::GROUND_LAYER);
+    RME::core::Position p2(1,1, RME::core::GROUND_LAYER); // Selects (0,0,7), (1,0,7), (0,1,7), (1,1,7)
+
+    m_mockUndoStack->resetMockState();
+    m_editorController->performBoundingBoxSelection(p1, p2, Qt::NoModifier, currentBrushSettings);
+
+    QVERIFY(m_mockUndoStack->pushCalled);
+    QVERIFY(m_mockUndoStack->lastPushedCommandRaw != nullptr);
+    auto* cmd = dynamic_cast<RME_COMMANDS::BoundingBoxSelectCommand*>(m_mockUndoStack->lastPushedCommandRaw);
+    QVERIFY(cmd != nullptr);
+
+    QVERIFY(!cmd->getIsAdditive());
+    QCOMPARE(cmd->getSelectionStateBefore().size(), 1); // Contained initialSelTile
+    QVERIFY(cmd->getSelectionStateBefore().contains(&initialSelTile));
+
+    QList<RME::core::Tile*> calculated = cmd->getCalculatedTilesInBox();
+    QCOMPARE(calculated.size(), 4); // (0,0,7), (1,0,7), (0,1,7), (1,1,7) from m_fixtureTiles
+    // Verify specific tiles are present (requires m_fixtureTiles to be accessible or check by position)
+    QVERIFY(calculated.contains(m_mockMapRawPtr->getTile(RME::core::Position(0,0,RME::core::GROUND_LAYER))));
+    QVERIFY(calculated.contains(m_mockMapRawPtr->getTile(RME::core::Position(1,1,RME::core::GROUND_LAYER))));
+}
+
+void TestEditorController::testPerformBoundingBoxSelection_Additive_CurrentFloor() {
+    RME::core::Tile initialSelTile(RME::core::Position(5,5,7));
+    QList<RME::core::Tile*> initialSelection = {&initialSelTile};
+    m_mockSelectionManager->MOCK_setSelectedTiles(initialSelection);
+
+    m_mockAppSettings->setMockStringValue("SELECTION_TYPE", "CurrentFloor");
+    m_mockAppSettings->setBoolValue("COMPENSATED_SELECT", false);
+    RME::core::BrushSettings currentBrushSettings;
+    currentBrushSettings.setActiveZ(RME::core::GROUND_LAYER);
+
+    RME::core::Position p1(0,0, RME::core::GROUND_LAYER);
+    RME::core::Position p2(0,0, RME::core::GROUND_LAYER); // Selects only (0,0,7)
+
+    m_mockUndoStack->resetMockState();
+    m_editorController->performBoundingBoxSelection(p1, p2, Qt::ControlModifier, currentBrushSettings);
+
+    QVERIFY(m_mockUndoStack->pushCalled);
+    auto* cmd = dynamic_cast<RME_COMMANDS::BoundingBoxSelectCommand*>(m_mockUndoStack->lastPushedCommandRaw);
+    QVERIFY(cmd != nullptr);
+
+    QVERIFY(cmd->getIsAdditive());
+    QList<RME::core::Tile*> stateAfter = cmd->getSelectionStateAfter();
+    QCOMPARE(stateAfter.size(), 2); // initialSelTile + (0,0,7)
+    QVERIFY(stateAfter.contains(&initialSelTile));
+    QVERIFY(stateAfter.contains(m_mockMapRawPtr->getTile(RME::core::Position(0,0,RME::core::GROUND_LAYER))));
+}
+
+
 QTEST_MAIN(TestEditorController)
 #include "TestEditorController.moc"
+
+// Static member definition for MockMap's test tile access
+QMap<RME::core::Position, RME::core::Tile*>* MockMap::m_testTilesOwner = nullptr;

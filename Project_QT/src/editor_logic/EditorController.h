@@ -6,6 +6,7 @@
 #include <QList>
 #include <QString>
 #include <memory> // For std::unique_ptr
+#include <QtGlobal> // For Qt::KeyboardModifiers
 
 // Forward declarations
 class QUndoStack;
@@ -45,6 +46,8 @@ public:
     // --- Core editing operations defined in this class ---
     void applyBrushStroke(const QList<RME::core::Position>& positions, const RME::core::BrushSettings& settings);
     void deleteSelection();
+    void clearCurrentSelection();
+    void performBoundingBoxSelection(const RME::core::Position& p1, const RME::core::Position& p2, Qt::KeyboardModifiers modifiers, const RME::core::BrushSettings& currentBrushSettings);
 
     // --- Implementation of EditorControllerInterface ---
     // Basic accessors

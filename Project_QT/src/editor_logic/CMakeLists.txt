@@ -12,6 +12,8 @@ set(RME_EDITOR_LOGIC_LIB_SOURCES
     commands/RecordAddRemoveItemCommand.cpp # Added
     commands/RecordModifyTileContentsCommand.cpp # Added
     commands/DeleteSelectionCommand.cpp      # Added
+    commands/ClearSelectionCommand.cpp       # Added
+    commands/BoundingBoxSelectCommand.cpp    # Added
 )
 
 set(RME_EDITOR_LOGIC_LIB_HEADERS
@@ -26,6 +28,8 @@ set(RME_EDITOR_LOGIC_LIB_HEADERS
     commands/RecordAddRemoveItemCommand.h   # Added
     commands/RecordModifyTileContentsCommand.h # Added
     commands/DeleteSelectionCommand.h        # Added
+    commands/ClearSelectionCommand.h         # Added
+    commands/BoundingBoxSelectCommand.h      # Added
 )
 # Note: RME_EDITOR_LOGIC_LIB_HEADERS is for organization/completeness,
 # actual header availability is via target_include_directories.

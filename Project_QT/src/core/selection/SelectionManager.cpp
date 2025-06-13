@@ -298,4 +298,106 @@ bool SelectionManager::isSelectionChangeActive() const {
     return m_selectionChangeActive;
 }
 
+// --- Internal methods for direct state manipulation ---
+
+void SelectionManager::clearSelectionInternal() {
+    // Create a copy for safe iteration if setSelected might trigger signals
+    // that could modify m_selectedTiles indirectly (though less likely here).
+    QSet<RME::core::Tile*> tilesToClear = m_selectedTiles;
+    for (RME::core::Tile* tile : tilesToClear) {
+        if (tile) {
+            tile->setSelected(false); // Assumes this deselects tile and its contents
+        }
+    }
+    m_selectedTiles.clear();
+    emit selectionChanged();
+}
+
+void SelectionManager::addTilesToSelectionInternal(const QList<RME::core::Tile*>& tilesToSelect) {
+    bool changed = false;
+    for (RME::core::Tile* tile : tilesToSelect) {
+        if (tile) {
+            if (!m_selectedTiles.contains(tile)) { // Add only if not already present
+                m_selectedTiles.insert(tile);
+                changed = true;
+            }
+            tile->setSelected(true); // Ensure tile and its contents are marked selected
+        }
+    }
+    if (changed) {
+        emit selectionChanged();
+    }
+}
+
+void SelectionManager::removeTilesFromSelectionInternal(const QList<RME::core::Tile*>& tilesToDeselect) {
+    bool changed = false;
+    for (RME::core::Tile* tile : tilesToDeselect) {
+        if (tile) {
+            if (m_selectedTiles.contains(tile)) {
+                m_selectedTiles.remove(tile);
+                changed = true;
+            }
+            tile->setSelected(false); // Ensure tile and its contents are marked deselected
+        }
+    }
+    if (changed) {
+        emit selectionChanged();
+    }
+}
+
+void SelectionManager::setSelectedTilesInternal(const QList<RME::core::Tile*>& tilesToSelect) {
+    // Simpler version: clear all then add. This will emit selectionChanged twice.
+    // clearSelectionInternal(); // Emits selectionChanged
+    // addTilesToSelectionInternal(tilesToSelect); // Emits selectionChanged if anything was added
+
+    // More optimized version to emit signal once if possible:
+    QSet<RME::core::Tile*> newSelectionSet;
+    for (RME::core::Tile* tile : tilesToSelect) {
+        if (tile) {
+            newSelectionSet.insert(tile);
+        }
+    }
+
+    bool changed = false;
+    // Deselect tiles that are in current selection but not in new one
+    QList<RME::core::Tile*> toDeselect;
+    for (RME::core::Tile* oldTile : m_selectedTiles) {
+        if (oldTile && !newSelectionSet.contains(oldTile)) {
+            toDeselect.append(oldTile);
+        }
+    }
+    for (RME::core::Tile* tile : toDeselect) {
+        tile->setSelected(false);
+        m_selectedTiles.remove(tile);
+        changed = true;
+    }
+
+    // Select tiles that are in new selection but not in old one (or ensure they are selected)
+    for (RME::core::Tile* newTile : newSelectionSet) {
+        if (newTile) { // newTile is already confirmed not null from loop above
+            if (!m_selectedTiles.contains(newTile)) {
+                 m_selectedTiles.insert(newTile);
+                 changed = true;
+            }
+            newTile->setSelected(true); // Ensure it's marked selected
+        }
+    }
+
+    if (changed) {
+        emit selectionChanged();
+    }
+}
+
+QList<RME::core::Tile*> SelectionManager::getCurrentSelectedTilesList() const {
+    QList<RME::core::Tile*> list;
+    // QSet to QList conversion
+    list.reserve(m_selectedTiles.size());
+    for(RME::core::Tile* tile : m_selectedTiles) {
+        list.append(tile);
+    }
+    // Optionally sort for consistent order if needed by callers
+    // std::sort(list.begin(), list.end(), [](Tile* a, Tile* b){ /* some criteria */ });
+    return list;
+}
+
 } // namespace RME

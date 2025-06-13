@@ -124,3 +124,37 @@ target_link_libraries(TestEditorCommands_DeleteSelection PRIVATE
 set_target_properties(TestEditorCommands_DeleteSelection PROPERTIES AUTOMOC ON)
 
 add_test(NAME TestEditorCommands_DeleteSelection COMMAND TestEditorCommands_DeleteSelection)
+
+# Test for ClearSelectionCommand
+add_executable(TestEditorCommands_ClearSelection
+    commands/TestClearSelectionCommand.cpp
+    # ../core/brush/MockEditorController.h # If its Q_OBJECTs are needed through this test
+)
+
+target_link_libraries(TestEditorCommands_ClearSelection PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For Map, Tile, etc.
+    rme_editor_logic_lib # For ClearSelectionCommand, SelectionManager (via interface)
+)
+
+set_target_properties(TestEditorCommands_ClearSelection PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestEditorCommands_ClearSelection COMMAND TestEditorCommands_ClearSelection)
+
+# Test for BoundingBoxSelectCommand
+add_executable(TestEditorCommands_BoundingBoxSelect
+    commands/TestBoundingBoxSelectCommand.cpp
+    # ../core/brush/MockEditorController.h # If its Q_OBJECTs are needed
+)
+
+target_link_libraries(TestEditorCommands_BoundingBoxSelect PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For Map, Tile, etc.
+    rme_editor_logic_lib # For BoundingBoxSelectCommand, SelectionManager (via interface)
+)
+
+set_target_properties(TestEditorCommands_BoundingBoxSelect PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestEditorCommands_BoundingBoxSelect COMMAND TestEditorCommands_BoundingBoxSelect)
