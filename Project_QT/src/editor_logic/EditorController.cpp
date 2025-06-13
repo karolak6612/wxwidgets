@@ -158,8 +158,9 @@ void EditorController::performBoundingBoxSelection(
     int max_y = std::max(p1.y, p2.y);
     int current_floor = currentBrushSettings.getActiveZ(); // Assuming BrushSettings has getActiveZ()
 
-    QString selectionTypeSetting = m_appSettings->getString("SELECTION_TYPE", "CurrentFloor");
-    bool compensatedSelect = m_appSettings->getBool("COMPENSATED_SELECT", true);
+    // Use getValue with Config::Key for AppSettings
+    QString selectionTypeSetting = m_appSettings->getValue(RME::core::settings::Config::Key::SELECTION_TYPE, "CurrentFloor").toString();
+    bool compensatedSelect = m_appSettings->getValue(RME::core::settings::Config::Key::COMPENSATED_SELECT, true).toBool();
 
     QList<RME::core::Tile*> tilesToPotentiallySelect;
     QList<int> z_levels_to_scan;
@@ -167,7 +168,8 @@ void EditorController::performBoundingBoxSelection(
     if (selectionTypeSetting == "CurrentFloor") {
         z_levels_to_scan.append(current_floor);
     } else if (selectionTypeSetting == "AllFloors") {
-        for (int z = RME::core::MAP_MAX_Z_VALUE; z >= 0; --z) { // Iterate all valid Z levels
+        // Corrected Z-level iteration for "AllFloors"
+        for (int z = RME::core::MAP_MAX_FLOOR; z >= RME::core::MAP_MIN_FLOOR; --z) {
             z_levels_to_scan.append(z);
         }
     } else if (selectionTypeSetting == "VisibleFloors") {
@@ -185,20 +187,21 @@ void EditorController::performBoundingBoxSelection(
     if (z_levels_to_scan.isEmpty()) z_levels_to_scan.append(current_floor);
 
     for (int z : z_levels_to_scan) {
-        int current_min_x = min_x;
-        int current_max_x = max_x;
-        int current_min_y = min_y;
-        int current_max_y = max_y;
+        int compensated_min_x = min_x;
+        int compensated_max_x = max_x;
+        int compensated_min_y = min_y;
+        int compensated_max_y = max_y;
 
-        // Simplified compensation logic placeholder - exact logic depends on detailed requirements
-        if (compensatedSelect && z != current_floor ) {
-            // Example: int dz = current_floor - z; // or some reference like GROUND_LAYER
-            // current_min_x -= dz; current_max_x += dz;
-            // current_min_y -= dz; current_max_y += dz;
+        if (compensatedSelect && z != current_floor) {
+            int dz = current_floor - z; // dz > 0 for floors below current, dz < 0 for floors above.
+            compensated_min_x = min_x - dz;
+            compensated_max_x = max_x - dz;
+            compensated_min_y = min_y - dz;
+            compensated_max_y = max_y - dz;
         }
 
-        for (int y_scan = current_min_y; y_scan <= current_max_y; ++y_scan) {
-            for (int x_scan = current_min_x; x_scan <= current_max_x; ++x_scan) {
+        for (int y_scan = compensated_min_y; y_scan <= compensated_max_y; ++y_scan) {
+            for (int x_scan = compensated_min_x; x_scan <= compensated_max_x; ++x_scan) {
                 if(m_map->isPositionValid(RME::core::Position(x_scan,y_scan,z))){
                     RME::core::Tile* tile = m_map->getTile(RME::core::Position(x_scan, y_scan, z));
                     if (tile) { // getTile can return nullptr if no tile allocated and not creating
