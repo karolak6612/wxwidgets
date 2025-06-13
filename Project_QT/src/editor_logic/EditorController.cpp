@@ -89,15 +89,37 @@ void EditorController::deleteSelection() {
     }
     pushCommand(std::make_unique<RME_COMMANDS::DeleteSelectionCommand>(m_map, m_selectionManager, this));
     // Note: DeleteSelectionCommand's constructor was changed in a previous task to take QList<Position>.
-    // This EditorController::deleteSelection() method would need an update if it's to use that new constructor.
-    // For now, leaving as is, as this task is about adding new methods.
-    // A proper implementation would be:
-    // if (m_selectionManager && !m_selectionManager->isEmpty()) {
-    //    QList<RME::core::Position> selected_tile_positions = m_selectionManager->getCurrentSelectedTilePositions(); // Assuming this getter exists
-    //    pushCommand(std::make_unique<RME_COMMANDS::DeleteSelectionCommand>(m_map, selected_tile_positions, this));
-    // } else {
-    //    qDebug("EditorController::deleteSelection: SelectionManager is null or selection is empty.");
-    // }
+    // The implementation above uses the old signature.
+    // The new handleDeleteSelection below should use the new signature.
+}
+
+void EditorController::handleDeleteSelection() {
+    if (!m_selectionManager) {
+        qWarning("EditorController::handleDeleteSelection: SelectionManager is null.");
+        return;
+    }
+    if (m_selectionManager->isEmpty()) {
+        qDebug("EditorController::handleDeleteSelection: Selection is empty, no action taken.");
+        return;
+    }
+    // Get selected positions from SelectionManager.
+    // Assumes SelectionManager provides a method to get these, e.g. getCurrentSelectedTilesList()
+    // which returns QList<Tile*>, then we extract positions. Or a direct position list getter.
+    // For this implementation, using getCurrentSelectedTilesList() then extracting positions.
+    QList<RME::core::Tile*> selectedTiles = m_selectionManager->getCurrentSelectedTilesList();
+    QList<RME::core::Position> selectedPositions;
+    for (RME::core::Tile* tile : selectedTiles) {
+        if (tile) {
+            selectedPositions.append(tile->getPosition());
+        }
+    }
+
+    if (selectedPositions.isEmpty()) {
+         qDebug("EditorController::handleDeleteSelection: No valid tile positions in selection.");
+        return;
+    }
+
+    pushCommand(std::make_unique<RME_COMMANDS::DeleteCommand>(m_map, selectedPositions, this));
 }
 
 void EditorController::clearCurrentSelection() {

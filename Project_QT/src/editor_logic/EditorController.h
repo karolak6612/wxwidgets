@@ -48,6 +48,7 @@ public:
     void deleteSelection();
     void clearCurrentSelection();
     void performBoundingBoxSelection(const RME::core::Position& p1, const RME::core::Position& p2, Qt::KeyboardModifiers modifiers, const RME::core::BrushSettings& currentBrushSettings);
+    void handleDeleteSelection(); // Added
 
     // --- Implementation of EditorControllerInterface ---
     // Basic accessors

@@ -158,3 +158,20 @@ target_link_libraries(TestEditorCommands_BoundingBoxSelect PRIVATE
 set_target_properties(TestEditorCommands_BoundingBoxSelect PROPERTIES AUTOMOC ON)
 
 add_test(NAME TestEditorCommands_BoundingBoxSelect COMMAND TestEditorCommands_BoundingBoxSelect)
+
+# Test for DeleteCommand (LOGIC-03 version that uses TileData)
+add_executable(TestEditorCommands_DeleteLogic03
+    commands/TestDeleteCommand.cpp
+    # ../core/brush/MockEditorController.h # If its Q_OBJECTs are needed, and test uses it
+)
+
+target_link_libraries(TestEditorCommands_DeleteLogic03 PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For TileData, Map, Tile, Item etc.
+    rme_editor_logic_lib # For DeleteCommand itself, EditorControllerInterface
+)
+
+set_target_properties(TestEditorCommands_DeleteLogic03 PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestEditorCommands_DeleteLogic03 COMMAND TestEditorCommands_DeleteLogic03)

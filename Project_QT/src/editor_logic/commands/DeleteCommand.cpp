@@ -1,99 +1,91 @@
-#include "commands/DeleteCommand.h"
+#include "editor_logic/commands/DeleteCommand.h"
 #include "core/map/Map.h"
+#include "core/Tile.h"
 #include "core/selection/SelectionManager.h"
-#include "core/Tile.h"           // For RME::Tile
-#include <QDebug>                // For qWarning (optional)
-#include <QList>                 // For QList<RME::Tile*>
+#include "core/editor/EditorControllerInterface.h"
+#include "core/Item.h"    // For Tile methods that might take/return Item
+#include "core/Spawn.h"   // For Tile methods related to Spawn
+#include "core/Creature.h"// For Tile methods related to Creature
+
+#include <QObject> // For tr()
+#include <QDebug>  // For qWarning, Q_ASSERT
 
 namespace RME_COMMANDS {
 
 DeleteCommand::DeleteCommand(
-    RME::Map* map,
-    RME::SelectionManager* selectionManager,
+    RME::core::Map* map,
+    RME::core::selection::SelectionManager* selectionManager,
+    RME::core::editor::EditorControllerInterface* controller,
     QUndoCommand* parent
 ) : QUndoCommand(parent),
     m_map(map),
-    m_selectionManager(selectionManager) {
-    setText(QObject::tr("Delete Selection")); // Initial text
-}
-
-DeleteCommand::~DeleteCommand() {
-    // m_deletedTiles unique_ptrs will auto-delete.
-}
-
-void DeleteCommand::undo() {
-    if (!m_map) {
-        qWarning("DeleteCommand::undo(): Map is null.");
-        return;
-    }
-    if (m_deletedTiles.isEmpty()) { // Nothing was deleted, or undo already processed.
-        return;
-    }
-
-    // QList<RME::Tile*> restoredTilesForSelection; // Optional: for re-selecting after undo
-    for (auto it = m_deletedTiles.begin(); it != m_deletedTiles.end(); ++it) {
-        const RME::Position& pos = it.key();
-        std::unique_ptr<RME::Tile>& originalTileState = it.value();
-
-        if (originalTileState) { // Should always be true if redo stored something
-            // Assumes Map::setTile takes ownership of the unique_ptr.
-            m_map->setTile(pos, std::move(originalTileState));
-            // RME::Tile* liveTile = m_map->getTile(pos);
-            // if (liveTile) {
-            //     restoredTilesForSelection.append(liveTile);
-            // }
-        }
-        m_map->notifyTileChanged(pos);
-    }
-    // m_deletedTiles unique_ptrs are now invalid (moved from). It will be repopulated by the next redo().
-
-    // Optionally, re-select the restored tiles
-    // if (m_selectionManager && !m_selectedPositionsForUndo.isEmpty()) {
-    //     m_selectionManager->startSelectionChange();
-    //     for (const RME::Position& pos : m_selectedPositionsForUndo) {
-    //         RME::Tile* tile = m_map->getTile(pos);
-    //         if (tile) m_selectionManager->addSelectedTile(tile); // Assuming addSelectedTile exists
-    //     }
-    //     m_selectionManager->finishSelectionChange("Undo Delete");
-    // }
-    // m_selectedPositionsForUndo.clear(); // Clear after use
-    setText(QObject::tr("Undo Delete %n tile(s)", "", m_selectedPositionsForUndo.count()));
+    m_selectionManager(selectionManager),
+    m_controller(controller),
+    m_hadSelectionToDelete(false)
+{
+    Q_ASSERT(m_map);
+    Q_ASSERT(m_selectionManager);
+    Q_ASSERT(m_controller);
+    // Text set in redo based on whether action is performed.
 }
 
 void DeleteCommand::redo() {
-    if (!m_map || !m_selectionManager) {
-        qWarning("DeleteCommand::redo(): Map or SelectionManager is null.");
+    // Capture selection before modification
+    m_previouslySelectedTiles = m_selectionManager->getCurrentSelectedTilesList();
+
+    if (m_previouslySelectedTiles.isEmpty()) {
+        m_hadSelectionToDelete = false;
+        setText(QObject::tr("Delete (nothing selected)"));
         return;
     }
 
-    // Get selected tiles from SelectionManager. This should be a copy
-    // or a list of positions, as the tiles themselves will be removed from the map.
-    // Assuming getSelectedTiles() returns a list/set of tile pointers that are currently on the map.
-    const QSet<RME::Tile*>& selectedTiles = m_selectionManager->getSelectedTiles();
+    m_hadSelectionToDelete = true;
+    m_originalTileData.clear(); // Clear any previous state if redo is called multiple times
 
-    if (selectedTiles.isEmpty()) {
-        setText(QObject::tr("Delete (nothing selected)"));
-        return; // Nothing to do
+    for (RME::core::Tile* tile : m_previouslySelectedTiles) {
+        if (!tile) continue;
+        RME::core::Position pos = tile->getPosition();
+        // Store a deep copy of the tile's state BEFORE clearing it
+        m_originalTileData.insert(pos, RME::core::data_transfer::TileData::fromTile(tile));
+
+        // Clear the tile's contents on the actual map
+        tile->setGround(nullptr);
+        tile->clearItems(); // Assumes this deletes/removes all items
+        tile->setSpawn(nullptr);
+        tile->setCreature(nullptr);
+
+        // Notify that the tile has changed
+        // The map pointer for notify is obtained via controller to ensure consistency
+        m_controller->getMap()->notifyTileChanged(pos);
     }
 
-    m_deletedTiles.clear();
-    m_selectedPositionsForUndo.clear();
+    // After deleting contents, the selection should be cleared.
+    m_selectionManager->clearSelectionInternal();
 
-    for (RME::Tile* tile : selectedTiles) {
-        if (tile) {
-            m_deletedTiles.insert(tile->getPosition(), tile->deepCopy());
-            m_selectedPositionsForUndo.append(tile->getPosition()); // Store pos for potential re-selection on undo
+    setText(QObject::tr("Delete Selection (%1 tile(s))").arg(m_previouslySelectedTiles.size()));
+}
 
-            // To "delete" the tile, we replace it with nullptr using the conceptual setTile method.
-            // This assumes BaseMap::setTile(pos, nullptr) correctly removes/empties the tile.
-            // Using setTile with nullptr to be consistent with BrushStrokeCommand's removal.
-            m_map->setTile(tile->getPosition(), nullptr);
-            m_map->notifyTileChanged(tile->getPosition());
+void DeleteCommand::undo() {
+    if (!m_hadSelectionToDelete) {
+        setText(QObject::tr("Undo Delete (no action taken)"));
+        return; // Nothing was deleted by redo(), so nothing to undo.
+    }
+
+    for (auto it = m_originalTileData.constBegin(); it != m_originalTileData.constEnd(); ++it) {
+        const RME::core::Position& pos = it.key();
+        const RME::core::data_transfer::TileData& dataToRestore = it.value();
+
+        RME::core::Tile* tileOnMap = m_map->getOrCreateTile(pos); // Ensure tile exists
+        if (tileOnMap) {
+            dataToRestore.applyToTile(tileOnMap); // Restore contents
+            m_controller->getMap()->notifyTileChanged(pos);
         }
     }
 
-    m_selectionManager->clear();
-    setText(QObject::tr("Delete %n tile(s)", "", m_deletedTiles.count()));
+    // Restore the selection state
+    m_selectionManager->setSelectedTilesInternal(m_previouslySelectedTiles);
+
+    setText(QObject::tr("Undo Delete Selection (%1 tile(s))").arg(m_previouslySelectedTiles.size()));
 }
 
 } // namespace RME_COMMANDS

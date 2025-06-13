@@ -282,10 +282,11 @@ private slots:
     void testApplyBrushStroke_NoActiveBrush();
     void testApplyBrushStroke_EraseModeMacroText();
 
-    void testDeleteSelection_NotEmpty();
-    void testDeleteSelection_Empty();
+    // Old testDeleteSelection_NotEmpty and _Empty are removed / replaced by testHandleDeleteSelection_*
 
     // New tests
+    void testHandleDeleteSelection_WithSelection();  // Added
+    void testHandleDeleteSelection_WithoutSelection(); // Added
     void testClearSelection_NotEmpty();
     void testClearSelection_Empty();
     void testPerformBoundingBoxSelection_NonAdditive_CurrentFloor();
@@ -463,6 +464,34 @@ void TestEditorController::testDeleteSelection_Empty() {
     QVERIFY(cmd != nullptr);
     // DeleteSelectionCommand's redo() is expected to handle the case of empty selection
     // (e.g., by doing nothing or setting appropriate text like "Delete Selection (nothing selected)").
+}
+
+void TestEditorController::testHandleDeleteSelection_WithSelection() {
+    // Setup: MockSelectionManager has a selection
+    RME::core::Tile testTile(RME::core::Position(1,1,7)); // Dummy tile for selection list
+    m_mockSelectionManager->MOCK_setSelectedTiles({&testTile});
+    QVERIFY(!m_mockSelectionManager->isEmpty());
+
+    m_mockUndoStack->resetMockState();
+    m_editorController->handleDeleteSelection();
+
+    QVERIFY(m_mockUndoStack->pushCalled);
+    QVERIFY(m_mockUndoStack->lastPushedCommandRaw != nullptr);
+    auto* cmd = dynamic_cast<RME_COMMANDS::DeleteCommand*>(m_mockUndoStack->lastPushedCommandRaw);
+    QVERIFY(cmd != nullptr);
+    // Further checks on cmd's internal state (like captured positions) could be done,
+    // but that's more for TestDeleteCommand. Here we check that EC pushed the right type of command.
+}
+
+void TestEditorController::testHandleDeleteSelection_WithoutSelection() {
+    m_mockSelectionManager->MOCK_setSelectedTiles({}); // Ensure selection is empty
+    QVERIFY(m_mockSelectionManager->isEmpty());
+
+    m_mockUndoStack->resetMockState();
+    m_editorController->handleDeleteSelection();
+
+    QVERIFY(!m_mockUndoStack->pushCalled); // No command should be pushed if selection is empty
+    QVERIFY(m_mockUndoStack->lastPushedCommandRaw == nullptr);
 }
 
 void TestEditorController::setupFixtureTiles() {
