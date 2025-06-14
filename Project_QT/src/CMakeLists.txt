@@ -64,3 +64,11 @@ source_group(TREE ../../wxwidgets PREFIX "Source Files/wxwidgets_legacy" FILES
 # target_sources(rme_qt_app PRIVATE ${UI_SOURCES_FWD} ${UI_HEADERS_FWD})
 # qt_add_resources(RESOURCE_SOURCES resources/application.qrc)
 # target_sources(rme_qt_app PRIVATE ${RESOURCE_SOURCES})
+
+# Install the application executable
+install(TARGETS rme_qt_app
+    RUNTIME DESTINATION bin    # For Windows, Linux executables
+    BUNDLE DESTINATION .      # For macOS .app bundle (installs to RME-Qt.app directly in install root)
+    LIBRARY DESTINATION lib    # If it were a shared library
+    ARCHIVE DESTINATION lib    # If it were a static library
+)
