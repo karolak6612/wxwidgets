@@ -1,53 +1,57 @@
-#ifndef RME_HOUSEBRUSH_H
-#define RME_HOUSEBRUSH_H
+#ifndef RME_HOUSE_BRUSH_H
+#define RME_HOUSE_BRUSH_H
 
-#include "core/brush/Brush.h" // Base RME::core::Brush
-#include <cstdint>           // For uint32_t
+#include "core/brush/Brush.h"
+#include "core/Position.h" // For RME::core::Position
+#include <QString>
+#include <QtGlobal>    // For quint32
 
-// Forward declarations from RME::core
+// Forward declarations
 namespace RME {
 namespace core {
-    class Position;
-    struct BrushSettings;
+    class BrushSettings;
     namespace map { class Map; }
     namespace editor { class EditorControllerInterface; }
-} // namespace core
-} // namespace RME
+    // No direct dependency on House.h here, uses ID.
+}
+}
+
+// Forward declaration for potential test class
+class TestHouseBrush;
 
 namespace RME {
 namespace core {
 namespace brush {
 
-// Placeholder for a global constant
-const int EDITOR_SPRITE_HOUSE_BRUSH_LOOKID = 99002; // Example value
+class HouseBrush : public RME::core::Brush {
+    friend class ::TestHouseBrush; // Friend class for testing
 
-class HouseBrush : public Brush { // Inherits RME::core::Brush
 public:
     HouseBrush();
     ~HouseBrush() override = default;
 
-    void setCurrentHouseId(uint32_t houseId);
-    uint32_t getCurrentHouseId() const { return m_currentHouseId; }
+    void setCurrentHouseId(quint32 houseId);
+    quint32 getCurrentHouseId() const;
 
-    // RME::core::Brush interface overrides
+    // Overridden methods from Brush
+    void apply(RME::core::editor::EditorControllerInterface* controller,
+               const RME::core::Position& pos,
+               const RME::core::BrushSettings& settings) override;
+
     QString getName() const override;
-    int getLookID(const BrushSettings& settings) const override;
+    int getLookID(const RME::core::BrushSettings& settings) const override;
+    bool canApply(const RME::core::map::Map* map,
+                  const RME::core::Position& pos,
+                  const RME::core::BrushSettings& settings) const override;
 
-    void apply(editor::EditorControllerInterface* controller, const Position& pos, const BrushSettings& settings) override;
-    bool canApply(const map::Map* map, const Position& pos, const BrushSettings& settings) const override;
-
-    // Brush specific flags/properties
-    bool isHouse() const override { return true; }
-    bool canDrag() const override { return true; }
-    // needsBorders() can be default (false) unless house application directly causes border changes handled by brush.
-    // The original HouseBrush didn't seem to override needsBorders explicitly.
-    // bool needsBorders() const override { return false; } // Default from base is fine
+    bool hasMaterial() const override { return false; } // HouseBrush doesn't use materials
 
 private:
-    uint32_t m_currentHouseId = 0;
+    quint32 m_currentHouseId = 0; // ID of the house to apply/erase
 };
 
 } // namespace brush
 } // namespace core
 } // namespace RME
-#endif // RME_HOUSEBRUSH_H
+
+#endif // RME_HOUSE_BRUSH_H

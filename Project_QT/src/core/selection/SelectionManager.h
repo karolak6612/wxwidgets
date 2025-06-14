@@ -6,8 +6,8 @@
 #include <QString>
 
 // Forward declarations (reduce header dependencies)
-class Tile;
-class Item;
+namespace RME { namespace core { class Tile; }} // More explicit
+class Item; // Assuming RME::core::Item
 class Creature;
 class Spawn;
 class QUndoStack; // For later integration
@@ -19,8 +19,11 @@ namespace RME {
 class SelectionCommand; // Forward declaration
 
 class SelectionManager : public QObject {
-    Q_OBJECT // Add if signals/slots are planned
+    Q_OBJECT
     friend class SelectionCommand; // Allow SelectionCommand to access private members like m_selectedTiles
+
+signals: // Added signals section
+    void selectionChanged();
 
 public:
     explicit SelectionManager(Map* map, QUndoStack* undoStack, QObject *parent = nullptr);
@@ -60,6 +63,15 @@ public:
 
     // Utility to check if a selection change session is active
     bool isSelectionChangeActive() const;
+
+    // Internal methods for direct state manipulation by commands
+    void clearSelectionInternal();
+    void addTilesToSelectionInternal(const QList<RME::core::Tile*>& tilesToSelect);
+    void removeTilesFromSelectionInternal(const QList<RME::core::Tile*>& tilesToDeselect);
+    void setSelectedTilesInternal(const QList<RME::core::Tile*>& tilesToSelect);
+
+    // Getter for current selection state (primarily tiles considered selected)
+    QList<RME::core::Tile*> getCurrentSelectedTilesList() const;
 
 private:
     // Internal helper methods

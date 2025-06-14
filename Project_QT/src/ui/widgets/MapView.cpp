@@ -5,6 +5,8 @@
 #include <QKeyEvent>
 #include <QCursor> // Added for setCursor/unsetCursor
 #include <QtGlobal> // Added for qFuzzyCompare
+#include <QPainter> // Added
+#include <QGuiApplication> // Added for keyboardModifiers()
 #include <QDebug> // For temporary logging if needed
 #include <cmath>  // For std::pow, std::floor
 #include <algorithm> // Added for std::max and std::min
@@ -18,8 +20,13 @@ MapView::MapView(QWidget *parent)
       m_currentFloor(7),      // Default surface floor
       m_zoomFactor(1.0),
       m_viewCenterMapCoords(1000.0, 1000.0), // Default center
-      m_isPanning(false)
+      m_isPanning(false),
+      m_editorController(nullptr), // Initialize new members
+      m_isPerformingBoundingBoxSelection(false)
       // m_projectionMatrix is default initialized
+      // m_currentBrushSettings is default initialized
+      // m_dragStartScreenPoint is default initialized
+      // m_currentDragScreenPoint is default initialized
 {
     // Set focus policy to receive keyboard events
     setFocusPolicy(Qt::StrongFocus);
@@ -61,6 +68,28 @@ void MapView::paintGL() {
     // m_shaderProgram->release();
 
     // For now, this method only clears the screen.
+
+    // Draw bounding box selection rectangle if active
+    if (m_isPerformingBoundingBoxSelection) {
+        // QPainter needs to be used carefully with QOpenGLWidget.
+        // It's often better to draw simple overlay graphics directly with GL lines.
+        // For this example, using QPainter as specified.
+        // This might require painter.beginNativePainting() / endNativePainting() in more complex scenarios
+        // or if mixing heavily with direct GL calls outside of QPainter's control for other elements.
+        QPainter painter(this);
+        // painter.begin(this); // Not needed if painter is stack allocated with `this` as parent
+        painter.setRenderHint(QPainter::Antialiasing);
+        QPen pen(Qt::white, 1, Qt::DashLine);
+        painter.setPen(pen);
+        painter.setBrush(Qt::NoBrush);
+        painter.drawRect(QRect(m_dragStartScreenPoint, m_currentDragScreenPoint).normalized());
+        // painter.end(); // Automatically called by QPainter destructor
+    }
+}
+
+// Slot implementation
+void MapView::updateCurrentBrushSettings(const RME::core::BrushSettings& settings) {
+    m_currentBrushSettings = settings;
 }
 
 RME::core::Position MapView::screenToMapCoords(const QPoint& screenPos) const {
@@ -212,21 +241,38 @@ void MapView::updateProjectionMatrix() {
 }
 
 void MapView::mousePressEvent(QMouseEvent* event) {
-    if (event->button() == Qt::MiddleButton) {
+    if (event->button() == Qt::LeftButton && (event->modifiers() & Qt::ShiftModifier)) {
+        if (m_editorController) {
+            m_isPerformingBoundingBoxSelection = true;
+            m_dragStartScreenPoint = event->pos();
+            m_currentDragScreenPoint = event->pos();
+
+            if (!(event->modifiers() & Qt::ControlModifier)) {
+                m_editorController->clearCurrentSelection();
+            }
+            update(); // Request repaint to draw the initial rectangle (a point)
+            event->accept();
+        } else {
+            QOpenGLWidget::mousePressEvent(event); // Or event->ignore();
+        }
+    } else if (event->button() == Qt::MiddleButton) {
         m_isPanning = true;
         m_lastPanMousePos = event->pos();
-        setCursor(Qt::ClosedHandCursor); // Change cursor to indicate panning
+        setCursor(Qt::ClosedHandCursor);
         event->accept();
     } else {
-        // For other buttons, emit a click signal with map coordinates
         RME::core::Position mapPos = screenToMapCoords(event->pos());
         emit mapPositionClicked(mapPos, event->button(), event->modifiers());
-        // event->ignore(); // Allow other widgets or parent to process if needed, or accept()
+        // QOpenGLWidget::mousePressEvent(event); // if not accepted
     }
 }
 
 void MapView::mouseMoveEvent(QMouseEvent* event) {
-    if (m_isPanning) {
+    if (m_isPerformingBoundingBoxSelection) {
+        m_currentDragScreenPoint = event->pos();
+        update(); // Request repaint to show updated rectangle
+        event->accept();
+    } else if (m_isPanning) {
         QPointF deltaPixels = event->pos() - m_lastPanMousePos;
         m_lastPanMousePos = event->pos();
 
@@ -250,12 +296,26 @@ void MapView::mouseMoveEvent(QMouseEvent* event) {
 }
 
 void MapView::mouseReleaseEvent(QMouseEvent* event) {
-    if (event->button() == Qt::MiddleButton && m_isPanning) {
+    if (m_isPerformingBoundingBoxSelection && event->button() == Qt::LeftButton) {
+        m_isPerformingBoundingBoxSelection = false;
+        m_currentDragScreenPoint = event->pos(); // Final point
+
+        if (m_editorController) {
+            RME::core::Position mapP1 = screenToMapCoords(m_dragStartScreenPoint);
+            RME::core::Position mapP2 = screenToMapCoords(m_currentDragScreenPoint);
+
+            // Use QGuiApplication::keyboardModifiers() as event->modifiers() might not be up-to-date
+            // or might not reflect global state if a key was released during drag.
+            m_editorController->performBoundingBoxSelection(mapP1, mapP2, QGuiApplication::keyboardModifiers(), m_currentBrushSettings);
+        }
+        update(); // Request repaint to remove the rectangle
+        event->accept();
+    } else if (event->button() == Qt::MiddleButton && m_isPanning) {
         m_isPanning = false;
-        unsetCursor(); // Restore default cursor
+        unsetCursor();
         event->accept();
     } else {
-        // event->ignore();
+        // QOpenGLWidget::mouseReleaseEvent(event); // if not accepted
     }
 }
 

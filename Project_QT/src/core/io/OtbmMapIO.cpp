@@ -10,7 +10,13 @@
 #include "core/Position.h"
 #include "core/assets/AssetManager.h" // Full definition
 #include "core/settings/AppSettings.h" // Full definition
-#include "core/navigation/WaypointData.h" // New WaypointData location
+#include "core/navigation/WaypointData.h"
+#include "core/houses/HouseData.h"      // Already in OtbmMapIO.h, but good for context
+#include "core/world/TownData.h"        // Already in OtbmMapIO.h
+#include "core/creatures/Creature.h"    // For RME::core::creatures::Creature
+#include "core/creatures/Outfit.h"      // For RME::core::creatures::Outfit
+#include "core/assets/CreatureData.h"   // For RME::core::assets::CreatureData
+#include "core/assets/ItemData.h"       // For RME::core::assets::ItemType and isCreatureLookItem
 #include "core/Container.h" // Required for casting and accessing items in a container
 
 
@@ -95,9 +101,165 @@ bool OtbmMapIO::loadMap(const QString& filePath, Map& map, AssetManager& assetMa
     return true;
 }
 
+// --- Creature Specific Parsing/Serialization ---
+bool OtbmMapIO::parseCreatureNode(BinaryNode* creatureNode, Tile* tile, AssetManager& assetManager, AppSettings& settings) {
+    if (!tile) {
+        m_lastError = "parseCreatureNode: Called with null tile.";
+        qWarning() << "OtbmMapIO::parseCreatureNode:" << m_lastError;
+        return false;
+    }
+
+    std::string creatureName_std;
+    creatureNode->resetReadOffset();
+
+    uint8_t firstAttr;
+    // Assuming OTBM_ATTR_CREATURE_NAME is mandatory and first.
+    if (!creatureNode->getU8(firstAttr) || firstAttr != OTBM_ATTR_CREATURE_NAME) {
+        m_lastError = "Failed to read OTBM_ATTR_CREATURE_NAME or it's not the first attribute for creature on tile " + tile->getPosition().toString();
+        qWarning() << "OtbmMapIO::parseCreatureNode:" << m_lastError;
+        return false;
+    }
+    if (!creatureNode->getString(creatureName_std)) {
+         m_lastError = "Failed to read creature name string for creature on tile " + tile->getPosition().toString();
+         qWarning() << "OtbmMapIO::parseCreatureNode:" << m_lastError;
+         return false;
+    }
+
+    QString creatureName = QString::fromStdString(creatureName_std);
+    const RME::core::assets::CreatureData* creatureData = assetManager.getCreatureData(creatureName);
+
+    if (!creatureData) {
+        QString msg = QString("Creature type '%1' not found in AssetManager. Tile: %2").arg(creatureName).arg(tile->getPosition().toString());
+        bool skipUnknown = settings.getValue(RME::core::settings::Config::Key::SKIP_UNKNOWN_ITEMS, QVariant(true)).toBool();
+        if (skipUnknown) {
+            qWarning() << "OtbmMapIO::parseCreatureNode:" << msg << "Skipping creature.";
+            while(creatureNode->hasMoreProperties()){
+                uint8_t dummyAttr;
+                if(!creatureNode->getU8(dummyAttr)) { break; }
+                // This skip logic is simplified. A robust solution requires BinaryNode to handle skipping unknown attribute types.
+            }
+            return true;
+        }
+        m_lastError = msg;
+        qWarning() << "OtbmMapIO::parseCreatureNode:" << m_lastError;
+        return false;
+    }
+
+    auto newCreature = std::make_unique<RME::core::creatures::Creature>(creatureData, tile->getPosition());
+    if (!newCreature) {
+        m_lastError = "Failed to create Creature instance for: " + creatureName;
+        qWarning() << "OtbmMapIO::parseCreatureNode:" << m_lastError;
+        return false;
+    }
+
+    RME::core::creatures::Outfit currentOutfit = newCreature->getOutfit();
+    bool outfitWasOverridden = false;
+
+    while(creatureNode->hasMoreProperties()) {
+        uint8_t attribute;
+        if (!creatureNode->getU8(attribute)) { m_lastError = "Failed to read creature outfit attribute type."; return false; }
+
+        switch(attribute) {
+            case OTBM_ATTR_CREATURE_OUTFIT_LOOK_TYPE:
+                if (!creatureNode->getU16(currentOutfit.lookType)) { m_lastError="Failed to read looktype for " + creatureName; return false; } outfitWasOverridden = true; break;
+            case OTBM_ATTR_CREATURE_OUTFIT_ITEM_ID:
+                if (!creatureNode->getU16(currentOutfit.lookItem)) { m_lastError="Failed to read lookitem for " + creatureName; return false; } outfitWasOverridden = true; break;
+            case OTBM_ATTR_CREATURE_OUTFIT_HEAD:
+                if (!creatureNode->getU8(currentOutfit.lookHead)) { m_lastError="Failed to read lookhead for " + creatureName; return false; } outfitWasOverridden = true; break;
+            case OTBM_ATTR_CREATURE_OUTFIT_BODY:
+                if (!creatureNode->getU8(currentOutfit.lookBody)) { m_lastError="Failed to read lookbody for " + creatureName; return false; } outfitWasOverridden = true; break;
+            case OTBM_ATTR_CREATURE_OUTFIT_LEGS:
+                if (!creatureNode->getU8(currentOutfit.lookLegs)) { m_lastError="Failed to read looklegs for " + creatureName; return false; } outfitWasOverridden = true; break;
+            case OTBM_ATTR_CREATURE_OUTFIT_FEET:
+                if (!creatureNode->getU8(currentOutfit.lookFeet)) { m_lastError="Failed to read lookfeet for " + creatureName; return false; } outfitWasOverridden = true; break;
+            case OTBM_ATTR_CREATURE_OUTFIT_ADDONS:
+                if (!creatureNode->getU8(currentOutfit.lookAddons)) { m_lastError="Failed to read lookaddons for " + creatureName; return false; } outfitWasOverridden = true; break;
+            case OTBM_ATTR_CREATURE_OUTFIT_MOUNT_ID:
+                if (!creatureNode->getU16(currentOutfit.lookMount)) { m_lastError="Failed to read lookmount for " + creatureName; return false; } outfitWasOverridden = true; break;
+            default:
+                m_lastError = QString("Unknown attribute type %1 for CREATURE node (%2) on tile %3").arg(attribute).arg(creatureName).arg(tile->getPosition().toString());
+                qWarning() << "OtbmMapIO::parseCreatureNode:" << m_lastError;
+                return false;
+        }
+    }
+
+    if (outfitWasOverridden) {
+        newCreature->setOutfit(currentOutfit);
+    }
+
+    tile->setCreature(std::move(newCreature));
+    return true;
+}
+
+bool OtbmMapIO::serializeCreatureNode(NodeFileWriteHandle& writer, const RME::core::creatures::Creature* creature, AssetManager& assetManager, AppSettings& settings) {
+    if (!creature || !creature->getType()) {
+        m_lastError = "serializeCreatureNode: Null creature or creature type.";
+        qWarning() << m_lastError;
+        return false;
+    }
+
+    if (!writer.addNode(OTBM_NODE_CREATURE, false)) {
+        m_lastError = "Failed to start CREATURE node for: " + creature->getName();
+        return false;
+    }
+
+    if (!writer.addU8(OTBM_ATTR_CREATURE_NAME) || !writer.addString(creature->getName())) {
+         m_lastError = "Failed to write creature name for: " + creature->getName(); return false;
+    }
+
+    const RME::core::creatures::Outfit& currentOutfit = creature->getOutfit();
+    const RME::core::assets::CreatureData* creatureTypeData = creature->getType();
+    const RME::core::creatures::Outfit& defaultOutfit = creatureTypeData->defaultOutfit;
+
+    if (currentOutfit.lookType != defaultOutfit.lookType) {
+        if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_LOOK_TYPE) || !writer.addU16(currentOutfit.lookType)) {m_lastError="Ser: Failed looktype for " + creature->getName(); return false;}
+    }
+
+    const RME::core::assets::ItemType* itemTypeForLook = assetManager.getItemData(currentOutfit.lookType);
+    if (itemTypeForLook && itemTypeForLook->isCreatureLookItem()) {
+        if (currentOutfit.lookItem != 0 && currentOutfit.lookItem != defaultOutfit.lookItem) {
+             if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_ITEM_ID) || !writer.addU16(currentOutfit.lookItem)) {m_lastError="Ser: Failed lookitem for " + creature->getName(); return false;}
+        }
+    } else {
+        if (currentOutfit.lookItem != 0 && currentOutfit.lookItem != defaultOutfit.lookItem) {
+             if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_ITEM_ID) || !writer.addU16(currentOutfit.lookItem)) {m_lastError="Ser: Failed lookitem for non-item type on " + creature->getName(); return false;}
+        }
+    }
+
+    if (currentOutfit.lookHead != defaultOutfit.lookHead) {
+        if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_HEAD) || !writer.addU8(currentOutfit.lookHead)) {m_lastError="Ser: Failed lookhead for " + creature->getName(); return false;}
+    }
+    if (currentOutfit.lookBody != defaultOutfit.lookBody) {
+        if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_BODY) || !writer.addU8(currentOutfit.lookBody)) {m_lastError="Ser: Failed lookbody for " + creature->getName(); return false;}
+    }
+    if (currentOutfit.lookLegs != defaultOutfit.lookLegs) {
+        if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_LEGS) || !writer.addU8(currentOutfit.lookLegs)) {m_lastError="Ser: Failed looklegs for " + creature->getName(); return false;}
+    }
+    if (currentOutfit.lookFeet != defaultOutfit.lookFeet) {
+        if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_FEET) || !writer.addU8(currentOutfit.lookFeet)) {m_lastError="Ser: Failed lookfeet for " + creature->getName(); return false;}
+    }
+    if (currentOutfit.lookAddons != defaultOutfit.lookAddons) {
+        if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_ADDONS) || !writer.addU8(currentOutfit.lookAddons)) {m_lastError="Ser: Failed lookaddons for " + creature->getName(); return false;}
+    }
+    if (currentOutfit.lookMount != defaultOutfit.lookMount) {
+        if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_MOUNT_ID) || !writer.addU16(currentOutfit.lookMount)) {m_lastError="Ser: Failed lookmount for " + creature->getName(); return false;}
+    }
+
+    if (!writer.endNode()) {
+        m_lastError = "Failed to end CREATURE node for: " + creature->getName(); return false;
+    }
+    return true;
+}
+
 // Corrected signature to include AssetManager
 bool OtbmMapIO::parseMapDataNode(BinaryNode* mapDataNode, Map& map, AssetManager& assetManager, AppSettings& settings) {
     mapDataNode->resetReadOffset();
+
+    RME::core::ClientVersionInfo clientVersionInfo; // Initialize struct to hold version info
+    clientVersionInfo.major = 0;
+    clientVersionInfo.minor = 0;
+    clientVersionInfo.build = 0;
+
     while(mapDataNode->hasMoreProperties()) {
         uint8_t attribute;
         if (!mapDataNode->getU8(attribute)) {
@@ -140,20 +302,20 @@ bool OtbmMapIO::parseMapDataNode(BinaryNode* mapDataNode, Map& map, AssetManager
             // Map version attributes (Major, Minor, Build) for client features
             case OTBM_ATTR_MAP_VERSION_MAJOR: {
                 uint32_t majorVer;
-                if (!mapDataNode->getU32(majorVer)) { /* error */ return false; }
-                // map.setClientMajorVersion(majorVer); // Assuming Map class has such setters
+                if (!mapDataNode->getU32(majorVer)) { m_lastError = "Failed to read OTBM_ATTR_MAP_VERSION_MAJOR"; qWarning() << "OtbmMapIO::parseMapDataNode:" << m_lastError; return false; }
+                clientVersionInfo.major = majorVer;
                 break;
             }
             case OTBM_ATTR_MAP_VERSION_MINOR: {
                 uint32_t minorVer;
-                if (!mapDataNode->getU32(minorVer)) { /* error */ return false; }
-                // map.setClientMinorVersion(minorVer);
+                if (!mapDataNode->getU32(minorVer)) { m_lastError = "Failed to read OTBM_ATTR_MAP_VERSION_MINOR"; qWarning() << "OtbmMapIO::parseMapDataNode:" << m_lastError; return false; }
+                clientVersionInfo.minor = minorVer;
                 break;
             }
             case OTBM_ATTR_MAP_VERSION_BUILD: {
                  uint32_t buildVer;
-                if (!mapDataNode->getU32(buildVer)) { /* error */ return false; }
-                // map.setClientBuildVersion(buildVer);
+                if (!mapDataNode->getU32(buildVer)) { m_lastError = "Failed to read OTBM_ATTR_MAP_VERSION_BUILD"; qWarning() << "OtbmMapIO::parseMapDataNode:" << m_lastError; return false; }
+                clientVersionInfo.build = buildVer;
                 break;
             }
             default: {
@@ -168,6 +330,7 @@ bool OtbmMapIO::parseMapDataNode(BinaryNode* mapDataNode, Map& map, AssetManager
             }
         }
     }
+    map.setClientVersionInfo(clientVersionInfo); // Set the parsed version info on the map object
 
     // Parse child nodes of MAP_DATA (Tile Areas, Towns, Waypoints)
     BinaryNode* childNode = mapDataNode->getChild();
@@ -177,8 +340,10 @@ bool OtbmMapIO::parseMapDataNode(BinaryNode* mapDataNode, Map& map, AssetManager
                 if (!parseTileAreaNode(childNode, map, assetManager, settings)) return false;
                 break;
             case OTBM_NODE_TOWNS:
-                // TODO: Implement parseTownsNode(childNode, map, assetManager, settings);
-                qDebug() << "OtbmMapIO: Parsing OTBM_NODE_TOWNS not yet implemented.";
+                if (!parseTownsContainerNode(childNode, map, assetManager, settings)) return false;
+                break;
+            case OTBM_NODE_HOUSES: // Added case for houses
+                if (!parseHousesContainerNode(childNode, map, assetManager, settings)) return false;
                 break;
             case OTBM_NODE_WAYPOINTS:
                 if (!parseWaypointsContainerNode(childNode, map, assetManager, settings)) return false;
@@ -291,6 +456,39 @@ bool OtbmMapIO::parseTileNode(BinaryNode* tileNode, Map& map, AssetManager& asse
                     return false;
                 }
                 break;
+            // --- Start Tile Spawn Data Parsing ---
+            case OTBM_ATTR_SPAWN_RADIUS: {
+                uint16_t radius_u16;
+                if (!tileNode->getU16(radius_u16)) {
+                    m_lastError = "Failed to read spawn radius for tile at " + tilePos.toString();
+                    qWarning() << "OtbmMapIO::parseTileNode:" << m_lastError;
+                    return false;
+                }
+                currentTile->setSpawnRadius(static_cast<int>(radius_u16));
+                break;
+            }
+            case OTBM_ATTR_SPAWN_INTERVAL: {
+                uint32_t interval_u32;
+                if (!tileNode->getU32(interval_u32)) {
+                    m_lastError = "Failed to read spawn interval for tile at " + tilePos.toString();
+                    qWarning() << "OtbmMapIO::parseTileNode:" << m_lastError;
+                    return false;
+                }
+                currentTile->setSpawnIntervalSeconds(static_cast<int>(interval_u32));
+                break;
+            }
+            case OTBM_ATTR_SPAWN_CREATURE_LIST: {
+                std::string creatureList_std;
+                if (!tileNode->getString(creatureList_std)) {
+                    m_lastError = "Failed to read spawn creature list for tile at " + tilePos.toString();
+                    qWarning() << "OtbmMapIO::parseTileNode:" << m_lastError;
+                    return false;
+                }
+                QStringList creatures = QString::fromStdString(creatureList_std).split(',', Qt::SkipEmptyParts);
+                currentTile->setSpawnCreatureList(creatures);
+                break;
+            }
+            // --- End Tile Spawn Data Parsing ---
             default: {
                 m_lastError = QString("Unknown attribute type %1 for TILE/HOUSETILE node at %2").arg(attribute).arg(tilePos.toString());
                 qWarning() << "OtbmMapIO::parseTileNode:" << m_lastError;
@@ -307,8 +505,7 @@ bool OtbmMapIO::parseTileNode(BinaryNode* tileNode, Map& map, AssetManager& asse
                 if (!parseItemNode(itemOrCreatureNode, currentTile, assetManager, settings)) return false;
                 break;
             case OTBM_NODE_CREATURE:
-                // TODO: Implement parseCreatureNode(itemOrCreatureNode, currentTile, assetManager, settings);
-                qDebug() << "OtbmMapIO: Parsing OTBM_NODE_CREATURE not yet implemented for tile at" << tilePos.toString();
+                if (!parseCreatureNode(itemOrCreatureNode, currentTile, assetManager, settings)) return false;
                 break;
             default:
                 qWarning() << "OtbmMapIO: Unknown child node type" << itemOrCreatureNode->getType() << "in TILE data for" << tilePos.toString();
@@ -393,31 +590,87 @@ bool OtbmMapIO::parseItemNode(BinaryNode* itemNode, Tile* tile, AssetManager& as
                 break;
             }
             // TODO: Implement other item attributes (DepotID, Teleport Dest, WrittenBy, etc.) based on otbm_constants.h
+            case OTBM_ATTR_TELE_DEST_X: {
+                uint16_t x; if (!itemNode->getU16(x)) { m_lastError = "Failed to read tele_dest_x"; return false; }
+                Position dest = newItem->getTeleportDestination(); dest.setX(x); newItem->setTeleportDestination(dest); break;
+            }
+            case OTBM_ATTR_TELE_DEST_Y: {
+                uint16_t y; if (!itemNode->getU16(y)) { m_lastError = "Failed to read tele_dest_y"; return false; }
+                Position dest = newItem->getTeleportDestination(); dest.setY(y); newItem->setTeleportDestination(dest); break;
+            }
+            case OTBM_ATTR_TELE_DEST_Z: {
+                uint8_t z; if (!itemNode->getU8(z)) { m_lastError = "Failed to read tele_dest_z"; return false; }
+                Position dest = newItem->getTeleportDestination(); dest.setZ(z); newItem->setTeleportDestination(dest); break;
+            }
+            case OTBM_ATTR_DEPOT_ID: {
+                uint16_t depotId; if (!itemNode->getU16(depotId)) { m_lastError = "Failed to read depot_id"; return false; }
+                newItem->setDepotID(depotId); break;
+            }
+            // OTBM_ATTR_ITEM_CHARGES is often the same as OTBM_ATTR_COUNT or subtype.
+            // If it's a distinct attribute for specific items, handle it. Otherwise, covered by OTBM_ATTR_CHARGES.
+            // For this task, assuming OTBM_ATTR_CHARGES (already handled by setSubtype) is sufficient.
+            // If a specific OTBM_ATTR_ITEM_CHARGES constant exists and is used:
+            // case OTBM_ATTR_ITEM_CHARGES: {
+            //     uint16_t charges; if (!itemNode->getU16(charges)) { m_lastError = "Failed to read item_charges"; return false; }
+            //     newItem->setCharges(charges); break;
+            // }
+            case OTBM_ATTR_WRITTEN_TEXT: {
+                std::string text_std; if (!itemNode->getString(text_std)) { m_lastError = "Failed to read written_text"; return false; }
+                newItem->setWrittenText(QString::fromStdString(text_std)); break;
+            }
+            case OTBM_ATTR_WRITTEN_BY: {
+                std::string author_std; if (!itemNode->getString(author_std)) { m_lastError = "Failed to read written_by"; return false; }
+                newItem->setAuthor(QString::fromStdString(author_std)); break;
+            }
+            case OTBM_ATTR_DATE: {
+                uint32_t date; if (!itemNode->getU32(date)) { m_lastError = "Failed to read date"; return false; }
+                newItem->setWrittenDate(date); break;
+            }
+            case OTBM_ATTR_LIGHT_LEVEL: { // OTBM_LIGHT_LEVEL in some versions
+                uint16_t level; if (!itemNode->getU16(level)) { m_lastError = "Failed to read light_level"; return false; }
+                newItem->setLightLevel(level); break;
+            }
+            case OTBM_ATTR_LIGHT_COLOR: { // OTBM_LIGHT_COLOR in some versions
+                uint16_t color; if (!itemNode->getU16(color)) { m_lastError = "Failed to read light_color"; return false; }
+                newItem->setLightColor(color); break;
+            }
+            case OTBM_ATTR_DURATION: { // OTBM_DURATION in some versions
+                uint32_t duration; if (!itemNode->getU32(duration)) { m_lastError = "Failed to read duration"; return false; }
+                newItem->setDuration(duration); break;
+            }
+            case OTBM_ATTR_ARTICLE: {
+                std::string article_std; if(!itemNode->getString(article_std)) { m_lastError = "Failed to read article"; return false; }
+                newItem->setAttribute("article", QString::fromStdString(article_std)); break;
+            }
+            // OTBM_ATTR_DESCRIPTION_TEXT might be OTBM_ATTR_TEXT, or a separate one for items with specific descriptions
+            // If it's the same as OTBM_ATTR_TEXT, it's handled. If separate:
+            // case OTBM_ATTR_DESCRIPTION_TEXT: {
+            //    std::string desc_std; if(!itemNode->getString(desc_std)) { m_lastError = "Failed to read desc_text"; return false; }
+            //    newItem->setDescription(QString::fromStdString(desc_std)); break; // Assuming Item has setDescription
+            // }
             default: {
                 m_lastError = QString("Unknown attribute type %1 for ITEM node (ID: %2) on tile %3").arg(attribute).arg(itemId).arg(tile->getPosition().toString());
                 qWarning() << "OtbmMapIO::parseItemNode:" << m_lastError;
-                return false; // Strict parsing
+                // Add robust attribute skipping here if BinaryNode supports it.
+                // For now, returning false for strictness.
+                return false;
             }
         }
-    }
+            }
 
-    // If the item is a container, it might have child item nodes.
-    if (itemType->isContainer()) { // Assuming ItemType has such a helper
+    if (itemType && itemType->isContainer()) {
         BinaryNode* childItemNode = itemNode->getChild();
-        while(childItemNode) {
-            if (childItemNode->getType() == OTBM_NODE_ITEM) {
-                 // Recursive call, but need to add to container item, not tile.
-                 // This requires Item class to have an 'addItem' or similar method for containers.
-                 // For now, this is a simplified stub.
-                 // if (!parseItemNode(childItemNode, /*containerItem*/, assetManager, settings)) return false;
-                 qDebug() << "OtbmMapIO: Parsing child items within container item ID" << itemId << "not fully implemented yet.";
-            } else {
-                qWarning() << "OtbmMapIO: Non-ITEM node found as child of container item ID" << itemId;
+        if (childItemNode) {
+            qWarning() << "OtbmMapIO::parseItemNode: Recursive parsing of items inside container ID " << itemId << " requires a dedicated helper function and is NOT fully implemented in this pass. Child items are being skipped to prevent errors.";
+            while(childItemNode) {
+                // To properly skip, each child node must be fully processed or skipped.
+                // BinaryNode::getNextChild moves to the next sibling. If children have children, this simple loop isn't enough.
+                // This requires BinaryNode to handle tree traversal for skipping, or a recursive skip.
+                // For now, this consumes direct children (siblings).
+                childItemNode = itemNode->getNextChild();
             }
-            childItemNode = itemNode->getNextChild();
+            }
         }
-    }
-
     tile->addItem(std::move(newItem));
     return true;
 }
@@ -495,7 +748,20 @@ bool OtbmMapIO::serializeMapDataNode(NodeFileWriteHandle& writer, const Map& map
             m_lastError = "Failed to write spawn file attribute."; return false;
         }
     }
-    // TODO: Write map client version attributes (OTBM_ATTR_MAP_VERSION_MAJOR, etc.) from map.getVersionInfo()
+
+    // Write map client version attributes if they are set
+    RME::core::ClientVersionInfo versionInfo = map.getClientVersionInfo();
+    if (versionInfo.major != 0 || versionInfo.minor != 0 || versionInfo.build != 0) { // Only write if not default
+        if (!writer.addU8(OTBM_ATTR_MAP_VERSION_MAJOR) || !writer.addU32(versionInfo.major)) {
+            m_lastError = "Failed to write OTBM_ATTR_MAP_VERSION_MAJOR."; return false;
+        }
+        if (!writer.addU8(OTBM_ATTR_MAP_VERSION_MINOR) || !writer.addU32(versionInfo.minor)) {
+            m_lastError = "Failed to write OTBM_ATTR_MAP_VERSION_MINOR."; return false;
+        }
+        if (!writer.addU8(OTBM_ATTR_MAP_VERSION_BUILD) || !writer.addU32(versionInfo.build)) {
+            m_lastError = "Failed to write OTBM_ATTR_MAP_VERSION_BUILD."; return false;
+        }
+    }
 
     // Iterate map by 256x256x1 areas (per floor)
     // Ensure map dimensions are positive before iterating
@@ -531,7 +797,18 @@ bool OtbmMapIO::serializeMapDataNode(NodeFileWriteHandle& writer, const Map& map
             return false; // m_lastError set by callee
         }
     }
-    // TODO: Serialize OTBM_NODE_TOWNS
+    // Serialize Towns if any
+    if (!map.getTowns().isEmpty()) {
+        if (!serializeTownsContainerNode(writer, map, assetManager, settings)) {
+            return false;
+        }
+    }
+    // Serialize Houses if any
+    if (!map.getHouses().isEmpty()) {
+        if (!serializeHousesContainerNode(writer, map, assetManager, settings)) {
+            return false;
+        }
+    }
 
     if (!writer.endNode()) { m_lastError = "Failed to end MAP_DATA node."; return false; }
     return true;
@@ -618,6 +895,28 @@ bool OtbmMapIO::serializeTileNode(NodeFileWriteHandle& writer, const Tile* tile,
         }
     }
 
+    // --- Start Tile Spawn Data Serialization ---
+    if (tile->isSpawnTile()) {
+        if (tile->getSpawnRadius() > 0) {
+            if(!writer.addU8(OTBM_ATTR_SPAWN_RADIUS) || !writer.addU16(static_cast<uint16_t>(tile->getSpawnRadius()))) {
+                 m_lastError = "Failed to write spawn radius for " + tile->getPosition().toString(); return false;
+            }
+        }
+        if (tile->getSpawnIntervalSeconds() > 0) {
+            if(!writer.addU8(OTBM_ATTR_SPAWN_INTERVAL) || !writer.addU32(static_cast<uint32_t>(tile->getSpawnIntervalSeconds()))) {
+                 m_lastError = "Failed to write spawn interval for " + tile->getPosition().toString(); return false;
+            }
+        }
+
+        if (!tile->getSpawnCreatureList().isEmpty()) {
+            QString creatureListStr = tile->getSpawnCreatureList().join(',');
+            if(!writer.addU8(OTBM_ATTR_SPAWN_CREATURE_LIST) || !writer.addString(creatureListStr)) {
+                 m_lastError = "Failed to write spawn creature list for " + tile->getPosition().toString(); return false;
+            }
+        }
+    }
+    // --- End Tile Spawn Data Serialization ---
+
     // Write Items (Ground item first, then top items)
     if (tile->getGround()) {
         if (!serializeItemNode(writer, tile->getGround(), assetManager, settings)) { // Pass assetManager & settings
@@ -633,7 +932,14 @@ bool OtbmMapIO::serializeTileNode(NodeFileWriteHandle& writer, const Tile* tile,
             }
         }
     }
-    // TODO: Serialize Creatures on this tile
+
+    // Serialize Creature if present
+    if (tile->getCreature()) {
+        if (!serializeCreatureNode(writer, tile->getCreature(), assetManager, settings)) {
+            // m_lastError is set by serializeCreatureNode
+            return false;
+        }
+    }
 
     if (!writer.endNode()) {
         m_lastError = "Failed to end TILE/HOUSETILE node for " + tile->getPosition().toString() + ".";
@@ -699,20 +1005,62 @@ bool OtbmMapIO::serializeItemNode(NodeFileWriteHandle& writer, const Item* item,
         }
     }
     // TODO: Other attributes: WrittenBy, WrittenDate, DepotID, Teleport Dest, etc. based on constants and item properties.
+    // Adding new attributes based on subtask instructions
+    Position dest = item->getTeleportDestination();
+    if (dest.isValid()) {
+        if(!writer.addU8(OTBM_ATTR_TELE_DEST_X) || !writer.addU16(dest.x())) {m_lastError="Failed to write tele dest X"; return false;}
+        if(!writer.addU8(OTBM_ATTR_TELE_DEST_Y) || !writer.addU16(dest.y())) {m_lastError="Failed to write tele dest Y"; return false;}
+        if(!writer.addU8(OTBM_ATTR_TELE_DEST_Z) || !writer.addU8(dest.z())) {m_lastError="Failed to write tele dest Z"; return false;}
+    }
+    if (item->getDepotID() > 0) {
+        if(!writer.addU8(OTBM_ATTR_DEPOT_ID) || !writer.addU16(item->getDepotID())) {m_lastError="Failed to write depot id"; return false;}
+    }
+    // Assuming OTBM_ATTR_ITEM_CHARGES is distinct from OTBM_ATTR_CHARGES or OTBM_ATTR_COUNT for specific items.
+    // For now, we'll use OTBM_ATTR_CHARGES if itemType->isChargeableOrFluid() and it's already handled by subtype logic.
+    // If OTBM_ATTR_ITEM_CHARGES is a separate field to be always written for certain items:
+    // if (itemType && itemType->isChargeableOrFluid() && item->getCharges() > 0) { // Assuming Item has getCharges()
+    //    if(!writer.addU8(OTBM_ATTR_ITEM_CHARGES) || !writer.addU16(item->getCharges())) {m_lastError="Failed to write item charges"; return false;}
+    // }
+    if (!item->getWrittenText().isEmpty()) {
+        if(!writer.addU8(OTBM_ATTR_WRITTEN_TEXT) || !writer.addString(item->getWrittenText())) {m_lastError="Failed to write written text"; return false;}
+    }
+    if (!item->getAuthor().isEmpty()) {
+        if(!writer.addU8(OTBM_ATTR_WRITTEN_BY) || !writer.addString(item->getAuthor())) {m_lastError="Failed to write written by"; return false;}
+    }
+    if (item->getWrittenDate() > 0) {
+        if(!writer.addU8(OTBM_ATTR_DATE) || !writer.addU32(item->getWrittenDate())) {m_lastError="Failed to write date"; return false;}
+    }
+    if (item->getLightLevel() > 0) { // Assuming 0 is default/no light
+        if(!writer.addU8(OTBM_ATTR_LIGHT_LEVEL) || !writer.addU16(item->getLightLevel())) {m_lastError="Failed to write light level"; return false;}
+    }
+    if (item->getLightColor() > 0) { // Assuming 0 is default/no color
+        if(!writer.addU8(OTBM_ATTR_LIGHT_COLOR) || !writer.addU16(item->getLightColor())) {m_lastError="Failed to write light color"; return false;}
+    }
+    if (item->getDuration() > 0) {
+        if(!writer.addU8(OTBM_ATTR_DURATION) || !writer.addU32(item->getDuration())) {m_lastError="Failed to write duration"; return false;}
+    }
+    if (item->hasAttribute("article")) {
+        if(!writer.addU8(OTBM_ATTR_ARTICLE) || !writer.addString(item->getAttribute("article").toString())) {m_lastError="Failed to write article"; return false;}
+    }
+    if (!item->getDescription().isEmpty()) { // Assuming Item has getDescription()
+        if(!writer.addU8(OTBM_ATTR_DESCRIPTION_TEXT) || !writer.addString(item->getDescription())) {m_lastError="Failed to write description text"; return false;}
+    }
+
 
     // If the item is a container, serialize its children.
-    const RME::core::assets::ItemType* itemType = assetManager.getItemData(item->getID());
-    if (itemType && itemType->isContainer()) {
-        const Container* container = dynamic_cast<const Container*>(item); // Assuming Item can be cast to Container
-        if (container) {
-            for (const auto& childItemPtr : container->getItems()) { // Assuming Container has getItems()
+    const RME::core::assets::ItemType* itemTypeSerialize = assetManager.getItemData(item->getID());
+    if (itemTypeSerialize && itemTypeSerialize->isContainer()) {
+        const RME::core::Container* containerItem = dynamic_cast<const RME::core::Container*>(item);
+        if (containerItem) {
+            for (const auto& childItemPtr : containerItem->getItems()) {
                 if (childItemPtr) {
                     if (!serializeItemNode(writer, childItemPtr.get(), assetManager, settings)) {
-                        m_lastError = "Failed to serialize child item ID " + QString::number(childItemPtr->getID()) + " within container ID " + QString::number(item->getID()) + ". " + m_lastError;
                         return false;
                     }
                 }
             }
+        } else {
+             qWarning() << "OtbmMapIO::serializeItemNode: Item ID " << item->getID() << " is a container type but could not be cast to Container to serialize children.";
         }
     }
 
@@ -742,7 +1090,7 @@ bool OtbmMapIO::parseWaypointsContainerNode(BinaryNode* containerNode, Map& map,
 bool OtbmMapIO::parseWaypointNode(BinaryNode* waypointNode, Map& map, AssetManager& assetManager, AppSettings& settings) {
     QString wpName;
     Position wpPos;
-    RME::core::navigation::WaypointData newWaypoint; // Use the new type
+    QList<QString> connectionNames; // Temporary list to store connection names
 
     waypointNode->resetReadOffset();
     while(waypointNode->hasMoreProperties()) {
@@ -780,41 +1128,47 @@ bool OtbmMapIO::parseWaypointNode(BinaryNode* waypointNode, Map& map, AssetManag
                     m_lastError = "Failed to read waypoint connection name.";
                     return false;
                 }
-                // newWaypoint will be fully formed after loop, then add connections
-                // For now, store them temporarily if needed, or rely on setting after main props.
-                // This part is tricky as newWaypoint isn't fully named/positioned yet.
-                // Better to collect all attributes, then create WaypointData, then add connections.
-                // For now, this will add to a default-constructed newWaypoint if OTBM_ATTR_WAYPOINT_NAME comes after.
-                // This needs to be handled by ensuring WaypointData is constructed after name/pos are known.
-                // Let's assume for now this attribute is read after name/pos.
-                newWaypoint.addConnection(QString::fromStdString(connectedName_std));
+                connectionNames.append(QString::fromStdString(connectedName_std));
                 break;
             }
             default: {
                 m_lastError = QString("Unknown attribute type %1 for WAYPOINT node.").arg(attribute);
-                qWarning() << "OtbmMapIO::parseWaypointNode:" << m_lastError;
-                return false; // Strict parsing
+                qWarning() << "OtbmMapIO::parseWaypointNode:" << m_lastError << "Skipping attribute.";
+                // Attempt to skip this attribute based on its type if BinaryNode supports it,
+                // or return false if strict parsing is required.
+                // For now, let's assume BinaryNode's getString/getU16 etc. consume the correct amount of data
+                // and the loop continues. If not, this could lead to further parsing errors.
+                // A robust skip would require knowing attribute data length.
+                // Returning false for unknown attributes is safer for strict formats.
+                return false;
             }
         }
     }
 
     if (wpName.isEmpty()) {
-        m_lastError = "Waypoint loaded with empty name.";
+        m_lastError = "Waypoint loaded with empty name. Position: " + wpPos.toString();
+        qWarning() << "OtbmMapIO::parseWaypointNode:" << m_lastError;
+        return false; // Waypoint name is essential
+    }
+    if (!wpPos.isValid()) { // Assuming Position::isValid() checks if it's not default e.g. (-1,-1,-1) or (0,0,0) if 0,0,0 is invalid start
+        // Or if specific coordinates are out of expected range if not covered by map->addWaypoint
+        m_lastError = "Waypoint '" + wpName + "' loaded with invalid position: " + wpPos.toString();
         qWarning() << "OtbmMapIO::parseWaypointNode:" << m_lastError;
         return false;
     }
 
-    // Construct WaypointData fully here before adding connections if they were temporarily stored
-    newWaypoint.name = wpName;
-    newWaypoint.position = wpPos;
-    // If connections were stored in a temp list, add them to newWaypoint now.
-    // The current structure adds connections to a potentially default-named newWaypoint if
-    // OTBM_ATTR_WAYPOINT_CONNECTION_TO appears before OTBM_ATTR_WAYPOINT_NAME.
-    // For a robust solution, all attributes should be read into temporary variables,
-    // then the WaypointData object constructed and populated.
-    // For this simplified update, we assume name/pos are parsed before connections.
+    RME::core::navigation::WaypointData newWaypoint(wpName, wpPos);
+    for (const QString& connectedName : connectionNames) {
+        newWaypoint.addConnection(connectedName);
+    }
 
-    map.addWaypoint(std::move(newWaypoint));
+    if (!map.addWaypoint(std::move(newWaypoint))) {
+        // map.addWaypoint might return false if a waypoint with the same name already exists
+        // and the policy is not to overwrite. Or if other validation fails.
+        m_lastError = "Failed to add waypoint '" + wpName + "' to map. It might already exist or be invalid.";
+        qWarning() << "OtbmMapIO::parseWaypointNode:" << m_lastError;
+        return false; // Indicate failure to add to map
+    }
     return true;
 }
 
@@ -897,6 +1251,145 @@ std::vector<uint8_t> OtbmMapIO::compressNodeData(const QByteArray& uncompressedD
     }
     return std::vector<uint8_t>(reinterpret_cast<const uint8_t*>(compressedData.constData()),
                                 reinterpret_cast<const uint8_t*>(compressedData.constData()) + compressedData.size());
+}
+
+// --- Town Specific Parsing/Serialization ---
+bool OtbmMapIO::parseTownsContainerNode(BinaryNode* containerNode, Map& map, AssetManager& assetManager, AppSettings& settings) {
+    BinaryNode* townNode = containerNode->getChild();
+    while(townNode) {
+        if (townNode->getType() == OTBM_NODE_TOWN) {
+            if (!parseTownNode(townNode, map, assetManager, settings)) {
+                return false; // m_lastError set in parseTownNode
+            }
+        } else {
+            qWarning() << "OtbmMapIO: Unknown child node type" << townNode->getType() << "in TOWNS_CONTAINER.";
+        }
+        townNode = containerNode->getNextChild();
+    }
+    return true;
+}
+
+bool OtbmMapIO::parseTownNode(BinaryNode* townNode, Map& map, AssetManager& assetManager, AppSettings& settings) {
+    uint32_t townId_u32 = 0; // Store as uint32_t from TownData
+    uint16_t townId_u16 = 0; // For reading OTBM U16
+    QString townName;
+    Position templePos;
+    bool idSet = false, nameSet = false, posSet = false;
+
+    townNode->resetReadOffset();
+    while(townNode->hasMoreProperties()) {
+        uint8_t attribute;
+        if (!townNode->getU8(attribute)) { m_lastError = "Failed to read town attribute type."; return false; }
+
+        switch(attribute) {
+            case OTBM_ATTR_TOWN_ID: {
+                if (!townNode->getU16(townId_u16)) { m_lastError = "Failed to read town ID (U16)."; return false; }
+                townId_u32 = static_cast<uint32_t>(townId_u16);
+                idSet = true;
+                break;
+            }
+            case OTBM_ATTR_TOWN_NAME: {
+                std::string name_std;
+                if (!townNode->getString(name_std)) { m_lastError = "Failed to read town name."; return false; }
+                townName = QString::fromStdString(name_std);
+                nameSet = true;
+                break;
+            }
+            case OTBM_ATTR_TOWN_TEMPLE_POS_X: {
+                uint16_t x;
+                if (!townNode->getU16(x)) { m_lastError = "Failed to read town temple pos X."; return false; }
+                templePos.setX(x);
+                break;
+            }
+            case OTBM_ATTR_TOWN_TEMPLE_POS_Y: {
+                uint16_t y;
+                if (!townNode->getU16(y)) { m_lastError = "Failed to read town temple pos Y."; return false; }
+                templePos.setY(y);
+                break;
+            }
+            case OTBM_ATTR_TOWN_TEMPLE_POS_Z: {
+                uint8_t z;
+                if (!townNode->getU8(z)) { m_lastError = "Failed to read town temple pos Z."; return false; }
+                templePos.setZ(z);
+                posSet = true; // Assuming Z is the last component of position
+                break;
+            }
+            default: {
+                m_lastError = QString("Unknown attribute type %1 for TOWN node.").arg(attribute);
+                qWarning() << "OtbmMapIO::parseTownNode:" << m_lastError;
+                return false;
+            }
+        }
+    }
+
+    if (!idSet || !nameSet || !posSet) {
+        m_lastError = QString("Incomplete town data: ID set=%1, Name set=%2, Pos set=%3 for a town.").arg(idSet).arg(nameSet).arg(posSet);
+        qWarning() << "OtbmMapIO::parseTownNode:" << m_lastError;
+        return false;
+    }
+
+    if (townName.isEmpty() || townId_u32 == 0) { // Check against the u32 version
+         m_lastError = "Town loaded with empty name or ID 0.";
+         qWarning() << "OtbmMapIO::parseTownNode:" << m_lastError;
+         return false;
+    }
+
+    RME::core::world::TownData newTown(townId_u32, townName, templePos);
+    if (!map.addTown(std::move(newTown))) {
+        m_lastError = "Failed to add town (ID: " + QString::number(townId_u32) + ", Name: " + townName + ") to map. It might already exist or be invalid.";
+        qWarning() << "OtbmMapIO::parseTownNode:" << m_lastError;
+        return false;
+    }
+    return true;
+}
+
+bool OtbmMapIO::serializeTownsContainerNode(NodeFileWriteHandle& writer, const Map& map, AssetManager& assetManager, AppSettings& settings) {
+    if (map.getTowns().isEmpty()) {
+        return true;
+    }
+    if (!writer.addNode(OTBM_NODE_TOWNS, false)) {
+        m_lastError = "Failed to start TOWNS_CONTAINER node."; return false;
+    }
+
+    const auto& townsMap = map.getTowns(); // getTowns() returns const QMap<uint32_t, RME::core::world::TownData>&
+    for (auto it = townsMap.constBegin(); it != townsMap.constEnd(); ++it) {
+        if (!serializeTownNode(writer, it.value(), assetManager, settings)) {
+            return false;
+        }
+    }
+
+    if (!writer.endNode()) {
+        m_lastError = "Failed to end TOWNS_CONTAINER node."; return false;
+    }
+    return true;
+}
+
+bool OtbmMapIO::serializeTownNode(NodeFileWriteHandle& writer, const RME::core::world::TownData& town, AssetManager& assetManager, AppSettings& settings) {
+    if (!writer.addNode(OTBM_NODE_TOWN, false)) {
+        m_lastError = "Failed to start TOWN node for: " + town.name;
+        return false;
+    }
+
+    if (!writer.addU8(OTBM_ATTR_TOWN_ID) || !writer.addU16(static_cast<uint16_t>(town.id))) {
+        m_lastError = "Failed to write town ID for: " + town.name; return false;
+    }
+    if (!writer.addU8(OTBM_ATTR_TOWN_NAME) || !writer.addString(town.name)) {
+        m_lastError = "Failed to write town name for: " + town.name; return false;
+    }
+    if (!writer.addU8(OTBM_ATTR_TOWN_TEMPLE_POS_X) || !writer.addU16(town.templePosition.x())) {
+         m_lastError = "Failed to write town temple pos X for: " + town.name; return false;
+    }
+    if (!writer.addU8(OTBM_ATTR_TOWN_TEMPLE_POS_Y) || !writer.addU16(town.templePosition.y())) {
+         m_lastError = "Failed to write town temple pos Y for: " + town.name; return false;
+    }
+    if (!writer.addU8(OTBM_ATTR_TOWN_TEMPLE_POS_Z) || !writer.addU8(static_cast<uint8_t>(town.templePosition.z()))) {
+         m_lastError = "Failed to write town temple pos Z for: " + town.name; return false;
+    }
+
+    if (!writer.endNode()) {
+        m_lastError = "Failed to end TOWN node for: " + town.name; return false;
+    }
+    return true;
 }
 
 

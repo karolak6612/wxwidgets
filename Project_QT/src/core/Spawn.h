@@ -18,7 +18,7 @@ struct SpawnCreatureInfo {
 
 class Spawn {
 public:
-    Spawn(uint16_t radius = 1);
+    Spawn(uint16_t radius = 1, int intervalSeconds = 60);
     virtual ~Spawn() = default;
 
     // Virtual deep copy
@@ -26,6 +26,9 @@ public:
 
     uint16_t getRadius() const;
     void setRadius(uint16_t newRadius);
+
+    int getIntervalSeconds() const;
+    void setIntervalSeconds(int seconds);
 
     // Basic management of creatures in spawn (example)
     void addCreatureType(const QString& creatureName);
@@ -35,7 +38,7 @@ public:
 private:
     uint16_t radius; // Spawn radius
     QList<SpawnCreatureInfo> creatureTypes; // List of creatures that can spawn here
-    // Other spawn-specific data (e.g., interval) will be added in a dedicated task
+    int m_intervalSeconds;
 };
 
 } // namespace RME

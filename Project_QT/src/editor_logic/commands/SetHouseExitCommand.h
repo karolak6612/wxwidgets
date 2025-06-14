@@ -2,45 +2,39 @@
 #define RME_SETHOUSEEXITCOMMAND_H
 
 #include <QUndoCommand>
-#include <QString>
 #include "core/Position.h" // RME::core::Position
-#include <cstdint>        // For uint32_t
 
 // Forward declarations
-namespace RME { // RME::Map is directly in RME namespace
-    class Map;
+namespace RME {
+    class Map; // RME::Map
+    namespace core {
+        namespace houses {
+            class House; // RME::core::houses::House
+        }
+    }
 }
-// Forward declare RME::core::Position if not fully included by "core/Position.h" above (it is)
-// namespace RME { namespace core { class Position; }}
-
-
-namespace RME_COMMANDS {
-
-const int SetHouseExitCommandId = 1005; // Unique ID for this command type
 
 class SetHouseExitCommand : public QUndoCommand {
 public:
-    SetHouseExitCommand(
-        RME::Map* map,
-        uint32_t houseId,
-        const RME::core::Position& oldExitPos, // Position of the exit *before* this command
-        const RME::core::Position& newExitPos, // New position for the exit
-        QUndoCommand* parent = nullptr
-    );
+    SetHouseExitCommand(RME::core::houses::House* house,
+                        const RME::core::Position& newExitPos,
+                        RME::Map* map, // Map pointer for notifications
+                        QUndoCommand* parent = nullptr);
+
     ~SetHouseExitCommand() override = default;
 
     void undo() override;
     void redo() override;
 
-    int id() const override { return SetHouseExitCommandId; }
-    // bool mergeWith(const QUndoCommand* command) override; // Optional for merging consecutive exit sets
+    // Optional: for merging consecutive exit changes for the same house
+    // int id() const override;
+    // bool mergeWith(const QUndoCommand *other) override;
 
 private:
+    RME::core::houses::House* m_house;
     RME::Map* m_map;
-    uint32_t m_houseId;
-    RME::core::Position m_oldExitPos; // Stored for undo
-    RME::core::Position m_newExitPos; // Stored for redo
+    RME::core::Position m_newExitPos;
+    RME::core::Position m_oldExitPos; // Stored from house->getExitPos() at construction
 };
 
-} // namespace RME_COMMANDS
 #endif // RME_SETHOUSEEXITCOMMAND_H

@@ -1,36 +1,37 @@
-#ifndef RME_TOWNDATA_H
-#define RME_TOWNDATA_H
+#ifndef RME_CORE_WORLD_TOWNDATA_H
+#define RME_CORE_WORLD_TOWNDATA_H
 
-#include "core/Position.h" // For RME::Position
 #include <QString>
-#include <cstdint> // For uint32_t
+#include "core/Position.h" // Path confirmed from previous ls output
 
 namespace RME {
+namespace core {
+namespace world {
 
 class TownData {
 public:
-    TownData(uint32_t id_ = 0, const QString& name_ = QString(), const Position& templePos_ = Position());
+    uint32_t id = 0;
+    QString name;
+    Position templePosition;
 
-    // Accessors
-    uint32_t getId() const { return m_id; }
-    const QString& getName() const { return m_name; }
-    const Position& getTemplePosition() const { return m_templePosition; }
+    TownData() = default; // Explicit default constructor
+    TownData(uint32_t id_, const QString& name_, const Position& templePos_)
+        : id(id_), name(name_), templePosition(templePos_) {}
 
-    // Mutators
-    void setName(const QString& name) { m_name = name; }
-    void setTemplePosition(const Position& templePos) { m_templePosition = templePos; }
-    // ID is set at construction and generally not changed, as it's a map key.
+    // Basic equality operator
+    bool operator==(const TownData& other) const {
+        return id == other.id &&
+               name == other.name &&
+               templePosition == other.templePosition;
+    }
 
-    // Comparison operators
-    bool operator==(const TownData& other) const;
-    bool operator!=(const TownData& other) const;
-
-private:
-    uint32_t m_id;
-    QString m_name;
-    Position m_templePosition;
+    bool operator!=(const TownData& other) const {
+        return !(*this == other);
+    }
 };
 
+} // namespace world
+} // namespace core
 } // namespace RME
 
-#endif // RME_TOWNDATA_H
+#endif // RME_CORE_WORLD_TOWNDATA_H

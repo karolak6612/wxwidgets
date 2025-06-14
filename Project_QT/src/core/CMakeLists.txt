@@ -113,10 +113,14 @@ list(APPEND RME_CORE_LIB_HEADERS ${CORE_ACTIONS_HDRS}) # Add new action headers 
 # House System
 set(CORE_HOUSES_HDRS
     ${CMAKE_CURRENT_SOURCE_DIR}/houses/HouseData.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/houses/House.h     # Added
+    ${CMAKE_CURRENT_SOURCE_DIR}/houses/Houses.h    # Added
 )
 
 set(CORE_HOUSES_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/houses/HouseData.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/houses/House.cpp     # Added
+    ${CMAKE_CURRENT_SOURCE_DIR}/houses/Houses.cpp    # Added
 )
 
 list(APPEND RME_CORE_LIB_SOURCES ${CORE_HOUSES_SRCS})
@@ -165,6 +169,24 @@ set(CORE_WORLD_SRCS
 
 list(APPEND RME_CORE_LIB_SOURCES ${CORE_WORLD_SRCS})
 list(APPEND RME_CORE_LIB_HEADERS ${CORE_WORLD_HDRS})
+
+# Data Transfer Objects
+set(CORE_DATA_TRANSFER_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/data_transfer/TileData.h
+)
+set(CORE_DATA_TRANSFER_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/data_transfer/TileData.cpp
+)
+list(APPEND RME_CORE_LIB_SOURCES ${CORE_DATA_TRANSFER_SRCS})
+list(APPEND RME_CORE_LIB_HEADERS ${CORE_DATA_TRANSFER_HDRS})
+
+# Waypoint System (LOGIC-04 definitions, distinct from navigation/WaypointData.cpp)
+set(CORE_WAYPOINTS_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/waypoints/Waypoint.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/waypoints/WaypointManager.h
+)
+# WaypointManager.cpp is already in RME_CORE_LIB_SOURCES
+list(APPEND RME_CORE_LIB_HEADERS ${CORE_WAYPOINTS_HDRS})
 
 # Specific Brush Logics
 set(CORE_BRUSHES_LOGIC_HDRS

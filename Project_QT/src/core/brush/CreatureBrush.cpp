@@ -3,13 +3,14 @@
 #include "core/map/Map.h"
 #include "core/Tile.h"
 #include "core/creatures/Creature.h"
-#include "core/spawns/SpawnData.h"
-#include "core/assets/CreatureData.h"
+// #include "core/spawns/SpawnData.h" // SpawnData is not directly used by CreatureBrush logic after CORE-10.
+// CreatureData is included from CreatureBrush.h
 #include "core/settings/AppSettings.h"
 #include "core/editor/EditorControllerInterface.h"
-#include "core/Spawn.h" // For RME::Spawn object on tile (marker)
+// core/Spawn.h is obsolete, ensure it's removed.
 
-#include <QDebug> // For temporary debugging, remove later
+#include <QDebug>
+#include <QString> // For QStringLiteral and arg
 
 // Anonymous namespace for helper functions if needed
 namespace {
@@ -19,37 +20,45 @@ namespace {
 namespace RME {
 namespace core {
 
-CreatureBrush::CreatureBrush() : m_creatureType(nullptr) {
-    // Constructor
+CreatureBrush::CreatureBrush(RME::core::editor::EditorControllerInterface* controller, const RME::core::assets::CreatureData* creatureData) :
+    RME::core::brush::Brush(controller), // Call base Brush constructor
+    m_creatureData(creatureData)
+{
+    Q_ASSERT(m_creatureData != nullptr && "CreatureData cannot be null for CreatureBrush");
+    if (m_creatureData) {
+        // Set base brush name and description dynamically based on creature
+        // Base class Brush constructor might need adjustment if it expects these, or add setters.
+        // For now, assuming base Brush has setters or this logic is handled differently.
+        // Brush::setName(m_creatureData->name);
+        // Brush::setDescription(QString("Places %1 creatures.").arg(m_creatureData->name));
+    }
 }
 
-void CreatureBrush::setCreatureType(const RME::core::assets::CreatureData* type) {
-    m_creatureType = type;
+void CreatureBrush::setCreatureData(const RME::core::assets::CreatureData* creatureData) {
+    m_creatureData = creatureData;
 }
 
-const RME::core::assets::CreatureData* CreatureBrush::getCreatureType() const {
-    return m_creatureType;
+const RME::core::assets::CreatureData* CreatureBrush::getCreatureData() const {
+    return m_creatureData;
 }
 
 QString CreatureBrush::getName() const {
-    if (m_creatureType) {
-        return m_creatureType->name;
+    if (m_creatureData) {
+        return m_creatureData->name;
     }
-    return "Creature Brush";
+    return QStringLiteral("Creature Brush (Unset)"); // Fallback name
 }
 
 int CreatureBrush::getLookID(const RME::core::BrushSettings& /*settings*/) const {
+    // For now, returning 0. If CreatureData had a looktype/itemid, it could be returned.
     return 0;
 }
 
-// canApply uses const Map*, so it doesn't use EditorControllerInterface directly for map access
-// but it might need AppSettings if some conditions depend on global settings.
-// For now, assuming AppSettings check is primarily for the 'apply' phase or complex conditions.
 bool CreatureBrush::canApply(const RME::core::map::Map* map,
                              const RME::core::Position& pos,
                              const RME::core::BrushSettings& settings) const {
-    if (!m_creatureType) {
-        qWarning() << "CreatureBrush::canApply: No creature type selected.";
+    if (!m_creatureData) {
+        qWarning("CreatureBrush::canApply: No creature data set for the brush.");
         return false;
     }
 
@@ -123,99 +132,93 @@ void CreatureBrush::apply(RME::core::editor::EditorControllerInterface* controll
 
     // --- Pre-condition check using potentially more context from controller ---
     // (This is a more robust check than the public canApply, using controller resources)
-    bool canProceed = true;
+    // This pre-apply check logic should align with canApply or be the sole place for complex checks.
+    // For now, keeping it similar to canApply but using controller for AppSettings.
     if (settings.isEraseMode) {
-        if (!tile->hasCreature()) canProceed = false;
-    } else { // Drawing mode
-        if (!m_creatureType) canProceed = false;
-        else if (tile->isBlocking()) canProceed = false;
-        else if (tile->isPZ() && !m_creatureType->flags.testFlag(RME::CreatureTypeFlag::IS_NPC)) canProceed = false;
-        else {
-            // Check spawn condition precisely
-            bool existingSpawnCoversTile = false;
-            if (tile->getSpawn() || tile->getSpawnDataRef()) { // Tile is center of a spawn
-                existingSpawnCoversTile = true;
-            } else { // Check if any spawn area covers this tile
-                // This might require a map method: existingSpawnCoversTile = map->isTileCoveredBySpawn(pos);
-                // For now, we assume if tile->getSpawn/getSpawnDataRef is null, no *centered* spawn is here.
-                // The broader check for "covered by any spawn" is more complex.
-            }
-
-            if (!existingSpawnCoversTile && !appSettings->isAutoCreateSpawnEnabled()) {
-                canProceed = false; // No existing spawn and auto-create is off
-            }
+        if (!tile->hasCreature()) {
+             qDebug("CreatureBrush::apply (erase): No creature to erase at %s.", qUtf8Printable(pos.toString()));
+            return; // Nothing to do
         }
-    }
+    } else { // Drawing mode
+        if (!m_creatureData) { // Check m_creatureData
+            qWarning("CreatureBrush::apply (draw): No creature data set for the brush.");
+            return;
+        }
+        if (tile->isBlocking()) {
+             qDebug("CreatureBrush::apply (draw): Tile is blocking at %s.", qUtf8Printable(pos.toString()));
+            return;
+        }
+        if (tile->isPZ() && !m_creatureData->flags.testFlag(RME::CreatureTypeFlag::IS_NPC)) {
+             qDebug("CreatureBrush::apply (draw): Cannot place non-NPC in PZ at %s.", qUtf8Printable(pos.toString()));
+            return;
+        }
 
-    if (!canProceed) {
-        qDebug() << "CreatureBrush::apply: Pre-conditions not met for operation at" << pos.x << pos.y << pos.z;
-        return;
+        // Spawn logic needs to be re-evaluated with new SpawnData system
+        // For now, assume that if a tile doesn't have a SpawnDataRef, we might create one if auto-create is on.
+        // This part is complex and depends on how CORE-10 was fully implemented.
+        // The original logic involving tile->getSpawn() is for the old Spawn class.
+        // For now, let's simplify: if auto-create is on and no spawn *center* is here, a spawn might be created.
+        // The actual check for "is this tile part of *any* spawn area" is map-level.
+        if (!tile->getSpawnDataRef() && !appSettings->isAutoCreateSpawnEnabled()) {
+             qDebug("CreatureBrush::apply (draw): Tile %s has no spawn and auto-create spawn is disabled.", qUtf8Printable(pos.toString()));
+            // return; // This might be too restrictive if creature can be placed without spawn.
+                      // RME typically requires spawns for creatures.
+        }
     }
     // --- End Pre-condition check ---
 
 
     if (settings.isEraseMode) {
-        if (tile->hasCreature()) { // Check if there is a creature to erase
-            const RME::core::assets::CreatureData* creatureTypeToRemove = tile->getCreature()->getType();
-            controller->recordRemoveCreature(pos, creatureTypeToRemove);
+        // tile->hasCreature() was checked by pre-conditions
+        const RME::core::assets::CreatureData* creatureTypeToRemove = nullptr;
+        if(tile->getCreature()) { // Get type if creature exists
+             creatureTypeToRemove = tile->getCreature()->getType();
+        }
+        // recordRemoveCreature doesn't strictly need creatureTypeToRemove if it removes any creature.
+        // Passing it can be for logging or future validation within the command.
+        controller->recordRemoveCreature(pos, creatureTypeToRemove);
 
-            // Now check for auto-spawn removal
-            // This assumes that 'tile' pointer is still valid and its SpawnDataRef might have been updated by the controller,
-            // or that SpawnData objects are managed in a way that this reference remains valid.
-            RME::SpawnData* currentSpawnData = tile->getSpawnDataRef();
-            if (currentSpawnData && currentSpawnData->isAutoCreated()) {
-                // Condition: if the spawn only contained this one creature type and its count was 1.
-                // This is a simplification. A more robust check would be if the SpawnData's creature list
-                // becomes empty after this creature is conceptually removed from it by the controller's action.
-                // If controller->recordRemoveCreature also implies removal from spawn's list:
-                // if (currentSpawnData->getCreatureTypes().isEmpty()) {
-                // For now, using the provided logic:
-                if (currentSpawnData->getCreatureTypes().count() == 1 &&
-                    currentSpawnData->getCreatureTypes().first() == creatureTypeToRemove->name) {
-                    // It's also possible the controller has already removed this creature type from currentSpawnData's list.
-                    // If so, the check should be currentSpawnData->getCreatureTypes().isEmpty()
-                    // This part of the logic is highly dependent on controller implementation details.
-                    // Let's assume for now the list in currentSpawnData is NOT YET updated by recordRemoveCreature,
-                    // so the check against creatureTypeToRemove name and count == 1 is more appropriate.
-                    controller->recordRemoveSpawn(currentSpawnData->getCenter());
-                }
+        // Auto-spawn removal logic (simplified, assumes SpawnData is managed by Map and Tile::spawnDataRef points to it)
+        RME::core::spawns::SpawnData* currentSpawnData = tile->getSpawnDataRef(); // Use new SpawnData
+        if (currentSpawnData && currentSpawnData->isAutoCreated()) {
+            // This logic is tricky: does recordRemoveCreature update the spawn's creature list synchronously?
+            // Assuming for now that if a creature is removed, and the spawn was auto-created
+            // and *might* now be empty or only contained this creature, it should be removed.
+            // A more robust solution would be for recordRemoveCreature to handle this,
+            // or for map to have a "cleanup empty auto spawns" function.
+            // For this refactor, let's keep it simple: if the creature was the only type in this auto-spawn, remove spawn.
+            // This requires knowing the creature type we just removed.
+            if (creatureTypeToRemove && currentSpawnData->getCreatureTypes().count() == 1 &&
+                currentSpawnData->getCreatureTypes().first() == creatureTypeToRemove->name) {
+                controller->recordRemoveSpawn(currentSpawnData->getCenter());
+            } else if (currentSpawnData->getCreatureTypes().isEmpty()){
+                 // If after (potential) creature removal from spawn list by recordRemoveCreature, list is empty
+                 controller->recordRemoveSpawn(currentSpawnData->getCenter());
             }
         }
     } else { // Drawing mode
-        if (!m_creatureType) return;
+        if (!m_creatureData) return; // Should have been caught by canApply/pre-check
 
-        // If there's an existing creature, remove it first.
-        if (tile->getCreature()) {
-            const RME::core::assets::CreatureData* oldCreatureType = tile->getCreature()->getType();
-            controller->recordRemoveCreature(pos, oldCreatureType);
-            // The tile should be updated by the above call before adding the new one.
-            // We might need to re-fetch the tile if the controller invalidates the pointer,
-            // but for now, assume tile pointer remains valid or controller handles it.
-        }
-
-        controller->recordAddCreature(pos, m_creatureType);
+        // If there's an existing creature, AddCreatureCommand should handle replacing it.
+        // No explicit removal here is needed if AddCreatureCommand's redo first pops existing.
+        controller->recordAddCreature(pos, m_creatureData);
 
         // Auto-create spawn logic
-        bool existingSpawnCoversTile = false;
-        if (tile->getSpawn() || tile->getSpawnDataRef()) {
-             existingSpawnCoversTile = true;
-        } else {
-            // existingSpawnCoversTile = map->isTileCoveredBySpawn(pos); // More robust check
-        }
-
-        if (appSettings->isAutoCreateSpawnEnabled() && !existingSpawnCoversTile) {
-            RME::SpawnData newSpawnData(
+        if (appSettings->isAutoCreateSpawnEnabled() && !tile->getSpawnDataRef()) {
+            // Check if tile is covered by any *other* spawn first. This is complex.
+            // For now, only create if this tile is not already a spawn center.
+            RME::core::spawns::SpawnData newSpawnData(
                 pos, // Center
-                1,   // Radius (default for auto-spawn)
-                appSettings->getDefaultSpawnTime(),
-                {m_creatureType->name}
+                1,   // Radius (default for auto-spawn, as per original SpawnBrush)
+                appSettings->getDefaultSpawnTime(), // Assuming AppSettings provides this
+                {m_creatureData->name}
             );
-            newSpawnData.setIsAutoCreated(true); // Set the new flag
+            newSpawnData.setIsAutoCreated(true);
             controller->recordAddSpawn(newSpawnData);
         }
-
     }
-    controller->notifyTileChanged(pos); // Notify that the tile might have changed
+    // Tile notification should be handled by commands (AddCreatureCommand, RemoveCreatureCommand, etc.)
+    // controller->notifyTileChanged(pos); // This might be redundant if commands do it.
 }
 
 } // namespace core

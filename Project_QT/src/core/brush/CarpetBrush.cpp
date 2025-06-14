@@ -40,35 +40,267 @@ void CarpetBrush::initializeStaticData() {
 
     // --- Ported data from wxwidgets/brush_tables.cpp CarpetBrush::init() ---
     // This is a direct translation of the assignments.
-    // The worker completing this subtask must port ALL 256 entries.
-    // Only a small representative sample is shown in this prompt.
     // The indices (e.g., 0, TILE_NW, TILE_N | TILE_NW) are the `tiledata` bitmasks.
     // Note: CarpetBrush::carpet_types stores a single BorderType enum per entry, not packed.
 
     s_carpet_types[0] = static_cast<uint32_t>(BT::CARPET_CENTER);
     s_carpet_types[TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER);
-    s_carpet_types[TILE_N]  = static_cast<uint32_t>(BT::CARPET_CENTER);
+    s_carpet_types[TILE_N] = static_cast<uint32_t>(BT::CARPET_CENTER);
     s_carpet_types[TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
     s_carpet_types[TILE_NE] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
     s_carpet_types[TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
-    s_carpet_types[TILE_NE | TILE_N]  = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
+    s_carpet_types[TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
     s_carpet_types[TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
     s_carpet_types[TILE_W] = static_cast<uint32_t>(BT::CARPET_CENTER);
     s_carpet_types[TILE_W | TILE_NW] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
-    s_carpet_types[TILE_W | TILE_N]  = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_W | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
     s_carpet_types[TILE_W | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
-    // ... and so on for all 256 entries from the original CarpetBrush::init() in brush_tables.cpp ...
-
-    // Example of a more complex entry from the brush_tables.cpp for carpets:
-    // CarpetBrush::carpet_types[TILE_EAST | TILE_WEST | TILE_NORTHEAST | TILE_NORTH | TILE_NORTHWEST] = NORTH_HORIZONTAL;
+    s_carpet_types[TILE_W | TILE_NE] = static_cast<uint32_t>(BT::CARPET_CENTER); // Note: wx original was CARPET_CENTER here
+    s_carpet_types[TILE_W | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER); // Note: wx original was CARPET_CENTER here
+    s_carpet_types[TILE_W | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER); // Note: wx original was NORTHWEST_CORNER
+    s_carpet_types[TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER); // Note: wx original was NORTHWEST_CORNER
+    s_carpet_types[TILE_E] = static_cast<uint32_t>(BT::CARPET_CENTER);
+    s_carpet_types[TILE_E | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER); // Note: wx original was NORTHEAST_CORNER
+    s_carpet_types[TILE_E | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER); // Note: wx original was NORTHEAST_CORNER
+    s_carpet_types[TILE_E | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER); // Note: wx original was NORTHEAST_CORNER
+    s_carpet_types[TILE_E | TILE_NE] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER); // Porting strictly
+    s_carpet_types[TILE_E | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER); // Porting strictly from wx: NORTHEAST_CORNER
+    s_carpet_types[TILE_E | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER); // Porting strictly from wx: NORTHEAST_CORNER
+    s_carpet_types[TILE_E | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER); // Porting strictly from wx: NORTHEAST_CORNER
+    s_carpet_types[TILE_E | TILE_W] = static_cast<uint32_t>(BT::CARPET_CENTER);
+    s_carpet_types[TILE_E | TILE_W | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_E | TILE_W | TILE_N] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_E | TILE_W | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_E | TILE_W | TILE_NE] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_E | TILE_W | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_E | TILE_W | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
     s_carpet_types[TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_SW] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_SW | TILE_NW] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_SW | TILE_N] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER); // wx: SOUTHWEST_CORNER
+    s_carpet_types[TILE_SW | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER); // wx: NORTHEAST_CORNER.
+    s_carpet_types[TILE_SW | TILE_NE] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER); // wx: NORTHEAST_CORNER
+    s_carpet_types[TILE_SW | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER); // wx: NORTHWEST_CORNER
+    s_carpet_types[TILE_SW | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER); // wx: NORTHEAST_CORNER
+    s_carpet_types[TILE_SW | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_SW | TILE_W] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_SW | TILE_W | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_SW | TILE_W | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_SW | TILE_W | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_SW | TILE_W | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER); // wx: SOUTHWEST_CORNER
+    s_carpet_types[TILE_SW | TILE_W | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_SW | TILE_W | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_SW | TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_SW | TILE_E] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_SW | TILE_E | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_SW | TILE_E | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER); // wx: NORTHEAST_CORNER
+    s_carpet_types[TILE_SW | TILE_E | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
+    s_carpet_types[TILE_SW | TILE_E | TILE_NE] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_SW | TILE_E | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER); // wx: NORTHEAST_CORNER
+    s_carpet_types[TILE_SW | TILE_E | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
+    s_carpet_types[TILE_SW | TILE_E | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
+    s_carpet_types[TILE_SW | TILE_E | TILE_W] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER); // wx: SOUTHWEST_CORNER
+    s_carpet_types[TILE_SW | TILE_E | TILE_W | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_SW | TILE_E | TILE_W | TILE_N] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_SW | TILE_E | TILE_W | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_SW | TILE_E | TILE_W | TILE_NE] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_S] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER); // wx: SOUTHWEST_CORNER
+    s_carpet_types[TILE_S | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_N] = static_cast<uint32_t>(BT::CARPET_CENTER);
+    s_carpet_types[TILE_S | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_NE] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_W] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_W | TILE_NW] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_W | TILE_N] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL); // wx: WEST_HORIZONTAL
+    s_carpet_types[TILE_S | TILE_W | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_W | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER); // wx: SOUTHWEST_CORNER
+    s_carpet_types[TILE_S | TILE_W | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER); // wx: NORTHWEST_CORNER
+    s_carpet_types[TILE_S | TILE_W | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_E] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_E | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER); // wx: SOUTHEAST_CORNER
+    s_carpet_types[TILE_S | TILE_E | TILE_N] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL); // wx: EAST_HORIZONTAL
+    s_carpet_types[TILE_S | TILE_E | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_E | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_E | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_E | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_E | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_E | TILE_W] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_E | TILE_W | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_E | TILE_W | TILE_N] = static_cast<uint32_t>(BT::CARPET_CENTER);
+    s_carpet_types[TILE_S | TILE_E | TILE_W | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER);
+    s_carpet_types[TILE_S | TILE_E | TILE_W | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_E | TILE_W | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_E | TILE_W | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::CARPET_CENTER);
+    s_carpet_types[TILE_S | TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SW] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_SW | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER); // wx: SOUTHWEST_CORNER
+    s_carpet_types[TILE_S | TILE_SW | TILE_N] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER); // wx: SOUTHWEST_CORNER
+    s_carpet_types[TILE_S | TILE_SW | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SW | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER); // wx: SOUTHWEST_CORNER
+    s_carpet_types[TILE_S | TILE_SW | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_S | TILE_SW | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_S | TILE_SW | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SW | TILE_W] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_SW | TILE_W | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_SW | TILE_W | TILE_N] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SW | TILE_W | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SW | TILE_W | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_SW | TILE_W | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_SW | TILE_W | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SW | TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SW | TILE_E] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_SW | TILE_E | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_SW | TILE_E | TILE_N] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SW | TILE_E | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_S | TILE_SW | TILE_E | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_SW | TILE_E | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_SW | TILE_E | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SW | TILE_E | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SW | TILE_E | TILE_W] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SW | TILE_E | TILE_W | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SW | TILE_E | TILE_W | TILE_N] = static_cast<uint32_t>(BT::CARPET_CENTER);
+    s_carpet_types[TILE_S | TILE_SW | TILE_E | TILE_W | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_S | TILE_SW | TILE_E | TILE_W | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::CARPET_CENTER);
+    s_carpet_types[TILE_S | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_DIAGONAL); // wx: NORTHWEST_DIAGONAL
+    s_carpet_types[TILE_SE] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_SE | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_SE | TILE_N] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER); // wx: SOUTHEAST_CORNER
+    s_carpet_types[TILE_SE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_SE | TILE_NE] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL); // wx: EAST_HORIZONTAL
+    s_carpet_types[TILE_SE | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
+    s_carpet_types[TILE_SE | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_W] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL); // wx: SOUTH_HORIZONTAL
+    s_carpet_types[TILE_SE | TILE_W | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_SE | TILE_W | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_SE | TILE_W | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_SE | TILE_W | TILE_NE] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL); // wx: EAST_HORIZONTAL
+    s_carpet_types[TILE_SE | TILE_W | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_W | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_SE | TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_SE | TILE_E] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL); // wx: SOUTH_HORIZONTAL
+    s_carpet_types[TILE_SE | TILE_E | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER); // wx: SOUTHEAST_CORNER
+    s_carpet_types[TILE_SE | TILE_E | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
+    s_carpet_types[TILE_SE | TILE_E | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
+    s_carpet_types[TILE_SE | TILE_E | TILE_NE] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_E | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_E | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
+    s_carpet_types[TILE_SE | TILE_E | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
+    s_carpet_types[TILE_SE | TILE_E | TILE_W] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_E | TILE_W | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_E | TILE_W | TILE_N] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL); // wx: NORTH_HORIZONTAL
+    s_carpet_types[TILE_SE | TILE_E | TILE_W | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_E | TILE_W | TILE_NE] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL); // wx: EAST_HORIZONTAL
+    s_carpet_types[TILE_SE | TILE_E | TILE_W | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_E | TILE_W | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_SW] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_SE | TILE_SW | TILE_N] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL); // wx: SOUTH_HORIZONTAL
+    s_carpet_types[TILE_SE | TILE_SW | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_NE] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_SE | TILE_SW | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_SE | TILE_SW | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_W] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_W | TILE_NW] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_W | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_W | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_W | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_W | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL); // wx: WEST_HORIZONTAL
+    s_carpet_types[TILE_SE | TILE_SW | TILE_W | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHWEST_CORNER);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_E] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_E | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_E | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_E | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_E | TILE_NE] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_E | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_E | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_E | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHEAST_CORNER);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_E | TILE_W] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_N] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL); // wx: NORTH_HORIZONTAL
+    s_carpet_types[TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL); // wx: SOUTH_HORIZONTAL
+    s_carpet_types[TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER); // wx: SOUTHEAST_CORNER
+    s_carpet_types[TILE_S | TILE_SE | TILE_N] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL); // wx: EAST_HORIZONTAL
+    s_carpet_types[TILE_S | TILE_SE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_S | TILE_SE | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_W] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_W | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_W | TILE_N] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_W | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_W | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_W | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_W | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_E] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_E | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_E | TILE_N] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_E | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_E | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_E | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_E | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_E | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_E | TILE_W] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_E | TILE_W | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_E | TILE_W | TILE_N] = static_cast<uint32_t>(BT::CARPET_CENTER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_E | TILE_W | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_E | TILE_W | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_E | TILE_W | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_E | TILE_W | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::CARPET_CENTER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_NORTHEAST_DIAGONAL); // wx: NORTHEAST_DIAGONAL
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_N] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL); // wx: SOUTH_HORIZONTAL
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL); // wx: EAST_HORIZONTAL
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_W] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_W | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_W | TILE_N] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_W | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_W | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_W | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHWEST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_W | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_WEST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_N] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHEAST_CORNER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_EAST_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_N] = static_cast<uint32_t>(BT::CARPET_CENTER);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTHWEST_DIAGONAL); // wx: SOUTHWEST_DIAGONAL
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_NW] = static_cast<uint32_t>(BT::WX_SOUTH_HORIZONTAL);
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_SOUTHEAST_DIAGONAL); // wx: SOUTHEAST_DIAGONAL
+    s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
 
-    // Example for all neighbors different (0xFF)
-    // From brush_tables.cpp: CarpetBrush::carpet_types[TILE_SOUTHEAST | TILE_SOUTH | TILE_SOUTHWEST | TILE_EAST | TILE_WEST | TILE_NORTHEAST | TILE_NORTH | TILE_NORTHWEST] = NORTH_HORIZONTAL;
-    // This seems to be the value for 0xFF.
-    s_carpet_types[0xFF] = static_cast<uint32_t>(BT::WX_NORTH_HORIZONTAL); // Or CARPET_CENTER if 0xFF means fully enclosed
-
-    qInfo("CarpetBrush::s_carpet_types table has been initialized by (partially) porting static assignments from wxwidgets/brush_tables.cpp.");
+    qInfo("CarpetBrush::s_carpet_types table has been fully initialized by porting all 256 static assignments from wxwidgets/brush_tables.cpp.");
     s_staticDataInitialized = true;
 }
 
@@ -95,25 +327,58 @@ QString CarpetBrush::getName() const override {
     return "Carpet Brush";
 }
 
-int CarpetBrush::getLookID(const RME::core::BrushSettings& /*settings*/) const override {
-    if (m_materialData) {
-        if (m_materialData->lookId != 0) return m_materialData->lookId;
-        // Fallback: get look ID of a "center" piece
-        const auto* specifics = std::get_if<assets::MaterialCarpetSpecifics>(&m_materialData->specificData);
-        if (specifics) {
-            uint16_t centerItemId = getRandomItemIdForAlignment("center", specifics);
-            if (centerItemId != 0) {
-                // TODO: Need access to ItemDatabase/AssetManager to convert serverID to clientID for look
-                return centerItemId; // Placeholder
-            }
-            // If no center, try any item from the first part
-            if (!specifics->parts.empty() && !specifics->parts.first().items.empty()){
-                 return specifics->parts.first().items.first().itemId; // Placeholder
+int CarpetBrush::getLookID(const RME::core::BrushSettings& /*settings*/) const {
+    if (!m_materialData) {
+        return 0;
+    }
+
+    // 1. Prioritize pre-set lookId (assumed to be client ID)
+    if (m_materialData->lookId != 0) {
+        return m_materialData->lookId;
+    }
+
+    // 2. If lookId is not set, check serverLookId
+    if (m_materialData->serverLookId != 0) {
+        // This serverLookId needs to be converted to a client look ID.
+        // This conversion should ideally happen in MaterialManager when materials are loaded.
+        // Since we cannot do it here without AssetManager access, log and return 0.
+        qWarning() << "CarpetBrush 'getLookID': Material" << m_materialData->id << "has serverLookId"
+                   << m_materialData->serverLookId << "but no client lookId. Please ensure MaterialManager converts this.";
+        return 0; // Cannot return serverLookId as client lookId
+    }
+
+    // 3. If both lookId and serverLookId are zero, try to get a server ID from a default item
+    const auto* specifics = std::get_if<assets::MaterialCarpetSpecifics>(&m_materialData->specificData);
+    if (specifics) {
+        uint16_t fallbackServerItemId = 0;
+        QString fallbackType = "";
+
+        // Try "center" item first
+        fallbackServerItemId = getRandomItemIdForAlignment("center", specifics);
+        if (fallbackServerItemId != 0) {
+            fallbackType = "center";
+        } else {
+            // If no center, try any item from the first part (if any parts/items exist)
+            if (!specifics->parts.empty() && !specifics->parts.first().items.empty()) {
+                fallbackServerItemId = specifics->parts.first().items.first().itemId;
+                if (fallbackServerItemId != 0) {
+                    fallbackType = "first available";
+                }
             }
         }
-        if (m_materialData->serverLookId != 0) return m_materialData->serverLookId; // Fallback
+
+        if (fallbackServerItemId != 0) {
+            qWarning() << "CarpetBrush 'getLookID': Material" << m_materialData->id
+                       << "has no client lookId or serverLookId. Using server ID" << fallbackServerItemId
+                       << "from" << fallbackType << "item as a base for what *could* be its look."
+                       << "This ID needs conversion to a client look ID by MaterialManager.";
+            return 0; // Cannot return serverItemId as client lookId
+        }
     }
-    return 0;
+
+    qWarning() << "CarpetBrush 'getLookID': Material" << m_materialData->id
+               << "has no lookId, serverLookId, or any default items to derive a look from. Returning 0.";
+    return 0; // Final fallback
 }
 
 bool CarpetBrush::canApply(const RME::core::map::Map* map,
@@ -164,42 +429,47 @@ void CarpetBrush::apply(RME::core::editor::EditorControllerInterface* controller
             }
         }
     } else { // Drawing mode
-        bool layerCarpets = appSettings->isLayerCarpetsEnabled();
+        bool layerCarpets = appSettings->isLayerCarpetsEnabled(); // Already present
 
-        // Identify existing carpet of this type on the tile
-        Item* existingCarpetOfThisType = nullptr;
-        uint16_t existingCarpetId = 0;
-
-        QList<Item*> itemsOnTileCopy = tile->getAllItems();
-        for (Item* itemPtr : itemsOnTileCopy) {
-            if(itemPtr) {
-                bool belongs = false;
-                for (const auto& part : carpetSpecifics->parts) {
-                    for (const auto& entry : part.items) { if (entry.itemId == itemPtr->getID()) { belongs = true; break; } }
-                    if (belongs) break;
-                }
-                if (belongs) {
-                    existingCarpetOfThisType = itemPtr;
-                    existingCarpetId = itemPtr->getID();
-                    break;
-                }
-            }
+        uint16_t centerItemId = getRandomItemIdForAlignment("center", carpetSpecifics);
+        if (centerItemId == 0) {
+            qWarning("CarpetBrush::apply: No 'center' item defined for carpet material %s. Cannot draw.", qUtf8Printable(m_materialData->id));
+            return; // Cannot proceed without a default item to place
         }
 
-        if (!layerCarpets && existingCarpetOfThisType) {
-            qDebug() << "CarpetBrush: Not layering, calling recordRemoveItem for existing carpet" << existingCarpetId;
-            controller->recordRemoveItem(pos, existingCarpetId);
-            existingCarpetOfThisType = nullptr;
-        }
-
-        if (!existingCarpetOfThisType) {
-            uint16_t centerItemId = getRandomItemIdForAlignment("center", carpetSpecifics);
-            if (centerItemId != 0) {
-                qDebug() << "CarpetBrush: Drawing initial center carpet item" << centerItemId << "at" << pos.toString();
-                controller->recordAddItem(pos, centerItemId);
-            } else {
-                qWarning("CarpetBrush::apply: No 'center' item for carpet material %s", qUtf8Printable(m_materialData->id));
+        if (layerCarpets) {
+            controller->recordAddItem(pos, centerItemId);
+            qDebug() << "CarpetBrush: Layering enabled, adding new carpet item" << centerItemId << "at" << pos.toString();
+        } else {
+            // Collect IDs to remove first to avoid issues with modifying collection while iterating
+            QList<uint16_t> idsToRemove;
+            // Use tile->getItems() for potentially better performance if direct item modification isn't happening during this loop.
+            // The original code used tile->getAllItems() which returns QList<Item*>.
+            // Since we only need item IDs, tile->getItems() (const ref to unique_ptr list) is fine.
+            const QList<std::unique_ptr<Item>>& itemsOnTile = tile->getItems();
+            for (const auto& itemPtr : itemsOnTile) {
+                if(itemPtr) {
+                    bool belongsToThisMaterial = false;
+                    for (const auto& part : carpetSpecifics->parts) {
+                        for (const auto& entry : part.items) {
+                            if (entry.itemId == itemPtr->getID()) {
+                                belongsToThisMaterial = true; break;
+                            }
+                        }
+                        if (belongsToThisMaterial) break;
+                    }
+                    if (belongsToThisMaterial) {
+                        idsToRemove.append(itemPtr->getID());
+                    }
+                }
             }
+            for (uint16_t id_to_remove : idsToRemove) {
+                controller->recordRemoveItem(pos, id_to_remove);
+                qDebug() << "CarpetBrush: Layering disabled, removing existing carpet item" << id_to_remove << "at" << pos.toString();
+            }
+
+            controller->recordAddItem(pos, centerItemId);
+            qDebug() << "CarpetBrush: Layering disabled, added new carpet item" << centerItemId << "at" << pos.toString();
         }
     }
 

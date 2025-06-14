@@ -1,169 +1,156 @@
 #include "core/waypoints/WaypointManager.h"
-#include "core/Map.h"   // Full definition for RME::core::Map
-#include "core/Tile.h"  // Full definition for RME::core::Tile
-#include <utility>      // For std::move
+#include "core/waypoints/Waypoint.h"
+#include "core/map/Map.h" // For RME::core::Map
+#include "core/Tile.h"    // For RME::core::Tile
 
-// It's good practice to include Qt headers specifically if their types are directly used in .cpp
-// #include <QDebug> // For potential logging
+#include <QDebug> // For qWarning if needed
 
 namespace RME {
 namespace core {
+namespace waypoints {
 
-WaypointManager::WaypointManager(RME::core::Map* map) : m_map(map) {
-    // Q_ASSERT(map); // Or other assertion/error handling if map is null
+WaypointManager::WaypointManager(RME::core::Map* map)
+    : m_map(map) {
+    Q_ASSERT(m_map); // WaypointManager requires a valid map context
 }
 
 QString WaypointManager::normalizeName(const QString& name) const {
     return name.trimmed().toLower();
 }
 
-bool WaypointManager::addWaypoint(std::unique_ptr<Waypoint> waypoint) {
-    if (!waypoint) {
+bool WaypointManager::addWaypoint(const QString& name, const RME::core::Position& pos) {
+    if (name.trimmed().isEmpty()) {
+        qWarning("WaypointManager::addWaypoint: Waypoint name cannot be empty or just whitespace.");
         return false;
     }
-
-    QString normalizedNewName = normalizeName(waypoint->name);
-    if (normalizedNewName.isEmpty()) {
-        // qWarning() << "Waypoint name cannot be empty or just whitespace.";
-        return false;
-    }
+    QString normalizedName = normalizeName(name);
 
     // If a waypoint with the same normalized name exists, remove it first.
-    // This also handles decrementing waypoint count on the old tile.
-    if (m_waypoints.contains(normalizedNewName)) {
-        removeWaypoint(normalizedNewName); // Use the public removeWaypoint for consistent logic
-    }
-
-    // If the new waypoint has a valid position, update the tile's waypoint count.
-    if (m_map && waypoint->position.isValid()) {
-        Tile* tile = m_map->getTile(waypoint->position); // getTile should ideally create if not present
-        if (tile) {
-            tile->increaseWaypointCount();
-        } else {
-            // This case might indicate an issue: position is valid but no tile could be obtained/created.
-            // Depending on Map::getTile behavior for non-existent but valid positions.
-            // qWarning() << "Could not get/create tile for waypoint at" << waypoint->position;
-            // Decide if this should prevent adding the waypoint or just add it without tile association.
-            // For now, assume if tile is nullptr, we can't update count but still add waypoint.
+    // This ensures tile counts are correctly decremented for the old one before adding the new one.
+    if (m_waypoints.contains(normalizedName)) {
+        // removeWaypoint will handle tile count decrement and erasing from m_waypoints hash.
+        // We pass the original name used for the existing waypoint if we had it,
+        // but since we key by normalized, we just use the passed name (or normalized one).
+        // This is fine as removeWaypoint also normalizes.
+        if (!removeWaypoint(normalizedName)) {
+            // This case should ideally not happen if contains() is true, but as a safeguard:
+            qWarning("WaypointManager::addWaypoint: Failed to remove existing waypoint '%s' before replacing.").arg(normalizedName);
+            // Continue to try adding, might overwrite if removeWaypoint had an issue not related to finding.
         }
     }
 
-    m_waypoints.insert(normalizedNewName, std::move(waypoint));
+    auto newWp = std::make_unique<Waypoint>(name, pos); // Store original name in Waypoint object
+    Waypoint* wpRawPtr = newWp.get(); // Get raw pointer for potential use before move
+
+    if (m_map && pos.isValid()) { // Assuming Position::isValid() checks for non-negative coords etc.
+                                 // Or some other agreed upon validity check for positions.
+        Tile* tile = m_map->getTile(pos);
+        // According to YAML for LOGIC-04, for add: "get/create 'Tile' and call 'tile->increaseWaypointCount()'"
+        // For now, if tile doesn't exist, we won't create it for a waypoint, just store the waypoint.
+        // The user should place waypoints on existing map areas.
+        // If getOrCreateTile was used: tile = m_map->getOrCreateTile(pos);
+        if (tile) {
+            tile->increaseWaypointCount();
+        } else {
+            // Optional: If waypoints can only be on existing tiles, return false or warn.
+            // qWarning("WaypointManager::addWaypoint: Tile at position %s does not exist.", qUtf8Printable(pos.toString()));
+            // For now, we allow waypoints at positions without pre-existing tiles,
+            // but they won't affect tile waypoint counts until a tile is created there.
+            // This behavior might need review based on how map interaction is designed.
+        }
+    }
+
+    m_waypoints.insert(normalizedName, std::move(newWp));
+
+    // TODO: Update m_positionalWaypointsCache if implemented
+    // if (pos.isValid()) m_positionalWaypointsCache.insert(pos, wpRawPtr);
+
     return true;
 }
 
-Waypoint* WaypointManager::getWaypoint(const QString& name) const {
-    QString normalized = normalizeName(name);
-    if (m_waypoints.contains(normalized)) {
-        return m_waypoints.value(normalized).get();
+Waypoint* WaypointManager::getWaypointByName(const QString& name) const {
+    QString normalizedName = normalizeName(name);
+    auto it = m_waypoints.constFind(normalizedName);
+    if (it != m_waypoints.constEnd()) {
+        return it.value().get(); // .get() from std::unique_ptr
     }
     return nullptr;
 }
 
-QList<Waypoint*> WaypointManager::getWaypointsAt(const Position& pos) const {
-    QList<Waypoint*> foundWaypoints;
-    if (!pos.isValid()) {
-        return foundWaypoints;
-    }
-    for (const auto& wp_ptr : m_waypoints.values()) {
-        if (wp_ptr && wp_ptr->position == pos) {
-            foundWaypoints.append(wp_ptr.get());
+QList<Waypoint*> WaypointManager::getWaypointsAt(const RME::core::Position& pos) const {
+    QList<Waypoint*> result;
+    // TODO: If m_positionalWaypointsCache is implemented, use it for efficiency.
+    // For now, iterate all waypoints:
+    for (auto it = m_waypoints.constBegin(); it != m_waypoints.constEnd(); ++it) {
+        if (it.value() && it.value()->m_position == pos) {
+            result.append(it.value().get());
         }
     }
-    return foundWaypoints;
+    return result;
 }
 
 bool WaypointManager::removeWaypoint(const QString& name) {
-    QString normalized = normalizeName(name);
-    auto it = m_waypoints.find(normalized);
+    QString normalizedName = normalizeName(name);
+    auto it = m_waypoints.find(normalizedName);
+
     if (it == m_waypoints.end()) {
-        return false; // Not found
+        return false; // Waypoint not found
     }
 
-    Waypoint* waypointToRemove = it.value().get();
+    Waypoint* wpToRemove = it.value().get(); // Get raw pointer before unique_ptr is invalidated
+    RME::core::Position pos = wpToRemove->m_position;
 
-    if (m_map && waypointToRemove && waypointToRemove->position.isValid()) {
-        Tile* tile = m_map->getTile(waypointToRemove->position);
+    // Erase from main hash first. This will delete the Waypoint object via unique_ptr.
+    m_waypoints.erase(it);
+
+    // Now update tile count and positional cache (if any)
+    if (m_map && pos.isValid()) {
+        Tile* tile = m_map->getTile(pos);
         if (tile) {
             tile->decreaseWaypointCount();
-        } else {
-            // qWarning() << "Could not get tile to decrease waypoint count for waypoint at" << waypointToRemove->position;
         }
     }
 
-    m_waypoints.erase(it); // Erase using iterator
+    // TODO: Update m_positionalWaypointsCache if implemented
+    // if (pos.isValid()) {
+    //    // This is tricky if multiple waypoints could share a pos and we stored Waypoint*
+    //    // QMultiHash allows multiple identical keys, so remove(key, value) is needed.
+    //    m_positionalWaypointsCache.remove(pos, wpToRemove);
+    // }
+
     return true;
 }
 
 QList<Waypoint*> WaypointManager::getAllWaypoints() const {
-    QList<Waypoint*> allWaypoints;
-    allWaypoints.reserve(m_waypoints.size());
-    for (const auto& wp_ptr : m_waypoints.values()) {
-        allWaypoints.append(wp_ptr.get());
+    QList<Waypoint*> result;
+    result.reserve(m_waypoints.size());
+    for (auto it = m_waypoints.constBegin(); it != m_waypoints.constEnd(); ++it) {
+        result.append(it.value().get());
     }
-    return allWaypoints;
+    return result;
 }
 
-// Iterators are defined inline in the header.
-
-bool WaypointManager::updateWaypointPosition(const QString& name, const Position& newPosition) {
-    QString normalizedName = normalizeName(name);
-    auto it = m_waypoints.find(normalizedName);
-    if (it == m_waypoints.end()) {
-        // qWarning() << "WaypointManager::updateWaypointPosition: Waypoint" << name << "not found.";
-        return false; // Waypoint not found
-    }
-
-    Waypoint* waypointToUpdate = it.value().get();
-    if (!waypointToUpdate) { // Should not happen if find() was successful
-        // qCritical() << "WaypointManager::updateWaypointPosition: Null waypoint pointer for name" << name;
-        return false;
-    }
-
-    Position oldPosition = waypointToUpdate->position;
-
-    // If position hasn't changed, do nothing but report success.
-    if (oldPosition == newPosition) {
-        return true;
-    }
-
-    // Decrement count at old position (if valid)
-    if (m_map && oldPosition.isValid()) {
-        Tile* oldTile = m_map->getTile(oldPosition);
-        if (oldTile) {
-            oldTile->decreaseWaypointCount();
-        } else {
-            // qWarning() << "WaypointManager::updateWaypointPosition: Could not get old tile at"
-            //            << oldPosition.x << "," << oldPosition.y << "," << oldPosition.z
-            //            << "for waypoint" << name;
+void WaypointManager::clearAllWaypoints() {
+    if (m_map) {
+        for (auto it = m_waypoints.constBegin(); it != m_waypoints.constEnd(); ++it) {
+            const Waypoint* wp = it.value().get();
+            if (wp && wp->m_position.isValid()) {
+                Tile* tile = m_map->getTile(wp->m_position);
+                if (tile) {
+                    // If a tile could have multiple waypoints from this manager (not possible with unique names),
+                    // this loop would call decrease multiple times. But since names are unique,
+                    // each waypoint is distinct. So, one decrease per waypoint is correct.
+                    tile->decreaseWaypointCount();
+                }
+            }
         }
     }
+    m_waypoints.clear(); // Destroys all unique_ptrs and their Waypoint objects
 
-    // Update waypoint's position
-    waypointToUpdate->position = newPosition;
-
-    // Increment count at new position (if valid)
-    if (m_map && newPosition.isValid()) {
-        bool created = false; // To satisfy getOrCreateTile
-        Tile* newTile = m_map->getOrCreateTile(newPosition, created); // Ensure tile exists
-        if (newTile) {
-            newTile->increaseWaypointCount();
-        } else {
-            // qWarning() << "WaypointManager::updateWaypointPosition: Could not get/create new tile at"
-            //            << newPosition.x << "," << newPosition.y << "," << newPosition.z
-            //            << "for waypoint" << name;
-            // Waypoint position updated, but tile count might be inconsistent if tile creation failed.
-        }
-    }
-
-    // TODO: Consider if the map should be marked as dirty.
-    // This function modifies waypoint data which is part of map state.
-    // If m_map is RME::Map (not just BaseMap), and has setChanged():
-    // RME::Map* rmeMap = dynamic_cast<RME::Map*>(m_map);
-    // if (rmeMap) rmeMap->setChanged(true);
-
-    return true;
+    // TODO: Update m_positionalWaypointsCache if implemented
+    // m_positionalWaypointsCache.clear();
 }
 
+} // namespace waypoints
 } // namespace core
 } // namespace RME

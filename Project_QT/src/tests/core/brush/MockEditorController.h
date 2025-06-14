@@ -18,9 +18,11 @@
 #include "core/assets/CreatureData.h" // For RME::core::assets::CreatureData
 // #include "core/assets/CreatureDatabase.h" // No longer directly needed
 #include "core/assets/AssetManager.h" // Base class for AssetManager type
+#include "core/houses/Houses.h"       // Added: Forward Declaration or include if needed for HousesManager
 #include "tests/core/assets/MockAssetManager.h" // Added for actual mock instance
 #include "core/spawns/SpawnData.h" // For RME::core::SpawnData
 #include "core/actions/AppUndoCommand.h" // For RME::core::actions::AppUndoCommand
+#include "tests/mocks/MockMap.h"      // Needed for std::unique_ptr<MockMap>
 
 #include <QList>
 #include <QString>
@@ -50,12 +52,34 @@ public:
     using RMESpawnData = RME::core::SpawnData;
     using RMEAppUndoCommand = RME::core::actions::AppUndoCommand;
 
+    // Added for notification testing
+    bool m_tileChangedNotified = false;
+    RMEPosition m_notifiedPosition;
+
+    // For testing command pushing
+    bool pushCommandCalled = false;
+    std::unique_ptr<QUndoCommand> lastPushedCommand; // To inspect the last pushed command
+
     // Mocked member variables to be returned by getter methods
-    RMEMap* m_mockMap = nullptr;
     RMEAppSettings* m_mockAppSettings = nullptr;
-    RMEAssetManager* m_mockAssetManager = nullptr; // MODIFIED from m_mockCreatureDatabase
+    RMEAssetManager* m_mockAssetManager = nullptr;
+    RME::core::houses::Houses* m_mockHousesManager = nullptr; // Added
     RMETile* m_mockTileForEditing = nullptr; // If getTileForEditing should return a specific mock tile
 
+    // Owns the MockMap instance
+    std::unique_ptr<MockMap> m_concreteMockMap;
+
+
+    // Constructor
+    MockEditorController() {
+        m_concreteMockMap = std::make_unique<MockMap>(100, 100); // Default size, adjust if needed
+        m_mockMap = m_concreteMockMap.get();
+        m_tileChangedNotified = false;
+        // m_notifiedPosition is default constructed (0,0,0)
+    }
+
+    // Ensure virtual destructor if base class has one (EditorControllerInterface should)
+    ~MockEditorController() override = default;
 
     struct CallRecord {
         QString method;
@@ -178,6 +202,26 @@ public:
     void setMockAssetManager(RME::core::assets::AssetManager* assetManager) {
         m_mockAssetManager = assetManager;
     }
+    // Setter for tests to inject AppSettings
+    void setMockAppSettings(RME::core::settings::AppSettings* appSettings) { // Added
+        m_mockAppSettings = appSettings;
+    }
+    // Setter for tests to inject HousesManager
+    void setMockHousesManager(RME::core::houses::Houses* housesManager) { // Added
+        m_mockHousesManager = housesManager;
+    }
+
+    // Getter for HousesManager (assuming it's part of EditorControllerInterface)
+    RME::core::houses::Houses* getHousesManager() override { // Added
+        calls.append({"getHousesManager"});
+        return m_mockHousesManager;
+    }
+    // Const version if interface has it
+    // const RME::core::houses::Houses* getHousesManager() const override {
+    //     calls.append({"getHousesManager_const"});
+    //     return m_mockHousesManager;
+    // }
+
 
     void recordAction(std::unique_ptr<RMEAppUndoCommand> command) override {
         calls.append({"recordAction", command ? command->text() : "UnknownCommand"});
@@ -229,15 +273,45 @@ public:
 
     void notifyTileChanged(const RMEPosition& pos) override {
         calls.append({"notifyTileChanged", pos});
+        m_tileChangedNotified = true;
+        m_notifiedPosition = pos;
     }
+
+    // Method to simulate pushing a command onto an undo stack
+    // This should match the signature in EditorControllerInterface if it exists there,
+    // or be a new method for this mock if the interface uses a different mechanism (e.g. recordAction)
+    // that internally creates and pushes commands. For this task, we assume direct push.
+    void pushCommand(std::unique_ptr<QUndoCommand> cmd) override {
+        pushCommandCalled = true;
+        lastPushedCommand = std::move(cmd);
+        // Optionally, record this call in 'calls' QList if needed for other tests.
+        // calls.append({"pushCommand", lastPushedCommand ? lastPushedCommand->text() : "UnknownQUndoCommand"});
+    }
+    // If the actual interface uses RMEAppUndoCommand:
+    // void pushCommand(std::unique_ptr<RMEAppUndoCommand> cmd) override {
+    //     pushCommandCalled = true;
+    //     lastPushedCommand = std::move(cmd); // This would require lastPushedCommand to be std::unique_ptr<RMEAppUndoCommand>
+    // }
+
 
     void reset() {
         calls.clear();
         mock_current_tile_house_id = 0;
-        m_mockMap = nullptr;
+        // m_mockMap is managed by m_concreteMockMap.
         m_mockAppSettings = nullptr;
-        m_mockAssetManager = nullptr; // MODIFIED
+        m_mockAssetManager = nullptr;
+        m_mockHousesManager = nullptr; // Added
         m_mockTileForEditing = nullptr;
+        m_tileChangedNotified = false;
+        m_notifiedPosition = RMEPosition(); // Reset to default
+
+        pushCommandCalled = false;
+        if (lastPushedCommand) {
+            // QUndoStack usually takes ownership. If lastPushedCommand was just observing
+            // a command owned by a stack, this delete is wrong.
+            // If the mock takes ownership (as std::unique_ptr implies), reset() is correct.
+            lastPushedCommand.reset();
+        }
     }
 };
 #endif // MOCK_EDITORCONTROLLER_H

@@ -1,69 +1,72 @@
-#ifndef RME_WAYPOINT_MANAGER_H
-#define RME_WAYPOINT_MANAGER_H
+#ifndef RME_WAYPOINTMANAGER_H
+#define RME_WAYPOINTMANAGER_H
 
-#include <QHash>
-#include <QString>
-#include <memory> // For std::unique_ptr
-#include <QList>  // For returning lists of waypoints
+#include "core/waypoints/Waypoint.h" // For RME::core::waypoints::Waypoint
+#include "core/Position.h"           // For RME::core::Position
+#include <QHash>                     // For QHash
+#include <QList>                     // For QList
+#include <QString>                   // For QString
+#include <memory>                    // For std::unique_ptr
 
-// Forward declaration for Map
-namespace RME { namespace core { class Map; }}
+// Forward declarations
+namespace RME {
+namespace core {
+    class Map;
+    class Tile; // Used in implementation for tile counts
+}
+}
 
-// Own types
-#include "core/waypoints/Waypoint.h" // Defines RME::core::Waypoint
-#include "core/Position.h"         // Defines RME::core::Position
+// Forward declaration for potential test class
+class TestWaypointManager;
 
 namespace RME {
 namespace core {
+namespace waypoints {
 
 class WaypointManager {
+    friend class ::TestWaypointManager; // Friend class for testing
+
 public:
     explicit WaypointManager(RME::core::Map* map);
-    ~WaypointManager() = default; // std::unique_ptr will manage Waypoint objects
+    // No explicit destructor needed if m_waypoints owns unique_ptrs
 
-    // Adds a waypoint. Takes ownership. Returns true on success.
-    // Replaces existing waypoint with the same normalized name.
-    bool addWaypoint(std::unique_ptr<Waypoint> waypoint);
+    // Adds a new waypoint. If a waypoint with the same (normalized) name exists, it's replaced.
+    // Returns true if waypoint was successfully added/replaced, false otherwise (e.g., invalid position if map requires tiles).
+    bool addWaypoint(const QString& name, const RME::core::Position& pos);
 
-    // Retrieves a waypoint by its name (case-insensitive). Returns nullptr if not found.
-    Waypoint* getWaypoint(const QString& name) const;
+    // Retrieves a waypoint by its name (case-insensitive).
+    // Returns nullptr if not found.
+    Waypoint* getWaypointByName(const QString& name) const;
 
-    // Retrieves all waypoints at a specific position.
-    QList<Waypoint*> getWaypointsAt(const Position& pos) const;
+    // Retrieves all waypoints at a specific map position.
+    QList<Waypoint*> getWaypointsAt(const RME::core::Position& pos) const;
 
-    // Removes a waypoint by its name (case-insensitive). Returns true if removed.
+    // Removes a waypoint by its name (case-insensitive).
+    // Returns true if a waypoint was found and removed, false otherwise.
     bool removeWaypoint(const QString& name);
 
-    // Gets a list of all waypoints.
+    // Returns a list of all managed waypoints.
     QList<Waypoint*> getAllWaypoints() const;
 
-    /**
-     * @brief Updates the position of an existing waypoint.
-     * Handles decrementing waypoint count on the old tile and incrementing on the new tile.
-     * @param name The name of the waypoint to update (case-insensitive).
-     * @param newPosition The new position for the waypoint.
-     * @return True if the waypoint was found and updated, false otherwise.
-     */
-    bool updateWaypointPosition(const QString& name, const Position& newPosition);
-
-    // Typedef for iterator for convenience
-    typedef QHash<QString, std::unique_ptr<Waypoint>>::const_iterator const_iterator;
-
-    // Iterators to loop through waypoints (read-only)
-    const_iterator begin() const { return m_waypoints.constBegin(); }
-    const_iterator end() const { return m_waypoints.constEnd(); }
-    const_iterator constBegin() const { return m_waypoints.constBegin(); }
-    const_iterator constEnd() const { return m_waypoints.constEnd(); }
+    // Removes all waypoints and updates tile counts accordingly.
+    void clearAllWaypoints();
 
 private:
-    // Helper to normalize names for case-insensitive storage/lookup.
     QString normalizeName(const QString& name) const;
 
-    RME::core::Map* m_map = nullptr; // Non-owning pointer to the map
-    QHash<QString, std::unique_ptr<Waypoint>> m_waypoints; // Owns the Waypoint objects
+    RME::core::Map* m_map; // Non-owning pointer to the map context
+    // Stores waypoints, keyed by their normalized (lowercase) name for case-insensitive lookup.
+    // std::unique_ptr ensures automatic memory management of Waypoint objects.
+    QHash<QString, std::unique_ptr<Waypoint>> m_waypoints;
+
+    // TODO (Optimization): For faster getWaypointsAt(pos):
+    // QMultiHash<RME::core::Position, Waypoint*> m_positionalWaypointsCache;
+    // This would store non-owning Waypoint* pointing to entries in m_waypoints.
+    // Would need updates in addWaypoint, removeWaypoint, clearAllWaypoints.
 };
 
+} // namespace waypoints
 } // namespace core
 } // namespace RME
 
-#endif // RME_WAYPOINT_MANAGER_H
+#endif // RME_WAYPOINTMANAGER_H

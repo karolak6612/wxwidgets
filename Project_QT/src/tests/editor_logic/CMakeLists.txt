@@ -21,3 +21,185 @@ target_link_libraries(TestEditorLogic_EditorController PRIVATE
 set_target_properties(TestEditorLogic_EditorController PROPERTIES AUTOMOC ON)
 
 add_test(NAME TestEditorLogic_EditorController COMMAND TestEditorLogic_EditorController)
+
+# Test for SetHouseExitCommand
+add_executable(TestEditorCommands_SetHouseExit commands/TestSetHouseExitCommand.cpp)
+
+target_link_libraries(TestEditorCommands_SetHouseExit PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For Map, HouseData, Tile, Position
+    rme_editor_logic_lib # For SetHouseExitCommand itself
+)
+
+set_target_properties(TestEditorCommands_SetHouseExit PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestEditorCommands_SetHouseExit COMMAND TestEditorCommands_SetHouseExit)
+
+# Test for RecordSetSpawnCommand
+add_executable(TestEditorCommands_RecordSetSpawn
+    commands/TestRecordSetSpawnCommand.cpp
+    ../core/brush/MockEditorController.h  # Corrected path
+    ../mocks/MockMap.h                    # Path remains correct
+)
+
+target_link_libraries(TestEditorCommands_RecordSetSpawn PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For Map, Tile, Position
+    rme_editor_logic_lib # For RecordSetSpawnCommand, EditorController
+)
+
+set_target_properties(TestEditorCommands_RecordSetSpawn PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestEditorCommands_RecordSetSpawn COMMAND TestEditorCommands_RecordSetSpawn)
+
+# Test for RecordSetGroundCommand
+add_executable(TestEditorCommands_RecordSetGround
+    commands/TestRecordSetGroundCommand.cpp
+    ../core/brush/MockEditorController.h  # Common mock, might contain Q_OBJECT
+)
+
+target_link_libraries(TestEditorCommands_RecordSetGround PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For Tile, Item, Map, AssetManager
+    rme_editor_logic_lib # For RecordSetGroundCommand, EditorControllerInterface
+)
+
+set_target_properties(TestEditorCommands_RecordSetGround PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestEditorCommands_RecordSetGround COMMAND TestEditorCommands_RecordSetGround)
+
+# Test for RecordAddRemoveItemCommand
+add_executable(TestEditorCommands_RecordAddRemoveItem
+    commands/TestRecordAddRemoveItemCommand.cpp
+    ../core/brush/MockEditorController.h  # Common mock
+)
+
+target_link_libraries(TestEditorCommands_RecordAddRemoveItem PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For Tile, Item, Map, AssetManager
+    rme_editor_logic_lib # For RecordAddRemoveItemCommand, EditorControllerInterface
+)
+
+set_target_properties(TestEditorCommands_RecordAddRemoveItem PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestEditorCommands_RecordAddRemoveItem COMMAND TestEditorCommands_RecordAddRemoveItem)
+
+# Test for RecordModifyTileContentsCommand
+add_executable(TestEditorCommands_RecordModifyTileContents
+    commands/TestRecordModifyTileContentsCommand.cpp
+    ../core/brush/MockEditorController.h  # Common mock
+)
+
+target_link_libraries(TestEditorCommands_RecordModifyTileContents PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For Tile, Item, Map, AssetManager, Spawn, Creature
+    rme_editor_logic_lib # For RecordModifyTileContentsCommand, EditorControllerInterface
+)
+
+set_target_properties(TestEditorCommands_RecordModifyTileContents PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestEditorCommands_RecordModifyTileContents COMMAND TestEditorCommands_RecordModifyTileContents)
+
+# Test for DeleteSelectionCommand
+add_executable(TestEditorCommands_DeleteSelection
+    commands/TestDeleteSelectionCommand.cpp
+    # No specific mock header needed here if TestDeleteSelectionCommand.cpp includes what it needs
+    # and those mocks don't require AUTOMOC processing themselves.
+    # If MockEditorController.h is used and has Q_OBJECT, it could be added like:
+    # ../core/brush/MockEditorController.h
+)
+
+target_link_libraries(TestEditorCommands_DeleteSelection PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For Map, Tile, Item, etc.
+    rme_editor_logic_lib # For DeleteSelectionCommand, EditorControllerInterface
+)
+
+set_target_properties(TestEditorCommands_DeleteSelection PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestEditorCommands_DeleteSelection COMMAND TestEditorCommands_DeleteSelection)
+
+# Test for ClearSelectionCommand
+add_executable(TestEditorCommands_ClearSelection
+    commands/TestClearSelectionCommand.cpp
+    # ../core/brush/MockEditorController.h # If its Q_OBJECTs are needed through this test
+)
+
+target_link_libraries(TestEditorCommands_ClearSelection PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For Map, Tile, etc.
+    rme_editor_logic_lib # For ClearSelectionCommand, SelectionManager (via interface)
+)
+
+set_target_properties(TestEditorCommands_ClearSelection PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestEditorCommands_ClearSelection COMMAND TestEditorCommands_ClearSelection)
+
+# Test for BoundingBoxSelectCommand
+add_executable(TestEditorCommands_BoundingBoxSelect
+    commands/TestBoundingBoxSelectCommand.cpp
+    # ../core/brush/MockEditorController.h # If its Q_OBJECTs are needed
+)
+
+target_link_libraries(TestEditorCommands_BoundingBoxSelect PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For Map, Tile, etc.
+    rme_editor_logic_lib # For BoundingBoxSelectCommand, SelectionManager (via interface)
+)
+
+set_target_properties(TestEditorCommands_BoundingBoxSelect PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestEditorCommands_BoundingBoxSelect COMMAND TestEditorCommands_BoundingBoxSelect)
+
+# Test for DeleteCommand (LOGIC-03 version that uses TileData)
+add_executable(TestEditorCommands_DeleteLogic03
+    commands/TestDeleteCommand.cpp
+    # ../core/brush/MockEditorController.h # If its Q_OBJECTs are needed, and test uses it
+)
+
+target_link_libraries(TestEditorCommands_DeleteLogic03 PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For TileData, Map, Tile, Item etc.
+    rme_editor_logic_lib # For DeleteCommand itself, EditorControllerInterface
+)
+
+set_target_properties(TestEditorCommands_DeleteLogic03 PROPERTIES AUTOMOC ON)
+
+add_test(NAME TestEditorCommands_DeleteLogic03 COMMAND TestEditorCommands_DeleteLogic03)
+
+# Test for SetHouseTileCommand (LOGIC-05)
+add_executable(TestEditorCommands_SetHouseTile commands/TestSetHouseTileCommand.cpp)
+target_link_libraries(TestEditorCommands_SetHouseTile PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For House, Tile, Map, EditorControllerInterface context
+    rme_editor_logic_lib # For SetHouseTileCommand
+)
+set_target_properties(TestEditorCommands_SetHouseTile PROPERTIES AUTOMOC ON)
+add_test(NAME TestEditorCommands_SetHouseTile COMMAND TestEditorCommands_SetHouseTile)
+
+# Test for SetHouseExitCommand (LOGIC-05 tests, distinct target name)
+# Note: An add_executable for commands/TestSetHouseExitCommand.cpp already exists higher up.
+# This new target TestEditorCommands_SetHouseExitLogic05 points to the same source file.
+# This is unusual. If the source file is the same, the tests should ideally be merged or
+# the old target removed if this new one supersedes it with more/different tests for LOGIC-05.
+# For this task, I will add it as requested, but this might lead to compiling the same source twice
+# if the old target isn't removed or guarded.
+add_executable(TestEditorCommands_SetHouseExitLogic05 commands/TestSetHouseExitCommand.cpp)
+target_link_libraries(TestEditorCommands_SetHouseExitLogic05 PRIVATE
+    Qt6::Test
+    Qt6::Core
+    rme_core_lib        # For House, Tile, Map, EditorControllerInterface context
+    rme_editor_logic_lib # For SetHouseExitCommand
+)
+set_target_properties(TestEditorCommands_SetHouseExitLogic05 PROPERTIES AUTOMOC ON)
+add_test(NAME TestEditorCommands_SetHouseExitLogic05 COMMAND TestEditorCommands_SetHouseExitLogic05)

@@ -1,168 +1,430 @@
-#include "EditorController.h"
-// Required full includes for implementation details (will be needed for command creation)
+#include "editor_logic/EditorController.h"
 #include "core/map/Map.h"
-#include "core/selection/SelectionManager.h"
-#include "core/brush/BrushManagerService.h"
 #include "core/brush/Brush.h"
-#include "core/brush/BrushSettings.h"
-#include "core/Position.h"
-#include "core/waypoints/WaypointManager.h" // Added
-#include "core/waypoints/Waypoint.h"       // Added
-#include "core/houses/HouseData.h"         // Added
+#include "core/brush/BrushManager.h"
+#include "core/selection/SelectionManager.h"
+#include "core/settings/BrushSettings.h"
+#include "core/settings/AppSettings.h"
+#include "core/assets/AssetManager.h"
+#include "core/selection/SelectionManager.h" // Included for method implementations
+#include "core/settings/AppSettings.h"     // Included for method implementations
+#include "core/map/Map.h"                  // Already included, but for context
+#include "core/Tile.h"                     // Already included, for context
+#include "editor_logic/commands/DeleteSelectionCommand.h"
+#include "editor_logic/commands/ClearSelectionCommand.h"    // Added
+#include "editor_logic/commands/BoundingBoxSelectCommand.h" // Added
+#include "core/spawns/SpawnData.h" // Corrected path for SpawnData.h
+#include "core/assets/CreatureData.h" // For record methods, ensure this is the correct header for CreatureData struct/class
+#include "core/actions/AppUndoCommand.h" // For recordAction
+#include "editor_logic/commands/AddCreatureCommand.h"   // Added
+#include "editor_logic/commands/RemoveCreatureCommand.h" // Added
+#include "core/houses/Houses.h"        // Added
+#include "core/houses/House.h"           // Added
+#include "editor_logic/commands/SetHouseExitCommand.h" // Added
+
 #include <QUndoStack>
-#include "commands/BrushStrokeCommand.h"
-#include "commands/DeleteCommand.h"
-#include "commands/AddWaypointCommand.h"
-#include "commands/MoveWaypointCommand.h"
-#include "commands/SetHouseExitCommand.h"  // Added
-#include <QDebug> // For qWarning (optional)
+#include <QUndoCommand> // For pushCommand std::unique_ptr
+#include <QList>
+#include <memory>      // For std::make_unique
+#include <QDebug>
+#include <algorithm> // For std::min, std::max
+#include "core/map_constants.h" // For MAP_MAX_Z_VALUE, GROUND_LAYER
 
 namespace RME {
+namespace editor_logic {
 
 EditorController::EditorController(
-    Map* map,
+    RME::core::Map* map,
     QUndoStack* undoStack,
-    SelectionManager* selectionManager,
-    BrushManagerService* brushManagerService,
-    RME::core::WaypointManager* waypointManager, // Added
-    QObject* parent
-) : QObject(parent),
-    m_map(map),
+    RME::core::selection::SelectionManager* selectionManager,
+    RME::core::brush::BrushManager* brushManager,
+    RME::core::settings::AppSettings* appSettings,
+    RME::core::assets::AssetManager* assetManager,
+    RME::core::houses::Houses* housesManager // Added
+) : m_map(map),
     m_undoStack(undoStack),
     m_selectionManager(selectionManager),
-    m_brushManagerService(brushManagerService),
-    m_waypointManager(waypointManager) { // Added
-    // TODO: Assert that pointers are not null
+    m_brushManager(brushManager),
+    m_appSettings(appSettings),
+    m_assetManager(assetManager),
+    m_housesManager(housesManager) // Added
+{
     Q_ASSERT(m_map);
     Q_ASSERT(m_undoStack);
     Q_ASSERT(m_selectionManager);
-    Q_ASSERT(m_brushManagerService);
-    Q_ASSERT(m_waypointManager);
+    Q_ASSERT(m_brushManager);
+    Q_ASSERT(m_appSettings);
+    Q_ASSERT(m_assetManager);
+    Q_ASSERT(m_housesManager); // Added
 }
 
-EditorController::~EditorController() {
-    // Destructor
-}
-
-void EditorController::applyBrushStroke(const QList<Position>& positions, const BrushSettings& settings, bool isEraseOperation) {
-    if (!m_map || !m_undoStack || !m_brushManagerService || positions.isEmpty()) {
-        if (positions.isEmpty()) {
-             qWarning("EditorController::applyBrushStroke: Attempted to apply brush stroke with empty positions list.");
-        }
+// --- Core editing operations ---
+void EditorController::applyBrushStroke(const QList<RME::core::Position>& positions, const RME::core::BrushSettings& settings) {
+    if (!m_brushManager) {
+        qWarning("EditorController::applyBrushStroke: BrushManager is null.");
         return;
     }
 
-    // Assuming BrushSettings contains the name of the brush to be used.
-    // This name is then used to retrieve the Brush instance from BrushManagerService.
-    // This interaction detail depends on how BrushManagerService and BrushSettings are designed.
-    Brush* currentBrush = m_brushManagerService->getBrush(settings.getName());
-
-    if (!currentBrush) {
-        qWarning("EditorController::applyBrushStroke: Could not find brush '%s'", qPrintable(settings.getName()));
+    RME::core::brush::Brush* activeBrush = m_brushManager->getActiveBrush();
+    if (!activeBrush) {
+        qWarning("EditorController::applyBrushStroke: No active brush found.");
         return;
     }
 
-    m_undoStack->push(new RME_COMMANDS::BrushStrokeCommand(m_map, currentBrush, positions, settings, isEraseOperation));
+    if (positions.isEmpty()) {
+        return;
+    }
+
+    QString macroText = QString("%1 Stroke").arg(activeBrush->getName());
+    // Assuming BrushSettings has isEraseMode and Brush has canBeErasingTool
+    if(settings.isEraseMode && activeBrush->canBeErasingTool()) {
+         macroText = QString("Erase Stroke (%1)").arg(activeBrush->getName());
+    }
+
+    m_undoStack->beginMacro(macroText);
+    for (const RME::core::Position& pos : positions) {
+        activeBrush->apply(this, pos, settings);
+    }
+    m_undoStack->endMacro();
 }
 
 void EditorController::deleteSelection() {
-    if (!m_map || !m_undoStack || !m_selectionManager) {
-        qWarning("EditorController::deleteSelection: Core component is null.");
+    if (!m_selectionManager) {
+        qWarning("EditorController::deleteSelection: SelectionManager is null.");
         return;
     }
-    // Check if selection is empty to avoid pushing an empty command
-    if (m_selectionManager->getSelectedTiles().isEmpty()) {
-        // Optionally provide user feedback e.g. via status bar
-        // qInfo("EditorController::deleteSelection: Selection is empty, nothing to delete.");
-        return;
+    if (m_selectionManager->isEmpty()) {
+        qDebug("EditorController::deleteSelection: Selection is empty.");
     }
-    m_undoStack->push(new RME_COMMANDS::DeleteCommand(m_map, m_selectionManager));
+    pushCommand(std::make_unique<RME_COMMANDS::DeleteSelectionCommand>(m_map, m_selectionManager, this));
+    // Note: DeleteSelectionCommand's constructor was changed in a previous task to take QList<Position>.
+    // The implementation above uses the old signature.
+    // The new handleDeleteSelection below should use the new signature.
 }
 
-void EditorController::placeOrMoveWaypoint(const QString& name, const RME::core::Position& targetPos) {
-    if (!m_map || !m_undoStack || !m_waypointManager) { // Check m_waypointManager
-        qWarning("EditorController::placeOrMoveWaypoint: Core component (map, undoStack, or waypointManager) is null.");
+void EditorController::handleDeleteSelection() {
+    if (!m_selectionManager) {
+        qWarning("EditorController::handleDeleteSelection: SelectionManager is null.");
         return;
     }
-    if (name.isEmpty()) {
-        qWarning("EditorController::placeOrMoveWaypoint: Waypoint name cannot be empty.");
+    if (m_selectionManager->isEmpty()) {
+        qDebug("EditorController::handleDeleteSelection: Selection is empty, no action taken.");
         return;
     }
-    // Assuming Position::isValid() checks for reasonable map coordinates, not just non-default.
-    // Map::isPositionValid might be more appropriate if it checks against map boundaries.
-    if (!m_map->isPositionValid(targetPos)) {
-        qWarning("EditorController::placeOrMoveWaypoint: Target position %d,%d,%d is invalid for the current map.",
-                 targetPos.x, targetPos.y, targetPos.z);
-        return;
-    }
-
-    RME::core::Waypoint* existingWp = m_waypointManager->getWaypoint(name);
-
-    if (existingWp) { // Waypoint with this name exists, so it's a move operation
-        if (existingWp->position == targetPos) {
-            // qInfo("EditorController::placeOrMoveWaypoint: Target position is same as current for waypoint '%s'. No action.", qPrintable(name));
-            return; // No change needed
+    // Get selected positions from SelectionManager.
+    // Assumes SelectionManager provides a method to get these, e.g. getCurrentSelectedTilesList()
+    // which returns QList<Tile*>, then we extract positions. Or a direct position list getter.
+    // For this implementation, using getCurrentSelectedTilesList() then extracting positions.
+    QList<RME::core::Tile*> selectedTiles = m_selectionManager->getCurrentSelectedTilesList();
+    QList<RME::core::Position> selectedPositions;
+    for (RME::core::Tile* tile : selectedTiles) {
+        if (tile) {
+            selectedPositions.append(tile->getPosition());
         }
-        m_undoStack->push(new RME_COMMANDS::MoveWaypointCommand(
-            m_waypointManager,
-            name,
-            existingWp->position,
-            targetPos
-        ));
-    } else { // Waypoint with this name does not exist, so it's an add operation
-        m_undoStack->push(new RME_COMMANDS::AddWaypointCommand(
-            m_waypointManager,
-            name,
-            targetPos
-        ));
+    }
+
+    if (selectedPositions.isEmpty()) {
+         qDebug("EditorController::handleDeleteSelection: No valid tile positions in selection.");
+        return;
+    }
+
+    pushCommand(std::make_unique<RME_COMMANDS::DeleteCommand>(m_map, selectedPositions, this));
+}
+
+void EditorController::clearCurrentSelection() {
+    if (m_selectionManager && !m_selectionManager->isEmpty()) { // Check if there's something to clear
+        // ClearSelectionCommand's constructor takes SelectionManager*.
+        // It will query the current selection itself in its redo().
+        pushCommand(std::make_unique<RME_COMMANDS::ClearSelectionCommand>(m_selectionManager));
+    } else {
+        qDebug("EditorController::clearCurrentSelection: SelectionManager is null or selection is already empty.");
+        // Optionally, push a command that does nothing but indicates "Clear Selection (nothing selected)"
+        // if that's desired UX for undo stack. For now, only push if something might be cleared.
     }
 }
 
-void EditorController::setHouseExit(uint32_t houseId, const RME::core::Position& targetPos) {
-    if (!m_map || !m_undoStack) {
-        qWarning("EditorController::setHouseExit: Map or UndoStack component is null.");
-        return;
-    }
-    if (houseId == 0) {
-        qWarning("EditorController::setHouseExit: Invalid house ID 0.");
+void EditorController::performBoundingBoxSelection(
+    const RME::core::Position& p1,
+    const RME::core::Position& p2,
+    Qt::KeyboardModifiers modifiers,
+    const RME::core::BrushSettings& currentBrushSettings
+) {
+    if (!m_map || !m_selectionManager || !m_appSettings) {
+        qWarning("EditorController::performBoundingBoxSelection: Crucial managers missing.");
         return;
     }
 
-    HouseData* house = m_map->getHouse(houseId);
+    int min_x = std::min(p1.x, p2.x);
+    int max_x = std::max(p1.x, p2.x);
+    int min_y = std::min(p1.y, p2.y);
+    int max_y = std::max(p1.y, p2.y);
+    int current_floor = currentBrushSettings.getActiveZ(); // Assuming BrushSettings has getActiveZ()
+
+    // Use getValue with Config::Key for AppSettings
+    QString selectionTypeSetting = m_appSettings->getValue(RME::core::settings::Config::Key::SELECTION_TYPE, "CurrentFloor").toString();
+    bool compensatedSelect = m_appSettings->getValue(RME::core::settings::Config::Key::COMPENSATED_SELECT, true).toBool();
+
+    QList<RME::core::Tile*> tilesToPotentiallySelect;
+    QList<int> z_levels_to_scan;
+
+    if (selectionTypeSetting == "CurrentFloor") {
+        z_levels_to_scan.append(current_floor);
+    } else if (selectionTypeSetting == "AllFloors") {
+        // Corrected Z-level iteration for "AllFloors"
+        for (int z = RME::core::MAP_MAX_FLOOR; z >= RME::core::MAP_MIN_FLOOR; --z) {
+            z_levels_to_scan.append(z);
+        }
+    } else if (selectionTypeSetting == "VisibleFloors") {
+        int start_z = RME::core::GROUND_LAYER;
+        if (current_floor < RME::core::GROUND_LAYER) {
+            start_z = std::min(RME::core::GROUND_LAYER, current_floor + 2);
+        }
+        for (int z = start_z; z >= current_floor; --z) {
+             if (z < 0) break;
+             z_levels_to_scan.append(z);
+        }
+    } else {
+        z_levels_to_scan.append(current_floor);
+    }
+    if (z_levels_to_scan.isEmpty()) z_levels_to_scan.append(current_floor);
+
+    for (int z : z_levels_to_scan) {
+        int compensated_min_x = min_x;
+        int compensated_max_x = max_x;
+        int compensated_min_y = min_y;
+        int compensated_max_y = max_y;
+
+        if (compensatedSelect && z != current_floor) {
+            int dz = current_floor - z; // dz > 0 for floors below current, dz < 0 for floors above.
+            compensated_min_x = min_x - dz;
+            compensated_max_x = max_x - dz;
+            compensated_min_y = min_y - dz;
+            compensated_max_y = max_y - dz;
+        }
+
+        for (int y_scan = compensated_min_y; y_scan <= compensated_max_y; ++y_scan) {
+            for (int x_scan = compensated_min_x; x_scan <= compensated_max_x; ++x_scan) {
+                if(m_map->isPositionValid(RME::core::Position(x_scan,y_scan,z))){
+                    RME::core::Tile* tile = m_map->getTile(RME::core::Position(x_scan, y_scan, z));
+                    if (tile) { // getTile can return nullptr if no tile allocated and not creating
+                        tilesToPotentiallySelect.append(tile);
+                    }
+                }
+            }
+        }
+    }
+
+    bool isAdditive = (modifiers & Qt::ControlModifier);
+    QList<RME::core::Tile*> selectionBefore = m_selectionManager->getCurrentSelectedTilesList();
+
+    // Only push command if there are tiles in the box or if it's a non-additive selection that would clear previous selection.
+    if (!tilesToPotentiallySelect.isEmpty() || (!isAdditive && !selectionBefore.isEmpty())) {
+        pushCommand(std::make_unique<RME_COMMANDS::BoundingBoxSelectCommand>(
+            m_selectionManager,
+            tilesToPotentiallySelect,
+            isAdditive,
+            selectionBefore
+        ));
+    } else {
+        qDebug("BoundingBoxSelection: No tiles to select and no existing selection to clear non-additively.");
+    }
+}
+
+// --- Implementation of EditorControllerInterface ---
+RME::core::Map* EditorController::getMap() {
+    return m_map;
+}
+
+const RME::core::Map* EditorController::getMap() const {
+    return m_map;
+}
+
+QUndoStack* EditorController::getUndoStack() {
+    return m_undoStack;
+}
+
+RME::core::assets::AssetManager* EditorController::getAssetManager() {
+    return m_assetManager;
+}
+
+const RME::core::assets::AssetManager* EditorController::getAssetManager() const {
+    return m_assetManager;
+}
+
+RME::core::settings::AppSettings& EditorController::getAppSettings() {
+    Q_ASSERT(m_appSettings);
+    return *m_appSettings;
+}
+
+const RME::core::settings::AppSettings& EditorController::getAppSettings() const {
+    Q_ASSERT(m_appSettings);
+    return *m_appSettings;
+}
+
+RME::core::houses::Houses* EditorController::getHousesManager() { // Added
+    return m_housesManager;
+}
+
+const RME::core::houses::Houses* EditorController::getHousesManager() const { // Added
+    return m_housesManager;
+}
+
+void EditorController::pushCommand(std::unique_ptr<QUndoCommand> command) {
+    if (command) {
+        m_undoStack->push(command.release());
+    }
+}
+
+// Tile/Notification related methods
+void EditorController::notifyTileChanged(const RME::core::Position& pos) {
+    if (m_map) {
+        m_map->notifyTileChanged(pos);
+    }
+}
+
+RME::core::Tile* EditorController::getTileForEditing(const RME::core::Position& pos) {
+    if (m_map) {
+        return m_map->getTileForEditing(pos);
+    }
+    qWarning("EditorController::getTileForEditing: Map is null. Position: (%d,%d,%d)", pos.x, pos.y, pos.z);
+    return nullptr;
+}
+
+// --- Record methods (placeholders or to be implemented with generic commands) ---
+void EditorController::recordAction(std::unique_ptr<RME::core::actions::AppUndoCommand> command) {
+    // If AppUndoCommand inherits QUndoCommand, this is valid:
+    pushCommand(std::unique_ptr<QUndoCommand>(static_cast<QUndoCommand*>(command.release())));
+    // If not, a wrapper or different push mechanism is needed.
+    // qWarning("EditorController::recordAction: Generic AppUndoCommand recording might need specific handling if not QUndoCommand.");
+}
+
+void EditorController::recordTileChange(const RME::core::Position& pos,
+                                      std::unique_ptr<RME::core::Tile> /*oldTileState*/,
+                                      std::unique_ptr<RME::core::Tile> /*newTileState*/) {
+    qWarning("EditorController::recordTileChange: Not implemented. Tile Pos: (%d,%d,%d)", pos.x, pos.y, pos.z);
+}
+
+void EditorController::recordAddCreature(const RME::core::Position& tilePos, const RME::core::assets::CreatureData* creatureData) {
+    if (!creatureData) {
+        qWarning("EditorController::recordAddCreature: creatureData is null. Pos: (%d,%d,%d)",
+            tilePos.x, tilePos.y, tilePos.z);
+        return;
+    }
+    RME::core::Tile* tile = getTileForEditing(tilePos);
+    if (!tile) {
+        qWarning("EditorController::recordAddCreature: Tile not found or not creatable at Pos: (%d,%d,%d) for Creature: %s",
+            tilePos.x, tilePos.y, tilePos.z, qUtf8Printable(creatureData->name));
+        return;
+    }
+
+    // Optional: Check if adding this creature is valid (e.g., tile already has a creature of different type?)
+    // For now, AddCreatureCommand will handle replacing an existing creature.
+
+    pushCommand(std::make_unique<RME::editor_logic::commands::AddCreatureCommand>(tile, creatureData, this));
+}
+
+void EditorController::recordRemoveCreature(const RME::core::Position& tilePos, const RME::core::assets::CreatureData* creatureData) {
+    // creatureData parameter is not strictly used by RemoveCreatureCommand as it removes whatever creature is present.
+    // It's kept for interface consistency for now. It could be used for validation if needed.
+    RME::core::Tile* tile = getTileForEditing(tilePos);
+    if (!tile) {
+        qWarning("EditorController::recordRemoveCreature: Tile not found or not creatable at Pos: (%d,%d,%d)",
+            tilePos.x, tilePos.y, tilePos.z);
+        return;
+    }
+
+    if (!tile->hasCreature()) {
+        // No creature to remove, so don't push a command that will do nothing.
+        qDebug("EditorController::recordRemoveCreature: No creature on tile Pos: (%d,%d,%d) to remove.",
+            tilePos.x, tilePos.y, tilePos.z);
+        return;
+    }
+
+    // If creatureData is provided, we could add a check:
+    // if (tile->getCreature() && tile->getCreature()->getType() != creatureData) {
+    //     qWarning("EditorController::recordRemoveCreature: Creature on tile is not of the expected type. Removing anyway.");
+    // }
+
+    pushCommand(std::make_unique<RME::editor_logic::commands::RemoveCreatureCommand>(tile, this));
+}
+
+void EditorController::recordAddSpawn(const RME::core::SpawnData& spawnData) {
+    qWarning("EditorController::recordAddSpawn: Not implemented. Pos: (%d,%d,%d)",
+        spawnData.getCenter().x, spawnData.getCenter().y, spawnData.getCenter().z);
+}
+
+void EditorController::recordRemoveSpawn(const RME::core::Position& spawnCenterPos) {
+    qWarning("EditorController::recordRemoveSpawn: Not implemented. Pos: (%d,%d,%d)",
+        spawnCenterPos.x, spawnCenterPos.y, spawnCenterPos.z);
+}
+
+void EditorController::recordUpdateSpawn(const RME::core::Position& spawnCenterPos,
+                                       const RME::core::SpawnData& /*oldSpawnData*/,
+                                       const RME::core::SpawnData& /*newSpawnData*/) {
+    qWarning("EditorController::recordUpdateSpawn: Not implemented. Pos: (%d,%d,%d)",
+        spawnCenterPos.x, spawnCenterPos.y, spawnCenterPos.z);
+}
+
+void EditorController::recordSetGroundItem(const RME::core::Position& pos, uint16_t /*newGroundItemId*/, uint16_t /*oldGroundItemId*/) {
+     qWarning("EditorController::recordSetGroundItem: Not implemented. Pos: (%d,%d,%d)", pos.x, pos.y, pos.z);
+}
+
+void EditorController::recordSetBorderItems(const RME::core::Position& pos,
+                                          const QList<uint16_t>& /*newBorderItemIds*/,
+                                          const QList<uint16_t>& /*oldBorderItemIds*/) {
+     qWarning("EditorController::recordSetBorderItems: Not implemented. Pos: (%d,%d,%d)", pos.x, pos.y, pos.z);
+}
+
+void EditorController::recordAddItem(const RME::core::Position& pos, uint16_t itemId) {
+     qWarning("EditorController::recordAddItem: Not implemented. Pos: (%d,%d,%d), ItemID: %d", pos.x, pos.y, pos.z, itemId);
+}
+
+void EditorController::recordRemoveItem(const RME::core::Position& pos, uint16_t itemId) {
+     qWarning("EditorController::recordRemoveItem: Not implemented. Pos: (%d,%d,%d), ItemID: %d", pos.x, pos.y, pos.z, itemId);
+}
+
+// --- House-specific operations ---
+void EditorController::setHouseExit(quint32 houseId, const RME::core::Position& exitPos) {
+    if (!m_housesManager) {
+        qWarning("EditorController::setHouseExit: HousesManager is null.");
+        return;
+    }
+    RME::core::houses::House* house = m_housesManager->getHouse(houseId);
     if (!house) {
         qWarning("EditorController::setHouseExit: House with ID %u not found.", houseId);
         return;
     }
-
-    // If targetPos is the same as the current entry point, do nothing.
-    if (house->getEntryPoint() == targetPos) {
-        // qInfo("EditorController::setHouseExit: Target position is same as current for house %u.", houseId);
+    if (!m_map) {
+        qWarning("EditorController::setHouseExit: Map instance is null.");
         return;
     }
 
-    // Validate the new target position if it's a "real" position.
-    // A default-constructed Position might signify clearing the exit.
-    // Position::isValid() might return true for (0,0,0) if it's a valid map coord.
-    // Map::isValidHouseExitLocation() performs more specific checks.
-    if (targetPos != RME::core::Position()) { // Assuming default Position means "clear" or "no specific new target"
-                                         // Or better: if targetPos has some sentinel values for "clear".
-                                         // For now, any non-default position is validated.
-        if (!m_map->isValidHouseExitLocation(targetPos)) {
-            qWarning("EditorController::setHouseExit: Target position (%d,%d,%d) is not a valid house exit location.",
-                     targetPos.x, targetPos.y, targetPos.z);
+    RME::core::Position currentExit = house->getExitPos();
+
+    if (currentExit == exitPos) {
+        qDebug("EditorController::setHouseExit: New exit position is the same as current for house ID %u.", houseId);
+        return;
+    }
+
+    // If new exitPos is valid, it must be a valid location.
+    // If new exitPos is invalid, it means we are clearing the exit.
+    if (exitPos.isValid()) {
+        if (!m_map->isValidHouseExitLocation(exitPos)) {
+            qWarning("EditorController::setHouseExit: Attempted to set invalid new exit location (%s) for house ID %u.",
+                     qUtf8Printable(exitPos.toString()), houseId);
+            return;
+        }
+    } else { // We are trying to clear the exit (newExitPos is invalid)
+        if (!currentExit.isValid()) { // And there's no current exit to clear
+            qDebug("EditorController::setHouseExit: Attempting to clear an already non-existent exit for house ID %u.", houseId);
             return;
         }
     }
-    // If targetPos is default RME::core::Position(), it implies clearing the exit.
-    // HouseData::setEntryPoint should handle this by clearing the old tile's flag
-    // and not setting a new one if the new position is not valid for an exit (e.g. default).
 
-    m_undoStack->push(new RME_COMMANDS::SetHouseExitCommand(
-        m_map,
-        houseId,
-        house->getEntryPoint(), // old position
-        targetPos             // new position
-    ));
+    // Proceed to create and push the command
+    // Using SetHouseExitCommand directly as it's not in RME_COMMANDS namespace per previous task.
+    pushCommand(std::make_unique<SetHouseExitCommand>(house, exitPos, m_map));
 }
 
+} // namespace editor_logic
 } // namespace RME

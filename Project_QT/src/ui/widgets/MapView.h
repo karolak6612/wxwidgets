@@ -5,6 +5,8 @@
 #include <QPointF>
 #include <QMatrix4x4>
 #include "core/Position.h" // Adjusted path for mapcore::Position
+#include "../../editor_logic/EditorController.h" // Added
+#include "../../core/settings/BrushSettings.h"   // Added
 
 // Forward declarations for Qt event classes
 class QMouseEvent;
@@ -29,8 +31,11 @@ public:
     qreal getZoomFactor() const { return m_zoomFactor; }
     QPointF getViewCenterMapCoords() const { return m_viewCenterMapCoords; }
 
+    void setEditorController(RME::editor_logic::EditorController* controller) { m_editorController = controller; }
+
 public slots:
     void setCurrentFloor(int floor);
+    void updateCurrentBrushSettings(const RME::core::BrushSettings& settings); // Added
     void floorUp();
     void floorDown();
     void setViewCenter(const RME::core::Position& mapPos); // Sets center and floor
@@ -66,6 +71,13 @@ private:
     bool m_isPanning;
 
     QMatrix4x4 m_projectionMatrix;
+
+    // Added for bounding box selection
+    RME::editor_logic::EditorController* m_editorController = nullptr;
+    RME::core::BrushSettings m_currentBrushSettings;
+    bool m_isPerformingBoundingBoxSelection = false;
+    QPoint m_dragStartScreenPoint;
+    QPoint m_currentDragScreenPoint;
 
     // Constants from boilerplate
     // These should ideally be configurable or obtained from a settings manager eventually

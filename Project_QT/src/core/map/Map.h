@@ -3,7 +3,7 @@
 
 #include "BaseMap.h"
 // #include "MapElements.h" // For TownData, HouseData - Replaced by specific includes
-#include "Project_QT/src/core/houses/HouseData.h" // Specific include for HouseData
+#include "core/houses/HouseData.h" // Corrected include path
 #include "MapElements.h" // Assuming this is for TownData etc. and does NOT define HouseData
 #include "core/world/TownData.h" // New TownData location
 #include "core/navigation/WaypointData.h" // New WaypointData location
@@ -14,10 +14,31 @@
 #include <QMap>
 
 namespace RME {
+namespace core { // Define ClientVersionInfo within RME::core
+    struct ClientVersionInfo {
+        uint32_t major = 0;
+        uint32_t minor = 0;
+        uint32_t build = 0;
 
+        ClientVersionInfo() = default;
+        ClientVersionInfo(uint32_t maj, uint32_t min, uint32_t bld) : major(maj), minor(min), build(bld) {}
+
+        bool isValid() const { return major != 0 || minor != 0 || build != 0; }
+        void clear() { major = 0; minor = 0; build = 0; }
+
+        bool operator==(const ClientVersionInfo& other) const {
+            return major == other.major && minor == other.minor && build == other.build;
+        }
+        bool operator!=(const ClientVersionInfo& other) const {
+            return !(*this == other);
+        }
+    };
+} // namespace core
+
+// Original RME namespace for Map class etc.
 struct MapVersionInfo {
     quint32 otbmVersion = 0;
-    quint32 clientVersionID = 0;
+    quint32 clientVersionID = 0; // This might be legacy or different from the new major/minor/build
     QString description;
 };
 
@@ -30,10 +51,14 @@ public:
     const QString& getDescription() const { return m_description; }
     void setDescription(const QString& desc) { m_description = desc; setChanged(true); }
 
-    const MapVersionInfo& getVersionInfo() const { return m_versionInfo; }
+    const MapVersionInfo& getVersionInfo() const { return m_versionInfo; } // OTBM version and legacy client ID
     void setVersionInfo(const MapVersionInfo& version) { m_versionInfo = version; setChanged(true); }
     void setOtbmVersion(quint32 otbmVer) { m_versionInfo.otbmVersion = otbmVer; setChanged(true); }
-    void setClientVersionID(quint32 clientVerID) { m_versionInfo.clientVersionID = clientVerID; setChanged(true); }
+    void setClientVersionID(quint32 clientVerID) { m_versionInfo.clientVersionID = clientVerID; setChanged(true); } // Legacy client ID
+
+    // New Client Version Info (major/minor/build)
+    const RME::core::ClientVersionInfo& getClientVersionInfo() const;
+    void setClientVersionInfo(const RME::core::ClientVersionInfo& versionInfo);
 
     const QString& getHouseFile() const { return m_houseFile; }
     void setHouseFile(const QString& path) { m_houseFile = path; setChanged(true); }
@@ -53,11 +78,13 @@ public:
     // const TownData* getTown(quint32 townId) const; // OLD
     // void addTown(const TownData& town); // OLD
     // bool removeTown(quint32 townId); // OLD
-    bool addTown(RME::TownData&& townData);
-    RME::TownData* getTown(uint32_t townId); // Changed to new RME::TownData
-    const RME::TownData* getTown(uint32_t townId) const; // Changed to new RME::TownData
-    bool removeTown(uint32_t townId); // Changed to new RME::TownData
-    const QMap<uint32_t, RME::TownData>& getTownsById() const { return m_townsById; }
+    bool addTown(RME::core::world::TownData&& townData);
+    RME::core::world::TownData* getTown(uint32_t townId);
+    const RME::core::world::TownData* getTown(uint32_t townId) const;
+    bool removeTown(uint32_t townId);
+    const QMap<uint32_t, RME::core::world::TownData>& getTownsById() const { return m_townsById; } // Kept for existing compatibility
+    const QMap<uint32_t, RME::core::world::TownData>& getTowns() const { return m_townsById; } // Added as per subtask
+    void clearTowns(); // Added as per subtask
     uint32_t getUnusedTownId() const;
 
     // --- Houses ---
@@ -67,14 +94,14 @@ public:
     // void addHouse(const HouseData& house); // Old
     // bool removeHouse(quint32 houseId); // Old
 
-    void addHouse(HouseData&& houseData); // Use rvalue reference for potential move
-    HouseData* getHouse(uint32_t houseId);
-    const HouseData* getHouse(uint32_t houseId) const;
+    bool addHouse(RME::core::houses::HouseData&& houseData);
+    RME::core::houses::HouseData* getHouse(uint32_t houseId);
+    const RME::core::houses::HouseData* getHouse(uint32_t houseId) const;
     bool removeHouse(uint32_t houseId); // Returns true if house was found and removed
-    const QMap<uint32_t, HouseData>& getHouses() const { return m_housesById; }
-    QMap<uint32_t, HouseData>& getHouses() { return m_housesById; } // Non-const version
-
-    uint32_t getUnusedHouseId();
+    const QMap<uint32_t, RME::core::houses::HouseData>& getHouses() const;
+    QMap<uint32_t, RME::core::houses::HouseData>& getHouses(); // Non-const version, updated for consistency
+    void clearHouses();
+    uint32_t getNextFreeHouseId() const; // Renamed from getUnusedHouseId and made const
     bool changeHouseId(uint32_t oldId, uint32_t newId); // Returns true on success
 
     // --- Waypoints ---
@@ -84,6 +111,7 @@ public:
     // Take by value to allow moving from temporary or copying, then move into map
     bool addWaypoint(RME::core::navigation::WaypointData waypointData);
     bool removeWaypoint(const QString& name);
+    void clearWaypoints(); // Useful for new map or closing map
 
     // --- Spawns ---
     void addSpawn(RME::SpawnData&& spawnData);
@@ -133,7 +161,8 @@ public:
 
 private:
     QString m_description;
-    MapVersionInfo m_versionInfo;
+    MapVersionInfo m_versionInfo; // Stores OTBM version and potentially a single legacy client ID
+    RME::core::ClientVersionInfo m_clientVersionInfo; // Stores detailed client major/minor/build
 
     QString m_houseFile;
     QString m_spawnFile;
@@ -142,11 +171,11 @@ private:
     bool m_changed = false;
 
     // QList<TownData> m_towns; // OLD - Replaced by m_townsById
-    QMap<uint32_t, RME::TownData> m_townsById; // New
+    QMap<uint32_t, RME::core::world::TownData> m_townsById; // Explicitly namespaced
     uint32_t m_maxTownId = 0; // New
 
     // QMap<quint32, HouseData> m_houses; // Old
-    QMap<uint32_t, HouseData> m_housesById; // New name and consistent type
+    QMap<uint32_t, RME::core::houses::HouseData> m_housesById; // Explicitly namespaced
     uint32_t m_maxHouseId = 0; // Tracks the highest ID ever used
     QMap<QString, RME::core::navigation::WaypointData> m_waypoints;
     QList<RME::SpawnData> m_spawns; // Changed to RME::SpawnData

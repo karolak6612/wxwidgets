@@ -15,7 +15,10 @@ namespace RME { namespace core {
 namespace RME {
 namespace core {
 
+class ::TestGroundBrush; // Forward declaration
+
 class GroundBrush : public RME::core::Brush {
+    friend class ::TestGroundBrush;
 public:
     GroundBrush();
     ~GroundBrush() override = default;
@@ -36,13 +39,10 @@ public:
                   const RME::core::Position& pos,
                   const RME::core::BrushSettings& settings) const override;
 
-    // Specific static initialization for GroundBrush, if needed (e.g., for border_types table)
-    static void initializeStaticData(); // Declaration
+    static void initializeStaticData();
 
 private:
-    void doAutoBorders(RME::core::editor::EditorControllerInterface* controller,
-                       const RME::core::Position& targetPos,
-                       const RME::core::BrushSettings& settings);
+    void doAutoBorders(RME::core::editor::EditorControllerInterface* controller, const RME::core::Position& targetPos);
 
     // Helper to get ground specifics from m_material
     const RME::core::assets::MaterialGroundSpecifics* getCurrentGroundSpecifics() const;

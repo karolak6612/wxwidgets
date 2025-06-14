@@ -21,6 +21,24 @@ const QMap<QString, MaterialData>& MaterialManager::getAllMaterials() const {
     return m_materialsById;
 }
 
+const BorderSetData* MaterialManager::getBorderSet(const QString& setId) const {
+    // Return value directly, or nullptr if not found (QMap::value behavior)
+    // For pointer values, if key not found, it returns a default-constructed value (nullptr for pointers).
+    // However, if the value type itself could be non-pointer and we stored BorderSetData directly,
+    // value() would return a copy. To return a pointer to an object in the map, use find().
+    // Since BorderSetData is a struct and likely stored by value in m_borderSetsById:
+    // return m_borderSetsById.value(setId, nullptr); // This is wrong if BorderSetData is stored by value.
+    // Correct approach if BorderSetData is stored by value:
+    if (m_borderSetsById.contains(setId)) {
+        return &m_borderSetsById.at(setId); // Return address of the object in map.
+                                          // at() throws if not found, so contains() check is good.
+    }
+    return nullptr;
+    // If m_borderSetsById stores pointers (e.g. QMap<QString, BorderSetData*>), then:
+    // return m_borderSetsById.value(setId, nullptr); // This would be correct.
+    // Assuming BorderSetData is stored by value as is typical for such structs in Qt containers.
+}
+
 bool MaterialManager::loadMaterialsFromDirectory(const QString& baseDir, const QString& mainXmlFile, AssetManager& assetManager) {
     m_materialsById.clear();
     m_parsedFiles.clear();
@@ -83,6 +101,12 @@ bool MaterialManager::parseXmlFile(const QString& filePath, AssetManager& assetM
                     // Continue parsing other brushes for now, but log it.
                     qWarning() << "MaterialManager: Error parsing a <brush> element in" << filePath << ":" << m_lastError;
                     m_lastError.clear(); // Clear for next brush
+                }
+            } else if (elementName.compare(QLatin1String("border"), Qt::CaseInsensitive) == 0) { // New condition
+                // This is for <border id="SET_ID"> elements directly under <materials> (e.g., in borders.xml)
+                if (!parseBordersFileEntry(xml)) {
+                    qWarning() << "MaterialManager: Error parsing a <border SET_ID> element in" << filePath << ":" << m_lastError;
+                    m_lastError.clear(); // Clear for next element
                 }
             } else if (elementName.compare(QLatin1String("tileset"), Qt::CaseInsensitive) == 0) {
                 // Tilesets group materials for UI, not define new ones here.
@@ -226,12 +250,109 @@ void MaterialManager::parseBrushBorders(QXmlStreamReader& xml, MaterialData& mat
     MaterialBorderRule rule;
     rule.align = xml.attributes().value(QLatin1String("align")).toString();
     rule.toBrushName = xml.attributes().value(QLatin1String("to")).toString("none"); // Default to "none"
-    rule.borderItemId = xml.attributes().value(QLatin1String("id")).toUShort();
+    rule.ruleTargetId = xml.attributes().value(QLatin1String("id")).toString(); // Changed from borderItemId
     if (xml.attributes().hasAttribute(QLatin1String("super"))) rule.isSuper = xml.attributes().value(QLatin1String("super")).toString() == "true";
     if (xml.attributes().hasAttribute(QLatin1String("ground_equivalent"))) rule.groundEquivalent = xml.attributes().value(QLatin1String("ground_equivalent")).toUShort();
-    // TODO: Parse <specific> tags if present (complex, defer for now or simplify)
+
+    // Loop to process child elements of the current <border> tag
+    while (!xml.atEnd()) {
+        xml.readNext(); // Move to the next token
+
+        if (xml.isEndElement() && xml.name().toString().compare(QLatin1String("border"), Qt::CaseInsensitive) == 0) {
+            break; // End of the current <border> element
+        }
+
+        if (xml.isStartElement()) {
+            if (xml.name().toString().compare(QLatin1String("specific"), Qt::CaseInsensitive) == 0) {
+                SpecificRuleCase currentCase;
+                if (xml.attributes().hasAttribute(QLatin1String("keep_border"))) {
+                    currentCase.keepBaseBorder = (xml.attributes().value(QLatin1String("keep_border")).toString() == "true");
+                }
+
+                // Loop for children of <specific> (i.e., <conditions> and <actions>)
+                while (!xml.atEnd()) {
+                    xml.readNext();
+                    if (xml.isEndElement() && xml.name().toString().compare(QLatin1String("specific"), Qt::CaseInsensitive) == 0) {
+                        break; // End of current <specific> element
+                    }
+
+                    if (xml.isStartElement()) {
+                        if (xml.name().toString().compare(QLatin1String("conditions"), Qt::CaseInsensitive) == 0) {
+                            // Loop for children of <conditions>
+                            while (!xml.atEnd()) {
+                                xml.readNext();
+                                if (xml.isEndElement() && xml.name().toString().compare(QLatin1String("conditions"), Qt::CaseInsensitive) == 0) {
+                                    break; // End of <conditions>
+                                }
+                                if (xml.isStartElement()) {
+                                    if (xml.name().toString().compare(QLatin1String("match_border"), Qt::CaseInsensitive) == 0) {
+                                        SpecificCondition cond;
+                                        cond.type = SpecificConditionType::MATCH_BORDER;
+                                        cond.targetId = xml.attributes().value(QLatin1String("id")).toString();
+                                        cond.edge = xml.attributes().value(QLatin1String("edge")).toString();
+                                        currentCase.conditions.append(cond);
+                                        xml.skipCurrentElement(); // Consume <match_border ... />
+                                    } else if (xml.name().toString().compare(QLatin1String("match_ground"), Qt::CaseInsensitive) == 0) {
+                                        SpecificCondition cond;
+                                        cond.type = SpecificConditionType::MATCH_GROUND;
+                                        cond.targetId = xml.attributes().value(QLatin1String("id")).toString();
+                                        // No 'edge' for match_ground typically
+                                        currentCase.conditions.append(cond);
+                                        xml.skipCurrentElement(); // Consume <match_ground ... />
+                                    } else {
+                                        qWarning() << "MaterialManager::parseBrushBorders: Unknown tag within <conditions>:" << xml.name().toString();
+                                        xml.skipCurrentElement();
+                                    }
+                                }
+                            } // End of <conditions> loop
+                        } else if (xml.name().toString().compare(QLatin1String("actions"), Qt::CaseInsensitive) == 0) {
+                            // Loop for children of <actions>
+                            while (!xml.atEnd()) {
+                                xml.readNext();
+                                if (xml.isEndElement() && xml.name().toString().compare(QLatin1String("actions"), Qt::CaseInsensitive) == 0) {
+                                    break; // End of <actions>
+                                }
+                                if (xml.isStartElement()) {
+                                    if (xml.name().toString().compare(QLatin1String("replace_border"), Qt::CaseInsensitive) == 0) {
+                                        SpecificAction act;
+                                        act.type = SpecificActionType::REPLACE_BORDER;
+                                        act.targetId = xml.attributes().value(QLatin1String("id")).toString(); // Original item on edge
+                                        act.edge = xml.attributes().value(QLatin1String("edge")).toString();
+                                        act.withItemId = xml.attributes().value(QLatin1String("with")).toUShort();
+                                        currentCase.actions.append(act);
+                                        xml.skipCurrentElement(); // Consume <replace_border ... />
+                                    } else if (xml.name().toString().compare(QLatin1String("add_item"), Qt::CaseInsensitive) == 0) {
+                                        SpecificAction act;
+                                        act.type = SpecificActionType::ADD_ITEM;
+                                        act.affectedItemId = xml.attributes().value(QLatin1String("id")).toUShort(); // Item to add
+                                        currentCase.actions.append(act);
+                                        xml.skipCurrentElement(); // Consume <add_item ... />
+                                    } else {
+                                        qWarning() << "MaterialManager::parseBrushBorders: Unknown tag within <actions>:" << xml.name().toString();
+                                        xml.skipCurrentElement();
+                                    }
+                                }
+                            } // End of <actions> loop
+                        } else {
+                             qWarning() << "MaterialManager::parseBrushBorders: Unknown tag within <specific>:" << xml.name().toString();
+                             xml.skipCurrentElement();
+                        }
+                    }
+                } // End of <specific> loop
+                rule.specificRuleCases.append(currentCase);
+            } else {
+                if (!xml.name().toString().isEmpty()) {
+                    qWarning() << "MaterialManager::parseBrushBorders: Unknown tag '" << xml.name().toString() << "' directly under <border>. Skipping.";
+                }
+                // xml.skipCurrentElement(); // Don't skip if it's not a StartElement, or if it's an EndElement we need to process
+                                        // This was original logic, let's ensure we only skip StartElements we don't handle
+                if(xml.isStartElement()) xml.skipCurrentElement();
+            }
+        }
+    } // End of <border> children loop
+
     specifics->borders.append(rule);
-    xml.skipCurrentElement();
+    // Original xml.skipCurrentElement() is removed as the loop handles consuming the element's content.
 }
 
 void MaterialManager::parseBrushFriends(QXmlStreamReader& xml, MaterialData& materialData) {
@@ -386,6 +507,55 @@ void MaterialManager::parseBrushCarpetParts(QXmlStreamReader& xml, MaterialData&
         MaterialTableSpecifics* specifics = std::get_if<MaterialTableSpecifics>(&materialData.specificData);
         if (specifics) specifics->parts.append(part);
     }
+}
+
+bool MaterialManager::parseBordersFileEntry(QXmlStreamReader& xml) {
+    Q_ASSERT(xml.isStartElement() && xml.name().toString().compare(QLatin1String("border"), Qt::CaseInsensitive) == 0);
+
+    QString borderSetId = xml.attributes().value(QLatin1String("id")).toString();
+    if (borderSetId.isEmpty()) {
+        m_lastError = "Found <border> entry (for a border set) with no 'id' attribute.";
+        qWarning() << "MaterialManager:" << m_lastError;
+        xml.skipCurrentElement(); // Important to consume the element
+        return false; // Or true if we want to be lenient and just skip this one
+    }
+
+    if (m_borderSetsById.contains(borderSetId)) {
+        qWarning() << "MaterialManager: Duplicate border set ID '" << borderSetId << "'. Overwriting previous definition.";
+        // Potentially clear existing entries if overwriting, or merge, or skip.
+        // For now, simple overwrite by QMap::insert.
+    }
+
+    BorderSetData currentBorderSet(borderSetId); // Use constructor that sets ID
+
+    while (!xml.atEnd()) {
+        xml.readNext();
+        if (xml.isEndElement() && xml.name().toString().compare(QLatin1String("border"), Qt::CaseInsensitive) == 0) {
+            break; // End of this <border id="SET_ID"> element
+        }
+        if (xml.isStartElement()) {
+            if (xml.name().toString().compare(QLatin1String("borderitem"), Qt::CaseInsensitive) == 0) {
+                QString edge = xml.attributes().value(QLatin1String("edge")).toString();
+                bool ok = false;
+                uint16_t itemId = xml.attributes().value(QLatin1String("item")).toUShort(&ok);
+
+                if (!edge.isEmpty() && ok) {
+                    currentBorderSet.edgeItems.insert(edge, itemId);
+                } else {
+                    qWarning() << "MaterialManager: Invalid <borderitem> in set '" << borderSetId
+                               << "'. Missing 'edge' or invalid 'item' ID. Attributes:" << xml.attributes();
+                }
+                xml.skipCurrentElement(); // Consume the rest of <borderitem>
+            } else {
+                qWarning() << "MaterialManager: Unknown tag '" << xml.name().toString()
+                           << "' inside <border id=\"" << borderSetId << "\">. Skipping.";
+                xml.skipCurrentElement();
+            }
+        }
+    }
+    m_borderSetsById.insert(borderSetId, currentBorderSet);
+    qDebug() << "MaterialManager: Parsed border set ID '" << borderSetId << "' with" << currentBorderSet.edgeItems.count() << "edge items.";
+    return true;
 }
 
 } // namespace assets

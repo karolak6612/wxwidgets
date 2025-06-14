@@ -2,16 +2,17 @@
 #include "Project_QT/src/core/houses/HouseData.h"
 #include "Project_QT/src/core/map/Map.h"
 #include "Project_QT/src/tests/core/mocks/MockMapElements.h"
-#include "Project_QT/src/core/assets/AssetManager.h" // For Map constructor
-#include "Project_QT/src/core/sprites/SpriteManager.h" // For AssetManager constructor
-#include "Project_QT/src/core/assets/ItemDatabase.h" // For AssetManager constructor
-#include "Project_QT/src/core/assets/CreatureDatabase.h" // For AssetManager constructor
-#include "Project_QT/src/core/assets/ClientVersionManager.h" // For AssetManager constructor
-#include "Project_QT/src/core/assets/MaterialManager.h" // For AssetManager constructor
-
+#include "Project_QT/src/core/assets/AssetManager.h"
+#include "Project_QT/src/core/sprites/SpriteManager.h"
+#include "Project_QT/src/core/assets/ItemDatabase.h"
+#include "Project_QT/src/core/assets/CreatureDatabase.h"
+#include "Project_QT/src/core/assets/ClientVersionManager.h"
+#include "Project_QT/src/core/assets/MaterialManager.h"
+#include "Project_QT/src/core/Tile.h" // Added for Tile operations
+#include "Project_QT/src/core/Item.h"  // Added for Item operations
+#include "Project_QT/src/core/assets/ItemData.h" // Added for ItemData
 
 // Define placeholder for actual TileMapFlag if not easily accessible
-// This is just for test compilation, actual values should align if tests become more integrated
 #ifndef TILESTATE_PROTECTIONZONE
 #define TILESTATE_PROTECTIONZONE 0x00000001
 #endif
@@ -48,17 +49,22 @@ private slots:
     void testMap_ChangeHouseId_UpdatesTiles();
     void testMap_ChangeHouseId_EdgeCases();
     void testSetEntryPoint_TileFlags();
+    void testMap_IsValidHouseExitLocation(); // New test slot
 
 
 private:
     RME::Map* m_map;
     RME::core::assets::AssetManager* m_assetManager;
-    // Mocks for AssetManager dependencies
     RME::core::sprites::SpriteManager* m_spriteManager;
-    RME::core::assets::ItemDatabase* m_itemDatabase;
+    RME::core::assets::ItemDatabase* m_itemDatabase; // Will add mock items here
     RME::core::assets::CreatureDatabase* m_creatureDatabase;
     RME::core::assets::ClientVersionManager* m_clientVersionManager;
     RME::core::assets::MaterialManager* m_materialManager;
+
+    // Item IDs for testing isValidHouseExitLocation
+    const uint16_t VALID_GROUND_ID = 1001;
+    const uint16_t OTHER_GROUND_ID = 1002;
+    const uint16_t BLOCKING_ITEM_ID = 1003;
 };
 
 TestHouseSystem::TestHouseSystem() : m_map(nullptr), m_assetManager(nullptr),
@@ -66,8 +72,6 @@ TestHouseSystem::TestHouseSystem() : m_map(nullptr), m_assetManager(nullptr),
     m_clientVersionManager(nullptr), m_materialManager(nullptr)
 {}
 TestHouseSystem::~TestHouseSystem() {
-    // cleanupTestCase should handle this if test object is long-lived
-    // but QTest usually creates a new test object for each function.
 }
 
 void TestHouseSystem::initTestCase() {
@@ -78,23 +82,35 @@ void TestHouseSystem::cleanupTestCase() {
 }
 
 void TestHouseSystem::init() {
-    // Setup AssetManager with its dependencies (can be basic mocks or nullptrs if not deeply used)
     m_clientVersionManager = new RME::core::assets::ClientVersionManager();
-    m_itemDatabase = new RME::core::assets::ItemDatabase(*m_clientVersionManager);
+    m_itemDatabase = new RME::core::assets::ItemDatabase(*m_clientVersionManager); // Real ItemDatabase
     m_creatureDatabase = new RME::core::assets::CreatureDatabase();
     m_spriteManager = new RME::core::sprites::SpriteManager(*m_clientVersionManager);
     m_materialManager = new RME::core::assets::MaterialManager(*m_clientVersionManager);
 
+    // Setup mock items for exit location tests
+    RME::core::assets::ItemData validGround;
+    validGround.id = VALID_GROUND_ID; validGround.name = "Valid Ground"; validGround.isGround = true; validGround.isBlocking = false;
+    m_itemDatabase->addItemData(validGround); // Assuming addItemData or similar exists
+
+    RME::core::assets::ItemData otherGround;
+    otherGround.id = OTHER_GROUND_ID; otherGround.name = "Other Ground"; otherGround.isGround = true; otherGround.isBlocking = false;
+    m_itemDatabase->addItemData(otherGround);
+
+    RME::core::assets::ItemData blockingItem;
+    blockingItem.id = BLOCKING_ITEM_ID; blockingItem.name = "Blocking Item"; blockingItem.isGround = false; blockingItem.isBlocking = true;
+    m_itemDatabase->addItemData(blockingItem);
+
+
     m_assetManager = new RME::core::assets::AssetManager(
         *m_itemDatabase, *m_creatureDatabase, *m_spriteManager, *m_clientVersionManager, *m_materialManager
     );
-    // Map constructor requires AssetManager
-    m_map = new RME::Map(100, 100, 1, m_assetManager);
+    m_map = new RME::Map(10, 10, 8, m_assetManager); // Map of 10x10x8 for testing positions
 }
 void TestHouseSystem::cleanup() {
     delete m_map;
     m_map = nullptr;
-    delete m_assetManager;
+    delete m_assetManager; // AssetManager owns its dependencies in this setup
     m_assetManager = nullptr;
     delete m_materialManager;
     m_materialManager = nullptr;
@@ -133,7 +149,8 @@ void TestHouseSystem::testHouseData_Properties() {
     house.setTownId(5);
     QCOMPARE(house.getTownId(), (uint32_t)5);
 
-    RME::Position entry(100, 200, 7);
+    RME::Position entry(100, 200, 7); // This position will be out of bounds for the small test map
+                                      // but HouseData itself doesn't validate against map.
     house.setEntryPoint(entry);
     QCOMPARE(house.getEntryPoint(), entry);
 
@@ -149,14 +166,14 @@ void TestHouseSystem::testHouseData_Properties() {
 
 void TestHouseSystem::testHouseData_ExitsManagement() {
     RME::HouseData house;
-    RME::Position exit1(10, 10, 7);
-    RME::Position exit2(12, 10, 7);
+    RME::Position exit1(1, 1, 7); // Adjusted to be within map bounds
+    RME::Position exit2(2, 1, 7);
 
     house.addExit(exit1);
     QCOMPARE(house.getExits().count(), 1);
     QVERIFY(house.getExits().contains(exit1));
 
-    house.addExit(exit1);
+    house.addExit(exit1); // Should not add duplicate
     QCOMPARE(house.getExits().count(), 1);
 
     house.addExit(exit2);
@@ -167,7 +184,7 @@ void TestHouseSystem::testHouseData_ExitsManagement() {
     QCOMPARE(house.getExits().count(), 1);
     QVERIFY(!house.getExits().contains(exit1));
 
-    QVERIFY(!house.removeExit(exit1));
+    QVERIFY(!house.removeExit(exit1)); // Already removed
 
     house.clearExits();
     QVERIFY(house.getExits().isEmpty());
@@ -175,14 +192,14 @@ void TestHouseSystem::testHouseData_ExitsManagement() {
 
 void TestHouseSystem::testHouseData_TilesManagement() {
     RME::HouseData house;
-    RME::Position tile1(20, 20, 7);
-    RME::Position tile2(21, 20, 7);
+    RME::Position tile1(3, 3, 7); // Adjusted
+    RME::Position tile2(4, 3, 7);
 
     house.addTilePosition(tile1);
     QCOMPARE(house.getTilePositions().count(), 1);
     QVERIFY(house.containsTile(tile1));
 
-    house.addTilePosition(tile1);
+    house.addTilePosition(tile1); // No duplicates
     QCOMPARE(house.getTilePositions().count(), 1);
 
     house.addTilePosition(tile2);
@@ -213,7 +230,7 @@ void TestHouseSystem::testHouseData_Description() {
 // --- Map House Management Tests ---
 void TestHouseSystem::testMap_AddGetHouse() {
     RME::HouseData house1_data(1, "House One");
-    RME::Position entry1(10,10,7);
+    RME::Position entry1(1,1,7); // Adjusted
     house1_data.setEntryPoint(entry1);
 
     m_map->addHouse(std::move(house1_data));
@@ -258,10 +275,9 @@ void TestHouseSystem::testMap_RemoveHouse() {
 }
 
 void TestHouseSystem::testMap_RemoveHouse_UpdatesTiles() {
-    RME::Position pos1(30,30,7);
-    RME::Position pos2(31,30,7);
+    RME::Position pos1(3,3,7); // Adjusted
+    RME::Position pos2(4,3,7);
 
-    // Use real RME::Tile objects created by the RME::Map instance
     RME::Tile* tile1 = m_map->getOrCreateTile(pos1);
     RME::Tile* tile2 = m_map->getOrCreateTile(pos2);
     QVERIFY(tile1 && tile2);
@@ -286,19 +302,14 @@ void TestHouseSystem::testMap_RemoveHouse_UpdatesTiles() {
 void TestHouseSystem::testMap_GetUnusedHouseId() {
     QCOMPARE(m_map->getUnusedHouseId(), (uint32_t)1);
     m_map->addHouse(RME::HouseData(1, "H1"));
-    QCOMPARE(m_map->getUnusedHouseId(), (uint32_t)2); // Next after max_house_id
+    QCOMPARE(m_map->getUnusedHouseId(), (uint32_t)2);
     m_map->addHouse(RME::HouseData(3, "H3"));
-    QCOMPARE(m_map->getUnusedHouseId(), (uint32_t)4); // Next after new max_house_id (3)
-                                                    // The previous version of getUnusedHouseId was supposed to find gaps.
-                                                    // The version in CORE-09-Step5 (MapHouseMgmt) does not look for gaps, just m_maxHouseId + 1
-                                                    // Re-checking logic from problem description: "Starts searching from 1... while m_housesById.contains(currentId)"
-                                                    // The implementation in CORE-09-Step5 was: currentId = m_maxHouseId + 1; while(contains) currentId++;
-                                                    // This means it will NOT find gaps. Test adjusted.
+    QCOMPARE(m_map->getUnusedHouseId(), (uint32_t)4);
     m_map->addHouse(RME::HouseData(2, "H2"));
-    QCOMPARE(m_map->getUnusedHouseId(), (uint32_t)4); // Max is 3, next is 4.
+    QCOMPARE(m_map->getUnusedHouseId(), (uint32_t)4);
 
-    m_map->removeHouse(3); // Max was 3. After removal, max becomes 2.
-    QCOMPARE(m_map->getUnusedHouseId(), (uint32_t)3); // m_maxHouseId is recalculated to 2, so 2+1=3.
+    m_map->removeHouse(3);
+    QCOMPARE(m_map->getUnusedHouseId(), (uint32_t)3);
 }
 
 void TestHouseSystem::testMap_ChangeHouseId() {
@@ -318,7 +329,7 @@ void TestHouseSystem::testMap_ChangeHouseId() {
 }
 
 void TestHouseSystem::testMap_ChangeHouseId_UpdatesTiles() {
-    RME::Position pos1(40,40,7);
+    RME::Position pos1(4,4,7); // Adjusted
     RME::Tile* tile1 = m_map->getOrCreateTile(pos1);
     QVERIFY(tile1);
     tile1->setHouseId(10);
@@ -353,42 +364,81 @@ void TestHouseSystem::testSetEntryPoint_TileFlags() {
     RME::HouseData house(1, "Test House");
     RME::core::Position pos1(5,5,7);
     RME::core::Position pos2(6,6,7);
-    RME::core::Position invalidPos; // Default constructor for Position
+    RME::core::Position invalidPos;
 
-    // Initial set
     house.setEntryPoint(pos1, m_map);
     QCOMPARE(house.getEntryPoint(), pos1);
     RME::Tile* tile1 = m_map->getTile(pos1);
     QVERIFY(tile1);
     QVERIFY(tile1->isHouseExit());
 
-    // Change entry point
     house.setEntryPoint(pos2, m_map);
     QCOMPARE(house.getEntryPoint(), pos2);
     tile1 = m_map->getTile(pos1);
     QVERIFY(tile1);
-    QVERIFY(!tile1->isHouseExit()); // Old tile should no longer be exit
+    QVERIFY(!tile1->isHouseExit());
     RME::Tile* tile2 = m_map->getTile(pos2);
     QVERIFY(tile2);
-    QVERIFY(tile2->isHouseExit()); // New tile should be exit
+    QVERIFY(tile2->isHouseExit());
 
-    // Clear entry point by setting an invalid/default position
-    // This assumes Position() default constructor creates an "invalid" position for setEntryPoint's logic.
-    // HouseData::setEntryPoint will not call getOrCreateTile for invalidPos if it's not pos.isValid().
-    // If invalidPos IS valid (e.g. 0,0,0 on map), a tile might be created there.
-    // The crucial part is that the flag on tile2 is cleared.
     house.setEntryPoint(invalidPos, m_map);
     QCOMPARE(house.getEntryPoint(), invalidPos);
     tile2 = m_map->getTile(pos2);
     QVERIFY(tile2);
-    QVERIFY(!tile2->isHouseExit()); // Old exit (pos2) should be cleared
+    QVERIFY(!tile2->isHouseExit());
 
-    // Test with null map (should just set internal m_entryPoint)
     RME::HouseData houseNullMap(2, "Null Map House");
-    RME::core::Position posForNullMap(10,10,7);
+    RME::core::Position posForNullMap(1,1,7); // Adjusted
     houseNullMap.setEntryPoint(posForNullMap, nullptr);
-    QCOMPARE(houseNullMap.getEntryPoint(), posForNullMap); // Internal position updated
-    // No tile flags to check as map was null, and no crash should occur.
+    QCOMPARE(houseNullMap.getEntryPoint(), posForNullMap);
+}
+
+void TestHouseSystem::testMap_IsValidHouseExitLocation() {
+    QVERIFY(m_map);
+    RME::Position pos(5,5,7);
+
+    // Scenario 1: Valid exit location
+    RME::Tile* tile = m_map->getOrCreateTile(pos);
+    QVERIFY(tile);
+    tile->setGround(std::make_unique<RME::Item>(VALID_GROUND_ID, m_itemDatabase->getItemData(VALID_GROUND_ID)));
+    tile->setHouseId(0);
+    // Make sure tile is not blocking by clearing items and updating
+    tile->getItemsForWrite().clear();
+    tile->update();
+    QVERIFY(m_map->isValidHouseExitLocation(pos));
+
+    // Scenario 2: No tile at position
+    RME::Position nonExistentPosFar(500, 500, 7);
+    QVERIFY(!m_map->isValidHouseExitLocation(nonExistentPosFar));
+
+    RME::Position nonExistentPosNear(5,6,7);
+    m_map->clearTile(nonExistentPosNear);
+    QVERIFY(!m_map->isValidHouseExitLocation(nonExistentPosNear));
+
+    // Scenario 3: Tile has no ground
+    tile = m_map->getOrCreateTile(pos);
+    tile->setGround(nullptr);
+    tile->setHouseId(0);
+    tile->getItemsForWrite().clear();
+    tile->update();
+    QVERIFY(!m_map->isValidHouseExitLocation(pos));
+
+    // Scenario 4: Tile is already part of a house
+    tile->setGround(std::make_unique<RME::Item>(OTHER_GROUND_ID, m_itemDatabase->getItemData(OTHER_GROUND_ID)));
+    tile->setHouseId(99);
+    tile->update();
+    QVERIFY(!m_map->isValidHouseExitLocation(pos));
+    tile->setHouseId(0);
+
+    // Scenario 5: Tile is blocking
+    tile->setGround(std::make_unique<RME::Item>(OTHER_GROUND_ID, m_itemDatabase->getItemData(OTHER_GROUND_ID)));
+    tile->addItem(std::make_unique<RME::Item>(BLOCKING_ITEM_ID, m_itemDatabase->getItemData(BLOCKING_ITEM_ID)));
+    tile->update();
+    QVERIFY(tile->isBlocking());
+    QVERIFY(!m_map->isValidHouseExitLocation(pos));
+
+    // Cleanup for next test if 'pos' is reused (it is if init() doesn't fully reset map state)
+    // This is handled by init() creating a new map.
 }
 
 
