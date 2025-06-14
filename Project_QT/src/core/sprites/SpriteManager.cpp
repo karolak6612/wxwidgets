@@ -11,7 +11,7 @@ const int SPRITE_DEFAULT_HEIGHT = 32;
 const int SPRITE_ADDRESS_TABLE_START_OFFSET = 0; // Assuming SPR address table is at the beginning
 
 struct SpriteManager::SpriteManagerData {
-    QMap<quint32, SpriteData> sprites;
+    QMap<quint32, RME::core::assets::SpriteData> sprites;
     OtfiData activeOtfiData;
     bool otfiLoaded = false;
     quint32 sprSignature = 0; // Store SPR signature if needed for validation
@@ -129,7 +129,7 @@ bool SpriteManager::loadDatSpr(const QString& datPath, const QString& sprPath, c
             qWarning() << "SpriteManager: Unexpected end of DAT file at sprite ID" << currentID;
             break;
         }
-        SpriteData sd;
+        RME::core::assets::SpriteData sd;
         sd.id = currentID;
 
         // Metadata parsing based on clientProfile.datFormat

@@ -16,14 +16,16 @@ namespace RME {
 
 // Forward declare data types for accessors
 struct ClientProfile;
-namespace assets { // Assuming ItemData, CreatureData, SpriteData are in RME::core::assets
+// Forward declarations for types now in RME::core::assets
+namespace core {
+namespace assets {
     class ItemData;
-    class CreatureData;
+    class CreatureData; // Was corrected in previous step
     class SpriteData;
-    class MaterialManager; // Forward declare for getMaterialManager()
+    class MaterialManager;
     class MaterialData;
 } // namespace assets
-
+} // namespace core
 
 // The AssetManager will also implement IItemTypeProvider for the new Item/Tile classes
 class AssetManager : public IItemTypeProvider {
@@ -45,14 +47,14 @@ public:
     const ItemDatabase& getItemDatabase() const;
     const CreatureDatabase& getCreatureDatabase() const;
     const SpriteManager& getSpriteManager() const;
-    const RME::core::assets::MaterialManager& getMaterialManager() const; // New accessor
+    const RME::core::assets::MaterialManager& getMaterialManager() const;
 
     // Convenience accessors for specific data
     const ClientProfile* getCurrentClientProfile() const;
-    const assets::ItemData* getItemData(quint16 itemId) const; // From ItemDatabase, use namespaced type
-    const assets::CreatureData* getCreatureData(const QString& name) const; // From CreatureDatabase, use namespaced type
-    const assets::SpriteData* getSpriteData(quint32 spriteId) const; // From SpriteManager, use namespaced type
-    const assets::MaterialData* getMaterialData(const QString& id) const; // Delegates to MaterialManager
+    const RME::core::assets::ItemData* getItemData(quint16 itemId) const;
+    const RME::core::assets::CreatureData* getCreatureData(const QString& name) const; // Already correct
+    const RME::core::assets::SpriteData* getSpriteData(quint32 spriteId) const;
+    const RME::core::assets::MaterialData* getMaterialData(const QString& id) const;
 
     // --- IItemTypeProvider Implementation ---
     // These methods will delegate to the ItemDatabase instance.

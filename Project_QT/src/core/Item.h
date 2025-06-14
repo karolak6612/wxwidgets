@@ -33,6 +33,7 @@ protected:
     uint16_t subtype; // Used for count, charges, fluid type, etc.
     AttributeMap attributes;
     IItemTypeProvider* itemTypeProvider; // Non-owning pointer, set externally
+    bool m_selected = false;
 
 public:
     // Constructor
@@ -98,8 +99,9 @@ public:
     bool isDepot() const;
 
     // Selection state (if managed by Item itself, though often by editor/tile)
-    // bool isSelected() const;
-    // void setSelected(bool selected);
+    // Selection state
+    bool isSelected() const;
+    void setSelected(bool selected);
 
     // Provide access to the type provider if needed by other systems
     IItemTypeProvider* getTypeProvider() const { return itemTypeProvider; }

@@ -6,7 +6,7 @@
 namespace RME {
 
 struct CreatureDatabase::CreatureDatabaseData {
-    QMap<QString, CreatureData> creatures; // Keyed by creature name (lowercase)
+    QMap<QString, RME::core::assets::CreatureData> creatures; // Keyed by creature name (lowercase)
 };
 
 CreatureDatabase::CreatureDatabase() : d(new CreatureDatabaseData()) {
@@ -69,14 +69,14 @@ bool CreatureDatabase::loadFromXML(const QString& filePath) {
                     continue;
                 }
 
-                CreatureData& creatureData = d->creatures[name.toLower()]; // Get existing or create new
+                RME::core::assets::CreatureData& creatureData = d->creatures[name.toLower()]; // Get existing or create new
                 creatureData.name = name; // Ensure correct casing from this file if it's the first time
 
                 QString typeStr = xml.attributes().value("type").toString().toLower();
                 if (typeStr == "npc") {
-                    creatureData.flags |= CreatureTypeFlag::IS_NPC;
+                    creatureData.flags |= RME::core::assets::CreatureTypeFlag::IS_NPC;
                 } else {
-                    creatureData.flags &= ~CreatureTypeFlag::IS_NPC; // Ensure it's not NPC if type is "monster" or other
+                    creatureData.flags &= ~RME::core::assets::CreatureTypeFlag::IS_NPC; // Ensure it's not NPC if type is "monster" or other
                 }
                 creatureData.scriptName = xml.attributes().value("script", name + ".lua").toString(); // Default script name if not provided
 
@@ -133,9 +133,9 @@ bool CreatureDatabase::importFromOtServerXml(const QString& filePath) {
             }
 
             if (xml.name() == QLatin1String("npc")) {
-                 creatureData.flags |= CreatureTypeFlag::IS_NPC;
+                 creatureData.flags |= RME::core::assets::CreatureTypeFlag::IS_NPC;
             } else {
-                 creatureData.flags &= ~CreatureTypeFlag::IS_NPC;
+                 creatureData.flags &= ~RME::core::assets::CreatureTypeFlag::IS_NPC;
             }
 
             parseCreatureNode(xml, creatureData, true);

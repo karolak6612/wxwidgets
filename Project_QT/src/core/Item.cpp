@@ -44,8 +44,26 @@ std::unique_ptr<Item> Item::create(uint16_t id, IItemTypeProvider* provider, uin
 std::unique_ptr<Item> Item::deepCopy() const {
     // Create a new Item using the factory or direct constructor
     // Ensure the subtype and provider are passed correctly.
+    // Note: The actual type of the new item should match the original item's type.
+    // The current Item::create factory handles this based on provider information.
+    // If this deepCopy is called on a derived class (e.g., ContainerItem),
+    // its own deepCopy() should be invoked, which would then call this base copy logic
+    // or Item::create for the correct type.
+    // For now, we assume this deepCopy is for a base Item or called by a derived type's deepCopy.
+
+    // Using Item::create to potentially get a specialized type if this->id indicates one
+    // However, this might lead to issues if 'this' is already a specialized type and we want an exact copy
+    // A better approach for derived classes is to override deepCopy and call their own constructor.
+    // For the base Item, creating a new base Item is correct.
+    // Let's stick to the original logic of creating a new Item of the same dynamic type.
+    // The most robust way would be a virtual clone method or ensuring derived classes override deepCopy.
+    // Given the current structure, Item::create is used by external code to make items.
+    // A direct construction or a more specific clone method is typical here.
+
+    // Reverting to a more direct approach for base class copy, derived classes should override.
     auto newItem = std::make_unique<Item>(this->id, this->itemTypeProvider, this->subtype);
-    this->copyBaseMembersTo(*newItem);
+    this->copyBaseMembersTo(*newItem); // This will copy m_selected
+    // newItem->m_selected = this->m_selected; // Explicitly copy, or rely on copyBaseMembersTo
     return newItem;
 }
 
@@ -54,6 +72,18 @@ void Item::copyBaseMembersTo(Item& targetItem) const {
     // targetItem.subtype = this->subtype; // Already set by constructor
     // targetItem.itemTypeProvider = this.itemTypeProvider; // Already set by constructor
     targetItem.attributes = this->attributes; // Deep copy of QMap
+    targetItem.m_selected = this->m_selected;
+}
+
+// Selection State
+bool Item::isSelected() const {
+    return m_selected;
+}
+
+void Item::setSelected(bool selected) {
+    m_selected = selected;
+    // TODO: Consider if a signal should be emitted here if item selection changes
+    // need to be observed directly. For now, SelectionManager will handle broader change signals.
 }
 
 bool Item::hasSubtype() const {

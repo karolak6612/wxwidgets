@@ -7,16 +7,13 @@ Tile::Tile(const Position& pos, IItemTypeProvider* provider)
     : position(pos),
       ground(nullptr),
       creature(nullptr),
-      // spawn(nullptr), // Removed old spawn
-      // m_spawnDataRef(nullptr), // Removed old spawn ref
+      m_spawnDataRef(nullptr), // Initialized new spawn ref
       m_houseId(0),
       m_isHouseExit(false),
-      m_isProtectionZone(false),
+      // m_isProtectionZone(false), // Removed
       itemTypeProvider(provider),
-      m_waypointCount(0),
-      m_spawnRadius(0),                 // Added
-      m_spawnIntervalSeconds(0)       // Added
-      // m_spawnCreatureList is default-initialized
+      m_waypointCount(0)
+      // Old spawn members (m_spawnRadius, m_spawnIntervalSeconds, m_spawnCreatureList) removed
 {
     if (!itemTypeProvider) {
         // throw std::runtime_error("Tile created with null IItemTypeProvider");
@@ -27,16 +24,13 @@ Tile::Tile(int x, int y, int z, IItemTypeProvider* provider)
     : position(x, y, z),
       ground(nullptr),
       creature(nullptr),
-      // spawn(nullptr), // Removed old spawn
-      // m_spawnDataRef(nullptr), // Removed old spawn ref
+      m_spawnDataRef(nullptr), // Initialized new spawn ref
       m_houseId(0),
       m_isHouseExit(false),
-      m_isProtectionZone(false),
+      // m_isProtectionZone(false), // Removed
       itemTypeProvider(provider),
-      m_waypointCount(0),
-      m_spawnRadius(0),                 // Added
-      m_spawnIntervalSeconds(0)       // Added
-      // m_spawnCreatureList is default-initialized
+      m_waypointCount(0)
+      // Old spawn members (m_spawnRadius, m_spawnIntervalSeconds, m_spawnCreatureList) removed
 {
     if (!itemTypeProvider) {
         // throw std::runtime_error("Tile created with null IItemTypeProvider");
@@ -46,30 +40,22 @@ Tile::Tile(int x, int y, int z, IItemTypeProvider* provider)
 // Copy constructor
 Tile::Tile(const Tile& other)
     : position(other.position),
+      m_spawnDataRef(other.m_spawnDataRef), // Copy spawn data reference
       m_houseId(other.m_houseId),
       m_isHouseExit(other.m_isHouseExit),
-      m_isProtectionZone(other.m_isProtectionZone), // Added
+      // m_isProtectionZone(other.m_isProtectionZone), // Removed
       mapFlags(other.mapFlags),
       stateFlags(other.stateFlags),
       itemTypeProvider(other.itemTypeProvider),
-      m_waypointCount(other.m_waypointCount),
-      m_spawnRadius(other.m_spawnRadius),                 // Added
-      m_spawnCreatureList(other.m_spawnCreatureList),     // Added
-      m_spawnIntervalSeconds(other.m_spawnIntervalSeconds) // Added
+      m_waypointCount(other.m_waypointCount)
+      // Old spawn members (m_spawnRadius, m_spawnCreatureList, m_spawnIntervalSeconds) removed
 {
-    // Deep copy unique_ptr members, assuming copyMembersTo is not used by copy constructor
-    // or that copyMembersTo is designed for this.
-    // The original copyMembersTo was for deep copying unique_ptrs.
-    // Let's call it explicitly for those if it's not part of the constructor's design.
-    // For now, assuming the direct member copies are sufficient for non-owning,
-    // and unique_ptrs need explicit deep copy logic.
+    // Deep copy unique_ptr members
     if (other.ground) ground = other.ground->deepCopy();
     for (const auto& item : other.items) {
         if (item) items.append(item->deepCopy());
     }
     if (other.creature) creature = other.creature->deepCopy();
-    // spawn member removed
-    // m_spawnDataRef member removed
 }
 
 // Copy assignment operator
@@ -78,32 +64,26 @@ Tile& Tile::operator=(const Tile& other) {
         return *this;
     }
     position = other.position;
+    m_spawnDataRef = other.m_spawnDataRef; // Copy spawn data reference
     m_houseId = other.m_houseId;
     m_isHouseExit = other.m_isHouseExit;
-    m_isProtectionZone = other.m_isProtectionZone;
+    // m_isProtectionZone = other.m_isProtectionZone; // Removed
     mapFlags = other.mapFlags;
     stateFlags = other.stateFlags;
     itemTypeProvider = other.itemTypeProvider; // Copy the pointer
     m_waypointCount = other.m_waypointCount;
-
-    m_spawnRadius = other.m_spawnRadius;                 // Added
-    m_spawnCreatureList = other.m_spawnCreatureList;     // Added
-    m_spawnIntervalSeconds = other.m_spawnIntervalSeconds; // Added
+    // Old spawn members (m_spawnRadius, m_spawnCreatureList, m_spawnIntervalSeconds) removed
 
     // Clear existing owned members before copying new ones
     ground.reset();
     items.clear();
     creature.reset();
-    // spawn.reset(); // Removed old spawn
-
     // Deep copy unique_ptr members
     if (other.ground) ground = other.ground->deepCopy();
     for (const auto& item : other.items) {
         if (item) items.append(item->deepCopy());
     }
     if (other.creature) creature = other.creature->deepCopy();
-    // No spawn unique_ptr to copy
-
     return *this;
 }
 
@@ -113,21 +93,16 @@ Tile::Tile(Tile&& other) noexcept
       ground(std::move(other.ground)),
       items(std::move(other.items)),
       creature(std::move(other.creature)),
-      // spawn(std::move(other.spawn)), // Removed old spawn
-      // m_spawnDataRef(nullptr), // Removed old spawn ref
+      m_spawnDataRef(std::exchange(other.m_spawnDataRef, nullptr)), // Move spawn data reference
       m_houseId(std::exchange(other.m_houseId, 0)),
       m_isHouseExit(std::exchange(other.m_isHouseExit, false)),
-      m_isProtectionZone(std::exchange(other.m_isProtectionZone, false)),
+      // m_isProtectionZone(std::exchange(other.m_isProtectionZone, false)), // Removed
       mapFlags(std::exchange(other.mapFlags, TileMapFlag::NO_FLAGS)),
       stateFlags(std::exchange(other.stateFlags, TileStateFlag::NO_FLAGS)),
       itemTypeProvider(std::exchange(other.itemTypeProvider, nullptr)),
-      m_waypointCount(std::exchange(other.m_waypointCount, 0)),
-      m_spawnRadius(std::exchange(other.m_spawnRadius, 0)),                 // Added
-      m_spawnCreatureList(std::move(other.m_spawnCreatureList)),           // Added
-      m_spawnIntervalSeconds(std::exchange(other.m_spawnIntervalSeconds, 0)) // Added
+      m_waypointCount(std::exchange(other.m_waypointCount, 0))
+      // Old spawn members (m_spawnRadius, m_spawnCreatureList, m_spawnIntervalSeconds) removed
 {
-    // Ensure other is in a valid but empty/default state for owning pointers after move.
-    // std::exchange handles primitives. std::move handles unique_ptrs and QStringList.
 }
 
 // Move assignment operator
@@ -139,19 +114,15 @@ Tile& Tile::operator=(Tile&& other) noexcept {
     ground = std::move(other.ground);
     items = std::move(other.items);
     creature = std::move(other.creature);
-    // spawn = std::move(other.spawn); // Removed old spawn
-    // m_spawnDataRef = nullptr; // Removed old spawn ref
+    m_spawnDataRef = std::exchange(other.m_spawnDataRef, nullptr); // Move spawn data reference
     m_houseId = std::exchange(other.m_houseId, 0);
     m_isHouseExit = std::exchange(other.m_isHouseExit, false);
-    m_isProtectionZone = std::exchange(other.m_isProtectionZone, false);
+    // m_isProtectionZone = std::exchange(other.m_isProtectionZone, false); // Removed
     mapFlags = std::exchange(other.mapFlags, TileMapFlag::NO_FLAGS);
     stateFlags = std::exchange(other.stateFlags, TileStateFlag::NO_FLAGS);
     itemTypeProvider = std::exchange(other.itemTypeProvider, nullptr);
     m_waypointCount = std::exchange(other.m_waypointCount, 0);
-
-    m_spawnRadius = std::exchange(other.m_spawnRadius, 0);                 // Added
-    m_spawnCreatureList = std::move(other.m_spawnCreatureList);           // Added
-    m_spawnIntervalSeconds = std::exchange(other.m_spawnIntervalSeconds, 0); // Added
+    // Old spawn members (m_spawnRadius, m_spawnCreatureList, m_spawnIntervalSeconds) removed
 
     other.mapFlags = TileMapFlag::NO_FLAGS;
     other.stateFlags = TileStateFlag::NO_FLAGS;
@@ -165,47 +136,54 @@ std::unique_ptr<Tile> Tile::deepCopy() const {
     // Constructor now takes itemTypeProvider
     auto newTile = std::make_unique<Tile>(this->position, this->itemTypeProvider);
 
-    // Copy primitive members not handled by constructor or copyMembersTo if they differ from default
+    newTile->m_spawnDataRef = this->m_spawnDataRef; // Copy spawn data reference
     newTile->m_houseId = this->m_houseId;
     newTile->m_isHouseExit = this->m_isHouseExit;
-    newTile->m_isProtectionZone = this->m_isProtectionZone; // Added
+    // newTile->m_isProtectionZone = this->m_isProtectionZone; // Removed
     newTile->mapFlags = this->mapFlags;
-    newTile->stateFlags = this->stateFlags; // This might need selective copying, e.g. not MODIFIED
-    // newTile->m_spawnDataRef = this->m_spawnDataRef; // Removed old spawn ref
+    // Be careful with stateFlags, e.g., SELECTED and MODIFIED should usually not be deep copied.
+    // For simplicity, copying all, but this might need refinement.
+    newTile->stateFlags = this->stateFlags;
     newTile->m_waypointCount = this->m_waypointCount;
+    // Old spawn members (m_spawnRadius, m_spawnCreatureList, m_spawnIntervalSeconds) removed.
 
-    newTile->m_spawnRadius = this->m_spawnRadius;                 // Added
-    newTile->m_spawnCreatureList = this->m_spawnCreatureList;     // Added
-    newTile->m_spawnIntervalSeconds = this->m_spawnIntervalSeconds; // Added
-
-    // Call the helper for unique_ptr members (ground, items, creature)
-    // copyMembersTo(*newTile) was the old way. Now direct deep copy in copy constructor.
-    // Let's keep copyMembersTo for explicit deepCopy method if needed,
-    // but copy constructor/assignment should handle their own deep copies.
-    // For deepCopy() method itself:
+    // Deep copy unique_ptr members
     if (this->ground) newTile->ground = this->ground->deepCopy();
     newTile->items.clear();
     for (const auto& item : this->items) {
         if (item) newTile->items.append(item->deepCopy());
     }
     if (this->creature) newTile->creature = this->creature->deepCopy();
-    // No spawn unique_ptr to copy.
 
     return newTile;
 }
 
-// copyMembersTo is now primarily for deep-copying unique_ptr members if used by old deepCopy logic.
-// However, with explicit deep copies in copy constructor/assignment, its role might diminish.
-// For now, keep it for unique_ptrs if some external deep copy mechanism might use it.
+// copyMembersTo: This function's role needs to be re-evaluated.
+// If copy/move constructors and assignments handle all members correctly,
+// and deepCopy creates a new object and then copies, this might be redundant
+// or only for specific internal uses.
+// For now, updating it to reflect new member structure.
 void Tile::copyMembersTo(Tile& target) const {
-    // Primitives and non-owning pointers are copied by Tile's own copy constructor/assignment
-    // This helper focuses on heap-allocated members owned by unique_ptr.
+    // This method is less about initial construction and more about updating an existing 'target'
+    // It should handle all relevant members.
+    target.position = this->position; // Usually position is set at construction, but for completeness
+    target.m_spawnDataRef = this->m_spawnDataRef;
+    target.m_houseId = this->m_houseId;
+    target.m_isHouseExit = this->m_isHouseExit;
+    // target.m_isProtectionZone = this->m_isProtectionZone; // Removed
+    target.mapFlags = this->mapFlags;
+    target.stateFlags = this->stateFlags; // Again, consider which state flags are appropriate to copy
+    target.itemTypeProvider = this->itemTypeProvider;
+    target.m_waypointCount = this->m_waypointCount;
+    // Old spawn members removed
+
+    // Deep copy unique_ptr members
     if (this->ground) {
         target.ground = this->ground->deepCopy();
     } else {
         target.ground.reset();
     }
-    target.items.clear(); // Ensure target items list is empty before adding copies
+    target.items.clear();
     for (const auto& item : this->items) {
         if (item) {
             target.items.append(item->deepCopy());
@@ -216,16 +194,6 @@ void Tile::copyMembersTo(Tile& target) const {
     } else {
         target.creature.reset();
     }
-    // if (this->spawn) { // Removed old spawn
-    //     target.spawn = this->spawn->deepCopy();
-    // } else {
-    //     target.spawn.reset();
-    // }
-
-    // New spawn members are value types, copied by direct assignment in op= or copy ctor.
-    target.m_spawnRadius = this->m_spawnRadius;
-    target.m_spawnCreatureList = this->m_spawnCreatureList;
-    target.m_spawnIntervalSeconds = this->m_spawnIntervalSeconds;
 }
 
 Item* Tile::addItem(std::unique_ptr<Item> item) {
@@ -361,79 +329,69 @@ std::unique_ptr<RME::core::creatures::Creature> Tile::popCreature() {
 
 // New Spawn Data Methods Implementation
 bool Tile::isSpawnTile() const {
-    return m_spawnRadius > 0;
+    return m_spawnDataRef != nullptr;
 }
 
 int Tile::getSpawnRadius() const {
-    return m_spawnRadius;
-}
-
-void Tile::setSpawnRadius(int radius) {
-    int newRadius = (radius >= 0 ? radius : 0);
-    if (m_spawnRadius != newRadius) {
-        m_spawnRadius = newRadius;
-        addStateFlag(TileStateFlag::MODIFIED);
-    }
+    return m_spawnDataRef ? m_spawnDataRef->getRadius() : 0;
 }
 
 const QStringList& Tile::getSpawnCreatureList() const {
-    return m_spawnCreatureList;
-}
-
-void Tile::setSpawnCreatureList(const QStringList& creatureList) {
-    if (m_spawnCreatureList != creatureList) {
-        m_spawnCreatureList = creatureList;
-        addStateFlag(TileStateFlag::MODIFIED);
-    }
-}
-
-void Tile::addCreatureToSpawnList(const QString& creatureName) {
-    if (!creatureName.isEmpty() && !m_spawnCreatureList.contains(creatureName)) {
-        m_spawnCreatureList.append(creatureName);
-        addStateFlag(TileStateFlag::MODIFIED);
-    }
-}
-
-bool Tile::removeCreatureFromSpawnList(const QString& creatureName) {
-    if (m_spawnCreatureList.removeOne(creatureName)) {
-        addStateFlag(TileStateFlag::MODIFIED);
-        return true;
-    }
-    return false;
-}
-
-void Tile::clearSpawnCreatureList() {
-    if (!m_spawnCreatureList.isEmpty()) {
-        m_spawnCreatureList.clear();
-        addStateFlag(TileStateFlag::MODIFIED);
-    }
+    static const QStringList emptyList; // Static to return a valid reference
+    return m_spawnDataRef ? m_spawnDataRef->getCreatureTypes() : emptyList;
 }
 
 int Tile::getSpawnIntervalSeconds() const {
-    return m_spawnIntervalSeconds;
+    return m_spawnDataRef ? m_spawnDataRef->getIntervalSeconds() : 0;
 }
 
-void Tile::setSpawnIntervalSeconds(int seconds) {
-    int newInterval = (seconds >= 0 ? seconds : 0);
-    if (m_spawnIntervalSeconds != newInterval) {
-        m_spawnIntervalSeconds = newInterval;
-        addStateFlag(TileStateFlag::MODIFIED);
+void Tile::setSpawnDataRef(RME::SpawnData* ref) {
+    if (m_spawnDataRef != ref) {
+        m_spawnDataRef = ref;
+        addStateFlag(TileStateFlag::MODIFIED); // Mark tile as modified
+        // Consider if the presence of a spawn affects other tile states (e.g. blocking) and call update()
+        update();
     }
 }
 
-void Tile::clearSpawnData() {
-    bool changed = (m_spawnRadius != 0 || !m_spawnCreatureList.isEmpty() || m_spawnIntervalSeconds != 0);
-    m_spawnRadius = 0;
-    m_spawnCreatureList.clear();
-    m_spawnIntervalSeconds = 0;
-    if (changed) {
-        addStateFlag(TileStateFlag::MODIFIED);
+void Tile::clearSpawnDataRef() {
+    if (m_spawnDataRef) {
+        m_spawnDataRef = nullptr;
+        addStateFlag(TileStateFlag::MODIFIED); // Mark tile as modified
+        update();
     }
 }
+
+// Selection State Methods
+bool Tile::isSelected() const {
+    return hasStateFlag(TileStateFlag::SELECTED);
+}
+
+void Tile::setSelected(bool selected) {
+    if (selected) {
+        addStateFlag(TileStateFlag::SELECTED);
+    } else {
+        removeStateFlag(TileStateFlag::SELECTED);
+    }
+    // Note: Does not automatically set MODIFIED, selection is often transient editor state.
+}
+
+bool Tile::hasSelectedElements() const {
+    if (isSelected()) return true;
+    if (ground && ground->isSelected()) return true;
+    for (const auto& item : items) {
+        if (item && item->isSelected()) return true;
+    }
+    if (creature && creature->isSelected()) return true; // Assumes Creature will have isSelected()
+    if (m_spawnDataRef && m_spawnDataRef->isSelected()) return true; // Assumes SpawnData will have isSelected()
+    return false;
+}
+
 
 // Updated isEmpty (implementation for declaration in .h)
 bool Tile::isEmpty() const {
-    return getItemCount() == 0 && !m_creature && !isSpawnTile();
+    // A tile is empty if it has no items, no creature, and no spawn data reference.
+    return getItemCount() == 0 && !creature && !m_spawnDataRef;
 }
 
 
@@ -475,9 +433,11 @@ void Tile::update() {
     }
 
     if (creature) {
-        newBlockingState = true;
+        newBlockingState = true; // Creatures always block
     }
-    // Note: isSpawnTile() does not contribute to blocking status typically.
+    // SpawnDataRef itself doesn't make a tile blocking.
+    // If specific items related to a visible spawn point (e.g. a spawn monster type item)
+    // were on the tile, they would be handled by the item iteration.
 
     if (newBlockingState) addStateFlag(TileStateFlag::BLOCKING);
     else removeStateFlag(TileStateFlag::BLOCKING);
@@ -504,15 +464,9 @@ size_t Tile::estimateMemoryUsage() const {
         }
     }
     if (creature) {
-        memory += sizeof(RME::core::creatures::Creature) + 128; // Approx
+        memory += sizeof(RME::core::creatures::Creature) + 128; // Approx for Creature object itself
     }
-    // New spawn members:
-    memory += sizeof(m_spawnRadius);
-    memory += sizeof(m_spawnIntervalSeconds);
-    for (const QString& name : m_spawnCreatureList) {
-        memory += name.capacity() * sizeof(QChar); // Approximate string data
-    }
-    memory += m_spawnCreatureList.capacity() * sizeof(QString); // QList overhead
+    memory += sizeof(m_spawnDataRef); // Add size of the pointer
 
     return memory;
 }
@@ -556,22 +510,7 @@ void Tile::setIsHouseExit(bool isExit) {
 }
 
 // --- Protection Zone ---
-void Tile::setIsProtectionZone(bool isPZ) {
-    if (m_isProtectionZone != isPZ) {
-        m_isProtectionZone = isPZ;
-        // If this direct flag should also set the TileMapFlag (and vice-versa), that logic would go here.
-        // For now, they are separate. If TileMapFlag::PROTECTION_ZONE implies m_isProtectionZone,
-        // then this setter might also call addMapFlag or removeMapFlag.
-        // And isProtectionZone() might check both this flag AND the mapFlag.
-        // For now, keeping them distinct as per simple member addition.
-    }
-}
-
-bool Tile::isProtectionZone() const {
-    // This returns the state of the direct boolean member.
-    // The existing isPZ() returns based on TileMapFlag.
-    // Depending on design, these might need to be reconciled or one might be preferred.
-    return m_isProtectionZone;
-}
+// Removed setIsProtectionZone and isProtectionZone methods that used m_isProtectionZone.
+// isPZ() in Tile.h already uses hasMapFlag(TileMapFlag::PROTECTION_ZONE), which is the correct way.
 
 } // namespace RME

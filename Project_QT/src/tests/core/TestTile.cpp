@@ -1,11 +1,14 @@
 #include <QtTest/QtTest>
 #include "core/Tile.h"      // Class to test
 #include "core/Item.h"      // For creating items
-#include "core/Creature.h"  // For creating creatures
-#include "core/Spawn.h"     // For creating spawns
+#include "core/creatures/Creature.h"  // For creating creatures (updated path from subtask)
+// #include "core/Spawn.h"  // Removed old Spawn include
+#include "core/spawns/SpawnData.h" // Added new SpawnData include
 #include "MockItemTypeProvider.h" // Mock provider for items
 
 using namespace RME;
+// Forward declare Creature if its definition isn't strictly needed for these tests
+// For now, assuming Creature.h provides enough, or use RME::core::creatures::Creature
 
 class TestTile : public QObject
 {
@@ -33,9 +36,12 @@ private slots:
     void testPopItem();
     void testGetItems();
     void testCreatureManagement();
-    void testSpawnManagement();
+    // void testSpawnManagement(); // Will be replaced by testSpawnDataReference
+    void testSpawnDataReference(); // New name for spawn test
     void testFlags();
     void testUpdateAndBlocking(); // Test update() and isBlocking() interaction
+    void testSelectionStateOnTile();
+    void testHasSelectedElements();
 };
 
 void TestTile::initTestCase() {
@@ -76,8 +82,8 @@ void TestTile::testTileCreation()
     QVERIFY(tile.getGround() == nullptr);
     QVERIFY(tile.getItems().isEmpty());
     QVERIFY(tile.getCreature() == nullptr);
-    QVERIFY(tile.getSpawn() == nullptr);
-    QCOMPARE(tile.getHouseID(), 0u);
+    QVERIFY(tile.getSpawnDataRef() == nullptr); // Updated for new spawn handling
+    QCOMPARE(tile.getHouseId(), 0u); // Updated getter name from Tile.h
     QCOMPARE(tile.getMapFlags(), TileMapFlag::NO_FLAGS);
 }
 
@@ -86,16 +92,17 @@ void TestTile::testDeepCopy()
     Tile original(testPos, &mockProvider);
     original.addItem(Item::create(DIRT_ID, &mockProvider));
     original.addItem(Item::create(SWORD_ID, &mockProvider));
-    original.setCreature(std::make_unique<Creature>("Goblin"));
-    original.setHouseID(123);
+    original.setCreature(std::make_unique<RME::core::creatures::Creature>("Goblin")); // Use full namespace
+    original.setHouseId(123); // Updated setter name
     original.addMapFlag(TileMapFlag::PROTECTION_ZONE);
 
     auto copy = original.deepCopy();
     QVERIFY(copy != nullptr);
     QVERIFY(copy.get() != &original);
     QCOMPARE(copy->getPosition(), original.getPosition());
-    QCOMPARE(copy->getHouseID(), original.getHouseID());
+    QCOMPARE(copy->getHouseId(), original.getHouseId()); // Updated getter name
     QCOMPARE(copy->getMapFlags(), original.getMapFlags());
+    QCOMPARE(copy->getSpawnDataRef(), original.getSpawnDataRef()); // Check spawn ref copy
 
     QVERIFY(copy->getGround() != nullptr);
     QVERIFY(copy->getGround() != original.getGround());
@@ -113,6 +120,20 @@ void TestTile::testDeepCopy()
     copy->addItem(Item::create(STONE_ID, &mockProvider));
     QCOMPARE(original.getItems().size(), 1); // Original still has 1 top item
     QCOMPARE(copy->getItems().size(), 2);    // Copy has 2 top items
+
+    // Test selection state copying
+    original.setSelected(true);
+    auto selectedCopy = original.deepCopy();
+    QVERIFY(selectedCopy->isSelected()); // Selected state should be copied
+    QVERIFY(original.isSelected());      // Original remains selected
+
+    original.setSelected(false); // Reset original
+    QVERIFY(!original.isSelected());
+    // selectedCopy should still be selected because it's a copy of the state when original was selected
+    QVERIFY(selectedCopy->isSelected());
+
+    selectedCopy->setSelected(false); // Now change selectedCopy
+    QVERIFY(!selectedCopy->isSelected());
 }
 
 
@@ -220,30 +241,48 @@ void TestTile::testCreatureManagement()
     Tile tile(testPos, &mockProvider);
     QVERIFY(tile.getCreature() == nullptr);
 
-    auto creature = std::make_unique<Creature>("Dragon");
-    Creature* creaturePtr = creature.get();
+    auto creature = std::make_unique<RME::core::creatures::Creature>("Dragon"); // Use full namespace
+    RME::core::creatures::Creature* creaturePtr = creature.get(); // Use full namespace
     tile.setCreature(std::move(creature));
     QVERIFY(tile.getCreature() == creaturePtr);
 
-    std::unique_ptr<Creature> poppedCreature = tile.popCreature();
+    std::unique_ptr<RME::core::creatures::Creature> poppedCreature = tile.popCreature();
     QVERIFY(poppedCreature.get() == creaturePtr);
     QVERIFY(tile.getCreature() == nullptr);
 }
 
-void TestTile::testSpawnManagement()
+void TestTile::testSpawnDataReference()
 {
     Tile tile(testPos, &mockProvider);
-    QVERIFY(tile.getSpawn() == nullptr);
+    QVERIFY(tile.getSpawnDataRef() == nullptr);
+    QVERIFY(!tile.isSpawnTile());
+    QCOMPARE(tile.getSpawnRadius(), 0);
+    QVERIFY(tile.getSpawnCreatureList().isEmpty());
+    QCOMPARE(tile.getSpawnIntervalSeconds(), 0);
 
-    auto spawn = std::make_unique<Spawn>(3); // Radius 3
-    Spawn* spawnPtr = spawn.get();
-    tile.setSpawn(std::move(spawn));
-    QVERIFY(tile.getSpawn() == spawnPtr);
-    QCOMPARE(tile.getSpawn()->getRadius(), 3);
+    // Using Position from testPos for SpawnData constructor
+    RME::SpawnData spawnData1(testPos, 3, 60, {"Dragon"});
+    tile.setSpawnDataRef(&spawnData1);
+    QVERIFY(tile.getSpawnDataRef() == &spawnData1);
+    QVERIFY(tile.isSpawnTile());
+    QCOMPARE(tile.getSpawnRadius(), 3);
+    QCOMPARE(tile.getSpawnCreatureList(), QStringList({"Dragon"}));
+    QCOMPARE(tile.getSpawnIntervalSeconds(), 60);
 
-    std::unique_ptr<Spawn> poppedSpawn = tile.popSpawn();
-    QVERIFY(poppedSpawn.get() == spawnPtr);
-    QVERIFY(tile.getSpawn() == nullptr);
+    // Test with a different SpawnData object
+    RME::SpawnData spawnData2(testPos, 1, 30, {"Cyclops", "Orc"});
+    tile.setSpawnDataRef(&spawnData2);
+    QVERIFY(tile.getSpawnDataRef() == &spawnData2);
+    QCOMPARE(tile.getSpawnRadius(), 1);
+    QCOMPARE(tile.getSpawnCreatureList(), QStringList({"Cyclops", "Orc"}));
+    QCOMPARE(tile.getSpawnIntervalSeconds(), 30);
+
+    tile.clearSpawnDataRef();
+    QVERIFY(tile.getSpawnDataRef() == nullptr);
+    QVERIFY(!tile.isSpawnTile());
+    QCOMPARE(tile.getSpawnRadius(), 0); // Check defaults after clearing
+    QVERIFY(tile.getSpawnCreatureList().isEmpty());
+    QCOMPARE(tile.getSpawnIntervalSeconds(), 0);
 }
 
 void TestTile::testFlags()
@@ -291,6 +330,67 @@ void TestTile::testUpdateAndBlocking()
     tile.removeItem(tile.getItems().first().get()); // remove stone
     QVERIFY(!tile.isBlocking());
     QVERIFY(!tile.hasStateFlag(TileStateFlag::BLOCKING));
+}
+
+void TestTile::testSelectionStateOnTile()
+{
+    Tile tile(testPos, &mockProvider);
+    QVERIFY(!tile.isSelected()); // Test default
+    QVERIFY(!tile.hasStateFlag(TileStateFlag::SELECTED));
+
+    tile.setSelected(true);
+    QVERIFY(tile.isSelected());
+    QVERIFY(tile.hasStateFlag(TileStateFlag::SELECTED));
+
+    tile.setSelected(false);
+    QVERIFY(!tile.isSelected());
+    QVERIFY(!tile.hasStateFlag(TileStateFlag::SELECTED));
+}
+
+void TestTile::testHasSelectedElements()
+{
+    Tile tile(testPos, &mockProvider);
+    auto itemData = Item::create(SWORD_ID, &mockProvider); // SWORD_ID from initTestCase
+    Item* item1Ptr = itemData.get();
+    tile.addItem(std::move(itemData));
+
+    // Case 1: Nothing selected
+    QVERIFY(!tile.hasSelectedElements());
+
+    // Case 2: Tile itself selected
+    tile.setSelected(true);
+    QVERIFY(tile.hasSelectedElements());
+    tile.setSelected(false); // Reset tile selection
+
+    // Case 3: An item on the tile is selected
+    QVERIFY(item1Ptr != nullptr);
+    item1Ptr->setSelected(true);
+    QVERIFY(tile.hasSelectedElements());
+    item1Ptr->setSelected(false); // Reset item selection
+
+    // Case 4: Ground item selected
+    auto groundItemData = Item::create(DIRT_ID, &mockProvider);
+    Item* groundItemPtr = groundItemData.get();
+    tile.setGround(std::move(groundItemData));
+    QVERIFY(groundItemPtr != nullptr);
+    groundItemPtr->setSelected(true);
+    QVERIFY(tile.hasSelectedElements());
+    groundItemPtr->setSelected(false); // Reset ground item selection
+    tile.setGround(nullptr); // Clear ground
+
+    // Case 5: Both tile and an item selected (should still be true)
+    tile.setSelected(true);
+    item1Ptr->setSelected(true);
+    QVERIFY(tile.hasSelectedElements());
+    // Reset for sanity
+    tile.setSelected(false);
+    item1Ptr->setSelected(false);
+    QVERIFY(!tile.hasSelectedElements());
+
+    // Note: Creature and SpawnData selection influences on hasSelectedElements are not tested here
+    // as their isSelected() methods are not part of this immediate refactor's scope.
+    // The Tile::hasSelectedElements implementation will call them, and they'd default to false
+    // if the methods don't exist or the objects are null.
 }
 
 

@@ -4,7 +4,7 @@
 #include <QFile>
 #include <QTextStream> // For creating sample OTFI
 #include "core/sprites/SpriteManager.h" // Class to test
-#include "core/sprites/SpriteData.h"
+#include "core/assets/SpriteData.h" // Updated include path
 #include "core/assets/ClientProfile.h" // For creating a test ClientProfile
 
 using namespace RME;
@@ -143,7 +143,7 @@ void TestSpriteManager::testLoadSampleDatSpr_SimpleFormat() {
     QVERIFY(sm.loadDatSpr(sampleDatPath, sampleSprPath, testClientProfile));
     QCOMPARE(sm.getSpriteCount(), 2); // Sprites ID 1 and 2
 
-    const SpriteData* sprite1 = sm.getSpriteData(1);
+    const RME::core::assets::SpriteData* sprite1 = sm.getSpriteData(1);
     QVERIFY(sprite1 != nullptr && sprite1->id == 1);
     if (sprite1) {
         QCOMPARE(sprite1->width, 1); QCOMPARE(sprite1->height, 1);
@@ -154,7 +154,7 @@ void TestSpriteManager::testLoadSampleDatSpr_SimpleFormat() {
         QCOMPARE(sprite1->frames.size(), 1); // Pixels should be loaded
     }
 
-    const SpriteData* sprite2 = sm.getSpriteData(2);
+    const RME::core::assets::SpriteData* sprite2 = sm.getSpriteData(2);
     QVERIFY(sprite2 != nullptr && sprite2->id == 2);
     if (sprite2) {
         QCOMPARE(sprite2->width, 2); QCOMPARE(sprite2->height, 1);
@@ -170,18 +170,18 @@ void TestSpriteManager::testSpriteDataContent() {
     SpriteManager sm;
     QVERIFY(sm.loadDatSpr(sampleDatPath, sampleSprPath, testClientProfile));
 
-    const SpriteData* sprite1 = sm.getSpriteData(1); // 1x1 transparent
+    const RME::core::assets::SpriteData* sprite1 = sm.getSpriteData(1); // 1x1 transparent
     QVERIFY(sprite1 && sprite1->frames.size() == 1);
     if (sprite1 && !sprite1->frames.isEmpty()) {
-        const QImage& img1 = sprite1->frames.first().image;
+        const QImage& img1 = sprite1->frames.first().image; // SpriteFrame is now RME::core::assets::SpriteFrame, QImage is fine
         QCOMPARE(img1.width(), 1); QCOMPARE(img1.height(), 1);
         QVERIFY(qAlpha(img1.pixel(0,0)) == 0); // Fully transparent
     }
 
-    const SpriteData* sprite2 = sm.getSpriteData(2); // 2x1 Red, Green
+    const RME::core::assets::SpriteData* sprite2 = sm.getSpriteData(2); // 2x1 Red, Green
     QVERIFY(sprite2 && sprite2->frames.size() == 1);
     if (sprite2 && !sprite2->frames.isEmpty()) {
-        const QImage& img2 = sprite2->frames.first().image;
+        const QImage& img2 = sprite2->frames.first().image; // SpriteFrame is now RME::core::assets::SpriteFrame
         QCOMPARE(img2.width(), 2); QCOMPARE(img2.height(), 1);
         QCOMPARE(img2.pixelColor(0,0), QColor(255,0,0,255));
         QCOMPARE(img2.pixelColor(1,0), QColor(0,255,0,255));
@@ -207,7 +207,7 @@ void TestSpriteManager::testLoadWithOtfi_Overrides() {
     QVERIFY(!otfiDataResult.hasFrameDurations);
 
     QVERIFY(sm.loadDatSpr(sampleDatPath, sampleSprPath, testClientProfile));
-    const SpriteData* sprite1 = sm.getSpriteData(1);
+    const RME::core::assets::SpriteData* sprite1 = sm.getSpriteData(1);
     QVERIFY(sprite1 != nullptr);
     if (sprite1) {
         QVERIFY(sprite1->isExtended);       // Should be true from OTFI

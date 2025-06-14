@@ -32,6 +32,7 @@ private slots:
     void testPropertyDelegation();
     void testWeightCalculation();
     void itemCreateFactory();
+    void testSelectionState();
 };
 
 void TestItem::initTestCase() {
@@ -135,6 +136,31 @@ void TestItem::testDeepCopy()
     copy->setAttribute("enhancement", "sharpness +10");
     QCOMPARE(original->getAttribute("enhancement").toString(), QString("sharpness +5"));
     QCOMPARE(copy->getAttribute("enhancement").toString(), QString("sharpness +10"));
+
+    // Test selection state copying
+    original->setSelected(true);
+    auto selectedCopy = original->deepCopy();
+    QVERIFY(selectedCopy->isSelected()); // Check if selected state is copied
+
+    original->setSelected(false);
+    auto unselectedCopy = original->deepCopy();
+    QVERIFY(!unselectedCopy->isSelected()); // Check if unselected state is copied
+
+    // Ensure copy's selection state is independent
+    // `original` is currently false. `selectedCopy` is true.
+    selectedCopy->setSelected(false);
+    QVERIFY(!selectedCopy->isSelected()); // selectedCopy is now false
+    QVERIFY(original->isSelected() == false); // Original should still be false (it was set to false before unselectedCopy)
+
+    // More detailed independence test:
+    // Set original to true, copy it, then change copy's state. Original should remain true.
+    original->setSelected(true);
+    auto copyForIndependenceTest = original->deepCopy();
+    QVERIFY(copyForIndependenceTest->isSelected()); // New copy is true
+
+    copyForIndependenceTest->setSelected(false); // Change copy to false
+    QVERIFY(!copyForIndependenceTest->isSelected()); // Verify copy is false
+    QVERIFY(original->isSelected()); // Original should still be true
 }
 
 void TestItem::testPropertyDelegation()
@@ -215,6 +241,18 @@ void TestItem::itemCreateFactory() {
     QVERIFY(itemNullProvider != nullptr);
     QVERIFY(dynamic_cast<RME::Item*>(itemNullProvider.get()) != nullptr);
     QVERIFY(dynamic_cast<RME::ContainerItem*>(itemNullProvider.get()) == nullptr);
+}
+
+void TestItem::testSelectionState()
+{
+    auto item = Item::create(APPLE_ID, &mockProvider);
+    QVERIFY(!item->isSelected()); // Default should be false
+
+    item->setSelected(true);
+    QVERIFY(item->isSelected());
+
+    item->setSelected(false);
+    QVERIFY(!item->isSelected());
 }
 
 // QTEST_MAIN(TestItem) // Will be handled by a central test runner

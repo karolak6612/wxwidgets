@@ -4,6 +4,8 @@
 #include <qglobal.h> // For quint16, quint8
 
 namespace RME {
+namespace core {
+namespace assets {
 
 struct Outfit {
     quint16 lookType = 0;
@@ -32,6 +34,8 @@ struct Outfit {
     }
 };
 
+} // namespace assets
+} // namespace core
 } // namespace RME
 
 #endif // RME_OUTFIT_H

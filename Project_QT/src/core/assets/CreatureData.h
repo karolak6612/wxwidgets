@@ -8,6 +8,8 @@
 #include <QFlags>     // For Q_DECLARE_FLAGS
 
 namespace RME {
+namespace core {
+namespace assets {
 
 enum class CreatureTypeFlag {
     NONE = 0,
@@ -21,7 +23,7 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(CreatureTypeFlags)
 struct CreatureData {
     QString name;
     QString scriptName; // Often the filename or a unique identifier for scripts
-    Outfit outfit;      // Default outfit
+    Outfit outfit;      // Default outfit (now in the same namespace)
     // QList<Outfit> alternativeOutfits; // If creatures can have multiple outfits selectable
 
     CreatureTypeFlags flags = CreatureTypeFlags(CreatureTypeFlag::NONE); // Initialize correctly
@@ -37,6 +39,8 @@ struct CreatureData {
     CreatureData() = default;
 };
 
+} // namespace assets
+} // namespace core
 } // namespace RME
 
 #endif // RME_CREATURE_DATA_H

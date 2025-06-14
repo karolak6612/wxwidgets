@@ -6,6 +6,8 @@
 #include <QImage> // For storing pixel data, can be converted to texture later
 
 namespace RME {
+namespace core {
+namespace assets {
 
 // Represents a single animation frame or sprite layer
 struct SpriteFrame {
@@ -54,6 +56,8 @@ struct SpriteData {
     SpriteData() = default;
 };
 
+} // namespace assets
+} // namespace core
 } // namespace RME
 
 #endif // RME_SPRITE_DATA_H

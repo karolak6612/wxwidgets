@@ -187,7 +187,7 @@ void TestAssetManager::testLoadAllAssets_Success_760() {
     QVERIFY(item100->hasFlag(ItemFlag::STACKABLE));
 
     QVERIFY(am.getCreatureDatabase().getCreatureCount() == 1);
-    const CreatureData* rat = am.getCreatureData("Rat Test");
+    const RME::core::assets::CreatureData* rat = am.getCreatureData("Rat Test");
     QVERIFY(rat && rat->name == "Rat Test");
     QCOMPARE(rat->outfit.lookType, 21);
 

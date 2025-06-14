@@ -108,11 +108,11 @@ void TestCreatureDatabase::testLoadRmeCreaturesXml() {
     QVERIFY(cdb.loadFromXML(sampleRmeCreaturesXmlPath));
     QCOMPARE(cdb.getCreatureCount(), 2);
 
-    const CreatureData* rat = cdb.getCreatureData("Rat");
+    const RME::core::assets::CreatureData* rat = cdb.getCreatureData("Rat");
     QVERIFY(rat != nullptr && rat->name == "Rat");
     if (rat) {
         QCOMPARE(rat->scriptName, QString("creatures/rat.lua"));
-        QVERIFY(!(rat->flags & CreatureTypeFlag::IS_NPC));
+        QVERIFY(!(rat->flags & RME::core::assets::CreatureTypeFlag::IS_NPC));
         QCOMPARE(rat->outfit.lookType, 21);
         QCOMPARE(rat->outfit.head, 10);
         QCOMPARE(rat->outfit.body, 20);
@@ -122,11 +122,11 @@ void TestCreatureDatabase::testLoadRmeCreaturesXml() {
         QCOMPARE(rat->genericAttributes.value("description").toString(), QString("A common city rat."));
     }
 
-    const CreatureData* sam = cdb.getCreatureData("Sam");
+    const RME::core::assets::CreatureData* sam = cdb.getCreatureData("Sam");
     QVERIFY(sam != nullptr && sam->name == "Sam");
     if (sam) {
         QCOMPARE(sam->scriptName, QString("npcs/sam.lua"));
-        QVERIFY(sam->flags & CreatureTypeFlag::IS_NPC);
+        QVERIFY(sam->flags & RME::core::assets::CreatureTypeFlag::IS_NPC);
         QCOMPARE(sam->outfit.lookType, 136);
         QCOMPARE(sam->outfit.addons, 1);
         QCOMPARE(sam->manaMax, 1000); // Parsed from <attribute key="mana_max">
@@ -138,10 +138,10 @@ void TestCreatureDatabase::testImportOtServerMonsterXml() {
     QVERIFY(cdb.importFromOtServerXml(sampleOtsMonsterXmlPath));
     QCOMPARE(cdb.getCreatureCount(), 1);
 
-    const CreatureData* dl = cdb.getCreatureData("Dragon Lord");
+    const RME::core::assets::CreatureData* dl = cdb.getCreatureData("Dragon Lord");
     QVERIFY(dl != nullptr && dl->name == "Dragon Lord");
     if (dl) {
-        QVERIFY(!(dl->flags & CreatureTypeFlag::IS_NPC));
+        QVERIFY(!(dl->flags & RME::core::assets::CreatureTypeFlag::IS_NPC));
         QCOMPARE(dl->outfit.lookType, 39);
         QCOMPARE(dl->genericAttributes.value("corpseid").toUInt(), 5984u);
         QCOMPARE(dl->healthMax, 1900);
@@ -164,7 +164,7 @@ void TestCreatureDatabase::testMergeAndOverride() {
 
     QCOMPARE(cdb.getCreatureCount(), 2); // Rat should be updated, Sam remains
 
-    const CreatureData* rat = cdb.getCreatureData("Rat");
+    const RME::core::assets::CreatureData* rat = cdb.getCreatureData("Rat");
     QVERIFY(rat != nullptr && rat->name == "Rat");
     if (rat) {
         QCOMPARE(rat->outfit.lookType, 57); // Overridden by OTS
@@ -180,7 +180,7 @@ void TestCreatureDatabase::testMergeAndOverride() {
         QVERIFY(rat->genericAttributes.value("flag_convinceable").toBool());
     }
 
-    const CreatureData* sam = cdb.getCreatureData("Sam"); // Verify Sam is untouched
+    const RME::core::assets::CreatureData* sam = cdb.getCreatureData("Sam"); // Verify Sam is untouched
     QVERIFY(sam != nullptr && sam->name == "Sam");
     if (sam) {
         QCOMPARE(sam->outfit.lookType, 136);

@@ -18,19 +18,19 @@ public:
     bool loadFromXML(const QString& filePath); // For main creatures.xml
     bool importFromOtServerXml(const QString& filePath); // For individual monster/NPC XML files
 
-    const CreatureData* getCreatureData(const QString& name) const;
-    const CreatureData& getDefaultCreatureData() const;
+    const RME::core::assets::CreatureData* getCreatureData(const QString& name) const;
+    const RME::core::assets::CreatureData& getDefaultCreatureData() const;
 
     int getCreatureCount() const;
-    QMap<QString, CreatureData> getAllCreatures() const; // Returns a copy
+    QMap<QString, RME::core::assets::CreatureData> getAllCreatures() const; // Returns a copy
 
 private:
-    void parseCreatureNode(QXmlStreamReader& xml, CreatureData& creatureData, bool isServerFormat);
+    void parseCreatureNode(QXmlStreamReader& xml, RME::core::assets::CreatureData& creatureData, bool isServerFormat);
 
     struct CreatureDatabaseData; // PIMPL
     QScopedPointer<CreatureDatabaseData> d;
 
-    CreatureData invalidCreatureData;
+    RME::core::assets::CreatureData invalidCreatureData;
 };
 
 } // namespace RME

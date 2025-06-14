@@ -1,7 +1,7 @@
 #ifndef RME_SPRITE_MANAGER_H
 #define RME_SPRITE_MANAGER_H
 
-#include "SpriteData.h"
+#include "core/assets/SpriteData.h" // Updated include path
 #include "../assets/ClientProfile.h" // For DatFormat
 #include <QMap>
 #include <QString>
@@ -34,11 +34,11 @@ public:
     // Optional: Load OTFI to override paths or sprite properties
     bool loadOtfi(const QString& otfiPath, OtfiData& otfiDataResult); // Parses OTFI into struct
 
-    const SpriteData* getSpriteData(quint32 spriteID) const;
-    const SpriteData& getDefaultSpriteData() const; // For invalid IDs
+    const RME::core::assets::SpriteData* getSpriteData(quint32 spriteID) const;
+    const RME::core::assets::SpriteData& getDefaultSpriteData() const; // For invalid IDs
 
     int getSpriteCount() const;
-    const QMap<quint32, SpriteData>& getAllSprites() const; // For iteration, if needed
+    const QMap<quint32, RME::core::assets::SpriteData>& getAllSprites() const; // For iteration, if needed
 
 private:
     // DAT parsing helpers based on DatFormat
@@ -47,12 +47,12 @@ private:
     // SPR reading helper
     // It's called multiple times by loadDatSpr for each sprite ID entry.
     // sprStream should be an open QDataStream for the .spr file.
-    bool readSpritePixelData(quint32 spriteID, SpriteData& spriteData, QDataStream& sprStream);
+    bool readSpritePixelData(quint32 spriteID, RME::core::assets::SpriteData& spriteData, QDataStream& sprStream);
 
     struct SpriteManagerData; // PIMPL
     QScopedPointer<SpriteManagerData> d;
 
-    SpriteData invalidSpriteData;
+    RME::core::assets::SpriteData invalidSpriteData;
 };
 
 } // namespace RME
