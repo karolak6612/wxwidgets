@@ -54,23 +54,22 @@ bool Map::removeTown(quint32 townId) {
 }
 */
 
-bool Map::addTown(RME::TownData&& townData) {
-    uint32_t townId = townData.getId();
-    if (townId == 0) {
-        qWarning("Map::addTown: Town ID 0 is invalid.");
+bool Map::addTown(RME::core::world::TownData&& townData) {
+    if (townData.name.isEmpty() || townData.id == 0) { // Basic validation
+        qWarning("Map::addTown: Town name cannot be empty and ID cannot be 0.");
         return false;
     }
-    if (m_townsById.contains(townId)) {
-        qWarning("Map::addTown: Town ID %u already exists.", townId);
-        return false; // Or overwrite and return true, but false for "already exists" is common
-    }
-    m_townsById.insert(townId, std::move(townData));
-    m_maxTownId = std::max(m_maxTownId, townId);
+    // QMap::insert will overwrite if key exists.
+    // If we want to distinguish add vs update, check contains first.
+    // bool existing = m_townsById.contains(townData.id);
+    m_townsById.insert(townData.id, std::move(townData));
+    m_maxTownId = std::max(m_maxTownId, townData.id); // Ensure m_maxTownId is updated
     setChanged(true);
-    return true;
+    return true; // existing ? indicates_update : indicates_add;
+                 // For now, always true on success.
 }
 
-RME::TownData* Map::getTown(uint32_t townId) {
+RME::core::world::TownData* Map::getTown(uint32_t townId) {
     auto it = m_townsById.find(townId);
     if (it != m_townsById.end()) {
         return &it.value();
@@ -78,7 +77,7 @@ RME::TownData* Map::getTown(uint32_t townId) {
     return nullptr;
 }
 
-const RME::TownData* Map::getTown(uint32_t townId) const {
+const RME::core::world::TownData* Map::getTown(uint32_t townId) const {
     auto it = m_townsById.constFind(townId);
     if (it != m_townsById.constEnd()) {
         return &it.value();
@@ -89,6 +88,14 @@ const RME::TownData* Map::getTown(uint32_t townId) const {
 bool Map::removeTown(uint32_t townId) {
     if (m_townsById.remove(townId) > 0) {
         setChanged(true);
+        // Additionally, might need to update houses that reference this townId.
+        // This could be a simple loop through m_housesById or a more complex notification system.
+        // For now, just removing the town definition.
+        // for (auto& housePair : m_housesById) { // Assuming m_housesById exists
+        //     if (housePair.second.townId == townId) {
+        //         housePair.second.townId = 0; // Reset townId for affected houses
+        //     }
+        // }
         // Update m_maxTownId if the removed ID was the max
         if (townId == m_maxTownId) {
             m_maxTownId = 0;
@@ -286,6 +293,24 @@ bool Map::removeWaypoint(const QString& name) {
         return true;
     }
     return false;
+}
+
+void Map::clearTowns() {
+    if (!m_townsById.isEmpty()) {
+        m_townsById.clear();
+        setChanged(true);
+        // Similar to removeTown, potentially update all houses to have townId = 0
+        // for (auto& housePair : m_housesById) {
+        //     housePair.second.townId = 0;
+        // }
+    }
+}
+
+void Map::clearWaypoints() {
+    if (!m_waypoints.isEmpty()) {
+        m_waypoints.clear();
+        setChanged(true);
+    }
 }
 
 // --- Spawns ---

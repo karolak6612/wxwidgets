@@ -176,9 +176,8 @@ bool OtbmMapIO::parseMapDataNode(BinaryNode* mapDataNode, Map& map, AssetManager
             case OTBM_NODE_TILE_AREA:
                 if (!parseTileAreaNode(childNode, map, assetManager, settings)) return false;
                 break;
-            case OTBM_NODE_TOWNS:
-                // TODO: Implement parseTownsNode(childNode, map, assetManager, settings);
-                qDebug() << "OtbmMapIO: Parsing OTBM_NODE_TOWNS not yet implemented.";
+            case OTBM_NODE_TOWNS: // Added case for towns
+                if (!parseTownsContainerNode(childNode, map, assetManager, settings)) return false;
                 break;
             case OTBM_NODE_WAYPOINTS:
                 if (!parseWaypointsContainerNode(childNode, map, assetManager, settings)) return false;
@@ -531,7 +530,12 @@ bool OtbmMapIO::serializeMapDataNode(NodeFileWriteHandle& writer, const Map& map
             return false; // m_lastError set by callee
         }
     }
-    // TODO: Serialize OTBM_NODE_TOWNS
+    // Serialize Towns if any
+    if (!map.getTowns().isEmpty()) { // Use getTowns() as per Map.h
+        if (!serializeTownsContainerNode(writer, map, assetManager, settings)) {
+            return false; // m_lastError set by callee
+        }
+    }
 
     if (!writer.endNode()) { m_lastError = "Failed to end MAP_DATA node."; return false; }
     return true;
@@ -742,7 +746,7 @@ bool OtbmMapIO::parseWaypointsContainerNode(BinaryNode* containerNode, Map& map,
 bool OtbmMapIO::parseWaypointNode(BinaryNode* waypointNode, Map& map, AssetManager& assetManager, AppSettings& settings) {
     QString wpName;
     Position wpPos;
-    RME::core::navigation::WaypointData newWaypoint; // Use the new type
+    QList<QString> connectionNames; // Temporary list to store connection names
 
     waypointNode->resetReadOffset();
     while(waypointNode->hasMoreProperties()) {
@@ -780,41 +784,47 @@ bool OtbmMapIO::parseWaypointNode(BinaryNode* waypointNode, Map& map, AssetManag
                     m_lastError = "Failed to read waypoint connection name.";
                     return false;
                 }
-                // newWaypoint will be fully formed after loop, then add connections
-                // For now, store them temporarily if needed, or rely on setting after main props.
-                // This part is tricky as newWaypoint isn't fully named/positioned yet.
-                // Better to collect all attributes, then create WaypointData, then add connections.
-                // For now, this will add to a default-constructed newWaypoint if OTBM_ATTR_WAYPOINT_NAME comes after.
-                // This needs to be handled by ensuring WaypointData is constructed after name/pos are known.
-                // Let's assume for now this attribute is read after name/pos.
-                newWaypoint.addConnection(QString::fromStdString(connectedName_std));
+                connectionNames.append(QString::fromStdString(connectedName_std));
                 break;
             }
             default: {
                 m_lastError = QString("Unknown attribute type %1 for WAYPOINT node.").arg(attribute);
-                qWarning() << "OtbmMapIO::parseWaypointNode:" << m_lastError;
-                return false; // Strict parsing
+                qWarning() << "OtbmMapIO::parseWaypointNode:" << m_lastError << "Skipping attribute.";
+                // Attempt to skip this attribute based on its type if BinaryNode supports it,
+                // or return false if strict parsing is required.
+                // For now, let's assume BinaryNode's getString/getU16 etc. consume the correct amount of data
+                // and the loop continues. If not, this could lead to further parsing errors.
+                // A robust skip would require knowing attribute data length.
+                // Returning false for unknown attributes is safer for strict formats.
+                return false;
             }
         }
     }
 
     if (wpName.isEmpty()) {
-        m_lastError = "Waypoint loaded with empty name.";
+        m_lastError = "Waypoint loaded with empty name. Position: " + wpPos.toString();
+        qWarning() << "OtbmMapIO::parseWaypointNode:" << m_lastError;
+        return false; // Waypoint name is essential
+    }
+    if (!wpPos.isValid()) { // Assuming Position::isValid() checks if it's not default e.g. (-1,-1,-1) or (0,0,0) if 0,0,0 is invalid start
+        // Or if specific coordinates are out of expected range if not covered by map->addWaypoint
+        m_lastError = "Waypoint '" + wpName + "' loaded with invalid position: " + wpPos.toString();
         qWarning() << "OtbmMapIO::parseWaypointNode:" << m_lastError;
         return false;
     }
 
-    // Construct WaypointData fully here before adding connections if they were temporarily stored
-    newWaypoint.name = wpName;
-    newWaypoint.position = wpPos;
-    // If connections were stored in a temp list, add them to newWaypoint now.
-    // The current structure adds connections to a potentially default-named newWaypoint if
-    // OTBM_ATTR_WAYPOINT_CONNECTION_TO appears before OTBM_ATTR_WAYPOINT_NAME.
-    // For a robust solution, all attributes should be read into temporary variables,
-    // then the WaypointData object constructed and populated.
-    // For this simplified update, we assume name/pos are parsed before connections.
+    RME::core::navigation::WaypointData newWaypoint(wpName, wpPos);
+    for (const QString& connectedName : connectionNames) {
+        newWaypoint.addConnection(connectedName);
+    }
 
-    map.addWaypoint(std::move(newWaypoint));
+    if (!map.addWaypoint(std::move(newWaypoint))) {
+        // map.addWaypoint might return false if a waypoint with the same name already exists
+        // and the policy is not to overwrite. Or if other validation fails.
+        m_lastError = "Failed to add waypoint '" + wpName + "' to map. It might already exist or be invalid.";
+        qWarning() << "OtbmMapIO::parseWaypointNode:" << m_lastError;
+        return false; // Indicate failure to add to map
+    }
     return true;
 }
 
@@ -897,6 +907,145 @@ std::vector<uint8_t> OtbmMapIO::compressNodeData(const QByteArray& uncompressedD
     }
     return std::vector<uint8_t>(reinterpret_cast<const uint8_t*>(compressedData.constData()),
                                 reinterpret_cast<const uint8_t*>(compressedData.constData()) + compressedData.size());
+}
+
+// --- Town Specific Parsing/Serialization ---
+bool OtbmMapIO::parseTownsContainerNode(BinaryNode* containerNode, Map& map, AssetManager& assetManager, AppSettings& settings) {
+    BinaryNode* townNode = containerNode->getChild();
+    while(townNode) {
+        if (townNode->getType() == OTBM_NODE_TOWN) {
+            if (!parseTownNode(townNode, map, assetManager, settings)) {
+                return false; // m_lastError set in parseTownNode
+            }
+        } else {
+            qWarning() << "OtbmMapIO: Unknown child node type" << townNode->getType() << "in TOWNS_CONTAINER.";
+        }
+        townNode = containerNode->getNextChild();
+    }
+    return true;
+}
+
+bool OtbmMapIO::parseTownNode(BinaryNode* townNode, Map& map, AssetManager& assetManager, AppSettings& settings) {
+    uint32_t townId_u32 = 0; // Store as uint32_t from TownData
+    uint16_t townId_u16 = 0; // For reading OTBM U16
+    QString townName;
+    Position templePos;
+    bool idSet = false, nameSet = false, posSet = false;
+
+    townNode->resetReadOffset();
+    while(townNode->hasMoreProperties()) {
+        uint8_t attribute;
+        if (!townNode->getU8(attribute)) { m_lastError = "Failed to read town attribute type."; return false; }
+
+        switch(attribute) {
+            case OTBM_ATTR_TOWN_ID: {
+                if (!townNode->getU16(townId_u16)) { m_lastError = "Failed to read town ID (U16)."; return false; }
+                townId_u32 = static_cast<uint32_t>(townId_u16);
+                idSet = true;
+                break;
+            }
+            case OTBM_ATTR_TOWN_NAME: {
+                std::string name_std;
+                if (!townNode->getString(name_std)) { m_lastError = "Failed to read town name."; return false; }
+                townName = QString::fromStdString(name_std);
+                nameSet = true;
+                break;
+            }
+            case OTBM_ATTR_TOWN_TEMPLE_POS_X: {
+                uint16_t x;
+                if (!townNode->getU16(x)) { m_lastError = "Failed to read town temple pos X."; return false; }
+                templePos.setX(x);
+                break;
+            }
+            case OTBM_ATTR_TOWN_TEMPLE_POS_Y: {
+                uint16_t y;
+                if (!townNode->getU16(y)) { m_lastError = "Failed to read town temple pos Y."; return false; }
+                templePos.setY(y);
+                break;
+            }
+            case OTBM_ATTR_TOWN_TEMPLE_POS_Z: {
+                uint8_t z;
+                if (!townNode->getU8(z)) { m_lastError = "Failed to read town temple pos Z."; return false; }
+                templePos.setZ(z);
+                posSet = true; // Assuming Z is the last component of position
+                break;
+            }
+            default: {
+                m_lastError = QString("Unknown attribute type %1 for TOWN node.").arg(attribute);
+                qWarning() << "OtbmMapIO::parseTownNode:" << m_lastError;
+                return false;
+            }
+        }
+    }
+
+    if (!idSet || !nameSet || !posSet) {
+        m_lastError = QString("Incomplete town data: ID set=%1, Name set=%2, Pos set=%3 for a town.").arg(idSet).arg(nameSet).arg(posSet);
+        qWarning() << "OtbmMapIO::parseTownNode:" << m_lastError;
+        return false;
+    }
+
+    if (townName.isEmpty() || townId_u32 == 0) { // Check against the u32 version
+         m_lastError = "Town loaded with empty name or ID 0.";
+         qWarning() << "OtbmMapIO::parseTownNode:" << m_lastError;
+         return false;
+    }
+
+    RME::core::world::TownData newTown(townId_u32, townName, templePos);
+    if (!map.addTown(std::move(newTown))) {
+        m_lastError = "Failed to add town (ID: " + QString::number(townId_u32) + ", Name: " + townName + ") to map. It might already exist or be invalid.";
+        qWarning() << "OtbmMapIO::parseTownNode:" << m_lastError;
+        return false;
+    }
+    return true;
+}
+
+bool OtbmMapIO::serializeTownsContainerNode(NodeFileWriteHandle& writer, const Map& map, AssetManager& assetManager, AppSettings& settings) {
+    if (map.getTowns().isEmpty()) {
+        return true;
+    }
+    if (!writer.addNode(OTBM_NODE_TOWNS, false)) {
+        m_lastError = "Failed to start TOWNS_CONTAINER node."; return false;
+    }
+
+    const auto& townsMap = map.getTowns(); // getTowns() returns const QMap<uint32_t, RME::core::world::TownData>&
+    for (auto it = townsMap.constBegin(); it != townsMap.constEnd(); ++it) {
+        if (!serializeTownNode(writer, it.value(), assetManager, settings)) {
+            return false;
+        }
+    }
+
+    if (!writer.endNode()) {
+        m_lastError = "Failed to end TOWNS_CONTAINER node."; return false;
+    }
+    return true;
+}
+
+bool OtbmMapIO::serializeTownNode(NodeFileWriteHandle& writer, const RME::core::world::TownData& town, AssetManager& assetManager, AppSettings& settings) {
+    if (!writer.addNode(OTBM_NODE_TOWN, false)) {
+        m_lastError = "Failed to start TOWN node for: " + town.name;
+        return false;
+    }
+
+    if (!writer.addU8(OTBM_ATTR_TOWN_ID) || !writer.addU16(static_cast<uint16_t>(town.id))) {
+        m_lastError = "Failed to write town ID for: " + town.name; return false;
+    }
+    if (!writer.addU8(OTBM_ATTR_TOWN_NAME) || !writer.addString(town.name)) {
+        m_lastError = "Failed to write town name for: " + town.name; return false;
+    }
+    if (!writer.addU8(OTBM_ATTR_TOWN_TEMPLE_POS_X) || !writer.addU16(town.templePosition.x())) {
+         m_lastError = "Failed to write town temple pos X for: " + town.name; return false;
+    }
+    if (!writer.addU8(OTBM_ATTR_TOWN_TEMPLE_POS_Y) || !writer.addU16(town.templePosition.y())) {
+         m_lastError = "Failed to write town temple pos Y for: " + town.name; return false;
+    }
+    if (!writer.addU8(OTBM_ATTR_TOWN_TEMPLE_POS_Z) || !writer.addU8(static_cast<uint8_t>(town.templePosition.z()))) {
+         m_lastError = "Failed to write town temple pos Z for: " + town.name; return false;
+    }
+
+    if (!writer.endNode()) {
+        m_lastError = "Failed to end TOWN node for: " + town.name; return false;
+    }
+    return true;
 }
 
 

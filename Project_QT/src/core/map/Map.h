@@ -53,11 +53,13 @@ public:
     // const TownData* getTown(quint32 townId) const; // OLD
     // void addTown(const TownData& town); // OLD
     // bool removeTown(quint32 townId); // OLD
-    bool addTown(RME::TownData&& townData);
-    RME::TownData* getTown(uint32_t townId); // Changed to new RME::TownData
-    const RME::TownData* getTown(uint32_t townId) const; // Changed to new RME::TownData
-    bool removeTown(uint32_t townId); // Changed to new RME::TownData
-    const QMap<uint32_t, RME::TownData>& getTownsById() const { return m_townsById; }
+    bool addTown(RME::core::world::TownData&& townData);
+    RME::core::world::TownData* getTown(uint32_t townId);
+    const RME::core::world::TownData* getTown(uint32_t townId) const;
+    bool removeTown(uint32_t townId);
+    const QMap<uint32_t, RME::core::world::TownData>& getTownsById() const { return m_townsById; } // Kept for existing compatibility
+    const QMap<uint32_t, RME::core::world::TownData>& getTowns() const { return m_townsById; } // Added as per subtask
+    void clearTowns(); // Added as per subtask
     uint32_t getUnusedTownId() const;
 
     // --- Houses ---
@@ -84,6 +86,7 @@ public:
     // Take by value to allow moving from temporary or copying, then move into map
     bool addWaypoint(RME::core::navigation::WaypointData waypointData);
     bool removeWaypoint(const QString& name);
+    void clearWaypoints(); // Useful for new map or closing map
 
     // --- Spawns ---
     void addSpawn(RME::SpawnData&& spawnData);
@@ -142,7 +145,7 @@ private:
     bool m_changed = false;
 
     // QList<TownData> m_towns; // OLD - Replaced by m_townsById
-    QMap<uint32_t, RME::TownData> m_townsById; // New
+    QMap<uint32_t, RME::core::world::TownData> m_townsById; // Explicitly namespaced
     uint32_t m_maxTownId = 0; // New
 
     // QMap<quint32, HouseData> m_houses; // Old
