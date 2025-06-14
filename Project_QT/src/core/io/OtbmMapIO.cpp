@@ -10,7 +10,13 @@
 #include "core/Position.h"
 #include "core/assets/AssetManager.h" // Full definition
 #include "core/settings/AppSettings.h" // Full definition
-#include "core/navigation/WaypointData.h" // New WaypointData location
+#include "core/navigation/WaypointData.h"
+#include "core/houses/HouseData.h"      // Already in OtbmMapIO.h, but good for context
+#include "core/world/TownData.h"        // Already in OtbmMapIO.h
+#include "core/creatures/Creature.h"    // For RME::core::creatures::Creature
+#include "core/creatures/Outfit.h"      // For RME::core::creatures::Outfit
+#include "core/assets/CreatureData.h"   // For RME::core::assets::CreatureData
+#include "core/assets/ItemData.h"       // For RME::core::assets::ItemType and isCreatureLookItem
 #include "core/Container.h" // Required for casting and accessing items in a container
 
 
@@ -293,6 +299,39 @@ bool OtbmMapIO::parseTileNode(BinaryNode* tileNode, Map& map, AssetManager& asse
                     return false;
                 }
                 break;
+            // --- Start Tile Spawn Data Parsing ---
+            case OTBM_ATTR_SPAWN_RADIUS: {
+                uint16_t radius_u16;
+                if (!tileNode->getU16(radius_u16)) {
+                    m_lastError = "Failed to read spawn radius for tile at " + tilePos.toString();
+                    qWarning() << "OtbmMapIO::parseTileNode:" << m_lastError;
+                    return false;
+                }
+                currentTile->setSpawnRadius(static_cast<int>(radius_u16));
+                break;
+            }
+            case OTBM_ATTR_SPAWN_INTERVAL: {
+                uint32_t interval_u32;
+                if (!tileNode->getU32(interval_u32)) {
+                    m_lastError = "Failed to read spawn interval for tile at " + tilePos.toString();
+                    qWarning() << "OtbmMapIO::parseTileNode:" << m_lastError;
+                    return false;
+                }
+                currentTile->setSpawnIntervalSeconds(static_cast<int>(interval_u32));
+                break;
+            }
+            case OTBM_ATTR_SPAWN_CREATURE_LIST: {
+                std::string creatureList_std;
+                if (!tileNode->getString(creatureList_std)) {
+                    m_lastError = "Failed to read spawn creature list for tile at " + tilePos.toString();
+                    qWarning() << "OtbmMapIO::parseTileNode:" << m_lastError;
+                    return false;
+                }
+                QStringList creatures = QString::fromStdString(creatureList_std).split(',', Qt::SkipEmptyParts);
+                currentTile->setSpawnCreatureList(creatures);
+                break;
+            }
+            // --- End Tile Spawn Data Parsing ---
             default: {
                 m_lastError = QString("Unknown attribute type %1 for TILE/HOUSETILE node at %2").arg(attribute).arg(tilePos.toString());
                 qWarning() << "OtbmMapIO::parseTileNode:" << m_lastError;
@@ -309,8 +348,7 @@ bool OtbmMapIO::parseTileNode(BinaryNode* tileNode, Map& map, AssetManager& asse
                 if (!parseItemNode(itemOrCreatureNode, currentTile, assetManager, settings)) return false;
                 break;
             case OTBM_NODE_CREATURE:
-                // TODO: Implement parseCreatureNode(itemOrCreatureNode, currentTile, assetManager, settings);
-                qDebug() << "OtbmMapIO: Parsing OTBM_NODE_CREATURE not yet implemented for tile at" << tilePos.toString();
+                if (!parseCreatureNode(itemOrCreatureNode, currentTile, assetManager, settings)) return false;
                 break;
             default:
                 qWarning() << "OtbmMapIO: Unknown child node type" << itemOrCreatureNode->getType() << "in TILE data for" << tilePos.toString();
@@ -631,6 +669,28 @@ bool OtbmMapIO::serializeTileNode(NodeFileWriteHandle& writer, const Tile* tile,
         }
     }
 
+    // --- Start Tile Spawn Data Serialization ---
+    if (tile->isSpawnTile()) {
+        if (tile->getSpawnRadius() > 0) {
+            if(!writer.addU8(OTBM_ATTR_SPAWN_RADIUS) || !writer.addU16(static_cast<uint16_t>(tile->getSpawnRadius()))) {
+                 m_lastError = "Failed to write spawn radius for " + tile->getPosition().toString(); return false;
+            }
+        }
+        if (tile->getSpawnIntervalSeconds() > 0) {
+            if(!writer.addU8(OTBM_ATTR_SPAWN_INTERVAL) || !writer.addU32(static_cast<uint32_t>(tile->getSpawnIntervalSeconds()))) {
+                 m_lastError = "Failed to write spawn interval for " + tile->getPosition().toString(); return false;
+            }
+        }
+
+        if (!tile->getSpawnCreatureList().isEmpty()) {
+            QString creatureListStr = tile->getSpawnCreatureList().join(',');
+            if(!writer.addU8(OTBM_ATTR_SPAWN_CREATURE_LIST) || !writer.addString(creatureListStr)) {
+                 m_lastError = "Failed to write spawn creature list for " + tile->getPosition().toString(); return false;
+            }
+        }
+    }
+    // --- End Tile Spawn Data Serialization ---
+
     // Write Items (Ground item first, then top items)
     if (tile->getGround()) {
         if (!serializeItemNode(writer, tile->getGround(), assetManager, settings)) { // Pass assetManager & settings
@@ -646,7 +706,14 @@ bool OtbmMapIO::serializeTileNode(NodeFileWriteHandle& writer, const Tile* tile,
             }
         }
     }
-    // TODO: Serialize Creatures on this tile
+
+    // Serialize Creature if present
+    if (tile->getCreature()) {
+        if (!serializeCreatureNode(writer, tile->getCreature(), assetManager, settings)) {
+            // m_lastError is set by serializeCreatureNode
+            return false;
+        }
+    }
 
     if (!writer.endNode()) {
         m_lastError = "Failed to end TILE/HOUSETILE node for " + tile->getPosition().toString() + ".";

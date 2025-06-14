@@ -6,6 +6,7 @@
 #include "core/navigation/WaypointData.h" // New WaypointData location
 #include "core/world/TownData.h" // Added for Town I/O
 #include "core/houses/HouseData.h" // Added for House I/O
+#include "core/creatures/Creature.h" // Added for Creature I/O
 #include <QVariantMap> // For passing attributes around if needed
 #include <QByteArray>  // For compress/decompress helpers
 
@@ -141,7 +142,9 @@ private:
     // --- House Data Parsing ---
     bool parseHousesContainerNode(BinaryNode* containerNode, Map& map, AssetManager& assetManager, AppSettings& settings);
     bool parseHouseNode(BinaryNode* houseNode, Map& map, AssetManager& assetManager, AppSettings& settings);
-    // TODO: Add parseCreatureNode, parseSpawnNode etc.
+    // --- Creature Instance Parsing ---
+    bool parseCreatureNode(BinaryNode* creatureNode, Tile* tile, AssetManager& assetManager, AppSettings& settings);
+    // TODO: Add parseSpawnNode etc.
 
     // --- Helper methods for saving (declarations) ---
     bool serializeMapDataNode(NodeFileWriteHandle& writer, const Map& map, AssetManager& assetManager, AppSettings& settings);
@@ -159,7 +162,9 @@ private:
     // --- House Data Serialization ---
     bool serializeHousesContainerNode(NodeFileWriteHandle& writer, const Map& map, AssetManager& assetManager, AppSettings& settings);
     bool serializeHouseNode(NodeFileWriteHandle& writer, const RME::core::houses::HouseData& house, AssetManager& assetManager, AppSettings& settings);
-    // TODO: Add serializeCreatureNode, serializeSpawnNode etc.
+    // --- Creature Instance Serialization ---
+    bool serializeCreatureNode(NodeFileWriteHandle& writer, const RME::core::creatures::Creature* creature, AssetManager& assetManager, AppSettings& settings);
+    // TODO: Add serializeSpawnNode etc.
 
     // --- Helper for zlib compression/decompression ---
     /**
