@@ -14,10 +14,31 @@
 #include <QMap>
 
 namespace RME {
+namespace core { // Define ClientVersionInfo within RME::core
+    struct ClientVersionInfo {
+        uint32_t major = 0;
+        uint32_t minor = 0;
+        uint32_t build = 0;
 
+        ClientVersionInfo() = default;
+        ClientVersionInfo(uint32_t maj, uint32_t min, uint32_t bld) : major(maj), minor(min), build(bld) {}
+
+        bool isValid() const { return major != 0 || minor != 0 || build != 0; }
+        void clear() { major = 0; minor = 0; build = 0; }
+
+        bool operator==(const ClientVersionInfo& other) const {
+            return major == other.major && minor == other.minor && build == other.build;
+        }
+        bool operator!=(const ClientVersionInfo& other) const {
+            return !(*this == other);
+        }
+    };
+} // namespace core
+
+// Original RME namespace for Map class etc.
 struct MapVersionInfo {
     quint32 otbmVersion = 0;
-    quint32 clientVersionID = 0;
+    quint32 clientVersionID = 0; // This might be legacy or different from the new major/minor/build
     QString description;
 };
 
@@ -30,10 +51,14 @@ public:
     const QString& getDescription() const { return m_description; }
     void setDescription(const QString& desc) { m_description = desc; setChanged(true); }
 
-    const MapVersionInfo& getVersionInfo() const { return m_versionInfo; }
+    const MapVersionInfo& getVersionInfo() const { return m_versionInfo; } // OTBM version and legacy client ID
     void setVersionInfo(const MapVersionInfo& version) { m_versionInfo = version; setChanged(true); }
     void setOtbmVersion(quint32 otbmVer) { m_versionInfo.otbmVersion = otbmVer; setChanged(true); }
-    void setClientVersionID(quint32 clientVerID) { m_versionInfo.clientVersionID = clientVerID; setChanged(true); }
+    void setClientVersionID(quint32 clientVerID) { m_versionInfo.clientVersionID = clientVerID; setChanged(true); } // Legacy client ID
+
+    // New Client Version Info (major/minor/build)
+    const RME::core::ClientVersionInfo& getClientVersionInfo() const;
+    void setClientVersionInfo(const RME::core::ClientVersionInfo& versionInfo);
 
     const QString& getHouseFile() const { return m_houseFile; }
     void setHouseFile(const QString& path) { m_houseFile = path; setChanged(true); }
@@ -136,7 +161,8 @@ public:
 
 private:
     QString m_description;
-    MapVersionInfo m_versionInfo;
+    MapVersionInfo m_versionInfo; // Stores OTBM version and potentially a single legacy client ID
+    RME::core::ClientVersionInfo m_clientVersionInfo; // Stores detailed client major/minor/build
 
     QString m_houseFile;
     QString m_spawnFile;

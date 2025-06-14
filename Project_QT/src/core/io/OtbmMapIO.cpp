@@ -101,9 +101,165 @@ bool OtbmMapIO::loadMap(const QString& filePath, Map& map, AssetManager& assetMa
     return true;
 }
 
+// --- Creature Specific Parsing/Serialization ---
+bool OtbmMapIO::parseCreatureNode(BinaryNode* creatureNode, Tile* tile, AssetManager& assetManager, AppSettings& settings) {
+    if (!tile) {
+        m_lastError = "parseCreatureNode: Called with null tile.";
+        qWarning() << "OtbmMapIO::parseCreatureNode:" << m_lastError;
+        return false;
+    }
+
+    std::string creatureName_std;
+    creatureNode->resetReadOffset();
+
+    uint8_t firstAttr;
+    // Assuming OTBM_ATTR_CREATURE_NAME is mandatory and first.
+    if (!creatureNode->getU8(firstAttr) || firstAttr != OTBM_ATTR_CREATURE_NAME) {
+        m_lastError = "Failed to read OTBM_ATTR_CREATURE_NAME or it's not the first attribute for creature on tile " + tile->getPosition().toString();
+        qWarning() << "OtbmMapIO::parseCreatureNode:" << m_lastError;
+        return false;
+    }
+    if (!creatureNode->getString(creatureName_std)) {
+         m_lastError = "Failed to read creature name string for creature on tile " + tile->getPosition().toString();
+         qWarning() << "OtbmMapIO::parseCreatureNode:" << m_lastError;
+         return false;
+    }
+
+    QString creatureName = QString::fromStdString(creatureName_std);
+    const RME::core::assets::CreatureData* creatureData = assetManager.getCreatureData(creatureName);
+
+    if (!creatureData) {
+        QString msg = QString("Creature type '%1' not found in AssetManager. Tile: %2").arg(creatureName).arg(tile->getPosition().toString());
+        bool skipUnknown = settings.getValue(RME::core::settings::Config::Key::SKIP_UNKNOWN_ITEMS, QVariant(true)).toBool();
+        if (skipUnknown) {
+            qWarning() << "OtbmMapIO::parseCreatureNode:" << msg << "Skipping creature.";
+            while(creatureNode->hasMoreProperties()){
+                uint8_t dummyAttr;
+                if(!creatureNode->getU8(dummyAttr)) { break; }
+                // This skip logic is simplified. A robust solution requires BinaryNode to handle skipping unknown attribute types.
+            }
+            return true;
+        }
+        m_lastError = msg;
+        qWarning() << "OtbmMapIO::parseCreatureNode:" << m_lastError;
+        return false;
+    }
+
+    auto newCreature = std::make_unique<RME::core::creatures::Creature>(creatureData, tile->getPosition());
+    if (!newCreature) {
+        m_lastError = "Failed to create Creature instance for: " + creatureName;
+        qWarning() << "OtbmMapIO::parseCreatureNode:" << m_lastError;
+        return false;
+    }
+
+    RME::core::creatures::Outfit currentOutfit = newCreature->getOutfit();
+    bool outfitWasOverridden = false;
+
+    while(creatureNode->hasMoreProperties()) {
+        uint8_t attribute;
+        if (!creatureNode->getU8(attribute)) { m_lastError = "Failed to read creature outfit attribute type."; return false; }
+
+        switch(attribute) {
+            case OTBM_ATTR_CREATURE_OUTFIT_LOOK_TYPE:
+                if (!creatureNode->getU16(currentOutfit.lookType)) { m_lastError="Failed to read looktype for " + creatureName; return false; } outfitWasOverridden = true; break;
+            case OTBM_ATTR_CREATURE_OUTFIT_ITEM_ID:
+                if (!creatureNode->getU16(currentOutfit.lookItem)) { m_lastError="Failed to read lookitem for " + creatureName; return false; } outfitWasOverridden = true; break;
+            case OTBM_ATTR_CREATURE_OUTFIT_HEAD:
+                if (!creatureNode->getU8(currentOutfit.lookHead)) { m_lastError="Failed to read lookhead for " + creatureName; return false; } outfitWasOverridden = true; break;
+            case OTBM_ATTR_CREATURE_OUTFIT_BODY:
+                if (!creatureNode->getU8(currentOutfit.lookBody)) { m_lastError="Failed to read lookbody for " + creatureName; return false; } outfitWasOverridden = true; break;
+            case OTBM_ATTR_CREATURE_OUTFIT_LEGS:
+                if (!creatureNode->getU8(currentOutfit.lookLegs)) { m_lastError="Failed to read looklegs for " + creatureName; return false; } outfitWasOverridden = true; break;
+            case OTBM_ATTR_CREATURE_OUTFIT_FEET:
+                if (!creatureNode->getU8(currentOutfit.lookFeet)) { m_lastError="Failed to read lookfeet for " + creatureName; return false; } outfitWasOverridden = true; break;
+            case OTBM_ATTR_CREATURE_OUTFIT_ADDONS:
+                if (!creatureNode->getU8(currentOutfit.lookAddons)) { m_lastError="Failed to read lookaddons for " + creatureName; return false; } outfitWasOverridden = true; break;
+            case OTBM_ATTR_CREATURE_OUTFIT_MOUNT_ID:
+                if (!creatureNode->getU16(currentOutfit.lookMount)) { m_lastError="Failed to read lookmount for " + creatureName; return false; } outfitWasOverridden = true; break;
+            default:
+                m_lastError = QString("Unknown attribute type %1 for CREATURE node (%2) on tile %3").arg(attribute).arg(creatureName).arg(tile->getPosition().toString());
+                qWarning() << "OtbmMapIO::parseCreatureNode:" << m_lastError;
+                return false;
+        }
+    }
+
+    if (outfitWasOverridden) {
+        newCreature->setOutfit(currentOutfit);
+    }
+
+    tile->setCreature(std::move(newCreature));
+    return true;
+}
+
+bool OtbmMapIO::serializeCreatureNode(NodeFileWriteHandle& writer, const RME::core::creatures::Creature* creature, AssetManager& assetManager, AppSettings& settings) {
+    if (!creature || !creature->getType()) {
+        m_lastError = "serializeCreatureNode: Null creature or creature type.";
+        qWarning() << m_lastError;
+        return false;
+    }
+
+    if (!writer.addNode(OTBM_NODE_CREATURE, false)) {
+        m_lastError = "Failed to start CREATURE node for: " + creature->getName();
+        return false;
+    }
+
+    if (!writer.addU8(OTBM_ATTR_CREATURE_NAME) || !writer.addString(creature->getName())) {
+         m_lastError = "Failed to write creature name for: " + creature->getName(); return false;
+    }
+
+    const RME::core::creatures::Outfit& currentOutfit = creature->getOutfit();
+    const RME::core::assets::CreatureData* creatureTypeData = creature->getType();
+    const RME::core::creatures::Outfit& defaultOutfit = creatureTypeData->defaultOutfit;
+
+    if (currentOutfit.lookType != defaultOutfit.lookType) {
+        if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_LOOK_TYPE) || !writer.addU16(currentOutfit.lookType)) {m_lastError="Ser: Failed looktype for " + creature->getName(); return false;}
+    }
+
+    const RME::core::assets::ItemType* itemTypeForLook = assetManager.getItemData(currentOutfit.lookType);
+    if (itemTypeForLook && itemTypeForLook->isCreatureLookItem()) {
+        if (currentOutfit.lookItem != 0 && currentOutfit.lookItem != defaultOutfit.lookItem) {
+             if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_ITEM_ID) || !writer.addU16(currentOutfit.lookItem)) {m_lastError="Ser: Failed lookitem for " + creature->getName(); return false;}
+        }
+    } else {
+        if (currentOutfit.lookItem != 0 && currentOutfit.lookItem != defaultOutfit.lookItem) {
+             if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_ITEM_ID) || !writer.addU16(currentOutfit.lookItem)) {m_lastError="Ser: Failed lookitem for non-item type on " + creature->getName(); return false;}
+        }
+    }
+
+    if (currentOutfit.lookHead != defaultOutfit.lookHead) {
+        if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_HEAD) || !writer.addU8(currentOutfit.lookHead)) {m_lastError="Ser: Failed lookhead for " + creature->getName(); return false;}
+    }
+    if (currentOutfit.lookBody != defaultOutfit.lookBody) {
+        if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_BODY) || !writer.addU8(currentOutfit.lookBody)) {m_lastError="Ser: Failed lookbody for " + creature->getName(); return false;}
+    }
+    if (currentOutfit.lookLegs != defaultOutfit.lookLegs) {
+        if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_LEGS) || !writer.addU8(currentOutfit.lookLegs)) {m_lastError="Ser: Failed looklegs for " + creature->getName(); return false;}
+    }
+    if (currentOutfit.lookFeet != defaultOutfit.lookFeet) {
+        if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_FEET) || !writer.addU8(currentOutfit.lookFeet)) {m_lastError="Ser: Failed lookfeet for " + creature->getName(); return false;}
+    }
+    if (currentOutfit.lookAddons != defaultOutfit.lookAddons) {
+        if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_ADDONS) || !writer.addU8(currentOutfit.lookAddons)) {m_lastError="Ser: Failed lookaddons for " + creature->getName(); return false;}
+    }
+    if (currentOutfit.lookMount != defaultOutfit.lookMount) {
+        if(!writer.addU8(OTBM_ATTR_CREATURE_OUTFIT_MOUNT_ID) || !writer.addU16(currentOutfit.lookMount)) {m_lastError="Ser: Failed lookmount for " + creature->getName(); return false;}
+    }
+
+    if (!writer.endNode()) {
+        m_lastError = "Failed to end CREATURE node for: " + creature->getName(); return false;
+    }
+    return true;
+}
+
 // Corrected signature to include AssetManager
 bool OtbmMapIO::parseMapDataNode(BinaryNode* mapDataNode, Map& map, AssetManager& assetManager, AppSettings& settings) {
     mapDataNode->resetReadOffset();
+
+    RME::core::ClientVersionInfo clientVersionInfo; // Initialize struct to hold version info
+    clientVersionInfo.major = 0;
+    clientVersionInfo.minor = 0;
+    clientVersionInfo.build = 0;
+
     while(mapDataNode->hasMoreProperties()) {
         uint8_t attribute;
         if (!mapDataNode->getU8(attribute)) {
@@ -146,20 +302,20 @@ bool OtbmMapIO::parseMapDataNode(BinaryNode* mapDataNode, Map& map, AssetManager
             // Map version attributes (Major, Minor, Build) for client features
             case OTBM_ATTR_MAP_VERSION_MAJOR: {
                 uint32_t majorVer;
-                if (!mapDataNode->getU32(majorVer)) { /* error */ return false; }
-                // map.setClientMajorVersion(majorVer); // Assuming Map class has such setters
+                if (!mapDataNode->getU32(majorVer)) { m_lastError = "Failed to read OTBM_ATTR_MAP_VERSION_MAJOR"; qWarning() << "OtbmMapIO::parseMapDataNode:" << m_lastError; return false; }
+                clientVersionInfo.major = majorVer;
                 break;
             }
             case OTBM_ATTR_MAP_VERSION_MINOR: {
                 uint32_t minorVer;
-                if (!mapDataNode->getU32(minorVer)) { /* error */ return false; }
-                // map.setClientMinorVersion(minorVer);
+                if (!mapDataNode->getU32(minorVer)) { m_lastError = "Failed to read OTBM_ATTR_MAP_VERSION_MINOR"; qWarning() << "OtbmMapIO::parseMapDataNode:" << m_lastError; return false; }
+                clientVersionInfo.minor = minorVer;
                 break;
             }
             case OTBM_ATTR_MAP_VERSION_BUILD: {
                  uint32_t buildVer;
-                if (!mapDataNode->getU32(buildVer)) { /* error */ return false; }
-                // map.setClientBuildVersion(buildVer);
+                if (!mapDataNode->getU32(buildVer)) { m_lastError = "Failed to read OTBM_ATTR_MAP_VERSION_BUILD"; qWarning() << "OtbmMapIO::parseMapDataNode:" << m_lastError; return false; }
+                clientVersionInfo.build = buildVer;
                 break;
             }
             default: {
@@ -174,6 +330,7 @@ bool OtbmMapIO::parseMapDataNode(BinaryNode* mapDataNode, Map& map, AssetManager
             }
         }
     }
+    map.setClientVersionInfo(clientVersionInfo); // Set the parsed version info on the map object
 
     // Parse child nodes of MAP_DATA (Tile Areas, Towns, Waypoints)
     BinaryNode* childNode = mapDataNode->getChild();
@@ -591,7 +748,20 @@ bool OtbmMapIO::serializeMapDataNode(NodeFileWriteHandle& writer, const Map& map
             m_lastError = "Failed to write spawn file attribute."; return false;
         }
     }
-    // TODO: Write map client version attributes (OTBM_ATTR_MAP_VERSION_MAJOR, etc.) from map.getVersionInfo()
+
+    // Write map client version attributes if they are set
+    RME::core::ClientVersionInfo versionInfo = map.getClientVersionInfo();
+    if (versionInfo.major != 0 || versionInfo.minor != 0 || versionInfo.build != 0) { // Only write if not default
+        if (!writer.addU8(OTBM_ATTR_MAP_VERSION_MAJOR) || !writer.addU32(versionInfo.major)) {
+            m_lastError = "Failed to write OTBM_ATTR_MAP_VERSION_MAJOR."; return false;
+        }
+        if (!writer.addU8(OTBM_ATTR_MAP_VERSION_MINOR) || !writer.addU32(versionInfo.minor)) {
+            m_lastError = "Failed to write OTBM_ATTR_MAP_VERSION_MINOR."; return false;
+        }
+        if (!writer.addU8(OTBM_ATTR_MAP_VERSION_BUILD) || !writer.addU32(versionInfo.build)) {
+            m_lastError = "Failed to write OTBM_ATTR_MAP_VERSION_BUILD."; return false;
+        }
+    }
 
     // Iterate map by 256x256x1 areas (per floor)
     // Ensure map dimensions are positive before iterating

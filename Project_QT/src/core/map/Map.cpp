@@ -14,6 +14,18 @@ Map::Map(int mapWidth, int mapHeight, int mapFloors, RME::core::assets::AssetMan
     m_versionInfo.otbmVersion = 4;
     m_versionInfo.clientVersionID = 0;
     m_versionInfo.description = "OTBM v4 / Unknown Client";
+    // m_clientVersionInfo is default constructed (major=0, minor=0, build=0)
+}
+
+const RME::core::ClientVersionInfo& Map::getClientVersionInfo() const {
+    return m_clientVersionInfo;
+}
+
+void Map::setClientVersionInfo(const RME::core::ClientVersionInfo& versionInfo) {
+    if (m_clientVersionInfo != versionInfo) {
+        m_clientVersionInfo = versionInfo;
+        setChanged(true);
+    }
 }
 
 // --- Towns ---
