@@ -4,7 +4,9 @@
 #include <QDebug>
 #include <QObject> // For QObject::tr
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace editor_logic {
+namespace commands {
 
 AddWaypointCommand::AddWaypointCommand(
     RME::core::WaypointManager* waypointManager,
@@ -95,4 +97,6 @@ void AddWaypointCommand::redo() {
     }
 }
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME

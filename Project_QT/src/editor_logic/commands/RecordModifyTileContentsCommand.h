@@ -19,7 +19,9 @@ namespace core {
 }
 }
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace editor_logic {
+namespace commands {
 
 const int RecordModifyTileContentsCommandId = 1009; // Choose a unique ID
 
@@ -70,5 +72,7 @@ private:
     QString m_commandText;
 };
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME
 #endif // RME_RECORDMODIFYTILECONTENTSCOMMAND_H

@@ -7,7 +7,9 @@
 #include <QObject> // For tr()
 #include <QDebug>  // For Q_ASSERT, qWarning
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace editor_logic {
+namespace commands {
 
 SetHouseTileCommand::SetHouseTileCommand(
     RME::core::houses::House* house,
@@ -112,4 +114,6 @@ void SetHouseTileCommand::undo() {
     setText(QObject::tr("Undo: ") + originalActionText);
 }
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME

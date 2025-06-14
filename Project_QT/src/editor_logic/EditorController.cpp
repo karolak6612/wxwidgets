@@ -21,6 +21,9 @@
 #include "core/houses/Houses.h"        // Added
 #include "core/houses/House.h"           // Added
 #include "editor_logic/commands/SetHouseExitCommand.h" // Added
+#include "editor_logic/commands/RecordAddRemoveItemCommand.h" // Added for recordAddItem/RemoveItem
+#include "editor_logic/commands/RecordSetGroundCommand.h" // Added for recordSetGroundItem
+#include "core/Item.h" // Added for recordAddItem/RemoveItem
 
 #include <QUndoStack>
 #include <QUndoCommand> // For pushCommand std::unique_ptr
@@ -88,23 +91,12 @@ void EditorController::applyBrushStroke(const QList<RME::core::Position>& positi
     m_undoStack->endMacro();
 }
 
-void EditorController::deleteSelection() {
-    if (!m_selectionManager) {
-        qWarning("EditorController::deleteSelection: SelectionManager is null.");
-        return;
-    }
-    if (m_selectionManager->isEmpty()) {
-        qDebug("EditorController::deleteSelection: Selection is empty.");
-    }
-    pushCommand(std::make_unique<RME_COMMANDS::DeleteSelectionCommand>(m_map, m_selectionManager, this));
-    // Note: DeleteSelectionCommand's constructor was changed in a previous task to take QList<Position>.
-    // The implementation above uses the old signature.
-    // The new handleDeleteSelection below should use the new signature.
-}
+// Removed old deleteSelection() method.
+// The method previously named handleDeleteSelection() is now deleteSelection().
 
-void EditorController::handleDeleteSelection() {
+void EditorController::deleteSelection() { // Renamed from handleDeleteSelection
     if (!m_selectionManager) {
-        qWarning("EditorController::handleDeleteSelection: SelectionManager is null.");
+        qWarning("EditorController::deleteSelection: SelectionManager is null."); // Updated log message
         return;
     }
     if (m_selectionManager->isEmpty()) {
@@ -128,14 +120,14 @@ void EditorController::handleDeleteSelection() {
         return;
     }
 
-    pushCommand(std::make_unique<RME_COMMANDS::DeleteCommand>(m_map, selectedPositions, this));
+    pushCommand(std::make_unique<RME::editor_logic::commands::DeleteCommand>(m_map, selectedPositions, this));
 }
 
 void EditorController::clearCurrentSelection() {
     if (m_selectionManager && !m_selectionManager->isEmpty()) { // Check if there's something to clear
         // ClearSelectionCommand's constructor takes SelectionManager*.
         // It will query the current selection itself in its redo().
-        pushCommand(std::make_unique<RME_COMMANDS::ClearSelectionCommand>(m_selectionManager));
+        pushCommand(std::make_unique<RME::editor_logic::commands::ClearSelectionCommand>(m_selectionManager));
     } else {
         qDebug("EditorController::clearCurrentSelection: SelectionManager is null or selection is already empty.");
         // Optionally, push a command that does nothing but indicates "Clear Selection (nothing selected)"
@@ -219,7 +211,7 @@ void EditorController::performBoundingBoxSelection(
 
     // Only push command if there are tiles in the box or if it's a non-additive selection that would clear previous selection.
     if (!tilesToPotentiallySelect.isEmpty() || (!isAdditive && !selectionBefore.isEmpty())) {
-        pushCommand(std::make_unique<RME_COMMANDS::BoundingBoxSelectCommand>(
+        pushCommand(std::make_unique<RME::editor_logic::commands::BoundingBoxSelectCommand>(
             m_selectionManager,
             tilesToPotentiallySelect,
             isAdditive,
@@ -365,8 +357,48 @@ void EditorController::recordUpdateSpawn(const RME::core::Position& spawnCenterP
         spawnCenterPos.x, spawnCenterPos.y, spawnCenterPos.z);
 }
 
-void EditorController::recordSetGroundItem(const RME::core::Position& pos, uint16_t /*newGroundItemId*/, uint16_t /*oldGroundItemId*/) {
-     qWarning("EditorController::recordSetGroundItem: Not implemented. Pos: (%d,%d,%d)", pos.x, pos.y, pos.z);
+void EditorController::recordSetGroundItem(const RME::core::Position& pos, uint16_t newGroundItemId, uint16_t oldGroundItemId) {
+    RME::core::Tile* tile = getTileForEditing(pos);
+    if (!tile) {
+        qWarning("EditorController::recordSetGroundItem: Tile not found or could not be created at Pos: (%d,%d,%d)",
+                 pos.x, pos.y, pos.z);
+        return;
+    }
+    if (!m_assetManager) {
+        qWarning("EditorController::recordSetGroundItem: AssetManager is null. Cannot create items.");
+        return;
+    }
+
+    std::unique_ptr<RME::core::Item> newGroundState = nullptr;
+    if (newGroundItemId != 0) {
+        newGroundState = RME::core::Item::create(newGroundItemId, m_assetManager);
+        if (!newGroundState) {
+            qWarning("EditorController::recordSetGroundItem: Failed to create new ground item with ID: %d. ItemID might be invalid.", newGroundItemId);
+            // Depending on desired behavior, we might still proceed to clear old ground if new is invalid.
+            // For now, let's assume if new ID is given, it must be valid. If not, command might not be pushed or handle error.
+            // The RecordSetGroundCommand itself might also handle nullptrs for new/old states.
+        }
+    }
+
+    std::unique_ptr<RME::core::Item> oldGroundState = nullptr;
+    if (oldGroundItemId != 0) {
+        // This oldGroundItemId is what the caller *believes* was there.
+        // The command should ideally capture the *actual* current ground on the tile for its 'oldGround' state.
+        // However, the interface provides oldGroundItemId. For now, creating an item based on this ID.
+        // RecordSetGroundCommand's constructor takes copies of what's passed.
+        // A more robust implementation might involve the command itself querying tile->getGround()
+        // before applying the new state. But let's follow the signature for now.
+        oldGroundState = RME::core::Item::create(oldGroundItemId, m_assetManager);
+        if (!oldGroundState && oldGroundItemId != 0) { // If ID was non-zero but item creation failed
+             qWarning("EditorController::recordSetGroundItem: Failed to create representation of old ground item with ID: %d.", oldGroundItemId);
+        }
+    }
+    // If the caller passes oldGroundItemId = 0, it means it assumes there was no ground or doesn't care to specify.
+    // The command should correctly interpret oldGroundState = nullptr.
+
+    pushCommand(std::make_unique<RME::editor_logic::commands::RecordSetGroundCommand>(
+        tile, std::move(newGroundState), std::move(oldGroundState), this
+    ));
 }
 
 void EditorController::recordSetBorderItems(const RME::core::Position& pos,
@@ -376,11 +408,43 @@ void EditorController::recordSetBorderItems(const RME::core::Position& pos,
 }
 
 void EditorController::recordAddItem(const RME::core::Position& pos, uint16_t itemId) {
-     qWarning("EditorController::recordAddItem: Not implemented. Pos: (%d,%d,%d), ItemID: %d", pos.x, pos.y, pos.z, itemId);
+    RME::core::Tile* tile = getTileForEditing(pos);
+    if (!tile) {
+        qWarning("EditorController::recordAddItem: Tile not found or could not be created at Pos: (%d,%d,%d) for ItemID: %d",
+                 pos.x, pos.y, pos.z, itemId);
+        return;
+    }
+    if (!m_assetManager) {
+        qWarning("EditorController::recordAddItem: AssetManager is null. Cannot create item.");
+        return;
+    }
+
+    auto itemToAdd = RME::core::Item::create(itemId, m_assetManager);
+    if (!itemToAdd) {
+        qWarning("EditorController::recordAddItem: Failed to create item with ID: %d. ItemID might be invalid.", itemId);
+        return;
+    }
+
+    pushCommand(std::make_unique<RME::editor_logic::commands::RecordAddRemoveItemCommand>(tile, std::move(itemToAdd), this));
 }
 
 void EditorController::recordRemoveItem(const RME::core::Position& pos, uint16_t itemId) {
-     qWarning("EditorController::recordRemoveItem: Not implemented. Pos: (%d,%d,%d), ItemID: %d", pos.x, pos.y, pos.z, itemId);
+    RME::core::Tile* tile = getMap()->getTile(pos); // Use getTile, not getTileForEditing
+    if (!tile) {
+        qWarning("EditorController::recordRemoveItem: Tile not found at Pos: (%d,%d,%d) for ItemID: %d",
+                 pos.x, pos.y, pos.z, itemId);
+        return;
+    }
+
+    RME::core::Item* itemToRemovePtr = tile->getTopItemByID(itemId);
+    if (!itemToRemovePtr) {
+        // It's not necessarily a warning if the item isn't there; could be a user click on an empty spot with eraser.
+        qDebug("EditorController::recordRemoveItem: ItemID %d not found on tile at Pos: (%d,%d,%d)",
+               itemId, pos.x, pos.y, pos.z);
+        return;
+    }
+
+    pushCommand(std::make_unique<RME::editor_logic::commands::RecordAddRemoveItemCommand>(tile, itemToRemovePtr, this));
 }
 
 // --- House-specific operations ---

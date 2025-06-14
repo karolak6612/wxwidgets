@@ -14,7 +14,9 @@ namespace core {
 }
 }
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace editor_logic {
+namespace commands {
 
 const int BoundingBoxSelectCommandId = 1012; // Choose a unique ID
 
@@ -53,5 +55,7 @@ private:
     bool m_firstRun;
 };
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME
 #endif // RME_BOUNDINGBOXSELECTCOMMAND_H

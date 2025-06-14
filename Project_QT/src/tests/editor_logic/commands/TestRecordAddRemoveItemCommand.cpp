@@ -28,7 +28,7 @@ using RMECreatureDatabase = RME::core::assets::CreatureDatabase;
 using RMESpriteManager = RME::core::sprites::SpriteManager;
 using RMEClientVersionManager = RME::core::assets::ClientVersionManager;
 using RMEMaterialManager = RME::core::assets::MaterialManager;
-using RMECommand = RME_COMMANDS::RecordAddRemoveItemCommand;
+using RMECommand = RME::editor_logic::commands::RecordAddRemoveItemCommand;
 using RMEMockEditorController = MockEditorController;
 
 const uint16_t TEST_ITEM_ID_1 = 201;

@@ -12,7 +12,9 @@ namespace RME { namespace core {
     struct Waypoint; // The actual Waypoint struct/class
 }}
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace editor_logic {
+namespace commands {
 
 const int AddWaypointCommandId = 1003; // Unique ID for this command type
 
@@ -43,5 +45,7 @@ private:
     bool m_wasReplacement = false;
 };
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME
 #endif // RME_ADDWAYPOINTCOMMAND_H

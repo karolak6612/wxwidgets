@@ -14,6 +14,10 @@ namespace RME {
     }
 }
 
+namespace RME {
+namespace editor_logic {
+namespace commands {
+
 class SetHouseExitCommand : public QUndoCommand {
 public:
     SetHouseExitCommand(RME::core::houses::House* house,
@@ -37,4 +41,7 @@ private:
     RME::core::Position m_oldExitPos; // Stored from house->getExitPos() at construction
 };
 
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME
 #endif // RME_SETHOUSEEXITCOMMAND_H

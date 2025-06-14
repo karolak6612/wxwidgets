@@ -15,7 +15,9 @@ namespace RME {
     class Tile;
 }
 
-namespace RME_COMMANDS { // Or RME::Commands, or just RME
+namespace RME {
+namespace editor_logic {
+namespace commands { // Target namespace
 
 const int BrushStrokeCommandId = 1001; // Unique ID for this command type
 
@@ -53,5 +55,7 @@ private:
     QSet<RME::Position> m_createdTiles;
 };
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME
 #endif // RME_BRUSHSTROKECOMMAND_H

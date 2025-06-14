@@ -10,7 +10,9 @@
 #include <QObject> // For tr()
 #include <QDebug>  // For qWarning, Q_ASSERT
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace editor_logic {
+namespace commands {
 
 DeleteCommand::DeleteCommand(
     RME::core::Map* map,
@@ -88,4 +90,6 @@ void DeleteCommand::undo() {
     setText(QObject::tr("Undo Delete Selection (%1 tile(s))").arg(m_previouslySelectedTiles.size()));
 }
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME

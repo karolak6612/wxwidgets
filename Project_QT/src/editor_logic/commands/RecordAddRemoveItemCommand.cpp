@@ -9,7 +9,9 @@
 #include <QObject> // For tr()
 #include <QDebug>  // For qWarning, Q_ASSERT
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace editor_logic {
+namespace commands {
 
 // Constructor for Adding an item
 RecordAddRemoveItemCommand::RecordAddRemoveItemCommand(
@@ -21,7 +23,8 @@ RecordAddRemoveItemCommand::RecordAddRemoveItemCommand(
     m_tile(tile),
     m_controller(controller),
     m_operation(ItemChangeOperation::Add),
-    m_rawItemPtrForRemoveRedo(nullptr) // Not used for Add
+    m_rawItemPtrForRemoveRedo(nullptr), // Not used for Add
+    m_addedInstanceForUndo(nullptr) // Initialize new member
 {
     Q_ASSERT(m_tile);
     Q_ASSERT(m_controller);
@@ -107,12 +110,25 @@ void RecordAddRemoveItemCommand::undo() {
         // Or, more robustly, for undo of add, we remove an item of m_itemForAddRedo_RemoveUndo->getID().
         // This might remove the wrong one if multiple identical items exist.
 
-        // Simplification: RawBrush usually adds to top. So remove from top matching ID.
-        RME::core::Item* itemOnTileToRemove = m_tile->getTopItemByID(m_itemForAddRedo_RemoveUndo->getID());
-        if (itemOnTileToRemove) {
-            m_tile->removeItem(itemOnTileToRemove, true); // True to delete it
+        // Updated logic for undo of Add:
+        if (m_addedInstanceForUndo) {
+            bool removed = m_tile->removeItem(m_addedInstanceForUndo, true); // Assuming removeItem takes Item* and bool for destroy
+            if (!removed) {
+                // This might happen if the item was already removed by another means, or if Tile::removeItem logic has issues.
+                qWarning("RecordAddRemoveItemCommand::undo (Add): Failed to remove the specific added item instance. It might have been already removed or Tile::removeItem failed.");
+            }
+            m_addedInstanceForUndo = nullptr; // Clear pointer after attempting removal
         } else {
-            qWarning("RecordAddRemoveItemCommand::undo (Add): Could not find item to remove with ID %d.").arg(m_itemForAddRedo_RemoveUndo->getID());
+            // This case implies redo() didn't successfully track the added instance,
+            // or undo() was called without a preceding redo() for an Add operation.
+            // Fallback to old behavior or log warning.
+            qWarning("RecordAddRemoveItemCommand::undo (Add): No specific added item instance was tracked. Attempting removal by ID as fallback (less precise).");
+            RME::core::Item* itemOnTileToRemoveById = m_tile->getTopItemByID(m_itemForAddRedo_RemoveUndo->getID());
+            if (itemOnTileToRemoveById) {
+                m_tile->removeItem(itemOnTileToRemoveById, true);
+            } else {
+                qWarning("RecordAddRemoveItemCommand::undo (Add): Fallback removal by ID %d also failed.").arg(m_itemForAddRedo_RemoveUndo->getID());
+            }
         }
     } else { // Undo Remove -> Add the item back
         Q_ASSERT(m_itemForAddRedo_RemoveUndo); // This should hold the copy of the removed item.
@@ -131,7 +147,14 @@ void RecordAddRemoveItemCommand::redo() {
 
     if (m_operation == ItemChangeOperation::Add) { // Redo Add -> Add the item
         Q_ASSERT(m_itemForAddRedo_RemoveUndo);
-        m_tile->addItem(m_itemForAddRedo_RemoveUndo->deepCopy()); // Add a copy
+        // m_tile->addItem(m_itemForAddRedo_RemoveUndo->deepCopy()); // Old way
+        std::unique_ptr<RME::core::Item> itemCopyForRedo = m_itemForAddRedo_RemoveUndo->deepCopy();
+        if (itemCopyForRedo) { // Check if deepCopy succeeded
+            m_addedInstanceForUndo = m_tile->addItem(std::move(itemCopyForRedo)); // addItem takes unique_ptr, returns raw Item*
+        } else {
+            qWarning("RecordAddRemoveItemCommand::redo (Add): Failed to deepCopy item for redo.");
+            m_addedInstanceForUndo = nullptr;
+        }
     } else { // Redo Remove -> Remove the item
         // m_rawItemPtrForRemoveRedo was stored pointing to the item on tile.
         // This pointer might be stale if other commands modified items.
@@ -149,4 +172,6 @@ void RecordAddRemoveItemCommand::redo() {
     setText(m_commandTextBase + QObject::tr(" at (%1,%2,%3)").arg(m_tilePosition.x).arg(m_tilePosition.y).arg(m_tilePosition.z));
 }
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME

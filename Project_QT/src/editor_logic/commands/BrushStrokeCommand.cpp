@@ -5,7 +5,9 @@
 #include <QDebug>                // For qWarning (optional)
 #include <QString>               // For QObject::tr and QString::fromStdString
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace editor_logic {
+namespace commands {
 
 BrushStrokeCommand::BrushStrokeCommand(
     RME::Map* map,
@@ -125,4 +127,6 @@ bool BrushStrokeCommand::mergeWith(const QUndoCommand* command) {
     return false;
 }
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME

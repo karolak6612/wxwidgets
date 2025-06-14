@@ -15,7 +15,9 @@ namespace core {
 }
 }
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace editor_logic {
+namespace commands {
 
 const int SetHouseTileCommandId = 1014; // Choose a unique ID
 
@@ -51,5 +53,7 @@ private:
                                           // (Not critically needed if undo logic is self-contained based on m_assignToHouse)
 };
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME
 #endif // RME_SETHOUSETILECOMMAND_H

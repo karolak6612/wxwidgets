@@ -115,7 +115,7 @@ void TestBoundingBoxSelectCommand::testRedo_NonAdditive_ReplacesSelection() {
     m_mockSelectionManager->setSelectedTilesInternalCalled = 0;
 
     QList<RME::core::Tile*> boxTiles = {&m_tile2, &m_tile3};
-    RME_COMMANDS::BoundingBoxSelectCommand cmd(m_mockSelectionManager.get(), boxTiles, false /*non-additive*/, initialSelection);
+    RME::editor_logic::commands::BoundingBoxSelectCommand cmd(m_mockSelectionManager.get(), boxTiles, false /*non-additive*/, initialSelection);
     cmd.redo();
 
     QCOMPARE(m_mockSelectionManager->setSelectedTilesInternalCalled, 1);
@@ -134,7 +134,7 @@ void TestBoundingBoxSelectCommand::testUndo_NonAdditive_RestoresPrevious() {
     m_mockSelectionManager->setSelectedTilesInternal(initialSelection);
 
     QList<RME::core::Tile*> boxTiles = {&m_tile2, &m_tile3};
-    RME_COMMANDS::BoundingBoxSelectCommand cmd(m_mockSelectionManager.get(), boxTiles, false, initialSelection);
+    RME::editor_logic::commands::BoundingBoxSelectCommand cmd(m_mockSelectionManager.get(), boxTiles, false, initialSelection);
     cmd.redo();
     m_mockSelectionManager->setSelectedTilesInternalCalled = 0;
 
@@ -151,7 +151,7 @@ void TestBoundingBoxSelectCommand::testRedo_Additive_AddsToSelection() {
     m_mockSelectionManager->setSelectedTilesInternalCalled = 0;
 
     QList<RME::core::Tile*> boxTiles = {&m_tile2, &m_tile1}; // tile1 is already selected
-    RME_COMMANDS::BoundingBoxSelectCommand cmd(m_mockSelectionManager.get(), boxTiles, true /*additive*/, initialSelection);
+    RME::editor_logic::commands::BoundingBoxSelectCommand cmd(m_mockSelectionManager.get(), boxTiles, true /*additive*/, initialSelection);
     cmd.redo();
 
     QCOMPARE(m_mockSelectionManager->setSelectedTilesInternalCalled, 1);
@@ -169,7 +169,7 @@ void TestBoundingBoxSelectCommand::testUndo_Additive_RestoresPrevious() {
     m_mockSelectionManager->setSelectedTilesInternal(initialSelection);
 
     QList<RME::core::Tile*> boxTiles = {&m_tile2};
-    RME_COMMANDS::BoundingBoxSelectCommand cmd(m_mockSelectionManager.get(), boxTiles, true, initialSelection);
+    RME::editor_logic::commands::BoundingBoxSelectCommand cmd(m_mockSelectionManager.get(), boxTiles, true, initialSelection);
     cmd.redo();
     m_mockSelectionManager->setSelectedTilesInternalCalled = 0;
 
@@ -186,7 +186,7 @@ void TestBoundingBoxSelectCommand::testRedo_Additive_NoNewTiles_NoChange() {
     m_mockSelectionManager->setSelectedTilesInternalCalled = 0;
 
     QList<RME::core::Tile*> boxTiles = {&m_tile1};
-    RME_COMMANDS::BoundingBoxSelectCommand cmd(m_mockSelectionManager.get(), boxTiles, true, initialSelection);
+    RME::editor_logic::commands::BoundingBoxSelectCommand cmd(m_mockSelectionManager.get(), boxTiles, true, initialSelection);
     cmd.redo();
 
     QCOMPARE(m_mockSelectionManager->setSelectedTilesInternalCalled, 1);
@@ -203,7 +203,7 @@ void TestBoundingBoxSelectCommand::testRedo_NonAdditive_EmptyBox_ClearsSelection
     m_mockSelectionManager->setSelectedTilesInternalCalled = 0;
 
     QList<RME::core::Tile*> boxTiles = {}; // Empty box
-    RME_COMMANDS::BoundingBoxSelectCommand cmd(m_mockSelectionManager.get(), boxTiles, false /*non-additive*/, initialSelection);
+    RME::editor_logic::commands::BoundingBoxSelectCommand cmd(m_mockSelectionManager.get(), boxTiles, false /*non-additive*/, initialSelection);
     cmd.redo();
 
     QCOMPARE(m_mockSelectionManager->setSelectedTilesInternalCalled, 1);

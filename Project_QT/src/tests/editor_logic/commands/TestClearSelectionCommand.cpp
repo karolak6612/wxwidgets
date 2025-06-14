@@ -141,7 +141,7 @@ void TestClearSelectionCommand::testRedo_ClearsSelection_StoresOld() {
     m_mockSelectionManager->MOCK_addTileToSelection(&m_tile2);
     QCOMPARE(m_mockSelectionManager->getCurrentSelectedTilesList().size(), 2);
 
-    RME_COMMANDS::ClearSelectionCommand cmd(m_mockSelectionManager.get());
+    RME::editor_logic::commands::ClearSelectionCommand cmd(m_mockSelectionManager.get());
     cmd.redo();
 
     QCOMPARE(m_mockSelectionManager->clearSelectionInternalCalled, 1);
@@ -154,7 +154,7 @@ void TestClearSelectionCommand::testRedo_ClearsSelection_StoresOld() {
 
 void TestClearSelectionCommand::testUndo_RestoresOldSelection() {
     m_mockSelectionManager->MOCK_addTileToSelection(&m_tile1);
-    RME_COMMANDS::ClearSelectionCommand cmd(m_mockSelectionManager.get());
+    RME::editor_logic::commands::ClearSelectionCommand cmd(m_mockSelectionManager.get());
     cmd.redo(); // Captures [&m_tile1], then clears selection
 
     QVERIFY(m_mockSelectionManager->getCurrentSelectedTilesList().isEmpty());
@@ -168,7 +168,7 @@ void TestClearSelectionCommand::testUndo_RestoresOldSelection() {
 
 void TestClearSelectionCommand::testRedo_NoInitialSelection() {
     QVERIFY(m_mockSelectionManager->getCurrentSelectedTilesList().isEmpty());
-    RME_COMMANDS::ClearSelectionCommand cmd(m_mockSelectionManager.get());
+    RME::editor_logic::commands::ClearSelectionCommand cmd(m_mockSelectionManager.get());
     cmd.redo();
 
     QCOMPARE(m_mockSelectionManager->clearSelectionInternalCalled, 0);
@@ -178,7 +178,7 @@ void TestClearSelectionCommand::testRedo_NoInitialSelection() {
 }
 
 void TestClearSelectionCommand::testUndo_NoOldSelectionToRestore() {
-    RME_COMMANDS::ClearSelectionCommand cmd(m_mockSelectionManager.get());
+    RME::editor_logic::commands::ClearSelectionCommand cmd(m_mockSelectionManager.get());
     cmd.redo();
 
     m_mockSelectionManager->resetMockStats(); // Reset call counters for this check

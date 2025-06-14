@@ -32,7 +32,7 @@ using RMECreatureDatabase = RME::core::assets::CreatureDatabase;
 using RMESpriteManager = RME::core::sprites::SpriteManager;
 using RMEClientVersionManager = RME::core::assets::ClientVersionManager;
 using RMEMaterialManager = RME::core::assets::MaterialManager;
-using RMECommand = RME_COMMANDS::DeleteSelectionCommand;
+using RMECommand = RME::editor_logic::commands::DeleteSelectionCommand; // Updated namespace
 using RMEMockEditorController = MockEditorController;
 
 // Test Item IDs
@@ -84,27 +84,60 @@ private:
     }
 
     // Helper to populate a tile fully
+    // Helper to populate a tile fully
+    RME::core::spawns::SpawnData testSpawnDataInstance{RMEPosition(), 1, 60, {"TestMonster"}}; // Instance for testing
+
     void populateTile(RMETile* tile) {
         if (!tile) return;
         tile->setGround(Item::create(DEL_CMD_GROUND_ID));
         tile->addItem(Item::create(DEL_CMD_ITEM_ID1));
-        tile->setSpawn(std::make_unique<RMESpawn>(1)); // radius 1
+        // tile->setSpawn(std::make_unique<RMESpawn>(1)); // radius 1 // Old
+        testSpawnDataInstance.setCenter(tile->getPosition()); // Ensure SpawnData pos matches tile if relevant
+        tile->setSpawnDataRef(&testSpawnDataInstance); // New
         tile->setCreature(std::make_unique<RMECreature>(DEL_CMD_CREATURE_NAME));
     }
 
     bool verifyTileIsEmpty(const RMETile* tile) const {
         if (!tile) return true;
         return !tile->getGround() && tile->getItems().empty() &&
-               !tile->getSpawn() && !tile->getCreature();
+               !tile->getSpawnDataRef() && !tile->getCreature(); // Updated
     }
 
     bool verifyTileIsPopulated(const RMETile* tile) const {
          if (!tile) return false;
          bool groundOk = tile->getGround() && tile->getGround()->getID() == DEL_CMD_GROUND_ID;
          bool itemsOk = !tile->getItems().empty() && tile->getItems()[0]->getID() == DEL_CMD_ITEM_ID1;
-         bool spawnOk = tile->getSpawn() && tile->getSpawn()->getRadius() == 1;
+         // bool spawnOk = tile->getSpawn() && tile->getSpawn()->getRadius() == 1; // Old
+         bool spawnOk = tile->getSpawnDataRef() == &testSpawnDataInstance && tile->getSpawnDataRef()->getRadius() == 1; // Updated
          bool creatureOk = tile->getCreature() && tile->getCreature()->getName() == DEL_CMD_CREATURE_NAME;
          return groundOk && itemsOk && spawnOk && creatureOk;
+    }
+
+    // Overload for TileData check (used by command's internal storage)
+    bool verifyTileIsPopulated(const RME::core::data_transfer::TileData* tileData) const {
+        if(!tileData) return false;
+        bool groundOk = tileData->ground && tileData->ground->getID() == DEL_CMD_GROUND_ID;
+        bool itemsOk = !tileData->items.isEmpty() && tileData->items[0]->getID() == DEL_CMD_ITEM_ID1;
+        // Assuming TileData has been updated to store SpawnData* m_spawnDataRef
+        // and that TileData::fromTile correctly copies the pointer from Tile::m_spawnDataRef
+        // and TileData::applyToTile correctly sets Tile::m_spawnDataRef from this pointer.
+        bool spawnRefOk = false;
+        if (tileData->spawnDataRef == &testSpawnDataInstance) { // Check pointer equality first
+            spawnRefOk = true;
+            if (tileData->spawnDataRef) { // If not null, also check radius
+                 spawnRefOk = spawnRefOk && tileData->spawnDataRef->getRadius() == 1;
+            }
+        } else if (tileData->spawnDataRef == nullptr && &testSpawnDataInstance == nullptr) {
+            // This case is unlikely if testSpawnDataInstance is a member, but good for robustness if it could be null.
+            // However, testSpawnDataInstance is a member, so it won't be nullptr itself unless the test setup changes.
+            // More accurately, if the *expected* state was nullptr for spawnDataRef:
+            // spawnRefOk = (tileData->spawnDataRef == nullptr);
+            // For this test, we always expect it to point to testSpawnDataInstance if populated.
+        }
+
+
+        bool creatureOk = tileData->creature && tileData->creature->getName() == DEL_CMD_CREATURE_NAME;
+        return groundOk && itemsOk && spawnRefOk && creatureOk;
     }
 };
 

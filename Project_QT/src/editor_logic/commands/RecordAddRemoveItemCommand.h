@@ -19,7 +19,9 @@ namespace core {
 }
 }
 
-namespace RME_COMMANDS { // Consistent namespace
+namespace RME {
+namespace editor_logic {
+namespace commands { // Target namespace
 
 // Choose a unique ID, assuming RecordSetGroundCommandId was 1007
 const int RecordAddRemoveItemCommandId = 1008;
@@ -52,14 +54,14 @@ public:
     int id() const override { return RecordAddRemoveItemCommandId; }
 
     // Getters for test verification
-    RME_COMMANDS::ItemChangeOperation getOperation() const { return m_operation; }
+    RME::editor_logic::commands::ItemChangeOperation getOperation() const { return m_operation; }
     uint16_t getItemIdForOperation() const {
         // For Add, m_itemForAddRedo_RemoveUndo holds the item added (its copy).
         // For Remove, m_itemForAddRedo_RemoveUndo holds a copy of the removed item.
         // m_itemIdForRemove is also specifically stored for remove operations.
-        if (m_operation == RME_COMMANDS::ItemChangeOperation::Add && m_itemForAddRedo_RemoveUndo) {
+        if (m_operation == RME::editor_logic::commands::ItemChangeOperation::Add && m_itemForAddRedo_RemoveUndo) {
             return m_itemForAddRedo_RemoveUndo->getID();
-        } else if (m_operation == RME_COMMANDS::ItemChangeOperation::Remove) {
+        } else if (m_operation == RME::editor_logic::commands::ItemChangeOperation::Remove) {
             return m_itemIdForRemove; // This was the ID of the item targeted for removal.
         }
         return 0; // Should not happen if command is well-formed
@@ -91,11 +93,14 @@ private:
                                                 // This is problematic. Let's simplify: for remove, we store ID and find it.
     uint16_t m_itemIdForRemove; // Store ID for removal robustness
     // int m_itemIndexForRemove; // Optional: if stack order is critical
+    RME::core::Item* m_addedInstanceForUndo = nullptr; // Stores the raw pointer to the item instance added by redo()
 
     QString m_commandTextBase;
 
     void initializeCommandText();
 };
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME
 #endif // RME_RECORDADDREMOVEITEMCOMMAND_H

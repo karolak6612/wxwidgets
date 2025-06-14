@@ -12,7 +12,9 @@
 #include <QDebug>  // For qWarning, Q_ASSERT
 #include <sstream> // For std::ostringstream
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace editor_logic {
+namespace commands {
 
 RecordModifyTileContentsCommand::RecordModifyTileContentsCommand(
     RME::core::Tile* tile,
@@ -138,4 +140,6 @@ void RecordModifyTileContentsCommand::redo() {
     m_controller->getMap()->notifyTileChanged(m_tilePosition);
 }
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME

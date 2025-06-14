@@ -8,7 +8,9 @@
 #include <QObject>
 #include <QDebug>
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace editor_logic {
+namespace commands {
 
 RecordSetSpawnCommand::RecordSetSpawnCommand(
     RME::core::Tile* tile,
@@ -92,4 +94,6 @@ void RecordSetSpawnCommand::redo() {
     }
 }
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME

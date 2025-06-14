@@ -57,7 +57,7 @@ void TestRecordSetSpawnCommand::testExecute_SetsSpawnAndNotifies() {
     QVERIFY(m_mockEditorController);
     QVERIFY(m_mockMap);
 
-    RecordSetSpawnCommand command(m_mockEditorController.data(), m_newSpawnPoint);
+    RME::editor_logic::commands::RecordSetSpawnCommand command(m_mockEditorController.data(), m_newSpawnPoint);
 
     m_mockEditorController->m_tileChangedNotified = false; // Reset notification flag
     m_mockEditorController->m_notifiedPosition = QPoint(); // Reset position
@@ -73,7 +73,7 @@ void TestRecordSetSpawnCommand::testUndo_RestoresPreviousSpawnAndNotifies() {
     QVERIFY(m_mockEditorController);
     QVERIFY(m_mockMap);
 
-    RecordSetSpawnCommand command(m_mockEditorController.data(), m_newSpawnPoint);
+    RME::editor_logic::commands::RecordSetSpawnCommand command(m_mockEditorController.data(), m_newSpawnPoint);
     command.execute(); // Set to new spawn point
 
     m_mockEditorController->m_tileChangedNotified = false; // Reset notification flag
@@ -95,7 +95,7 @@ void TestRecordSetSpawnCommand::testRedo_SetsSpawnAgainAndNotifies() {
     QVERIFY(m_mockEditorController);
     QVERIFY(m_mockMap);
 
-    RecordSetSpawnCommand command(m_mockEditorController.data(), m_newSpawnPoint);
+    RME::editor_logic::commands::RecordSetSpawnCommand command(m_mockEditorController.data(), m_newSpawnPoint);
     command.execute();
     command.undo();
 

@@ -471,7 +471,7 @@ void TestEditorController::testDeleteSelection_NotEmpty() {
 
     QVERIFY(m_mockUndoStack->pushCalled);
     QVERIFY(m_mockUndoStack->lastPushedCommandRaw != nullptr);
-    auto* cmd = dynamic_cast<RME_COMMANDS::DeleteSelectionCommand*>(m_mockUndoStack->lastPushedCommandRaw);
+    auto* cmd = dynamic_cast<RME::editor_logic::commands::DeleteSelectionCommand*>(m_mockUndoStack->lastPushedCommandRaw);
     QVERIFY(cmd != nullptr);
     // The actual text/behavior of DeleteSelectionCommand is tested in its own test suite.
     // Here, we just verify that EditorController correctly creates and pushes it.
@@ -485,7 +485,7 @@ void TestEditorController::testDeleteSelection_Empty() {
 
     QVERIFY(m_mockUndoStack->pushCalled);
     QVERIFY(m_mockUndoStack->lastPushedCommandRaw != nullptr);
-    auto* cmd = dynamic_cast<RME_COMMANDS::DeleteSelectionCommand*>(m_mockUndoStack->lastPushedCommandRaw);
+    auto* cmd = dynamic_cast<RME::editor_logic::commands::DeleteSelectionCommand*>(m_mockUndoStack->lastPushedCommandRaw);
     // DeleteSelectionCommand's redo() is expected to handle the case of empty selection.
 }
 
@@ -501,7 +501,7 @@ void TestEditorController::testHandleDeleteSelection_WithSelection() {
 
     QVERIFY(m_mockUndoStack->pushCalled);
     QVERIFY(m_mockUndoStack->lastPushedCommandRaw != nullptr);
-    auto* cmd = dynamic_cast<RME_COMMANDS::DeleteCommand*>(m_mockUndoStack->lastPushedCommandRaw);
+    auto* cmd = dynamic_cast<RME::editor_logic::commands::DeleteCommand*>(m_mockUndoStack->lastPushedCommandRaw);
     QVERIFY(cmd != nullptr);
     // Further checks on cmd's internal state (like captured positions) could be done,
     // but that's more for TestDeleteCommand. Here we check that EC pushed the right type of command.
@@ -553,7 +553,7 @@ void TestEditorController::testClearSelection_NotEmpty() {
 
     QVERIFY(m_mockUndoStack->pushCalled);
     QVERIFY(m_mockUndoStack->lastPushedCommandRaw != nullptr);
-    auto* cmd = dynamic_cast<RME_COMMANDS::ClearSelectionCommand*>(m_mockUndoStack->lastPushedCommandRaw);
+    auto* cmd = dynamic_cast<RME::editor_logic::commands::ClearSelectionCommand*>(m_mockUndoStack->lastPushedCommandRaw);
     QVERIFY(cmd != nullptr);
 
     // Verify the command captured the correct old selection
@@ -593,7 +593,7 @@ void TestEditorController::testPerformBoundingBoxSelection_NonAdditive_CurrentFl
 
     QVERIFY(m_mockUndoStack->pushCalled);
     QVERIFY(m_mockUndoStack->lastPushedCommandRaw != nullptr);
-    auto* cmd = dynamic_cast<RME_COMMANDS::BoundingBoxSelectCommand*>(m_mockUndoStack->lastPushedCommandRaw);
+    auto* cmd = dynamic_cast<RME::editor_logic::commands::BoundingBoxSelectCommand*>(m_mockUndoStack->lastPushedCommandRaw);
     QVERIFY(cmd != nullptr);
 
     QVERIFY(!cmd->getIsAdditive());
@@ -624,7 +624,7 @@ void TestEditorController::testPerformBoundingBoxSelection_Additive_CurrentFloor
     m_editorController->performBoundingBoxSelection(p1, p2, Qt::ControlModifier, currentBrushSettings);
 
     QVERIFY(m_mockUndoStack->pushCalled);
-    auto* cmd = dynamic_cast<RME_COMMANDS::BoundingBoxSelectCommand*>(m_mockUndoStack->lastPushedCommandRaw);
+    auto* cmd = dynamic_cast<RME::editor_logic::commands::BoundingBoxSelectCommand*>(m_mockUndoStack->lastPushedCommandRaw);
     QVERIFY(cmd != nullptr);
 
     QVERIFY(cmd->getIsAdditive());
@@ -648,7 +648,7 @@ void TestEditorController::testSetHouseExit_ValidHouseAndPosition() {
 
     QVERIFY(m_mockUndoStack->pushCalled);
     QVERIFY(m_mockUndoStack->lastPushedCommandRaw != nullptr);
-    auto* cmd = dynamic_cast<RME_COMMANDS::SetHouseExitCommand*>(m_mockUndoStack->lastPushedCommandRaw);
+    auto* cmd = dynamic_cast<RME::editor_logic::commands::SetHouseExitCommand*>(m_mockUndoStack->lastPushedCommandRaw);
     QVERIFY(cmd != nullptr);
     if (cmd) {
         QCOMPARE(cmd->getHouse(), testHouse);

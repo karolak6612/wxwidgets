@@ -20,7 +20,9 @@ namespace core {
 }
 }
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace editor_logic {
+namespace commands {
 
 const int DeleteCommandId = 1013; // Choose a unique ID
 
@@ -58,5 +60,7 @@ private:
     bool m_hadSelectionToDelete;
 };
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME
 #endif // RME_DELETECOMMAND_H

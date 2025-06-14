@@ -19,7 +19,9 @@ namespace core {
 } // namespace RME
 
 
-namespace RME_COMMANDS { // Using the namespace from previous examples
+namespace RME {
+namespace editor_logic {
+namespace commands { // Target namespace
 
 const int RecordSetSpawnCommandId = 1006; // Choose a unique ID
 
@@ -53,5 +55,7 @@ private:
     RME::core::Position m_tilePosition;
 };
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME
 #endif // RME_RECORDSETSPAWNCOMMAND_H

@@ -18,7 +18,9 @@ namespace core {
 }
 }
 
-namespace RME_COMMANDS { // Consistent namespace
+namespace RME {
+namespace editor_logic {
+namespace commands { // Target namespace
 
 // Choose a unique ID, assuming RecordSetSpawnCommandId was 1006
 const int RecordSetGroundCommandId = 1007;
@@ -49,5 +51,7 @@ private:
     QString m_commandTextBase;
 };
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME
 #endif // RME_RECORDSETGROUNDCOMMAND_H

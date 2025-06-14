@@ -4,6 +4,10 @@
 #include <QDebug>          // For qWarning if needed
 #include <QString>         // For QString
 
+namespace RME {
+namespace editor_logic {
+namespace commands {
+
 // Ensure RME namespace is used or members are fully qualified if not within a RME namespace block.
 // The provided code doesn't use a namespace block for the command implementation,
 // so RME::core::houses::House, RME::Map, RME::core::Position will be used.
@@ -104,3 +108,7 @@ void SetHouseExitCommand::redo() {
 //     // return true;
 //     return false; // Default to no merge for simplicity now
 // }
+
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME

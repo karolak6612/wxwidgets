@@ -9,7 +9,9 @@
 #include <QObject> // For tr()
 #include <QDebug>  // For qWarning
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace editor_logic {
+namespace commands {
 
 RecordSetGroundCommand::RecordSetGroundCommand(
     RME::core::Tile* tile,
@@ -69,4 +71,6 @@ void RecordSetGroundCommand::redo() {
     setText(m_commandTextBase + QObject::tr(" at (%1,%2,%3)").arg(m_tilePosition.x).arg(m_tilePosition.y).arg(m_tilePosition.z));
 }
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME

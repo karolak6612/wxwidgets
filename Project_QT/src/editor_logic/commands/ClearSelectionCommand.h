@@ -14,7 +14,9 @@ namespace core {
 }
 }
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace editor_logic {
+namespace commands {
 
 const int ClearSelectionCommandId = 1011; // Choose a unique ID
 
@@ -43,5 +45,7 @@ private:
     bool m_hadSelectionToClear; // To optimize text and potentially redo/undo calls
 };
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME
 #endif // RME_CLEARSELECTIONCOMMAND_H

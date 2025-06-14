@@ -191,7 +191,7 @@ void TestDeleteCommand::cleanup() {
 void TestDeleteCommand::testRedo_ClearsTiles_StoresData_ClearsSelection() {
     m_mockSelectionManager->MOCK_setCurrentSelection({m_tile1_ptr, m_tile2_ptr});
 
-    RME_COMMANDS::DeleteCommand cmd(m_map.get(), m_mockSelectionManager.get(), m_mockController.get());
+    RME::editor_logic::commands::DeleteCommand cmd(m_map.get(), m_mockSelectionManager.get(), m_mockController.get());
     cmd.redo();
 
     QVERIFY(verifyTileIsEmpty(m_tile1_ptr));
@@ -209,7 +209,7 @@ void TestDeleteCommand::testRedo_ClearsTiles_StoresData_ClearsSelection() {
 
 void TestDeleteCommand::testUndo_RestoresTiles_RestoresSelection() {
     m_mockSelectionManager->MOCK_setCurrentSelection({m_tile1_ptr});
-    RME_COMMANDS::DeleteCommand cmd(m_map.get(), m_mockSelectionManager.get(), m_mockController.get());
+    RME::editor_logic::commands::DeleteCommand cmd(m_map.get(), m_mockSelectionManager.get(), m_mockController.get());
 
     cmd.redo();
     QVERIFY(verifyTileIsEmpty(m_tile1_ptr));
@@ -226,7 +226,7 @@ void TestDeleteCommand::testUndo_RestoresTiles_RestoresSelection() {
 void TestDeleteCommand::testRedo_NoSelection_DoesNothing() {
     m_mockSelectionManager->MOCK_setCurrentSelection({});
 
-    RME_COMMANDS::DeleteCommand cmd(m_map.get(), m_mockSelectionManager.get(), m_mockController.get());
+    RME::editor_logic::commands::DeleteCommand cmd(m_map.get(), m_mockSelectionManager.get(), m_mockController.get());
     cmd.redo();
 
     QVERIFY(verifyTileIsPopulated(m_tile1_ptr));
@@ -238,7 +238,7 @@ void TestDeleteCommand::testRedo_NoSelection_DoesNothing() {
 
 void TestDeleteCommand::testNotifications() {
     m_mockSelectionManager->MOCK_setCurrentSelection({m_tile1_ptr});
-    RME_COMMANDS::DeleteCommand cmd(m_map.get(), m_mockSelectionManager.get(), m_mockController.get());
+    RME::editor_logic::commands::DeleteCommand cmd(m_map.get(), m_mockSelectionManager.get(), m_mockController.get());
 
     m_mockController->resetNotifications();
     cmd.redo();

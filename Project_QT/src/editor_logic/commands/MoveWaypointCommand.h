@@ -10,7 +10,9 @@ namespace RME { namespace core {
     class WaypointManager;
 }}
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace editor_logic {
+namespace commands {
 
 const int MoveWaypointCommandId = 1004; // Unique ID for this command type
 
@@ -39,5 +41,7 @@ private:
                                      // If merged, this becomes the final new position of the sequence.
 };
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME
 #endif // RME_MOVEWAYPOINTCOMMAND_H

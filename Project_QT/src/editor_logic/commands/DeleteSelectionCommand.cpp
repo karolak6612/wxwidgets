@@ -8,7 +8,9 @@
 #include <QDebug>  // For qWarning, Q_ASSERT
 #include <set>     // For std::set to get unique positions from selection
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace editor_logic {
+namespace commands {
 
 DeleteSelectionCommand::DeleteSelectionCommand(
     RME::core::Map* map,
@@ -76,7 +78,7 @@ void DeleteSelectionCommand::redo() {
             // Clear all contents - similar to aggressive eraser
             tile->setGround(nullptr);
             tile->clearItems();
-            tile->setSpawn(nullptr);
+            tile->setSpawnDataRef(nullptr); // Updated
             tile->setCreature(nullptr);
             if (m_controller && m_controller->getMap()) { // Ensure controller and map are valid
                 m_controller->getMap()->notifyTileChanged(pos);
@@ -106,7 +108,7 @@ void DeleteSelectionCommand::undo() {
             for (const auto& item_ptr : originalTileStateCopy->getItems()) {
                 if(item_ptr) tileOnMap->addItem(item_ptr->deepCopy());
             }
-            tileOnMap->setSpawn(originalTileStateCopy->getSpawn() ? originalTileStateCopy->getSpawn()->deepCopy() : nullptr);
+            tileOnMap->setSpawnDataRef(originalTileStateCopy->getSpawnDataRef()); // Updated
             tileOnMap->setCreature(originalTileStateCopy->getCreature() ? originalTileStateCopy->getCreature()->deepCopy() : nullptr);
 
             if (m_controller && m_controller->getMap()) {
@@ -137,4 +139,6 @@ bool DeleteSelectionCommand::mergeWith(const QUndoCommand *other) {
     return false;
 }
 
-} // namespace RME_COMMANDS
+} // namespace commands
+} // namespace editor_logic
+} // namespace RME

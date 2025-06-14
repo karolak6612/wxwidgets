@@ -47,10 +47,10 @@ public:
 
     // --- Core editing operations defined in this class ---
     void applyBrushStroke(const QList<RME::core::Position>& positions, const RME::core::BrushSettings& settings);
-    void deleteSelection();
+    // void deleteSelection(); // Removed older declaration
     void clearCurrentSelection();
     void performBoundingBoxSelection(const RME::core::Position& p1, const RME::core::Position& p2, Qt::KeyboardModifiers modifiers, const RME::core::BrushSettings& currentBrushSettings);
-    void handleDeleteSelection();
+    void deleteSelection(); // Renamed from handleDeleteSelection
 
     // House-specific operations
     void setHouseExit(quint32 houseId, const RME::core::Position& exitPos);
