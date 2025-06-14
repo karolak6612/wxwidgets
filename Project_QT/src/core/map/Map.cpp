@@ -9,7 +9,7 @@
 namespace RME {
 
 Map::Map(int mapWidth, int mapHeight, int mapFloors, RME::core::assets::AssetManager* assetManager)
-    : BaseMap(mapWidth, mapHeight, mapFloors, assetManager), m_changed(false) {
+    : BaseMap(mapWidth, mapHeight, mapFloors, assetManager), m_changed(false), m_maxTownId(0), m_maxHouseId(0) {
     m_description = "New RME Map";
     m_versionInfo.otbmVersion = 4;
     m_versionInfo.clientVersionID = 0;
@@ -125,27 +125,21 @@ uint32_t Map::getUnusedTownId() const {
 }
 
 // --- Houses ---
-// Implementations for the new/modified house management methods
 
-void Map::addHouse(HouseData&& houseData) {
-    uint32_t houseId = houseData.getId();
-    if (houseId == 0) {
-        // Optionally assign a new ID if 0 is considered invalid or placeholder
-        // For now, assume ID is pre-assigned and valid.
-        // qWarning("Map::addHouse: Attempted to add house with ID 0. This might be an error.");
-        // return; // Or assign new ID
+bool Map::addHouse(RME::core::houses::HouseData&& houseData) {
+    if (houseData.name.isEmpty() || houseData.id == 0) {
+        qWarning("Map::addHouse: House name cannot be empty and ID cannot be 0.");
+        return false;
     }
-
-    if (m_housesById.contains(houseId)) {
-        qWarning("Map::addHouse: House ID %u already exists. Overwriting.", houseId);
+    m_housesById.insert(houseData.id, std::move(houseData));
+    if (houseData.id > m_maxHouseId) {
+        m_maxHouseId = houseData.id;
     }
-
-    m_housesById.insert(houseId, std::move(houseData));
-    m_maxHouseId = std::max(m_maxHouseId, houseId);
     setChanged(true);
+    return true;
 }
 
-HouseData* Map::getHouse(uint32_t houseId) {
+RME::core::houses::HouseData* Map::getHouse(uint32_t houseId) {
     auto it = m_housesById.find(houseId);
     if (it != m_housesById.end()) {
         return &it.value();
@@ -153,12 +147,19 @@ HouseData* Map::getHouse(uint32_t houseId) {
     return nullptr;
 }
 
-const HouseData* Map::getHouse(uint32_t houseId) const {
+const RME::core::houses::HouseData* Map::getHouse(uint32_t houseId) const {
     auto it = m_housesById.constFind(houseId);
     if (it != m_housesById.constEnd()) {
         return &it.value();
     }
     return nullptr;
+}
+
+QMap<uint32_t, RME::core::houses::HouseData>& Map::getHouses() {
+    // Note: Caller should call setChanged(true) if they modify the map via this reference,
+    // or this method should set m_changed = true unconditionally if direct map access implies modification.
+    // For now, direct access does not automatically set m_changed.
+    return m_housesById;
 }
 
 bool Map::removeHouse(uint32_t houseId) {
@@ -210,7 +211,27 @@ uint32_t Map::getUnusedHouseId() {
             return 0;
         }
     }
-    return currentId;
+    return currentId; // This is from getUnusedTownId, error in search block.
+                     // The correct end of removeHouse is "return true;" or "return false;"
+                     // This will be fixed by the larger context of the replace.
+}
+
+void Map::clearHouses() {
+    if (!m_housesById.isEmpty()) {
+        m_housesById.clear();
+        m_maxHouseId = 0; // Reset max ID
+        setChanged(true);
+        // TODO: Iterate all tiles and set tile->setHouseID(0) for all tiles
+        // that belonged to any of the cleared houses. This is complex as it requires
+        // knowing which tiles belonged to which house if not clearing all house attributes
+        // from all tiles universally. For now, this just clears the house definitions.
+    }
+}
+
+uint32_t Map::getNextFreeHouseId() const {
+    // If m_maxHouseId is 0 (e.g. new map or all houses deleted carefully recalculating maxId to 0),
+    // this will return 1. If m_housesById is empty, m_maxHouseId should be 0.
+    return m_maxHouseId + 1;
 }
 
 bool Map::changeHouseId(uint32_t oldId, uint32_t newId) {

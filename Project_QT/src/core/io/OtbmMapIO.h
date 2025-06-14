@@ -5,6 +5,7 @@
 #include "core/io/otbm_constants.h" // For node type constants
 #include "core/navigation/WaypointData.h" // New WaypointData location
 #include "core/world/TownData.h" // Added for Town I/O
+#include "core/houses/HouseData.h" // Added for House I/O
 #include <QVariantMap> // For passing attributes around if needed
 #include <QByteArray>  // For compress/decompress helpers
 
@@ -137,6 +138,9 @@ private:
     // Waypoint Data Parsing
     bool parseWaypointsContainerNode(BinaryNode* containerNode, Map& map, AssetManager& assetManager, AppSettings& settings);
     bool parseWaypointNode(BinaryNode* waypointNode, Map& map, AssetManager& assetManager, AppSettings& settings);
+    // --- House Data Parsing ---
+    bool parseHousesContainerNode(BinaryNode* containerNode, Map& map, AssetManager& assetManager, AppSettings& settings);
+    bool parseHouseNode(BinaryNode* houseNode, Map& map, AssetManager& assetManager, AppSettings& settings);
     // TODO: Add parseCreatureNode, parseSpawnNode etc.
 
     // --- Helper methods for saving (declarations) ---
@@ -152,6 +156,9 @@ private:
     // Waypoint Data Serialization
     bool serializeWaypointsContainerNode(NodeFileWriteHandle& writer, const Map& map, AssetManager& assetManager, AppSettings& settings);
     bool serializeWaypointNode(NodeFileWriteHandle& writer, const RME::core::navigation::WaypointData& waypoint, AssetManager& assetManager, AppSettings& settings);
+    // --- House Data Serialization ---
+    bool serializeHousesContainerNode(NodeFileWriteHandle& writer, const Map& map, AssetManager& assetManager, AppSettings& settings);
+    bool serializeHouseNode(NodeFileWriteHandle& writer, const RME::core::houses::HouseData& house, AssetManager& assetManager, AppSettings& settings);
     // TODO: Add serializeCreatureNode, serializeSpawnNode etc.
 
     // --- Helper for zlib compression/decompression ---

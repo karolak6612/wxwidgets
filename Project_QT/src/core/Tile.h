@@ -4,9 +4,13 @@
 #include "Position.h"
 #include "Item.h"     // For std::unique_ptr<Item> and IItemTypeProvider for addItem logic
 #include "core/creatures/Creature.h" // For std::unique_ptr<Creature>
-#include "Spawn.h"    // For std::unique_ptr<Spawn>
+#include "Spawn.h"    // For std::unique_ptr<Spawn> - This will be removed if Spawn class is obsolete
+                      // If SpawnData is directly embedded, this include might not be needed,
+                      // or replaced by an include for SpawnData if it's a complex type.
+                      // For now, assuming direct embedding of properties.
 
 #include <QList>
+#include <QStringList> // For m_spawnCreatureList
 #include <memory> // For std::unique_ptr
 #include <vector> // For returning collections of items
 #include <QFlags> // Required for Q_DECLARE_FLAGS
@@ -71,7 +75,7 @@ public:
     Item* getTopItem() const;
     Item* getItemAtStackpos(int stackpos) const;
     int getItemCount() const { return (ground ? 1 : 0) + items.size(); }
-    bool isEmpty() const { return getItemCount() == 0 && !creature && !spawn; } // Updated isEmpty
+    bool isEmpty() const; // Declaration updated, implementation to .cpp
     bool hasItemOfType(uint16_t id) const; // Example utility
     Item* getItemById(uint16_t id) const; // Example utility
 
@@ -98,15 +102,21 @@ public:
     std::unique_ptr<RME::core::creatures::Creature> popCreature();
     bool hasCreature() const { return creature != nullptr; }
 
-    // Spawn Management
-    Spawn* getSpawn() const { return spawn.get(); }
-    void setSpawn(std::unique_ptr<Spawn> newSpawn);
-    std::unique_ptr<Spawn> popSpawn();
-    bool hasSpawn() const { return spawn != nullptr; }
+    // --- Spawn Data ---
+    bool isSpawnTile() const;
+    int getSpawnRadius() const;
+    void setSpawnRadius(int radius);
 
-    // SpawnData Reference (if this tile is a spawn center)
-    RME::SpawnData* getSpawnDataRef() const { return m_spawnDataRef; }
-    void setSpawnDataRef(RME::SpawnData* ref) { m_spawnDataRef = ref; }
+    const QStringList& getSpawnCreatureList() const;
+    void setSpawnCreatureList(const QStringList& creatureList);
+    void addCreatureToSpawnList(const QString& creatureName);
+    bool removeCreatureFromSpawnList(const QString& creatureName);
+    void clearSpawnCreatureList();
+
+    int getSpawnIntervalSeconds() const;
+    void setSpawnIntervalSeconds(int seconds);
+
+    void clearSpawnData(); // Clears radius, list, and interval
 
     // House ID
     uint32_t getHouseId() const { return m_houseId; }
@@ -154,8 +164,8 @@ private:
     std::unique_ptr<Item> ground;
     QList<std::unique_ptr<Item>> items;
     std::unique_ptr<RME::core::creatures::Creature> creature;
-    std::unique_ptr<Spawn> spawn;
-    RME::SpawnData* m_spawnDataRef = nullptr; // Non-owning pointer to a spawn centered here
+    // Removed: std::unique_ptr<Spawn> spawn;
+    // Removed: RME::SpawnData* m_spawnDataRef = nullptr;
     uint32_t m_houseId = 0; // Renamed from house_id
     bool m_isHouseExit = false; // New flag
 
@@ -165,6 +175,11 @@ private:
     IItemTypeProvider* itemTypeProvider;
     int m_waypointCount = 0;
     bool m_isProtectionZone = false; // Added
+
+    // New spawn members
+    int m_spawnRadius = 0;
+    QStringList m_spawnCreatureList;
+    int m_spawnIntervalSeconds = 0;
 
     void copyMembersTo(Tile& target) const;
 };

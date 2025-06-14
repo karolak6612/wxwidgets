@@ -1,89 +1,63 @@
-#ifndef HOUSEDATA_H
-#define HOUSEDATA_H
+#ifndef RME_CORE_HOUSES_HOUSEDATA_H
+#define RME_CORE_HOUSES_HOUSEDATA_H
 
-#include "Project_QT/src/core/Position.h"
 #include <QString>
 #include <QList>
-#include <QSet>
-#include <QHash> // For QSet<Position> if Position needs qHash
+#include "core/Position.h" // Path confirmed from previous ls output
 
-// Forward declaration
-namespace RME {
-class Map;
-}
-
-// NOTE: For QSet<RME::Position> to compile and work correctly,
-// RME::Position needs a global or RME namespaced qHash function
-// and an operator==. These should ideally be defined in or alongside
-// Position.h. For example:
-// inline uint qHash(const RME::Position& key, uint seed = 0) {
-//     return qHash(key.x, seed) ^ qHash(key.y, seed >> 1) ^ qHash(key.z, seed >> 2);
-// }
-// inline bool operator==(const RME::Position& p1, const RME::Position& p2) {
-//    return p1.x == p2.x && p1.y == p2.y && p1.z == p2.z;
-// }
+// Forward declaration if HouseExit becomes a more complex struct/class later
+// namespace RME { namespace core { namespace houses { struct HouseExit; } } }
 
 namespace RME {
+namespace core {
+namespace houses {
 
 class HouseData {
 public:
-    // --- Constructors ---
-    HouseData();
-    explicit HouseData(uint32_t houseId, const QString& houseName = QString());
+    uint32_t id = 0;
+    QString name;
+    Position entryPoint; // Main entry/exit point, often the temple position for towns
+                         // but for houses it's their specific door.
+    QList<Position> exits; // Additional exits, if any. OTBM might just store one main exit.
+                           // Original RME had House::exit and TileLocation::house_exits.
+                           // For simplicity, HouseData can store its designated exit(s).
+    uint32_t townId = 0;   // ID of the town this house belongs to
+    uint32_t rent = 0;     // Rent in gold coins
+    int sizeInSqms = 0; // Size in SQM (often calculated, but can be stored)
+    // bool isGuildhall = false; // Guildhall status, if applicable
 
-    // --- Properties ---
-    uint32_t getId() const { return m_id; }
-    void setId(uint32_t id) { m_id = id; }
+    HouseData() = default;
+    HouseData(uint32_t houseId, const QString& houseName, const Position& entry) :
+        id(houseId), name(houseName), entryPoint(entry) {}
 
-    const QString& getName() const { return m_name; }
-    void setName(const QString& name) { m_name = name; }
+    // Methods to manage exits, if needed
+    void addExit(const Position& exitPos) {
+        if (!exits.contains(exitPos)) {
+            exits.append(exitPos);
+        }
+    }
+    void removeExit(const Position& exitPos) {
+        exits.removeAll(exitPos);
+    }
 
-    uint32_t getTownId() const { return m_townId; }
-    void setTownId(uint32_t townId) { m_townId = townId; }
+    // Basic equality operator
+    bool operator==(const HouseData& other) const {
+        return id == other.id &&
+               name == other.name &&
+               entryPoint == other.entryPoint &&
+               exits == other.exits && // QList supports ==
+               townId == other.townId &&
+               rent == other.rent &&
+               sizeInSqms == other.sizeInSqms;
+    }
 
-    const Position& getEntryPoint() const { return m_entryPoint; }
-    void setEntryPoint(const Position& newEntryPoint, Map* map); // Map context needed to update tiles
-
-    uint32_t getRent() const { return m_rent; }
-    void setRent(uint32_t rent) { m_rent = rent; }
-
-    int getSizeInSqms() const { return m_sizeInSqms; }
-    void setSizeInSqms(int size) { m_sizeInSqms = size; }
-
-    bool isGuildhall() const { return m_isGuildhall; }
-    void setIsGuildhall(bool isGuildhall) { m_isGuildhall = isGuildhall; }
-
-    // --- Exits Management ---
-    const QList<Position>& getExits() const { return m_exits; }
-    void addExit(const Position& pos);
-    bool removeExit(const Position& pos);
-    void clearExits() { m_exits.clear(); }
-
-    // --- Tile Positions Management ---
-    const QSet<Position>& getTilePositions() const { return m_tiles; }
-    void addTilePosition(const Position& pos);
-    bool removeTilePosition(const Position& pos);
-    bool containsTile(const Position& pos) const;
-    void clearTilePositions() { m_tiles.clear(); }
-
-    // --- Utility Methods ---
-    // int calculateSizeSqms(const Map& map) const;
-    QString getDescription() const;
-
-
-private:
-    uint32_t m_id = 0;
-    QString m_name;
-    uint32_t m_townId = 0;
-    Position m_entryPoint;
-    uint32_t m_rent = 0;
-    int m_sizeInSqms = 0;
-    bool m_isGuildhall = false;
-
-    QList<Position> m_exits;
-    QSet<Position> m_tiles;
+    bool operator!=(const HouseData& other) const {
+        return !(*this == other);
+    }
 };
 
+} // namespace houses
+} // namespace core
 } // namespace RME
 
-#endif // HOUSEDATA_H
+#endif // RME_CORE_HOUSES_HOUSEDATA_H

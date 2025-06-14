@@ -176,8 +176,11 @@ bool OtbmMapIO::parseMapDataNode(BinaryNode* mapDataNode, Map& map, AssetManager
             case OTBM_NODE_TILE_AREA:
                 if (!parseTileAreaNode(childNode, map, assetManager, settings)) return false;
                 break;
-            case OTBM_NODE_TOWNS: // Added case for towns
+            case OTBM_NODE_TOWNS:
                 if (!parseTownsContainerNode(childNode, map, assetManager, settings)) return false;
+                break;
+            case OTBM_NODE_HOUSES: // Added case for houses
+                if (!parseHousesContainerNode(childNode, map, assetManager, settings)) return false;
                 break;
             case OTBM_NODE_WAYPOINTS:
                 if (!parseWaypointsContainerNode(childNode, map, assetManager, settings)) return false;
@@ -531,9 +534,15 @@ bool OtbmMapIO::serializeMapDataNode(NodeFileWriteHandle& writer, const Map& map
         }
     }
     // Serialize Towns if any
-    if (!map.getTowns().isEmpty()) { // Use getTowns() as per Map.h
+    if (!map.getTowns().isEmpty()) {
         if (!serializeTownsContainerNode(writer, map, assetManager, settings)) {
-            return false; // m_lastError set by callee
+            return false;
+        }
+    }
+    // Serialize Houses if any
+    if (!map.getHouses().isEmpty()) {
+        if (!serializeHousesContainerNode(writer, map, assetManager, settings)) {
+            return false;
         }
     }
 

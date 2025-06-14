@@ -3,7 +3,7 @@
 
 #include "BaseMap.h"
 // #include "MapElements.h" // For TownData, HouseData - Replaced by specific includes
-#include "Project_QT/src/core/houses/HouseData.h" // Specific include for HouseData
+#include "core/houses/HouseData.h" // Corrected include path
 #include "MapElements.h" // Assuming this is for TownData etc. and does NOT define HouseData
 #include "core/world/TownData.h" // New TownData location
 #include "core/navigation/WaypointData.h" // New WaypointData location
@@ -69,14 +69,14 @@ public:
     // void addHouse(const HouseData& house); // Old
     // bool removeHouse(quint32 houseId); // Old
 
-    void addHouse(HouseData&& houseData); // Use rvalue reference for potential move
-    HouseData* getHouse(uint32_t houseId);
-    const HouseData* getHouse(uint32_t houseId) const;
+    bool addHouse(RME::core::houses::HouseData&& houseData);
+    RME::core::houses::HouseData* getHouse(uint32_t houseId);
+    const RME::core::houses::HouseData* getHouse(uint32_t houseId) const;
     bool removeHouse(uint32_t houseId); // Returns true if house was found and removed
-    const QMap<uint32_t, HouseData>& getHouses() const { return m_housesById; }
-    QMap<uint32_t, HouseData>& getHouses() { return m_housesById; } // Non-const version
-
-    uint32_t getUnusedHouseId();
+    const QMap<uint32_t, RME::core::houses::HouseData>& getHouses() const;
+    QMap<uint32_t, RME::core::houses::HouseData>& getHouses(); // Non-const version, updated for consistency
+    void clearHouses();
+    uint32_t getNextFreeHouseId() const; // Renamed from getUnusedHouseId and made const
     bool changeHouseId(uint32_t oldId, uint32_t newId); // Returns true on success
 
     // --- Waypoints ---
@@ -149,7 +149,7 @@ private:
     uint32_t m_maxTownId = 0; // New
 
     // QMap<quint32, HouseData> m_houses; // Old
-    QMap<uint32_t, HouseData> m_housesById; // New name and consistent type
+    QMap<uint32_t, RME::core::houses::HouseData> m_housesById; // Explicitly namespaced
     uint32_t m_maxHouseId = 0; // Tracks the highest ID ever used
     QMap<QString, RME::core::navigation::WaypointData> m_waypoints;
     QList<RME::SpawnData> m_spawns; // Changed to RME::SpawnData
