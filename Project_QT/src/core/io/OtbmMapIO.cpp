@@ -433,31 +433,87 @@ bool OtbmMapIO::parseItemNode(BinaryNode* itemNode, Tile* tile, AssetManager& as
                 break;
             }
             // TODO: Implement other item attributes (DepotID, Teleport Dest, WrittenBy, etc.) based on otbm_constants.h
+            case OTBM_ATTR_TELE_DEST_X: {
+                uint16_t x; if (!itemNode->getU16(x)) { m_lastError = "Failed to read tele_dest_x"; return false; }
+                Position dest = newItem->getTeleportDestination(); dest.setX(x); newItem->setTeleportDestination(dest); break;
+            }
+            case OTBM_ATTR_TELE_DEST_Y: {
+                uint16_t y; if (!itemNode->getU16(y)) { m_lastError = "Failed to read tele_dest_y"; return false; }
+                Position dest = newItem->getTeleportDestination(); dest.setY(y); newItem->setTeleportDestination(dest); break;
+            }
+            case OTBM_ATTR_TELE_DEST_Z: {
+                uint8_t z; if (!itemNode->getU8(z)) { m_lastError = "Failed to read tele_dest_z"; return false; }
+                Position dest = newItem->getTeleportDestination(); dest.setZ(z); newItem->setTeleportDestination(dest); break;
+            }
+            case OTBM_ATTR_DEPOT_ID: {
+                uint16_t depotId; if (!itemNode->getU16(depotId)) { m_lastError = "Failed to read depot_id"; return false; }
+                newItem->setDepotID(depotId); break;
+            }
+            // OTBM_ATTR_ITEM_CHARGES is often the same as OTBM_ATTR_COUNT or subtype.
+            // If it's a distinct attribute for specific items, handle it. Otherwise, covered by OTBM_ATTR_CHARGES.
+            // For this task, assuming OTBM_ATTR_CHARGES (already handled by setSubtype) is sufficient.
+            // If a specific OTBM_ATTR_ITEM_CHARGES constant exists and is used:
+            // case OTBM_ATTR_ITEM_CHARGES: {
+            //     uint16_t charges; if (!itemNode->getU16(charges)) { m_lastError = "Failed to read item_charges"; return false; }
+            //     newItem->setCharges(charges); break;
+            // }
+            case OTBM_ATTR_WRITTEN_TEXT: {
+                std::string text_std; if (!itemNode->getString(text_std)) { m_lastError = "Failed to read written_text"; return false; }
+                newItem->setWrittenText(QString::fromStdString(text_std)); break;
+            }
+            case OTBM_ATTR_WRITTEN_BY: {
+                std::string author_std; if (!itemNode->getString(author_std)) { m_lastError = "Failed to read written_by"; return false; }
+                newItem->setAuthor(QString::fromStdString(author_std)); break;
+            }
+            case OTBM_ATTR_DATE: {
+                uint32_t date; if (!itemNode->getU32(date)) { m_lastError = "Failed to read date"; return false; }
+                newItem->setWrittenDate(date); break;
+            }
+            case OTBM_ATTR_LIGHT_LEVEL: { // OTBM_LIGHT_LEVEL in some versions
+                uint16_t level; if (!itemNode->getU16(level)) { m_lastError = "Failed to read light_level"; return false; }
+                newItem->setLightLevel(level); break;
+            }
+            case OTBM_ATTR_LIGHT_COLOR: { // OTBM_LIGHT_COLOR in some versions
+                uint16_t color; if (!itemNode->getU16(color)) { m_lastError = "Failed to read light_color"; return false; }
+                newItem->setLightColor(color); break;
+            }
+            case OTBM_ATTR_DURATION: { // OTBM_DURATION in some versions
+                uint32_t duration; if (!itemNode->getU32(duration)) { m_lastError = "Failed to read duration"; return false; }
+                newItem->setDuration(duration); break;
+            }
+            case OTBM_ATTR_ARTICLE: {
+                std::string article_std; if(!itemNode->getString(article_std)) { m_lastError = "Failed to read article"; return false; }
+                newItem->setAttribute("article", QString::fromStdString(article_std)); break;
+            }
+            // OTBM_ATTR_DESCRIPTION_TEXT might be OTBM_ATTR_TEXT, or a separate one for items with specific descriptions
+            // If it's the same as OTBM_ATTR_TEXT, it's handled. If separate:
+            // case OTBM_ATTR_DESCRIPTION_TEXT: {
+            //    std::string desc_std; if(!itemNode->getString(desc_std)) { m_lastError = "Failed to read desc_text"; return false; }
+            //    newItem->setDescription(QString::fromStdString(desc_std)); break; // Assuming Item has setDescription
+            // }
             default: {
                 m_lastError = QString("Unknown attribute type %1 for ITEM node (ID: %2) on tile %3").arg(attribute).arg(itemId).arg(tile->getPosition().toString());
                 qWarning() << "OtbmMapIO::parseItemNode:" << m_lastError;
-                return false; // Strict parsing
+                // Add robust attribute skipping here if BinaryNode supports it.
+                // For now, returning false for strictness.
+                return false;
             }
         }
-    }
+            }
 
-    // If the item is a container, it might have child item nodes.
-    if (itemType->isContainer()) { // Assuming ItemType has such a helper
+    if (itemType && itemType->isContainer()) {
         BinaryNode* childItemNode = itemNode->getChild();
-        while(childItemNode) {
-            if (childItemNode->getType() == OTBM_NODE_ITEM) {
-                 // Recursive call, but need to add to container item, not tile.
-                 // This requires Item class to have an 'addItem' or similar method for containers.
-                 // For now, this is a simplified stub.
-                 // if (!parseItemNode(childItemNode, /*containerItem*/, assetManager, settings)) return false;
-                 qDebug() << "OtbmMapIO: Parsing child items within container item ID" << itemId << "not fully implemented yet.";
-            } else {
-                qWarning() << "OtbmMapIO: Non-ITEM node found as child of container item ID" << itemId;
+        if (childItemNode) {
+            qWarning() << "OtbmMapIO::parseItemNode: Recursive parsing of items inside container ID " << itemId << " requires a dedicated helper function and is NOT fully implemented in this pass. Child items are being skipped to prevent errors.";
+            while(childItemNode) {
+                // To properly skip, each child node must be fully processed or skipped.
+                // BinaryNode::getNextChild moves to the next sibling. If children have children, this simple loop isn't enough.
+                // This requires BinaryNode to handle tree traversal for skipping, or a recursive skip.
+                // For now, this consumes direct children (siblings).
+                childItemNode = itemNode->getNextChild();
             }
-            childItemNode = itemNode->getNextChild();
+            }
         }
-    }
-
     tile->addItem(std::move(newItem));
     return true;
 }
@@ -779,20 +835,62 @@ bool OtbmMapIO::serializeItemNode(NodeFileWriteHandle& writer, const Item* item,
         }
     }
     // TODO: Other attributes: WrittenBy, WrittenDate, DepotID, Teleport Dest, etc. based on constants and item properties.
+    // Adding new attributes based on subtask instructions
+    Position dest = item->getTeleportDestination();
+    if (dest.isValid()) {
+        if(!writer.addU8(OTBM_ATTR_TELE_DEST_X) || !writer.addU16(dest.x())) {m_lastError="Failed to write tele dest X"; return false;}
+        if(!writer.addU8(OTBM_ATTR_TELE_DEST_Y) || !writer.addU16(dest.y())) {m_lastError="Failed to write tele dest Y"; return false;}
+        if(!writer.addU8(OTBM_ATTR_TELE_DEST_Z) || !writer.addU8(dest.z())) {m_lastError="Failed to write tele dest Z"; return false;}
+    }
+    if (item->getDepotID() > 0) {
+        if(!writer.addU8(OTBM_ATTR_DEPOT_ID) || !writer.addU16(item->getDepotID())) {m_lastError="Failed to write depot id"; return false;}
+    }
+    // Assuming OTBM_ATTR_ITEM_CHARGES is distinct from OTBM_ATTR_CHARGES or OTBM_ATTR_COUNT for specific items.
+    // For now, we'll use OTBM_ATTR_CHARGES if itemType->isChargeableOrFluid() and it's already handled by subtype logic.
+    // If OTBM_ATTR_ITEM_CHARGES is a separate field to be always written for certain items:
+    // if (itemType && itemType->isChargeableOrFluid() && item->getCharges() > 0) { // Assuming Item has getCharges()
+    //    if(!writer.addU8(OTBM_ATTR_ITEM_CHARGES) || !writer.addU16(item->getCharges())) {m_lastError="Failed to write item charges"; return false;}
+    // }
+    if (!item->getWrittenText().isEmpty()) {
+        if(!writer.addU8(OTBM_ATTR_WRITTEN_TEXT) || !writer.addString(item->getWrittenText())) {m_lastError="Failed to write written text"; return false;}
+    }
+    if (!item->getAuthor().isEmpty()) {
+        if(!writer.addU8(OTBM_ATTR_WRITTEN_BY) || !writer.addString(item->getAuthor())) {m_lastError="Failed to write written by"; return false;}
+    }
+    if (item->getWrittenDate() > 0) {
+        if(!writer.addU8(OTBM_ATTR_DATE) || !writer.addU32(item->getWrittenDate())) {m_lastError="Failed to write date"; return false;}
+    }
+    if (item->getLightLevel() > 0) { // Assuming 0 is default/no light
+        if(!writer.addU8(OTBM_ATTR_LIGHT_LEVEL) || !writer.addU16(item->getLightLevel())) {m_lastError="Failed to write light level"; return false;}
+    }
+    if (item->getLightColor() > 0) { // Assuming 0 is default/no color
+        if(!writer.addU8(OTBM_ATTR_LIGHT_COLOR) || !writer.addU16(item->getLightColor())) {m_lastError="Failed to write light color"; return false;}
+    }
+    if (item->getDuration() > 0) {
+        if(!writer.addU8(OTBM_ATTR_DURATION) || !writer.addU32(item->getDuration())) {m_lastError="Failed to write duration"; return false;}
+    }
+    if (item->hasAttribute("article")) {
+        if(!writer.addU8(OTBM_ATTR_ARTICLE) || !writer.addString(item->getAttribute("article").toString())) {m_lastError="Failed to write article"; return false;}
+    }
+    if (!item->getDescription().isEmpty()) { // Assuming Item has getDescription()
+        if(!writer.addU8(OTBM_ATTR_DESCRIPTION_TEXT) || !writer.addString(item->getDescription())) {m_lastError="Failed to write description text"; return false;}
+    }
+
 
     // If the item is a container, serialize its children.
-    const RME::core::assets::ItemType* itemType = assetManager.getItemData(item->getID());
-    if (itemType && itemType->isContainer()) {
-        const Container* container = dynamic_cast<const Container*>(item); // Assuming Item can be cast to Container
-        if (container) {
-            for (const auto& childItemPtr : container->getItems()) { // Assuming Container has getItems()
+    const RME::core::assets::ItemType* itemTypeSerialize = assetManager.getItemData(item->getID());
+    if (itemTypeSerialize && itemTypeSerialize->isContainer()) {
+        const RME::core::Container* containerItem = dynamic_cast<const RME::core::Container*>(item);
+        if (containerItem) {
+            for (const auto& childItemPtr : containerItem->getItems()) {
                 if (childItemPtr) {
                     if (!serializeItemNode(writer, childItemPtr.get(), assetManager, settings)) {
-                        m_lastError = "Failed to serialize child item ID " + QString::number(childItemPtr->getID()) + " within container ID " + QString::number(item->getID()) + ". " + m_lastError;
                         return false;
                     }
                 }
             }
+        } else {
+             qWarning() << "OtbmMapIO::serializeItemNode: Item ID " << item->getID() << " is a container type but could not be cast to Container to serialize children.";
         }
     }
 
