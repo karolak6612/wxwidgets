@@ -1,16 +1,15 @@
 #include "core/brush/SpawnBrush.h"
-#include "core/map/Map.h"         // For GetTile, IsPositionValid
-#include "core/Tile.h"            // For Tile methods (getSpawn, setSpawn)
-#include "core/Spawn.h"           // For RME::Spawn object
-#include "core/editor/EditorControllerInterface.h" // For recording changes
-#include "core/settings/BrushSettings.h"   // For getting spawn radius (brush size)
-#include "editor_logic/commands/RecordSetSpawnCommand.h" // Added for the new command
+#include "core/map/Map.h"
+#include "core/Tile.h"
+#include "core/spawns/SpawnData.h" // Changed from core/Spawn.h
+#include "core/editor/EditorControllerInterface.h"
+#include "core/settings/BrushSettings.h"
 
-#include <QDebug> // For qDebug, qWarning
-#include <memory> // For std::unique_ptr
+#include <QDebug>
+#include <memory> // For std::unique_ptr (already present but good to ensure)
 
-// Define a default spawn time if not specified elsewhere (e.g., in game_constants or AppSettings)
-const int DEFAULT_SPAWN_INTERVAL_SECONDS = 60; // Example: 60 seconds
+// Define a default spawn time if not specified elsewhere
+const int DEFAULT_SPAWN_INTERVAL_SECONDS = 60;
 
 namespace RME {
 namespace core {
@@ -26,8 +25,6 @@ QString SpawnBrush::getName() const {
 
 int SpawnBrush::getLookID(const RME::core::BrushSettings& /*settings*/) const {
     // Spawns don't typically have a specific item ID to show as a brush icon.
-    // This might return an ID of a generic "spawn icon" if one exists in the item definitions
-    // for UI representation in a brush palette. For now, returning 0.
     return 0;
 }
 
@@ -38,7 +35,7 @@ bool SpawnBrush::canApply(const RME::core::map::Map* map,
         return false;
     }
     const Tile* tile = map->getTile(pos);
-    if (!tile || !tile->getGround()) {
+    if (!tile || !tile->getGround()) { // Ensures tile exists and has ground
         return false;
     }
     return true;
@@ -51,74 +48,57 @@ void SpawnBrush::apply(RME::core::editor::EditorControllerInterface* controller,
         qWarning("SpawnBrush::apply: Null controller.");
         return;
     }
-    Map* map = controller->getMap();
-    if (!canApply(map, pos, settings)) {
-        qWarning("SpawnBrush::apply: Cannot apply at position %s.", qUtf8Printable(pos.toString()));
+    Map* map = controller->getMap(); // Get Map from controller
+    if (!canApply(map, pos, settings)) { // canApply checks map and tile validity
+        // qWarning("SpawnBrush::apply: Preconditions not met at position %s.", qUtf8Printable(pos.toString()));
         return;
     }
 
-    Tile* tile = map->getTileForEditing(pos);
-    if (!tile) {
-        qWarning("SpawnBrush::apply: Failed to get tile for editing at %s", qUtf8Printable(pos.toString()));
-        return;
-    }
-
-    std::unique_ptr<Spawn> oldSpawn = tile->popSpawn();
+    // Tile is guaranteed to exist by canApply
+    Tile* tile = map->getTile(pos); // Use getTile for read-only access first
+    // No need for tile null check here if canApply ensures it.
+    // If canApply's check `!tile || !tile->getGround()` is sufficient, tile won't be null.
 
     if (settings.isEraseMode) {
-        if (oldSpawn) { // If there was a spawn to erase
-            qDebug("SpawnBrush::apply (erase): Clearing spawn at %s", qUtf8Printable(pos.toString()));
-            // newSpawn is nullptr because we are erasing.
-            // oldSpawn is moved into the command.
-            auto command = std::make_unique<RME_COMMANDS::RecordSetSpawnCommand>(
-                tile,           // The tile being modified
-                nullptr,        // newSpawn state (nullptr for erase)
-                std::move(oldSpawn), // oldSpawn state
-                controller      // The editor controller
-            );
-            controller->pushCommand(std::move(command));
+        RME::core::SpawnData* existingSpawnRef = tile->getSpawnDataRef();
+        if (existingSpawnRef != nullptr) {
+            qDebug("SpawnBrush::apply (erase): Requesting removal of spawn at %s", qUtf8Printable(pos.toString()));
+            controller->recordRemoveSpawn(pos); // Controller handles Tile::setSpawnDataRef(nullptr) and map list removal
+        } else {
+            qDebug("SpawnBrush::apply (erase): No spawn centered on tile %s to erase.", qUtf8Printable(pos.toString()));
         }
-        // If oldSpawn was already null, nothing to do for erase mode.
     } else { // Drawing mode
         int radius = settings.getSize();
-        if (radius <= 0) radius = 1;
-
-        QList<SpawnCreatureInfo> creatureList;
-        int intervalSeconds = DEFAULT_SPAWN_INTERVAL_SECONDS;
-
-        if (radius <= 0) radius = 1;
-
-        QList<SpawnCreatureInfo> creatureList; // To preserve existing creatures if any
-        int intervalSeconds = DEFAULT_SPAWN_INTERVAL_SECONDS; // Default interval
-
-        // If there was an old spawn, preserve its creature list and interval unless overwritten by settings.
-        // For this example, we assume brush settings don't specify new creatures/interval,
-        // so we reuse from oldSpawn if it exists.
-        if (oldSpawn) {
-            creatureList = oldSpawn->getCreatureTypes();
-            intervalSeconds = oldSpawn->getIntervalSeconds();
-        }
-        // Note: If BrushSettings had options for creatures or interval, you'd use them here.
-
-        std::unique_ptr<Spawn> newSpawn = std::make_unique<Spawn>(static_cast<uint16_t>(radius), intervalSeconds);
-        for(const auto& creatureInfo : creatureList) {
-            // Assuming addCreatureType takes const QString& or similar from SpawnCreatureInfo
-            newSpawn->addCreatureType(creatureInfo.name);
+        if (radius <= 0) {
+            radius = 1; // Ensure a minimum radius of 1 for spawns
         }
 
-        qDebug("SpawnBrush::apply (draw): Setting spawn at %s with radius %d", qUtf8Printable(pos.toString()), radius);
+        RME::core::SpawnData* existingSpawnRef = tile->getSpawnDataRef();
 
-        // oldSpawn is already unique_ptr from tile->popSpawn(), newSpawn is created above.
-        // Both are std::moved into the command.
-        auto command = std::make_unique<RME_COMMANDS::RecordSetSpawnCommand>(
-            tile,
-            std::move(newSpawn),
-            std::move(oldSpawn),
-            controller
-        );
-        controller->pushCommand(std::move(command));
+        if (existingSpawnRef != nullptr) { // Spawn center already exists on this tile
+            if (existingSpawnRef->getRadius() != static_cast<uint16_t>(radius)) { // Cast radius for comparison
+                qDebug("SpawnBrush::apply (update): Updating spawn radius at %s from %d to %d",
+                       qUtf8Printable(pos.toString()), existingSpawnRef->getRadius(), radius);
+                RME::core::SpawnData oldState = *existingSpawnRef; // Copy old state
+                RME::core::SpawnData newState = oldState;
+                newState.setRadius(static_cast<uint16_t>(radius)); // Cast radius for setting
+                // This brush does not modify creature list or interval from BrushSettings.
+                controller->recordUpdateSpawn(pos, oldState, newState);
+            } else {
+                qDebug("SpawnBrush::apply (draw): Spawn already exists at %s with same radius %d. No change.",
+                       qUtf8Printable(pos.toString()), radius);
+            }
+        } else { // No spawn center on this tile yet, create a new one.
+            qDebug("SpawnBrush::apply (draw): Requesting new spawn at %s with radius %d",
+                   qUtf8Printable(pos.toString()), radius);
+            // Use default interval and empty creature list as this brush doesn't configure them.
+            RME::core::SpawnData newSpawnData(pos, static_cast<uint16_t>(radius), DEFAULT_SPAWN_INTERVAL_SECONDS, QStringList());
+            newSpawnData.setIsAutoCreated(true); // This brush "auto-creates" the basic spawn area.
+            controller->recordAddSpawn(newSpawnData);
+        }
     }
-    // map->notifyTileChanged(pos); // This should now be handled by RecordSetSpawnCommand's undo/redo.
+    // Tile notifications (notifyTileChanged) should be handled by the commands
+    // generated by recordAddSpawn, recordRemoveSpawn, recordUpdateSpawn.
 }
 
 } // namespace brush
