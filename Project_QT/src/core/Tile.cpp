@@ -285,6 +285,16 @@ Item* Tile::getItemById(uint16_t id) const {
     return nullptr;
 }
 
+RME::core::Item* RME::core::Tile::getTopItemByID(uint16_t id) const {
+    // Iterate from top of stack (end of list) downwards for non-ground items
+    for (int i = items.size() - 1; i >= 0; --i) {
+        if (items.at(i) && items.at(i)->getID() == id) {
+            return items.at(i).get();
+        }
+    }
+    return nullptr; // Not found among non-ground items
+}
+
 void Tile::setGround(std::unique_ptr<Item> newGround) {
     // Ensure the new ground item, if not null, is actually a ground item type.
     // This check might be optional here if Item::create and brush logic already ensure this.

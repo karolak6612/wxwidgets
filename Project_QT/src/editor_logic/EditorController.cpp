@@ -23,6 +23,11 @@
 #include "editor_logic/commands/SetHouseExitCommand.h" // Added
 #include "editor_logic/commands/RecordAddRemoveItemCommand.h" // Added for recordAddItem/RemoveItem
 #include "editor_logic/commands/RecordSetGroundCommand.h" // Added for recordSetGroundItem
+#include "editor_logic/commands/AddSpawnCommand.h" // Added for recordAddSpawn
+#include "editor_logic/commands/RemoveSpawnCommand.h" // Added for recordRemoveSpawn
+#include "editor_logic/commands/UpdateSpawnCommand.h" // Added for recordUpdateSpawn
+#include "editor_logic/commands/SetBorderItemsCommand.h" // Added for recordSetBorderItems
+#include "editor_logic/commands/GenericTileChangeCommand.h" // Added for recordTileChange
 #include "core/Item.h" // Added for recordAddItem/RemoveItem
 
 #include <QUndoStack>
@@ -290,10 +295,21 @@ void EditorController::recordAction(std::unique_ptr<RME::core::actions::AppUndoC
     // qWarning("EditorController::recordAction: Generic AppUndoCommand recording might need specific handling if not QUndoCommand.");
 }
 
-void EditorController::recordTileChange(const RME::core::Position& pos,
-                                      std::unique_ptr<RME::core::Tile> /*oldTileState*/,
-                                      std::unique_ptr<RME::core::Tile> /*newTileState*/) {
-    qWarning("EditorController::recordTileChange: Not implemented. Tile Pos: (%d,%d,%d)", pos.x, pos.y, pos.z);
+void EditorController::recordTileChange(
+    const RME::core::Position& pos,
+    std::unique_ptr<RME::core::Tile> oldTileState,
+    std::unique_ptr<RME::core::Tile> newTileState)
+{
+    if (!m_map) {
+        qWarning("EditorController::recordTileChange: Map is null.");
+        return;
+    }
+    // It's crucial that oldTileState and newTileState are accurate deep copies
+    // representing the full state before and after the modification.
+    // The command takes ownership of these unique_ptrs.
+    pushCommand(std::make_unique<RME::editor_logic::commands::GenericTileChangeCommand>(
+        m_map, pos, std::move(oldTileState), std::move(newTileState), this
+    ));
 }
 
 void EditorController::recordAddCreature(const RME::core::Position& tilePos, const RME::core::assets::CreatureData* creatureData) {
@@ -340,21 +356,49 @@ void EditorController::recordRemoveCreature(const RME::core::Position& tilePos, 
     pushCommand(std::make_unique<RME::editor_logic::commands::RemoveCreatureCommand>(tile, this));
 }
 
-void EditorController::recordAddSpawn(const RME::core::SpawnData& spawnData) {
-    qWarning("EditorController::recordAddSpawn: Not implemented. Pos: (%d,%d,%d)",
-        spawnData.getCenter().x, spawnData.getCenter().y, spawnData.getCenter().z);
+void EditorController::recordAddSpawn(const RME::core::assets::SpawnData& spawnData) {
+    if (!m_map) {
+        qWarning("EditorController::recordAddSpawn: Map is null.");
+        return;
+    }
+    // The command takes spawnData by const ref and copies it.
+    pushCommand(std::make_unique<RME::editor_logic::commands::AddSpawnCommand>(m_map, spawnData, this));
 }
 
 void EditorController::recordRemoveSpawn(const RME::core::Position& spawnCenterPos) {
-    qWarning("EditorController::recordRemoveSpawn: Not implemented. Pos: (%d,%d,%d)",
-        spawnCenterPos.x, spawnCenterPos.y, spawnCenterPos.z);
+    if (!m_map) {
+        qWarning("EditorController::recordRemoveSpawn: Map is null.");
+        return;
+    }
+    // Check if there's actually a spawn to remove at this tile's center
+    RME::core::Tile* tile = m_map->getTile(spawnCenterPos);
+    if (!tile || !tile->getSpawnDataRef()) {
+        qDebug("EditorController::recordRemoveSpawn: No tile or no spawn reference at specified position (%d,%d,%d). No command pushed.",
+                spawnCenterPos.x, spawnCenterPos.y, spawnCenterPos.z);
+        return;
+    }
+    // The command will handle capturing the SpawnData and removing it.
+    pushCommand(std::make_unique<RME::editor_logic::commands::RemoveSpawnCommand>(m_map, spawnCenterPos, this));
 }
 
-void EditorController::recordUpdateSpawn(const RME::core::Position& spawnCenterPos,
-                                       const RME::core::SpawnData& /*oldSpawnData*/,
-                                       const RME::core::SpawnData& /*newSpawnData*/) {
-    qWarning("EditorController::recordUpdateSpawn: Not implemented. Pos: (%d,%d,%d)",
-        spawnCenterPos.x, spawnCenterPos.y, spawnCenterPos.z);
+void EditorController::recordUpdateSpawn(
+    const RME::core::Position& spawnCenterPos,
+    const RME::core::assets::SpawnData& oldSpawnData,
+    const RME::core::assets::SpawnData& newSpawnData)
+{
+    if (!m_map) {
+        qWarning("EditorController::recordUpdateSpawn: Map is null.");
+        return;
+    }
+    // spawnCenterPos parameter might be redundant if oldSpawnData.getCenter() is the true key.
+    // The command uses oldSpawnData to find the spawn to update.
+    if (oldSpawnData.getCenter() != spawnCenterPos) {
+        qWarning("EditorController::recordUpdateSpawn: spawnCenterPos parameter (%s) does not match oldSpawnData.getCenter() (%s). Using oldSpawnData's center.",
+                 qUtf8Printable(spawnCenterPos.toString()), qUtf8Printable(oldSpawnData.getCenter().toString()));
+    }
+    // Note: The UpdateSpawnCommand takes oldSpawnData and newSpawnData by const reference
+    // and makes internal copies.
+    pushCommand(std::make_unique<RME::editor_logic::commands::UpdateSpawnCommand>(m_map, oldSpawnData, newSpawnData, this));
 }
 
 void EditorController::recordSetGroundItem(const RME::core::Position& pos, uint16_t newGroundItemId, uint16_t oldGroundItemId) {
@@ -401,10 +445,36 @@ void EditorController::recordSetGroundItem(const RME::core::Position& pos, uint1
     ));
 }
 
-void EditorController::recordSetBorderItems(const RME::core::Position& pos,
-                                          const QList<uint16_t>& /*newBorderItemIds*/,
-                                          const QList<uint16_t>& /*oldBorderItemIds*/) {
-     qWarning("EditorController::recordSetBorderItems: Not implemented. Pos: (%d,%d,%d)", pos.x, pos.y, pos.z);
+void EditorController::recordSetBorderItems(
+    const RME::core::Position& pos,
+    const QList<uint16_t>& newBorderItemIds,
+    const QList<uint16_t>& oldBorderItemIds)
+{
+    if (!m_map) {
+        qWarning("EditorController::recordSetBorderItems: Map is null.");
+        return;
+    }
+    RME::core::Tile* tile = getTileForEditing(pos); // Get or create tile
+    if (!tile) {
+        qWarning("EditorController::recordSetBorderItems: Could not get or create tile at specified position (%s).", qUtf8Printable(pos.toString()));
+        return;
+    }
+    if (!m_assetManager) {
+       qWarning("EditorController::recordSetBorderItems: AssetManager is null. Cannot create items.");
+       return;
+    }
+
+    // Only push command if there's an actual change
+    // This is a simple comparison; order might matter, or specific item instances.
+    // For border items, usually the set of IDs is what matters.
+    if (QSet<uint16_t>::fromList(oldBorderItemIds) == QSet<uint16_t>::fromList(newBorderItemIds)) {
+        qDebug("EditorController::recordSetBorderItems: No change in border items for tile at (%s).", qUtf8Printable(pos.toString()));
+        return;
+    }
+
+    pushCommand(std::make_unique<RME::editor_logic::commands::SetBorderItemsCommand>(
+        tile, oldBorderItemIds, newBorderItemIds, this
+    ));
 }
 
 void EditorController::recordAddItem(const RME::core::Position& pos, uint16_t itemId) {

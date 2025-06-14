@@ -76,6 +76,7 @@ public:
     bool isEmpty() const; // Declaration updated, implementation to .cpp
     bool hasItemOfType(uint16_t id) const; // Example utility
     Item* getItemById(uint16_t id) const; // Example utility
+    Item* getTopItemByID(uint16_t id) const; // Added
 
     /**
      * @brief Sets the ground item for this tile.
