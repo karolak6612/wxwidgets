@@ -4,7 +4,7 @@
 #include "BaseMap.h"
 // #include "MapElements.h" // For TownData, HouseData - Replaced by specific includes
 #include "core/houses/HouseData.h" // Corrected include path
-#include "MapElements.h" // Assuming this is for TownData etc. and does NOT define HouseData
+// #include "MapElements.h" // Assuming this is for TownData etc. and does NOT define HouseData - Removed as per CORE-110
 #include "core/world/TownData.h" // New TownData location
 #include "core/navigation/WaypointData.h" // New WaypointData location
 #include "core/spawns/SpawnData.h" // Provides RME::SpawnData

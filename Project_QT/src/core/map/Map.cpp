@@ -186,7 +186,8 @@ bool Map::removeHouse(uint32_t houseId) {
         Tile* tile = getTile(tilePos);
         if (tile && tile->getHouseId() == houseId) {
             tile->setHouseId(0);
-            markTileDirty(tilePos); // Mark tile dirty for rendering updates
+            // markTileDirty(tilePos); // Mark tile dirty for rendering updates
+            // TODO: Re-integrate tile dirty notification for UI updates (e.g., via signals or EditorController).
         }
     }
 
@@ -212,21 +213,7 @@ bool Map::removeHouse(uint32_t houseId) {
     return true;
 }
 
-uint32_t Map::getUnusedHouseId() {
-    uint32_t currentId = m_maxHouseId + 1;
-    if (currentId == 0) currentId = 1; // Handle overflow or initial state
-
-    while (m_housesById.contains(currentId)) {
-        currentId++;
-        if (currentId == 0) {
-            qCritical("Map::getUnusedHouseId: Could not find an unused house ID, wrapped around.");
-            return 0;
-        }
-    }
-    return currentId; // This is from getUnusedTownId, error in search block.
-                     // The correct end of removeHouse is "return true;" or "return false;"
-                     // This will be fixed by the larger context of the replace.
-}
+// Old getUnusedHouseId() removed. The new getNextFreeHouseId() is below and is preferred.
 
 void Map::clearHouses() {
     if (!m_housesById.isEmpty()) {
@@ -272,7 +259,8 @@ bool Map::changeHouseId(uint32_t oldId, uint32_t newId) {
         Tile* tile = getTile(tilePos);
         if (tile && tile->getHouseId() == oldId) {
             tile->setHouseId(newId);
-            markTileDirty(tilePos);
+            // markTileDirty(tilePos);
+            // TODO: Re-integrate tile dirty notification for UI updates (e.g., via signals or EditorController).
         }
     }
 
