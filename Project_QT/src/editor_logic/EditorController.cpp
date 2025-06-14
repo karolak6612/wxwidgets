@@ -13,9 +13,11 @@
 #include "editor_logic/commands/DeleteSelectionCommand.h"
 #include "editor_logic/commands/ClearSelectionCommand.h"    // Added
 #include "editor_logic/commands/BoundingBoxSelectCommand.h" // Added
-#include "core/SpawnData.h" // For record methods
+#include "core/spawns/SpawnData.h" // Corrected path for SpawnData.h
 #include "core/assets/CreatureData.h" // For record methods, ensure this is the correct header for CreatureData struct/class
 #include "core/actions/AppUndoCommand.h" // For recordAction
+#include "editor_logic/commands/AddCreatureCommand.h"   // Added
+#include "editor_logic/commands/RemoveCreatureCommand.h" // Added
 #include "core/houses/Houses.h"        // Added
 #include "core/houses/House.h"           // Added
 #include "editor_logic/commands/SetHouseExitCommand.h" // Added
@@ -302,14 +304,48 @@ void EditorController::recordTileChange(const RME::core::Position& pos,
     qWarning("EditorController::recordTileChange: Not implemented. Tile Pos: (%d,%d,%d)", pos.x, pos.y, pos.z);
 }
 
-void EditorController::recordAddCreature(const RME::core::Position& tilePos, const RME::core::CreatureData* creatureType) {
-    qWarning("EditorController::recordAddCreature: Not implemented. Pos: (%d,%d,%d) Creature: %s",
-        tilePos.x, tilePos.y, tilePos.z, creatureType ? qUtf8Printable(creatureType->name) : "null");
+void EditorController::recordAddCreature(const RME::core::Position& tilePos, const RME::core::assets::CreatureData* creatureData) {
+    if (!creatureData) {
+        qWarning("EditorController::recordAddCreature: creatureData is null. Pos: (%d,%d,%d)",
+            tilePos.x, tilePos.y, tilePos.z);
+        return;
+    }
+    RME::core::Tile* tile = getTileForEditing(tilePos);
+    if (!tile) {
+        qWarning("EditorController::recordAddCreature: Tile not found or not creatable at Pos: (%d,%d,%d) for Creature: %s",
+            tilePos.x, tilePos.y, tilePos.z, qUtf8Printable(creatureData->name));
+        return;
+    }
+
+    // Optional: Check if adding this creature is valid (e.g., tile already has a creature of different type?)
+    // For now, AddCreatureCommand will handle replacing an existing creature.
+
+    pushCommand(std::make_unique<RME::editor_logic::commands::AddCreatureCommand>(tile, creatureData, this));
 }
 
-void EditorController::recordRemoveCreature(const RME::core::Position& tilePos, const RME::core::CreatureData* creatureType) {
-    qWarning("EditorController::recordRemoveCreature: Not implemented. Pos: (%d,%d,%d) Creature: %s",
-        tilePos.x, tilePos.y, tilePos.z, creatureType ? qUtf8Printable(creatureType->name) : "null");
+void EditorController::recordRemoveCreature(const RME::core::Position& tilePos, const RME::core::assets::CreatureData* creatureData) {
+    // creatureData parameter is not strictly used by RemoveCreatureCommand as it removes whatever creature is present.
+    // It's kept for interface consistency for now. It could be used for validation if needed.
+    RME::core::Tile* tile = getTileForEditing(tilePos);
+    if (!tile) {
+        qWarning("EditorController::recordRemoveCreature: Tile not found or not creatable at Pos: (%d,%d,%d)",
+            tilePos.x, tilePos.y, tilePos.z);
+        return;
+    }
+
+    if (!tile->hasCreature()) {
+        // No creature to remove, so don't push a command that will do nothing.
+        qDebug("EditorController::recordRemoveCreature: No creature on tile Pos: (%d,%d,%d) to remove.",
+            tilePos.x, tilePos.y, tilePos.z);
+        return;
+    }
+
+    // If creatureData is provided, we could add a check:
+    // if (tile->getCreature() && tile->getCreature()->getType() != creatureData) {
+    //     qWarning("EditorController::recordRemoveCreature: Creature on tile is not of the expected type. Removing anyway.");
+    // }
+
+    pushCommand(std::make_unique<RME::editor_logic::commands::RemoveCreatureCommand>(tile, this));
 }
 
 void EditorController::recordAddSpawn(const RME::core::SpawnData& spawnData) {

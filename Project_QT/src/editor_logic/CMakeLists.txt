@@ -2,35 +2,39 @@
 
 set(RME_EDITOR_LOGIC_LIB_SOURCES
     EditorController.cpp
-    commands/BrushStrokeCommand.cpp
-    commands/DeleteCommand.cpp
+    commands/AddCreatureCommand.cpp          # Added
     commands/AddWaypointCommand.cpp
+    commands/BoundingBoxSelectCommand.cpp    # Added
+    commands/BrushStrokeCommand.cpp
+    commands/ClearSelectionCommand.cpp       # Added
+    commands/DeleteCommand.cpp
+    commands/DeleteSelectionCommand.cpp      # Added
     commands/MoveWaypointCommand.cpp
-    commands/SetHouseExitCommand.cpp
-    commands/RecordSetSpawnCommand.cpp
-    commands/RecordSetGroundCommand.cpp     # Added
     commands/RecordAddRemoveItemCommand.cpp # Added
     commands/RecordModifyTileContentsCommand.cpp # Added
-    commands/DeleteSelectionCommand.cpp      # Added
-    commands/ClearSelectionCommand.cpp       # Added
-    commands/BoundingBoxSelectCommand.cpp    # Added
+    commands/RecordSetGroundCommand.cpp     # Added
+    commands/RecordSetSpawnCommand.cpp
+    commands/RemoveCreatureCommand.cpp       # Added
+    commands/SetHouseExitCommand.cpp
     commands/SetHouseTileCommand.cpp         # Added
 )
 
 set(RME_EDITOR_LOGIC_LIB_HEADERS
     EditorController.h
-    commands/BrushStrokeCommand.h
-    commands/DeleteCommand.h
+    commands/AddCreatureCommand.h            # Added
     commands/AddWaypointCommand.h
+    commands/BoundingBoxSelectCommand.h      # Added
+    commands/BrushStrokeCommand.h
+    commands/ClearSelectionCommand.h         # Added
+    commands/DeleteCommand.h
+    commands/DeleteSelectionCommand.h        # Added
     commands/MoveWaypointCommand.h
-    commands/SetHouseExitCommand.h           # Verified
-    commands/RecordSetSpawnCommand.h
-    commands/RecordSetGroundCommand.h       # Added
     commands/RecordAddRemoveItemCommand.h   # Added
     commands/RecordModifyTileContentsCommand.h # Added
-    commands/DeleteSelectionCommand.h        # Added
-    commands/ClearSelectionCommand.h         # Added
-    commands/BoundingBoxSelectCommand.h      # Added
+    commands/RecordSetGroundCommand.h       # Added
+    commands/RecordSetSpawnCommand.h
+    commands/RemoveCreatureCommand.h         # Added
+    commands/SetHouseExitCommand.h           # Verified
     commands/SetHouseTileCommand.h           # Added
 )
 # Note: RME_EDITOR_LOGIC_LIB_HEADERS is for organization/completeness,
