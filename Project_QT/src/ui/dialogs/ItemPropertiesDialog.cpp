@@ -1,8 +1,10 @@
 #include "ui/dialogs/ItemPropertiesDialog.h"
+#include "ui/dialogs/ItemFinderDialogQt.h"
 #include "core/Item.h"
 #include "core/Map.h"
 #include "core/Tile.h"
 #include "core/assets/ItemData.h"
+#include "core/items/ContainerItem.h"
 
 #include <QHeaderView>
 #include <QMessageBox>
@@ -30,7 +32,11 @@ ItemPropertiesDialog::ItemPropertiesDialog(QWidget* parent,
     resize(500, 600);
     
     // Get item data from item's type provider
-    // TODO: m_itemData = m_itemCopy->getTypeProvider()->getItemData(m_itemCopy->getID());
+    m_itemData = nullptr;
+    if (m_itemCopy->getTypeProvider()) {
+        // TODO: Implement getItemData method in IItemTypeProvider if needed
+        // m_itemData = m_itemCopy->getTypeProvider()->getItemData(m_itemCopy->getID());
+    }
     
     createBackup();
     setupUI();
@@ -195,52 +201,103 @@ void ItemPropertiesDialog::loadItemData() {
 }
 
 void ItemPropertiesDialog::loadGeneralProperties() {
-    if (!m_item) {
+    if (!m_itemCopy) {
         return;
     }
     
     // Load basic properties
-    m_itemIdEdit->setText(QString::number(m_item->getId()));
+    m_itemIdLabel->setText(QString::number(m_itemCopy->getID()));
     
-    // TODO: Load item name from database
-    if (m_itemData) {
-        m_itemNameEdit->setText(m_itemData->name);
-    } else {
-        m_itemNameEdit->setText(tr("Unknown Item"));
+    // Load item name from type provider
+    QString itemName = m_itemCopy->getName();
+    if (itemName.isEmpty()) {
+        itemName = tr("Item %1").arg(m_itemCopy->getID());
     }
+    m_itemNameLabel->setText(itemName);
     
-    // TODO: Load item-specific properties
-    // m_countSpinBox->setValue(m_item->getCount());
-    // m_actionIdSpinBox->setValue(m_item->getActionId());
-    // m_uniqueIdSpinBox->setValue(m_item->getUniqueId());
-    // m_textEdit->setText(m_item->getText());
-    // m_descriptionEdit->setText(m_item->getDescription());
+    // Load item-specific properties
+    m_actionIdSpin->setValue(m_itemCopy->getActionID());
+    m_uniqueIdSpin->setValue(m_itemCopy->getUniqueID());
+    m_descriptionEdit->setText(m_itemCopy->getText());
+    
+    // Load type-specific properties
+    loadTypeSpecificProperties();
 }
 
 void ItemPropertiesDialog::loadContentsData() {
-    if (!isContainer()) {
+    if (!m_contentsModel || !isContainer()) {
         return;
     }
     
-    m_contentsTable->setRowCount(0);
+    m_contentsModel->clear();
     
-    // TODO: Load container contents
-    // const auto& contents = m_item->getContainerContents();
-    // for (const auto& contentItem : contents) {
-    //     addContainerItem(contentItem->getId(), contentItem->getCount());
-    // }
+    // Load container contents if item is a container
+    if (auto* containerItem = dynamic_cast<RME::ContainerItem*>(m_itemCopy)) {
+        const auto& contents = containerItem->getContents();
+        for (const auto& item : contents) {
+            if (item) {
+                QStandardItem* listItem = new QStandardItem();
+                
+                // Set item text (name or ID)
+                QString itemText = item->getName();
+                if (itemText.isEmpty()) {
+                    itemText = tr("Item %1").arg(item->getID());
+                }
+                
+                // Add count if > 1
+                if (item->getSubtype() > 1) {
+                    itemText += tr(" (%1)").arg(item->getSubtype());
+                }
+                listItem->setText(itemText);
+                
+                // TODO: Set item icon from sprite manager
+                // QIcon itemIcon = getItemIcon(item->getID());
+                // listItem->setIcon(itemIcon);
+                
+                // Store item pointer for later access
+                listItem->setData(QVariant::fromValue(item.get()), Qt::UserRole);
+                
+                m_contentsModel->appendRow(listItem);
+            }
+        }
+    }
     
     updateContainerInfo();
 }
 
 void ItemPropertiesDialog::loadAdvancedAttributes() {
+    if (!m_attributesTable) {
+        return;
+    }
+    
     m_attributesTable->setRowCount(0);
     
-    // TODO: Load item attributes
-    // const auto& attributes = m_item->getAttributes();
-    // for (const auto& [key, value] : attributes) {
-    //     addAttribute(key, value.toString());
-    // }
+    // Load item attributes from the item
+    const auto& attributes = m_itemCopy->getAllAttributes();
+    for (auto it = attributes.begin(); it != attributes.end(); ++it) {
+        const QString& key = it.key();
+        const QVariant& value = it.value();
+        
+        int row = m_attributesTable->rowCount();
+        m_attributesTable->insertRow(row);
+        
+        // Key column
+        m_attributesTable->setItem(row, 0, createAttributeItem(key));
+        
+        // Type column (determine from QVariant type)
+        QString typeStr = getVariantTypeName(value);
+        QComboBox* typeCombo = new QComboBox();
+        typeCombo->addItems({"String", "Integer", "Float", "Boolean"});
+        typeCombo->setCurrentText(typeStr);
+        m_attributesTable->setCellWidget(row, 1, typeCombo);
+        
+        // Value column
+        m_attributesTable->setItem(row, 2, createAttributeItem(value.toString()));
+        
+        // Connect type change signal
+        connect(typeCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
+                this, &ItemPropertiesDialog::onAttributeTypeChanged);
+    }
 }
 
 void ItemPropertiesDialog::connectSignals() {
@@ -533,10 +590,22 @@ void ItemPropertiesDialog::onRemoveAttribute() {
 }
 
 void ItemPropertiesDialog::onAddContainerItem() {
-    // TODO: Show item selection dialog
-    // For now, add a placeholder item
-    addContainerItem(100, 1);
-    markAsModified();
+    // Show ItemFinderDialog to select an item
+    RME::ui::dialogs::ItemFinderDialogQt dialog(this, nullptr); // TODO: Pass actual ItemManager
+    if (dialog.exec() == QDialog::Accepted) {
+        auto* selectedItemType = dialog.getSelectedItemType();
+        if (selectedItemType && isContainer()) {
+            // Create a new item from the selected type
+            auto newItem = RME::Item::create(selectedItemType->getID(), m_itemCopy->getTypeProvider());
+            
+            // Add to container if it's a container item
+            if (auto* containerItem = dynamic_cast<RME::ContainerItem*>(m_itemCopy)) {
+                containerItem->addItem(std::move(newItem));
+                loadContentsData(); // Refresh the contents view
+                markAsModified();
+            }
+        }
+    }
 }
 
 void ItemPropertiesDialog::onRemoveContainerItem() {
@@ -568,12 +637,17 @@ void ItemPropertiesDialog::saveItemData() {
 }
 
 void ItemPropertiesDialog::saveGeneralProperties() {
-    // TODO: Save properties to item
-    // m_item->setCount(m_countSpinBox->value());
-    // m_item->setActionId(m_actionIdSpinBox->value());
-    // m_item->setUniqueId(m_uniqueIdSpinBox->value());
-    // m_item->setText(m_textEdit->text());
-    // m_item->setDescription(m_descriptionEdit->text());
+    if (!m_itemCopy) {
+        return;
+    }
+    
+    // Save properties to item
+    m_itemCopy->setActionID(m_actionIdSpin->value());
+    m_itemCopy->setUniqueID(m_uniqueIdSpin->value());
+    m_itemCopy->setText(m_descriptionEdit->text());
+    
+    // Save type-specific properties
+    saveTypeSpecificProperties();
 }
 
 void ItemPropertiesDialog::saveContentsData() {
@@ -581,7 +655,39 @@ void ItemPropertiesDialog::saveContentsData() {
 }
 
 void ItemPropertiesDialog::saveAdvancedAttributes() {
-    // TODO: Save attributes to item
+    if (!m_itemCopy || !m_attributesTable) {
+        return;
+    }
+    
+    // Clear existing attributes
+    m_itemCopy->clearAllAttributes();
+    
+    // Save all attributes from the table
+    for (int row = 0; row < m_attributesTable->rowCount(); ++row) {
+        QTableWidgetItem* keyItem = m_attributesTable->item(row, 0);
+        QTableWidgetItem* valueItem = m_attributesTable->item(row, 2);
+        QComboBox* typeCombo = qobject_cast<QComboBox*>(m_attributesTable->cellWidget(row, 1));
+        
+        if (keyItem && valueItem && typeCombo) {
+            QString key = keyItem->text();
+            QString valueStr = valueItem->text();
+            QString type = typeCombo->currentText();
+            
+            // Convert value based on type
+            QVariant value;
+            if (type == "Integer") {
+                value = valueStr.toInt();
+            } else if (type == "Float") {
+                value = valueStr.toDouble();
+            } else if (type == "Boolean") {
+                value = (valueStr.toLower() == "true" || valueStr == "1");
+            } else {
+                value = valueStr; // String
+            }
+            
+            m_itemCopy->setAttribute(key, value);
+        }
+    }
 }
 
 bool ItemPropertiesDialog::validateInput() {

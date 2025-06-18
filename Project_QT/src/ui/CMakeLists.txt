@@ -6,9 +6,12 @@ add_subdirectory(widgets)
 # Consolidate all UI sources
 set(RME_UI_LIB_SOURCES
     MainWindow.cpp  # Added MainWindow source directly
+    MainWindow.h
     MainWindowActions.cpp
     MainToolBar.cpp
     MainToolBar.h
+    EditorInstanceWidget.cpp
+    EditorInstanceWidget.h
     dialogs/ItemFinderDialogQt.cpp
     dialogs/ItemFinderDialogQt.h
     dialogs/ItemPropertiesDialog.cpp
@@ -23,14 +26,31 @@ set(RME_UI_LIB_SOURCES
     dialogs/NewTilesetDialog.h
     dialogs/AddItemToTilesetDialog.cpp
     dialogs/AddItemToTilesetDialog.h
+    dialogs/EditHouseDialogQt.cpp
+    dialogs/EditHouseDialogQt.h
+    dialogs/EditSpawnDialogQt.cpp
+    dialogs/EditSpawnDialogQt.h
+    dialogs/LiveServerControlPanelQt.cpp
+    dialogs/LiveServerControlPanelQt.h
+    dialogs/LiveServerDialog.cpp
+    dialogs/LiveServerDialog.h
     palettes/BasePalettePanel.cpp
     palettes/BasePalettePanel.h
+    palettes/CreaturePalettePanel.cpp
     palettes/CreaturePalettePanel.h
     palettes/DockManager.cpp
     palettes/DockManager.h
+    palettes/HousePaletteTab.cpp
+    palettes/HousePaletteTab.h
     palettes/ItemPalettePanel.cpp
     palettes/ItemPalettePanel.h
     palettes/PropertiesPanel.h
+    palettes/WaypointPaletteTab.cpp
+    palettes/WaypointPaletteTab.h
+    palettes/RawItemsPaletteTab.cpp
+    palettes/RawItemsPaletteTab.h
+    palettes/TerrainBrushPaletteTab.cpp
+    palettes/TerrainBrushPaletteTab.h
     ${RME_UI_WIDGETS_SOURCES}
     # Add other UI component sources here if defined in this directory
     # or from other subdirectories like 'dialogs', 'palettes', etc.

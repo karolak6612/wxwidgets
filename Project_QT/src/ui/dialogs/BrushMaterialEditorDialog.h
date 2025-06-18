@@ -267,6 +267,14 @@ private:
     void setupDoodadBrushesTab();
     void setupButtonBox();
     
+    // Data management
+    RME::MaterialManager* m_materialManager;
+    RME::ItemDatabase* m_itemDatabase;
+    
+    // XML file paths
+    QString getXmlFilePath(const QString& filename) const;
+    bool ensureXmlDirectoryExists() const;
+    
     void loadData();
     void loadExistingBorders();
     void loadExistingGroundBrushes();

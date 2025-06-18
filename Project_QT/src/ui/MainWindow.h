@@ -5,6 +5,7 @@
 #include <QList>    // For QList<QAction*> m_recentFileActions
 
 #include "widgets/MapView.h" // For RME::ui::widgets::MapView
+#include "EditorInstanceWidget.h" // For EditorInstanceWidget
 
 // Forward declarations for RME classes
 namespace RME {
@@ -28,6 +29,7 @@ class QSettings;
 class QCloseEvent;
 class QXmlStreamReader; // For argument type in private method
 class QMenuBar;         // For argument type in private method
+class QTabWidget;       // For editor tab widget
 
 
 namespace RME {
@@ -128,6 +130,12 @@ private slots:
     void onAddItemToTileset();
     void openRecentFile();             // Slot for dynamic recent file actions
     void updateMenus();                // Slot to update enabled/checked state of actions
+    
+    // Editor tab management
+    void onActiveEditorTabChanged(int index);
+    void onEditorTabCloseRequested(int index);
+    void onEditorModificationChanged(bool modified);
+    void onEditorDisplayNameChanged(const QString& name);
 
 private:
     void createMenusFromXML(const QString& xmlFilePath);
@@ -151,7 +159,9 @@ private:
     static const int MaxRecentFiles = 10;
     QList<QAction*> m_recentFileActions; // To keep track of dynamically created recent file actions for easy clearing
 
-    RME::ui::widgets::MapView* m_mapView = nullptr; // The MapView instance
+    // Editor tab management
+    QTabWidget* m_editorTabWidget = nullptr;
+    EditorInstanceWidget* m_currentEditorInstance = nullptr;
     
     // Core integration
     RME::editor_logic::EditorController* m_editorController = nullptr;
@@ -167,6 +177,16 @@ private:
     void updateMenuStatesFromEditor();
     void createToolBar();
     void createDockManager();
+    void setupEditorTabWidget();
+    
+    // Editor instance management
+    EditorInstanceWidget* createNewEditorInstance(RME::core::Map* map, const QString& filePath);
+    void addEditorTab(EditorInstanceWidget* editorInstance);
+    void closeEditorTab(int index);
+    EditorInstanceWidget* getEditorInstance(int index) const;
+    EditorInstanceWidget* getCurrentEditorInstance() const;
+    void updateWindowTitle();
+    bool promptSaveChanges(EditorInstanceWidget* editorInstance);
 };
 
 } // namespace ui

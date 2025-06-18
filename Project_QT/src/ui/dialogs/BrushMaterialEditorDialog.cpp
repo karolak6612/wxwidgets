@@ -310,8 +310,8 @@ uint16_t BorderPreviewWidget::getItemForPreviewPosition(int x, int y) const
 // BrushMaterialEditorDialog Implementation
 //==============================================================================
 
-BrushMaterialEditorDialog::BrushMaterialEditorDialog(QWidget* parent)
-    : QDialog(parent)
+BrushMaterialEditorDialog::BrushMaterialEditorDialog(QWidget* parent, RME::MaterialManager* materialManager, RME::ItemDatabase* itemDatabase)
+    : QDialog(parent), m_materialManager(materialManager), m_itemDatabase(itemDatabase)
 {
     setWindowTitle("Brush & Material Editor");
     setModal(true);
@@ -922,20 +922,25 @@ void BrushMaterialEditorDialog::onBorderPropertyChanged()
 // Ground brushes tab slots
 void BrushMaterialEditorDialog::onAddGroundItem()
 {
-    // TODO: Use ItemFinderDialog to select item
-    bool ok;
-    int itemId = QInputDialog::getInt(this, "Add Ground Item", "Item ID:", 100, 100, 65535, 1, &ok);
-    if (!ok) return;
+    // Use ItemFinderDialog to select item
+    ItemFinderDialogQt dialog(this, nullptr); // TODO: Pass actual ItemManager when available
     
-    int chance = QInputDialog::getInt(this, "Add Ground Item", "Chance (%):", 100, 1, 100, 1, &ok);
-    if (!ok) return;
-    
-    int row = m_groundItemsTable->rowCount();
-    m_groundItemsTable->insertRow(row);
-    m_groundItemsTable->setItem(row, 0, new QTableWidgetItem(QString::number(itemId)));
-    m_groundItemsTable->setItem(row, 1, new QTableWidgetItem(QString::number(chance)));
-    
-    markAsModified();
+    if (dialog.exec() == QDialog::Accepted) {
+        auto* selectedItemType = dialog.getSelectedItemType();
+        if (selectedItemType) {
+            bool ok;
+            int chance = QInputDialog::getInt(this, "Add Ground Item", "Chance (%):", 100, 1, 100, 1, &ok);
+            if (!ok) return;
+            
+            int row = m_groundItemsTable->rowCount();
+            m_groundItemsTable->insertRow(row);
+            m_groundItemsTable->setItem(row, 0, new QTableWidgetItem(QString::number(selectedItemType->getID())));
+            m_groundItemsTable->setItem(row, 1, new QTableWidgetItem(getItemName(selectedItemType->getID())));
+            m_groundItemsTable->setItem(row, 2, new QTableWidgetItem(QString::number(chance)));
+            
+            markAsModified();
+        }
+    }
 }
 
 void BrushMaterialEditorDialog::onRemoveGroundItem()
@@ -1051,28 +1056,33 @@ void BrushMaterialEditorDialog::onWallPropertyChanged()
 // Doodad brushes tab slots
 void BrushMaterialEditorDialog::onAddDoodadItem()
 {
-    // TODO: Use ItemFinderDialog to select item
-    bool ok;
-    int itemId = QInputDialog::getInt(this, "Add Doodad Item", "Item ID:", 100, 100, 65535, 1, &ok);
-    if (!ok) return;
+    // Use ItemFinderDialog to select item
+    ItemFinderDialogQt dialog(this, nullptr); // TODO: Pass actual ItemManager when available
     
-    int xOffset = QInputDialog::getInt(this, "Add Doodad Item", "X Offset:", 0, -10, 10, 1, &ok);
-    if (!ok) return;
-    
-    int yOffset = QInputDialog::getInt(this, "Add Doodad Item", "Y Offset:", 0, -10, 10, 1, &ok);
-    if (!ok) return;
-    
-    int zOffset = QInputDialog::getInt(this, "Add Doodad Item", "Z Offset:", 0, -10, 10, 1, &ok);
-    if (!ok) return;
-    
-    int row = m_doodadItemsTable->rowCount();
-    m_doodadItemsTable->insertRow(row);
-    m_doodadItemsTable->setItem(row, 0, new QTableWidgetItem(QString::number(itemId)));
-    m_doodadItemsTable->setItem(row, 1, new QTableWidgetItem(QString::number(xOffset)));
-    m_doodadItemsTable->setItem(row, 2, new QTableWidgetItem(QString::number(yOffset)));
-    m_doodadItemsTable->setItem(row, 3, new QTableWidgetItem(QString::number(zOffset)));
-    
-    markAsModified();
+    if (dialog.exec() == QDialog::Accepted) {
+        auto* selectedItemType = dialog.getSelectedItemType();
+        if (selectedItemType) {
+            bool ok;
+            int xOffset = QInputDialog::getInt(this, "Add Doodad Item", "X Offset:", 0, -10, 10, 1, &ok);
+            if (!ok) return;
+            
+            int yOffset = QInputDialog::getInt(this, "Add Doodad Item", "Y Offset:", 0, -10, 10, 1, &ok);
+            if (!ok) return;
+            
+            int zOffset = QInputDialog::getInt(this, "Add Doodad Item", "Z Offset:", 0, -10, 10, 1, &ok);
+            if (!ok) return;
+            
+            int row = m_doodadItemsTable->rowCount();
+            m_doodadItemsTable->insertRow(row);
+            m_doodadItemsTable->setItem(row, 0, new QTableWidgetItem(QString::number(selectedItemType->getID())));
+            m_doodadItemsTable->setItem(row, 1, new QTableWidgetItem(getItemName(selectedItemType->getID())));
+            m_doodadItemsTable->setItem(row, 2, new QTableWidgetItem(QString::number(xOffset)));
+            m_doodadItemsTable->setItem(row, 3, new QTableWidgetItem(QString::number(yOffset)));
+            m_doodadItemsTable->setItem(row, 4, new QTableWidgetItem(QString::number(zOffset)));
+            
+            markAsModified();
+        }
+    }
 }
 
 void BrushMaterialEditorDialog::onRemoveDoodadItem()
@@ -1255,32 +1265,337 @@ void BrushMaterialEditorDialog::updateDoodadItemsTable()
 
 QString BrushMaterialEditorDialog::getItemName(uint16_t itemId) const
 {
-    // TODO: Get item name from ItemManager
+    // Get item name from ItemDatabase if available
+    if (m_itemDatabase) {
+        // TODO: Use actual ItemDatabase API when available
+        // auto itemData = m_itemDatabase->getItemData(itemId);
+        // if (itemData) {
+        //     return itemData->name;
+        // }
+    }
     return QString("Item %1").arg(itemId);
+}
+
+QString BrushMaterialEditorDialog::getXmlFilePath(const QString& filename) const
+{
+    // Try application data directory first
+    QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QString xmlPath = appDataPath + "/XML/" + filename;
+    
+    if (QFile::exists(xmlPath)) {
+        return xmlPath;
+    }
+    
+    // Try relative path from application directory
+    QString appDirPath = QApplication::applicationDirPath() + "/XML/" + filename;
+    if (QFile::exists(appDirPath)) {
+        return appDirPath;
+    }
+    
+    // Return the app data path for creation
+    return xmlPath;
+}
+
+bool BrushMaterialEditorDialog::ensureXmlDirectoryExists() const
+{
+    QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QString xmlDirPath = appDataPath + "/XML";
+    
+    QDir xmlDir(xmlDirPath);
+    if (!xmlDir.exists()) {
+        return xmlDir.mkpath(".");
+    }
+    return true;
 }
 
 // XML operations (placeholder implementations)
 bool BrushMaterialEditorDialog::saveBorderToXml()
 {
-    // TODO: Implement XML saving
+    if (!ensureXmlDirectoryExists()) {
+        QMessageBox::warning(this, "Error", "Could not create XML directory.");
+        return false;
+    }
+    
+    QString bordersPath = getXmlFilePath("borders.xml");
+    QFile file(bordersPath);
+    
+    // Read existing borders first
+    QDomDocument doc;
+    QDomElement rootElement;
+    
+    if (file.exists() && file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        if (!doc.setContent(&file)) {
+            file.close();
+            QMessageBox::warning(this, "Error", "Could not parse existing borders.xml file.");
+            return false;
+        }
+        file.close();
+        rootElement = doc.documentElement();
+    } else {
+        // Create new document
+        QDomProcessingInstruction xmlDeclaration = doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\"");
+        doc.appendChild(xmlDeclaration);
+        rootElement = doc.createElement("borders");
+        doc.appendChild(rootElement);
+    }
+    
+    // Create new border element
+    QDomElement borderElement = doc.createElement("border");
+    borderElement.setAttribute("name", m_borderNameEdit->text());
+    borderElement.setAttribute("id", m_borderIdSpin->value());
+    
+    // Add border items from grid
+    for (int i = 0; i < 9; ++i) {
+        BorderPosition pos = static_cast<BorderPosition>(i);
+        uint16_t itemId = m_borderGridWidget->getItemForPosition(pos);
+        if (itemId > 0) {
+            QDomElement itemElement = doc.createElement("item");
+            itemElement.setAttribute("position", i);
+            itemElement.setAttribute("id", itemId);
+            borderElement.appendChild(itemElement);
+        }
+    }
+    
+    // Remove existing border with same name if it exists
+    QDomNodeList existingBorders = rootElement.elementsByTagName("border");
+    for (int i = 0; i < existingBorders.count(); ++i) {
+        QDomElement existing = existingBorders.at(i).toElement();
+        if (existing.attribute("name") == m_borderNameEdit->text()) {
+            rootElement.removeChild(existing);
+            break;
+        }
+    }
+    
+    // Add new border
+    rootElement.appendChild(borderElement);
+    
+    // Save to file
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::warning(this, "Error", "Could not open borders.xml for writing.");
+        return false;
+    }
+    
+    QTextStream stream(&file);
+    stream << doc.toString(2);
+    file.close();
+    
     return true;
 }
 
 bool BrushMaterialEditorDialog::saveGroundBrushToXml()
 {
-    // TODO: Implement XML saving
+    if (!ensureXmlDirectoryExists()) {
+        QMessageBox::warning(this, "Error", "Could not create XML directory.");
+        return false;
+    }
+    
+    QString groundsPath = getXmlFilePath("grounds.xml");
+    QFile file(groundsPath);
+    
+    // Read existing brushes first
+    QDomDocument doc;
+    QDomElement rootElement;
+    
+    if (file.exists() && file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        if (!doc.setContent(&file)) {
+            file.close();
+            QMessageBox::warning(this, "Error", "Could not parse existing grounds.xml file.");
+            return false;
+        }
+        file.close();
+        rootElement = doc.documentElement();
+    } else {
+        // Create new document
+        QDomProcessingInstruction xmlDeclaration = doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\"");
+        doc.appendChild(xmlDeclaration);
+        rootElement = doc.createElement("groundbrushes");
+        doc.appendChild(rootElement);
+    }
+    
+    // Create new brush element
+    QDomElement brushElement = doc.createElement("brush");
+    brushElement.setAttribute("name", m_groundBrushNameEdit->text());
+    brushElement.setAttribute("id", m_groundBrushIdSpin->value());
+    
+    // Add items from table
+    for (int row = 0; row < m_groundItemsTable->rowCount(); ++row) {
+        QTableWidgetItem* idItem = m_groundItemsTable->item(row, 0);
+        QTableWidgetItem* chanceItem = m_groundItemsTable->item(row, 2);
+        
+        if (idItem && chanceItem) {
+            QDomElement itemElement = doc.createElement("item");
+            itemElement.setAttribute("id", idItem->text().toInt());
+            itemElement.setAttribute("chance", chanceItem->text().toInt());
+            brushElement.appendChild(itemElement);
+        }
+    }
+    
+    // Remove existing brush with same name if it exists
+    QDomNodeList existingBrushes = rootElement.elementsByTagName("brush");
+    for (int i = 0; i < existingBrushes.count(); ++i) {
+        QDomElement existing = existingBrushes.at(i).toElement();
+        if (existing.attribute("name") == m_groundBrushNameEdit->text()) {
+            rootElement.removeChild(existing);
+            break;
+        }
+    }
+    
+    // Add new brush
+    rootElement.appendChild(brushElement);
+    
+    // Save to file
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::warning(this, "Error", "Could not open grounds.xml for writing.");
+        return false;
+    }
+    
+    QTextStream stream(&file);
+    stream << doc.toString(2);
+    file.close();
+    
     return true;
 }
 
 bool BrushMaterialEditorDialog::saveWallBrushToXml()
 {
-    // TODO: Implement XML saving
+    if (!ensureXmlDirectoryExists()) {
+        QMessageBox::warning(this, "Error", "Could not create XML directory.");
+        return false;
+    }
+    
+    QString wallsPath = getXmlFilePath("walls.xml");
+    QFile file(wallsPath);
+    
+    // Read existing brushes first
+    QDomDocument doc;
+    QDomElement rootElement;
+    
+    if (file.exists() && file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        if (!doc.setContent(&file)) {
+            file.close();
+            QMessageBox::warning(this, "Error", "Could not parse existing walls.xml file.");
+            return false;
+        }
+        file.close();
+        rootElement = doc.documentElement();
+    } else {
+        // Create new document
+        QDomProcessingInstruction xmlDeclaration = doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\"");
+        doc.appendChild(xmlDeclaration);
+        rootElement = doc.createElement("wallbrushes");
+        doc.appendChild(rootElement);
+    }
+    
+    // Create new brush element
+    QDomElement brushElement = doc.createElement("brush");
+    brushElement.setAttribute("name", m_wallBrushNameEdit->text());
+    brushElement.setAttribute("id", m_wallBrushIdSpin->value());
+    
+    // Add wall configuration
+    brushElement.setAttribute("lookid", m_wallLookIdSpin->value());
+    brushElement.setAttribute("server_lookid", m_wallServerLookIdSpin->value());
+    
+    // Remove existing brush with same name if it exists
+    QDomNodeList existingBrushes = rootElement.elementsByTagName("brush");
+    for (int i = 0; i < existingBrushes.count(); ++i) {
+        QDomElement existing = existingBrushes.at(i).toElement();
+        if (existing.attribute("name") == m_wallBrushNameEdit->text()) {
+            rootElement.removeChild(existing);
+            break;
+        }
+    }
+    
+    // Add new brush
+    rootElement.appendChild(brushElement);
+    
+    // Save to file
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::warning(this, "Error", "Could not open walls.xml for writing.");
+        return false;
+    }
+    
+    QTextStream stream(&file);
+    stream << doc.toString(2);
+    file.close();
+    
     return true;
 }
 
 bool BrushMaterialEditorDialog::saveDoodadBrushToXml()
 {
-    // TODO: Implement XML saving
+    if (!ensureXmlDirectoryExists()) {
+        QMessageBox::warning(this, "Error", "Could not create XML directory.");
+        return false;
+    }
+    
+    QString doodadsPath = getXmlFilePath("doodads.xml");
+    QFile file(doodadsPath);
+    
+    // Read existing brushes first
+    QDomDocument doc;
+    QDomElement rootElement;
+    
+    if (file.exists() && file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        if (!doc.setContent(&file)) {
+            file.close();
+            QMessageBox::warning(this, "Error", "Could not parse existing doodads.xml file.");
+            return false;
+        }
+        file.close();
+        rootElement = doc.documentElement();
+    } else {
+        // Create new document
+        QDomProcessingInstruction xmlDeclaration = doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\"");
+        doc.appendChild(xmlDeclaration);
+        rootElement = doc.createElement("doodadbrushes");
+        doc.appendChild(rootElement);
+    }
+    
+    // Create new brush element
+    QDomElement brushElement = doc.createElement("brush");
+    brushElement.setAttribute("name", m_doodadBrushNameEdit->text());
+    brushElement.setAttribute("id", m_doodadBrushIdSpin->value());
+    
+    // Add items from table
+    for (int row = 0; row < m_doodadItemsTable->rowCount(); ++row) {
+        QTableWidgetItem* idItem = m_doodadItemsTable->item(row, 0);
+        QTableWidgetItem* xItem = m_doodadItemsTable->item(row, 2);
+        QTableWidgetItem* yItem = m_doodadItemsTable->item(row, 3);
+        QTableWidgetItem* zItem = m_doodadItemsTable->item(row, 4);
+        
+        if (idItem && xItem && yItem && zItem) {
+            QDomElement itemElement = doc.createElement("item");
+            itemElement.setAttribute("id", idItem->text().toInt());
+            itemElement.setAttribute("x", xItem->text().toInt());
+            itemElement.setAttribute("y", yItem->text().toInt());
+            itemElement.setAttribute("z", zItem->text().toInt());
+            brushElement.appendChild(itemElement);
+        }
+    }
+    
+    // Remove existing brush with same name if it exists
+    QDomNodeList existingBrushes = rootElement.elementsByTagName("brush");
+    for (int i = 0; i < existingBrushes.count(); ++i) {
+        QDomElement existing = existingBrushes.at(i).toElement();
+        if (existing.attribute("name") == m_doodadBrushNameEdit->text()) {
+            rootElement.removeChild(existing);
+            break;
+        }
+    }
+    
+    // Add new brush
+    rootElement.appendChild(brushElement);
+    
+    // Save to file
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::warning(this, "Error", "Could not open doodads.xml for writing.");
+        return false;
+    }
+    
+    QTextStream stream(&file);
+    stream << doc.toString(2);
+    file.close();
+    
     return true;
 }
 
