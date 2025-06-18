@@ -6,10 +6,12 @@
 #include <QString>
 
 // Forward declarations (reduce header dependencies)
-namespace RME { namespace core { class Tile; }} // More explicit
-class Item; // Assuming RME::core::Item
-class Creature;
-class Spawn;
+namespace RME { 
+    class Tile;
+    class Item;
+    class Creature;
+    class Spawn;
+}
 class QUndoStack; // For later integration
 class QUndoCommand; // For later integration
 class Map;        // Assuming Map class exists and is needed for context
@@ -36,29 +38,29 @@ public:
 
     // Methods to modify selection
     // These will internally record changes to be put into a SelectionCommand
-    void addTile(Tile* tile);
-    void removeTile(Tile* tile);
-    void addItem(Tile* tile, Item* item);
-    void removeItem(Tile* tile, Item* item);
-    void addCreature(Tile* tile, Creature* creature);
-    void removeCreature(Tile* tile, Creature* creature);
-    void addSpawn(Tile* tile, Spawn* spawn);
-    void removeSpawn(Tile* tile, Spawn* spawn);
+    void addTile(RME::Tile* tile);
+    void removeTile(RME::Tile* tile);
+    void addItem(RME::Tile* tile, RME::Item* item);
+    void removeItem(RME::Tile* tile, RME::Item* item);
+    void addCreature(RME::Tile* tile, RME::Creature* creature);
+    void removeCreature(RME::Tile* tile, RME::Creature* creature);
+    void addSpawn(RME::Tile* tile, RME::Spawn* spawn);
+    void removeSpawn(RME::Tile* tile, RME::Spawn* spawn);
 
-    void toggleTileSelection(Tile* tile);
-    void toggleItemSelection(Tile* tile, Item* item);
-    void toggleCreatureSelection(Tile* tile, Creature* creature);
-    void toggleSpawnSelection(Tile* tile, Spawn* spawn);
+    void toggleTileSelection(RME::Tile* tile);
+    void toggleItemSelection(RME::Tile* tile, RME::Item* item);
+    void toggleCreatureSelection(RME::Tile* tile, RME::Creature* creature);
+    void toggleSpawnSelection(RME::Tile* tile, RME::Spawn* spawn);
 
     void clear(); // Clears all current selection
 
     // Methods to query selection state
-    bool isSelected(const Tile* tile) const;
-    bool isSelected(const Tile* tile, const Item* item) const;
-    bool isSelected(const Tile* tile, const Creature* creature) const;
-    bool isSelected(const Tile* tile, const Spawn* spawn) const;
+    bool isSelected(const RME::Tile* tile) const;
+    bool isSelected(const RME::Tile* tile, const RME::Item* item) const;
+    bool isSelected(const RME::Tile* tile, const RME::Creature* creature) const;
+    bool isSelected(const RME::Tile* tile, const RME::Spawn* spawn) const;
 
-    const QSet<Tile*>& getSelectedTiles() const;
+    const QSet<RME::Tile*>& getSelectedTiles() const;
     // Later, might add methods to get selected items, creatures, spawns directly
 
     // Utility to check if a selection change session is active
@@ -66,44 +68,44 @@ public:
 
     // Internal methods for direct state manipulation by commands
     void clearSelectionInternal();
-    void addTilesToSelectionInternal(const QList<RME::core::Tile*>& tilesToSelect);
-    void removeTilesFromSelectionInternal(const QList<RME::core::Tile*>& tilesToDeselect);
-    void setSelectedTilesInternal(const QList<RME::core::Tile*>& tilesToSelect);
+    void addTilesToSelectionInternal(const QList<RME::Tile*>& tilesToSelect);
+    void removeTilesFromSelectionInternal(const QList<RME::Tile*>& tilesToDeselect);
+    void setSelectedTilesInternal(const QList<RME::Tile*>& tilesToSelect);
 
     // Getter for current selection state (primarily tiles considered selected)
-    QList<RME::core::Tile*> getCurrentSelectedTilesList() const;
+    QList<RME::Tile*> getCurrentSelectedTilesList() const;
 
 private:
     // Internal helper methods
-    void recordTileSelectionChange(Tile* tile, bool select); // select = true to select, false to deselect
-    void recordItemSelectionChange(Tile* tile, Item* item, bool select);
-    void recordCreatureSelectionChange(Tile* tile, Creature* creature, bool select);
-    void recordSpawnSelectionChange(Tile* tile, Spawn* spawn, bool select);
+    void recordTileSelectionChange(RME::Tile* tile, bool select); // select = true to select, false to deselect
+    void recordItemSelectionChange(RME::Tile* tile, RME::Item* item, bool select);
+    void recordCreatureSelectionChange(RME::Tile* tile, RME::Creature* creature, bool select);
+    void recordSpawnSelectionChange(RME::Tile* tile, RME::Spawn* spawn, bool select);
 
     // Data members
     Map* m_map; // Non-owning pointer to the map
     QUndoStack* m_undoStack; // Non-owning pointer to the undo stack
 
-    QSet<Tile*> m_selectedTiles; // Tiles that contain at least one selected element or are fully selected
+    QSet<RME::Tile*> m_selectedTiles; // Tiles that contain at least one selected element or are fully selected
 
     // Temporary storage for changes during a "selection change session"
     // These will be used to create the SelectionCommand
     struct SelectionChange {
-        Tile* tile;
+        RME::Tile* tile;
         // Pointers to specific items/creatures/spawns can be null if the whole tile is affected
-        Item* item;
-        Creature* creature;
-        Spawn* spawn;
+        RME::Item* item;
+        RME::Creature* creature;
+        RME::Spawn* spawn;
         bool previousState; // Was it selected before this change?
         bool currentState;  // Is it selected now after this change?
 
         enum class TargetType { TILE, ITEM, CREATURE, SPAWN };
         TargetType type;
 
-        SelectionChange(Tile* t, bool prev, bool curr) : tile(t), item(nullptr), creature(nullptr), spawn(nullptr), previousState(prev), currentState(curr), type(TargetType::TILE) {}
-        SelectionChange(Tile* t, Item* i, bool prev, bool curr) : tile(t), item(i), creature(nullptr), spawn(nullptr), previousState(prev), currentState(curr), type(TargetType::ITEM) {}
-        SelectionChange(Tile* t, Creature* c, bool prev, bool curr) : tile(t), item(nullptr), creature(c), spawn(nullptr), previousState(prev), currentState(curr), type(TargetType::CREATURE) {}
-        SelectionChange(Tile* t, Spawn* s, bool prev, bool curr) : tile(t), item(nullptr), creature(nullptr), spawn(s), previousState(prev), currentState(curr), type(TargetType::SPAWN) {}
+        SelectionChange(RME::Tile* t, bool prev, bool curr) : tile(t), item(nullptr), creature(nullptr), spawn(nullptr), previousState(prev), currentState(curr), type(TargetType::TILE) {}
+        SelectionChange(RME::Tile* t, RME::Item* i, bool prev, bool curr) : tile(t), item(i), creature(nullptr), spawn(nullptr), previousState(prev), currentState(curr), type(TargetType::ITEM) {}
+        SelectionChange(RME::Tile* t, RME::Creature* c, bool prev, bool curr) : tile(t), item(nullptr), creature(c), spawn(nullptr), previousState(prev), currentState(curr), type(TargetType::CREATURE) {}
+        SelectionChange(RME::Tile* t, RME::Spawn* s, bool prev, bool curr) : tile(t), item(nullptr), creature(nullptr), spawn(s), previousState(prev), currentState(curr), type(TargetType::SPAWN) {}
     };
     QList<SelectionChange> m_pendingChanges;
     bool m_selectionChangeActive;

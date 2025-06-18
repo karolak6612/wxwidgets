@@ -134,7 +134,7 @@ void EraserBrush::apply(RME::core::editor::EditorControllerInterface* controller
 
     // Only create a command if something was actually changed
     if (groundWasCleared || !capturedClearedItems.empty() || spawnWasCleared || creatureWasCleared) {
-        auto cmd = std::make_unique<RME_COMMANDS::RecordModifyTileContentsCommand>(
+        auto cmd = std::make_unique<RME::core::actions::RecordModifyTileContentsCommand>(
             tile, controller,
             std::move(capturedOldGround),
             std::move(capturedClearedItems),

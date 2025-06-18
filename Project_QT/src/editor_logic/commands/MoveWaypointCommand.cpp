@@ -3,7 +3,9 @@
 #include <QDebug>
 #include <QObject> // For QObject::tr
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace core {
+namespace actions {
 
 MoveWaypointCommand::MoveWaypointCommand(
     RME::core::WaypointManager* waypointManager,
@@ -83,4 +85,6 @@ bool MoveWaypointCommand::mergeWith(const QUndoCommand* command) {
     return false;
 }
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME

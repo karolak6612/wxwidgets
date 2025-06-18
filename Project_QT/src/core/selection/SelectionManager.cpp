@@ -51,7 +51,7 @@ void SelectionManager::finishSelectionChange(const QString& commandText) {
     // Here, we simulate it to test the logic for m_selectedTiles.
     qDebug() << "SelectionManager (Temporary): Simulating application of" << m_pendingChanges.count() << "pending changes for command:" << commandText;
     for (const auto& change : m_pendingChanges) {
-        Tile* affectedTile = change.tile; // Tile context for the change
+        RME::Tile* affectedTile = change.tile; // Tile context for the change
 
         // Simulate setting the selected state on the object
         switch (change.type) {
@@ -144,7 +144,7 @@ void SelectionManager::finishSelectionChange(const QString& commandText) {
     m_pendingChanges.clear(); // Important to clear after passing to command
 }
 
-void SelectionManager::recordTileSelectionChange(Tile* tile, bool select) {
+void SelectionManager::recordTileSelectionChange(RME::Tile* tile, bool select) {
     if (!tile) return;
     if (!m_selectionChangeActive) {
         qWarning() << "SelectionManager: Modification attempted on Tile " << tile << " without active selection change. Call startSelectionChange() first.";
@@ -156,7 +156,7 @@ void SelectionManager::recordTileSelectionChange(Tile* tile, bool select) {
     }
 }
 
-void SelectionManager::recordItemSelectionChange(Tile* tile, Item* item, bool select) {
+void SelectionManager::recordItemSelectionChange(RME::Tile* tile, RME::Item* item, bool select) {
     if (!tile || !item) return;
     if (!m_selectionChangeActive) {
         qWarning() << "SelectionManager: Modification attempted on Item " << item << " without active selection change.";
@@ -168,7 +168,7 @@ void SelectionManager::recordItemSelectionChange(Tile* tile, Item* item, bool se
     }
 }
 
-void SelectionManager::recordCreatureSelectionChange(Tile* tile, Creature* creature, bool select) {
+void SelectionManager::recordCreatureSelectionChange(RME::Tile* tile, RME::Creature* creature, bool select) {
     if (!tile || !creature) return;
     if (!m_selectionChangeActive) {
         qWarning() << "SelectionManager: Modification attempted on Creature " << creature << " without active selection change.";
@@ -180,7 +180,7 @@ void SelectionManager::recordCreatureSelectionChange(Tile* tile, Creature* creat
     }
 }
 
-void SelectionManager::recordSpawnSelectionChange(Tile* tile, Spawn* spawn, bool select) {
+void SelectionManager::recordSpawnSelectionChange(RME::Tile* tile, RME::Spawn* spawn, bool select) {
     if (!tile || !spawn) return;
     if (!m_selectionChangeActive) {
         qWarning() << "SelectionManager: Modification attempted on Spawn " << spawn << " without active selection change.";
@@ -192,31 +192,31 @@ void SelectionManager::recordSpawnSelectionChange(Tile* tile, Spawn* spawn, bool
     }
 }
 
-void SelectionManager::addTile(Tile* tile) { recordTileSelectionChange(tile, true); }
-void SelectionManager::removeTile(Tile* tile) { recordTileSelectionChange(tile, false); }
-void SelectionManager::addItem(Tile* tile, Item* item) { recordItemSelectionChange(tile, item, true); }
-void SelectionManager::removeItem(Tile* tile, Item* item) { recordItemSelectionChange(tile, item, false); }
-void SelectionManager::addCreature(Tile* tile, Creature* creature) { recordCreatureSelectionChange(tile, creature, true); }
-void SelectionManager::removeCreature(Tile* tile, Creature* creature) { recordCreatureSelectionChange(tile, creature, false); }
-void SelectionManager::addSpawn(Tile* tile, Spawn* spawn) { recordSpawnSelectionChange(tile, spawn, true); }
-void SelectionManager::removeSpawn(Tile* tile, Spawn* spawn) { recordSpawnSelectionChange(tile, spawn, false); }
+void SelectionManager::addTile(RME::Tile* tile) { recordTileSelectionChange(tile, true); }
+void SelectionManager::removeTile(RME::Tile* tile) { recordTileSelectionChange(tile, false); }
+void SelectionManager::addItem(RME::Tile* tile, RME::Item* item) { recordItemSelectionChange(tile, item, true); }
+void SelectionManager::removeItem(RME::Tile* tile, RME::Item* item) { recordItemSelectionChange(tile, item, false); }
+void SelectionManager::addCreature(RME::Tile* tile, RME::Creature* creature) { recordCreatureSelectionChange(tile, creature, true); }
+void SelectionManager::removeCreature(RME::Tile* tile, RME::Creature* creature) { recordCreatureSelectionChange(tile, creature, false); }
+void SelectionManager::addSpawn(RME::Tile* tile, RME::Spawn* spawn) { recordSpawnSelectionChange(tile, spawn, true); }
+void SelectionManager::removeSpawn(RME::Tile* tile, RME::Spawn* spawn) { recordSpawnSelectionChange(tile, spawn, false); }
 
-void SelectionManager::toggleTileSelection(Tile* tile) {
+void SelectionManager::toggleTileSelection(RME::Tile* tile) {
     if (!tile) return;
-    recordTileSelectionChange(tile, !tile->isSelected()); // ASSUMES Tile::isSelected()
+    recordTileSelectionChange(tile, !tile->hasStateFlag(RME::TileStateFlag::SELECTED)); // Use proper method
 }
 
-void SelectionManager::toggleItemSelection(Tile* tile, Item* item) {
+void SelectionManager::toggleItemSelection(RME::Tile* tile, RME::Item* item) {
     if (!tile || !item) return;
     recordItemSelectionChange(tile, item, !item->isSelected()); // ASSUMES Item::isSelected()
 }
 
-void SelectionManager::toggleCreatureSelection(Tile* tile, Creature* creature) {
+void SelectionManager::toggleCreatureSelection(RME::Tile* tile, RME::Creature* creature) {
     if (!tile || !creature) return;
     recordCreatureSelectionChange(tile, creature, !creature->isSelected()); // ASSUMES Creature::isSelected()
 }
 
-void SelectionManager::toggleSpawnSelection(Tile* tile, Spawn* spawn) {
+void SelectionManager::toggleSpawnSelection(RME::Tile* tile, RME::Spawn* spawn) {
     if (!tile || !spawn) return;
     recordSpawnSelectionChange(tile, spawn, !spawn->isSelected()); // ASSUMES Spawn::isSelected()
 }
@@ -233,10 +233,10 @@ void SelectionManager::clear() {
     // A truly robust clear might need to query the entire map if selection can be sparse.
 
     // Create a copy for iteration as m_pendingChanges might indirectly affect m_selectedTiles via temporary logic
-    QSet<Tile*> currentSelectionSnapshot = m_selectedTiles;
+    QSet<RME::Tile*> currentSelectionSnapshot = m_selectedTiles;
 
-    for (Tile* tile : currentSelectionSnapshot) {
-        if (tile->isSelected()) {
+    for (RME::Tile* tile : currentSelectionSnapshot) {
+        if (tile->hasStateFlag(RME::TileStateFlag::SELECTED)) {
             recordTileSelectionChange(tile, false);
         }
         // ASSUMPTION: Tile class provides methods like getItems(), getCreature(), getSpawn()
@@ -264,30 +264,30 @@ void SelectionManager::clear() {
     qDebug() << "SelectionManager: clear() has recorded pending changes to deselect relevant items/tiles.";
 }
 
-bool SelectionManager::isSelected(const Tile* tile) const {
+bool SelectionManager::isSelected(const RME::Tile* tile) const {
     if (!tile) return false;
-    return tile->isSelected(); // ASSUMES Tile::isSelected()
+    return tile->hasStateFlag(RME::TileStateFlag::SELECTED); // Use proper method
 }
 
-bool SelectionManager::isSelected(const Tile* tile, const Item* item) const {
+bool SelectionManager::isSelected(const RME::Tile* tile, const RME::Item* item) const {
     if (!tile || !item) return false;
     // Optionally, could add: Q_ASSERT(tile->getItems().contains(item));
     return item->isSelected(); // ASSUMES Item::isSelected()
 }
 
-bool SelectionManager::isSelected(const Tile* tile, const Creature* creature) const {
+bool SelectionManager::isSelected(const RME::Tile* tile, const RME::Creature* creature) const {
     if (!tile || !creature) return false;
     // Optionally, could add: Q_ASSERT(tile->getCreature() == creature);
     return creature->isSelected(); // ASSUMES Creature::isSelected()
 }
 
-bool SelectionManager::isSelected(const Tile* tile, const Spawn* spawn) const {
+bool SelectionManager::isSelected(const RME::Tile* tile, const RME::Spawn* spawn) const {
     if (!tile || !spawn) return false;
     // Optionally, could add: Q_ASSERT(tile->getSpawn() == spawn);
     return spawn->isSelected(); // ASSUMES Spawn::isSelected()
 }
 
-const QSet<Tile*>& SelectionManager::getSelectedTiles() const. {
+const QSet<RME::Tile*>& SelectionManager::getSelectedTiles() const {
     // m_selectedTiles should ideally be updated by the SelectionCommand after redo/undo
     // to accurately reflect tiles with selected content.
     // The temporary logic in finishSelectionChange is a placeholder for this.
@@ -313,15 +313,15 @@ void SelectionManager::clearSelectionInternal() {
     emit selectionChanged();
 }
 
-void SelectionManager::addTilesToSelectionInternal(const QList<RME::core::Tile*>& tilesToSelect) {
+void SelectionManager::addTilesToSelectionInternal(const QList<RME::Tile*>& tilesToSelect) {
     bool changed = false;
-    for (RME::core::Tile* tile : tilesToSelect) {
+    for (RME::Tile* tile : tilesToSelect) {
         if (tile) {
             if (!m_selectedTiles.contains(tile)) { // Add only if not already present
                 m_selectedTiles.insert(tile);
                 changed = true;
             }
-            tile->setSelected(true); // Ensure tile and its contents are marked selected
+            tile->addStateFlag(RME::TileStateFlag::SELECTED); // Use proper method
         }
     }
     if (changed) {
@@ -329,15 +329,15 @@ void SelectionManager::addTilesToSelectionInternal(const QList<RME::core::Tile*>
     }
 }
 
-void SelectionManager::removeTilesFromSelectionInternal(const QList<RME::core::Tile*>& tilesToDeselect) {
+void SelectionManager::removeTilesFromSelectionInternal(const QList<RME::Tile*>& tilesToDeselect) {
     bool changed = false;
-    for (RME::core::Tile* tile : tilesToDeselect) {
+    for (RME::Tile* tile : tilesToDeselect) {
         if (tile) {
             if (m_selectedTiles.contains(tile)) {
                 m_selectedTiles.remove(tile);
                 changed = true;
             }
-            tile->setSelected(false); // Ensure tile and its contents are marked deselected
+            tile->removeStateFlag(RME::TileStateFlag::SELECTED); // Use proper method
         }
     }
     if (changed) {
@@ -345,14 +345,14 @@ void SelectionManager::removeTilesFromSelectionInternal(const QList<RME::core::T
     }
 }
 
-void SelectionManager::setSelectedTilesInternal(const QList<RME::core::Tile*>& tilesToSelect) {
+void SelectionManager::setSelectedTilesInternal(const QList<RME::Tile*>& tilesToSelect) {
     // Simpler version: clear all then add. This will emit selectionChanged twice.
     // clearSelectionInternal(); // Emits selectionChanged
     // addTilesToSelectionInternal(tilesToSelect); // Emits selectionChanged if anything was added
 
     // More optimized version to emit signal once if possible:
-    QSet<RME::core::Tile*> newSelectionSet;
-    for (RME::core::Tile* tile : tilesToSelect) {
+    QSet<RME::Tile*> newSelectionSet;
+    for (RME::Tile* tile : tilesToSelect) {
         if (tile) {
             newSelectionSet.insert(tile);
         }
@@ -360,26 +360,26 @@ void SelectionManager::setSelectedTilesInternal(const QList<RME::core::Tile*>& t
 
     bool changed = false;
     // Deselect tiles that are in current selection but not in new one
-    QList<RME::core::Tile*> toDeselect;
-    for (RME::core::Tile* oldTile : m_selectedTiles) {
+    QList<RME::Tile*> toDeselect;
+    for (RME::Tile* oldTile : m_selectedTiles) {
         if (oldTile && !newSelectionSet.contains(oldTile)) {
             toDeselect.append(oldTile);
         }
     }
-    for (RME::core::Tile* tile : toDeselect) {
-        tile->setSelected(false);
+    for (RME::Tile* tile : toDeselect) {
+        tile->removeStateFlag(RME::TileStateFlag::SELECTED);
         m_selectedTiles.remove(tile);
         changed = true;
     }
 
     // Select tiles that are in new selection but not in old one (or ensure they are selected)
-    for (RME::core::Tile* newTile : newSelectionSet) {
+    for (RME::Tile* newTile : newSelectionSet) {
         if (newTile) { // newTile is already confirmed not null from loop above
             if (!m_selectedTiles.contains(newTile)) {
                  m_selectedTiles.insert(newTile);
                  changed = true;
             }
-            newTile->setSelected(true); // Ensure it's marked selected
+            newTile->addStateFlag(RME::TileStateFlag::SELECTED); // Use proper method
         }
     }
 
@@ -388,11 +388,11 @@ void SelectionManager::setSelectedTilesInternal(const QList<RME::core::Tile*>& t
     }
 }
 
-QList<RME::core::Tile*> SelectionManager::getCurrentSelectedTilesList() const {
-    QList<RME::core::Tile*> list;
+QList<RME::Tile*> SelectionManager::getCurrentSelectedTilesList() const {
+    QList<RME::Tile*> list;
     // QSet to QList conversion
     list.reserve(m_selectedTiles.size());
-    for(RME::core::Tile* tile : m_selectedTiles) {
+    for(RME::Tile* tile : m_selectedTiles) {
         list.append(tile);
     }
     // Optionally sort for consistent order if needed by callers

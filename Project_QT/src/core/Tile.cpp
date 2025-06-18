@@ -1,5 +1,7 @@
 #include "Tile.h"
+#include "core/spawns/SpawnData.h"
 #include <algorithm> // For std::remove_if
+#include <QDebug>    // For qWarning() logging
 
 namespace RME {
 
@@ -19,7 +21,9 @@ Tile::Tile(const Position& pos, IItemTypeProvider* provider)
       // m_spawnCreatureList is default-initialized
 {
     if (!itemTypeProvider) {
-        // throw std::runtime_error("Tile created with null IItemTypeProvider");
+        qWarning() << "Tile created with null IItemTypeProvider at position" 
+                   << pos.x << "," << pos.y << "," << pos.z;
+        // Note: We allow null provider but warn about it for debugging
     }
 }
 
@@ -39,7 +43,9 @@ Tile::Tile(int x, int y, int z, IItemTypeProvider* provider)
       // m_spawnCreatureList is default-initialized
 {
     if (!itemTypeProvider) {
-        // throw std::runtime_error("Tile created with null IItemTypeProvider");
+        qWarning() << "Tile created with null IItemTypeProvider at position" 
+                   << x << "," << y << "," << z;
+        // Note: We allow null provider but warn about it for debugging
     }
 }
 
@@ -229,11 +235,24 @@ void Tile::copyMembersTo(Tile& target) const {
 }
 
 Item* Tile::addItem(std::unique_ptr<Item> item) {
-    if (!item || !itemTypeProvider) {
+    if (!item) {
+        qWarning() << "Tile::addItem: Attempted to add null item at position" 
+                   << position.x << "," << position.y << "," << position.z;
         return nullptr;
     }
+    if (!itemTypeProvider) {
+        qWarning() << "Tile::addItem: No itemTypeProvider available at position" 
+                   << position.x << "," << position.y << "," << position.z;
+        return nullptr;
+    }
+    
     Item* rawItemPtr = item.get();
     if (itemTypeProvider->isGround(item->getID())) {
+        if (ground) {
+            qDebug() << "Tile::addItem: Replacing existing ground item" << ground->getID() 
+                     << "with" << item->getID() << "at position" 
+                     << position.x << "," << position.y << "," << position.z;
+        }
         ground = std::move(item);
     } else {
         items.append(std::move(item));
@@ -433,7 +452,7 @@ void Tile::clearSpawnData() {
 
 // Updated isEmpty (implementation for declaration in .h)
 bool Tile::isEmpty() const {
-    return getItemCount() == 0 && !m_creature && !isSpawnTile();
+    return getItemCount() == 0 && !creature && !isSpawnTile();
 }
 
 
@@ -572,6 +591,23 @@ bool Tile::isProtectionZone() const {
     // The existing isPZ() returns based on TileMapFlag.
     // Depending on design, these might need to be reconciled or one might be preferred.
     return m_isProtectionZone;
+}
+
+// --- SpawnData Integration ---
+void Tile::setSpawnData(const RME::core::spawns::SpawnData& spawnData) {
+    m_spawnRadius = spawnData.getRadius();
+    m_spawnCreatureList = spawnData.getCreatureTypes();
+    m_spawnIntervalSeconds = spawnData.getIntervalSeconds();
+    addStateFlag(TileStateFlag::MODIFIED);
+}
+
+RME::core::spawns::SpawnData Tile::getSpawnData() const {
+    Position tilePos(position.x(), position.y(), position.z());
+    return RME::core::spawns::SpawnData(tilePos, m_spawnRadius, m_spawnIntervalSeconds, m_spawnCreatureList);
+}
+
+bool Tile::hasSpawnData() const {
+    return m_spawnRadius > 0 || !m_spawnCreatureList.isEmpty() || m_spawnIntervalSeconds > 0;
 }
 
 } // namespace RME

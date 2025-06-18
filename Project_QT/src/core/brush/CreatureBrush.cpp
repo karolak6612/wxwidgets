@@ -21,7 +21,7 @@ namespace RME {
 namespace core {
 
 CreatureBrush::CreatureBrush(RME::core::editor::EditorControllerInterface* controller, const RME::core::assets::CreatureData* creatureData) :
-    RME::core::brush::Brush(controller), // Call base Brush constructor
+    RME::core::Brush(), // Call base Brush constructor (no controller parameter)
     m_creatureData(creatureData)
 {
     Q_ASSERT(m_creatureData != nullptr && "CreatureData cannot be null for CreatureBrush");
@@ -67,7 +67,7 @@ bool CreatureBrush::canApply(const RME::core::map::Map* map,
         return false;
     }
 
-    const RME::Tile* tile = map->getTile(pos);
+    const RME::core::Tile* tile = map->getTile(pos);
     if (!tile) {
         // qWarning() << "CreatureBrush::canApply: No tile at position" << pos.x << pos.y << pos.z;
         return false;
@@ -98,7 +98,7 @@ bool CreatureBrush::canApply(const RME::core::map::Map* map,
 
     // PZ/NPC logic:
     if (tile->isPZ()) {
-        if (!m_creatureType->flags.testFlag(RME::CreatureTypeFlag::IS_NPC)) {
+        if (!m_creatureData->flags.testFlag(RME::core::CreatureTypeFlag::IS_NPC)) {
             // qWarning() << "CreatureBrush::canApply: Cannot place non-NPC in PZ.";
             return false;
         }
@@ -219,6 +219,41 @@ void CreatureBrush::apply(RME::core::editor::EditorControllerInterface* controll
     }
     // Tile notification should be handled by commands (AddCreatureCommand, RemoveCreatureCommand, etc.)
     // controller->notifyTileChanged(pos); // This might be redundant if commands do it.
+}
+
+// Legacy compatibility methods for direct map manipulation
+void CreatureBrush::draw(RME::core::map::Map* map, RME::core::Tile* tile, const RME::core::BrushSettings* settings) {
+    Q_UNUSED(map)
+    
+    if (!tile || !settings) {
+        qWarning() << "CreatureBrush::draw: Invalid parameters (tile or settings is null)";
+        return;
+    }
+    
+    if (!m_creatureData) {
+        qWarning() << "CreatureBrush::draw: No creature data set";
+        return;
+    }
+    
+    // Create and place creature directly on tile
+    auto creature = std::make_unique<RME::core::Creature>(m_creatureData);
+    tile->setCreature(std::move(creature));
+    
+    qDebug() << "CreatureBrush::draw: Placed creature" << m_creatureData->name << "on tile";
+}
+
+void CreatureBrush::undraw(RME::core::map::Map* map, RME::core::Tile* tile, const RME::core::BrushSettings* settings) {
+    Q_UNUSED(map)
+    Q_UNUSED(settings)
+    
+    if (!tile) {
+        qWarning() << "CreatureBrush::undraw: Invalid tile parameter";
+        return;
+    }
+    
+    // Remove creature from tile
+    tile->setCreature(nullptr);
+    qDebug() << "CreatureBrush::undraw: Removed creature from tile";
 }
 
 } // namespace core

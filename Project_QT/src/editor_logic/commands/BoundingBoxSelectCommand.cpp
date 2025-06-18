@@ -6,7 +6,9 @@
 #include <QDebug>  // For qWarning, Q_ASSERT
 #include <QSet>    // For efficient union of tile lists
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace core {
+namespace actions {
 
 BoundingBoxSelectCommand::BoundingBoxSelectCommand(
     RME::core::selection::SelectionManager* selectionManager,
@@ -82,4 +84,6 @@ void BoundingBoxSelectCommand::undo() {
     setText(QObject::tr("Undo Bounding Box Selection"));
 }
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME

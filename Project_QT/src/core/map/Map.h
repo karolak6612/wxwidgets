@@ -114,10 +114,15 @@ public:
     void clearWaypoints(); // Useful for new map or closing map
 
     // --- Spawns ---
-    void addSpawn(RME::SpawnData&& spawnData);
-    QList<RME::SpawnData>& getSpawns(); // Non-const
-    const QList<RME::SpawnData>& getSpawns() const; // Const
-    bool removeSpawn(const RME::SpawnData& spawnData); // Returns true if found and removed
+    void addSpawn(RME::core::spawns::SpawnData&& spawnData);
+    bool addSpawn(const RME::core::spawns::SpawnData& spawnData); // Copy version
+    QList<RME::core::spawns::SpawnData>& getSpawns(); // Non-const
+    const QList<RME::core::spawns::SpawnData>& getSpawns() const; // Const
+    bool removeSpawn(const RME::core::spawns::SpawnData& spawnData); // Returns true if found and removed
+    bool removeSpawnAt(const Position& pos); // Remove spawn at specific position
+    RME::core::spawns::SpawnData* getSpawnAt(const Position& pos); // Get spawn at position
+    const RME::core::spawns::SpawnData* getSpawnAt(const Position& pos) const;
+    void clearSpawns(); // Remove all spawns
 
     // --- Advanced Queries / Tile Property Queries ---
     /**
@@ -178,7 +183,7 @@ private:
     QMap<uint32_t, RME::core::houses::HouseData> m_housesById; // Explicitly namespaced
     uint32_t m_maxHouseId = 0; // Tracks the highest ID ever used
     QMap<QString, RME::core::navigation::WaypointData> m_waypoints;
-    QList<RME::SpawnData> m_spawns; // Changed to RME::SpawnData
+    QList<RME::core::spawns::SpawnData> m_spawns; // Updated to use proper namespace
 };
 
 } // namespace RME

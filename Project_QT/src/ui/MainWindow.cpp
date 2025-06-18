@@ -1,4 +1,7 @@
-#include "ui/MainWindow.h" // Relative path to header
+#include "ui/MainWindow.h"
+#include "editor_logic/EditorController.h"
+#include "core/brush/BrushIntegrationManager.h"
+#include "core/map/Map.h" // Relative path to header
 
 #include <QApplication> // For qApp global pointer if needed, or for QGuiApplication for screen info
 #include <QScreen>      // For screen geometry to center window initially
@@ -48,11 +51,20 @@ MainWindow::MainWindow(QWidget *parent)
     m_mapView = new RME::ui::widgets::MapView(this); // Instantiate MapView
     setCentralWidget(m_mapView);                   // Set MapView as the central widget
 
+    // Create and integrate editor controller
+    createEditorController();
+    
+    // Create dock manager and dock panels
+    createDockManager();
+
     // Placeholder calls, actual menu creation will be called after this
     createMenusFromXML(":/menubar.xml"); // Will be called after stubs are filled
     connectMapViewActions(); // Connect actions to MapView slots
+    connectEditorController(); // Connect menu actions to editor controller
+    connectBrushMaterialActions(); // Connect brush/material editor actions
     updateRecentFilesMenu();
     updateMenus();
+    updateMenuStatesFromEditor();
 
     loadWindowSettings(); // Load stored geometry and state
 }
@@ -207,7 +219,8 @@ void MainWindow::parseMenuNode(QXmlStreamReader& xml, QMenu* parentMenu, QMenuBa
                 }
                 // TODO: Handle kind="radio" using QActionGroup
 
-                connect(action, &QAction::triggered, this, &MainWindow::onPlaceholderActionTriggered);
+                // Don't connect to placeholder initially - will be connected in connectEditorController()
+                // connect(action, &QAction::triggered, this, &MainWindow::onPlaceholderActionTriggered);
 
                 if (parentMenu) {
                     parentMenu->addAction(action);
@@ -434,6 +447,26 @@ void MainWindow::connectMapViewActions() {
     }
     // Note: menubar.xml does not have direct FLOOR_UP / FLOOR_DOWN actions.
     // These are typically handled by PageUp/PageDown keys directly in MapView's keyPressEvent.
+}
+
+void MainWindow::connectBrushMaterialActions() {
+    // Helper lambda to disconnect the placeholder and connect the new action
+    auto reconnectAction = [this](const QString& actionName, auto&& slot) {
+        if (m_actions.contains(actionName)) {
+            QAction* action = m_actions[actionName];
+            disconnect(action, &QAction::triggered, this, &MainWindow::onPlaceholderActionTriggered);
+            connect(action, &QAction::triggered, this, std::forward<decltype(slot)>(slot));
+        } else {
+            qWarning() << "MainWindow::connectBrushMaterialActions: Action" << actionName << "not found.";
+        }
+    };
+
+    // Connect brush/material editor actions
+    reconnectAction("BRUSH_MATERIAL_EDITOR", &MainWindow::onBrushMaterialEditor);
+    reconnectAction("NEW_TILESET", &MainWindow::onNewTileset);
+    reconnectAction("ADD_ITEM_TO_TILESET", &MainWindow::onAddItemToTileset);
+    
+    qDebug() << "MainWindow::connectBrushMaterialActions: Connected brush/material editor actions.";
 }
 
 } // namespace ui

@@ -41,9 +41,9 @@ using RMERawBrush = RME::core::brush::RawBrush;
 using RMEMockEditorController = MockEditorController; // From tests/core/brush/
 
 using RMECommandBase = QUndoCommand; // Base for casting
-using RMERecordSetGroundCommand = RME_COMMANDS::RecordSetGroundCommand;
-using RMERecordAddRemoveItemCommand = RME_COMMANDS::RecordAddRemoveItemCommand;
-using RMEItemChangeOperation = RME_COMMANDS::ItemChangeOperation;
+using RMERecordSetGroundCommand = RME::core::actions::RecordSetGroundCommand;
+using RMERecordAddRemoveItemCommand = RME::core::actions::RecordAddRemoveItemCommand;
+using RMEItemChangeOperation = RME::core::actions::ItemChangeOperation;
 
 
 const uint16_t GROUND_ITEM_ID_1 = 101;

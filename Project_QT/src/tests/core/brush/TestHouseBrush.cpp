@@ -31,7 +31,7 @@ using RMETile = RME::core::Tile;
 using RMEPos = RME::core::Position;
 using RMEBrushSettings = RME::core::BrushSettings;
 using RMEMockEditorController = MockEditorController; // This is tests/core/brush/MockEditorController.h
-using RMESetHouseTileCommand = RME_COMMANDS::SetHouseTileCommand;
+using RMESetHouseTileCommand = RME::core::actions::SetHouseTileCommand;
 
 // Forward declare MockUndoStack from TestEditorController.cpp (or ensure MockEditorController handles it)
 // For this test, we will rely on MockEditorController's lastPushedCommand mechanism.

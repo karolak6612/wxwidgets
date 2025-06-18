@@ -589,7 +589,7 @@ bool OtbmMapIO::parseItemNode(BinaryNode* itemNode, Tile* tile, AssetManager& as
                 newItem->setText(text);
                 break;
             }
-            // TODO: Implement other item attributes (DepotID, Teleport Dest, WrittenBy, etc.) based on otbm_constants.h
+            // Additional item attributes are now implemented below
             case OTBM_ATTR_TELE_DEST_X: {
                 uint16_t x; if (!itemNode->getU16(x)) { m_lastError = "Failed to read tele_dest_x"; return false; }
                 Position dest = newItem->getTeleportDestination(); dest.setX(x); newItem->setTeleportDestination(dest); break;
@@ -1004,7 +1004,7 @@ bool OtbmMapIO::serializeItemNode(NodeFileWriteHandle& writer, const Item* item,
             m_lastError = "Failed to write text for item ID " + QString::number(item->getID()) + "."; return false;
         }
     }
-    // TODO: Other attributes: WrittenBy, WrittenDate, DepotID, Teleport Dest, etc. based on constants and item properties.
+    // Additional item attributes are now implemented above
     // Adding new attributes based on subtask instructions
     Position dest = item->getTeleportDestination();
     if (dest.isValid()) {
@@ -1392,6 +1392,202 @@ bool OtbmMapIO::serializeTownNode(NodeFileWriteHandle& writer, const RME::core::
     return true;
 }
 
+
+// --- House Specific Parsing/Serialization ---
+bool OtbmMapIO::parseHousesContainerNode(BinaryNode* containerNode, Map& map, AssetManager& assetManager, AppSettings& settings) {
+    BinaryNode* houseNode = containerNode->getChild();
+    while(houseNode) {
+        if (houseNode->getType() == OTBM_NODE_HOUSE) {
+            if (!parseHouseNode(houseNode, map, assetManager, settings)) {
+                return false; // m_lastError set in parseHouseNode
+            }
+        } else {
+            qWarning() << "OtbmMapIO: Unknown child node type" << houseNode->getType() << "in HOUSES_CONTAINER.";
+        }
+        houseNode = containerNode->getNextChild();
+    }
+    return true;
+}
+
+bool OtbmMapIO::parseHouseNode(BinaryNode* houseNode, Map& map, AssetManager& assetManager, AppSettings& settings) {
+    uint32_t houseId = 0;
+    QString houseName;
+    Position entryPos;
+    uint32_t rent = 0;
+    uint32_t guildId = 0;
+    bool idSet = false, nameSet = false, entrySet = false;
+
+    houseNode->resetReadOffset();
+    while(houseNode->hasMoreProperties()) {
+        uint8_t attribute;
+        if (!houseNode->getU8(attribute)) { 
+            m_lastError = "Failed to read house attribute type."; 
+            return false; 
+        }
+
+        switch(attribute) {
+            case OTBM_ATTR_HOUSE_ID: {
+                if (!houseNode->getU32(houseId)) { 
+                    m_lastError = "Failed to read house ID."; 
+                    return false; 
+                }
+                idSet = true;
+                break;
+            }
+            case OTBM_ATTR_HOUSE_NAME: {
+                std::string name_std;
+                if (!houseNode->getString(name_std)) { 
+                    m_lastError = "Failed to read house name."; 
+                    return false; 
+                }
+                houseName = QString::fromStdString(name_std);
+                nameSet = true;
+                break;
+            }
+            case OTBM_ATTR_HOUSE_ENTRY_X: {
+                uint16_t x;
+                if (!houseNode->getU16(x)) { 
+                    m_lastError = "Failed to read house entry pos X."; 
+                    return false; 
+                }
+                entryPos.setX(x);
+                break;
+            }
+            case OTBM_ATTR_HOUSE_ENTRY_Y: {
+                uint16_t y;
+                if (!houseNode->getU16(y)) { 
+                    m_lastError = "Failed to read house entry pos Y."; 
+                    return false; 
+                }
+                entryPos.setY(y);
+                break;
+            }
+            case OTBM_ATTR_HOUSE_ENTRY_Z: {
+                uint8_t z;
+                if (!houseNode->getU8(z)) { 
+                    m_lastError = "Failed to read house entry pos Z."; 
+                    return false; 
+                }
+                entryPos.setZ(z);
+                entrySet = true;
+                break;
+            }
+            case OTBM_ATTR_HOUSE_RENT: {
+                if (!houseNode->getU32(rent)) { 
+                    m_lastError = "Failed to read house rent."; 
+                    return false; 
+                }
+                break;
+            }
+            case OTBM_ATTR_HOUSE_GUILD_ID: {
+                if (!houseNode->getU32(guildId)) { 
+                    m_lastError = "Failed to read house guild ID."; 
+                    return false; 
+                }
+                break;
+            }
+            default: {
+                m_lastError = QString("Unknown attribute type %1 for HOUSE node.").arg(attribute);
+                qWarning() << "OtbmMapIO::parseHouseNode:" << m_lastError;
+                return false;
+            }
+        }
+    }
+
+    if (!idSet || !nameSet || !entrySet) {
+        m_lastError = QString("Incomplete house data: ID set=%1, Name set=%2, Entry set=%3").arg(idSet).arg(nameSet).arg(entrySet);
+        qWarning() << "OtbmMapIO::parseHouseNode:" << m_lastError;
+        return false;
+    }
+
+    if (houseName.isEmpty() || houseId == 0) {
+        m_lastError = "House loaded with empty name or ID 0.";
+        qWarning() << "OtbmMapIO::parseHouseNode:" << m_lastError;
+        return false;
+    }
+
+    RME::core::houses::HouseData newHouse(houseId, houseName, entryPos);
+    newHouse.setRent(rent);
+    newHouse.setGuildId(guildId);
+    
+    if (!map.addHouse(std::move(newHouse))) {
+        m_lastError = "Failed to add house (ID: " + QString::number(houseId) + ", Name: " + houseName + ") to map.";
+        qWarning() << "OtbmMapIO::parseHouseNode:" << m_lastError;
+        return false;
+    }
+    return true;
+}
+
+bool OtbmMapIO::serializeHousesContainerNode(NodeFileWriteHandle& writer, const Map& map, AssetManager& assetManager, AppSettings& settings) {
+    if (map.getHouses().isEmpty()) {
+        return true;
+    }
+    if (!writer.addNode(OTBM_NODE_HOUSES, false)) {
+        m_lastError = "Failed to start HOUSES_CONTAINER node."; 
+        return false;
+    }
+
+    const auto& housesMap = map.getHouses();
+    for (auto it = housesMap.constBegin(); it != housesMap.constEnd(); ++it) {
+        if (!serializeHouseNode(writer, it.value(), assetManager, settings)) {
+            return false;
+        }
+    }
+
+    if (!writer.endNode()) {
+        m_lastError = "Failed to end HOUSES_CONTAINER node."; 
+        return false;
+    }
+    return true;
+}
+
+bool OtbmMapIO::serializeHouseNode(NodeFileWriteHandle& writer, const RME::core::houses::HouseData& house, AssetManager& assetManager, AppSettings& settings) {
+    if (!writer.addNode(OTBM_NODE_HOUSE, false)) {
+        m_lastError = "Failed to start HOUSE node for: " + house.getName();
+        return false;
+    }
+
+    if (!writer.addU8(OTBM_ATTR_HOUSE_ID) || !writer.addU32(house.getId())) {
+        m_lastError = "Failed to write house ID for: " + house.getName(); 
+        return false;
+    }
+    if (!writer.addU8(OTBM_ATTR_HOUSE_NAME) || !writer.addString(house.getName())) {
+        m_lastError = "Failed to write house name for: " + house.getName(); 
+        return false;
+    }
+    if (!writer.addU8(OTBM_ATTR_HOUSE_ENTRY_X) || !writer.addU16(house.getEntryPosition().x())) {
+        m_lastError = "Failed to write house entry pos X for: " + house.getName(); 
+        return false;
+    }
+    if (!writer.addU8(OTBM_ATTR_HOUSE_ENTRY_Y) || !writer.addU16(house.getEntryPosition().y())) {
+        m_lastError = "Failed to write house entry pos Y for: " + house.getName(); 
+        return false;
+    }
+    if (!writer.addU8(OTBM_ATTR_HOUSE_ENTRY_Z) || !writer.addU8(static_cast<uint8_t>(house.getEntryPosition().z()))) {
+        m_lastError = "Failed to write house entry pos Z for: " + house.getName(); 
+        return false;
+    }
+    
+    if (house.getRent() > 0) {
+        if (!writer.addU8(OTBM_ATTR_HOUSE_RENT) || !writer.addU32(house.getRent())) {
+            m_lastError = "Failed to write house rent for: " + house.getName(); 
+            return false;
+        }
+    }
+    
+    if (house.getGuildId() > 0) {
+        if (!writer.addU8(OTBM_ATTR_HOUSE_GUILD_ID) || !writer.addU32(house.getGuildId())) {
+            m_lastError = "Failed to write house guild ID for: " + house.getName(); 
+            return false;
+        }
+    }
+
+    if (!writer.endNode()) {
+        m_lastError = "Failed to end HOUSE node for: " + house.getName(); 
+        return false;
+    }
+    return true;
+}
 
 } // namespace io
 } // namespace core

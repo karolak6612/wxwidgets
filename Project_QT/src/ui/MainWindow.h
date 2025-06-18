@@ -6,6 +6,21 @@
 
 #include "widgets/MapView.h" // For RME::ui::widgets::MapView
 
+// Forward declarations for RME classes
+namespace RME {
+namespace editor_logic {
+    class EditorController;
+}
+namespace core {
+namespace brush {
+    class BrushIntegrationManager;
+}
+}
+namespace ui {
+    class DockManager;
+}
+}
+
 // Forward declarations for Qt classes
 class QAction;
 class QMenu;
@@ -30,7 +45,87 @@ protected:
     void closeEvent(QCloseEvent *event) override;
 
 private slots:
-    void onPlaceholderActionTriggered(); // Placeholder for all menu actions initially
+    void onPlaceholderActionTriggered();
+    
+    // File menu actions
+    void onNewMap();
+    void onOpenMap();
+    void onSaveMap();
+    void onSaveMapAs();
+    void onCloseMap();
+    void onImportMap();
+    void onExportMap();
+    void onExportMinimap();
+    void onRecentFile();
+    void onExit();
+    
+    // Edit menu actions
+    void onUndo();
+    void onRedo();
+    void onCut();
+    void onCopy();
+    void onPaste();
+    void onSelectAll();
+    void onClearSelection();
+    void onDelete();
+    void onPreferences();
+    
+    // Map menu actions
+    void onBorderizeMap();
+    void onRandomizeMap();
+    void onClearInvalidHouseTiles();
+    void onClearModifiedTileState();
+    void onValidateGrounds();
+    void onBorderizeSelection();
+    void onRandomizeSelection();
+    void onMoveSelection();
+    void onResizeMap();
+    void onMapProperties();
+    
+    // Search menu actions
+    void onFindItem();
+    void onFindCreature();
+    void onSearchOnMap();
+    void onSearchOnSelection();
+    void onGoToPosition();
+    
+    // View menu actions
+    void onZoomIn();
+    void onZoomOut();
+    void onZoomNormal();
+    void onZoomFit();
+    void onFloorUp();
+    void onFloorDown();
+    void onGoToFloor();
+    void onShowGrid();
+    void onShowCreatures();
+    void onShowSpawns();
+    void onShowHouses();
+    void onShowWaypoints();
+    void onShowItemPalette();
+    void onShowCreaturePalette();
+    void onShowHousePalette();
+    void onShowWaypointPalette();
+    void onShowPropertiesPanel();
+    void onShowMinimap();
+    
+    // Tools menu actions
+    void onSelectTool();
+    void onBrushTool();
+    void onHouseExitTool();
+    void onWaypointTool();
+    void onSpawnTool();
+    
+    // Help menu actions
+    void onAbout();
+    void onAboutQt();
+    void onHelp();
+    void onCheckUpdates(); // Placeholder for all menu actions initially
+    
+    // Brush & Material Editor actions
+    void onBrushMaterialEditor();
+    void onNewTileset();
+    void onAddItemToTileset();
     void openRecentFile();             // Slot for dynamic recent file actions
     void updateMenus();                // Slot to update enabled/checked state of actions
 
@@ -42,6 +137,7 @@ private:
     void saveWindowSettings();
     void updateRecentFilesMenu();
     void connectMapViewActions(); // Connect actions to MapView slots
+    void connectBrushMaterialActions(); // Connect brush/material editor actions
 
     // QMenuBar* m_menuBar; // QMainWindow has one implicitly via menuBar()
     QStatusBar* m_statusBar = nullptr; // Initialized in constructor
@@ -56,6 +152,21 @@ private:
     QList<QAction*> m_recentFileActions; // To keep track of dynamically created recent file actions for easy clearing
 
     RME::ui::widgets::MapView* m_mapView = nullptr; // The MapView instance
+    
+    // Core integration
+    RME::editor_logic::EditorController* m_editorController = nullptr;
+    RME::core::brush::BrushIntegrationManager* m_brushIntegrationManager = nullptr;
+    
+    // UI components
+    class MainToolBar* m_mainToolBar = nullptr;
+    class DockManager* m_dockManager = nullptr;
+    
+    // Helper methods
+    void createEditorController();
+    void connectEditorController();
+    void updateMenuStatesFromEditor();
+    void createToolBar();
+    void createDockManager();
 };
 
 } // namespace ui

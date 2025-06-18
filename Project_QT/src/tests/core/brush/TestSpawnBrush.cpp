@@ -181,7 +181,7 @@ void TestSpawnBrush::testApply_DrawNewSpawn() {
     QVERIFY(m_mockController->pushCommandCalled);
     QVERIFY(m_mockController->lastPushedCommand);
 
-    auto* cmd = dynamic_cast<RME_COMMANDS::RecordSetSpawnCommand*>(m_mockController->lastPushedCommand.get());
+    auto* cmd = dynamic_cast<RME::core::actions::RecordSetSpawnCommand*>(m_mockController->lastPushedCommand.get());
     QVERIFY(cmd);
 
     const RMESpawn* undoState = cmd->getSpawnForUndoState();
@@ -215,7 +215,7 @@ void TestSpawnBrush::testApply_DrawUpdateExistingSpawn() {
     QVERIFY(m_mockController->pushCommandCalled);
     QVERIFY(m_mockController->lastPushedCommand);
 
-    auto* cmd = dynamic_cast<RME_COMMANDS::RecordSetSpawnCommand*>(m_mockController->lastPushedCommand.get());
+    auto* cmd = dynamic_cast<RME::core::actions::RecordSetSpawnCommand*>(m_mockController->lastPushedCommand.get());
     QVERIFY(cmd);
 
     const RMESpawn* undoState = cmd->getSpawnForUndoState();
@@ -261,7 +261,7 @@ void TestSpawnBrush::testApply_EraseSpawn() {
     QVERIFY(m_mockController->pushCommandCalled);
     QVERIFY(m_mockController->lastPushedCommand);
 
-    auto* cmd = dynamic_cast<RME_COMMANDS::RecordSetSpawnCommand*>(m_mockController->lastPushedCommand.get());
+    auto* cmd = dynamic_cast<RME::core::actions::RecordSetSpawnCommand*>(m_mockController->lastPushedCommand.get());
     QVERIFY(cmd);
 
     const RMESpawn* undoState = cmd->getSpawnForUndoState();
