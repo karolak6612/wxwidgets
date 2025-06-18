@@ -7,6 +7,7 @@
 #include <QString>     // For command text
 
 #include "core/Position.h" // For RME::core::Position
+#include "core/actions/CommandIds.h"
 
 // Forward declarations
 namespace RME {
@@ -18,9 +19,11 @@ namespace core {
 }
 }
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace core {
+namespace actions {
 
-const int DeleteSelectionCommandId = 1010; // Choose a unique ID
+constexpr int DeleteSelectionCommandId = toInt(CommandId::DeleteSelection);
 
 class DeleteSelectionCommand : public QUndoCommand {
 public:
@@ -53,5 +56,7 @@ private:
     bool m_firstRun;
 };
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME
 #endif // RME_DELETESELECTIONCOMMAND_H

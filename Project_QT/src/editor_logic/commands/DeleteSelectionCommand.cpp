@@ -8,7 +8,9 @@
 #include <QDebug>  // For qWarning, Q_ASSERT
 #include <set>     // For std::set to get unique positions from selection
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace core {
+namespace actions {
 
 DeleteSelectionCommand::DeleteSelectionCommand(
     RME::core::Map* map,
@@ -137,4 +139,6 @@ bool DeleteSelectionCommand::mergeWith(const QUndoCommand *other) {
     return false;
 }
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME

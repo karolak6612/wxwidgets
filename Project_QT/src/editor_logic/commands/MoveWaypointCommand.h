@@ -4,15 +4,18 @@
 #include <QUndoCommand>
 #include <QString>
 #include "core/Position.h" // RME::core::Position
+#include "core/actions/CommandIds.h"
 
 // Forward declarations
 namespace RME { namespace core {
     class WaypointManager;
 }}
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace core {
+namespace actions {
 
-const int MoveWaypointCommandId = 1004; // Unique ID for this command type
+constexpr int MoveWaypointCommandId = toInt(CommandId::MoveWaypoint);
 
 class MoveWaypointCommand : public QUndoCommand {
 public:
@@ -39,5 +42,7 @@ private:
                                      // If merged, this becomes the final new position of the sequence.
 };
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME
 #endif // RME_MOVEWAYPOINTCOMMAND_H

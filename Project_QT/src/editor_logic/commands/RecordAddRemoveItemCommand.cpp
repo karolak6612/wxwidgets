@@ -9,7 +9,9 @@
 #include <QObject> // For tr()
 #include <QDebug>  // For qWarning, Q_ASSERT
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace core {
+namespace actions {
 
 // Constructor for Adding an item
 RecordAddRemoveItemCommand::RecordAddRemoveItemCommand(
@@ -149,4 +151,6 @@ void RecordAddRemoveItemCommand::redo() {
     setText(m_commandTextBase + QObject::tr(" at (%1,%2,%3)").arg(m_tilePosition.x).arg(m_tilePosition.y).arg(m_tilePosition.z));
 }
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME

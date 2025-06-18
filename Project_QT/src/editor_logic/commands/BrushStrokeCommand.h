@@ -8,24 +8,29 @@
 #include <memory> // For std::unique_ptr
 #include "core/Position.h"
 #include "core/brush/BrushSettings.h" // Assuming RME::BrushSettings
+#include "core/actions/CommandIds.h"
 // Forward declarations
 namespace RME {
-    class Map;
+namespace core {
+    namespace map { class Map; }
     class Brush;
     class Tile;
 }
+}
 
-namespace RME_COMMANDS { // Or RME::Commands, or just RME
+namespace RME {
+namespace core {
+namespace actions {
 
-const int BrushStrokeCommandId = 1001; // Unique ID for this command type
+constexpr int BrushStrokeCommandId = toInt(CommandId::BrushStroke);
 
 class BrushStrokeCommand : public QUndoCommand {
 public:
     BrushStrokeCommand(
-        RME::Map* map,
-        RME::Brush* brush,
-        const QList<RME::Position>& positions,
-        const RME::BrushSettings& settings,
+        RME::core::map::Map* map,
+        RME::core::Brush* brush,
+        const QList<RME::core::Position>& positions,
+        const RME::core::BrushSettings& settings,
         bool isErase,
         QUndoCommand* parent = nullptr
     );
@@ -40,18 +45,20 @@ public:
     bool mergeWith(const QUndoCommand* command) override;
 
 private:
-    RME::Map* m_map;
-    RME::Brush* m_brush; // Non-owning, managed by BrushManagerService
-    QList<RME::Position> m_positions;
-    RME::BrushSettings m_settings;
+    RME::core::map::Map* m_map;
+    RME::core::Brush* m_brush; // Non-owning, managed by BrushManagerService
+    QList<RME::core::Position> m_positions;
+    RME::core::BrushSettings m_settings;
     bool m_isErase;
 
     // Stores the state of tiles *before* redo() modified them.
     // Key: Position, Value: unique_ptr to the original Tile (or nullptr if tile was created)
-    QMap<RME::Position, std::unique_ptr<RME::Tile>> m_originalTiles;
+    QMap<RME::core::Position, std::unique_ptr<RME::core::Tile>> m_originalTiles;
     // Stores whether a tile was newly created by this command's redo()
-    QSet<RME::Position> m_createdTiles;
+    QSet<RME::core::Position> m_createdTiles;
 };
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME
 #endif // RME_BRUSHSTROKECOMMAND_H

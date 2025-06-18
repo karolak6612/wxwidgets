@@ -1,6 +1,7 @@
 #include "editor_logic/commands/SetHouseExitCommand.h"
-#include "../../core/houses/House.h" // Adjusted path
-#include "../../core/map/Map.h"      // Adjusted path
+#include "core/houses/Houses.h" // Adjusted path
+#include "core/houses/HouseData.h" // Added for HouseData
+#include "core/map/Map.h"      // Adjusted path
 #include <QDebug>          // For qWarning if needed
 #include <QString>         // For QString
 
@@ -8,18 +9,19 @@
 // The provided code doesn't use a namespace block for the command implementation,
 // so RME::core::houses::House, RME::Map, RME::core::Position will be used.
 
-SetHouseExitCommand::SetHouseExitCommand(RME::core::houses::House* house,
+SetHouseExitCommand::SetHouseExitCommand(quint32 houseId,
                                        const RME::core::Position& newExitPos,
-                                       RME::Map* map,
+                                       RME::core::houses::Houses* housesManager,
+                                       RME::core::Map* map,
                                        QUndoCommand* parent)
     : QUndoCommand(parent),
-      m_house(house),
+      m_houseId(houseId),
+      m_housesManager(housesManager),
       m_map(map),
       m_newExitPos(newExitPos) {
-    if (!m_house) {
-        qWarning("SetHouseExitCommand: House pointer is null.");
-        // Potentially set an error state or make command invalid
-        setText("Invalid Set House Exit Command (null house)");
+    if (!m_housesManager) {
+        qWarning("SetHouseExitCommand: Houses manager pointer is null.");
+        setText("Invalid Set House Exit Command (null houses manager)");
         return;
     }
     if (!m_map) {
@@ -27,31 +29,37 @@ SetHouseExitCommand::SetHouseExitCommand(RME::core::houses::House* house,
         setText("Invalid Set House Exit Command (null map)");
         return;
     }
-    m_oldExitPos = m_house->getExitPos(); // Store current exit before any changes
+    
+    // Get house data to store current exit
+    RME::core::houses::HouseData* house = m_housesManager->getHouse(m_houseId);
+    if (!house) {
+        qWarning("SetHouseExitCommand: House with ID %u not found.", m_houseId);
+        setText("Invalid Set House Exit Command (house not found)");
+        return;
+    }
+    
+    m_oldExitPos = house->entryPoint; // Store current exit before any changes
 
     // Set command text for undo/redo stack display
-    // Assuming m_house->getName() returns QString or compatible.
-    // And Position members x, y, z are suitable for arg().
     setText(QString("Set House '%1' Exit to (%2, %3, %4)")
-                .arg(m_house->getName()) // Assuming getName() is available and returns QString
+                .arg(house->name)
                 .arg(m_newExitPos.x)
                 .arg(m_newExitPos.y)
                 .arg(m_newExitPos.z));
 }
 
 void SetHouseExitCommand::undo() {
-    if (!m_house || !m_map) {
-        qWarning("SetHouseExitCommand::undo: Invalid command state (null house or map).");
+    if (!m_housesManager || !m_map) {
+        qWarning("SetHouseExitCommand::undo: Invalid command state (null houses manager or map).");
         return;
     }
 
     RME::core::Position previouslyAppliedExit = m_newExitPos; // The exit that redo() set
 
-    m_house->setExit(m_oldExitPos); // Assumes House::setExit handles map tile updates internally or via signals
+    // Set house exit via Houses manager
+    m_housesManager->setHouseExit(m_houseId, m_oldExitPos);
 
     // Notify map about tile changes for redraw
-    // These notifications are crucial if House::setExit doesn't automatically signal the main map view
-    // or if direct map interaction is preferred for commands.
     if (m_oldExitPos.isValid()) {
         m_map->notifyTileChanged(m_oldExitPos);
     }
@@ -62,14 +70,15 @@ void SetHouseExitCommand::undo() {
 }
 
 void SetHouseExitCommand::redo() {
-    if (!m_house || !m_map) {
-        qWarning("SetHouseExitCommand::redo: Invalid command state (null house or map).");
+    if (!m_housesManager || !m_map) {
+        qWarning("SetHouseExitCommand::redo: Invalid command state (null houses manager or map).");
         return;
     }
 
     RME::core::Position exitBeforeThisRedo = m_oldExitPos; // The exit that undo() might have set (or initial state)
 
-    m_house->setExit(m_newExitPos); // Assumes House::setExit handles map tile updates
+    // Set house exit via Houses manager
+    m_housesManager->setHouseExit(m_houseId, m_newExitPos);
 
     // Notify map about tile changes for redraw
     if (m_newExitPos.isValid()) {

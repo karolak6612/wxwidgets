@@ -7,6 +7,8 @@
 
 // Forward declaration if needed by Position or other headers, though unlikely for SpawnData itself.
 namespace RME {
+namespace core {
+namespace spawns {
 
 class SpawnData {
     // Q_GADGET // Uncomment if properties or invokable methods are needed for QML or meta-system
@@ -35,14 +37,29 @@ public:
     // Optional: Equality operator for comparisons, e.g., in Map::removeSpawn
     bool operator==(const SpawnData& other) const;
     bool operator!=(const SpawnData& other) const;
+    
+    // Selection state (from original wxWidgets)
+    bool isSelected() const { return m_selected; }
+    void select() { m_selected = true; }
+    void deselect() { m_selected = false; }
+    
+    // Deep copy method (from original wxWidgets)
+    SpawnData deepCopy() const;
+    
+    // Utility methods
+    bool containsPosition(const RME::Position& pos) const;
+    QString getDescription() const;
 
 private:
     RME::Position m_center;
     int m_radius = 0;
     int m_intervalSeconds = 60; // Default as per YAML
     QStringList m_creatureTypes;
-    bool m_isAutoCreated = false; // New member
+    bool m_isAutoCreated = false;
+    bool m_selected = false; // Selection state from wxWidgets
 };
 
+} // namespace spawns
+} // namespace core
 } // namespace RME
 #endif // RME_SPAWNDATA_H

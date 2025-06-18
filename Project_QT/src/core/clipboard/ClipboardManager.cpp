@@ -70,39 +70,77 @@ void ClipboardManager::copySelection(const RME::SelectionManager& selectionManag
         // Ground data (assuming tile selection implies ground selection, or specific ground selection check)
         if (selectionManager.isSelected(tile)) { // Check if the tile itself (ground) is selected
             tileData.hasGround = true;
-            // tileData.groundItemID = tile->getGround() ? tile->getGround()->getID() : 0; // Example
-            tileData.houseId = tile->getHouseId();     // Assumes Tile::getHouseId
-            tileData.tileFlags = tile->getFlags();   // Assumes Tile::getFlags for map flags
-            // tileData.zoneIds = ...; // Requires zone system access from tile
+            if (tile->getGround()) {
+                tileData.groundItemID = tile->getGround()->getID();
+            }
+            tileData.houseId = tile->getHouseId();
+            tileData.tileFlags = static_cast<uint32_t>(tile->getMapFlags()); // Convert TileMapFlags to uint32_t
         }
 
-        // Items
-        // const RME::ItemVector& items = tile->getItems(); // Assumes Tile::getItems()
-        // for (RME::Item* item : items) {
-        //     if (item && selectionManager.isSelected(tile, item)) { // Check if item is selected
-        //         RME::ClipboardItemData itemData;
-        //         itemData.id = item->getID();
-        //         itemData.subType = item->getSubType(); // Or count, etc.
-        //         // itemData.attributes = item->getAttributes(); // Assuming Item::getAttributes
-        //         tileData.items.append(itemData);
-        //     }
-        // }
+        // Items - For now, if tile is selected, copy all items
+        // TODO: Implement per-item selection when Item selection state is available
+        if (selectionManager.isSelected(tile)) {
+            // Copy ground item if it exists
+            if (tile->getGround()) {
+                RME::ClipboardItemData groundData;
+                groundData.id = tile->getGround()->getID();
+                groundData.subType = tile->getGround()->getSubtype();
+                groundData.attributes = QVariantMap(); // Convert from Item attributes if needed
+                // Copy common attributes
+                if (tile->getGround()->hasAttribute("uid")) {
+                    groundData.attributes["uid"] = tile->getGround()->getAttribute("uid");
+                }
+                if (tile->getGround()->hasAttribute("aid")) {
+                    groundData.attributes["aid"] = tile->getGround()->getAttribute("aid");
+                }
+                if (tile->getGround()->hasAttribute("text")) {
+                    groundData.attributes["text"] = tile->getGround()->getAttribute("text");
+                }
+                tileData.items.append(groundData);
+            }
+            
+            // Copy stacked items
+            QList<RME::Item*> allItems = tile->getAllItems();
+            for (RME::Item* item : allItems) {
+                if (item && item != tile->getGround()) { // Skip ground item as it's handled above
+                    RME::ClipboardItemData itemData;
+                    itemData.id = item->getID();
+                    itemData.subType = item->getSubtype();
+                    itemData.attributes = QVariantMap();
+                    // Copy common attributes
+                    if (item->hasAttribute("uid")) {
+                        itemData.attributes["uid"] = item->getAttribute("uid");
+                    }
+                    if (item->hasAttribute("aid")) {
+                        itemData.attributes["aid"] = item->getAttribute("aid");
+                    }
+                    if (item->hasAttribute("text")) {
+                        itemData.attributes["text"] = item->getAttribute("text");
+                    }
+                    tileData.items.append(itemData);
+                }
+            }
+        }
 
-        // Creature
-        // RME::Creature* creature = tile->getCreature(); // Assumes Tile::getCreature
-        // if (creature && selectionManager.isSelected(tile, creature)) {
-        //     tileData.hasCreature = true;
-        //     tileData.creature.name = creature->getName(); // Assumes Creature::getName
-        //     // Populate other creature data
-        // }
+        // Creature - For now, if tile is selected, copy creature
+        // TODO: Implement per-creature selection when Creature selection state is available
+        if (selectionManager.isSelected(tile) && tile->hasCreature()) {
+            RME::core::creatures::Creature* creature = tile->getCreature();
+            if (creature) {
+                tileData.hasCreature = true;
+                tileData.creature.name = creature->getName();
+                // TODO: Add other creature data like outfit, direction, etc. when needed
+            }
+        }
 
-        // Spawn
-        // RME::Spawn* spawn = tile->getSpawn(); // Assumes Tile::getSpawn
-        // if (spawn && selectionManager.isSelected(tile, spawn)) {
-        //     tileData.hasSpawn = true;
-        //     tileData.spawn.radius = spawn->getRadius(); // Assumes Spawn::getRadius
-        //     // Populate spawn creature list
-        // }
+        // Spawn - For now, if tile is selected, copy spawn data
+        // TODO: Implement per-spawn selection when Spawn selection state is available
+        if (selectionManager.isSelected(tile) && tile->isSpawnTile()) {
+            tileData.hasSpawn = true;
+            tileData.spawn.radius = tile->getSpawnRadius();
+            tileData.spawn.creatureNames = tile->getSpawnCreatureList();
+            // TODO: Add spawn interval and other spawn properties when needed
+        }
 
         // Only add tileData if it has some selected content
         if (tileData.hasGround || !tileData.items.isEmpty() || tileData.hasCreature || tileData.hasSpawn) {
@@ -162,47 +200,63 @@ void ClipboardManager::cutSelection(RME::SelectionManager& selectionManager, RME
         return;
     }
 
-    // 1. Capture the state of selected elements for the DeleteCommand *before* copying.
-    //    Copying might alter selection state conceptually or if it involves temporary objects.
-    //    The DeleteCommand needs to know exactly what was selected on the live map.
-    RME::ClipboardContent dataToDeleteContent;
-    // This should be populated similarly to copySelection, but based on current live selection.
-    // It represents what will be removed.
-    // Let's assume copySelection already did this and the clipboard now holds this data.
-    // Or, SelectionManager provides a method to get this data directly.
-
-    // For now, let's assume copySelection correctly captures what to delete.
-    // The data for deletion must be *what is currently selected on the map*.
-    RME::Position ignoredRefPos; // Not used for delete command's data capture
-    QList<RME::DeletedTileData> elementsToDeleteData;
-
-    // Iterate through selected tiles from SelectionManager
-    // For each selected tile, and for each selected element on it, create a DeletedTileData entry.
-    // This is similar to copySelection's logic but ensures positions are absolute.
+    // 1. Capture data for DeleteCommand *before* copySelection
+    RME::ClipboardContent elementsToDeleteData; // Use ClipboardContent for consistency
+    
     for (RME::Tile* tile : selectedTiles) {
         if (!tile) continue;
-        RME::DeletedTileData tileDeleteData;
-        tileDeleteData.relativePosition = tile->getPosition(); // Store ABSOLUTE position
 
-        bool tileHasSelectedContent = false;
+        RME::ClipboardTileData tileDeleteData;
+        tileDeleteData.relativePosition = tile->getPosition(); // Absolute position for delete
+
         if (selectionManager.isSelected(tile)) {
             tileDeleteData.hasGround = true;
-            // tileDeleteData.groundItemID = tile->getGround() ? tile->getGround()->getID() : 0;
+            if (tile->getGround()) {
+                tileDeleteData.groundItemID = tile->getGround()->getID();
+            }
             tileDeleteData.houseId = tile->getHouseId();
-            tileDeleteData.tileFlags = tile->getFlags();
-            tileHasSelectedContent = true;
+            tileDeleteData.tileFlags = static_cast<uint32_t>(tile->getMapFlags());
+            
+            // Copy items for deletion
+            if (tile->getGround()) {
+                RME::ClipboardItemData groundData;
+                groundData.id = tile->getGround()->getID();
+                groundData.subType = tile->getGround()->getSubtype();
+                tileDeleteData.items.append(groundData);
+            }
+            
+            QList<RME::Item*> allItems = tile->getAllItems();
+            for (RME::Item* item : allItems) {
+                if (item && item != tile->getGround()) {
+                    RME::ClipboardItemData itemData;
+                    itemData.id = item->getID();
+                    itemData.subType = item->getSubtype();
+                    tileDeleteData.items.append(itemData);
+                }
+            }
+            
+            // Copy creature for deletion
+            if (tile->hasCreature()) {
+                tileDeleteData.hasCreature = true;
+                tileDeleteData.creature.name = tile->getCreature()->getName();
+            }
+            
+            // Copy spawn for deletion
+            if (tile->isSpawnTile()) {
+                tileDeleteData.hasSpawn = true;
+                tileDeleteData.spawn.radius = tile->getSpawnRadius();
+                tileDeleteData.spawn.creatureNames = tile->getSpawnCreatureList();
+            }
         }
-        // For Items, Creature, Spawn - if they are selected, add their data to tileDeleteData.items etc.
-        // ... (similar logic as in copySelection for populating items, creature, spawn based on selectionManager.isSelected(...)) ...
-        // if (tileHasSelectedContent || !tileDeleteData.items.isEmpty() || tileDeleteData.hasCreature || tileDeleteData.hasSpawn) {
-             elementsToDeleteData.append(tileDeleteData);
-        // }
+
+        if (tileDeleteData.hasGround || !tileDeleteData.items.isEmpty() || tileDeleteData.hasCreature || tileDeleteData.hasSpawn) {
+            elementsToDeleteData.tiles.append(tileDeleteData);
+        }
     }
-     if (elementsToDeleteData.isEmpty()) {
+
+    if (elementsToDeleteData.tiles.isEmpty()) {
         qDebug() << "ClipboardManager::cutSelection - No elements marked for deletion based on current selection.";
-        // Potentially, copySelection might still have put something on clipboard if logic differs.
-        // But if nothing is selected to be deleted, maybe don't proceed with delete command.
-        // For now, proceed if clipboard got data.
+        return;
     }
 
 
@@ -217,7 +271,7 @@ void ClipboardManager::cutSelection(RME::SelectionManager& selectionManager, RME
         return;
     }
 
-    if (elementsToDeleteData.isEmpty()){
+    if (elementsToDeleteData.tiles.isEmpty()){
          qDebug() << "ClipboardManager::cutSelection - No actual data captured for deletion command based on current selection. Aborting delete part of cut.";
         return;
     }

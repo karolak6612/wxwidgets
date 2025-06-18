@@ -5,6 +5,7 @@
 #include <QList>
 #include <QSet> // For efficient unique union
 #include <QString>     // For command text
+#include "core/actions/CommandIds.h"
 
 // Forward declarations
 namespace RME {
@@ -14,9 +15,11 @@ namespace core {
 }
 }
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace core {
+namespace actions {
 
-const int BoundingBoxSelectCommandId = 1012; // Choose a unique ID
+constexpr int BoundingBoxSelectCommandId = toInt(CommandId::BoundingBoxSelect);
 
 class BoundingBoxSelectCommand : public QUndoCommand {
 public:
@@ -53,5 +56,7 @@ private:
     bool m_firstRun;
 };
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME
 #endif // RME_BOUNDINGBOXSELECTCOMMAND_H

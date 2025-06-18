@@ -18,7 +18,7 @@
 #include "core/Item.h" // Required for Item::setItemDatabase
 
 // Using declarations
-using RMEHouseCmd = RME_COMMANDS::SetHouseTileCommand;
+using RMEHouseCmd = RME::core::actions::SetHouseTileCommand;
 using RMEHouse = RME::core::houses::House;
 using RMEMap = RME::core::Map;
 using RMETile = RME::core::Tile;

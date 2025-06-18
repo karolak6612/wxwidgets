@@ -4,6 +4,7 @@
 #include <QUndoCommand>
 #include <QString>
 #include "core/Position.h"
+#include "core/actions/CommandIds.h"
 #include <QtGlobal> // For quint32
 
 // Forward declarations
@@ -11,18 +12,20 @@ namespace RME {
 namespace core {
     class Tile;
     namespace editor { class EditorControllerInterface; }
-    namespace houses { class House; }
+    namespace houses { class Houses; class HouseData; }
 }
 }
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace core {
+namespace actions {
 
-const int SetHouseTileCommandId = 1014; // Choose a unique ID
+constexpr int SetHouseTileCommandId = toInt(CommandId::SetHouseTile);
 
 class SetHouseTileCommand : public QUndoCommand {
 public:
     SetHouseTileCommand(
-        RME::core::houses::House* house,
+        quint32 houseId,
         RME::core::Tile* tile,
         bool assignToHouse, // true to assign tile to house, false to unassign
         RME::core::editor::EditorControllerInterface* controller,
@@ -37,7 +40,7 @@ public:
     int id() const override { return SetHouseTileCommandId; }
 
 private:
-    RME::core::houses::House* m_house; // Non-owning
+    quint32 m_houseId; // House ID to assign to
     RME::core::Tile* m_tile;       // Non-owning, for direct interaction
     RME::core::Position m_tilePos; // Store position for notifications, as tile ptr might change if map reallocates
     RME::core::editor::EditorControllerInterface* m_controller;
@@ -51,5 +54,7 @@ private:
                                           // (Not critically needed if undo logic is self-contained based on m_assignToHouse)
 };
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME
 #endif // RME_SETHOUSETILECOMMAND_H

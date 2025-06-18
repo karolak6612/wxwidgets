@@ -6,6 +6,7 @@
 #include <QString>  // For command text
 
 #include "core/Position.h" // For RME::core::Position
+#include "core/actions/CommandIds.h"
 
 // Forward declare RME::core::Item and RME::core::Tile
 namespace RME {
@@ -18,10 +19,11 @@ namespace core {
 }
 }
 
-namespace RME_COMMANDS { // Consistent namespace
+namespace RME {
+namespace core {
+namespace actions {
 
-// Choose a unique ID, assuming RecordSetSpawnCommandId was 1006
-const int RecordSetGroundCommandId = 1007;
+constexpr int RecordSetGroundCommandId = toInt(CommandId::RecordSetGround);
 
 class RecordSetGroundCommand : public QUndoCommand {
 public:
@@ -49,5 +51,7 @@ private:
     QString m_commandTextBase;
 };
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME
 #endif // RME_RECORDSETGROUNDCOMMAND_H

@@ -19,9 +19,11 @@ namespace core {
 }
 }
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace core {
+namespace actions {
 
-const int RecordModifyTileContentsCommandId = 1009; // Choose a unique ID
+constexpr int RecordModifyTileContentsCommandId = toInt(CommandId::RecordModifyTileContents);
 
 class RecordModifyTileContentsCommand : public QUndoCommand {
 public:
@@ -70,5 +72,7 @@ private:
     QString m_commandText;
 };
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME
 #endif // RME_RECORDMODIFYTILECONTENTSCOMMAND_H

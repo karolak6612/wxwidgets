@@ -24,7 +24,7 @@ public:
     uint32_t townId = 0;   // ID of the town this house belongs to
     uint32_t rent = 0;     // Rent in gold coins
     int sizeInSqms = 0; // Size in SQM (often calculated, but can be stored)
-    // bool isGuildhall = false; // Guildhall status, if applicable
+    bool isGuildhall = false; // Guildhall status
 
     HouseData() = default;
     HouseData(uint32_t houseId, const QString& houseName, const Position& entry) :
@@ -36,8 +36,8 @@ public:
             exits.append(exitPos);
         }
     }
-    void removeExit(const Position& exitPos) {
-        exits.removeAll(exitPos);
+    bool removeExit(const Position& exitPos) {
+        return exits.removeOne(exitPos);
     }
 
     // Basic equality operator
@@ -54,6 +54,9 @@ public:
     bool operator!=(const HouseData& other) const {
         return !(*this == other);
     }
+    
+    // Utility method
+    QString getDescription() const;
 };
 
 } // namespace houses

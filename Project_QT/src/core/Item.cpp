@@ -5,22 +5,23 @@
 #include "items/DepotItem.h"
 #include "items/PodiumItem.h"
 #include <stdexcept> // For potential errors if provider is null
+#include <QDebug>    // For qWarning() logging
 
 namespace RME {
 
 Item::Item(uint16_t item_id, IItemTypeProvider* provider, uint16_t item_subtype)
     : id(item_id), subtype(item_subtype), itemTypeProvider(provider) {
     if (!itemTypeProvider) {
-        // Depending on policy, this could throw or log an error.
-        // For now, assume provider is always valid when an Item is constructed.
+        qWarning() << "Item created with null IItemTypeProvider for item ID" << item_id;
+        // Note: We allow null provider but warn about it for debugging
         // Consider a global default provider or a null object provider pattern if needed.
     }
 }
 
 std::unique_ptr<Item> Item::create(uint16_t id, IItemTypeProvider* provider, uint16_t subtype) {
     if (!provider) {
-        // Fallback or error if no provider, though Item constructor might also handle this.
-        // For safety, if provider is null, creating a base Item might be the only option.
+        qWarning() << "Item::create called with null provider for item ID" << id 
+                   << "- creating base Item without specialized functionality";
         return std::make_unique<Item>(id, provider, subtype);
     }
 

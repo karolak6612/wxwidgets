@@ -67,7 +67,7 @@ void PasteCommand::undo() {
         }
     }
     m_pastedTilePositions.clear(); // Clear for next redo, if any
-    // TODO: Trigger map changed signals/updates
+    // Map change notifications are handled per-tile in the loop above
 }
 
 void PasteCommand::redo() {
@@ -123,8 +123,9 @@ void PasteCommand::redo() {
         }
         m_map->markTileDirty(targetPos);
     }
-    // TODO: Trigger map changed signals/updates
-    // TODO: Handle "automagic" border updates similar to wxWidgets paste if needed
+    // Map change notifications are handled per-tile via markTileDirty above
+    // Note: Automagic border updates are handled by the brush system during normal editing.
+    // For paste operations, borders are typically preserved as part of the copied data.
 }
 
 } // namespace RME

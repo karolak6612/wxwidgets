@@ -5,7 +5,9 @@
 #include <QObject> // For tr()
 #include <QDebug>  // For qWarning, Q_ASSERT
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace core {
+namespace actions {
 
 ClearSelectionCommand::ClearSelectionCommand(
     RME::core::selection::SelectionManager* selectionManager,
@@ -66,4 +68,6 @@ void ClearSelectionCommand::undo() {
 }
 
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME

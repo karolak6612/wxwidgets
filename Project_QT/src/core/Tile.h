@@ -4,10 +4,15 @@
 #include "Position.h"
 #include "Item.h"     // For std::unique_ptr<Item> and IItemTypeProvider for addItem logic
 #include "core/creatures/Creature.h" // For std::unique_ptr<Creature>
-#include "Spawn.h"    // For std::unique_ptr<Spawn> - This will be removed if Spawn class is obsolete
-                      // If SpawnData is directly embedded, this include might not be needed,
-                      // or replaced by an include for SpawnData if it's a complex type.
-                      // For now, assuming direct embedding of properties.
+
+// Forward declaration for SpawnData
+namespace RME {
+namespace core {
+namespace spawns {
+    class SpawnData;
+}
+}
+}
 
 #include <QList>
 #include <QStringList> // For m_spawnCreatureList
@@ -16,8 +21,6 @@
 #include <QFlags> // Required for Q_DECLARE_FLAGS
 
 namespace RME {
-
-class SpawnData; // Forward declaration
 
 // Tile flags matching original RME concepts, potentially with some Qt-ification
 // These might be a combination of original mapflags and statflags
@@ -102,7 +105,7 @@ public:
     std::unique_ptr<RME::core::creatures::Creature> popCreature();
     bool hasCreature() const { return creature != nullptr; }
 
-    // --- Spawn Data ---
+    // --- Spawn Data (Legacy - for OTBM compatibility) ---
     bool isSpawnTile() const;
     int getSpawnRadius() const;
     void setSpawnRadius(int radius);
@@ -117,6 +120,11 @@ public:
     void setSpawnIntervalSeconds(int seconds);
 
     void clearSpawnData(); // Clears radius, list, and interval
+    
+    // --- SpawnData Integration ---
+    void setSpawnData(const RME::core::spawns::SpawnData& spawnData);
+    RME::core::spawns::SpawnData getSpawnData() const;
+    bool hasSpawnData() const;
 
     // House ID
     uint32_t getHouseId() const { return m_houseId; }

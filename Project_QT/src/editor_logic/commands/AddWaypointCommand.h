@@ -4,6 +4,7 @@
 #include <QUndoCommand>
 #include <QString>
 #include "core/Position.h" // RME::core::Position
+#include "core/actions/CommandIds.h"
 #include <memory> // For std::unique_ptr
 
 // Forward declarations
@@ -12,9 +13,11 @@ namespace RME { namespace core {
     struct Waypoint; // The actual Waypoint struct/class
 }}
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace core {
+namespace actions {
 
-const int AddWaypointCommandId = 1003; // Unique ID for this command type
+constexpr int AddWaypointCommandId = toInt(CommandId::AddWaypoint);
 
 class AddWaypointCommand : public QUndoCommand {
 public:
@@ -43,5 +46,7 @@ private:
     bool m_wasReplacement = false;
 };
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME
 #endif // RME_ADDWAYPOINTCOMMAND_H

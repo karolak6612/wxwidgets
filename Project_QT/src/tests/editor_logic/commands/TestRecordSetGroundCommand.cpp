@@ -26,7 +26,7 @@ using RMECreatureDatabase = RME::core::assets::CreatureDatabase;
 using RMESpriteManager = RME::core::sprites::SpriteManager;
 using RMEClientVersionManager = RME::core::assets::ClientVersionManager;
 using RMEMaterialManager = RME::core::assets::MaterialManager;
-using RMECommand = RME_COMMANDS::RecordSetGroundCommand;
+using RMECommand = RME::core::actions::RecordSetGroundCommand;
 using RMEMockEditorController = MockEditorController;
 
 const uint16_t TEST_GROUND_ID_1 = 101; // Example ground item ID

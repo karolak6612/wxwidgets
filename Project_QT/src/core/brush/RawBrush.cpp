@@ -121,7 +121,7 @@ void RawBrush::apply(RME::core::editor::EditorControllerInterface* controller,
             // Try to erase if it's the ground item
             if (tile->getGround() && tile->getGround()->getID() == m_itemId) {
                 std::unique_ptr<Item> oldGround = tile->popGround();
-                auto cmd = std::make_unique<RME_COMMANDS::RecordSetGroundCommand>(
+                auto cmd = std::make_unique<RME::core::actions::RecordSetGroundCommand>(
                     tile, nullptr, std::move(oldGround), controller);
                 controller->pushCommand(std::move(cmd));
             } else {
@@ -142,7 +142,7 @@ void RawBrush::apply(RME::core::editor::EditorControllerInterface* controller,
             if (itemToRemove) {
                 // itemToRemove is a raw pointer to an item managed by tile->getItems()
                 // RecordAddRemoveItemCommand for remove takes Item*
-                auto cmd = std::make_unique<RME_COMMANDS::RecordAddRemoveItemCommand>(
+                auto cmd = std::make_unique<RME::core::actions::RecordAddRemoveItemCommand>(
                     tile, itemToRemove, controller);
                 controller->pushCommand(std::move(cmd));
             } else {
@@ -158,7 +158,7 @@ void RawBrush::apply(RME::core::editor::EditorControllerInterface* controller,
 
         if (itemData.isGround) {
             std::unique_ptr<Item> oldGround = tile->popGround();
-            auto cmd = std::make_unique<RME_COMMANDS::RecordSetGroundCommand>(
+            auto cmd = std::make_unique<RME::core::actions::RecordSetGroundCommand>(
                 tile, std::move(newItem), std::move(oldGround), controller);
             controller->pushCommand(std::move(cmd));
         } else {
@@ -167,7 +167,7 @@ void RawBrush::apply(RME::core::editor::EditorControllerInterface* controller,
                 qDebug("RawBrush::apply (draw): Cannot place non-ground item ID %1 as there is no ground.").arg(m_itemId);
                 return; // Or handle by placing a default ground first, if that's desired behavior.
             }
-            auto cmd = std::make_unique<RME_COMMANDS::RecordAddRemoveItemCommand>(
+            auto cmd = std::make_unique<RME::core::actions::RecordAddRemoveItemCommand>(
                 tile, std::move(newItem), controller);
             controller->pushCommand(std::move(cmd));
         }

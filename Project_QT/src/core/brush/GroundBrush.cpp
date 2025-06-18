@@ -736,6 +736,67 @@ void GroundBrush::apply(RME::core::editor::EditorControllerInterface* controller
     }
 }
 
+// Legacy compatibility methods for direct map manipulation
+void GroundBrush::draw(RME::core::map::Map* map, RME::core::Tile* tile, const RME::core::BrushSettings* settings) {
+    if (!map || !tile || !settings) {
+        qWarning() << "GroundBrush::draw: Invalid parameters (map, tile, or settings is null)";
+        return;
+    }
+    
+    if (!m_materialData) {
+        qWarning() << "GroundBrush::draw: No material set";
+        return;
+    }
+    
+    const auto* materialSpecifics = getCurrentGroundSpecifics();
+    if (!materialSpecifics || materialSpecifics->items.empty()) {
+        qWarning() << "GroundBrush::draw: Material has no ground items defined";
+        return;
+    }
+    
+    // Select random ground item based on chances
+    int totalChance = 0;
+    for (const auto& itemEntry : materialSpecifics->items) {
+        totalChance += itemEntry.chance;
+    }
+    
+    if (totalChance == 0) {
+        totalChance = 1; // Fallback to ensure we can select something
+    }
+    
+    uint16_t selectedItemId = materialSpecifics->items.first().itemId;
+    int randomValue = QRandomGenerator::global()->bounded(totalChance);
+    int currentChanceSum = 0;
+    
+    for (const auto& itemEntry : materialSpecifics->items) {
+        currentChanceSum += itemEntry.chance;
+        if (randomValue < currentChanceSum) {
+            selectedItemId = itemEntry.itemId;
+            break;
+        }
+    }
+    
+    // Create and set the ground item directly on the tile
+    auto groundItem = std::make_unique<RME::core::Item>(selectedItemId);
+    tile->setGround(std::move(groundItem));
+    
+    qDebug() << "GroundBrush::draw: Set ground item" << selectedItemId << "on tile";
+}
+
+void GroundBrush::undraw(RME::core::map::Map* map, RME::core::Tile* tile, const RME::core::BrushSettings* settings) {
+    Q_UNUSED(map)
+    Q_UNUSED(settings)
+    
+    if (!tile) {
+        qWarning() << "GroundBrush::undraw: Invalid tile parameter";
+        return;
+    }
+    
+    // Remove ground item from tile
+    tile->setGround(nullptr);
+    qDebug() << "GroundBrush::undraw: Removed ground item from tile";
+}
+
 // ... (apply method and other GroundBrush methods as before) ...
 } // namespace core
 } // namespace RME

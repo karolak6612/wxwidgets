@@ -22,6 +22,8 @@ namespace core {
     namespace settings { class AppSettings; }
     namespace assets { class AssetManager; }
     namespace houses { class Houses; } // Added Forward declaration
+    namespace clipboard { class ClipboardManager; } // Added for LOGIC-03
+    namespace waypoints { class WaypointManager; } // Added for LOGIC-04
     class Tile; // For getTileForEditing
     class SpawnData; // For recordAddSpawn etc.
     struct CreatureData; // For recordAddCreature etc. (often a struct in assets namespace)
@@ -41,7 +43,9 @@ public:
         RME::core::brush::BrushManager* brushManager,
         RME::core::settings::AppSettings* appSettings,
         RME::core::assets::AssetManager* assetManager,
-        RME::core::houses::Houses* housesManager // Added
+        RME::core::houses::Houses* housesManager, // Added
+        RME::core::clipboard::ClipboardManager* clipboardManager, // Added for LOGIC-03
+        RME::core::waypoints::WaypointManager* waypointManager // Added for LOGIC-04
     );
     ~EditorController() override = default;
 
@@ -51,14 +55,83 @@ public:
     void clearCurrentSelection();
     void performBoundingBoxSelection(const RME::core::Position& p1, const RME::core::Position& p2, Qt::KeyboardModifiers modifiers, const RME::core::BrushSettings& currentBrushSettings);
     void handleDeleteSelection();
+    
+    // Map interaction handling (LOGIC-06)
+    void handleMapClick(const RME::core::Position& pos, Qt::MouseButton button, Qt::KeyboardModifiers modifiers, const RME::core::BrushSettings& settings);
+    void handleMapDrag(const QList<RME::core::Position>& positions, Qt::MouseButton button, Qt::KeyboardModifiers modifiers, const RME::core::BrushSettings& settings);
+    void handleMapRelease(const RME::core::Position& pos, Qt::MouseButton button, Qt::KeyboardModifiers modifiers, const RME::core::BrushSettings& settings);
 
     // House-specific operations
     void setHouseExit(quint32 houseId, const RME::core::Position& exitPos);
+    quint32 createHouse(const QString& name, const RME::core::Position& entryPoint);
+    quint32 createHouse(const QString& name, const RME::core::Position& entryPoint, 
+                       quint32 townId, quint32 rent, bool isGuildhall);
+    void removeHouse(quint32 houseId);
+    void assignTileToHouse(const RME::core::Position& pos, quint32 houseId);
+    void removeHouseAssignment(const RME::core::Position& pos);
+    void setHouseProperty(quint32 houseId, const QString& property, const QVariant& value);
+    void setHouseProperties(quint32 houseId, const QHash<QString, QVariant>& properties);
+    
+    // Clipboard operations (LOGIC-03)
+    void copySelection();
+    void cutSelection();
+    void pasteAtPosition(const RME::core::Position& pos);
+    void moveSelection(const RME::core::Position& offset);
+    
+    // Waypoint operations (LOGIC-04)
+    void placeOrMoveWaypoint(const QString& name, const RME::core::Position& targetPos);
+    void removeWaypoint(const QString& name);
+    void renameWaypoint(const QString& oldName, const QString& newName);
+    void navigateToWaypoint(const QString& name);
+    
+    // House operations (LOGIC-05)
+    quint32 createHouse(const QString& name, const RME::core::Position& entryPoint);
+    void assignTileToHouse(const RME::core::Position& pos, quint32 houseId);
+    void removeHouseAssignment(const RME::core::Position& pos);
+    void setHouseProperty(quint32 houseId, const QString& property, const QVariant& value);
+    void removeHouse(quint32 houseId);
+    
+    // Brush and tool management (LOGIC-06)
+    enum class ToolMode {
+        Brush,          // Normal brush drawing
+        HouseExit,      // House exit placement tool
+        Waypoint        // Waypoint placement tool
+    };
+    
+    void setToolMode(ToolMode mode);
+    ToolMode getToolMode() const;
+    void setCurrentHouseForTools(quint32 houseId);
+    void setCurrentWaypointForTools(const QString& waypointName);
+    
+    // Map-wide operations (LOGIC-09)
+    void borderizeMap(bool showProgressDialog = true);
+    void randomizeMap(bool showProgressDialog = true);
+    void clearInvalidHouseTiles(bool showProgressDialog = true);
+    void clearModifiedTileState(bool showProgressDialog = true);
+    quint32 validateGrounds(bool validateStack = true, bool generateEmpty = true, bool removeDuplicates = true);
+    
+    // Selection-based operations (LOGIC-09)
+    void borderizeSelection();
+    void randomizeSelection();
+    void moveSelection(const RME::core::Position& offset);
+    void destroySelection();
+    
+    // Import/Export operations (LOGIC-09)
+    bool importMap(const QString& filename, const RME::core::Position& offset = RME::core::Position(0, 0, 0));
+    bool exportMiniMap(const QString& filename, int floor = -1, bool showDialog = true);
+    bool exportSelectionAsMiniMap(const QString& filename);
+    
+    // Ground validation operations (LOGIC-09)
+    quint32 validateGroundStacks();
+    quint32 generateEmptySurroundedGrounds();
+    quint32 removeDuplicateGrounds();
 
     // --- Implementation of EditorControllerInterface ---
     // Basic accessors
     RME::core::houses::Houses* getHousesManager() override; // Added
     const RME::core::houses::Houses* getHousesManager() const override; // Added
+    RME::core::waypoints::WaypointManager* getWaypointManager() override; // Added for LOGIC-04
+    const RME::core::waypoints::WaypointManager* getWaypointManager() const override; // Added for LOGIC-04
     RME::core::Map* getMap() override;
     const RME::core::Map* getMap() const override;
     QUndoStack* getUndoStack() override;
@@ -83,11 +156,11 @@ public:
                           std::unique_ptr<RME::core::Tile> newTileState) override;
     void recordAddCreature(const RME::core::Position& tilePos, const RME::core::CreatureData* creatureType) override;
     void recordRemoveCreature(const RME::core::Position& tilePos, const RME::core::CreatureData* creatureType) override;
-    void recordAddSpawn(const RME::core::SpawnData& spawnData) override;
-    void recordRemoveSpawn(const RME::core::Position& spawnCenterPos) override;
-    void recordUpdateSpawn(const RME::core::Position& spawnCenterPos,
-                           const RME::core::SpawnData& oldSpawnData,
-                           const RME::core::SpawnData& newSpawnData) override;
+    void recordAddSpawn(const RME::core::spawns::SpawnData& spawnData) override;
+    void recordRemoveSpawn(const RME::core::Position& pos) override;
+    void recordUpdateSpawn(const RME::core::Position& pos,
+                           const RME::core::spawns::SpawnData& oldState,
+                           const RME::core::spawns::SpawnData& newState) override;
     void recordSetGroundItem(const RME::core::Position& pos, uint16_t newGroundItemId, uint16_t oldGroundItemId) override;
     void recordSetBorderItems(const RME::core::Position& pos,
                               const QList<uint16_t>& newBorderItemIds,
@@ -103,6 +176,16 @@ private:
     RME::core::settings::AppSettings* m_appSettings;
     RME::core::assets::AssetManager* m_assetManager;
     RME::core::houses::Houses* m_housesManager; // Added
+    RME::core::clipboard::ClipboardManager* m_clipboardManager; // Added for LOGIC-03
+    RME::core::waypoints::WaypointManager* m_waypointManager; // Added for LOGIC-04
+    
+    // Tool mode state (LOGIC-06)
+    ToolMode m_currentToolMode = ToolMode::Brush;
+    quint32 m_currentHouseForTools = 0;
+    QString m_currentWaypointForTools;
+    
+    // Helper method for clipboard operations
+    RME::core::clipboard::ClipboardContent convertTilesToClipboardContent(const QList<RME::core::Tile*>& tiles) const;
 };
 
 } // namespace editor_logic

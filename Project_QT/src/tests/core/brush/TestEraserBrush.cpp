@@ -42,7 +42,7 @@ using RMEEraserBrush = RME::core::brush::EraserBrush;
 using RMEMockEditorController = MockEditorController;
 
 using RMECommandBase = QUndoCommand;
-using RMERecordModifyTileContentsCommand = RME_COMMANDS::RecordModifyTileContentsCommand;
+using RMERecordModifyTileContentsCommand = RME::core::actions::RecordModifyTileContentsCommand;
 
 
 // Test Item IDs

@@ -144,7 +144,8 @@ private:
     bool parseHouseNode(BinaryNode* houseNode, Map& map, AssetManager& assetManager, AppSettings& settings);
     // --- Creature Instance Parsing ---
     bool parseCreatureNode(BinaryNode* creatureNode, Tile* tile, AssetManager& assetManager, AppSettings& settings);
-    // TODO: Add parseSpawnNode etc.
+    // Spawn Data Parsing
+    bool parseSpawnNode(BinaryNode* spawnNode, Map& map, AssetManager& assetManager, AppSettings& settings);
 
     // --- Helper methods for saving (declarations) ---
     bool serializeMapDataNode(NodeFileWriteHandle& writer, const Map& map, AssetManager& assetManager, AppSettings& settings);
@@ -164,7 +165,8 @@ private:
     bool serializeHouseNode(NodeFileWriteHandle& writer, const RME::core::houses::HouseData& house, AssetManager& assetManager, AppSettings& settings);
     // --- Creature Instance Serialization ---
     bool serializeCreatureNode(NodeFileWriteHandle& writer, const RME::core::creatures::Creature* creature, AssetManager& assetManager, AppSettings& settings);
-    // TODO: Add serializeSpawnNode etc.
+    // Spawn Data Serialization
+    bool serializeSpawnNode(NodeFileWriteHandle& writer, const RME::core::spawns::SpawnData& spawn, AssetManager& assetManager, AppSettings& settings);
 
     // --- Helper for zlib compression/decompression ---
     /**

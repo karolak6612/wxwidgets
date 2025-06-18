@@ -9,6 +9,7 @@
 
 #include "core/Position.h"
 #include "core/data_transfer/TileData.h" // For RME::core::data_transfer::TileData
+#include "core/actions/CommandIds.h"
 
 // Forward declarations
 namespace RME {
@@ -20,9 +21,11 @@ namespace core {
 }
 }
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace core {
+namespace actions {
 
-const int DeleteCommandId = 1013; // Choose a unique ID
+constexpr int DeleteCommandId = toInt(CommandId::Delete);
 
 class DeleteCommand : public QUndoCommand {
 public:
@@ -58,5 +61,7 @@ private:
     bool m_hadSelectionToDelete;
 };
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME
 #endif // RME_DELETECOMMAND_H
