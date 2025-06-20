@@ -159,9 +159,7 @@ private:
     static const int MaxRecentFiles = 10;
     QList<QAction*> m_recentFileActions; // To keep track of dynamically created recent file actions for easy clearing
 
-    // Editor tab management
-    QTabWidget* m_editorTabWidget = nullptr;
-    EditorInstanceWidget* m_currentEditorInstance = nullptr;
+    RME::ui::widgets::MapView* m_mapView = nullptr; // The MapView instance
     
     // Core integration
     RME::editor_logic::EditorController* m_editorController = nullptr;
@@ -177,16 +175,6 @@ private:
     void updateMenuStatesFromEditor();
     void createToolBar();
     void createDockManager();
-    void setupEditorTabWidget();
-    
-    // Editor instance management
-    EditorInstanceWidget* createNewEditorInstance(RME::core::Map* map, const QString& filePath);
-    void addEditorTab(EditorInstanceWidget* editorInstance);
-    void closeEditorTab(int index);
-    EditorInstanceWidget* getEditorInstance(int index) const;
-    EditorInstanceWidget* getCurrentEditorInstance() const;
-    void updateWindowTitle();
-    bool promptSaveChanges(EditorInstanceWidget* editorInstance);
 };
 
 } // namespace ui

@@ -28,6 +28,10 @@ set(RME_CORE_LIB_SOURCES
     map/QTreeNode.cpp
     map/BaseMap.cpp
     map/MapIterator.cpp
+    
+    # Utility files
+    utils/ResourcePathManager.cpp
+    utils/ProgressTracker.cpp
     map/Map.cpp
 
     # CORE-06 settings system files

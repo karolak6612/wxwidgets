@@ -3,6 +3,10 @@
 set(RME_UI_WIDGETS_SOURCES
     MapView.cpp
     MapView.h
+    MapViewWidget.cpp
+    MapViewWidget.h
+    MinimapViewWidget.cpp
+    MinimapViewWidget.h
     SpawnSettingsWidget.cpp
     SpawnSettingsWidget.h
 )

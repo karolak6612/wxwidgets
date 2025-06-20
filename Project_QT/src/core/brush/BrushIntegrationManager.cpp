@@ -209,6 +209,94 @@ void BrushIntegrationManager::onBrushModeRequested() {
     qDebug() << "BrushIntegrationManager::onBrushModeRequested: Switched to regular brush mode";
 }
 
+// Brush state management
+void BrushIntegrationManager::setBrushType(BrushType type)
+{
+    if (m_currentBrushType != type) {
+        m_currentBrushType = type;
+        emit brushTypeChanged(type);
+    }
+}
+
+void BrushIntegrationManager::setBrushShape(BrushShape shape)
+{
+    if (m_currentBrushShape != shape) {
+        m_currentBrushShape = shape;
+        
+        // Update the shape for the current brush if it supports it
+        if (m_currentBrush) {
+            m_currentBrush->setShape(shape);
+        }
+        
+        emit brushShapeChanged(shape);
+    }
+}
+
+void BrushIntegrationManager::setBrushSize(int size)
+{
+    if (m_currentBrushSize != size) {
+        m_currentBrushSize = size;
+        
+        // Update the size for the current brush if it supports it
+        if (m_currentBrush) {
+            m_currentBrush->setSize(size);
+        }
+        
+        emit brushSizeChanged(size);
+    }
+}
+
+void BrushIntegrationManager::setBrushSettings(const BrushSettings& settings)
+{
+    m_currentBrushSettings = settings;
+    
+    // Update the settings for the current brush if it supports it
+    if (m_currentBrush) {
+        m_currentBrush->setSettings(settings);
+    }
+    
+    emit brushSettingsChanged(settings);
+}
+
+void BrushIntegrationManager::setBrushEnabled(bool enabled)
+{
+    if (m_brushEnabled != enabled) {
+        m_brushEnabled = enabled;
+        emit brushEnabledChanged(enabled);
+    }
+}
+
+// Brush state getters
+BrushType BrushIntegrationManager::getCurrentBrushType() const
+{
+    return m_currentBrushType;
+}
+
+BrushShape BrushIntegrationManager::getCurrentBrushShape() const
+{
+    return m_currentBrushShape;
+}
+
+int BrushIntegrationManager::getCurrentBrushSize() const
+{
+    return m_currentBrushSize;
+}
+
+BrushSettings BrushIntegrationManager::getCurrentBrushSettings() const
+{
+    return m_currentBrushSettings;
+}
+
+bool BrushIntegrationManager::isBrushEnabled() const
+{
+    return m_brushEnabled;
+}
+
+Brush* BrushIntegrationManager::getCurrentBrush() const
+{
+    return m_currentBrush;
+}
+
 } // namespace brush
 } // namespace core
 } // namespace RME

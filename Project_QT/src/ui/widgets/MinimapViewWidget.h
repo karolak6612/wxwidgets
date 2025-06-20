@@ -141,6 +141,11 @@ private:
     QPoint m_dragStartPos;
     bool m_isDragging = false;
     
+    // Coordinate conversion
+    double m_mapToWidgetScale = 1.0;
+    int m_mapOffsetX = 0;
+    int m_mapOffsetY = 0;
+    
     // Constants
     const QColor m_backgroundColor = QColor(0, 0, 0); // Black background
     const QColor m_viewportRectColor = QColor(255, 255, 255, 128); // Semi-transparent white

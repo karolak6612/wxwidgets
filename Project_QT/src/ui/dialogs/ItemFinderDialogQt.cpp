@@ -3,11 +3,10 @@
 // Qt includes
 #include <QtWidgets>
 
-// mapcore includes (assuming paths)
-#include "core/ItemManager.h"
-#include "core/ItemType.h"
-#include "core/SpriteManager.h" // For item sprites, assuming ItemManager::getSpriteManager()
-#include "core/Sprite.h"      // For ItemType::getSprite() or similar to get sprite ID
+// RME includes
+#include "core/assets/ItemDatabase.h"
+#include "core/assets/ItemData.h"
+#include "core/assets/SpriteManager.h"
 
 // Standard library includes
 #include <algorithm> // For std::sort, std::remove_if, etc. if needed for parsing
@@ -38,13 +37,13 @@ protected:
 };
 
 
-ItemFinderDialogQt::ItemFinderDialogQt(QWidget* parent, mapcore::ItemManager* itemManager, bool onlyPickupable)
+ItemFinderDialogQt::ItemFinderDialogQt(QWidget* parent, RME::core::assets::ItemDatabase* itemDatabase, bool onlyPickupable)
     : QDialog(parent),
-      m_itemManager(itemManager),
+      m_itemDatabase(itemDatabase),
       m_onlyPickupableInitial(onlyPickupable),
       m_selectedItemType(nullptr)
 {
-    Q_ASSERT(m_itemManager);
+    Q_ASSERT(m_itemDatabase);
 
     setupUi();
     connectSignals();
@@ -104,8 +103,8 @@ void ItemFinderDialogQt::setupUi()
     QFormLayout* searchInputsLayout = new QFormLayout();
     m_serverIdSpin = new QSpinBox();
     m_serverIdSpin->setObjectName("serverIdSpin");
-    m_serverIdSpin->setRange(100, m_itemManager->getMaxServerId() > 0 ? m_itemManager->getMaxServerId() : DEFAULT_MAX_SERVER_ID);
-    m_invalidItemCheck = new QCheckBox(tr("Invalid Item")); // Assuming ItemType::isInvalid() or similar logic
+    m_serverIdSpin->setRange(100, m_itemDatabase->getMaxItemId() > 0 ? m_itemDatabase->getMaxItemId() : DEFAULT_MAX_SERVER_ID);
+    m_invalidItemCheck = new QCheckBox(tr("Invalid Item"));
     m_invalidItemCheck->setObjectName("invalidItemCheck");
     QHBoxLayout* serverIdLayout = new QHBoxLayout();
     serverIdLayout->addWidget(m_serverIdSpin);
@@ -114,7 +113,7 @@ void ItemFinderDialogQt::setupUi()
 
     m_clientIdSpin = new QSpinBox();
     m_clientIdSpin->setObjectName("clientIdSpin");
-    m_clientIdSpin->setRange(1, m_itemManager->getMaxSpriteId() > 0 ? m_itemManager->getMaxSpriteId() : DEFAULT_MAX_SPRITE_ID);
+    m_clientIdSpin->setRange(1, DEFAULT_MAX_SPRITE_ID); // Use a default value since ItemDatabase might not have this method
     searchInputsLayout->addRow(tr("Client ID:"), m_clientIdSpin);
 
     m_nameEdit = new QLineEdit();
@@ -383,7 +382,7 @@ void ItemFinderDialogQt::cycleCheckboxState(QCheckBox* cb) {
 }
 
 
-mapcore::ItemType* ItemFinderDialogQt::getSelectedItemType() const
+RME::core::assets::ItemData* ItemFinderDialogQt::getSelectedItemType() const
 {
     return m_selectedItemType;
 }
@@ -463,18 +462,19 @@ void ItemFinderDialogQt::performSearch()
     QList<QPair<int, int>> searchIdRanges = parseIdRanges(idRangeText);
 
 
-    const auto& allItemTypes = m_itemManager->getItemTypes(); // Assuming this returns const QList<mapcore::ItemType*>& or similar
+    const auto& allItemTypes = m_itemDatabase->getItemTypes(); // Get all item types from the database
 
-    for (mapcore::ItemType* itemType : allItemTypes) {
+    for (const auto& itemPair : allItemTypes) {
+        auto itemType = itemPair.second;
         if (!itemType) continue;
 
         // 1. Initial 'onlyPickupable' filter (from constructor)
-        if (m_onlyPickupableInitial && !itemType->isPickupable()) {
+        if (m_onlyPickupableInitial && !itemType->pickupable) {
             continue;
         }
 
         // 2. Ignored IDs filter
-        if (m_enableIgnoredIdsCheck->isChecked() && ignoredServerIds.contains(itemType->id())) {
+        if (m_enableIgnoredIdsCheck->isChecked() && ignoredServerIds.contains(itemType->getID())) {
             continue;
         }
         // TODO: Add range check for ignored IDs if parseIdRanges is used for ignoredIdsEdit
@@ -485,17 +485,17 @@ void ItemFinderDialogQt::performSearch()
             case SearchMode::ServerID: {
                 bool serverIdMatch = false;
                 if (!idRangeText.isEmpty()) { // Range/List search
-                    if (searchSpecificIds.contains(itemType->id())) serverIdMatch = true;
+                    if (searchSpecificIds.contains(itemType->getID())) serverIdMatch = true;
                     if (!serverIdMatch) {
                         for(const auto& range : searchIdRanges) {
-                            if (itemType->id() >= range.first && itemType->id() <= range.second) {
+                            if (itemType->getID() >= range.first && itemType->getID() <= range.second) {
                                 serverIdMatch = true;
                                 break;
                             }
                         }
                     }
                 } else { // Single ID search
-                    serverIdMatch = (itemType->id() == m_serverIdSpin->value());
+                    serverIdMatch = (itemType->getID() == m_serverIdSpin->value());
                 }
                 // Handle m_invalidItemCheck. If ItemType has isInvalid():
                 // if (m_invalidItemCheck->isChecked() && !itemType->isInvalid()) continue;
@@ -514,8 +514,8 @@ void ItemFinderDialogQt::performSearch()
             }
             case SearchMode::ClientID: {
                  bool clientIdMatch = false;
-                 // Assuming ItemType has getClientId() or similar
-                 int currentClientId = itemType->getClientId(); // Or itemType->getSprite(0)->id if that's the way
+                 // Use the client ID from ItemData
+                 int currentClientId = itemType->clientId;
                  if (!idRangeText.isEmpty()) {
                     if (searchSpecificIds.contains(currentClientId)) clientIdMatch = true;
                     if (!clientIdMatch) {
@@ -533,21 +533,22 @@ void ItemFinderDialogQt::performSearch()
                  break;
             }
             case SearchMode::Name: {
-                if (itemType->name().contains(m_nameEdit->text(), Qt::CaseInsensitive)) {
+                QString itemName = QString::fromStdString(itemType->name);
+                if (itemName.contains(m_nameEdit->text(), Qt::CaseInsensitive)) {
                     match = true;
                 }
                 break;
             }
             case SearchMode::Type: {
-                // This requires ItemType to have methods like isDepot(), isMailbox(), etc.
-                if (m_typeDepotRadio->isChecked() && itemType->isDepot()) match = true;
-                else if (m_typeMailboxRadio->isChecked() && itemType->isMailbox()) match = true;
-                else if (m_typeContainerRadio->isChecked() && itemType->isContainer()) match = true;
-                else if (m_typeDoorRadio->isChecked() && itemType->isDoor()) match = true;
-                else if (m_typeTeleportRadio->isChecked() && itemType->isTeleport()) match = true;
-                else if (m_typeBedRadio->isChecked() && itemType->isBed()) match = true;
-                else if (m_typeKeyRadio->isChecked() && itemType->isKey()) match = true;
-                else if (m_typePodiumRadio->isChecked() && itemType->isPodium()) match = true;
+                // Check item type flags in ItemData
+                if (m_typeDepotRadio->isChecked() && itemType->isDepot) match = true;
+                else if (m_typeMailboxRadio->isChecked() && itemType->isMailbox) match = true;
+                else if (m_typeContainerRadio->isChecked() && itemType->isContainer) match = true;
+                else if (m_typeDoorRadio->isChecked() && itemType->isDoor) match = true;
+                else if (m_typeTeleportRadio->isChecked() && itemType->isTeleport) match = true;
+                else if (m_typeBedRadio->isChecked() && itemType->isBed) match = true;
+                else if (m_typeKeyRadio->isChecked() && itemType->isKey) match = true;
+                else if (m_typePodiumRadio->isChecked() && itemType->isPodium) match = true;
                 // ... Add checks for all other type radios
                 break;
             }
@@ -558,31 +559,31 @@ void ItemFinderDialogQt::performSearch()
                     if (cb->checkState() == Qt::Unchecked) continue; // Ignore this property
 
                     bool hasProperty = false; // Placeholder: determine this based on itemType and propCheckDef.objectName
-                    // Example property checks (replace with actual ItemType methods)
+                    // Use ItemData properties directly
                     QString objName = cb->objectName();
-                    if (objName == "propUnpassableCheck") hasProperty = !itemType->isPassable(); // Note: Unpassable is !Passable
-                    else if (objName == "propUnmovableCheck") hasProperty = !itemType->isMoveable(); // Note: Unmovable is !Moveable
-                    else if (objName == "propBlockMissilesCheck") hasProperty = itemType->blocksMissiles();
-                    else if (objName == "propBlockPathfinderCheck") hasProperty = itemType->blocksPathfinder();
-                    else if (objName == "propPickupableCheck") hasProperty = itemType->isPickupable();
-                    else if (objName == "propStackableCheck") hasProperty = itemType->isStackable();
-                    else if (objName == "propRotatableCheck") hasProperty = itemType->isRotatable();
-                    else if (objName == "propHangableCheck") hasProperty = itemType->isHangable();
-                    else if (objName == "propHookEastCheck") hasProperty = itemType->canHookEast();
-                    else if (objName == "propHookSouthCheck") hasProperty = itemType->canHookSouth();
-                    else if (objName == "propHasElevationCheck") hasProperty = itemType->hasElevation();
-                    else if (objName == "propIgnoreLookCheck") hasProperty = itemType->ignoresLook();
-                    else if (objName == "propHasLightCheck") hasProperty = itemType->hasLight();
-                    else if (objName == "propFloorChangeCheck") hasProperty = itemType->isFloorChange();
-                    // Slot checks (assuming getSlotPosition() returns a bitmask and SLOTP_ enums are defined)
-                    else if (objName == "propSlotHeadCheck") hasProperty = (itemType->getSlotPosition() & SLOTP_HEAD);
-                    else if (objName == "propSlotNecklaceCheck") hasProperty = (itemType->getSlotPosition() & SLOTP_NECKLACE);
-                    else if (objName == "propSlotBackpackCheck") hasProperty = (itemType->getSlotPosition() & SLOTP_BACKPACK);
-                    else if (objName == "propSlotArmorCheck") hasProperty = (itemType->getSlotPosition() & SLOTP_ARMOR);
-                    else if (objName == "propSlotLegsCheck") hasProperty = (itemType->getSlotPosition() & SLOTP_LEGS);
-                    else if (objName == "propSlotFeetCheck") hasProperty = (itemType->getSlotPosition() & SLOTP_FEET);
-                    else if (objName == "propSlotRingCheck") hasProperty = (itemType->getSlotPosition() & SLOTP_RING);
-                    else if (objName == "propSlotAmmoCheck") hasProperty = (itemType->getSlotPosition() & SLOTP_AMMO);
+                    if (objName == "propUnpassableCheck") hasProperty = !itemType->walkable; // Note: Unpassable is !walkable
+                    else if (objName == "propUnmovableCheck") hasProperty = !itemType->moveable; // Note: Unmovable is !moveable
+                    else if (objName == "propBlockMissilesCheck") hasProperty = itemType->blockMissiles;
+                    else if (objName == "propBlockPathfinderCheck") hasProperty = itemType->blockPathfinder;
+                    else if (objName == "propPickupableCheck") hasProperty = itemType->pickupable;
+                    else if (objName == "propStackableCheck") hasProperty = itemType->stackable;
+                    else if (objName == "propRotatableCheck") hasProperty = itemType->rotatable;
+                    else if (objName == "propHangableCheck") hasProperty = itemType->hangable;
+                    else if (objName == "propHookEastCheck") hasProperty = itemType->hookEast;
+                    else if (objName == "propHookSouthCheck") hasProperty = itemType->hookSouth;
+                    else if (objName == "propHasElevationCheck") hasProperty = itemType->hasElevation;
+                    else if (objName == "propIgnoreLookCheck") hasProperty = itemType->ignoreLook;
+                    else if (objName == "propHasLightCheck") hasProperty = itemType->hasLight;
+                    else if (objName == "propFloorChangeCheck") hasProperty = itemType->isFloorChange;
+                    // Slot checks using the slotPosition property
+                    else if (objName == "propSlotHeadCheck") hasProperty = (itemType->slotPosition & SLOTP_HEAD);
+                    else if (objName == "propSlotNecklaceCheck") hasProperty = (itemType->slotPosition & SLOTP_NECKLACE);
+                    else if (objName == "propSlotBackpackCheck") hasProperty = (itemType->slotPosition & SLOTP_BACKPACK);
+                    else if (objName == "propSlotArmorCheck") hasProperty = (itemType->slotPosition & SLOTP_ARMOR);
+                    else if (objName == "propSlotLegsCheck") hasProperty = (itemType->slotPosition & SLOTP_LEGS);
+                    else if (objName == "propSlotFeetCheck") hasProperty = (itemType->slotPosition & SLOTP_FEET);
+                    else if (objName == "propSlotRingCheck") hasProperty = (itemType->slotPosition & SLOTP_RING);
+                    else if (objName == "propSlotAmmoCheck") hasProperty = (itemType->slotPosition & SLOTP_AMMO);
                     // ... other properties
 
                     if (cb->checkState() == Qt::Checked && !hasProperty) { // Must have, but doesn't
@@ -600,17 +601,21 @@ void ItemFinderDialogQt::performSearch()
 
         if (match) {
             QListWidgetItem* listItem = new QListWidgetItem(m_resultsListWidget);
-            listItem->setText(itemType->name());
-            // Assuming ItemManager has getSpriteManager() and SpriteManager has getSpritePixmap()
-            // And ItemType has getSprite(0)->id or similar to get a sprite ID
-            if (m_itemManager->getSpriteManager() && itemType->getSpriteCount() > 0) {
-                 // Default sprite for the item type.
-                int spriteIdToUse = itemType->getSprite(0)->id; // Or itemType->getClientId() if that's the sprite id
-                QPixmap pixmap = m_itemManager->getSpriteManager()->getSpritePixmap(spriteIdToUse, 0, 0, 0, 0, false);
-                if (!pixmap.isNull()) {
-                    listItem->setIcon(QIcon(pixmap));
-                }
-            }
+            listItem->setText(QString::fromStdString(itemType->name));
+            
+            // Use the sprite manager if available
+            // This would need to be updated based on how sprites are managed in the RME system
+            // For now, we'll just use a placeholder icon
+            QPixmap pixmap(32, 32);
+            pixmap.fill(Qt::transparent);
+            QPainter painter(&pixmap);
+            painter.setPen(Qt::black);
+            painter.setBrush(QColor(itemType->lookupColor.red(), itemType->lookupColor.green(), itemType->lookupColor.blue()));
+            painter.drawRect(0, 0, 31, 31);
+            painter.drawText(QRect(0, 0, 32, 32), Qt::AlignCenter, QString::number(itemType->getID()));
+            painter.end();
+            
+            listItem->setIcon(QIcon(pixmap));
             listItem->setData(Qt::UserRole, QVariant::fromValue(itemType));
             m_resultsListWidget->addItem(listItem);
 
@@ -663,7 +668,7 @@ QList<QPair<int, int>> ItemFinderDialogQt::parseIdRanges(const QString& text) {
             }
         }
     }
-    std.sort(ranges.begin(), ranges.end()); // Optional: sort and merge overlapping ranges for efficiency
+    std::sort(ranges.begin(), ranges.end()); // Optional: sort and merge overlapping ranges for efficiency
     return ranges;
 }
 
@@ -674,7 +679,7 @@ void ItemFinderDialogQt::onResultSelectionChanged()
     bool itemSelected = (currentItem != nullptr);
     m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(itemSelected);
     if (itemSelected) {
-        m_selectedItemType = currentItem->data(Qt::UserRole).value<mapcore::ItemType*>();
+        m_selectedItemType = currentItem->data(Qt::UserRole).value<RME::core::assets::ItemData*>();
     } else {
         m_selectedItemType = nullptr;
     }
@@ -695,7 +700,7 @@ void ItemFinderDialogQt::onEnableIgnoredIdsToggled(bool checked)
 void ItemFinderDialogQt::handleOk()
 {
     if (m_resultsListWidget->currentItem()) { // Ensure an item is selected
-        m_selectedItemType = m_resultsListWidget->currentItem()->data(Qt::UserRole).value<mapcore::ItemType*>();
+        m_selectedItemType = m_resultsListWidget->currentItem()->data(Qt::UserRole).value<RME::core::assets::ItemData*>();
         if (m_selectedItemType) {
             accept();
             return;

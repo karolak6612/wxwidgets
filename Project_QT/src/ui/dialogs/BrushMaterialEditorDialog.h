@@ -139,7 +139,9 @@ class BrushMaterialEditorDialog : public QDialog {
     Q_OBJECT
 
 public:
-    explicit BrushMaterialEditorDialog(QWidget* parent = nullptr);
+    explicit BrushMaterialEditorDialog(QWidget* parent = nullptr,
+                                 RME::core::assets::MaterialManager* materialManager = nullptr,
+                                 RME::core::assets::ItemDatabase* itemDatabase = nullptr);
     ~BrushMaterialEditorDialog() override = default;
 
 public slots:
@@ -268,8 +270,8 @@ private:
     void setupButtonBox();
     
     // Data management
-    RME::MaterialManager* m_materialManager;
-    RME::ItemDatabase* m_itemDatabase;
+    RME::core::assets::MaterialManager* m_materialManager;
+    RME::core::assets::ItemDatabase* m_itemDatabase;
     
     // XML file paths
     QString getXmlFilePath(const QString& filename) const;

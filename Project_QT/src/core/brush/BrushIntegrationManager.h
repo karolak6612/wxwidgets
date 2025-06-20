@@ -5,6 +5,9 @@
 #include <QString>
 #include <QtGlobal>
 #include <memory>
+#include "BrushEnums.h"
+#include "BrushShape.h"
+#include "BrushSettings.h"
 
 // Forward declarations
 namespace RME {
@@ -52,6 +55,23 @@ public:
     bool isWaypointToolActive() const;
     quint32 getCurrentHouseId() const;
     QString getCurrentWaypointName() const;
+    
+    // Brush state management
+    void setBrushType(BrushType type);
+    void setBrushShape(BrushShape shape);
+    void setBrushSize(int size);
+    void setBrushSettings(const BrushSettings& settings);
+    void setBrushEnabled(bool enabled);
+    
+    // Brush state getters
+    BrushType getCurrentBrushType() const;
+    BrushShape getCurrentBrushShape() const;
+    int getCurrentBrushSize() const;
+    BrushSettings getCurrentBrushSettings() const;
+    bool isBrushEnabled() const;
+    
+    // Get current brush
+    Brush* getCurrentBrush() const;
 
     // Brush instance management
     RME::core::brush::HouseBrush* getHouseBrush();
@@ -72,6 +92,14 @@ signals:
     void toolModeChanged(int toolMode); // EditorController::ToolMode as int
     void houseToolConfigured(quint32 houseId);
     void waypointToolConfigured(const QString& waypointName);
+    
+    // Brush state signals
+    void brushChanged(Brush* brush);
+    void brushTypeChanged(BrushType type);
+    void brushShapeChanged(BrushShape shape);
+    void brushSizeChanged(int size);
+    void brushSettingsChanged(const BrushSettings& settings);
+    void brushEnabledChanged(bool enabled);
 
 private:
     RME::core::editor::EditorControllerInterface* m_editorController;
@@ -84,6 +112,14 @@ private:
     // Current state
     quint32 m_currentHouseId = 0;
     QString m_currentWaypointName;
+    
+    // Brush state
+    BrushType m_currentBrushType = BrushType::None;
+    BrushShape m_currentBrushShape = BrushShape::Square;
+    int m_currentBrushSize = 1;
+    BrushSettings m_currentBrushSettings;
+    bool m_brushEnabled = true;
+    Brush* m_currentBrush = nullptr;
     
     // Helper methods
     void initializeBrushes();

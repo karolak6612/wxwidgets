@@ -1,5 +1,29 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/">
+    <!-- Main XML files -->
     <file alias="menubar.xml">../XML/menubar.xml</file>
+    
+    <!-- Brush material XML files -->
+    <file alias="borders.xml">../XML/760/borders.xml</file>
+    <file alias="grounds.xml">../XML/760/grounds.xml</file>
+    <file alias="walls.xml">../XML/760/walls.xml</file>
+    <file alias="walls_extra.xml">../XML/760/walls_extra.xml</file>
+    <file alias="doodads.xml">../XML/760/doodads.xml</file>
+    <file alias="tilesets.xml">../XML/760/tilesets.xml</file>
+    <file alias="materials.xml">../XML/760/materials.xml</file>
+    
+    <!-- Palette XML files -->
+    <file alias="raw_palette.xml">../XML/760/raw_palette.xml</file>
+    <file alias="item_palette.xml">../XML/760/item_palette.xml</file>
+    <file alias="creature_palette.xml">../XML/760/creature_palette.xml</file>
+    
+    <!-- Other XML files -->
+    <file alias="collections.xml">../XML/760/collections.xml</file>
+    <file alias="creatures.xml">../XML/760/creatures.xml</file>
+    <file alias="items.xml">../XML/760/items.xml</file>
+    
+    <!-- Binary files -->
+    <file alias="items.otb">../XML/760/items.otb</file>
+    <file alias="Tibia.otfi">../XML/760/Tibia.otfi</file>
 </qresource>
 </RCC>

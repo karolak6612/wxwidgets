@@ -2,26 +2,22 @@
 #include <QWidget>
 #include <QLabel> // For a simple label widget
 #include <QVBoxLayout> // For layout
+#include "core/utils/ResourcePathManager.h"
+#include "ui/MainWindow.h"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-
-    // Create a simple main window (QWidget)
-    QWidget mainWindow;
-    mainWindow.setWindowTitle("RME-Qt6 Placeholder");
-    mainWindow.setMinimumSize(300, 200);
-
-    // Add a label to the window
-    QLabel *label = new QLabel("Hello, RME-Qt6 World!", &mainWindow);
-    label->setAlignment(Qt::AlignCenter);
-
-    // Set up a layout
-    QVBoxLayout *layout = new QVBoxLayout(&mainWindow);
-    layout->addWidget(label);
-    mainWindow.setLayout(layout);
-
-    // Show the window
+    
+    // Set application information
+    QCoreApplication::setOrganizationName("RME");
+    QCoreApplication::setApplicationName("Remere's Map Editor");
+    
+    // Initialize resource path manager
+    RME::core::utils::ResourcePathManager::instance().initialize(QCoreApplication::applicationDirPath());
+    
+    // Create the main window
+    MainWindow mainWindow;
     mainWindow.show();
 
     return app.exec();
