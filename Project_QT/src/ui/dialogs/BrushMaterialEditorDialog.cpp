@@ -672,44 +672,182 @@ void BrushMaterialEditorDialog::loadData()
 
 void BrushMaterialEditorDialog::loadExistingBorders()
 {
-    // TODO: Load borders from borders.xml
+    m_borderCombo->clear();
     m_borderCombo->addItem("(New Border)");
-    // Example borders - replace with actual XML loading
-    m_borderCombo->addItem("Border 1");
-    m_borderCombo->addItem("Border 2");
+    
+    // Load borders from borders.xml
+    QString bordersPath = getXmlFilePath("borders.xml");
+    QFile file(bordersPath);
+    
+    if (!file.exists() || !file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return;
+    }
+    
+    QDomDocument doc;
+    if (!doc.setContent(&file)) {
+        file.close();
+        return;
+    }
+    file.close();
+    
+    QDomElement rootElement = doc.documentElement();
+    if (rootElement.isNull() || rootElement.tagName() != "borders") {
+        return;
+    }
+    
+    // Find all borders and add them to the combo box
+    QDomNodeList borders = rootElement.elementsByTagName("border");
+    for (int i = 0; i < borders.count(); ++i) {
+        QDomElement borderElement = borders.at(i).toElement();
+        QString name = borderElement.attribute("name");
+        if (!name.isEmpty()) {
+            m_borderCombo->addItem(name);
+        }
+    }
 }
 
 void BrushMaterialEditorDialog::loadExistingGroundBrushes()
 {
-    // TODO: Load ground brushes from grounds.xml
+    m_groundBrushCombo->clear();
     m_groundBrushCombo->addItem("(New Ground Brush)");
-    // Example brushes - replace with actual XML loading
-    m_groundBrushCombo->addItem("Grass Brush");
-    m_groundBrushCombo->addItem("Stone Brush");
+    
+    // Load ground brushes from grounds.xml
+    QString groundsPath = getXmlFilePath("grounds.xml");
+    QFile file(groundsPath);
+    
+    if (!file.exists() || !file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return;
+    }
+    
+    QDomDocument doc;
+    if (!doc.setContent(&file)) {
+        file.close();
+        return;
+    }
+    file.close();
+    
+    QDomElement rootElement = doc.documentElement();
+    if (rootElement.isNull() || rootElement.tagName() != "groundbrushes") {
+        return;
+    }
+    
+    // Find all brushes and add them to the combo box
+    QDomNodeList brushes = rootElement.elementsByTagName("brush");
+    for (int i = 0; i < brushes.count(); ++i) {
+        QDomElement brushElement = brushes.at(i).toElement();
+        QString name = brushElement.attribute("name");
+        if (!name.isEmpty()) {
+            m_groundBrushCombo->addItem(name);
+        }
+    }
 }
 
 void BrushMaterialEditorDialog::loadExistingWallBrushes()
 {
-    // TODO: Load wall brushes from walls.xml
+    m_wallBrushCombo->clear();
     m_wallBrushCombo->addItem("(New Wall Brush)");
-    // Example brushes - replace with actual XML loading
-    m_wallBrushCombo->addItem("Stone Wall");
-    m_wallBrushCombo->addItem("Wood Wall");
+    
+    // Load wall brushes from walls.xml
+    QString wallsPath = getXmlFilePath("walls.xml");
+    QFile file(wallsPath);
+    
+    if (!file.exists() || !file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return;
+    }
+    
+    QDomDocument doc;
+    if (!doc.setContent(&file)) {
+        file.close();
+        return;
+    }
+    file.close();
+    
+    QDomElement rootElement = doc.documentElement();
+    if (rootElement.isNull() || rootElement.tagName() != "wallbrushes") {
+        return;
+    }
+    
+    // Find all brushes and add them to the combo box
+    QDomNodeList brushes = rootElement.elementsByTagName("brush");
+    for (int i = 0; i < brushes.count(); ++i) {
+        QDomElement brushElement = brushes.at(i).toElement();
+        QString name = brushElement.attribute("name");
+        if (!name.isEmpty()) {
+            m_wallBrushCombo->addItem(name);
+        }
+    }
 }
 
 void BrushMaterialEditorDialog::loadExistingDoodadBrushes()
 {
-    // TODO: Load doodad brushes from doodads.xml
+    m_doodadBrushCombo->clear();
     m_doodadBrushCombo->addItem("(New Doodad Brush)");
-    // Example brushes - replace with actual XML loading
-    m_doodadBrushCombo->addItem("Tree Doodad");
-    m_doodadBrushCombo->addItem("Rock Doodad");
+    
+    // Load doodad brushes from doodads.xml
+    QString doodadsPath = getXmlFilePath("doodads.xml");
+    QFile file(doodadsPath);
+    
+    if (!file.exists() || !file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return;
+    }
+    
+    QDomDocument doc;
+    if (!doc.setContent(&file)) {
+        file.close();
+        return;
+    }
+    file.close();
+    
+    QDomElement rootElement = doc.documentElement();
+    if (rootElement.isNull() || rootElement.tagName() != "doodadbrushes") {
+        return;
+    }
+    
+    // Find all brushes and add them to the combo box
+    QDomNodeList brushes = rootElement.elementsByTagName("brush");
+    for (int i = 0; i < brushes.count(); ++i) {
+        QDomElement brushElement = brushes.at(i).toElement();
+        QString name = brushElement.attribute("name");
+        if (!name.isEmpty()) {
+            m_doodadBrushCombo->addItem(name);
+        }
+    }
 }
 
 void BrushMaterialEditorDialog::loadTilesets()
 {
-    // TODO: Load tilesets from tilesets.xml
-    QStringList tilesets = {"Terrain", "Doodads", "Items", "Walls", "Custom"};
+    m_tilesetCombo->clear();
+    m_wallTilesetCombo->clear();
+    m_doodadTilesetCombo->clear();
+    
+    // Load tilesets from tilesets.xml
+    QString tilesetsPath = getXmlFilePath("tilesets.xml");
+    QFile file(tilesetsPath);
+    
+    QStringList tilesets;
+    
+    if (file.exists() && file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QDomDocument doc;
+        if (doc.setContent(&file)) {
+            QDomElement rootElement = doc.documentElement();
+            if (!rootElement.isNull() && rootElement.tagName() == "tilesets") {
+                QDomNodeList tilesetNodes = rootElement.elementsByTagName("tileset");
+                for (int i = 0; i < tilesetNodes.count(); ++i) {
+                    QDomElement tilesetElement = tilesetNodes.at(i).toElement();
+                    QString name = tilesetElement.attribute("name");
+                    if (!name.isEmpty()) {
+                        tilesets.append(name);
+                    }
+                }
+            }
+        }
+        file.close();
+    }
+    
+    // If no tilesets were found, use default values
+    if (tilesets.isEmpty()) {
+        tilesets = {"Terrain", "Doodads", "Items", "Walls", "Custom"};
+    }
     
     m_tilesetCombo->addItems(tilesets);
     m_wallTilesetCombo->addItems(tilesets);
@@ -748,6 +886,16 @@ void BrushMaterialEditorDialog::connectSignals()
             this, &BrushMaterialEditorDialog::onBorderPropertyChanged);
     connect(m_optionalCheck, &QCheckBox::toggled, this, &BrushMaterialEditorDialog::onBorderPropertyChanged);
     connect(m_groundBorderCheck, &QCheckBox::toggled, this, &BrushMaterialEditorDialog::onBorderPropertyChanged);
+    
+    // Connect combo boxes to load methods
+    connect(m_borderCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), 
+            this, &BrushMaterialEditorDialog::onLoadBorder);
+    connect(m_groundBrushCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), 
+            this, &BrushMaterialEditorDialog::onLoadGroundBrush);
+    connect(m_wallBrushCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), 
+            this, &BrushMaterialEditorDialog::onLoadWallBrush);
+    connect(m_doodadBrushCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), 
+            this, &BrushMaterialEditorDialog::onLoadDoodadBrush);
     
     // Ground brushes tab signals
     connect(m_addGroundItemButton, &QPushButton::clicked, 
@@ -836,17 +984,13 @@ void BrushMaterialEditorDialog::onBorderItemIdChanged()
 
 void BrushMaterialEditorDialog::onBrowseBorderItem()
 {
-    // TODO: Replace nullptr with actual ItemManager instance
-    ItemFinderDialogQt dialog(this, nullptr);
+    // Use the actual ItemDatabase
+    ItemFinderDialogQt dialog(this, m_itemDatabase);
     if (dialog.exec() == QDialog::Accepted) {
-        // TODO: Get selected item type and set ID
-        // auto* itemType = dialog.getSelectedItemType();
-        // if (itemType) {
-        //     m_borderItemIdSpin->setValue(itemType->id);
-        // }
-        
-        // For now, just show a placeholder message
-        QMessageBox::information(this, "Item Finder", "Item finder integration will be implemented when ItemManager is available.");
+        auto* selectedItemType = dialog.getSelectedItemType();
+        if (selectedItemType) {
+            m_borderItemIdSpin->setValue(selectedItemType->getID());
+        }
     }
 }
 
@@ -879,9 +1023,77 @@ void BrushMaterialEditorDialog::onLoadBorder()
         return;
     }
     
-    // TODO: Load border data from XML
-    QMessageBox::information(this, "Load Border", 
-                           QString("Loading border '%1' will be implemented when XML loading is available.").arg(borderName));
+    if (!loadBorderFromXml(borderName)) {
+        QMessageBox::warning(this, "Error", 
+                           QString("Failed to load border '%1' from XML.").arg(borderName));
+    }
+}
+
+bool BrushMaterialEditorDialog::loadBorderFromXml(const QString& borderName)
+{
+    QString bordersPath = getXmlFilePath("borders.xml");
+    QFile file(bordersPath);
+    
+    if (!file.exists() || !file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return false;
+    }
+    
+    QDomDocument doc;
+    if (!doc.setContent(&file)) {
+        file.close();
+        return false;
+    }
+    file.close();
+    
+    QDomElement rootElement = doc.documentElement();
+    if (rootElement.isNull() || rootElement.tagName() != "borders") {
+        return false;
+    }
+    
+    // Find the border with the given name
+    QDomNodeList borders = rootElement.elementsByTagName("border");
+    for (int i = 0; i < borders.count(); ++i) {
+        QDomElement borderElement = borders.at(i).toElement();
+        if (borderElement.attribute("name") == borderName) {
+            // Clear existing data
+            clearBorderData();
+            
+            // Load border properties
+            m_borderNameEdit->setText(borderElement.attribute("name"));
+            m_borderIdSpin->setValue(borderElement.attribute("id").toInt());
+            m_groupIdSpin->setValue(borderElement.attribute("group").toInt());
+            m_optionalCheck->setChecked(borderElement.attribute("optional") == "true");
+            m_groundBorderCheck->setChecked(borderElement.attribute("ground") == "true");
+            
+            // Load border items
+            QDomNodeList items = borderElement.elementsByTagName("item");
+            for (int j = 0; j < items.count(); ++j) {
+                QDomElement itemElement = items.at(j).toElement();
+                int position = itemElement.attribute("position").toInt();
+                uint16_t itemId = itemElement.attribute("id").toUInt();
+                
+                if (position >= 0 && position < 12) {
+                    BorderPosition pos = static_cast<BorderPosition>(position);
+                    m_borderGrid->setItemForPosition(pos, itemId);
+                }
+            }
+            
+            // Update preview
+            QVector<BorderItem> previewItems;
+            for (int j = 0; j < 12; ++j) {
+                BorderPosition pos = static_cast<BorderPosition>(j);
+                uint16_t itemId = m_borderGrid->getItemForPosition(pos);
+                if (itemId > 0) {
+                    previewItems.append(BorderItem(pos, itemId));
+                }
+            }
+            m_borderPreview->updatePreview(previewItems);
+            
+            return true;
+        }
+    }
+    
+    return false;
 }
 
 void BrushMaterialEditorDialog::onSaveBorder()
@@ -1006,9 +1218,87 @@ void BrushMaterialEditorDialog::onLoadGroundBrush()
         return;
     }
     
-    // TODO: Load ground brush data from XML
-    QMessageBox::information(this, "Load Ground Brush", 
-                           QString("Loading ground brush '%1' will be implemented when XML loading is available.").arg(brushName));
+    if (!loadGroundBrushFromXml(brushName)) {
+        QMessageBox::warning(this, "Error", 
+                           QString("Failed to load ground brush '%1' from XML.").arg(brushName));
+    }
+}
+
+bool BrushMaterialEditorDialog::loadGroundBrushFromXml(const QString& brushName)
+{
+    QString groundsPath = getXmlFilePath("grounds.xml");
+    QFile file(groundsPath);
+    
+    if (!file.exists() || !file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return false;
+    }
+    
+    QDomDocument doc;
+    if (!doc.setContent(&file)) {
+        file.close();
+        return false;
+    }
+    file.close();
+    
+    QDomElement rootElement = doc.documentElement();
+    if (rootElement.isNull() || rootElement.tagName() != "groundbrushes") {
+        return false;
+    }
+    
+    // Find the brush with the given name
+    QDomNodeList brushes = rootElement.elementsByTagName("brush");
+    for (int i = 0; i < brushes.count(); ++i) {
+        QDomElement brushElement = brushes.at(i).toElement();
+        if (brushElement.attribute("name") == brushName) {
+            // Clear existing data
+            clearGroundBrushData();
+            
+            // Load brush properties
+            m_brushNameEdit->setText(brushElement.attribute("name"));
+            m_serverLookIdSpin->setValue(brushElement.attribute("lookid").toInt());
+            m_zOrderSpin->setValue(brushElement.attribute("z-order").toInt());
+            
+            QString tileset = brushElement.attribute("tileset");
+            int tilesetIndex = m_tilesetCombo->findText(tileset);
+            if (tilesetIndex >= 0) {
+                m_tilesetCombo->setCurrentIndex(tilesetIndex);
+            }
+            
+            // Load border association
+            QDomNodeList borders = brushElement.elementsByTagName("border");
+            if (!borders.isEmpty()) {
+                QDomElement borderElement = borders.at(0).toElement();
+                m_borderAssocIdSpin->setValue(borderElement.attribute("id").toInt());
+                
+                QString align = borderElement.attribute("align");
+                int alignIndex = m_borderAlignmentCombo->findText(align);
+                if (alignIndex >= 0) {
+                    m_borderAlignmentCombo->setCurrentIndex(alignIndex);
+                }
+                
+                m_includeToNoneCheck->setChecked(borderElement.attribute("tonone") == "true");
+                m_includeInnerCheck->setChecked(borderElement.attribute("inner") == "true");
+            }
+            
+            // Load items
+            QDomNodeList items = brushElement.elementsByTagName("item");
+            m_groundItemsTable->setRowCount(0);
+            for (int j = 0; j < items.count(); ++j) {
+                QDomElement itemElement = items.at(j).toElement();
+                uint16_t itemId = itemElement.attribute("id").toUInt();
+                int chance = itemElement.attribute("chance").toInt();
+                
+                int row = m_groundItemsTable->rowCount();
+                m_groundItemsTable->insertRow(row);
+                m_groundItemsTable->setItem(row, 0, new QTableWidgetItem(QString::number(itemId)));
+                m_groundItemsTable->setItem(row, 1, new QTableWidgetItem(QString::number(chance)));
+            }
+            
+            return true;
+        }
+    }
+    
+    return false;
 }
 
 void BrushMaterialEditorDialog::onSaveGroundBrush()
@@ -1042,9 +1332,72 @@ void BrushMaterialEditorDialog::onLoadWallBrush()
         return;
     }
     
-    // TODO: Load wall brush data from XML
-    QMessageBox::information(this, "Load Wall Brush", 
-                           QString("Loading wall brush '%1' will be implemented when XML loading is available.").arg(brushName));
+    if (!loadWallBrushFromXml(brushName)) {
+        QMessageBox::warning(this, "Error", 
+                           QString("Failed to load wall brush '%1' from XML.").arg(brushName));
+    }
+}
+
+bool BrushMaterialEditorDialog::loadWallBrushFromXml(const QString& brushName)
+{
+    QString wallsPath = getXmlFilePath("walls.xml");
+    QFile file(wallsPath);
+    
+    if (!file.exists() || !file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return false;
+    }
+    
+    QDomDocument doc;
+    if (!doc.setContent(&file)) {
+        file.close();
+        return false;
+    }
+    file.close();
+    
+    QDomElement rootElement = doc.documentElement();
+    if (rootElement.isNull() || rootElement.tagName() != "wallbrushes") {
+        return false;
+    }
+    
+    // Find the brush with the given name
+    QDomNodeList brushes = rootElement.elementsByTagName("brush");
+    for (int i = 0; i < brushes.count(); ++i) {
+        QDomElement brushElement = brushes.at(i).toElement();
+        if (brushElement.attribute("name") == brushName) {
+            // Clear existing data
+            clearWallBrushData();
+            
+            // Load brush properties
+            m_wallBrushNameEdit->setText(brushElement.attribute("name"));
+            m_wallServerLookIdSpin->setValue(brushElement.attribute("server_lookid").toInt());
+            
+            QString tileset = brushElement.attribute("tileset");
+            int tilesetIndex = m_wallTilesetCombo->findText(tileset);
+            if (tilesetIndex >= 0) {
+                m_wallTilesetCombo->setCurrentIndex(tilesetIndex);
+            }
+            
+            // Load wall items
+            QDomNodeList walls = brushElement.elementsByTagName("wall");
+            for (int j = 0; j < walls.count(); ++j) {
+                QDomElement wallElement = walls.at(j).toElement();
+                QString type = wallElement.attribute("type");
+                uint16_t itemId = wallElement.attribute("id").toUInt();
+                
+                if (type == "horizontal") {
+                    m_horizontalWallSpin->setValue(itemId);
+                } else if (type == "vertical") {
+                    m_verticalWallSpin->setValue(itemId);
+                } else if (type == "pole") {
+                    m_wallPoleSpin->setValue(itemId);
+                }
+            }
+            
+            return true;
+        }
+    }
+    
+    return false;
 }
 
 void BrushMaterialEditorDialog::onSaveWallBrush()
@@ -1150,9 +1503,78 @@ void BrushMaterialEditorDialog::onLoadDoodadBrush()
         return;
     }
     
-    // TODO: Load doodad brush data from XML
-    QMessageBox::information(this, "Load Doodad Brush", 
-                           QString("Loading doodad brush '%1' will be implemented when XML loading is available.").arg(brushName));
+    if (!loadDoodadBrushFromXml(brushName)) {
+        QMessageBox::warning(this, "Error", 
+                           QString("Failed to load doodad brush '%1' from XML.").arg(brushName));
+    }
+}
+
+bool BrushMaterialEditorDialog::loadDoodadBrushFromXml(const QString& brushName)
+{
+    QString doodadsPath = getXmlFilePath("doodads.xml");
+    QFile file(doodadsPath);
+    
+    if (!file.exists() || !file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return false;
+    }
+    
+    QDomDocument doc;
+    if (!doc.setContent(&file)) {
+        file.close();
+        return false;
+    }
+    file.close();
+    
+    QDomElement rootElement = doc.documentElement();
+    if (rootElement.isNull() || rootElement.tagName() != "doodadbrushes") {
+        return false;
+    }
+    
+    // Find the brush with the given name
+    QDomNodeList brushes = rootElement.elementsByTagName("brush");
+    for (int i = 0; i < brushes.count(); ++i) {
+        QDomElement brushElement = brushes.at(i).toElement();
+        if (brushElement.attribute("name") == brushName) {
+            // Clear existing data
+            clearDoodadBrushData();
+            
+            // Load brush properties
+            m_doodadBrushNameEdit->setText(brushElement.attribute("name"));
+            m_doodadServerLookIdSpin->setValue(brushElement.attribute("server_lookid").toInt());
+            
+            QString tileset = brushElement.attribute("tileset");
+            int tilesetIndex = m_doodadTilesetCombo->findText(tileset);
+            if (tilesetIndex >= 0) {
+                m_doodadTilesetCombo->setCurrentIndex(tilesetIndex);
+            }
+            
+            // Load properties
+            m_draggableCheck->setChecked(brushElement.attribute("draggable") == "true");
+            m_blockingCheck->setChecked(brushElement.attribute("blocking") == "true");
+            
+            // Load items
+            QDomNodeList items = brushElement.elementsByTagName("item");
+            m_doodadItemsTable->setRowCount(0);
+            for (int j = 0; j < items.count(); ++j) {
+                QDomElement itemElement = items.at(j).toElement();
+                uint16_t itemId = itemElement.attribute("id").toUInt();
+                int xOffset = itemElement.attribute("x").toInt();
+                int yOffset = itemElement.attribute("y").toInt();
+                int zOffset = itemElement.attribute("z").toInt();
+                
+                int row = m_doodadItemsTable->rowCount();
+                m_doodadItemsTable->insertRow(row);
+                m_doodadItemsTable->setItem(row, 0, new QTableWidgetItem(QString::number(itemId)));
+                m_doodadItemsTable->setItem(row, 1, new QTableWidgetItem(QString::number(xOffset)));
+                m_doodadItemsTable->setItem(row, 2, new QTableWidgetItem(QString::number(yOffset)));
+                m_doodadItemsTable->setItem(row, 3, new QTableWidgetItem(QString::number(zOffset)));
+            }
+            
+            return true;
+        }
+    }
+    
+    return false;
 }
 
 void BrushMaterialEditorDialog::onSaveDoodadBrush()
@@ -1304,14 +1726,12 @@ void BrushMaterialEditorDialog::updateDoodadItemsTable()
 
 QString BrushMaterialEditorDialog::getItemName(uint16_t itemId) const
 {
-
     // Get item name from ItemDatabase if available
     if (m_itemDatabase) {
-        // TODO: Use actual ItemDatabase API when available
-        // auto itemData = m_itemDatabase->getItemData(itemId);
-        // if (itemData) {
-        //     return itemData->name;
-        // }
+        const auto* itemData = m_itemDatabase->getItemData(itemId);
+        if (itemData) {
+            return itemData->name;
+        }
     }
     return QString("Item %1").arg(itemId);
 }
@@ -1348,7 +1768,7 @@ bool BrushMaterialEditorDialog::ensureXmlDirectoryExists() const
     return true;
 }
 
-// XML operations (placeholder implementations)
+// XML operations
 bool BrushMaterialEditorDialog::saveBorderToXml()
 {
     if (!ensureXmlDirectoryExists()) {
@@ -1383,11 +1803,20 @@ bool BrushMaterialEditorDialog::saveBorderToXml()
     QDomElement borderElement = doc.createElement("border");
     borderElement.setAttribute("name", m_borderNameEdit->text());
     borderElement.setAttribute("id", m_borderIdSpin->value());
+    borderElement.setAttribute("group", m_groupIdSpin->value());
+    
+    if (m_optionalCheck->isChecked()) {
+        borderElement.setAttribute("optional", "true");
+    }
+    
+    if (m_groundBorderCheck->isChecked()) {
+        borderElement.setAttribute("ground", "true");
+    }
     
     // Add border items from grid
-    for (int i = 0; i < 9; ++i) {
+    for (int i = 0; i < 12; ++i) {
         BorderPosition pos = static_cast<BorderPosition>(i);
-        uint16_t itemId = m_borderGridWidget->getItemForPosition(pos);
+        uint16_t itemId = m_borderGrid->getItemForPosition(pos);
         if (itemId > 0) {
             QDomElement itemElement = doc.createElement("item");
             itemElement.setAttribute("position", i);
@@ -1419,16 +1848,11 @@ bool BrushMaterialEditorDialog::saveBorderToXml()
     stream << doc.toString(2);
     file.close();
     
-bool BrushMaterialEditorDialog::saveBorderToXml()
-{
-    // TODO: Implement XML saving
-
     return true;
 }
 
 bool BrushMaterialEditorDialog::saveGroundBrushToXml()
 {
-
     if (!ensureXmlDirectoryExists()) {
         QMessageBox::warning(this, "Error", "Could not create XML directory.");
         return false;
@@ -1459,13 +1883,35 @@ bool BrushMaterialEditorDialog::saveGroundBrushToXml()
     
     // Create new brush element
     QDomElement brushElement = doc.createElement("brush");
-    brushElement.setAttribute("name", m_groundBrushNameEdit->text());
-    brushElement.setAttribute("id", m_groundBrushIdSpin->value());
+    brushElement.setAttribute("name", m_brushNameEdit->text());
+    brushElement.setAttribute("lookid", m_serverLookIdSpin->value());
+    brushElement.setAttribute("z-order", m_zOrderSpin->value());
+    
+    if (m_tilesetCombo->currentIndex() >= 0) {
+        brushElement.setAttribute("tileset", m_tilesetCombo->currentText());
+    }
+    
+    // Add border association if specified
+    if (m_borderAssocIdSpin->value() > 0) {
+        QDomElement borderElement = doc.createElement("border");
+        borderElement.setAttribute("id", m_borderAssocIdSpin->value());
+        borderElement.setAttribute("align", m_borderAlignmentCombo->currentText());
+        
+        if (m_includeToNoneCheck->isChecked()) {
+            borderElement.setAttribute("tonone", "true");
+        }
+        
+        if (m_includeInnerCheck->isChecked()) {
+            borderElement.setAttribute("inner", "true");
+        }
+        
+        brushElement.appendChild(borderElement);
+    }
     
     // Add items from table
     for (int row = 0; row < m_groundItemsTable->rowCount(); ++row) {
         QTableWidgetItem* idItem = m_groundItemsTable->item(row, 0);
-        QTableWidgetItem* chanceItem = m_groundItemsTable->item(row, 2);
+        QTableWidgetItem* chanceItem = m_groundItemsTable->item(row, 1);
         
         if (idItem && chanceItem) {
             QDomElement itemElement = doc.createElement("item");
@@ -1479,7 +1925,7 @@ bool BrushMaterialEditorDialog::saveGroundBrushToXml()
     QDomNodeList existingBrushes = rootElement.elementsByTagName("brush");
     for (int i = 0; i < existingBrushes.count(); ++i) {
         QDomElement existing = existingBrushes.at(i).toElement();
-        if (existing.attribute("name") == m_groundBrushNameEdit->text()) {
+        if (existing.attribute("name") == m_brushNameEdit->text()) {
             rootElement.removeChild(existing);
             break;
         }
@@ -1498,15 +1944,11 @@ bool BrushMaterialEditorDialog::saveGroundBrushToXml()
     stream << doc.toString(2);
     file.close();
     
-
-    // TODO: Implement XML saving
-
     return true;
 }
 
 bool BrushMaterialEditorDialog::saveWallBrushToXml()
 {
-
     if (!ensureXmlDirectoryExists()) {
         QMessageBox::warning(this, "Error", "Could not create XML directory.");
         return false;
@@ -1538,11 +1980,33 @@ bool BrushMaterialEditorDialog::saveWallBrushToXml()
     // Create new brush element
     QDomElement brushElement = doc.createElement("brush");
     brushElement.setAttribute("name", m_wallBrushNameEdit->text());
-    brushElement.setAttribute("id", m_wallBrushIdSpin->value());
-    
-    // Add wall configuration
-    brushElement.setAttribute("lookid", m_wallLookIdSpin->value());
     brushElement.setAttribute("server_lookid", m_wallServerLookIdSpin->value());
+    
+    if (m_wallTilesetCombo->currentIndex() >= 0) {
+        brushElement.setAttribute("tileset", m_wallTilesetCombo->currentText());
+    }
+    
+    // Add wall items
+    if (m_horizontalWallSpin->value() > 0) {
+        QDomElement itemElement = doc.createElement("wall");
+        itemElement.setAttribute("type", "horizontal");
+        itemElement.setAttribute("id", m_horizontalWallSpin->value());
+        brushElement.appendChild(itemElement);
+    }
+    
+    if (m_verticalWallSpin->value() > 0) {
+        QDomElement itemElement = doc.createElement("wall");
+        itemElement.setAttribute("type", "vertical");
+        itemElement.setAttribute("id", m_verticalWallSpin->value());
+        brushElement.appendChild(itemElement);
+    }
+    
+    if (m_wallPoleSpin->value() > 0) {
+        QDomElement itemElement = doc.createElement("wall");
+        itemElement.setAttribute("type", "pole");
+        itemElement.setAttribute("id", m_wallPoleSpin->value());
+        brushElement.appendChild(itemElement);
+    }
     
     // Remove existing brush with same name if it exists
     QDomNodeList existingBrushes = rootElement.elementsByTagName("brush");
@@ -1567,15 +2031,11 @@ bool BrushMaterialEditorDialog::saveWallBrushToXml()
     stream << doc.toString(2);
     file.close();
     
-
-    // TODO: Implement XML saving
-
     return true;
 }
 
 bool BrushMaterialEditorDialog::saveDoodadBrushToXml()
 {
-
     if (!ensureXmlDirectoryExists()) {
         QMessageBox::warning(this, "Error", "Could not create XML directory.");
         return false;
@@ -1607,14 +2067,27 @@ bool BrushMaterialEditorDialog::saveDoodadBrushToXml()
     // Create new brush element
     QDomElement brushElement = doc.createElement("brush");
     brushElement.setAttribute("name", m_doodadBrushNameEdit->text());
-    brushElement.setAttribute("id", m_doodadBrushIdSpin->value());
+    brushElement.setAttribute("server_lookid", m_doodadServerLookIdSpin->value());
+    
+    if (m_doodadTilesetCombo->currentIndex() >= 0) {
+        brushElement.setAttribute("tileset", m_doodadTilesetCombo->currentText());
+    }
+    
+    // Add properties
+    if (m_draggableCheck->isChecked()) {
+        brushElement.setAttribute("draggable", "true");
+    }
+    
+    if (m_blockingCheck->isChecked()) {
+        brushElement.setAttribute("blocking", "true");
+    }
     
     // Add items from table
     for (int row = 0; row < m_doodadItemsTable->rowCount(); ++row) {
         QTableWidgetItem* idItem = m_doodadItemsTable->item(row, 0);
-        QTableWidgetItem* xItem = m_doodadItemsTable->item(row, 2);
-        QTableWidgetItem* yItem = m_doodadItemsTable->item(row, 3);
-        QTableWidgetItem* zItem = m_doodadItemsTable->item(row, 4);
+        QTableWidgetItem* xItem = m_doodadItemsTable->item(row, 1);
+        QTableWidgetItem* yItem = m_doodadItemsTable->item(row, 2);
+        QTableWidgetItem* zItem = m_doodadItemsTable->item(row, 3);
         
         if (idItem && xItem && yItem && zItem) {
             QDomElement itemElement = doc.createElement("item");
@@ -1649,9 +2122,6 @@ bool BrushMaterialEditorDialog::saveDoodadBrushToXml()
     stream << doc.toString(2);
     file.close();
     
-
-    // TODO: Implement XML saving
-
     return true;
 }
 

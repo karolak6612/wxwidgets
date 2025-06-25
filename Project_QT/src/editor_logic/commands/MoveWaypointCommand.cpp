@@ -28,14 +28,13 @@ MoveWaypointCommand::MoveWaypointCommand(
 
 void MoveWaypointCommand::undo() {
     if (!m_waypointManager) {
-        qWarning("MoveWaypointCommand::undo: WaypointManager is null.");
+        qWarning() << "MoveWaypointCommand::undo: WaypointManager is null.";
         return;
     }
 
     bool success = m_waypointManager->updateWaypointPosition(m_waypointName, m_oldPosition);
     if (!success) {
-        qWarning("MoveWaypointCommand::undo: Failed to move waypoint '%s' back to original position (%d,%d,%d). Waypoint might not exist anymore.",
-                 qPrintable(m_waypointName), m_oldPosition.x, m_oldPosition.y, m_oldPosition.z);
+        qWarning() << "MoveWaypointCommand::undo: Failed to move waypoint" << m_waypointName << "back to original position" << m_oldPosition.toString() << ". Waypoint might not exist anymore.";
         // Consider how to handle this failure. If the waypoint was deleted by another command,
         // this command should ideally be invalidated or handled by the command stack.
         // For now, just log. The state might become inconsistent if this happens.
@@ -48,14 +47,13 @@ void MoveWaypointCommand::undo() {
 
 void MoveWaypointCommand::redo() {
     if (!m_waypointManager) {
-        qWarning("MoveWaypointCommand::redo: WaypointManager is null.");
+        qWarning() << "MoveWaypointCommand::redo: WaypointManager is null.";
         return;
     }
 
     bool success = m_waypointManager->updateWaypointPosition(m_waypointName, m_newPosition);
     if (!success) {
-        qWarning("MoveWaypointCommand::redo: Failed to move waypoint '%s' to new position (%d,%d,%d). Waypoint might not exist.",
-                 qPrintable(m_waypointName), m_newPosition.x, m_newPosition.y, m_newPosition.z);
+        qWarning() << "MoveWaypointCommand::redo: Failed to move waypoint" << m_waypointName << "to new position" << m_newPosition.toString() << ". Waypoint might not exist.";
         // Similar to undo, if waypoint doesn't exist, command might be stale.
     }
     // Text was set in constructor for the initial redo.

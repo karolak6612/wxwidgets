@@ -37,7 +37,7 @@ using RMESpriteManager = RME::core::sprites::SpriteManager;
 using RMECreatureDatabase = RME::core::assets::CreatureDatabase;
 
 using RMEBrush = RME::core::Brush; // Base class
-using RMERawBrush = RME::core::brush::RawBrush;
+using RMERawBrush = RME::core::RawBrush;
 using RMEMockEditorController = MockEditorController; // From tests/core/brush/
 
 using RMECommandBase = QUndoCommand; // Base for casting

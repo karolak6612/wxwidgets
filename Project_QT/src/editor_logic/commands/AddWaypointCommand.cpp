@@ -24,7 +24,7 @@ AddWaypointCommand::AddWaypointCommand(
 
 void AddWaypointCommand::undo() {
     if (!m_waypointManager) {
-        qWarning("AddWaypointCommand::undo: WaypointManager is null.");
+        qWarning() << "AddWaypointCommand::undo: WaypointManager is null.";
         return;
     }
 
@@ -33,7 +33,7 @@ void AddWaypointCommand::undo() {
     if (!removed) {
         // This might happen if undo is called without a successful redo, or other error
         // It's also possible the waypoint was already removed by another operation if commands are not managed carefully.
-        qWarning("AddWaypointCommand::undo: Failed to remove waypoint '%s'. It might have been already removed or name changed.", qPrintable(m_waypointName));
+        qWarning() << "AddWaypointCommand::undo: Failed to remove waypoint" << m_waypointName << ". It might have been already removed or name changed.";
     }
 
     // If this add operation replaced an existing waypoint, restore the old one.
@@ -51,7 +51,7 @@ void AddWaypointCommand::undo() {
 
 void AddWaypointCommand::redo() {
     if (!m_waypointManager) {
-        qWarning("AddWaypointCommand::redo: WaypointManager is null.");
+        qWarning() << "AddWaypointCommand::redo: WaypointManager is null.";
         return;
     }
 
@@ -93,7 +93,7 @@ void AddWaypointCommand::redo() {
         setText(QObject::tr("Add Waypoint '%1' Failed").arg(m_waypointName));
         m_wasReplacement = false;
         m_replacedWaypoint.reset();
-        qWarning("AddWaypointCommand::redo: m_waypointManager->addWaypoint failed for '%s'.", qPrintable(m_waypointName));
+        qWarning() << "AddWaypointCommand::redo: m_waypointManager->addWaypoint failed for" << m_waypointName;
     }
 }
 

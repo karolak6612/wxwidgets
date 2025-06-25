@@ -162,6 +162,7 @@ private:
     
     void saveItemData();
     void saveGeneralProperties();
+    void saveTypeSpecificProperties();
     void saveContentsData();
     void saveAdvancedAttributes();
     
@@ -188,8 +189,6 @@ private:
     void markAsModified();
     
     // Container management
-    void addContainerItem(quint16 itemId, quint16 count = 1);
-    void removeContainerItem(int row);
     void updateContainerInfo();
     
     // Attribute management

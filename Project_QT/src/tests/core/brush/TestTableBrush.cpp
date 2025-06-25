@@ -30,7 +30,7 @@ using RMEMaterialItemEntry = RME::core::assets::MaterialItemEntry;
 using RMEMap = RME::core::map::Map;
 using RMETile = RME::core::Tile;
 using RMEAppSettings = RME::core::AppSettings;
-using RMETableBrush = RME::core::brush::TableBrush;
+using RMETableBrush = RME::core::TableBrush;
 using RMEMockEditorController = MockEditorController;
 using RMEMockAssetManager = RME::tests::MockAssetManager;
 using RMEMockMaterialManager = RME::tests::MockMaterialManager;
@@ -381,5 +381,5 @@ void TestTableBrush::testApply_Erase_RemovesTableAndUpdatesNeighbors() {
 }
 
 
-// Required for Qt Test framework if not using QTEST_APPLESS_MAIN
-// #include "TestTableBrush.moc"
+QTEST_MAIN(TestTableBrush)
+#include "TestTableBrush.moc"

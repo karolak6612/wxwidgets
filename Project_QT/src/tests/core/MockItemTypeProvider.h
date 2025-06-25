@@ -1,7 +1,7 @@
 #ifndef MOCK_ITEMTYPEPROVIDER_H
 #define MOCK_ITEMTYPEPROVIDER_H
 
-#include "core/assets/IItemTypeProvider.h"
+#include "core/IItemTypeProvider.h"
 #include "core/assets/ItemData.h" // For RME::core::assets::ItemData definition
 #include <QMap>
 #include <QString>
@@ -34,7 +34,7 @@ struct MockItemData {
 };
 
 
-class MockItemTypeProvider : public RME::core::assets::IItemTypeProvider {
+class MockItemTypeProvider : public RME::IItemTypeProvider {
 public:
     MockItemTypeProvider() = default;
 
@@ -47,6 +47,107 @@ public:
     }
 
     // --- Implementation of IItemTypeProvider ---
+    // Basic properties
+    QString getName(uint16_t id) const override {
+        auto it = m_mockData.constFind(id);
+        if (it != m_mockData.constEnd()) {
+            return it.value().name;
+        }
+        return QString("Unknown Item %1").arg(id);
+    }
+    
+    QString getDescription(uint16_t id) const override {
+        return QString("Description for item %1").arg(id);
+    }
+    
+    uint32_t getFlags(uint16_t id) const override {
+        return 0; // Default flags
+    }
+    
+    double getWeight(uint16_t id, uint16_t subtype) const override {
+        Q_UNUSED(id);
+        Q_UNUSED(subtype);
+        return 0.0;
+    }
+
+    // Common boolean properties
+    bool isBlocking(uint16_t id) const override {
+        return false;
+    }
+    
+    bool isProjectileBlocking(uint16_t id) const override {
+        return false;
+    }
+    
+    bool isPathBlocking(uint16_t id) const override {
+        return false;
+    }
+    
+    bool isWalkable(uint16_t id) const override {
+        return true;
+    }
+    
+    bool isStackable(uint16_t id) const override {
+        return false;
+    }
+    
+    bool isGround(uint16_t id) const override {
+        auto it = m_mockData.constFind(id);
+        if (it != m_mockData.constEnd()) {
+            return it.value().isGround;
+        }
+        return false;
+    }
+    
+    bool isAlwaysOnTop(uint16_t id) const override {
+        return false;
+    }
+    
+    bool isReadable(uint16_t id) const override {
+        return false;
+    }
+    
+    bool isWriteable(uint16_t id) const override {
+        return false;
+    }
+    
+    bool isFluidContainer(uint16_t id) const override {
+        return false;
+    }
+    
+    bool isSplash(uint16_t id) const override {
+        return false;
+    }
+    
+    bool isMoveable(uint16_t id) const override {
+        return true;
+    }
+    
+    bool hasHeight(uint16_t id) const override {
+        return false;
+    }
+    
+    bool isContainer(uint16_t id) const override {
+        return false;
+    }
+    
+    bool isTeleport(uint16_t id) const override {
+        return false;
+    }
+    
+    bool isDoor(uint16_t id) const override {
+        return false;
+    }
+    
+    bool isPodium(uint16_t id) const override {
+        return false;
+    }
+    
+    bool isDepot(uint16_t id) const override {
+        return false;
+    }
+    
+    // Get the complete item data
     const RME::core::assets::ItemData* getItemData(uint16_t server_id) const override {
         auto it = m_mockData.constFind(server_id);
         if (it != m_mockData.constEnd()) {

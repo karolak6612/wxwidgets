@@ -17,7 +17,7 @@ using RMECreatureData = RME::core::assets::CreatureData;
 using RMEMap = RME::core::map::Map;
 using RMETile = RME::core::Tile;
 using RMEAppSettings = RME::core::AppSettings;
-using RMECreatureBrush = RME::core::brush::CreatureBrush;
+using RMECreatureBrush = RME::core::CreatureBrush;
 using RMEMockCreatureDatabase = RME::tests::MockCreatureDatabase;
 
 class TestCreatureBrush : public QObject {
@@ -76,7 +76,7 @@ private slots:
                                                                       // More likely, brush gets type from palette,
                                                                       // then sets it on brush.
 
-        m_creatureBrush->setCreatureType(nullptr); // Reset creature type
+        m_creatureBrush->setCreatureData(nullptr); // Reset creature data
         m_mockController->reset();
     }
 
@@ -87,21 +87,21 @@ private slots:
 
     // --- Test Cases ---
 
-    void testSetCreatureType() {
+    void testSetCreatureData() {
         const RMECreatureData* monster = m_mockCreatureDb->getCreatureData("Dragon");
-        m_creatureBrush->setCreatureType(monster);
-        QCOMPARE(m_creatureBrush->getCreatureType(), monster);
+        m_creatureBrush->setCreatureData(monster);
+        QCOMPARE(m_creatureBrush->getCreatureData(), monster);
         QCOMPARE(m_creatureBrush->getName(), QString("Dragon"));
 
-        m_creatureBrush->setCreatureType(nullptr);
-        QCOMPARE(m_creatureBrush->getCreatureType(), nullptr);
-        QCOMPARE(m_creatureBrush->getName(), QString("Creature Brush"));
+        m_creatureBrush->setCreatureData(nullptr);
+        QCOMPARE(m_creatureBrush->getCreatureData(), nullptr);
+        QCOMPARE(m_creatureBrush->getName(), QString("Creature Brush (Unset)"));
     }
 
     void testCanApply_NoTypeSelected() {
         RMEBrushSettings settings;
         RMEPosition pos(1, 1, 0);
-        m_creatureBrush->setCreatureType(nullptr);
+        m_creatureBrush->setCreatureData(nullptr);
         QVERIFY(!m_creatureBrush->canApply(m_map.get(), pos, settings));
     }
 
@@ -109,7 +109,7 @@ private slots:
         RMEBrushSettings settings;
         settings.isEraseMode = false;
         RMEPosition pos(1, 1, 0);
-        m_creatureBrush->setCreatureType(m_mockCreatureDb->getCreatureData("Dragon"));
+        m_creatureBrush->setCreatureData(m_mockCreatureDb->getCreatureData("Dragon"));
 
         QVERIFY(m_creatureBrush->canApply(m_map.get(), pos, settings));
     }
@@ -118,7 +118,7 @@ private slots:
         RMEBrushSettings settings;
         settings.isEraseMode = false;
         RMEPosition pos(1, 1, 0);
-        m_creatureBrush->setCreatureType(m_mockCreatureDb->getCreatureData("Dragon"));
+        m_creatureBrush->setCreatureData(m_mockCreatureDb->getCreatureData("Dragon"));
 
         RMETile* tile = m_map->getTileForEditing(pos); // Get or create tile
         QVERIFY(tile);
@@ -138,7 +138,7 @@ private slots:
         RMEBrushSettings settings;
         settings.isEraseMode = true;
         RMEPosition pos(1, 1, 0);
-        m_creatureBrush->setCreatureType(m_mockCreatureDb->getCreatureData("Dragon"));
+        m_creatureBrush->setCreatureData(m_mockCreatureDb->getCreatureData("Dragon"));
 
         RMETile* tile = m_map->getTileForEditing(pos);
         tile->setCreature(std::make_unique<RME::core::creatures::Creature>(m_mockCreatureDb->getCreatureData("Dragon"), pos));
@@ -150,7 +150,7 @@ private slots:
         RMEBrushSettings settings;
         settings.isEraseMode = true;
         RMEPosition pos(1, 1, 0);
-        m_creatureBrush->setCreatureType(m_mockCreatureDb->getCreatureData("Dragon"));
+        m_creatureBrush->setCreatureData(m_mockCreatureDb->getCreatureData("Dragon"));
         // Tile is empty (no creature)
         QVERIFY(!m_creatureBrush->canApply(m_map.get(), pos, settings));
     }
@@ -161,10 +161,10 @@ private slots:
         RMETile* tile = m_map->getTileForEditing(pos);
         tile->addMapFlag(RME::TileMapFlag::PROTECTION_ZONE);
 
-        m_creatureBrush->setCreatureType(m_mockCreatureDb->getCreatureData("Guard")); // NPC
+        m_creatureBrush->setCreatureData(m_mockCreatureDb->getCreatureData("Guard")); // NPC
         QVERIFY(m_creatureBrush->canApply(m_map.get(), pos, settings));
 
-        m_creatureBrush->setCreatureType(m_mockCreatureDb->getCreatureData("Dragon")); // Monster
+        m_creatureBrush->setCreatureData(m_mockCreatureDb->getCreatureData("Dragon")); // Monster
         QVERIFY(!m_creatureBrush->canApply(m_map.get(), pos, settings));
     }
 
@@ -174,7 +174,7 @@ private slots:
         settings.isEraseMode = false;
         RMEPosition pos(1, 1, 0);
         const RMECreatureData* monsterType = m_mockCreatureDb->getCreatureData("Dragon");
-        m_creatureBrush->setCreatureType(monsterType);
+        m_creatureBrush->setCreatureData(monsterType);
 
         m_creatureBrush->apply(m_mockController.get(), pos, settings);
 
@@ -198,7 +198,7 @@ private slots:
         settings.isEraseMode = true;
         RMEPosition pos(2, 2, 0);
         const RMECreatureData* monsterType = m_mockCreatureDb->getCreatureData("Dragon");
-        m_creatureBrush->setCreatureType(monsterType); // Type for brush, even in erase mode
+        m_creatureBrush->setCreatureData(monsterType); // Type for brush, even in erase mode
 
         // Setup: Place a creature on the tile directly for the test
         RMETile* tile = m_map->getTileForEditing(pos);
@@ -224,7 +224,7 @@ private slots:
         settings.isEraseMode = false;
         RMEPosition pos(3, 3, 0);
         const RMECreatureData* monsterType = m_mockCreatureDb->getCreatureData("Dragon");
-        m_creatureBrush->setCreatureType(monsterType);
+        m_creatureBrush->setCreatureData(monsterType);
 
         m_appSettings->setAutoCreateSpawnEnabled(true);
         m_appSettings->setDefaultSpawnTime(120); // Custom spawn time for test
@@ -266,7 +266,7 @@ private slots:
         RMETile* tile = m_map->getTileForEditing(pos);
         tile->setCreature(std::make_unique<RME::core::creatures::Creature>(initialNpcType, pos));
 
-        m_creatureBrush->setCreatureType(newMonsterType); // Brush will place a Monster
+        m_creatureBrush->setCreatureData(newMonsterType); // Brush will place a Monster
         m_creatureBrush->apply(m_mockController.get(), pos, settings);
 
         // Expected: recordRemoveCreature (for NPC), recordAddCreature (for Monster), notifyTileChanged
@@ -296,10 +296,6 @@ private slots:
 
 };
 
-// QTEST_APPLESS_MAIN(TestCreatureBrush) // Use this if no QApplication needed
-// Or use a main that sets up QCoreApplication if AppSettings needs it.
-// For now, assume tests can run without full Qt App if AppSettings is robust.
+QTEST_MAIN(TestCreatureBrush)
 
-// It's common to include the .moc file if not using qmake's AUTOMOC or CMake equivalent
-// For example: #include "TestCreatureBrush.moc"
-// This depends on the build system setup. If using CMake with CTest, it usually handles moc generation.
+#include "TestCreatureBrush.moc"

@@ -20,8 +20,13 @@
 namespace RME {
 namespace ui {
 
-CreaturePalettePanel::CreaturePalettePanel(QWidget* parent)
-    : BasePalettePanel(parent)
+CreaturePalettePanel::CreaturePalettePanel(
+    RME::core::IBrushStateService* brushStateService,
+    RME::core::IClientDataService* clientDataService,
+    QWidget* parent
+) : BasePalettePanel(parent)
+    , m_brushStateService(brushStateService)
+    , m_clientDataService(clientDataService)
     , m_creatureList(nullptr)
     , m_searchEdit(nullptr)
     , m_creatureInfoLabel(nullptr)
@@ -29,6 +34,9 @@ CreaturePalettePanel::CreaturePalettePanel(QWidget* parent)
     , m_editPropertiesButton(nullptr)
     , m_creatureDatabase(nullptr)
 {
+    Q_ASSERT(m_brushStateService);
+    Q_ASSERT(m_clientDataService);
+    
     setObjectName("CreaturePalettePanel");
     setWindowTitle(tr("Creature Palette"));
     
@@ -158,22 +166,27 @@ void CreaturePalettePanel::connectSignals()
 
 void CreaturePalettePanel::loadCreatures()
 {
-    if (!m_creatureList) {
+    if (!m_creatureList || !m_clientDataService) {
         return;
     }
     
     m_creatureList->clear();
     
-    // TODO: Load creatures from CreatureDatabase when available
-    if (m_creatureDatabase) {
-        // const auto& creatures = m_creatureDatabase->getAllCreatures();
-        // for (const auto& creature : creatures) {
-        //     QListWidgetItem* item = new QListWidgetItem(creature->getName());
-        //     item->setData(Qt::UserRole, creature->getId());
-        //     // TODO: Set creature icon when sprite system is available
-        //     m_creatureList->addItem(item);
-        // }
+    // Load creatures from CreatureDatabase via service
+    auto* creatureDatabase = m_clientDataService->getCreatureDatabase();
+    if (creatureDatabase) {
+        auto creatures = creatureDatabase->getAllCreatures();
+        for (const auto& creature : creatures) {
+            if (creature) {
+                QListWidgetItem* item = new QListWidgetItem(creature->name);
+                item->setData(Qt::UserRole, creature->id);
+                // TODO: Set creature icon when sprite system is available
+                m_creatureList->addItem(item);
+            }
+        }
     } else {
+        qWarning() << "CreaturePalettePanel: CreatureDatabase not available, using placeholder creatures";
+        
         // Add some placeholder creatures for testing
         QStringList placeholderCreatures = {
             "Rat", "Cave Rat", "Larva", "Bug", "Spider", "Poison Spider",
@@ -228,10 +241,26 @@ void CreaturePalettePanel::onCreatureSelectionChanged()
     m_editPropertiesButton->setEnabled(hasSelection);
     
     if (hasSelection) {
-        updateCreatureInfo(currentItem->text());
-        emit creatureSelected(currentItem->text());
+        QString creatureName = currentItem->text();
+        updateCreatureInfo(creatureName);
+        
+        // Update brush state service with selected creature
+        if (m_brushStateService && m_clientDataService) {
+            auto* creatureDatabase = m_clientDataService->getCreatureDatabase();
+            if (creatureDatabase) {
+                auto* creatureData = creatureDatabase->getCreatureByName(creatureName);
+                m_brushStateService->setCurrentCreatureType(creatureData);
+            }
+        }
+        
+        emit creatureSelected(creatureName);
     } else {
         m_creatureInfoLabel->setText(tr("Select a creature to view information"));
+        
+        // Clear creature selection in brush state service
+        if (m_brushStateService) {
+            m_brushStateService->setCurrentCreatureType(nullptr);
+        }
     }
 }
 

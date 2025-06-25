@@ -3,6 +3,10 @@
 #include "ui/palettes/BasePalettePanel.h"
 #include <QWidget>
 
+// Service interfaces
+#include "core/services/IBrushStateService.h"
+#include "core/services/IClientDataService.h"
+
 QT_BEGIN_NAMESPACE
 class QListWidget;
 class QListWidgetItem;
@@ -27,7 +31,11 @@ class HousePalettePanel : public BasePalettePanel
     Q_OBJECT
 
 public:
-    explicit HousePalettePanel(QWidget* parent = nullptr);
+    explicit HousePalettePanel(
+        RME::core::IBrushStateService* brushStateService,
+        RME::core::IClientDataService* clientDataService,
+        QWidget* parent = nullptr
+    );
     ~HousePalettePanel();
 
     // BasePalettePanel interface
@@ -60,6 +68,10 @@ private slots:
     void onSearchTextChanged(const QString& text);
 
 private:
+    // Services
+    RME::core::IBrushStateService* m_brushStateService;
+    RME::core::IClientDataService* m_clientDataService;
+    
     void setupHouseList();
     void setupSearchControls();
     void setupHouseInfo();

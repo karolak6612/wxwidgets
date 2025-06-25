@@ -23,7 +23,7 @@
 #include "core/assets/MaterialManager.h"
 
 // Using declarations
-using RMEHouseBrush = RME::core::brush::HouseBrush;
+using RMEHouseBrush = RME::core::HouseBrush;
 using RMEHouse = RME::core::houses::House;
 using RMEHouses = RME::core::houses::Houses;
 using RMEMap = RME::core::Map;

@@ -4,6 +4,12 @@
 #include <QWidget>
 #include <QPoint>
 
+// Service interfaces
+#include "core/services/IBrushStateService.h"
+#include "core/services/IEditorStateService.h"
+#include "core/services/IClientDataService.h"
+#include "core/services/IApplicationSettingsService.h"
+
 // Forward declarations
 class QMenu;
 class QMouseEvent;
@@ -27,9 +33,7 @@ namespace widgets {
 }
 }
 
-// Forward declarations for placeholder services (until REFACTOR-01)
-class EditorStateService;
-class BrushStateService;
+// Forward declarations removed - using service interfaces now
 
 namespace RME {
 namespace ui {
@@ -46,7 +50,13 @@ class MapViewWidget : public QWidget {
     Q_OBJECT
 
 public:
-    explicit MapViewWidget(QWidget* parent = nullptr);
+    explicit MapViewWidget(
+        RME::core::IBrushStateService* brushStateService,
+        RME::core::IEditorStateService* editorStateService,
+        RME::core::IClientDataService* clientDataService,
+        RME::core::IApplicationSettingsService* settingsService,
+        QWidget* parent = nullptr
+    );
     ~MapViewWidget() override = default;
 
     // Core component access
@@ -99,13 +109,18 @@ protected:
 private:
     void setupUI();
     void createContextMenu();
+    void connectServices();
+    void updateViewSettings();
 
     // Core components
     MapView* m_mapView;
     RME::editor_logic::EditorController* m_editorController;
-    EditorStateService* m_editorStateService;
-    BrushStateService* m_brushStateService;
-    RME::core::settings::AppSettings* m_appSettings;
+    
+    // Services
+    RME::core::IBrushStateService* m_brushStateService;
+    RME::core::IEditorStateService* m_editorStateService;
+    RME::core::IClientDataService* m_clientDataService;
+    RME::core::IApplicationSettingsService* m_settingsService;
 
     // Interaction state
     bool m_isPanning;

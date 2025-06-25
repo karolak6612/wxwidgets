@@ -16,6 +16,10 @@
 #include <QHash>
 #include <QIcon>
 
+// Service interfaces
+#include "core/services/IBrushStateService.h"
+#include "core/services/IClientDataService.h"
+
 // Forward declarations
 namespace RME {
 namespace core {
@@ -54,7 +58,11 @@ class RawItemsPaletteTab : public QWidget {
     Q_OBJECT
 
 public:
-    explicit RawItemsPaletteTab(QWidget* parent = nullptr);
+    explicit RawItemsPaletteTab(
+        RME::core::IBrushStateService* brushStateService,
+        RME::core::IClientDataService* clientDataService,
+        QWidget* parent = nullptr
+    );
     ~RawItemsPaletteTab() override = default;
 
     // Integration with core systems
@@ -114,7 +122,11 @@ private:
     QLabel* m_selectedItemLabel = nullptr;
     QLabel* m_itemDetailsLabel = nullptr;
 
-    // Core system integration
+    // Services
+    RME::core::IBrushStateService* m_brushStateService;
+    RME::core::IClientDataService* m_clientDataService;
+    
+    // Core system integration (legacy)
     RME::core::assets::ItemDatabase* m_itemDatabase = nullptr;
     RME::core::brush::BrushStateManager* m_brushStateManager = nullptr;
     RME::core::editor::EditorControllerInterface* m_editorController = nullptr;

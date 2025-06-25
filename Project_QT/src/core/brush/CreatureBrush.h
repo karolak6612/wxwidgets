@@ -19,7 +19,7 @@ namespace core {
 // Forward declare again inside RME::core if EditorControllerInterface is in RME::core::editor
 namespace editor { class EditorControllerInterface; }
 
-class CreatureBrush : public RME::core::Brush {
+class CreatureBrush : public Brush {
 public:
     // Constructor takes CreatureData for this brush
     CreatureBrush(RME::core::editor::EditorControllerInterface* controller = nullptr,

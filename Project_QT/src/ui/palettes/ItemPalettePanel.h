@@ -10,6 +10,10 @@
 #include <QCheckBox>
 #include <QGroupBox>
 
+// Service interfaces
+#include "core/services/IBrushStateService.h"
+#include "core/services/IClientDataService.h"
+
 // Forward declarations
 namespace RME {
 namespace core {
@@ -38,7 +42,11 @@ class ItemPalettePanel : public BasePalettePanel {
     Q_OBJECT
 
 public:
-    explicit ItemPalettePanel(QWidget* parent = nullptr);
+    explicit ItemPalettePanel(
+        RME::core::IBrushStateService* brushStateService,
+        RME::core::IClientDataService* clientDataService,
+        QWidget* parent = nullptr
+    );
     ~ItemPalettePanel() override = default;
 
     // BasePalettePanel interface
@@ -64,6 +72,10 @@ protected:
     void applySearchFilter(const QString& text) override;
 
 private:
+    // Services
+    RME::core::IBrushStateService* m_brushStateService;
+    RME::core::IClientDataService* m_clientDataService;
+    
     // UI components
     QSplitter* m_splitter = nullptr;
     

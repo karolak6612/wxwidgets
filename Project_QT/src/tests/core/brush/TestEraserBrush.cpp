@@ -38,7 +38,7 @@ using RMECreatureDatabase = RME::core::assets::CreatureDatabase;
 using RMEAppSettings = RME::core::AppSettings;
 
 using RMEBrush = RME::core::Brush;
-using RMEEraserBrush = RME::core::brush::EraserBrush;
+using RMEEraserBrush = RME::core::EraserBrush;
 using RMEMockEditorController = MockEditorController;
 
 using RMECommandBase = QUndoCommand;

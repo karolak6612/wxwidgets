@@ -7,6 +7,13 @@
 #include "widgets/MapView.h" // For RME::ui::widgets::MapView
 #include "EditorInstanceWidget.h" // For EditorInstanceWidget
 
+// Service interfaces
+#include "core/services/IBrushStateService.h"
+#include "core/services/IEditorStateService.h"
+#include "core/services/IClientDataService.h"
+#include "core/services/IWindowManagerService.h"
+#include "core/services/IApplicationSettingsService.h"
+
 // Forward declarations for RME classes
 namespace RME {
 namespace editor_logic {
@@ -15,7 +22,13 @@ namespace editor_logic {
 namespace core {
 namespace brush {
     class BrushIntegrationManager;
+    class BrushStateService;
 }
+    class EditorStateService;
+    class ClientDataService;
+    class WindowManagerService;
+    class ApplicationSettingsService;
+    class ServiceContainer;
 }
 namespace ui {
     class DockManager;
@@ -165,6 +178,14 @@ private:
     RME::editor_logic::EditorController* m_editorController = nullptr;
     RME::core::brush::BrushIntegrationManager* m_brushIntegrationManager = nullptr;
     
+    // Service architecture
+    RME::core::ServiceContainer* m_serviceContainer = nullptr;
+    RME::core::brush::BrushStateService* m_brushStateService = nullptr;
+    RME::core::EditorStateService* m_editorStateService = nullptr;
+    RME::core::ClientDataService* m_clientDataService = nullptr;
+    RME::core::WindowManagerService* m_windowManagerService = nullptr;
+    RME::core::ApplicationSettingsService* m_applicationSettingsService = nullptr;
+    
     // UI components
     class MainToolBar* m_mainToolBar = nullptr;
     class DockManager* m_dockManager = nullptr;
@@ -175,6 +196,12 @@ private:
     void updateMenuStatesFromEditor();
     void createToolBar();
     void createDockManager();
+    
+    // Service management
+    void initializeServices();
+    void connectServices();
+    void cleanupServices();
+    void testBasicServiceFunctionality();
 };
 
 } // namespace ui

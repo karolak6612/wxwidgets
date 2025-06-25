@@ -1,12 +1,13 @@
 #include "EditorStateService.h"
 #include "core/map/Map.h"
+#include "editor_logic/EditorController.h"
 
 namespace RME {
 namespace core {
 namespace editor {
 
 EditorStateService::EditorStateService(QObject* parent)
-    : QObject(parent)
+    : IEditorStateService(parent)
     , m_currentMap(nullptr)
     , m_currentFloor(7)
     , m_currentPosition(0, 0, 7)
@@ -120,6 +121,109 @@ void EditorStateService::setViewRect(const QRectF& rect)
         m_viewRect = rect;
         emit viewRectChanged(rect);
     }
+}
+
+// IEditorStateService implementation
+void EditorStateService::setEditorMode(EditorMode mode)
+{
+    if (m_editorMode != mode) {
+        m_editorMode = mode;
+        emit editorModeChanged(mode);
+    }
+}
+
+IEditorStateService::EditorMode EditorStateService::getEditorMode() const
+{
+    return m_editorMode;
+}
+
+void EditorStateService::setActiveEditorSession(EditorController* editor)
+{
+    if (m_activeEditorSession != editor) {
+        m_activeEditorSession = editor;
+        emit activeEditorChanged(editor);
+    }
+}
+
+EditorController* EditorStateService::getActiveEditorSession() const
+{
+    return m_activeEditorSession;
+}
+
+void EditorStateService::setZoomLevel(float zoom)
+{
+    setCurrentZoom(static_cast<double>(zoom));
+    emit zoomLevelChanged(zoom);
+}
+
+float EditorStateService::getZoomLevel() const
+{
+    return static_cast<float>(getCurrentZoom());
+}
+
+void EditorStateService::setViewPosition(const QPoint& position)
+{
+    if (m_viewPosition != position) {
+        m_viewPosition = position;
+        emit viewPositionChanged(position);
+    }
+}
+
+QPoint EditorStateService::getViewPosition() const
+{
+    return m_viewPosition;
+}
+
+void EditorStateService::setShowGrid(bool show)
+{
+    if (m_showGrid != show) {
+        m_showGrid = show;
+        emit showGridChanged(show);
+    }
+}
+
+bool EditorStateService::getShowGrid() const
+{
+    return m_showGrid;
+}
+
+void EditorStateService::setShowCreatures(bool show)
+{
+    if (m_showCreatures != show) {
+        m_showCreatures = show;
+        emit showCreaturesChanged(show);
+    }
+}
+
+bool EditorStateService::getShowCreatures() const
+{
+    return m_showCreatures;
+}
+
+void EditorStateService::setShowSpawns(bool show)
+{
+    if (m_showSpawns != show) {
+        m_showSpawns = show;
+        emit showSpawnsChanged(show);
+    }
+}
+
+bool EditorStateService::getShowSpawns() const
+{
+    return m_showSpawns;
+}
+
+void EditorStateService::setShowHouses(bool show)
+{
+    if (m_showHouses != show) {
+        m_showHouses = show;
+        emit showHousesChanged(show);
+    }
+}
+
+bool EditorStateService::getShowHouses() const
+{
+    return m_showHouses;
 }
 
 } // namespace editor

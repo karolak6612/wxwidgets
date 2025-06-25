@@ -4,6 +4,19 @@ project(RME-Qt6 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Add custom Profile build type for Visual Studio profiling
+if(MSVC)
+    set(CMAKE_CONFIGURATION_TYPES "Debug;Release;RelWithDebInfo;Profile" CACHE STRING "Available build configurations" FORCE)
+    
+    # Profile build type: optimized with debug symbols for profiling
+    set(CMAKE_CXX_FLAGS_PROFILE "/Zi /O2 /Ob2 /Oi /Ot /Oy /GL" CACHE STRING "Profile C++ flags" FORCE)
+    set(CMAKE_C_FLAGS_PROFILE "/Zi /O2 /Ob2 /Oi /Ot /Oy /GL" CACHE STRING "Profile C flags" FORCE)
+    set(CMAKE_EXE_LINKER_FLAGS_PROFILE "/DEBUG /LTCG /OPT:REF /OPT:ICF" CACHE STRING "Profile linker flags" FORCE)
+    set(CMAKE_SHARED_LINKER_FLAGS_PROFILE "/DEBUG /LTCG /OPT:REF /OPT:ICF" CACHE STRING "Profile shared linker flags" FORCE)
+    
+    mark_as_advanced(CMAKE_CXX_FLAGS_PROFILE CMAKE_C_FLAGS_PROFILE CMAKE_EXE_LINKER_FLAGS_PROFILE CMAKE_SHARED_LINKER_FLAGS_PROFILE)
+endif()
+
 # Automatically run MOC, UIC, and RCC
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -25,6 +38,21 @@ add_subdirectory(src)
 # Compiler flags
 if(MSVC)
     add_compile_options(/W4 /WX)
+    
+    # Profiling configuration for Visual Studio
+    if(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo" OR CMAKE_BUILD_TYPE STREQUAL "Profile")
+        # Enable profiling symbols and optimizations
+        add_compile_options(/Zi /O2)
+        add_link_options(/DEBUG /OPT:REF /OPT:ICF)
+        
+        # Enable function-level linking for better profiling granularity
+        add_compile_options(/Gy)
+        
+        # Enable intrinsic functions for performance
+        add_compile_options(/Oi)
+        
+        message(STATUS "Visual Studio profiling configuration enabled")
+    endif()
 else()
     add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()

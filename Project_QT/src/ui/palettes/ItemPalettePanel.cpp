@@ -17,9 +17,17 @@ namespace RME {
 namespace ui {
 namespace palettes {
 
-ItemPalettePanel::ItemPalettePanel(QWidget* parent)
-    : BasePalettePanel(tr("Items"), parent)
+ItemPalettePanel::ItemPalettePanel(
+    RME::core::IBrushStateService* brushStateService,
+    RME::core::IClientDataService* clientDataService,
+    QWidget* parent
+) : BasePalettePanel(tr("Items"), parent)
+    , m_brushStateService(brushStateService)
+    , m_clientDataService(clientDataService)
 {
+    Q_ASSERT(m_brushStateService);
+    Q_ASSERT(m_clientDataService);
+    
     setMinimumWidth(250);
     setMaximumWidth(400);
 }
@@ -208,7 +216,7 @@ void ItemPalettePanel::populateCategories() {
 }
 
 void ItemPalettePanel::populateItems(const QString& category) {
-    if (!m_itemList || !m_editorController) {
+    if (!m_itemList || !m_clientDataService) {
         return;
     }
     
@@ -217,15 +225,37 @@ void ItemPalettePanel::populateItems(const QString& category) {
     m_currentMaterials.clear();
     m_currentCategory = category;
     
-    // TODO: Populate items based on category
-    // This would integrate with ItemDatabase and MaterialManager
+    // Get data from services
+    auto* itemDatabase = m_clientDataService->getItemDatabase();
+    auto* materialManager = m_clientDataService->getMaterialManager();
     
-    // For now, add placeholder items
-    for (int i = 1; i <= 20; ++i) {
-        QString itemName = QString("%1 Item %2").arg(category).arg(i);
-        QListWidgetItem* item = createItemListItem(100 + i, itemName);
-        m_itemList->addItem(item);
+    if (!itemDatabase || !materialManager) {
+        qWarning() << "ItemPalettePanel: ItemDatabase or MaterialManager not available";
+        return;
     }
+    
+    // Populate items based on category using services
+    if (category == "grounds" || category == "walls" || category == "doodads") {
+        // Get materials for terrain categories
+        auto materials = materialManager->getMaterialsByCategory(category);
+        for (const auto* material : materials) {
+            if (material) {
+                m_currentMaterials.append(material);
+                addMaterialToList(material);
+            }
+        }
+    } else {
+        // Get items for other categories
+        auto items = itemDatabase->getItemsByCategory(category);
+        for (const auto* item : items) {
+            if (item) {
+                m_currentItems.append(item);
+                addItemToList(item);
+            }
+        }
+    }
+    
+    qDebug() << "ItemPalettePanel: Populated" << m_itemList->count() << "items for category" << category;
 }
 
 void ItemPalettePanel::updateItemPreview(quint16 itemId) {
@@ -258,6 +288,12 @@ void ItemPalettePanel::onItemSelectionChanged() {
     if (current) {
         quint16 itemId = current->data(Qt::UserRole).toUInt();
         updateItemPreview(itemId);
+        
+        // Update brush state service with selected item
+        if (m_brushStateService) {
+            m_brushStateService->setCurrentRawItemId(itemId);
+        }
+        
         emit itemSelected(itemId);
     }
 }
@@ -272,6 +308,11 @@ void ItemPalettePanel::onItemActivated(QListWidgetItem* item) {
 }
 
 void ItemPalettePanel::onBrushSizeChanged(int size) {
+    // Update brush state service
+    if (m_brushStateService) {
+        m_brushStateService->setBrushSize(size);
+    }
+    
     updateBrushConfiguration();
     emit brushConfigurationChanged();
 }

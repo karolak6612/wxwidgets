@@ -34,8 +34,7 @@ ItemPropertiesDialog::ItemPropertiesDialog(QWidget* parent,
     // Get item data from item's type provider
     m_itemData = nullptr;
     if (m_itemCopy->getTypeProvider()) {
-        // TODO: Implement getItemData method in IItemTypeProvider if needed
-        // m_itemData = m_itemCopy->getTypeProvider()->getItemData(m_itemCopy->getID());
+        m_itemData = m_itemCopy->getTypeProvider()->getItemData(m_itemCopy->getID());
     }
     
     createBackup();
@@ -206,22 +205,41 @@ void ItemPropertiesDialog::loadGeneralProperties() {
     }
     
     // Load basic properties
-    m_itemIdLabel->setText(QString::number(m_itemCopy->getID()));
+    m_itemIdEdit->setText(QString::number(m_itemCopy->getID()));
     
     // Load item name from type provider
     QString itemName = m_itemCopy->getName();
     if (itemName.isEmpty()) {
         itemName = tr("Item %1").arg(m_itemCopy->getID());
     }
-    m_itemNameLabel->setText(itemName);
+    m_itemNameEdit->setText(itemName);
     
     // Load item-specific properties
-    m_actionIdSpin->setValue(m_itemCopy->getActionID());
-    m_uniqueIdSpin->setValue(m_itemCopy->getUniqueID());
-    m_descriptionEdit->setText(m_itemCopy->getText());
+    m_actionIdSpinBox->setValue(m_itemCopy->getActionID());
+    m_uniqueIdSpinBox->setValue(m_itemCopy->getUniqueID());
     
-    // Load type-specific properties
-    loadTypeSpecificProperties();
+    // Load count if stackable
+    if (m_itemCopy->isStackable() && m_itemCopy->getSubtype() > 0) {
+        m_countSpinBox->setValue(m_itemCopy->getSubtype());
+        m_countSpinBox->setEnabled(true);
+    } else {
+        m_countSpinBox->setValue(1);
+        m_countSpinBox->setEnabled(false);
+    }
+    
+    // Load text if readable/writeable
+    if (hasText()) {
+        m_textEdit->setText(m_itemCopy->getText());
+        m_textEdit->setEnabled(true);
+    } else {
+        m_textEdit->clear();
+        m_textEdit->setEnabled(false);
+    }
+    
+    // Load description
+    m_descriptionEdit->setText(m_itemCopy->getAttribute("description").toString());
+    
+    // No need to call loadTypeSpecificProperties() as createTypeSpecificControls() handles it
 }
 
 void ItemPropertiesDialog::loadContentsData() {
@@ -285,7 +303,22 @@ void ItemPropertiesDialog::loadAdvancedAttributes() {
         m_attributesTable->setItem(row, 0, createAttributeItem(key));
         
         // Type column (determine from QVariant type)
-        QString typeStr = getVariantTypeName(value);
+        QString typeStr;
+        switch (value.type()) {
+            case QVariant::Int:
+                typeStr = "Integer";
+                break;
+            case QVariant::Double:
+                typeStr = "Float";
+                break;
+            case QVariant::Bool:
+                typeStr = "Boolean";
+                break;
+            default:
+                typeStr = "String";
+                break;
+        }
+        
         QComboBox* typeCombo = new QComboBox();
         typeCombo->addItems({"String", "Integer", "Float", "Boolean"});
         typeCombo->setCurrentText(typeStr);
@@ -296,7 +329,7 @@ void ItemPropertiesDialog::loadAdvancedAttributes() {
         
         // Connect type change signal
         connect(typeCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
-                this, &ItemPropertiesDialog::onAttributeTypeChanged);
+                this, [this]() { markAsModified(); });
     }
 }
 
@@ -318,8 +351,8 @@ void ItemPropertiesDialog::connectSignals() {
             this, &ItemPropertiesDialog::onAddContainerItem);
     connect(m_removeItemButton, &QPushButton::clicked,
             this, &ItemPropertiesDialog::onRemoveContainerItem);
-    connect(m_contentsTable, &QTableWidget::itemSelectionChanged, [this]() {
-        m_removeItemButton->setEnabled(m_contentsTable->currentRow() >= 0);
+    connect(m_contentsView->selectionModel(), &QItemSelectionModel::selectionChanged, [this]() {
+        m_removeItemButton->setEnabled(!m_contentsView->selectionModel()->selectedIndexes().isEmpty());
     });
     
     // Advanced tab signals
@@ -609,10 +642,13 @@ void ItemPropertiesDialog::onAddContainerItem() {
 }
 
 void ItemPropertiesDialog::onRemoveContainerItem() {
-    int currentRow = m_contentsTable->currentRow();
-    if (currentRow >= 0) {
-        removeContainerItem(currentRow);
-        markAsModified();
+    QModelIndexList selectedIndexes = m_contentsView->selectionModel()->selectedIndexes();
+    if (!selectedIndexes.isEmpty()) {
+        QModelIndex index = selectedIndexes.first();
+        if (index.isValid()) {
+            m_contentsModel->removeRow(index.row());
+            markAsModified();
+        }
     }
 }
 
@@ -628,12 +664,48 @@ void ItemPropertiesDialog::onResetToDefaults() {
     }
 }
 
+void ItemPropertiesDialog::saveTypeSpecificProperties() {
+    // Save type-specific properties based on item type
+    if (isFluidContainer() || isSplash()) {
+        if (m_liquidTypeCombo) {
+            int liquidType = m_liquidTypeCombo->currentData().toInt();
+            m_itemCopy->setSubtype(liquidType);
+        }
+    }
+    
+    if (isDoor()) {
+        if (m_doorIdSpin) {
+            m_itemCopy->setAttribute("doorid", m_doorIdSpin->value());
+        }
+    }
+    
+    if (isDepot()) {
+        if (m_depotTownCombo) {
+            m_itemCopy->setAttribute("depotid", m_depotTownCombo->currentData().toInt());
+        }
+    }
+    
+    if (isTeleport()) {
+        if (m_destXSpin && m_destYSpin && m_destZSpin) {
+            m_itemCopy->setAttribute("tele_dest_x", m_destXSpin->value());
+            m_itemCopy->setAttribute("tele_dest_y", m_destYSpin->value());
+            m_itemCopy->setAttribute("tele_dest_z", m_destZSpin->value());
+        }
+    }
+    
+    if (isTiered()) {
+        if (m_tierSpin) {
+            m_itemCopy->setAttribute("tier", m_tierSpin->value());
+        }
+    }
+}
+
 void ItemPropertiesDialog::saveItemData() {
     saveGeneralProperties();
     saveContentsData();
     saveAdvancedAttributes();
     
-    emit itemModified(m_item);
+    emit itemModified(m_itemCopy);
 }
 
 void ItemPropertiesDialog::saveGeneralProperties() {
@@ -642,9 +714,25 @@ void ItemPropertiesDialog::saveGeneralProperties() {
     }
     
     // Save properties to item
-    m_itemCopy->setActionID(m_actionIdSpin->value());
-    m_itemCopy->setUniqueID(m_uniqueIdSpin->value());
-    m_itemCopy->setText(m_descriptionEdit->text());
+    m_itemCopy->setActionID(m_actionIdSpinBox->value());
+    m_itemCopy->setUniqueID(m_uniqueIdSpinBox->value());
+    
+    // Save count if stackable
+    if (m_itemCopy->isStackable() && m_countSpinBox->isEnabled()) {
+        m_itemCopy->setSubtype(m_countSpinBox->value());
+    }
+    
+    // Save text if readable/writeable
+    if (hasText() && m_textEdit->isEnabled()) {
+        m_itemCopy->setText(m_textEdit->text());
+    }
+    
+    // Save description
+    if (!m_descriptionEdit->text().isEmpty()) {
+        m_itemCopy->setAttribute("description", m_descriptionEdit->text());
+    } else {
+        m_itemCopy->clearAttribute("description");
+    }
     
     // Save type-specific properties
     saveTypeSpecificProperties();
@@ -700,32 +788,23 @@ void ItemPropertiesDialog::markAsModified() {
     setWindowTitle(tr("Item Properties *"));
 }
 
-void ItemPropertiesDialog::addContainerItem(quint16 itemId, quint16 count) {
-    int row = m_contentsTable->rowCount();
-    m_contentsTable->insertRow(row);
-    
-    m_contentsTable->setItem(row, 0, new QTableWidgetItem(QString::number(itemId)));
-    m_contentsTable->setItem(row, 1, new QTableWidgetItem(tr("Item %1").arg(itemId))); // TODO: Get real name
-    m_contentsTable->setItem(row, 2, new QTableWidgetItem(QString::number(count)));
-    
-    onContentsChanged();
-}
-
-void ItemPropertiesDialog::removeContainerItem(int row) {
-    if (row >= 0 && row < m_contentsTable->rowCount()) {
-        m_contentsTable->removeRow(row);
-        onContentsChanged();
-    }
-}
+// Removed unused methods
 
 void ItemPropertiesDialog::updateContainerInfo() {
     if (!isContainer()) {
         return;
     }
     
-    int itemCount = m_contentsTable->rowCount();
-    // TODO: Get container capacity from item data
+    int itemCount = m_contentsModel->rowCount();
+    // Get container capacity from item data if available
     int capacity = 20; // Default capacity
+    if (m_itemData) {
+        // Check if the item data has a maxItems attribute
+        auto it = m_itemData->genericAttributes.find("maxItems");
+        if (it != m_itemData->genericAttributes.end()) {
+            capacity = it.value().toInt();
+        }
+    }
     
     m_containerInfoLabel->setText(tr("Container: %1/%2 items").arg(itemCount).arg(capacity));
 }

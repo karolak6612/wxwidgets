@@ -2,15 +2,20 @@
 #define RME_BRUSH_STATE_SERVICE_H
 
 #include <QObject>
+#include <cstdint>
 #include "BrushEnums.h"
 #include "BrushShape.h"
 #include "BrushSettings.h"
+#include "services/IBrushStateService.h"
 
 namespace RME {
 namespace core {
-namespace brush {
 
 class Brush;
+class CreatureData;
+class BaseMap;
+
+namespace brush {
 class BrushIntegrationManager;
 
 /**
@@ -20,7 +25,7 @@ class BrushIntegrationManager;
  * the current brush state, such as the current brush type, brush shape,
  * brush size, etc. It also emits signals when these values change.
  */
-class BrushStateService : public QObject
+class BrushStateService : public IBrushStateService
 {
     Q_OBJECT
 
@@ -32,6 +37,37 @@ public:
      * @param parent Parent QObject
      */
     explicit BrushStateService(BrushIntegrationManager* brushManager, QObject* parent = nullptr);
+    
+    // IBrushStateService interface implementation
+    void setActiveBrush(Brush* brush) override;
+    Brush* getActiveBrush() const override;
+    
+    void setBrushShape(BrushShape shape) override;
+    BrushShape getBrushShape() const override;
+    
+    void setBrushSize(int size) override;
+    int getBrushSize() const override;
+    
+    void setBrushVariation(int variation) override;
+    int getBrushVariation() const override;
+    
+    void setDrawLockedDoors(bool enabled) override;
+    bool getDrawLockedDoors() const override;
+    
+    void setUseCustomThickness(bool enabled) override;
+    bool getUseCustomThickness() const override;
+    
+    void setCustomThicknessMod(float mod) override;
+    float getCustomThicknessMod() const override;
+    
+    void setCurrentRawItemId(uint32_t itemId) override;
+    uint32_t getCurrentRawItemId() const override;
+    
+    void setCurrentCreatureType(const CreatureData* creature) override;
+    const CreatureData* getCurrentCreatureType() const override;
+    
+    void setDoodadBufferMap(BaseMap* map) override;
+    BaseMap* getDoodadBufferMap() const override;
     
     /**
      * @brief Get the current brush
@@ -162,6 +198,16 @@ private:
     int m_currentBrushSize = 1;
     BrushSettings m_currentBrushSettings;
     bool m_brushEnabled = true;
+    
+    // Additional state for IBrushStateService
+    Brush* m_activeBrush = nullptr;
+    int m_brushVariation = 0;
+    bool m_drawLockedDoors = false;
+    bool m_useCustomThickness = false;
+    float m_customThicknessMod = 1.0f;
+    uint32_t m_currentRawItemId = 0;
+    const CreatureData* m_currentCreatureType = nullptr;
+    BaseMap* m_doodadBufferMap = nullptr;
 };
 
 } // namespace brush

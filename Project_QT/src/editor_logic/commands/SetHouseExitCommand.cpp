@@ -20,12 +20,12 @@ SetHouseExitCommand::SetHouseExitCommand(quint32 houseId,
       m_map(map),
       m_newExitPos(newExitPos) {
     if (!m_housesManager) {
-        qWarning("SetHouseExitCommand: Houses manager pointer is null.");
+        qWarning() << "SetHouseExitCommand: Houses manager pointer is null.";
         setText("Invalid Set House Exit Command (null houses manager)");
         return;
     }
     if (!m_map) {
-        qWarning("SetHouseExitCommand: Map pointer is null.");
+        qWarning() << "SetHouseExitCommand: Map pointer is null.";
         setText("Invalid Set House Exit Command (null map)");
         return;
     }
@@ -33,7 +33,7 @@ SetHouseExitCommand::SetHouseExitCommand(quint32 houseId,
     // Get house data to store current exit
     RME::core::houses::HouseData* house = m_housesManager->getHouse(m_houseId);
     if (!house) {
-        qWarning("SetHouseExitCommand: House with ID %u not found.", m_houseId);
+        qWarning() << "SetHouseExitCommand: House with ID" << m_houseId << "not found.";
         setText("Invalid Set House Exit Command (house not found)");
         return;
     }
@@ -50,7 +50,7 @@ SetHouseExitCommand::SetHouseExitCommand(quint32 houseId,
 
 void SetHouseExitCommand::undo() {
     if (!m_housesManager || !m_map) {
-        qWarning("SetHouseExitCommand::undo: Invalid command state (null houses manager or map).");
+        qWarning() << "SetHouseExitCommand::undo: Invalid command state (null houses manager or map).";
         return;
     }
 
@@ -71,7 +71,7 @@ void SetHouseExitCommand::undo() {
 
 void SetHouseExitCommand::redo() {
     if (!m_housesManager || !m_map) {
-        qWarning("SetHouseExitCommand::redo: Invalid command state (null houses manager or map).");
+        qWarning() << "SetHouseExitCommand::redo: Invalid command state (null houses manager or map).";
         return;
     }
 

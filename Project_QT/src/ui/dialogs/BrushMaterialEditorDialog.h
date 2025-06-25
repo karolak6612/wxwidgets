@@ -17,6 +17,9 @@
 #include <QGroupBox>
 #include <QDialogButtonBox>
 #include <QSplitter>
+#include <QDomDocument>
+#include <QFile>
+#include <QTextStream>
 
 // Forward declarations
 namespace RME {
@@ -304,11 +307,17 @@ private:
     void updateDoodadItemsTable();
     QString getItemName(uint16_t itemId) const;
     
-    // XML operations (to be implemented)
+    // XML operations
     bool saveBorderToXml();
     bool saveGroundBrushToXml();
     bool saveWallBrushToXml();
     bool saveDoodadBrushToXml();
+    
+    // XML loading operations
+    bool loadBorderFromXml(const QString& borderName);
+    bool loadGroundBrushFromXml(const QString& brushName);
+    bool loadWallBrushFromXml(const QString& brushName);
+    bool loadDoodadBrushFromXml(const QString& brushName);
 };
 
 } // namespace dialogs

@@ -18,9 +18,17 @@ const QString TerrainBrushPaletteTab::WALLS_XML_PATH = "XML/760/walls.xml";
 const QString TerrainBrushPaletteTab::TILESETS_XML_PATH = "XML/760/tilesets.xml";
 const QString TerrainBrushPaletteTab::DOODADS_XML_PATH = "XML/760/doodads.xml";
 
-TerrainBrushPaletteTab::TerrainBrushPaletteTab(QWidget* parent)
-    : QWidget(parent)
+TerrainBrushPaletteTab::TerrainBrushPaletteTab(
+    RME::core::IBrushStateService* brushStateService,
+    RME::core::IClientDataService* clientDataService,
+    QWidget* parent
+) : QWidget(parent)
+    , m_brushStateService(brushStateService)
+    , m_clientDataService(clientDataService)
 {
+    Q_ASSERT(m_brushStateService);
+    Q_ASSERT(m_clientDataService);
+    
     setupUI();
     connectSignals();
     loadTerrainBrushesFromXml();
@@ -30,6 +38,21 @@ void TerrainBrushPaletteTab::setMaterialManager(RME::core::assets::MaterialManag
 {
     m_materialManager = materialManager;
     refreshContent();
+}
+
+// Get MaterialManager from service if not set directly
+RME::core::assets::MaterialManager* TerrainBrushPaletteTab::getMaterialManager() const
+{
+    if (m_materialManager) {
+        return m_materialManager;
+    }
+    
+    // Get from service if not set directly
+    if (m_clientDataService) {
+        return m_clientDataService->getMaterialManager();
+    }
+    
+    return nullptr;
 }
 
 void TerrainBrushPaletteTab::setBrushStateManager(RME::core::brush::BrushStateManager* brushManager)

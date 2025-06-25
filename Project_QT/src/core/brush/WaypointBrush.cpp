@@ -13,7 +13,6 @@ const int EDITOR_SPRITE_WAYPOINT_BRUSH_LOOK_ID = 0; // Or some defined constant
 
 namespace RME {
 namespace core {
-namespace brush {
 
 WaypointBrush::WaypointBrush()
     : m_currentWaypointName() // Default to no waypoint selected
@@ -65,12 +64,12 @@ void WaypointBrush::apply(RME::core::editor::EditorControllerInterface* controll
                           const RME::core::BrushSettings& settings) {
     
     if (!controller || !controller->getMap() || !controller->getWaypointManager()) {
-        qWarning("WaypointBrush::apply: Controller, Map, or WaypointManager is null.");
+        qWarning() << "WaypointBrush::apply: Controller, Map, or WaypointManager is null.";
         return;
     }
     
     if (m_currentWaypointName.isEmpty()) {
-        qWarning("WaypointBrush::apply: No waypoint name selected for placement.");
+        qWarning() << "WaypointBrush::apply: No waypoint name selected for placement.";
         return;
     }
     
@@ -78,7 +77,7 @@ void WaypointBrush::apply(RME::core::editor::EditorControllerInterface* controll
     
     // Re-check canApply with live map
     if (!canApply(map, pos, settings)) {
-        qDebug("WaypointBrush::apply: Preconditions not met at %s.", qUtf8Printable(pos.toString()));
+        qDebug() << "WaypointBrush::apply: Preconditions not met at" << pos.toString();
         return;
     }
     
@@ -87,8 +86,7 @@ void WaypointBrush::apply(RME::core::editor::EditorControllerInterface* controll
     RME::core::waypoints::Waypoint* existingWaypoint = waypointManager->getWaypointByName(m_currentWaypointName);
     
     if (existingWaypoint && existingWaypoint->getPosition() == pos) {
-        qDebug("WaypointBrush::apply: Waypoint '%s' is already at position %s.", 
-               qUtf8Printable(m_currentWaypointName), qUtf8Printable(pos.toString()));
+        qDebug() << "WaypointBrush::apply: Waypoint" << m_currentWaypointName << "is already at position" << pos.toString();
         return;
     }
     
@@ -96,11 +94,9 @@ void WaypointBrush::apply(RME::core::editor::EditorControllerInterface* controll
     controller->placeOrMoveWaypoint(m_currentWaypointName, pos);
     
     if (existingWaypoint) {
-        qDebug("WaypointBrush::apply: Moved waypoint '%s' to position %s.", 
-               qUtf8Printable(m_currentWaypointName), qUtf8Printable(pos.toString()));
+        qDebug() << "WaypointBrush::apply: Moved waypoint" << m_currentWaypointName << "to position" << pos.toString();
     } else {
-        qDebug("WaypointBrush::apply: Placed new waypoint '%s' at position %s.", 
-               qUtf8Printable(m_currentWaypointName), qUtf8Printable(pos.toString()));
+        qDebug() << "WaypointBrush::apply: Placed new waypoint" << m_currentWaypointName << "at position" << pos.toString();
     }
 }
 
@@ -115,6 +111,5 @@ void WaypointBrush::undraw(map::Map* /*map*/, Tile* /*tile*/, const BrushSetting
     Q_ASSERT(false && "WaypointBrush::undraw should not be called - use EditorController::removeWaypoint() instead");
 }
 
-} // namespace brush
 } // namespace core
 } // namespace RME

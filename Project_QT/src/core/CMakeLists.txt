@@ -40,6 +40,12 @@ set(RME_CORE_LIB_SOURCES
     # CORE-BRUSH-FRAMEWORK files
     brush/Brush.cpp
     brush/BrushManagerService.cpp
+    
+    # Service architecture files
+    services/ClientDataService.cpp
+    services/WindowManagerService.cpp
+    services/ApplicationSettingsService.cpp
+    services/ServiceContainer.cpp
 
     # LOGIC-04 Waypoint System files (This is WaypointManager, distinct from WaypointData)
     waypoints/WaypointManager.cpp

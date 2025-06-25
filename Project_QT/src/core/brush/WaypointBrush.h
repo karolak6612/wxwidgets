@@ -21,9 +21,8 @@ class TestWaypointBrush;
 
 namespace RME {
 namespace core {
-namespace brush {
 
-class WaypointBrush : public RME::core::Brush {
+class WaypointBrush : public Brush {
     friend class ::TestWaypointBrush; // Friend class for testing
 
 public:
@@ -57,7 +56,6 @@ private:
     QString m_currentWaypointName; // Name of the waypoint to place/move
 };
 
-} // namespace brush
 } // namespace core
 } // namespace RME
 

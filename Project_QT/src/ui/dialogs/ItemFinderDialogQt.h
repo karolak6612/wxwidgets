@@ -52,7 +52,7 @@ public:
     ItemFinderDialogQt(QWidget* parent, RME::core::assets::ItemDatabase* itemDatabase, bool onlyPickupable = false);
     ~ItemFinderDialogQt() override;
 
-    RME::core::assets::ItemData* getSelectedItemType() const;
+    const RME::core::assets::ItemData* getSelectedItemType() const;
 
 private slots:
     void onSearchModeChanged();
@@ -157,7 +157,7 @@ private:
     // Data
     RME::core::assets::ItemDatabase* m_itemDatabase;
     bool m_onlyPickupableInitial;
-    RME::core::assets::ItemData* m_selectedItemType;
+    const RME::core::assets::ItemData* m_selectedItemType;
     QTimer* m_refreshTimer;
 
     // Helper structure for property checkboxes

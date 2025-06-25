@@ -2,6 +2,7 @@
 add_subdirectory(core)
 add_subdirectory(editor_logic) # New line
 add_subdirectory(ui)
+add_subdirectory(profiling) # REFACTOR-02 Visual Studio profiling
 
 # Define application source files
 # These wxwidgets sources are placeholders and will be refactored/replaced.

@@ -22,7 +22,6 @@ const int EDITOR_SPRITE_ERASER_LOOK_ID = 0; // Or some defined constant from res
 
 namespace RME {
 namespace core {
-namespace brush {
 
 EraserBrush::EraserBrush() {
     // Constructor
@@ -148,6 +147,5 @@ void EraserBrush::apply(RME::core::editor::EditorControllerInterface* controller
     }
 }
 
-} // namespace brush
 } // namespace core
 } // namespace RME

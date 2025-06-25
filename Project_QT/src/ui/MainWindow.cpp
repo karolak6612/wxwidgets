@@ -6,6 +6,14 @@
 #include "core/brush/BrushIntegrationManager.h"
 #include "core/map/Map.h" // Relative path to header
 
+// Service implementations
+#include "core/services/ServiceContainer.h"
+#include "core/brush/BrushStateService.h"
+#include "core/editor/EditorStateService.h"
+#include "core/services/ClientDataService.h"
+#include "core/services/WindowManagerService.h"
+#include "core/services/ApplicationSettingsService.h"
+
 #include <QApplication> // For qApp global pointer if needed, or for QGuiApplication for screen info
 #include <QScreen>      // For screen geometry to center window initially
 #include <QSettings>
@@ -33,6 +41,9 @@ MainWindow::MainWindow(QWidget *parent)
     // Initialize QSettings
     // Parent 'this' makes Qt handle its deletion when MainWindow is destroyed.
     m_settings = new QSettings(QSettings::IniFormat, QSettings::UserScope, "RME-Qt", "Editor", this);
+
+    // Initialize services first
+    initializeServices();
 
     setWindowTitle(tr("Remere's Map Editor - Qt"));
 
@@ -85,10 +96,19 @@ MainWindow::MainWindow(QWidget *parent)
     updateMenuStatesFromEditor();
     updateWindowTitle(); // Set initial window title
 
+    // Connect services after all components are created
+    connectServices();
+    
+    // Test basic service functionality
+    testBasicServiceFunctionality();
+
     loadWindowSettings(); // Load stored geometry and state
 }
 
 MainWindow::~MainWindow() {
+    // Cleanup services first
+    cleanupServices();
+    
     // m_settings is parented to 'this', Qt will delete it.
     // m_actions contains QAction pointers. If they are parented to menus/this, Qt handles them.
     // If not, or if added to m_recentFilesMenu and then menu cleared without deleting actions,
@@ -520,3 +540,171 @@ void MainWindow::connectBrushMaterialActions() {
     
     qDebug() << "MainWindow::connectBrushMaterialActions: Connected brush/material editor actions.";
 }
+
+// Service management methods
+void MainWindow::initializeServices()
+{
+    qDebug() << "MainWindow::initializeServices: Initializing service architecture";
+    
+    // Create service container
+    m_serviceContainer = new RME::core::ServiceContainer(this);
+    
+    // Create services
+    m_brushStateService = new RME::core::brush::BrushStateService(m_brushIntegrationManager, this);
+    m_editorStateService = new RME::core::EditorStateService(this);
+    m_clientDataService = new RME::core::ClientDataService(this);
+    m_windowManagerService = new RME::core::WindowManagerService(this, this);
+    m_applicationSettingsService = new RME::core::ApplicationSettingsService(this);
+    
+    // Register services with container
+    m_serviceContainer->registerBrushStateService(m_brushStateService);
+    m_serviceContainer->registerEditorStateService(m_editorStateService);
+    m_serviceContainer->registerClientDataService(m_clientDataService);
+    m_serviceContainer->registerWindowManagerService(m_windowManagerService);
+    m_serviceContainer->registerApplicationSettingsService(m_applicationSettingsService);
+    
+    // Set global service container instance
+    RME::core::ServiceContainer::setInstance(m_serviceContainer);
+    
+    qDebug() << "MainWindow::initializeServices: Services initialized and registered";
+}
+
+void MainWindow::connectServices()
+{
+    qDebug() << "MainWindow::connectServices: Connecting service signals and slots";
+    
+    // Connect brush state changes to UI updates
+    connect(m_brushStateService, &RME::core::IBrushStateService::activeBrushChanged,
+            this, &MainWindow::updateMenus);
+    connect(m_brushStateService, &RME::core::IBrushStateService::brushSizeChanged,
+            this, &MainWindow::updateMenus);
+    
+    // Connect editor state changes to UI updates
+    connect(m_editorStateService, &RME::core::IEditorStateService::editorModeChanged,
+            this, &MainWindow::updateMenus);
+    connect(m_editorStateService, &RME::core::IEditorStateService::currentFloorChanged,
+            this, &MainWindow::updateMenus);
+    
+    // Connect client data changes to UI updates
+    connect(m_clientDataService, &RME::core::IClientDataService::clientVersionChanged,
+            this, &MainWindow::updateMenus);
+    connect(m_clientDataService, &RME::core::IClientDataService::clientVersionLoaded,
+            this, [this](const QString& versionId) {
+                m_windowManagerService->updateStatusText(tr("Client version %1 loaded").arg(versionId));
+            });
+    
+    // Connect settings changes to view updates
+    connect(m_applicationSettingsService, &RME::core::IApplicationSettingsService::viewSettingsChanged,
+            this, &MainWindow::updateMenus);
+    
+    // Connect window manager service to editor changes
+    connect(m_editorStateService, &RME::core::IEditorStateService::activeEditorChanged,
+            m_windowManagerService, &RME::core::WindowManagerService::onEditorChanged);
+    
+    // Connect service container signals
+    connect(m_serviceContainer, &RME::core::ServiceContainer::allServicesRegistered,
+            this, [this]() {
+                qDebug() << "MainWindow: All services are now registered and ready";
+                m_windowManagerService->updateStatusText(tr("Services initialized"));
+            });
+    
+    // Connect client data loading progress to status updates
+    connect(m_clientDataService, &RME::core::IClientDataService::dataLoadingProgress,
+            this, [this](int percentage, const QString& message) {
+                m_windowManagerService->updateStatusText(tr("Loading: %1 (%2%)").arg(message).arg(percentage));
+            });
+    
+    // Connect application settings to immediate UI updates
+    connect(m_applicationSettingsService, &RME::core::IApplicationSettingsService::doorLockedChanged,
+            this, &MainWindow::updateMenus);
+    connect(m_applicationSettingsService, &RME::core::IApplicationSettingsService::pastingChanged,
+            this, &MainWindow::updateMenus);
+    
+    qDebug() << "MainWindow::connectServices: Service connections established";
+}
+
+void MainWindow::cleanupServices()
+{
+    qDebug() << "MainWindow::cleanupServices: Cleaning up services";
+    
+    // Clear global service container instance
+    RME::core::ServiceContainer::setInstance(nullptr);
+    
+    // Services will be deleted automatically by Qt's parent-child system
+    // since they are all parented to 'this'
+    
+    qDebug() << "MainWindow::cleanupServices: Services cleaned up";
+}
+
+void MainWindow::testBasicServiceFunctionality()
+{
+    qDebug() << "MainWindow::testBasicServiceFunctionality: Testing service functionality";
+    
+    // Test service container
+    if (!m_serviceContainer) {
+        qCritical() << "Service container is null!";
+        return;
+    }
+    
+    if (!m_serviceContainer->areAllServicesRegistered()) {
+        qWarning() << "Not all services are registered. Missing:" << m_serviceContainer->getMissingServices();
+        return;
+    }
+    
+    // Test brush state service
+    if (m_brushStateService) {
+        qDebug() << "Testing BrushStateService...";
+        m_brushStateService->setBrushSize(5);
+        int size = m_brushStateService->getBrushSize();
+        qDebug() << "Brush size set to 5, got:" << size;
+        
+        m_brushStateService->setBrushShape(BrushShape::Circle);
+        BrushShape shape = m_brushStateService->getBrushShape();
+        qDebug() << "Brush shape set to Circle, got:" << static_cast<int>(shape);
+    }
+    
+    // Test editor state service
+    if (m_editorStateService) {
+        qDebug() << "Testing EditorStateService...";
+        m_editorStateService->setCurrentFloor(5);
+        int floor = m_editorStateService->getCurrentFloor();
+        qDebug() << "Floor set to 5, got:" << floor;
+        
+        m_editorStateService->setZoomLevel(2.0f);
+        float zoom = m_editorStateService->getZoomLevel();
+        qDebug() << "Zoom set to 2.0, got:" << zoom;
+    }
+    
+    // Test application settings service
+    if (m_applicationSettingsService) {
+        qDebug() << "Testing ApplicationSettingsService...";
+        m_applicationSettingsService->setGridVisible(false);
+        bool gridVisible = m_applicationSettingsService->isGridVisible();
+        qDebug() << "Grid visibility set to false, got:" << gridVisible;
+        
+        m_applicationSettingsService->setDefaultBrushSize(3);
+        int defaultSize = m_applicationSettingsService->getDefaultBrushSize();
+        qDebug() << "Default brush size set to 3, got:" << defaultSize;
+    }
+    
+    // Test window manager service
+    if (m_windowManagerService) {
+        qDebug() << "Testing WindowManagerService...";
+        m_windowManagerService->updateStatusText("Service test in progress...");
+        m_windowManagerService->updateWindowTitle("RME - Service Test");
+    }
+    
+    // Test client data service
+    if (m_clientDataService) {
+        qDebug() << "Testing ClientDataService...";
+        bool isLoaded = m_clientDataService->isClientVersionLoaded();
+        qDebug() << "Client version loaded:" << isLoaded;
+        QString versionId = m_clientDataService->getCurrentVersionId();
+        qDebug() << "Current version ID:" << versionId;
+    }
+    
+    qDebug() << "MainWindow::testBasicServiceFunctionality: Service testing completed";
+}
+
+} // namespace ui
+} // namespace RME

@@ -16,6 +16,10 @@
 #include <QHash>
 #include <QIcon>
 
+// Service interfaces
+#include "core/services/IBrushStateService.h"
+#include "core/services/IClientDataService.h"
+
 // Forward declarations
 namespace RME {
 namespace core {
@@ -56,11 +60,16 @@ class TerrainBrushPaletteTab : public QWidget {
     Q_OBJECT
 
 public:
-    explicit TerrainBrushPaletteTab(QWidget* parent = nullptr);
+    explicit TerrainBrushPaletteTab(
+        RME::core::IBrushStateService* brushStateService,
+        RME::core::IClientDataService* clientDataService,
+        QWidget* parent = nullptr
+    );
     ~TerrainBrushPaletteTab() override = default;
 
     // Integration with core systems
     void setMaterialManager(RME::core::assets::MaterialManager* materialManager);
+    RME::core::assets::MaterialManager* getMaterialManager() const;
     void setBrushStateManager(RME::core::brush::BrushStateManager* brushManager);
     void setEditorController(RME::core::editor::EditorControllerInterface* controller);
 
@@ -116,7 +125,11 @@ private:
     QLabel* m_selectedBrushLabel = nullptr;
     QLabel* m_brushDetailsLabel = nullptr;
 
-    // Core system integration
+    // Services
+    RME::core::IBrushStateService* m_brushStateService;
+    RME::core::IClientDataService* m_clientDataService;
+    
+    // Core system integration (legacy)
     RME::core::assets::MaterialManager* m_materialManager = nullptr;
     RME::core::brush::BrushStateManager* m_brushStateManager = nullptr;
     RME::core::editor::EditorControllerInterface* m_editorController = nullptr;

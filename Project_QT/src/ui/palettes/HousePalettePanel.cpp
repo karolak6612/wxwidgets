@@ -18,8 +18,13 @@
 namespace RME {
 namespace ui {
 
-HousePalettePanel::HousePalettePanel(QWidget* parent)
-    : BasePalettePanel(parent)
+HousePalettePanel::HousePalettePanel(
+    RME::core::IBrushStateService* brushStateService,
+    RME::core::IClientDataService* clientDataService,
+    QWidget* parent
+) : BasePalettePanel(parent)
+    , m_brushStateService(brushStateService)
+    , m_clientDataService(clientDataService)
     , m_searchWidget(nullptr)
     , m_searchEdit(nullptr)
     , m_houseList(nullptr)
@@ -30,6 +35,9 @@ HousePalettePanel::HousePalettePanel(QWidget* parent)
     , m_editButton(nullptr)
     , m_deleteButton(nullptr)
 {
+    Q_ASSERT(m_brushStateService);
+    Q_ASSERT(m_clientDataService);
+    
     setObjectName("HousePalettePanel");
     setWindowTitle(tr("House Palette"));
     

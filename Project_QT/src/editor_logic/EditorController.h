@@ -8,6 +8,12 @@
 #include <memory> // For std::unique_ptr
 #include <QtGlobal> // For Qt::KeyboardModifiers
 
+// Service interfaces
+#include "core/services/IBrushStateService.h"
+#include "core/services/IEditorStateService.h"
+#include "core/services/IClientDataService.h"
+#include "core/services/IApplicationSettingsService.h"
+
 // Forward declarations
 class QUndoStack;
 class QUndoCommand;
@@ -34,18 +40,16 @@ namespace core {
 namespace RME {
 namespace editor_logic {
 
-class EditorController : public RME::core::editor::EditorControllerInterface {
+class EditorController : public QObject, public RME::core::editor::EditorControllerInterface {
+    Q_OBJECT
 public:
     EditorController(
         RME::core::Map* map,
-        QUndoStack* undoStack,
-        RME::core::selection::SelectionManager* selectionManager,
-        RME::core::brush::BrushManager* brushManager,
-        RME::core::settings::AppSettings* appSettings,
-        RME::core::assets::AssetManager* assetManager,
-        RME::core::houses::Houses* housesManager, // Added
-        RME::core::clipboard::ClipboardManager* clipboardManager, // Added for LOGIC-03
-        RME::core::waypoints::WaypointManager* waypointManager // Added for LOGIC-04
+        RME::core::IBrushStateService* brushStateService,
+        RME::core::IEditorStateService* editorStateService,
+        RME::core::IClientDataService* clientDataService,
+        RME::core::IApplicationSettingsService* settingsService,
+        QObject* parent = nullptr
     );
     ~EditorController() override = default;
 
@@ -170,21 +174,30 @@ public:
 
 private:
     RME::core::Map* m_map;
+    
+    // Services
+    RME::core::IBrushStateService* m_brushStateService;
+    RME::core::IEditorStateService* m_editorStateService;
+    RME::core::IClientDataService* m_clientDataService;
+    RME::core::IApplicationSettingsService* m_settingsService;
+    
+    // Direct dependencies (will be obtained from services)
     QUndoStack* m_undoStack;
     RME::core::selection::SelectionManager* m_selectionManager;
     RME::core::brush::BrushManager* m_brushManager;
     RME::core::settings::AppSettings* m_appSettings;
     RME::core::assets::AssetManager* m_assetManager;
-    RME::core::houses::Houses* m_housesManager; // Added
-    RME::core::clipboard::ClipboardManager* m_clipboardManager; // Added for LOGIC-03
-    RME::core::waypoints::WaypointManager* m_waypointManager; // Added for LOGIC-04
+    RME::core::houses::Houses* m_housesManager;
+    RME::core::clipboard::ClipboardManager* m_clipboardManager;
+    RME::core::waypoints::WaypointManager* m_waypointManager;
     
     // Tool mode state (LOGIC-06)
     ToolMode m_currentToolMode = ToolMode::Brush;
     quint32 m_currentHouseForTools = 0;
     QString m_currentWaypointForTools;
     
-    // Helper method for clipboard operations
+    // Helper methods
+    void initializeDependencies();
     RME::core::clipboard::ClipboardContent convertTilesToClipboardContent(const QList<RME::core::Tile*>& tiles) const;
 };
 

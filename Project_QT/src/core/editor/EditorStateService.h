@@ -2,12 +2,15 @@
 #define RME_EDITOR_STATE_SERVICE_H
 
 #include <QObject>
+#include <QPoint>
 #include "core/Position.h"
+#include "services/IEditorStateService.h"
 
 namespace RME {
 namespace core {
 
 class Map;
+class EditorController;
 
 namespace editor {
 
@@ -18,7 +21,7 @@ namespace editor {
  * the current state of the editor, such as the current map, floor, position,
  * zoom level, etc. It also emits signals when these values change.
  */
-class EditorStateService : public QObject
+class EditorStateService : public IEditorStateService
 {
     Q_OBJECT
 
@@ -29,6 +32,34 @@ public:
      * @param parent Parent QObject
      */
     explicit EditorStateService(QObject* parent = nullptr);
+    
+    // IEditorStateService implementation
+    void setEditorMode(EditorMode mode) override;
+    EditorMode getEditorMode() const override;
+    
+    void setCurrentFloor(int floor) override;
+    int getCurrentFloor() const override;
+    
+    void setActiveEditorSession(EditorController* editor) override;
+    EditorController* getActiveEditorSession() const override;
+    
+    void setZoomLevel(float zoom) override;
+    float getZoomLevel() const override;
+    
+    void setViewPosition(const QPoint& position) override;
+    QPoint getViewPosition() const override;
+    
+    void setShowGrid(bool show) override;
+    bool getShowGrid() const override;
+    
+    void setShowCreatures(bool show) override;
+    bool getShowCreatures() const override;
+    
+    void setShowSpawns(bool show) override;
+    bool getShowSpawns() const override;
+    
+    void setShowHouses(bool show) override;
+    bool getShowHouses() const override;
     
     /**
      * @brief Get the current map
@@ -181,6 +212,15 @@ private:
     double m_currentZoom = 1.0;
     Position m_viewCenter;
     QRectF m_viewRect;
+    
+    // Additional state for IEditorStateService
+    EditorMode m_editorMode = EditorMode::Drawing;
+    EditorController* m_activeEditorSession = nullptr;
+    QPoint m_viewPosition;
+    bool m_showGrid = true;
+    bool m_showCreatures = true;
+    bool m_showSpawns = true;
+    bool m_showHouses = true;
 };
 
 } // namespace editor

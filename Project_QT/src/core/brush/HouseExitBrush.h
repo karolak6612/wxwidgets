@@ -20,9 +20,8 @@ class TestHouseExitBrush;
 
 namespace RME {
 namespace core {
-namespace brush {
 
-class HouseExitBrush : public RME::core::Brush {
+class HouseExitBrush : public Brush {
     friend class ::TestHouseExitBrush; // Friend class for testing
 
 public:
@@ -52,7 +51,6 @@ private:
     quint32 m_currentHouseId = 0; // ID of the house to set exit for
 };
 
-} // namespace brush
 } // namespace core
 } // namespace RME
 

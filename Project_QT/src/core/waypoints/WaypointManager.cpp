@@ -68,6 +68,15 @@ bool WaypointManager::addWaypoint(const QString& name, const RME::core::Position
     return true;
 }
 
+bool WaypointManager::addWaypoint(std::unique_ptr<Waypoint> waypoint) {
+    if (!waypoint) {
+        qWarning() << "WaypointManager::addWaypoint: Waypoint pointer is null.";
+        return false;
+    }
+    
+    return addWaypoint(waypoint->name, waypoint->position);
+}
+
 Waypoint* WaypointManager::getWaypointByName(const QString& name) const {
     QString normalizedName = normalizeName(name);
     auto it = m_waypoints.constFind(normalizedName);
@@ -118,6 +127,44 @@ bool WaypointManager::removeWaypoint(const QString& name) {
     //    m_positionalWaypointsCache.remove(pos, wpToRemove);
     // }
 
+    return true;
+}
+
+bool WaypointManager::updateWaypointPosition(const QString& name, const RME::core::Position& newPos) {
+    QString normalizedName = normalizeName(name);
+    auto it = m_waypoints.find(normalizedName);
+    
+    if (it == m_waypoints.end()) {
+        return false; // Waypoint not found
+    }
+    
+    Waypoint* waypoint = it.value().get();
+    RME::core::Position oldPos = waypoint->position;
+    
+    // Update tile counts if map is available
+    if (m_map) {
+        // Decrease count at old position
+        if (oldPos.isValid()) {
+            Tile* oldTile = m_map->getTile(oldPos);
+            if (oldTile) {
+                oldTile->decreaseWaypointCount();
+            }
+        }
+        
+        // Increase count at new position
+        if (newPos.isValid()) {
+            Tile* newTile = m_map->getTile(newPos);
+            if (newTile) {
+                newTile->increaseWaypointCount();
+            }
+        }
+    }
+    
+    // Update waypoint position
+    waypoint->position = newPos;
+    
+    // TODO: Update m_positionalWaypointsCache if implemented
+    
     return true;
 }
 

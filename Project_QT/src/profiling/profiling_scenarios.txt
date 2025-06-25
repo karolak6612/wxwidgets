@@ -1,0 +1,138 @@
+# RME-Qt6 Visual Studio Profiling Scenarios
+# REFACTOR-02 Implementation
+
+This file describes the profiling scenarios available in the RME Visual Studio profiling target.
+
+## Profiling Scenarios
+
+### 1. Application Startup Scenario (--startup)
+**Purpose**: Profile application initialization and service container setup
+**Duration**: ~2 seconds
+**Focus Areas**:
+- Service container initialization
+- Qt application startup overhead
+- Initial memory allocation patterns
+- Dependency injection performance
+
+**Visual Studio Profiling Tools Recommended**:
+- CPU Usage: Identify startup bottlenecks
+- Memory Usage: Track initial memory allocation
+- .NET/C++ Heap: Analyze object creation patterns
+
+### 2. UI Creation Scenario (--ui)
+**Purpose**: Profile main window and UI component creation
+**Duration**: ~3 seconds
+**Focus Areas**:
+- MainWindow instantiation
+- Widget hierarchy creation
+- Qt styling system overhead (Qlementine)
+- OpenGL context initialization
+
+**Visual Studio Profiling Tools Recommended**:
+- CPU Usage: UI creation performance
+- Memory Usage: Widget memory consumption
+- GPU Usage: OpenGL initialization overhead
+
+### 3. Memory Stress Scenario (--memory)
+**Purpose**: Profile memory allocation/deallocation patterns
+**Duration**: Variable (depends on allocation count)
+**Focus Areas**:
+- Memory allocation patterns
+- Heap fragmentation
+- Memory leak detection
+- Garbage collection behavior
+
+**Visual Studio Profiling Tools Recommended**:
+- Memory Usage: Track allocation patterns
+- .NET/C++ Heap: Detailed heap analysis
+- Application Timeline: Memory usage over time
+
+### 4. CPU Intensive Scenario (--cpu)
+**Purpose**: Profile CPU-bound operations
+**Duration**: Variable (depends on computation complexity)
+**Focus Areas**:
+- Mathematical computation performance
+- Event processing overhead
+- Thread utilization
+- Algorithm efficiency
+
+**Visual Studio Profiling Tools Recommended**:
+- CPU Usage: Identify hot paths
+- Concurrency Visualizer: Thread analysis
+- IntelliTrace: Execution flow analysis
+
+## Command Line Usage
+
+### Run All Scenarios
+```
+rme_profiling_target.exe --profile-scenarios --duration 60
+```
+
+### Run Specific Scenario
+```
+rme_profiling_target.exe --startup
+rme_profiling_target.exe --ui
+rme_profiling_target.exe --memory
+rme_profiling_target.exe --cpu
+```
+
+### Interactive Mode (for manual profiling)
+```
+rme_profiling_target.exe --interactive
+```
+
+## Visual Studio Performance Profiler Setup
+
+1. **Open Visual Studio**
+2. **Go to Debug > Performance Profiler**
+3. **Select Target**: Choose "Executable"
+4. **Browse to**: `build/bin/profiling/rme_profiling_target.exe`
+5. **Set Working Directory**: `build/`
+6. **Choose Profiling Tools**:
+   - **CPU Usage**: For performance bottlenecks
+   - **Memory Usage**: For memory leaks and usage patterns
+   - **GPU Usage**: For OpenGL/rendering analysis
+   - **.NET/C++ Heap**: For detailed memory analysis
+7. **Set Command Line Arguments** (optional):
+   ```
+   --profile-scenarios --duration 60
+   ```
+8. **Click "Start"** to begin profiling
+
+## Profiling Output
+
+The profiling target outputs detailed information to help correlate with Visual Studio profiler data:
+
+- **[VS_PROFILE_START/END]**: Profiling scope markers
+- **[VS_PROFILE_EVENT]**: Specific profiling events
+- **[VS_MEMORY_SNAPSHOT]**: Memory state snapshots
+- **[SCENARIO]**: Scenario execution markers
+- **[PROFILING]**: General profiling information
+
+## Expected Profiling Results
+
+### Performance Bottlenecks to Look For:
+1. **Service Container**: Dependency resolution overhead
+2. **Qt Initialization**: Widget creation and styling
+3. **Memory Allocation**: Large or frequent allocations
+4. **Event Processing**: Qt event loop overhead
+
+### Memory Issues to Investigate:
+1. **Memory Leaks**: Objects not properly released
+2. **Memory Fragmentation**: Inefficient allocation patterns
+3. **Large Objects**: Unexpectedly large memory consumers
+4. **Allocation Frequency**: High-frequency allocations
+
+### Optimization Opportunities:
+1. **Lazy Initialization**: Defer expensive operations
+2. **Object Pooling**: Reuse frequently allocated objects
+3. **Caching**: Cache expensive computations
+4. **Algorithm Optimization**: Improve algorithmic complexity
+
+## Integration with REFACTOR-03
+
+The profiling results from this target will be used in REFACTOR-03 to:
+1. Identify specific performance bottlenecks
+2. Prioritize optimization efforts
+3. Validate optimization improvements
+4. Establish performance baselines

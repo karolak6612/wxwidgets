@@ -1,0 +1,15 @@
+### Dependency Replacement Mapping
+- **wxString** -> **QString**
+- **wxPoint/wxSize** -> **QPoint/QSize**
+- **wxVector** -> **QList** or **std::vector**
+- **wxMap** -> **QMap** or **std::map**
+- **wxFrame** -> **QMainWindow**
+- **wxPanel** -> **QWidget**
+- **wxSizer** -> **QLayout** subclasses
+- **wxBitmap** -> **QPixmap**
+- **wxImage** -> **QImage**
+- **wxFile** -> **QFile**
+- **wxConfig** -> **QSettings**
+- **wxThread** -> **QThread**
+- **wxSocket** -> **QTcpSocket**
+- **wxXmlDocument** -> **QDomDocument** or **QXmlStreamReader**

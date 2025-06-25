@@ -53,43 +53,53 @@ namespace editor_logic {
 
 EditorController::EditorController(
     RME::core::Map* map,
-    QUndoStack* undoStack,
-    RME::core::selection::SelectionManager* selectionManager,
-    RME::core::brush::BrushManager* brushManager,
-    RME::core::settings::AppSettings* appSettings,
-    RME::core::assets::AssetManager* assetManager,
-    RME::core::houses::Houses* housesManager, // Added
-    RME::core::clipboard::ClipboardManager* clipboardManager, // Added for LOGIC-03
-    RME::core::waypoints::WaypointManager* waypointManager // Added for LOGIC-04
-) : m_map(map),
-    m_undoStack(undoStack),
-    m_selectionManager(selectionManager),
-    m_brushManager(brushManager),
-    m_appSettings(appSettings),
-    m_assetManager(assetManager),
-    m_housesManager(housesManager), // Added
-    m_clipboardManager(clipboardManager), // Added for LOGIC-03
-    m_waypointManager(waypointManager) // Added for LOGIC-04
+    RME::core::IBrushStateService* brushStateService,
+    RME::core::IEditorStateService* editorStateService,
+    RME::core::IClientDataService* clientDataService,
+    RME::core::IApplicationSettingsService* settingsService,
+    QObject* parent
+) : QObject(parent),
+    m_map(map),
+    m_brushStateService(brushStateService),
+    m_editorStateService(editorStateService),
+    m_clientDataService(clientDataService),
+    m_settingsService(settingsService)
 {
     Q_ASSERT(m_map);
-    Q_ASSERT(m_undoStack);
-    Q_ASSERT(m_selectionManager);
-    Q_ASSERT(m_brushManager);
-    Q_ASSERT(m_appSettings);
-    Q_ASSERT(m_assetManager);
-    Q_ASSERT(m_housesManager); // Added
-    Q_ASSERT(m_clipboardManager); // Added for LOGIC-03
-    Q_ASSERT(m_waypointManager); // Added for LOGIC-04
+    Q_ASSERT(m_brushStateService);
+    Q_ASSERT(m_editorStateService);
+    Q_ASSERT(m_clientDataService);
+    Q_ASSERT(m_settingsService);
+    
+    // Initialize direct dependencies from services
+    initializeDependencies();
+}
+
+void EditorController::initializeDependencies()
+{
+    // Get dependencies from services
+    m_assetManager = m_clientDataService->getAssetManager();
+    m_appSettings = nullptr; // TODO: Get from settings service
+    
+    // Create or get other dependencies
+    m_undoStack = new QUndoStack(this);
+    m_selectionManager = new RME::core::selection::SelectionManager(this);
+    m_brushManager = nullptr; // TODO: Get from brush service
+    m_housesManager = nullptr; // TODO: Get from map or create
+    m_clipboardManager = new RME::core::clipboard::ClipboardManager(this);
+    m_waypointManager = new RME::core::waypoints::WaypointManager(this);
+    
+    qDebug() << "EditorController: Dependencies initialized from services";
 }
 
 // --- Core editing operations ---
 void EditorController::applyBrushStroke(const QList<RME::core::Position>& positions, const RME::core::BrushSettings& settings) {
-    if (!m_brushManager) {
-        qWarning("EditorController::applyBrushStroke: BrushManager is null.");
+    if (!m_brushStateService) {
+        qWarning("EditorController::applyBrushStroke: BrushStateService is null.");
         return;
     }
 
-    RME::core::brush::Brush* activeBrush = m_brushManager->getActiveBrush();
+    RME::core::brush::Brush* activeBrush = m_brushStateService->getActiveBrush();
     if (!activeBrush) {
         qWarning("EditorController::applyBrushStroke: No active brush found.");
         return;

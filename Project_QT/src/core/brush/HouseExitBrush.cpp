@@ -14,7 +14,6 @@ const int EDITOR_SPRITE_HOUSE_EXIT_BRUSH_LOOK_ID = 0; // Or some defined constan
 
 namespace RME {
 namespace core {
-namespace brush {
 
 HouseExitBrush::HouseExitBrush()
     : m_currentHouseId(0) // Default to no house selected
@@ -81,12 +80,12 @@ void HouseExitBrush::apply(RME::core::editor::EditorControllerInterface* control
                            const RME::core::BrushSettings& settings) {
     
     if (!controller || !controller->getMap() || !controller->getHousesManager()) {
-        qWarning("HouseExitBrush::apply: Controller, Map, or HousesManager is null.");
+        qWarning() << "HouseExitBrush::apply: Controller, Map, or HousesManager is null.";
         return;
     }
     
     if (m_currentHouseId == 0) {
-        qWarning("HouseExitBrush::apply: No house selected for exit setting.");
+        qWarning() << "HouseExitBrush::apply: No house selected for exit setting.";
         return;
     }
     
@@ -94,7 +93,7 @@ void HouseExitBrush::apply(RME::core::editor::EditorControllerInterface* control
     
     // Re-check canApply with live map
     if (!canApply(map, pos, settings)) {
-        qDebug("HouseExitBrush::apply: Preconditions not met at %s.", qUtf8Printable(pos.toString()));
+        qDebug() << "HouseExitBrush::apply: Preconditions not met at" << pos.toString();
         return;
     }
     
@@ -102,14 +101,13 @@ void HouseExitBrush::apply(RME::core::editor::EditorControllerInterface* control
     RME::core::houses::Houses* housesManager = controller->getHousesManager();
     RME::core::houses::HouseData* house = housesManager->getHouse(m_currentHouseId);
     if (!house) {
-        qWarning("HouseExitBrush::apply: House with ID %u not found.", m_currentHouseId);
+        qWarning() << "HouseExitBrush::apply: House with ID" << m_currentHouseId << "not found.";
         return;
     }
     
     // Check if this position is already the house exit
     if (house->entryPoint == pos) {
-        qDebug("HouseExitBrush::apply: Position %s is already the exit for house %u.", 
-               qUtf8Printable(pos.toString()), m_currentHouseId);
+        qDebug() << "HouseExitBrush::apply: Position" << pos.toString() << "is already the exit for house" << m_currentHouseId;
         return;
     }
     
@@ -117,10 +115,8 @@ void HouseExitBrush::apply(RME::core::editor::EditorControllerInterface* control
     // This will handle the actual exit setting with proper undo/redo support
     controller->pushCommand(new SetHouseExitCommand(m_currentHouseId, pos, housesManager, map));
     
-    qDebug("HouseExitBrush::apply: Set exit for house %u (%s) to position %s.", 
-           m_currentHouseId, qUtf8Printable(house->name), qUtf8Printable(pos.toString()));
+    qDebug() << "HouseExitBrush::apply: Set exit for house" << m_currentHouseId << "(" << house->name << ") to position" << pos.toString();
 }
 
-} // namespace brush
 } // namespace core
 } // namespace RME

@@ -29,7 +29,7 @@ using RMEBrushSettings = RME::core::BrushSettings;
 using RMEMap = RME::core::Map;
 using RMETile = RME::core::Tile;
 using RMESpawn = RME::core::Spawn;
-using RMESpawnBrush = RME::core::brush::SpawnBrush;
+using RMESpawnBrush = RME::core::SpawnBrush;
 using RMEMockEditorController = MockEditorController;
 // using RMEMockAssetManager = RME::tests::MockAssetManager; // Controller will use one, map another
 using RMEMockMaterialManager = RME::tests::MockMaterialManager;
@@ -294,4 +294,5 @@ void TestSpawnBrush::testApply_EraseEmpty() {
     QVERIFY(m_mockController->lastPushedCommand == nullptr);
 }
 
-// #include "TestSpawnBrush.moc" // For AUTOMOC
+QTEST_MAIN(TestSpawnBrush)
+#include "TestSpawnBrush.moc" // For AUTOMOC

@@ -26,6 +26,9 @@
 
 #include <QList>
 #include <QString>
+#include <QSet>
+#include <QMap>
+#include <QVariant>
 #include <memory> // For std::unique_ptr
 
 // Forward declare if full includes are too heavy or cause cycles, though for mocks it's often fine
@@ -55,6 +58,7 @@ public:
     // Added for notification testing
     bool m_tileChangedNotified = false;
     RMEPosition m_notifiedPosition;
+    QSet<RMEPosition> notifiedTiles;
 
     // For testing command pushing
     bool pushCommandCalled = false;
@@ -65,6 +69,9 @@ public:
     RMEAssetManager* m_mockAssetManager = nullptr;
     RME::core::houses::Houses* m_mockHousesManager = nullptr; // Added
     RMETile* m_mockTileForEditing = nullptr; // If getTileForEditing should return a specific mock tile
+    
+    // Mock settings for tests
+    QMap<QString, QVariant> m_mockSettings;
 
     // Owns the MockMap instance
     std::unique_ptr<MockMap> m_concreteMockMap;
@@ -191,7 +198,24 @@ public:
         return nullptr;
     }
 
-    RMEAppSettings* getAppSettings() override { calls.append({"getAppSettings"}); return m_mockAppSettings; }
+    RMEAppSettings* getAppSettings() override { 
+        calls.append({"getAppSettings"}); 
+        return m_mockAppSettings; 
+    }
+    
+    // Helper method for tests to set mock settings
+    void setMockSetting(const QString& key, const QVariant& value) {
+        m_mockSettings[key] = value;
+        if (m_mockAppSettings) {
+            if (value.type() == QVariant::Bool) {
+                m_mockAppSettings->setBool(key, value.toBool());
+            } else if (value.type() == QVariant::Int) {
+                m_mockAppSettings->setInt(key, value.toInt());
+            } else if (value.type() == QVariant::String) {
+                m_mockAppSettings->setString(key, value.toString());
+            }
+        }
+    }
 
     // --- Asset Manager related ---
     RME::core::assets::AssetManager* getAssetManager() override {
@@ -275,6 +299,7 @@ public:
         calls.append({"notifyTileChanged", pos});
         m_tileChangedNotified = true;
         m_notifiedPosition = pos;
+        notifiedTiles.insert(pos);
     }
 
     // Method to simulate pushing a command onto an undo stack
@@ -304,6 +329,8 @@ public:
         m_mockTileForEditing = nullptr;
         m_tileChangedNotified = false;
         m_notifiedPosition = RMEPosition(); // Reset to default
+        notifiedTiles.clear();
+        m_mockSettings.clear();
 
         pushCommandCalled = false;
         if (lastPushedCommand) {

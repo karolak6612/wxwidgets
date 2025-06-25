@@ -19,8 +19,7 @@ namespace RME {
 namespace ui {
 namespace widgets {
 
-// Placeholder service classes until REFACTOR-01 is implemented
-class EditorStateService : public QObject {
+// Placeholder service classes removed - using real services now
     Q_OBJECT
 public:
     explicit EditorStateService(QObject* parent = nullptr) : QObject(parent) {}
@@ -78,20 +77,32 @@ private:
     RME::core::BrushSettings m_currentBrushSettings;
 };
 
-MapViewWidget::MapViewWidget(QWidget* parent)
-    : QWidget(parent)
+MapViewWidget::MapViewWidget(
+    RME::core::IBrushStateService* brushStateService,
+    RME::core::IEditorStateService* editorStateService,
+    RME::core::IClientDataService* clientDataService,
+    RME::core::IApplicationSettingsService* settingsService,
+    QWidget* parent
+) : QWidget(parent)
     , m_mapView(nullptr)
     , m_editorController(nullptr)
-    , m_editorStateService(new EditorStateService(this))
-    , m_brushStateService(new BrushStateService(this))
-    , m_appSettings(nullptr)
+    , m_brushStateService(brushStateService)
+    , m_editorStateService(editorStateService)
+    , m_clientDataService(clientDataService)
+    , m_settingsService(settingsService)
     , m_isPanning(false)
     , m_isSelecting(false)
     , m_isDrawing(false)
     , m_contextMenu(nullptr)
 {
+    Q_ASSERT(m_brushStateService);
+    Q_ASSERT(m_editorStateService);
+    Q_ASSERT(m_clientDataService);
+    Q_ASSERT(m_settingsService);
+    
     setupUI();
     createContextMenu();
+    connectServices();
     setMouseTracking(true);
     setFocusPolicy(Qt::StrongFocus);
 }
@@ -144,6 +155,60 @@ void MapViewWidget::createContextMenu()
     
     auto* itemPropertiesAction = m_contextMenu->addAction("Item Properties...");
     connect(itemPropertiesAction, &QAction::triggered, this, &MapViewWidget::onItemProperties);
+}
+
+void MapViewWidget::connectServices()
+{
+    // Connect to brush state changes
+    connect(m_brushStateService, &RME::core::IBrushStateService::brushSizeChanged,
+            this, [this](int size) {
+                qDebug() << "MapViewWidget: Brush size changed to" << size;
+                // Update UI if needed
+            });
+    
+    connect(m_brushStateService, &RME::core::IBrushStateService::brushShapeChanged,
+            this, [this](BrushShape shape) {
+                qDebug() << "MapViewWidget: Brush shape changed to" << static_cast<int>(shape);
+                // Update UI if needed
+            });
+    
+    // Connect to editor state changes
+    connect(m_editorStateService, &RME::core::IEditorStateService::currentFloorChanged,
+            this, [this](int floor) {
+                qDebug() << "MapViewWidget: Floor changed to" << floor;
+                if (m_mapView) {
+                    m_mapView->setCurrentFloor(floor);
+                }
+                emit floorChanged(floor);
+            });
+    
+    connect(m_editorStateService, &RME::core::IEditorStateService::zoomLevelChanged,
+            this, [this](float zoom) {
+                qDebug() << "MapViewWidget: Zoom changed to" << zoom;
+                if (m_mapView) {
+                    m_mapView->setZoomLevel(zoom);
+                }
+                emit zoomChanged(zoom);
+            });
+    
+    // Connect to settings changes
+    connect(m_settingsService, &RME::core::IApplicationSettingsService::viewSettingsChanged,
+            this, [this]() {
+                qDebug() << "MapViewWidget: View settings changed";
+                // Update view based on new settings
+                updateViewSettings();
+            });
+}
+
+void MapViewWidget::updateViewSettings()
+{
+    if (!m_mapView || !m_settingsService) {
+        return;
+    }
+    
+    // Update view based on current settings
+    // This would update grid visibility, creature visibility, etc.
+    qDebug() << "MapViewWidget: Updating view settings";
 }
 
 void MapViewWidget::setEditorController(RME::editor_logic::EditorController* controller)

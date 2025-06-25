@@ -382,7 +382,7 @@ void ItemFinderDialogQt::cycleCheckboxState(QCheckBox* cb) {
 }
 
 
-RME::core::assets::ItemData* ItemFinderDialogQt::getSelectedItemType() const
+const RME::core::assets::ItemData* ItemFinderDialogQt::getSelectedItemType() const
 {
     return m_selectedItemType;
 }
@@ -462,7 +462,7 @@ void ItemFinderDialogQt::performSearch()
     QList<QPair<int, int>> searchIdRanges = parseIdRanges(idRangeText);
 
 
-    const auto& allItemTypes = m_itemDatabase->getItemTypes(); // Get all item types from the database
+    const auto& allItemTypes = m_itemDatabase->getAllItems(); // Get all item types from the database
 
     for (const auto& itemPair : allItemTypes) {
         auto itemType = itemPair.second;

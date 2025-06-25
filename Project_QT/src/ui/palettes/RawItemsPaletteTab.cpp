@@ -14,9 +14,17 @@ namespace palettes {
 const QString RawItemsPaletteTab::ALL_TILESETS_TEXT = "(All Tilesets)";
 const QString RawItemsPaletteTab::XML_FILE_PATH = "XML/760/raw_palette.xml";
 
-RawItemsPaletteTab::RawItemsPaletteTab(QWidget* parent)
-    : QWidget(parent)
+RawItemsPaletteTab::RawItemsPaletteTab(
+    RME::core::IBrushStateService* brushStateService,
+    RME::core::IClientDataService* clientDataService,
+    QWidget* parent
+) : QWidget(parent)
+    , m_brushStateService(brushStateService)
+    , m_clientDataService(clientDataService)
 {
+    Q_ASSERT(m_brushStateService);
+    Q_ASSERT(m_clientDataService);
+    
     setupUI();
     connectSignals();
     loadRawItemsFromXml(XML_FILE_PATH);
@@ -278,16 +286,21 @@ void RawItemsPaletteTab::applySearchFilter(const QString& searchText)
 
 void RawItemsPaletteTab::activateRawBrush(quint16 itemId)
 {
-    if (!m_brushStateManager) return;
-    
-    // Get or create RAW brush
-    auto* rawBrush = dynamic_cast<RME::core::brush::RawBrush*>(
-        m_brushStateManager->getBrush("RawBrush"));
-    
-    if (rawBrush) {
-        rawBrush->setCurrentItemId(itemId);
-        m_brushStateManager->setActiveBrush("RawBrush");
+    // Use brush state service to set the current raw item ID
+    if (m_brushStateService) {
+        m_brushStateService->setCurrentRawItemId(itemId);
         emit rawBrushActivated(itemId);
+    }
+    
+    // Legacy support for old brush state manager
+    if (m_brushStateManager) {
+        auto* rawBrush = dynamic_cast<RME::core::brush::RawBrush*>(
+            m_brushStateManager->getBrush("RawBrush"));
+        
+        if (rawBrush) {
+            rawBrush->setCurrentItemId(itemId);
+            m_brushStateManager->setActiveBrush("RawBrush");
+        }
     }
 }
 
