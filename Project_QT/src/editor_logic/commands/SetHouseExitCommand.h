@@ -1,24 +1,26 @@
 #ifndef RME_SETHOUSEEXITCOMMAND_H
 #define RME_SETHOUSEEXITCOMMAND_H
 
-#include <QUndoCommand>
+#include "BaseCommand.h"
 #include "core/Position.h" // RME::core::Position
 
 // Forward declarations
 namespace RME {
-    class Map; // RME::Map
     namespace core {
+        class Map; // RME::core::Map
         namespace houses {
-            class House; // RME::core::houses::House
+            class Houses; // RME::core::houses::Houses
+            class HouseData; // RME::core::houses::HouseData
         }
     }
 }
 
-class SetHouseExitCommand : public QUndoCommand {
+class SetHouseExitCommand : public BaseCommand {
 public:
-    SetHouseExitCommand(RME::core::houses::House* house,
+    SetHouseExitCommand(quint32 houseId,
                         const RME::core::Position& newExitPos,
-                        RME::Map* map, // Map pointer for notifications
+                        RME::core::houses::Houses* housesManager,
+                        RME::core::Map* map, // Map pointer for notifications
                         QUndoCommand* parent = nullptr);
 
     ~SetHouseExitCommand() override = default;
@@ -31,8 +33,9 @@ public:
     // bool mergeWith(const QUndoCommand *other) override;
 
 private:
-    RME::core::houses::House* m_house;
-    RME::Map* m_map;
+    quint32 m_houseId;
+    RME::core::houses::Houses* m_housesManager;
+    RME::core::Map* m_map;
     RME::core::Position m_newExitPos;
     RME::core::Position m_oldExitPos; // Stored from house->getExitPos() at construction
 };

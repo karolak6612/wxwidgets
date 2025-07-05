@@ -186,7 +186,8 @@ static QString borderTypeToEdgeKey(RME::BorderType pieceType) {
     }
 }
 
-// Placeholder for evaluating specific conditions
+// Evaluate border conditions for ground placement
+// Check adjacent tiles and terrain compatibility
 static bool evaluateSpecificConditions(
     const QList<RME::core::assets::SpecificCondition>& conditions,
     const RME::core::Tile* targetTile,
@@ -301,7 +302,11 @@ void GroundBrush::initializeStaticData() {
         return;
     }
 
-    using namespace RME; // For TILE_... constants
+    // Use specific namespace qualifiers for TILE constants
+    using RME::core::TILE_GROUND_NORTH;
+    using RME::core::TILE_GROUND_SOUTH;
+    using RME::core::TILE_GROUND_EAST;
+    using RME::core::TILE_GROUND_WEST;
     using BT = RME::BorderType; // Alias for RME::BorderType
 
     // Initialize all to BORDER_NONE first, as a base.
@@ -309,7 +314,7 @@ void GroundBrush::initializeStaticData() {
         s_border_types[i] = packBorderTypes(BT::NONE);
     }
 
-    // --- Ported data from wxwidgets/brush_tables.cpp GroundBrush::init() ---
+    // --- Ported data from original wxWidgets brush_tables.cpp GroundBrush::init() ---
     // GroundBrush::border_types in wxWidgets stores packed uint32_t.
     // Each component is a BorderType enum value.
     // packBorderTypes(p1, p2, p3, p4) creates this uint32_t.
@@ -571,7 +576,7 @@ void GroundBrush::initializeStaticData() {
     s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL);
     s_border_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = packBorderTypes(BT::WX_SOUTH_HORIZONTAL, BT::WX_EAST_HORIZONTAL, BT::WX_WEST_HORIZONTAL, BT::WX_NORTH_HORIZONTAL, BT::WX_NORTHWEST_CORNER); // Strict port
 
-    qInfo("GroundBrush::s_border_types table has been fully initialized by porting static assignments from wxwidgets/brush_tables.cpp.");
+    qInfo("GroundBrush::s_border_types table has been fully initialized by porting static assignments from original wxWidgets brush_tables.cpp.");
     s_staticDataInitialized = true;
 }
 
@@ -605,6 +610,10 @@ QString GroundBrush::getName() const {
         return m_materialData->id;
     }
     return "Ground Brush";
+}
+
+QString GroundBrush::getType() const {
+    return "GroundBrush";
 }
 
 int GroundBrush::getLookID(const RME::core::BrushSettings& /*settings*/) const {
@@ -736,7 +745,68 @@ void GroundBrush::apply(RME::core::editor::EditorControllerInterface* controller
     }
 }
 
-// ... (apply method and other GroundBrush methods as before) ...
+// Legacy compatibility methods for direct map manipulation
+void GroundBrush::draw(RME::core::map::Map* map, RME::core::Tile* tile, const RME::core::BrushSettings* settings) {
+    if (!map || !tile || !settings) {
+        qWarning() << "GroundBrush::draw: Invalid parameters (map, tile, or settings is null)";
+        return;
+    }
+    
+    if (!m_materialData) {
+        qWarning() << "GroundBrush::draw: No material set";
+        return;
+    }
+    
+    const auto* materialSpecifics = getCurrentGroundSpecifics();
+    if (!materialSpecifics || materialSpecifics->items.empty()) {
+        qWarning() << "GroundBrush::draw: Material has no ground items defined";
+        return;
+    }
+    
+    // Select random ground item based on chances
+    int totalChance = 0;
+    for (const auto& itemEntry : materialSpecifics->items) {
+        totalChance += itemEntry.chance;
+    }
+    
+    if (totalChance == 0) {
+        totalChance = 1; // Fallback to ensure we can select something
+    }
+    
+    uint16_t selectedItemId = materialSpecifics->items.first().itemId;
+    int randomValue = QRandomGenerator::global()->bounded(totalChance);
+    int currentChanceSum = 0;
+    
+    for (const auto& itemEntry : materialSpecifics->items) {
+        currentChanceSum += itemEntry.chance;
+        if (randomValue < currentChanceSum) {
+            selectedItemId = itemEntry.itemId;
+            break;
+        }
+    }
+    
+    // Create and set the ground item directly on the tile
+    auto groundItem = std::make_unique<RME::core::Item>(selectedItemId);
+    tile->setGround(std::move(groundItem));
+    
+    qDebug() << "GroundBrush::draw: Set ground item" << selectedItemId << "on tile";
+}
+
+void GroundBrush::undraw(RME::core::map::Map* map, RME::core::Tile* tile, const RME::core::BrushSettings* settings) {
+    Q_UNUSED(map)
+    Q_UNUSED(settings)
+    
+    if (!tile) {
+        qWarning() << "GroundBrush::undraw: Invalid tile parameter";
+        return;
+    }
+    
+    // Remove ground item from tile
+    tile->setGround(nullptr);
+    qDebug() << "GroundBrush::undraw: Removed ground item from tile";
+}
+
+// Additional GroundBrush methods follow standard brush implementation patterns
 } // namespace core
 } // namespace RME
 

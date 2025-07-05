@@ -21,9 +21,8 @@ class TestHouseBrush;
 
 namespace RME {
 namespace core {
-namespace brush {
 
-class HouseBrush : public RME::core::Brush {
+class HouseBrush : public Brush {
     friend class ::TestHouseBrush; // Friend class for testing
 
 public:
@@ -50,7 +49,6 @@ private:
     quint32 m_currentHouseId = 0; // ID of the house to apply/erase
 };
 
-} // namespace brush
 } // namespace core
 } // namespace RME
 

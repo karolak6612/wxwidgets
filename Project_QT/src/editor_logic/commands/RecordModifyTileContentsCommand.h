@@ -1,7 +1,7 @@
 #ifndef RME_RECORDMODIFYTILECONTENTSCOMMAND_H
 #define RME_RECORDMODIFYTILECONTENTSCOMMAND_H
 
-#include <QUndoCommand>
+#include "BaseCommand.h"
 #include <memory>      // For std::unique_ptr
 #include <vector>      // For std::vector
 #include <QString>     // For command text
@@ -19,11 +19,13 @@ namespace core {
 }
 }
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace core {
+namespace actions {
 
-const int RecordModifyTileContentsCommandId = 1009; // Choose a unique ID
+constexpr int RecordModifyTileContentsCommandId = toInt(CommandId::RecordModifyTileContents);
 
-class RecordModifyTileContentsCommand : public QUndoCommand {
+class RecordModifyTileContentsCommand : public BaseCommand {
 public:
     RecordModifyTileContentsCommand(
         RME::core::Tile* tile,
@@ -51,7 +53,6 @@ public:
 
 private:
     RME::core::Tile* m_tile;
-    RME::core::editor::EditorControllerInterface* m_controller;
     RME::core::Position m_tilePosition;
 
     // These store the state of things that were cleared by the brush's action
@@ -70,5 +71,7 @@ private:
     QString m_commandText;
 };
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME
 #endif // RME_RECORDMODIFYTILECONTENTSCOMMAND_H

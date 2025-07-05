@@ -1,10 +1,13 @@
 #include "core/houses/Houses.h"
-#include "core/houses/House.h"
-#include "core/map/Map.h" // For RME::core::Map, though mainly for House constructor
+#include "core/houses/HouseData.h"
+#include "core/map/Map.h" // For RME::core::Map and tile access
+#include "core/Tile.h"   // For tile manipulation
+#include "core/items/DoorItem.h" // For door detection and management
 
 #include <QDebug>    // For qWarning, Q_ASSERT
 #include <QtGlobal>  // For quint32
 #include <algorithm> // For std::max for getNextAvailableHouseID
+#include <QSet>      // For QSet<quint8> in door ID management
 
 namespace RME {
 namespace core {
@@ -15,7 +18,7 @@ Houses::Houses(RME::core::Map* map)
     Q_ASSERT(m_map); // Houses manager needs a valid map context
 }
 
-House* Houses::createNewHouse(quint32 desiredId) {
+HouseData* Houses::createNewHouse(quint32 desiredId) {
     quint32 newId = desiredId;
     if (newId == 0 || m_housesById.contains(newId)) {
         newId = getNextAvailableHouseID();
@@ -26,46 +29,30 @@ House* Houses::createNewHouse(quint32 desiredId) {
         return nullptr;
     }
 
-    // This check is slightly redundant if getNextAvailableHouseID guarantees a non-taken ID,
-    // but good as a safeguard if desiredId was non-zero and taken, and getNext... also failed.
     if (m_housesById.contains(newId)) {
         qWarning("Houses::createNewHouse: ID %u is already taken, even after trying to find next available.").arg(newId);
         return nullptr;
     }
 
-    auto newHouse = std::make_unique<House>(newId, m_map);
-    House* rawPtr = newHouse.get();
-    m_housesById.insert(newId, std::move(newHouse));
-    return rawPtr;
+    HouseData newHouse;
+    newHouse.id = newId;
+    newHouse.name = QString("House %1").arg(newId); // Default name
+    
+    m_housesById.insert(newId, newHouse);
+    return &m_housesById[newId];
 }
 
-bool Houses::addExistingHouse(std::unique_ptr<House> house) {
-    if (!house) {
-        qWarning("Houses::addExistingHouse: Attempted to add a null house.");
+bool Houses::addExistingHouse(const HouseData& houseData) {
+    if (houseData.id == 0) {
+        qWarning("Houses::addExistingHouse: House with ID 0 cannot be added.");
         return false;
     }
-    quint32 houseId = house->getId();
-    if (houseId == 0) {
-        qWarning("Houses::addExistingHouse: House with ID 0 cannot be added.");
-        // Optionally, assign a new ID here if that's desired behavior
-        // quint32 newId = getNextAvailableHouseID();
-        // if (newId == 0) return false; // Could not get a valid ID
-        // house->setId(newId); // Assumes House has setId and Houses is a friend
-        // houseId = newId;
-        return false; // For now, reject ID 0
-    }
-    if (m_housesById.contains(houseId)) {
-        qWarning("Houses::addExistingHouse: House with ID %u already exists.").arg(houseId);
-        return false; // ID collision, caller retains ownership of 'house'
+    if (m_housesById.contains(houseData.id)) {
+        qWarning("Houses::addExistingHouse: House with ID %u already exists.").arg(houseData.id);
+        return false;
     }
 
-    if (house->getMap() != m_map) {
-        qWarning("Houses::addExistingHouse: House (ID %u) has different map context. This is not directly handled by addExistingHouse.").arg(houseId);
-        // Consider if house->setMap(m_map) should be called here if House has such a setter.
-        // For now, the house's internal map pointer is set at its construction.
-    }
-
-    m_housesById.insert(houseId, std::move(house));
+    m_housesById.insert(houseData.id, houseData);
     return true;
 }
 
@@ -75,28 +62,63 @@ bool Houses::removeHouse(quint32 houseId) {
         return false; // House not found
     }
 
-    House* houseToRemove = it.value().get();
-    if (houseToRemove) {
-        houseToRemove->cleanAllTileLinks(); // Unlink from tiles on the map
+    // Clean all tile links for this house
+    if (m_map) {
+        const HouseData& house = it.value();
+        // Clear house ID from all tiles that belong to this house
+        // Note: This is a simplified approach - in a full implementation,
+        // we'd need to track which tiles belong to each house
+        for (int x = 0; x < m_map->getWidth(); ++x) {
+            for (int y = 0; y < m_map->getHeight(); ++y) {
+                for (int z = 0; z < m_map->getFloors(); ++z) {
+                    Position pos(x, y, z);
+                    Tile* tile = m_map->getTile(pos);
+                    if (tile && tile->getHouseId() == houseId) {
+                        tile->setHouseId(0);
+                        tile->setIsProtectionZone(false);
+                        if (tile->isHouseExit()) {
+                            tile->setIsHouseExit(false);
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    m_housesById.erase(it); // This deletes the House object via unique_ptr
+    m_housesById.erase(it);
     return true;
 }
 
-House* Houses::getHouse(quint32 houseId) const {
-    auto it = m_housesById.constFind(houseId);
-    if (it != m_housesById.constEnd()) {
-        return it.value().get();
+HouseData* Houses::getHouse(quint32 houseId) {
+    auto it = m_housesById.find(houseId);
+    if (it != m_housesById.end()) {
+        return &it.value();
     }
     return nullptr;
 }
 
-QList<House*> Houses::getAllHouses() const {
-    QList<House*> result;
+const HouseData* Houses::getHouse(quint32 houseId) const {
+    auto it = m_housesById.constFind(houseId);
+    if (it != m_housesById.constEnd()) {
+        return &it.value();
+    }
+    return nullptr;
+}
+
+QList<HouseData*> Houses::getAllHouses() {
+    QList<HouseData*> result;
+    result.reserve(m_housesById.size());
+    for (auto it = m_housesById.begin(); it != m_housesById.end(); ++it) {
+        result.append(&it.value());
+    }
+    return result;
+}
+
+QList<const HouseData*> Houses::getAllHouses() const {
+    QList<const HouseData*> result;
     result.reserve(m_housesById.size());
     for (auto it = m_housesById.constBegin(); it != m_housesById.constEnd(); ++it) {
-        result.append(it.value().get());
+        result.append(&it.value());
     }
     return result;
 }
@@ -153,39 +175,275 @@ bool Houses::changeHouseID(quint32 oldId, quint32 newId) {
         return false;
     }
 
-    std::unique_ptr<House> house_ptr = std::move(itOld.value());
+    HouseData houseData = itOld.value();
     m_housesById.erase(itOld);
 
-    house_ptr->setId(newId); // House::setId is private, friend class Houses can call it.
+    houseData.id = newId; // Update the house ID
 
-    m_housesById.insert(newId, std::move(house_ptr));
+    m_housesById.insert(newId, houseData);
 
-    // Caller (e.g., a command) is responsible for updating tiles on the map.
-    // This manager only handles the house list.
-    // Example of what the command would do:
-    // House* house = getHouse(newId);
-    // if (house && m_map) {
-    //     for (const Position& tilePos : house->getTilePositions()) {
-    //         Tile* tile = m_map->getTile(tilePos);
-    //         if (tile && tile->getHouseId() == oldId) {
-    //             tile->setHouseId(newId);
-    //             // m_map->notifyTileChanged(tilePos); // This should be handled by the command
-    //         }
-    //     }
-    // }
+    // Update tiles on the map to use the new house ID
+    if (m_map) {
+        for (int x = 0; x < m_map->getWidth(); ++x) {
+            for (int y = 0; y < m_map->getHeight(); ++y) {
+                for (int z = 0; z < m_map->getFloors(); ++z) {
+                    Position pos(x, y, z);
+                    Tile* tile = m_map->getTile(pos);
+                    if (tile && tile->getHouseId() == oldId) {
+                        tile->setHouseId(newId);
+                        m_map->notifyTileChanged(pos);
+                    }
+                }
+            }
+        }
+    }
     return true;
 }
 
 void Houses::clearAllHouses() {
     if (m_map) {
-        for (auto it = m_housesById.begin(); it != m_housesById.end(); ++it) {
-            House* house = it.value().get();
-            if (house) {
-                house->cleanAllTileLinks();
+        // Clear all house-related tile data
+        for (int x = 0; x < m_map->getWidth(); ++x) {
+            for (int y = 0; y < m_map->getHeight(); ++y) {
+                for (int z = 0; z < m_map->getFloors(); ++z) {
+                    Position pos(x, y, z);
+                    Tile* tile = m_map->getTile(pos);
+                    if (tile && tile->getHouseId() > 0) {
+                        tile->setHouseId(0);
+                        tile->setIsProtectionZone(false);
+                        if (tile->isHouseExit()) {
+                            tile->setIsHouseExit(false);
+                        }
+                    }
+                }
             }
         }
     }
     m_housesById.clear();
+}
+
+// Tile management methods (moved from House class)
+void Houses::linkTileToHouse(quint32 houseId, const Position& tilePos) {
+    if (!m_map) {
+        qWarning("Houses::linkTileToHouse: Map pointer is null.");
+        return;
+    }
+    
+    Tile* tile = m_map->getTile(tilePos);
+    if (!tile) {
+        qWarning("Houses::linkTileToHouse: Tile at position %s does not exist.").arg(tilePos.toString());
+        return;
+    }
+    
+    HouseData* house = getHouse(houseId);
+    if (!house) {
+        qWarning("Houses::linkTileToHouse: House with ID %u does not exist.").arg(houseId);
+        return;
+    }
+    
+    tile->setHouseId(houseId);
+    // Note: Protection zone setting should be handled by brush logic, not automatically here
+    m_map->notifyTileChanged(tilePos);
+}
+
+void Houses::unlinkTileFromHouse(quint32 houseId, const Position& tilePos) {
+    if (!m_map) {
+        qWarning("Houses::unlinkTileFromHouse: Map pointer is null.");
+        return;
+    }
+    
+    Tile* tile = m_map->getTile(tilePos);
+    if (!tile) {
+        return; // Tile doesn't exist, nothing to unlink
+    }
+    
+    if (tile->getHouseId() == houseId) {
+        tile->setHouseId(0);
+        tile->setIsProtectionZone(false);
+        if (tile->isHouseExit()) {
+            tile->setIsHouseExit(false);
+        }
+        m_map->notifyTileChanged(tilePos);
+    }
+}
+
+void Houses::setHouseExit(quint32 houseId, const Position& exitPos) {
+    if (!m_map) {
+        qWarning("Houses::setHouseExit: Map pointer is null.");
+        return;
+    }
+    
+    HouseData* house = getHouse(houseId);
+    if (!house) {
+        qWarning("Houses::setHouseExit: House with ID %u does not exist.").arg(houseId);
+        return;
+    }
+    
+    Position oldExit = house->entryPoint;
+    
+    // Clear old exit flag if it was valid
+    if (oldExit.isValid()) {
+        Tile* oldExitTile = m_map->getTile(oldExit);
+        if (oldExitTile && oldExitTile->isHouseExit()) {
+            oldExitTile->setIsHouseExit(false);
+            m_map->notifyTileChanged(oldExit);
+        }
+    }
+    
+    // Update house entry point
+    house->entryPoint = exitPos;
+    
+    // Set new exit flag if the new position is valid
+    if (exitPos.isValid()) {
+        Tile* newExitTile = m_map->getTile(exitPos);
+        if (newExitTile) {
+            newExitTile->setIsHouseExit(true);
+            m_map->notifyTileChanged(exitPos);
+        }
+    }
+}
+
+// Door management methods (from original wxWidgets)
+quint8 Houses::getEmptyDoorID(quint32 houseId) const {
+    if (!m_map) {
+        return 1; // Default if no map context
+    }
+    
+    const HouseData* house = getHouse(houseId);
+    if (!house) {
+        return 1; // Default if house doesn't exist
+    }
+    
+    // Collect all door IDs used by this house
+    QSet<quint8> usedIds;
+    
+    // Iterate through all tiles on the map to find doors belonging to this house
+    for (int x = 0; x < m_map->getWidth(); ++x) {
+        for (int y = 0; y < m_map->getHeight(); ++y) {
+            for (int z = 0; z < m_map->getFloors(); ++z) {
+                Position pos(x, y, z);
+                const Tile* tile = m_map->getTile(pos);
+                if (tile && tile->getHouseId() == houseId) {
+                    // Check all items on this tile for doors
+                    const auto& items = tile->getItems();
+                    for (const auto& item : items) {
+                        if (item) {
+                            // Check if this item is a door and get its door ID
+                            const DoorItem* door = dynamic_cast<const DoorItem*>(item.get());
+                            if (door && door->getDoorId() > 0) {
+                                usedIds.insert(door->getDoorId());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // Find the first unused door ID (1-255)
+    for (quint8 id = 1; id < 255; ++id) {
+        if (!usedIds.contains(id)) {
+            return id;
+        }
+    }
+    
+    return 255; // Fallback if all IDs are somehow used
+}
+
+Position Houses::getDoorPositionByID(quint32 houseId, quint8 doorId) const {
+    if (!m_map) {
+        return Position(); // Invalid position if no map context
+    }
+    
+    const HouseData* house = getHouse(houseId);
+    if (!house) {
+        return Position(); // Invalid position if house doesn't exist
+    }
+    
+    // Iterate through all tiles on the map to find the door with the specified ID
+    for (int x = 0; x < m_map->getWidth(); ++x) {
+        for (int y = 0; y < m_map->getHeight(); ++y) {
+            for (int z = 0; z < m_map->getFloors(); ++z) {
+                Position pos(x, y, z);
+                const Tile* tile = m_map->getTile(pos);
+                if (tile && tile->getHouseId() == houseId) {
+                    // Check all items on this tile for doors
+                    const auto& items = tile->getItems();
+                    for (const auto& item : items) {
+                        if (item) {
+                            // Check if this item is a door with the specified ID
+                            const DoorItem* door = dynamic_cast<const DoorItem*>(item.get());
+                            if (door && door->getDoorId() == doorId) {
+                                return pos; // Found the door at this position
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    return Position(); // Door not found
+}
+
+// Additional utility methods
+int Houses::calculateHouseSizeInSqms(quint32 houseId) const {
+    if (!m_map) {
+        return 0;
+    }
+    
+    const HouseData* house = getHouse(houseId);
+    if (!house) {
+        return 0;
+    }
+    
+    int walkableCount = 0;
+    
+    // Count walkable tiles belonging to this house
+    for (int x = 0; x < m_map->getWidth(); ++x) {
+        for (int y = 0; y < m_map->getHeight(); ++y) {
+            for (int z = 0; z < m_map->getFloors(); ++z) {
+                Position pos(x, y, z);
+                const Tile* tile = m_map->getTile(pos);
+                if (tile && tile->getHouseId() == houseId) {
+                    // Check if tile is walkable (not blocking)
+                    if (!tile->isBlocking()) {
+                        walkableCount++;
+                    }
+                }
+            }
+        }
+    }
+    
+    return walkableCount;
+}
+
+QList<Position> Houses::getHouseTilePositions(quint32 houseId) const {
+    QList<Position> positions;
+    
+    if (!m_map) {
+        return positions;
+    }
+    
+    const HouseData* house = getHouse(houseId);
+    if (!house) {
+        return positions;
+    }
+    
+    // Collect all tile positions belonging to this house
+    for (int x = 0; x < m_map->getWidth(); ++x) {
+        for (int y = 0; y < m_map->getHeight(); ++y) {
+            for (int z = 0; z < m_map->getFloors(); ++z) {
+                Position pos(x, y, z);
+                const Tile* tile = m_map->getTile(pos);
+                if (tile && tile->getHouseId() == houseId) {
+                    positions.append(pos);
+                }
+            }
+        }
+    }
+    
+    return positions;
 }
 
 } // namespace houses

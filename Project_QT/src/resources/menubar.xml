@@ -216,6 +216,10 @@
 		<item name="Refresh Items" action="REFRESH_ITEMS" help="Refresh items to fix flags" />
 		<!-- clickable buttons that toggle some settings such as select right click RAw toggle button and toggle button to disable map display right click context menu then.-->
 	<item name="Create Border" hotkey="" action="MAP_CREATE_BORDER" help="Create custom borders"/>
+	<separator />
+	<item name="Brush &amp; Material Editor..." hotkey="Ctrl+Shift+B" action="BRUSH_MATERIAL_EDITOR" help="Open the brush and material editor"/>
+	<item name="New Tileset..." action="NEW_TILESET" help="Create a new tileset category"/>
+	<item name="Add Item to Tileset..." action="ADD_ITEM_TO_TILESET" help="Add items to an existing tileset"/>
 
 	</menu>
 </menubar>

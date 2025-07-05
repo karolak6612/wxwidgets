@@ -9,7 +9,9 @@
 #include <QObject> // For tr()
 #include <QDebug>  // For qWarning, Q_ASSERT
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace core {
+namespace actions {
 
 // Constructor for Adding an item
 RecordAddRemoveItemCommand::RecordAddRemoveItemCommand(
@@ -17,14 +19,12 @@ RecordAddRemoveItemCommand::RecordAddRemoveItemCommand(
     std::unique_ptr<RME::core::Item> itemToAdd,
     RME::core::editor::EditorControllerInterface* controller,
     QUndoCommand* parent
-) : QUndoCommand(parent),
+) : BaseCommand(controller, QObject::tr("Add Item"), parent),
     m_tile(tile),
-    m_controller(controller),
     m_operation(ItemChangeOperation::Add),
     m_rawItemPtrForRemoveRedo(nullptr) // Not used for Add
 {
     Q_ASSERT(m_tile);
-    Q_ASSERT(m_controller);
     Q_ASSERT(itemToAdd);
 
     m_tilePosition = m_tile->getPosition();
@@ -41,14 +41,12 @@ RecordAddRemoveItemCommand::RecordAddRemoveItemCommand(
     RME::core::Item* itemToRemove, // Raw pointer to item on tile
     RME::core::editor::EditorControllerInterface* controller,
     QUndoCommand* parent
-) : QUndoCommand(parent),
+) : BaseCommand(controller, QObject::tr("Remove Item"), parent),
     m_tile(tile),
-    m_controller(controller),
     m_operation(ItemChangeOperation::Remove),
     m_rawItemPtrForRemoveRedo(itemToRemove) // Store the original pointer for redo removal
 {
     Q_ASSERT(m_tile);
-    Q_ASSERT(m_controller);
     Q_ASSERT(itemToRemove);
 
     m_tilePosition = m_tile->getPosition();
@@ -60,7 +58,7 @@ RecordAddRemoveItemCommand::RecordAddRemoveItemCommand(
 }
 
 void RecordAddRemoveItemCommand::initializeCommandText() {
-    const auto& itemDb = m_controller->getAssetManager()->getItemDatabase();
+    const auto& itemDb = getController()->getAssetManager()->getItemDatabase();
     QString itemName = "Unknown Item";
     uint16_t itemIdToDisplay = 0;
 
@@ -90,8 +88,8 @@ void RecordAddRemoveItemCommand::initializeCommandText() {
 }
 
 void RecordAddRemoveItemCommand::undo() {
-    if (!m_tile || !m_controller || !m_controller->getMap()) {
-        qWarning("RecordAddRemoveItemCommand::undo: Tile, controller, or map is null.");
+    if (!validateMembers() || !m_tile) {
+        setErrorText("undo item operation");
         return;
     }
 
@@ -119,13 +117,13 @@ void RecordAddRemoveItemCommand::undo() {
         m_tile->addItem(m_itemForAddRedo_RemoveUndo->deepCopy()); // Add a copy back
     }
 
-    m_controller->getMap()->notifyTileChanged(m_tilePosition);
-    setText(QObject::tr("Undo: ") + m_commandTextBase + QObject::tr(" at (%1,%2,%3)").arg(m_tilePosition.x).arg(m_tilePosition.y).arg(m_tilePosition.z));
+    notifyMapChanged(m_tilePosition);
+    logUndo(m_commandTextBase, m_tilePosition);
 }
 
 void RecordAddRemoveItemCommand::redo() {
-    if (!m_tile || !m_controller || !m_controller->getMap()) {
-        qWarning("RecordAddRemoveItemCommand::redo: Tile, controller, or map is null.");
+    if (!validateMembers() || !m_tile) {
+        setErrorText("redo item operation");
         return;
     }
 
@@ -145,8 +143,10 @@ void RecordAddRemoveItemCommand::redo() {
         }
     }
 
-    m_controller->getMap()->notifyTileChanged(m_tilePosition);
-    setText(m_commandTextBase + QObject::tr(" at (%1,%2,%3)").arg(m_tilePosition.x).arg(m_tilePosition.y).arg(m_tilePosition.z));
+    notifyMapChanged(m_tilePosition);
+    logRedo(m_commandTextBase, m_tilePosition);
 }
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME

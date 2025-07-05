@@ -9,7 +9,7 @@
 namespace RME {
 namespace Config {
 
-// Mirrored from wxwidgets/settings.h and settings.cpp for RME
+// Mirrored from original wxWidgets settings.h and settings.cpp for RME
 enum Key {
     NONE, // Should not be used for actual settings
     VERSION_ID,

@@ -3,7 +3,7 @@
 
 #include <QUndoCommand>
 #include <QList>
-#include "Project_QT/src/core/clipboard/ClipboardData.h" // For ClipboardTileData, if we store what was deleted
+#include "core/clipboard/ClipboardData.h" // For ClipboardTileData, if we store what was deleted
                                                          // Alternatively, operate directly on Tile pointers.
                                                          // Let's store data for restoration.
 

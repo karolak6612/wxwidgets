@@ -284,4 +284,30 @@ bool SpriteManager::readSpritePixelData(quint32 spriteID, SpriteData& spriteData
     return true;
 }
 
+// Convenience method for loading sprites with default client profile
+bool SpriteManager::loadSprites(const QString& datPath, const QString& sprPath) {
+    if (datPath.isEmpty() || sprPath.isEmpty()) {
+        qWarning() << "SpriteManager::loadSprites: Empty file paths provided";
+        return false;
+    }
+    
+    // Create a default client profile for version 7.60 (commonly used)
+    ClientProfile defaultProfile;
+    defaultProfile.datFormat = DatFormat::V_760;
+    defaultProfile.extendedSprites = false;
+    defaultProfile.transparentSprites = true;
+    
+    qInfo() << "SpriteManager::loadSprites: Loading sprites from" << datPath << "and" << sprPath;
+    
+    bool success = loadDatSpr(datPath, sprPath, defaultProfile);
+    
+    if (success) {
+        qInfo() << "SpriteManager::loadSprites: Successfully loaded" << getSpriteCount() << "sprites";
+    } else {
+        qWarning() << "SpriteManager::loadSprites: Failed to load sprites";
+    }
+    
+    return success;
+}
+
 } // namespace RME

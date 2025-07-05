@@ -311,7 +311,8 @@ bool MapProtocolCodec::serializeMapSector(const RME::core::map::QTreeNode* qtree
 
                 if (validTilesOnFloor > 0) {
                     io::MemoryNodeFileWriteHandle tilesBlobWriter;
-                    if(!tilesBlobWriter.addNode(0, false)) return false; // Dummy root, no compression for tile list attributes
+                    // Add root node for tile list attributes (no compression)
+                    if(!tilesBlobWriter.addNode(0, false)) return false;
                     for (uint8_t y_offset = 0; y_offset < 4; ++y_offset) {
                         for (uint8_t x_offset = 0; x_offset < 4; ++x_offset) {
                             if (tileBits & (1 << ((y_offset * 4) + x_offset))) {

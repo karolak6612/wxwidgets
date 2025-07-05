@@ -1,7 +1,7 @@
 #ifndef RME_RECORDADDREMOVEITEMCOMMAND_H
 #define RME_RECORDADDREMOVEITEMCOMMAND_H
 
-#include <QUndoCommand>
+#include "BaseCommand.h"
 #include <memory>   // For std::unique_ptr
 #include <QString>    // For command text
 #include <optional> // For std::optional if storing index
@@ -19,14 +19,15 @@ namespace core {
 }
 }
 
-namespace RME_COMMANDS { // Consistent namespace
+namespace RME {
+namespace core {
+namespace actions {
 
-// Choose a unique ID, assuming RecordSetGroundCommandId was 1007
-const int RecordAddRemoveItemCommandId = 1008;
+constexpr int RecordAddRemoveItemCommandId = toInt(CommandId::RecordAddRemoveItem);
 
 enum class ItemChangeOperation { Add, Remove };
 
-class RecordAddRemoveItemCommand : public QUndoCommand {
+class RecordAddRemoveItemCommand : public BaseCommand {
 public:
     // Constructor for Adding an item
     RecordAddRemoveItemCommand(
@@ -52,14 +53,14 @@ public:
     int id() const override { return RecordAddRemoveItemCommandId; }
 
     // Getters for test verification
-    RME_COMMANDS::ItemChangeOperation getOperation() const { return m_operation; }
+    ItemChangeOperation getOperation() const { return m_operation; }
     uint16_t getItemIdForOperation() const {
         // For Add, m_itemForAddRedo_RemoveUndo holds the item added (its copy).
         // For Remove, m_itemForAddRedo_RemoveUndo holds a copy of the removed item.
         // m_itemIdForRemove is also specifically stored for remove operations.
-        if (m_operation == RME_COMMANDS::ItemChangeOperation::Add && m_itemForAddRedo_RemoveUndo) {
+        if (m_operation == ItemChangeOperation::Add && m_itemForAddRedo_RemoveUndo) {
             return m_itemForAddRedo_RemoveUndo->getID();
-        } else if (m_operation == RME_COMMANDS::ItemChangeOperation::Remove) {
+        } else if (m_operation == ItemChangeOperation::Remove) {
             return m_itemIdForRemove; // This was the ID of the item targeted for removal.
         }
         return 0; // Should not happen if command is well-formed
@@ -68,7 +69,6 @@ public:
 
 private:
     RME::core::Tile* m_tile;
-    RME::core::editor::EditorControllerInterface* m_controller;
     RME::core::Position m_tilePosition;
     ItemChangeOperation m_operation;
 
@@ -97,5 +97,7 @@ private:
     void initializeCommandText();
 };
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME
 #endif // RME_RECORDADDREMOVEITEMCOMMAND_H

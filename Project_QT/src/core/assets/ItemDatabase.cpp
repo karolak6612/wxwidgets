@@ -6,11 +6,31 @@
 
 namespace RME {
 
-const quint8 OTB_NODE_MARKER = 0xFF;
-const quint8 OTB_ROOT_NODE_TYPE = 0x00;
-const quint8 OTB_ITEM_GROUP_NODE_TYPE_DEPRECATED = 0x01; // Used for start of item group in older OTB? RME seems to use ItemGroup enum directly.
-const quint8 OTB_NODE_END_MARKER = 0xFE; // RME specific end marker
-const quint8 OTB_ROOT_ATTR_VERSION = 0x01;
+// OTB File Format Constants
+const quint8 OTB_NODE_MARKER = 0xFF;                    // Marks the start of a node
+const quint8 OTB_ROOT_NODE_TYPE = 0x00;                 // Root node type identifier
+// Legacy OTB format constants - maintained for backward compatibility
+const quint8 OTB_ITEM_GROUP_NODE_TYPE_DEPRECATED = 0x01; // Deprecated item group node type (legacy format)
+const quint8 OTB_NODE_END_MARKER = 0xFE;                // RME specific end marker
+const quint8 OTB_ROOT_ATTR_VERSION = 0x01;              // Root attribute: version information
+
+// OTB Item Attribute Constants
+const quint8 OTB_ATTR_SERVERID = 0x10;                  // Server ID attribute
+const quint8 OTB_ATTR_CLIENTID = 0x11;                  // Client ID attribute  
+const quint8 OTB_ATTR_NAME = 0x12;                      // Item name attribute
+const quint8 OTB_ATTR_DESCR = 0x13;                     // Item description attribute
+const quint8 OTB_ATTR_SPEED = 0x14;                     // Speed attribute
+const quint8 OTB_ATTR_SLOT = 0x15;                      // Slot attribute
+const quint8 OTB_ATTR_MAXITEMS = 0x16;                  // Max items attribute
+const quint8 OTB_ATTR_WEIGHT = 0x17;                    // Weight attribute
+const quint8 OTB_ATTR_WEAPON = 0x18;                    // Weapon attribute
+const quint8 OTB_ATTR_AMU = 0x19;                       // Amulet attribute
+const quint8 OTB_ATTR_ARMOR = 0x1A;                     // Armor attribute
+
+// Size limits for safety
+// OTB file format limits - based on official OTB specification
+const quint32 MAX_OTB_ATTR_SIZE = 16384;                // Maximum attribute data size (16KB)
+const quint32 MAX_OTB_ROOT_PROPS_SIZE = 1024 * 1024;    // Maximum root properties size (1MB)
 
 
 // Forward declaration for helper
@@ -51,9 +71,19 @@ const QMap<quint16, ItemData>& ItemDatabase::getAllItems() const {
 }
 
 bool ItemDatabase::loadFromOTB(const QString& filePath) {
+    if (filePath.isEmpty()) {
+        qWarning() << "ItemDatabase::loadFromOTB: Empty file path provided";
+        return false;
+    }
+    
     QFile file(filePath);
+    if (!file.exists()) {
+        qWarning() << "ItemDatabase::loadFromOTB: File does not exist:" << filePath;
+        return false;
+    }
+    
     if (!file.open(QIODevice::ReadOnly)) {
-        qWarning() << "ItemDatabase: Could not open OTB file:" << filePath << file.errorString();
+        qWarning() << "ItemDatabase::loadFromOTB: Could not open OTB file:" << filePath << "Error:" << file.errorString();
         return false;
     }
     QDataStream stream(&file);
@@ -70,7 +100,15 @@ bool ItemDatabase::loadFromOTB(const QString& filePath) {
 
     quint32 rootPropsLen;
     stream >> rootPropsLen;
-    if (stream.status() != QDataStream::Ok) { qWarning("Failed to read root props len"); return false; }
+    if (stream.status() != QDataStream::Ok) { 
+        qWarning() << "ItemDatabase::loadFromOTB: Failed to read root properties length"; 
+        return false; 
+    }
+    
+    if (rootPropsLen > MAX_OTB_ROOT_PROPS_SIZE) {
+        qWarning() << "ItemDatabase::loadFromOTB: Root properties size too large:" << rootPropsLen << "bytes (max:" << MAX_OTB_ROOT_PROPS_SIZE << ")";
+        return false;
+    }
 
     quint64 rootPropsEndPos = stream.device()->pos() + rootPropsLen;
     while(stream.device()->pos() < rootPropsEndPos) {
@@ -200,7 +238,10 @@ bool ItemDatabase::parseOtbAttributes(QDataStream& stream, ItemData& itemData) {
         stream >> dataLen;
         if (stream.status() != QDataStream::Ok) { qWarning("Failed to read OTB attr dataLen"); return false; }
 
-        if (dataLen > 16384) { qWarning() << "OTB attr data too large:" << dataLen; return false; }
+        if (dataLen > MAX_OTB_ATTR_SIZE) { 
+            qWarning() << "ItemDatabase::parseOtbAttributes: OTB attribute data too large:" << dataLen << "bytes (max:" << MAX_OTB_ATTR_SIZE << ")"; 
+            return false; 
+        }
         dataBuffer.resize(dataLen);
         if (stream.readRawData(dataBuffer.data(), dataLen) != dataLen) { qWarning("Failed to read OTB attr data"); return false; }
 
@@ -244,9 +285,19 @@ bool ItemDatabase::parseOtbAttributes(QDataStream& stream, ItemData& itemData) {
 }
 
 bool ItemDatabase::loadFromXML(const QString& filePath) {
+    if (filePath.isEmpty()) {
+        qWarning() << "ItemDatabase::loadFromXML: Empty file path provided";
+        return false;
+    }
+    
     QFile file(filePath);
+    if (!file.exists()) {
+        qWarning() << "ItemDatabase::loadFromXML: File does not exist:" << filePath;
+        return false;
+    }
+    
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qWarning() << "ItemDatabase: Could not open items.xml file:" << filePath;
+        qWarning() << "ItemDatabase::loadFromXML: Could not open items.xml file:" << filePath << "Error:" << file.errorString();
         return false;
     }
     QXmlStreamReader xml(&file);
@@ -383,5 +434,49 @@ void analyzeItemType(ItemData& itemData) {
     else itemData.type = ItemType::TYPE_NORMAL; // Default
 }
 
+
+// Convenience methods for combined loading
+bool ItemDatabase::loadFromFiles(const QString& otbPath, const QString& xmlPath) {
+    if (otbPath.isEmpty() && xmlPath.isEmpty()) {
+        qWarning() << "ItemDatabase::loadFromFiles: Both paths are empty";
+        return false;
+    }
+    
+    bool success = true;
+    
+    // Load OTB file if provided
+    if (!otbPath.isEmpty()) {
+        if (!loadFromOTB(otbPath)) {
+            qWarning() << "ItemDatabase::loadFromFiles: Failed to load OTB file:" << otbPath;
+            success = false;
+        } else {
+            qInfo() << "ItemDatabase::loadFromFiles: Successfully loaded OTB file:" << otbPath;
+        }
+    }
+    
+    // Load XML file if provided
+    if (!xmlPath.isEmpty()) {
+        if (!loadFromXML(xmlPath)) {
+            qWarning() << "ItemDatabase::loadFromFiles: Failed to load XML file:" << xmlPath;
+            success = false;
+        } else {
+            qInfo() << "ItemDatabase::loadFromFiles: Successfully loaded XML file:" << xmlPath;
+        }
+    }
+    
+    if (success) {
+        qInfo() << "ItemDatabase::loadFromFiles: Successfully loaded" << getItemCount() << "items";
+    }
+    
+    return success;
+}
+
+bool ItemDatabase::loadItemsOtb(const QString& filePath) {
+    return loadFromOTB(filePath);
+}
+
+bool ItemDatabase::loadItemsXml(const QString& filePath) {
+    return loadFromXML(filePath);
+}
 
 } // namespace RME

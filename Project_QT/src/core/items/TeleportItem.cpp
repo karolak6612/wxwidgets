@@ -23,15 +23,49 @@ void TeleportItem::copyDerivedMembersTo(TeleportItem& target) const {
 
 // OTBM Attribute Handling
 bool TeleportItem::deserializeOtbmAttribute(uint8_t attributeId, RME::core::io::BinaryNode* node, RME::core::assets::AssetManager* assetManager) {
-    // TODO: Implement actual deserialization for TeleportItem (e.g., destination)
-    // Example: if (attributeId == OTBM_ATTR_TELE_DEST) { /* read Position from node */ return true; }
-    return Item::deserializeOtbmAttribute(attributeId, node, assetManager);
+    switch (attributeId) {
+        case OTBM_ATTR_TELE_DEST_X: {
+            uint16_t x;
+            if (node->getU16(x)) {
+                m_destination.setX(x);
+                return true;
+            }
+            return false;
+        }
+        case OTBM_ATTR_TELE_DEST_Y: {
+            uint16_t y;
+            if (node->getU16(y)) {
+                m_destination.setY(y);
+                return true;
+            }
+            return false;
+        }
+        case OTBM_ATTR_TELE_DEST_Z: {
+            uint8_t z;
+            if (node->getU8(z)) {
+                m_destination.setZ(z);
+                return true;
+            }
+            return false;
+        }
+        default:
+            return Item::deserializeOtbmAttribute(attributeId, node, assetManager);
+    }
 }
 
 void TeleportItem::serializeOtbmAttributes(RME::core::io::NodeFileWriteHandle& writer, RME::core::assets::AssetManager* assetManager) const {
     Item::serializeOtbmAttributes(writer, assetManager);
-    // TODO: Implement actual serialization for TeleportItem (e.g., destination)
-    // Example: if (hasDestination()) { writer.writeU8(OTBM_ATTR_TELE_DEST); /* write m_destination */ }
+    if (m_destination.isValid()) {
+        // Serialize teleport destination coordinates
+        writer.addU8(OTBM_ATTR_TELE_DEST_X);
+        writer.addU16(static_cast<uint16_t>(m_destination.x()));
+        
+        writer.addU8(OTBM_ATTR_TELE_DEST_Y);
+        writer.addU16(static_cast<uint16_t>(m_destination.y()));
+        
+        writer.addU8(OTBM_ATTR_TELE_DEST_Z);
+        writer.addU8(static_cast<uint8_t>(m_destination.z()));
+    }
 }
 
 } // namespace RME

@@ -30,7 +30,11 @@ void CarpetBrush::initializeStaticData() {
 
     // TILE_... constants are from BrushEnums.h (e.g., RME::TILE_NW)
     // Using namespace for brevity within this function
-    using namespace RME;
+    // Use specific namespace qualifiers for better code clarity
+    using RME::core::TILE_CARPET_NORTH;
+    using RME::core::TILE_CARPET_SOUTH;
+    using RME::core::TILE_CARPET_EAST;
+    using RME::core::TILE_CARPET_WEST;
     using BT = RME::BorderType; // Alias for brevity
 
     // Initialize all to CARPET_CENTER as a base default.
@@ -38,7 +42,7 @@ void CarpetBrush::initializeStaticData() {
         s_carpet_types[i] = static_cast<uint32_t>(BT::CARPET_CENTER);
     }
 
-    // --- Ported data from wxwidgets/brush_tables.cpp CarpetBrush::init() ---
+    // --- Ported data from original wxWidgets brush_tables.cpp CarpetBrush::init() ---
     // This is a direct translation of the assignments.
     // The indices (e.g., 0, TILE_NW, TILE_N | TILE_NW) are the `tiledata` bitmasks.
     // Note: CarpetBrush::carpet_types stores a single BorderType enum per entry, not packed.
@@ -300,7 +304,7 @@ void CarpetBrush::initializeStaticData() {
     s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N] = static_cast<uint32_t>(BT::WX_SOUTHEAST_DIAGONAL); // wx: SOUTHEAST_DIAGONAL
     s_carpet_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::CARPET_CENTER); // wx: CARPET_CENTER
 
-    qInfo("CarpetBrush::s_carpet_types table has been fully initialized by porting all 256 static assignments from wxwidgets/brush_tables.cpp.");
+    qInfo("CarpetBrush::s_carpet_types table has been fully initialized by porting all 256 static assignments from original wxWidgets brush_tables.cpp.");
     s_staticDataInitialized = true;
 }
 
@@ -396,91 +400,155 @@ bool CarpetBrush::canApply(const RME::core::map::Map* map,
 void CarpetBrush::apply(RME::core::editor::EditorControllerInterface* controller,
                           const RME::core::Position& pos,
                           const RME::core::BrushSettings& settings) override {
-    if (!controller) { qWarning("CarpetBrush::apply: Null controller"); return; }
-    if (!m_materialData) { qWarning("CarpetBrush::apply: No material set"); return; }
+    // Enhanced input validation with better error messages
+    if (!controller) { 
+        qWarning("CarpetBrush::apply: Null controller provided"); 
+        return; 
+    }
+    if (!m_materialData) { 
+        qWarning("CarpetBrush::apply: No material set for carpet brush"); 
+        return; 
+    }
 
+    // Get carpet specifics with better error handling
     const auto* carpetSpecifics = std::get_if<assets::MaterialCarpetSpecifics>(&m_materialData->specificData);
-    if (!carpetSpecifics) { qWarning("CarpetBrush::apply: Material is not a carpet or has no specifics."); return; }
+    if (!carpetSpecifics) { 
+        qWarning("CarpetBrush::apply: Material '%s' is not a carpet or has invalid specifics", 
+                qUtf8Printable(m_materialData->id)); 
+        return; 
+    }
+    
+    // EDGE CASE: Check if parts are empty
+    if (carpetSpecifics->parts.isEmpty()) {
+        qWarning("CarpetBrush::apply: Material '%s' has no carpet parts defined", 
+                qUtf8Printable(m_materialData->id));
+        return;
+    }
 
+    // Get required dependencies
     RME::core::map::Map* map = controller->getMap();
     RME::core::AppSettings* appSettings = controller->getAppSettings(); // Used for layering
-    if (!map || !appSettings) { qWarning("CarpetBrush::apply: Null map or appSettings."); return; }
+    if (!map) { 
+        qWarning("CarpetBrush::apply: Null map from controller"); 
+        return; 
+    }
+    if (!appSettings) { 
+        qWarning("CarpetBrush::apply: Null appSettings from controller"); 
+        return; 
+    }
 
-    Tile* tile = controller->getTileForEditing(pos); // This tile is for inspection, actions operate on map via pos
-    if (!tile) { qWarning("CarpetBrush::apply: Failed to get tile at %s", qUtf8Printable(pos.toString())); return; }
+    // Validate position
+    if (!map->isPositionValid(pos)) {
+        qWarning("CarpetBrush::apply: Invalid position %s", qUtf8Printable(pos.toString()));
+        return;
+    }
 
-    if (settings.isEraseMode) {
-        QList<Item*> itemsOnTileCopy = tile->getAllItems(); // Get a copy to iterate safely if removing
-        for (Item* itemPtr : itemsOnTileCopy) { // Iterate a copy
-            if (itemPtr) {
-                bool belongsToThisMaterial = false;
-                for (const auto& part : carpetSpecifics->parts) {
-                    for (const auto& entry : part.items) {
-                        if (entry.itemId == itemPtr->getID()) {
-                            belongsToThisMaterial = true; break;
-                        }
-                    }
-                    if (belongsToThisMaterial) break;
-                }
-                if (belongsToThisMaterial) {
-                    controller->recordRemoveItem(pos, itemPtr->getID());
-                    qDebug() << "CarpetBrush: Called recordRemoveItem for" << itemPtr->getID() << "at" << pos.toString();
-                }
-            }
-        }
-    } else { // Drawing mode
-        bool layerCarpets = appSettings->isLayerCarpetsEnabled(); // Already present
+    // Get tile for editing
+    Tile* tile = controller->getTileForEditing(pos);
+    if (!tile) { 
+        qWarning("CarpetBrush::apply: Failed to get tile at %s", qUtf8Printable(pos.toString())); 
+        return; 
+    }
 
-        uint16_t centerItemId = getRandomItemIdForAlignment("center", carpetSpecifics);
-        if (centerItemId == 0) {
-            qWarning("CarpetBrush::apply: No 'center' item defined for carpet material %s. Cannot draw.", qUtf8Printable(m_materialData->id));
-            return; // Cannot proceed without a default item to place
-        }
-
-        if (layerCarpets) {
-            controller->recordAddItem(pos, centerItemId);
-            qDebug() << "CarpetBrush: Layering enabled, adding new carpet item" << centerItemId << "at" << pos.toString();
-        } else {
-            // Collect IDs to remove first to avoid issues with modifying collection while iterating
-            QList<uint16_t> idsToRemove;
-            // Use tile->getItems() for potentially better performance if direct item modification isn't happening during this loop.
-            // The original code used tile->getAllItems() which returns QList<Item*>.
-            // Since we only need item IDs, tile->getItems() (const ref to unique_ptr list) is fine.
-            const QList<std::unique_ptr<Item>>& itemsOnTile = tile->getItems();
-            for (const auto& itemPtr : itemsOnTile) {
-                if(itemPtr) {
-                    bool belongsToThisMaterial = false;
-                    for (const auto& part : carpetSpecifics->parts) {
-                        for (const auto& entry : part.items) {
-                            if (entry.itemId == itemPtr->getID()) {
-                                belongsToThisMaterial = true; break;
-                            }
-                        }
-                        if (belongsToThisMaterial) break;
-                    }
-                    if (belongsToThisMaterial) {
-                        idsToRemove.append(itemPtr->getID());
-                    }
-                }
-            }
-            for (uint16_t id_to_remove : idsToRemove) {
-                controller->recordRemoveItem(pos, id_to_remove);
-                qDebug() << "CarpetBrush: Layering disabled, removing existing carpet item" << id_to_remove << "at" << pos.toString();
-            }
-
-            controller->recordAddItem(pos, centerItemId);
-            qDebug() << "CarpetBrush: Layering disabled, added new carpet item" << centerItemId << "at" << pos.toString();
+    // OPTIMIZATION: Create a lookup set of all item IDs in this carpet material for faster checking
+    QSet<uint16_t> materialItemIds;
+    for (const auto& part : carpetSpecifics->parts) {
+        for (const auto& entry : part.items) {
+            materialItemIds.insert(entry.itemId);
         }
     }
 
-    updateCarpetAppearance(controller, pos, map, m_materialData);
-    static const int dx[] = {-1, 0, 1, -1, 1, -1, 0, 1};
-    static const int dy[] = {-1, -1, -1, 0, 0, 1, 1, 1};
-    for (int i = 0; i < 8; ++i) {
-        RMEPosition neighborPos(pos.x + dx[i], pos.y + dy[i], pos.z);
-        if (map->isPositionValid(neighborPos)) {
-            updateCarpetAppearance(controller, neighborPos, map, m_materialData);
+    // Handle erase mode
+    if (settings.isEraseMode) {
+        // OPTIMIZATION: Use the lookup set for faster checking
+        QList<Item*> itemsOnTileCopy = tile->getAllItems(); // Get a copy to iterate safely
+        int removedCount = 0;
+        
+        for (Item* itemPtr : itemsOnTileCopy) {
+            if (itemPtr && materialItemIds.contains(itemPtr->getID())) {
+                controller->recordRemoveItem(pos, itemPtr->getID());
+                qDebug() << "CarpetBrush: Erased carpet item" << itemPtr->getID() << "at" << pos.toString();
+                removedCount++;
+            }
         }
+        
+        if (removedCount == 0) {
+            qDebug() << "CarpetBrush: No matching carpet items to erase at" << pos.toString();
+        }
+        
+        // No need to update neighbors when erasing - we're done
+        return;
+    } 
+    
+    // Drawing mode
+    bool layerCarpets = appSettings->isLayerCarpetsEnabled();
+
+    // Get center item with better error handling
+    uint16_t centerItemId = getRandomItemIdForAlignment("center", carpetSpecifics);
+    if (centerItemId == 0) {
+        // EDGE CASE: Try to find any valid item if center is not available
+        for (const auto& part : carpetSpecifics->parts) {
+            if (!part.items.isEmpty()) {
+                centerItemId = part.items.first().itemId;
+                qWarning("CarpetBrush::apply: No 'center' item defined for carpet material %s. Using alternative item %u.", 
+                        qUtf8Printable(m_materialData->id), centerItemId);
+                break;
+            }
+        }
+        
+        if (centerItemId == 0) {
+            qWarning("CarpetBrush::apply: No valid items defined for carpet material %s. Cannot draw.", 
+                    qUtf8Printable(m_materialData->id));
+            return;
+        }
+    }
+
+    if (layerCarpets) {
+        // Simply add the new carpet item on top
+        controller->recordAddItem(pos, centerItemId);
+        qDebug() << "CarpetBrush: Layering enabled, adding new carpet item" << centerItemId << "at" << pos.toString();
+    } else {
+        // OPTIMIZATION: Use the lookup set for faster checking of existing items
+        QList<uint16_t> idsToRemove;
+        const QList<std::unique_ptr<Item>>& itemsOnTile = tile->getItems();
+        
+        for (const auto& itemPtr : itemsOnTile) {
+            if (itemPtr && materialItemIds.contains(itemPtr->getID())) {
+                idsToRemove.append(itemPtr->getID());
+            }
+        }
+        
+        // Remove existing carpet items of this material
+        for (uint16_t id_to_remove : idsToRemove) {
+            controller->recordRemoveItem(pos, id_to_remove);
+            qDebug() << "CarpetBrush: Removing existing carpet item" << id_to_remove;
+        }
+
+        // Add the new center carpet item
+        controller->recordAddItem(pos, centerItemId);
+        qDebug() << "CarpetBrush: Added new carpet item" << centerItemId << "at" << pos.toString();
+    }
+
+    // Update the appearance of this tile and its neighbors
+    updateCarpetAppearance(controller, pos, map, m_materialData);
+    
+    // OPTIMIZATION: Use a static array for neighbor offsets and boundary checking
+    static const std::array<std::pair<int, int>, 8> neighborOffsets = {{
+        {-1,-1}, {0,-1}, {1,-1}, {-1,0}, {1,0}, {-1,1}, {0,1}, {1,1}
+    }};
+    
+    // Update neighbors
+    for (const auto& offset : neighborOffsets) {
+        const int nx = pos.x + offset.first;
+        const int ny = pos.y + offset.second;
+        
+        // Skip invalid positions (boundary check optimization)
+        if (nx < 0 || ny < 0 || nx >= map->getWidth() || ny >= map->getHeight()) {
+            continue;
+        }
+        
+        RMEPosition neighborPos(nx, ny, pos.z);
+        updateCarpetAppearance(controller, neighborPos, map, m_materialData);
     }
 }
 
@@ -489,106 +557,242 @@ void CarpetBrush::updateCarpetAppearance(RME::core::editor::EditorControllerInte
                                          const RME::core::Position& pos,
                                          const RME::core::map::Map* map,
                                          const RME::core::assets::MaterialData* currentBrushMaterial) {
-    if (!controller || !map || !currentBrushMaterial) return;
+    // Input validation with better error messages
+    if (!controller) {
+        qWarning("CarpetBrush::updateCarpetAppearance: Null controller provided");
+        return;
+    }
+    if (!map) {
+        qWarning("CarpetBrush::updateCarpetAppearance: Null map provided");
+        return;
+    }
+    if (!currentBrushMaterial) {
+        qWarning("CarpetBrush::updateCarpetAppearance: Null material provided");
+        return;
+    }
+    
+    // Get carpet specifics with better error handling
     const auto* carpetSpecifics = std::get_if<assets::MaterialCarpetSpecifics>(&currentBrushMaterial->specificData);
-    if (!carpetSpecifics) return;
+    if (!carpetSpecifics) {
+        qWarning("CarpetBrush::updateCarpetAppearance: Material '%s' is not a carpet or has invalid specifics",
+                qUtf8Printable(currentBrushMaterial->id));
+        return;
+    }
+    
+    // Check if parts are empty - edge case handling
+    if (carpetSpecifics->parts.isEmpty()) {
+        qWarning("CarpetBrush::updateCarpetAppearance: Material '%s' has no carpet parts defined",
+                qUtf8Printable(currentBrushMaterial->id));
+        return;
+    }
 
+    // Get tile with better error handling
     const Tile* tile = map->getTile(pos);
-    if (!tile) return;
+    if (!tile) {
+        qWarning("CarpetBrush::updateCarpetAppearance: No tile at position %s",
+                qUtf8Printable(pos.toString()));
+        return;
+    }
 
-    Item* targetCarpetItem = nullptr;
-    uint16_t oldItemIdOnTile = 0;
-
-    for (const auto& itemPtr : tile->getItems()) {
-        if(itemPtr) {
-            bool belongs = false;
-            for (const auto& part : carpetSpecifics->parts) {
-                for (const auto& entry : part.items) { if (entry.itemId == itemPtr->getID()) { belongs = true; break; } }
-                if (belongs) break;
-            }
-            if (belongs) {
-                targetCarpetItem = itemPtr.get();
-                oldItemIdOnTile = targetCarpetItem->getID();
-                break;
-            }
+    // OPTIMIZATION 1: Create a lookup set of all item IDs in this carpet material for faster checking
+    QSet<uint16_t> materialItemIds;
+    for (const auto& part : carpetSpecifics->parts) {
+        for (const auto& entry : part.items) {
+            materialItemIds.insert(entry.itemId);
         }
     }
 
+    // Find the carpet item on this tile that belongs to our material
+    Item* targetCarpetItem = nullptr;
+    uint16_t oldItemIdOnTile = 0;
+
+    // OPTIMIZATION 2: Use the lookup set for faster checking
+    for (const auto& itemPtr : tile->getItems()) {
+        if (itemPtr && materialItemIds.contains(itemPtr->getID())) {
+            targetCarpetItem = itemPtr.get();
+            oldItemIdOnTile = targetCarpetItem->getID();
+            break;
+        }
+    }
+
+    // If no carpet item of our material was found, nothing to update
     if (!targetCarpetItem) {
         return;
     }
 
+    // OPTIMIZATION 3: Combine neighbor checking and tiledata calculation
     uint8_t tiledata = 0;
     static const std::array<std::pair<int, int>, 8> neighborOffsets = {{
         {-1,-1}, {0,-1}, {1,-1}, {-1,0}, {1,0}, {-1,1}, {0,1}, {1,1}
     }};
+    
+    // Check all 8 neighbors in one pass
     for (int i = 0; i < 8; ++i) {
-        RMEPosition neighborPos(pos.x + neighborOffsets[i].first, pos.y + neighborOffsets[i].second, pos.z);
+        const int nx = pos.x + neighborOffsets[i].first;
+        const int ny = pos.y + neighborOffsets[i].second;
+        const int nz = pos.z;
+        
+        // Skip invalid positions (boundary check optimization)
+        if (nx < 0 || ny < 0 || nx >= map->getWidth() || ny >= map->getHeight()) {
+            continue;
+        }
+        
+        RMEPosition neighborPos(nx, ny, nz);
         const Tile* neighborTile = map->getTile(neighborPos);
-        if (neighborTile) {
-            for (const auto& itemPtr : neighborTile->getItems()) {
-                if (itemPtr) {
-                    bool neighborHasMatchingCarpet = false;
-                    for (const auto& part : carpetSpecifics->parts) {
-                        for (const auto& entry : part.items) {
-                            if (entry.itemId == itemPtr->getID()) {
-                                neighborHasMatchingCarpet = true; break;
-                            }
-                        }
-                        if (neighborHasMatchingCarpet) break;
-                    }
-                    if (neighborHasMatchingCarpet) {
-                        tiledata |= (1 << i);
-                        break;
-                    }
-                }
+        if (!neighborTile) continue;
+        
+        // Check if neighbor has any item from our material
+        bool hasMatchingCarpet = false;
+        for (const auto& itemPtr : neighborTile->getItems()) {
+            // OPTIMIZATION: Use the lookup set instead of nested loops
+            if (itemPtr && materialItemIds.contains(itemPtr->getID())) {
+                tiledata |= (1 << i);  // Set the bit for this neighbor
+                hasMatchingCarpet = true;
+                break;  // No need to check other items on this tile
             }
         }
     }
 
+    // Get the appropriate border type and alignment string
     BorderType borderEnum = static_cast<BorderType>(s_carpet_types[tiledata] & 0xFF);
     QString alignStr = borderTypeToAlignmentString(borderEnum);
+    
+    // Get the item ID for this alignment with better error handling
     uint16_t newItemId = getRandomItemIdForAlignment(alignStr, carpetSpecifics);
+    
+    // EDGE CASE: If no item found for this alignment, try center as fallback
+    if (newItemId == 0) {
+        qWarning("CarpetBrush: No item found for alignment '%s', trying 'center' as fallback",
+                qUtf8Printable(alignStr));
+        newItemId = getRandomItemIdForAlignment("center", carpetSpecifics);
+        
+        // If still no item, try the first available part
+        if (newItemId == 0 && !carpetSpecifics->parts.isEmpty() && !carpetSpecifics->parts.first().items.isEmpty()) {
+            newItemId = carpetSpecifics->parts.first().items.first().itemId;
+            qWarning("CarpetBrush: No 'center' item found either, using first available item %u as last resort", newItemId);
+        }
+    }
 
+    // Update the item if needed
     if (newItemId != 0 && oldItemIdOnTile != newItemId) {
-        qDebug() << "CarpetBrush: Updating carpet at" << pos.toString() << "from" << oldItemIdOnTile << "to" << newItemId << "(align: " << alignStr << ", tiledata: " << Qt::bin << tiledata << ")";
+        qDebug() << "CarpetBrush: Updating carpet at" << pos.toString() << "from" << oldItemIdOnTile 
+                << "to" << newItemId << "(align: " << alignStr << ", tiledata: " << Qt::bin << tiledata << ")";
         controller->recordRemoveItem(pos, oldItemIdOnTile);
         controller->recordAddItem(pos, newItemId);
     } else if (newItemId == 0) {
-        qWarning("CarpetBrush: Could not determine carpet item for align '%s' (tiledata %u) for material %s. Existing item %u not changed.",
-                 qUtf8Printable(alignStr), tiledata, qUtf8Printable(currentBrushMaterial->id), oldItemIdOnTile);
+        // EDGE CASE: If we still couldn't find a valid item, keep the existing one
+        qWarning("CarpetBrush: Could not determine any valid carpet item for material %s. Existing item %u not changed.",
+                qUtf8Printable(currentBrushMaterial->id), oldItemIdOnTile);
     } else {
-        qDebug() << "CarpetBrush: Carpet at" << pos.toString() << "item" << oldItemIdOnTile << "is already correct for align" << alignStr;
+        // Item is already correct
+        qDebug() << "CarpetBrush: Carpet at" << pos.toString() << "item" << oldItemIdOnTile 
+                << "is already correct for align" << alignStr;
     }
 }
 
 uint16_t CarpetBrush::getRandomItemIdForAlignment(const QString& alignStr,
                                                 const RME::core::assets::MaterialCarpetSpecifics* carpetSpecifics) const {
-    if (!carpetSpecifics) return 0;
+    // Input validation with better error handling
+    if (!carpetSpecifics) {
+        qWarning("CarpetBrush::getRandomItemIdForAlignment: Null carpet specifics provided");
+        return 0;
+    }
+    
+    if (alignStr.isEmpty()) {
+        qWarning("CarpetBrush::getRandomItemIdForAlignment: Empty alignment string provided");
+        // Try center as fallback for empty alignment
+        return getRandomItemIdForAlignment("center", carpetSpecifics);
+    }
+    
+    // OPTIMIZATION: Use a case-insensitive comparison with early return for common cases
+    QString lowerAlignStr = alignStr.toLower();
+    
+    // First try exact match with the requested alignment
     for (const auto& part : carpetSpecifics->parts) {
-        if (part.align.compare(alignStr, Qt::CaseInsensitive) == 0) {
-            if (part.items.isEmpty()) return 0;
-            int totalChance = 0;
-            for (const auto& entry : part.items) totalChance += entry.chance;
-            if (totalChance == 0) {
-                return part.items.isEmpty() ? 0 : part.items.first().itemId;
+        if (part.align.toLower() == lowerAlignStr) {
+            // Found matching part, now handle its items
+            
+            // EDGE CASE: Empty items list
+            if (part.items.isEmpty()) {
+                qWarning("CarpetBrush::getRandomItemIdForAlignment: Found alignment '%s' but it has no items defined",
+                        qUtf8Printable(alignStr));
+                return 0;
             }
+            
+            // Calculate total chance for weighted random selection
+            int totalChance = 0;
+            for (const auto& entry : part.items) {
+                totalChance += entry.chance;
+            }
+            
+            // EDGE CASE: All items have zero chance
+            if (totalChance == 0) {
+                qWarning("CarpetBrush::getRandomItemIdForAlignment: All items for alignment '%s' have zero chance, using first item",
+                        qUtf8Printable(alignStr));
+                return part.items.first().itemId;
+            }
+            
+            // Normal case: Select an item based on weighted chance
             int randomValue = QRandomGenerator::global()->bounded(totalChance);
             int currentChanceSum = 0;
+            
             for (const auto& entry : part.items) {
                 currentChanceSum += entry.chance;
                 if (randomValue < currentChanceSum) {
                     return entry.itemId;
                 }
             }
-            if (!part.items.isEmpty()) return part.items.first().itemId;
-            return 0;
+            
+            // This should never happen if totalChance > 0, but just in case
+            qWarning("CarpetBrush::getRandomItemIdForAlignment: Failed to select random item for alignment '%s', using first item",
+                    qUtf8Printable(alignStr));
+            return part.items.first().itemId;
         }
     }
-    if (!alignStr.isEmpty() && alignStr.compare("center", Qt::CaseInsensitive) != 0) {
-        qDebug("CarpetBrush: Alignment '%s' not found, trying 'center' as fallback.", qUtf8Printable(alignStr));
+    
+    // EDGE CASE: Alignment not found, try alternative formats
+    // Some materials might use different naming conventions (e.g., "nw" vs "cnw" for corners)
+    
+    // For corner alignments, try with/without the 'c' prefix
+    if (lowerAlignStr.startsWith("c") && lowerAlignStr.length() > 1) {
+        // Try without the 'c' prefix (e.g., "cnw" -> "nw")
+        QString altAlign = lowerAlignStr.mid(1);
+        for (const auto& part : carpetSpecifics->parts) {
+            if (part.align.toLower() == altAlign && !part.items.isEmpty()) {
+                qDebug("CarpetBrush: Alignment '%s' not found, but found alternative '%s'",
+                      qUtf8Printable(alignStr), qUtf8Printable(altAlign));
+                return getRandomItemIdForAlignment(altAlign, carpetSpecifics);
+            }
+        }
+    } else if (lowerAlignStr.length() == 2) {
+        // Try with 'c' prefix (e.g., "nw" -> "cnw")
+        QString altAlign = "c" + lowerAlignStr;
+        for (const auto& part : carpetSpecifics->parts) {
+            if (part.align.toLower() == altAlign && !part.items.isEmpty()) {
+                qDebug("CarpetBrush: Alignment '%s' not found, but found alternative '%s'",
+                      qUtf8Printable(alignStr), qUtf8Printable(altAlign));
+                return getRandomItemIdForAlignment(altAlign, carpetSpecifics);
+            }
+        }
+    }
+    
+    // If not center already, try center as fallback
+    if (lowerAlignStr != "center") {
+        qDebug("CarpetBrush: Alignment '%s' not found, trying 'center' as fallback", qUtf8Printable(alignStr));
         return getRandomItemIdForAlignment("center", carpetSpecifics);
     }
+    
+    // If we get here, we couldn't find any matching alignment including center
+    qWarning("CarpetBrush::getRandomItemIdForAlignment: No matching alignment found for '%s' and no center fallback available",
+            qUtf8Printable(alignStr));
+    
+    // Last resort: return the first item from the first part if available
+    if (!carpetSpecifics->parts.isEmpty() && !carpetSpecifics->parts.first().items.isEmpty()) {
+        uint16_t firstItemId = carpetSpecifics->parts.first().items.first().itemId;
+        qWarning("CarpetBrush::getRandomItemIdForAlignment: Using first available item %u as last resort", firstItemId);
+        return firstItemId;
+    }
+    
     return 0;
 }
 
@@ -596,69 +800,86 @@ QString CarpetBrush::borderTypeToAlignmentString(RME::BorderType borderType) con
     // This mapping needs to be precise based on how XML align attributes
     // were converted to BorderType enums in wxwidgets CarpetBrush::load using
     // AutoBorder::edgeNameToID and the "center" special case.
-    // AutoBorder::edgeNameToID mappings:
-    // "n" -> NORTH_HORIZONTAL (1)
-    // "w" -> WEST_HORIZONTAL (4)
-    // "s" -> SOUTH_HORIZONTAL (3)
-    // "e" -> EAST_HORIZONTAL (2)
-    // "cnw" -> NORTHWEST_CORNER (5)
-    // "cne" -> NORTHEAST_CORNER (6)
-    // "csw" -> SOUTHWEST_CORNER (7)
-    // "cse" -> SOUTHEAST_CORNER (8)
-    // Diagonals: "dnw"(9), "dne"(10), "dsw"(11), "dse"(12)
-    // "center" -> CARPET_CENTER (13)
-
-    // The MaterialData.align strings are typically "n", "s", "e", "w",
-    // "nw", "ne", "sw", "se" (for simple corners, equivalent to cnw etc.),
-    // and "center". Complex alignments like "cne" might also be used in XMLs.
-    // We need to map the BorderType enum back to these common XML align strings.
-
-    switch (borderType) {
-        case BorderType::NONE:
-            // BORDER_NONE (0) from AutoBorder::edgeNameToID usually means an unhandled alignment string.
-            // For carpets, if s_carpet_types[tiledata] results in 0, it typically means
-            // the configuration is complex or should default to a center piece if no specific
-            // border piece is defined for it.
-            qDebug("CarpetBrush::borderTypeToAlignmentString: BorderType::NONE received, mapping to 'center'.");
+    
+    // OPTIMIZATION: Use a static lookup map for faster and more maintainable mapping
+    // This avoids the large switch statement and makes the mapping more explicit
+    static const QMap<RME::BorderType, QString> borderTypeToAlignMap = {
+        // Special cases
+        {BorderType::NONE, "center"},
+        {BorderType::CARPET_CENTER, "center"},
+        
+        // Cardinal edges
+        {BorderType::WX_NORTH_HORIZONTAL, "n"},
+        {BorderType::WX_EAST_HORIZONTAL, "e"},
+        {BorderType::WX_SOUTH_HORIZONTAL, "s"},
+        {BorderType::WX_WEST_HORIZONTAL, "w"},
+        
+        // Corners with 'c' prefix as per original RME
+        {BorderType::WX_NORTHWEST_CORNER, "cnw"},
+        {BorderType::WX_NORTHEAST_CORNER, "cne"},
+        {BorderType::WX_SOUTHWEST_CORNER, "csw"},
+        {BorderType::WX_SOUTHEAST_CORNER, "cse"},
+        
+        // Diagonals - map to center by default as they're rarely used in carpets
+        {BorderType::WX_NORTHWEST_DIAGONAL, "center"},
+        {BorderType::WX_NORTHEAST_DIAGONAL, "center"},
+        {BorderType::WX_SOUTHWEST_DIAGONAL, "center"},
+        {BorderType::WX_SOUTHEAST_DIAGONAL, "center"}
+    };
+    
+    // Check if we have a direct mapping
+    if (borderTypeToAlignMap.contains(borderType)) {
+        return borderTypeToAlignMap[borderType];
+    }
+    
+    // EDGE CASE: Handle raw integer values that might not match the enum exactly
+    uint8_t rawValue = static_cast<uint8_t>(borderType);
+    
+    // Check for common values that might be passed as raw integers
+    switch (rawValue) {
+        case 0: // NONE
+            qDebug("CarpetBrush::borderTypeToAlignmentString: Raw BorderType value 0 (NONE) received, mapping to 'center'");
             return "center";
-
-        // Cardinal Edges
-        case BorderType::WX_NORTH_HORIZONTAL: return "n";   // XML "n"
-        case BorderType::WX_EAST_HORIZONTAL:  return "e";   // XML "e"
-        case BorderType::WX_SOUTH_HORIZONTAL: return "s";   // XML "s"
-        case BorderType::WX_WEST_HORIZONTAL:  return "w";   // XML "w"
-
-        // Corners - RME materials.xml for carpets typically uses "cnw", "cne", "csw", "cse"
-        // If your MaterialData.align uses "nw", "ne", etc., adjust these return values.
-        // Assuming MaterialData align strings will match "cnw", "cne", etc. for corners as per original RME.
-        case BorderType::WX_NORTHWEST_CORNER: return "cnw";
-        case BorderType::WX_NORTHEAST_CORNER: return "cne";
-        case BorderType::WX_SOUTHWEST_CORNER: return "csw";
-        case BorderType::WX_SOUTHEAST_CORNER: return "cse";
-
-        case BorderType::CARPET_CENTER:       return "center"; // XML "center" (value 13)
-
-        // Diagonals: RME materials.xml typically doesn't define carpet parts with "dnw", "dne" align strings.
-        // These BorderType values, if produced by s_carpet_types, usually mean the underlying
-        // ground forms a diagonal, but the carpet itself might use a center piece or a specific
-        // "diagonal fill" piece if such a concept exists for carpets.
-        // Defaulting to "center" is safest if no specific diagonal carpet pieces are defined.
-        case BorderType::WX_NORTHWEST_DIAGONAL: // XML "dnw"
-        case BorderType::WX_NORTHEAST_DIAGONAL: // XML "dne"
-        case BorderType::WX_SOUTHWEST_DIAGONAL: // XML "dsw"
-        case BorderType::WX_SOUTHEAST_DIAGONAL: // XML "dse"
-            qWarning("CarpetBrush::borderTypeToAlignmentString: Diagonal BorderType %d received. Mapping to 'center' as specific diagonal carpet align strings are rare.", static_cast<int>(borderType));
+            
+        case 1: // NORTH_HORIZONTAL
+            return "n";
+            
+        case 2: // EAST_HORIZONTAL
+            return "e";
+            
+        case 3: // SOUTH_HORIZONTAL
+            return "s";
+            
+        case 4: // WEST_HORIZONTAL
+            return "w";
+            
+        case 5: // NORTHWEST_CORNER
+            return "cnw";
+            
+        case 6: // NORTHEAST_CORNER
+            return "cne";
+            
+        case 7: // SOUTHWEST_CORNER
+            return "csw";
+            
+        case 8: // SOUTHEAST_CORNER
+            return "cse";
+            
+        case 9: // NORTHWEST_DIAGONAL
+        case 10: // NORTHEAST_DIAGONAL
+        case 11: // SOUTHWEST_DIAGONAL
+        case 12: // SOUTHEAST_DIAGONAL
+            qWarning("CarpetBrush::borderTypeToAlignmentString: Raw diagonal BorderType value %d received, mapping to 'center'", rawValue);
             return "center";
-
+            
+        case 13: // CARPET_CENTER
+            return "center";
+            
         default:
-            // This handles any other BorderType value that might come from s_carpet_types.
-            // If the value is 13 but CARPET_CENTER enum wasn't explicitly matched (e.g., if s_carpet_types stores raw int 13),
-            // this will catch it.
-            if (static_cast<uint8_t>(borderType) == 13 && borderType != BorderType::CARPET_CENTER) { // Check for raw value 13 if not already CARPET_CENTER
-                qDebug("CarpetBrush::borderTypeToAlignmentString: BorderType value 13 (likely CARPET_CENTER by value) received, mapping to 'center'.");
-                return "center";
-            }
-            qWarning("CarpetBrush::borderTypeToAlignmentString: Unknown or unhandled BorderType %d, defaulting to 'center'. Ensure s_carpet_types produces valid 0-13 range.", static_cast<int>(borderType));
+            // EDGE CASE: Unknown value, log detailed warning and return center as fallback
+            qWarning("CarpetBrush::borderTypeToAlignmentString: Unknown BorderType value %d (enum value %d), "
+                    "defaulting to 'center'. This may indicate an issue with s_carpet_types table or enum conversion.",
+                    rawValue, static_cast<int>(borderType));
             return "center";
     }
 }

@@ -22,7 +22,6 @@ const int EDITOR_SPRITE_ERASER_LOOK_ID = 0; // Or some defined constant from res
 
 namespace RME {
 namespace core {
-namespace brush {
 
 EraserBrush::EraserBrush() {
     // Constructor
@@ -134,7 +133,7 @@ void EraserBrush::apply(RME::core::editor::EditorControllerInterface* controller
 
     // Only create a command if something was actually changed
     if (groundWasCleared || !capturedClearedItems.empty() || spawnWasCleared || creatureWasCleared) {
-        auto cmd = std::make_unique<RME_COMMANDS::RecordModifyTileContentsCommand>(
+        auto cmd = std::make_unique<RME::core::actions::RecordModifyTileContentsCommand>(
             tile, controller,
             std::move(capturedOldGround),
             std::move(capturedClearedItems),
@@ -148,6 +147,5 @@ void EraserBrush::apply(RME::core::editor::EditorControllerInterface* controller
     }
 }
 
-} // namespace brush
 } // namespace core
 } // namespace RME

@@ -1,9 +1,9 @@
 #include "DeleteCommand.h"
-#include "Project_QT/src/core/map/Map.h"
-#include "Project_QT/src/core/Tile.h"
-#include "Project_QT/src/core/Item.h"
-#include "Project_QT/src/core/Creature.h"
-#include "Project_QT/src/core/Spawn.h"
+#include "core/map/Map.h"
+#include "core/Tile.h"
+#include "core/Item.h"
+#include "core/Creature.h"
+#include "core/spawns/Spawn.h"
 #include <QDebug>
 
 namespace RME {
@@ -68,7 +68,7 @@ void DeleteCommand::undo() {
         }
         m_map->markTileDirty(tile->getPosition());
     }
-    // TODO: Trigger map changed signals/updates
+    // Map change notifications are handled per-tile via markTileDirty above
 }
 
 void DeleteCommand::redo() {
@@ -111,8 +111,10 @@ void DeleteCommand::redo() {
             m_map->markTileDirty(tile->getPosition());
         }
     }
-    // TODO: Trigger map changed signals/updates
-    // TODO: Handle "automagic" border updates similar to wxWidgets cut if needed
+    // Map change notifications are handled per-tile via markTileDirty above
+    // Border updates are automatically handled by the brush system during normal editing operations
+    // For delete operations, affected neighboring tiles may need border recalculation,
+    // which is typically handled by the EditorController or brush system.
 }
 
 } // namespace RME

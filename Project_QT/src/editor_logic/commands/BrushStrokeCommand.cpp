@@ -5,16 +5,19 @@
 #include <QDebug>                // For qWarning (optional)
 #include <QString>               // For QObject::tr and QString::fromStdString
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace core {
+namespace actions {
 
 BrushStrokeCommand::BrushStrokeCommand(
-    RME::Map* map,
-    RME::Brush* brush,
-    const QList<RME::Position>& positions,
-    const RME::BrushSettings& settings,
+    RME::core::map::Map* map,
+    RME::core::Brush* brush,
+    const QList<RME::core::Position>& positions,
+    const RME::core::BrushSettings& settings,
     bool isErase,
+    RME::core::editor::EditorControllerInterface* controller,
     QUndoCommand* parent
-) : QUndoCommand(parent),
+) : BaseCommand(controller, QObject::tr("Brush Stroke"), parent),
     m_map(map),
     m_brush(brush),
     m_positions(positions),
@@ -28,14 +31,14 @@ BrushStrokeCommand::~BrushStrokeCommand() {
 }
 
 void BrushStrokeCommand::undo() {
-    if (!m_map) { // m_originalTiles can be empty if redo created all tiles and they were all null before.
-        qWarning("BrushStrokeCommand::undo(): Map is null.");
+    if (!validateMembers() || !m_map) {
+        setErrorText("undo brush stroke");
         return;
     }
 
     for (auto it = m_originalTiles.begin(); it != m_originalTiles.end(); ++it) {
-        const RME::Position& pos = it.key();
-        std::unique_ptr<RME::Tile>& originalTileState = it.value();
+        const RME::core::Position& pos = it.key();
+        std::unique_ptr<RME::core::Tile>& originalTileState = it.value();
 
         if (m_createdTiles.contains(pos)) {
             // Tile was created by redo, so undo should remove it by making it null in map.
@@ -50,7 +53,7 @@ void BrushStrokeCommand::undo() {
             // and redo stored nullptr as its original state. Undo should restore it to nullptr.
              m_map->setTile(pos, nullptr);
         }
-        m_map->notifyTileChanged(pos);
+        notifyMapChanged(pos);
     }
     // m_originalTiles now contains invalidated unique_ptrs (or nullptrs if they were taken). It will be repopulated by redo().
     // m_createdTiles also needs to be cleared as the state it tracked is undone.
@@ -59,8 +62,8 @@ void BrushStrokeCommand::undo() {
 }
 
 void BrushStrokeCommand::redo() {
-    if (!m_map || !m_brush) {
-        qWarning("BrushStrokeCommand::redo(): Map or Brush is null.");
+    if (!validateMembers() || !m_map || !m_brush) {
+        setErrorText("redo brush stroke");
         return;
     }
 
@@ -68,10 +71,10 @@ void BrushStrokeCommand::redo() {
     m_createdTiles.clear();
 
     bool firstOp = true;
-    for (const RME::Position& pos : m_positions) {
+    for (const RME::core::Position& pos : m_positions) {
         bool tileWasJustCreatedByGetOrCreate = false;
         // getOrCreateTile might modify tileWasJustCreatedByGetOrCreate to true
-        RME::Tile* tile = m_map->getOrCreateTile(pos, tileWasJustCreatedByGetOrCreate);
+        RME::core::Tile* tile = m_map->getOrCreateTile(pos, tileWasJustCreatedByGetOrCreate);
 
         if (!tile) {
             qWarning("BrushStrokeCommand::redo(): Failed to get or create tile at %d,%d,%d", pos.x, pos.y, pos.z);
@@ -91,10 +94,10 @@ void BrushStrokeCommand::redo() {
         } else {
             m_brush->draw(m_map, tile, &m_settings);
         }
-        m_map->notifyTileChanged(pos);
+        notifyMapChanged(pos);
 
         if (firstOp) {
-             setText(QObject::tr("%1 %2").arg(m_isErase ? "Erase" : "Draw").arg(QString::fromStdString(m_brush->getName())));
+             setText(QObject::tr("%1 %2").arg(m_isErase ? "Erase" : "Draw").arg(m_brush->getName()));
              firstOp = false;
         }
     }
@@ -125,4 +128,6 @@ bool BrushStrokeCommand::mergeWith(const QUndoCommand* command) {
     return false;
 }
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME

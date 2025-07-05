@@ -1,11 +1,11 @@
 #include "core/brush/HouseBrush.h"
 #include "core/map/Map.h"
 #include "core/Tile.h"
-#include "core/houses/House.h" // For RME::core::houses::House
-#include "core/houses/Houses.h" // For EditorControllerInterface::getHousesManager()
+#include "core/houses/Houses.h" // For RME::core::houses::HouseData
 #include "core/editor/EditorControllerInterface.h"
 #include "core/settings/BrushSettings.h"
-#include "core/settings/AppSettings.h" // For future settings like remove items/door IDs
+#include "core/settings/AppSettings.h" // For settings like remove items/door IDs
+#include "core/items/DoorItem.h" // For door ID management
 #include "editor_logic/commands/SetHouseTileCommand.h"
 
 #include <QDebug> // For qWarning, qDebug
@@ -16,7 +16,6 @@ const int EDITOR_SPRITE_HOUSE_BRUSH_LOOK_ID = 0; // Or some defined constant
 
 namespace RME {
 namespace core {
-namespace brush {
 
 HouseBrush::HouseBrush()
     : m_currentHouseId(0) // Default to no house selected
@@ -73,13 +72,13 @@ void HouseBrush::apply(RME::core::editor::EditorControllerInterface* controller,
     Map* map = controller->getMap();
     // Re-check canApply with live map, although it's mostly position validation here
     if (!canApply(map, pos, settings)) {
-        qDebug("HouseBrush::apply: Preconditions not met at %s.", qUtf8Printable(pos.toString()));
+        qDebug() << "HouseBrush::apply: Preconditions not met at" << pos.toString();
         return;
     }
 
     Tile* tile = map->getTileForEditing(pos);
     if (!tile) {
-        qWarning("HouseBrush::apply: Tile not found at position %s, though canApply passed (should check getTile).").arg(pos.toString());
+        qWarning() << "HouseBrush::apply: Tile not found at position" << pos.toString() << ", though canApply passed (should check getTile).";
         return;
     }
 
@@ -88,56 +87,52 @@ void HouseBrush::apply(RME::core::editor::EditorControllerInterface* controller,
 
     if (assignToHouse) {
         if (m_currentHouseId == 0) {
-            qDebug("HouseBrush::apply (assign): No current house ID selected. Cannot assign 'no house'.");
+            qDebug() << "HouseBrush::apply (assign): No current house ID selected. Cannot assign 'no house'.";
             return;
         }
-        RME::core::houses::House* houseToAssign = housesManager->getHouse(m_currentHouseId);
+        RME::core::houses::HouseData* houseToAssign = housesManager->getHouse(m_currentHouseId);
         if (!houseToAssign) {
-            qWarning("HouseBrush::apply (assign): House with ID %u not found in HousesManager.").arg(m_currentHouseId);
+            qWarning() << "HouseBrush::apply (assign): House with ID" << m_currentHouseId << "not found in HousesManager.";
             return;
         }
 
         if (tile->getHouseId() != 0 && tile->getHouseId() != m_currentHouseId) {
-            qInfo("HouseBrush: Tile at %s (belonging to house %u) will be reassigned to house %u.")
-                .arg(pos.toString()).arg(tile->getHouseId()).arg(m_currentHouseId);
+            qInfo() << "HouseBrush: Tile at" << pos.toString() << "(belonging to house" << tile->getHouseId() << ") will be reassigned to house" << m_currentHouseId;
         } else if (tile->getHouseId() == m_currentHouseId) {
-            qDebug("HouseBrush::apply (assign): Tile at %s already belongs to house %u. No change.").arg(pos.toString()).arg(m_currentHouseId);
+            qDebug() << "HouseBrush::apply (assign): Tile at" << pos.toString() << "already belongs to house" << m_currentHouseId << ". No change.";
             return;
         }
 
         // QUndoStack takes ownership of raw pointer.
-        // SetHouseTileCommand's constructor was: House*, Tile*, bool, Controller*, Parent*
-        controller->pushCommand(new RME_COMMANDS::SetHouseTileCommand(houseToAssign, tile, true, controller));
+        // SetHouseTileCommand's constructor now takes: houseId, Tile*, bool, Controller*, Parent*
+        controller->pushCommand(new RME::core::actions::SetHouseTileCommand(m_currentHouseId, tile, true, controller));
 
     } else { // Erase mode
         quint32 currentTileHouseId = tile->getHouseId();
         if (currentTileHouseId == 0) {
-            qDebug("HouseBrush::apply (erase): Tile at %s has no house assignment. No action.").arg(pos.toString());
+            qDebug() << "HouseBrush::apply (erase): Tile at" << pos.toString() << "has no house assignment. No action.";
             return;
         }
 
-        RME::core::houses::House* houseOfTile = housesManager->getHouse(currentTileHouseId);
+        RME::core::houses::HouseData* houseOfTile = housesManager->getHouse(currentTileHouseId);
         if (!houseOfTile) {
-            qWarning("HouseBrush::apply (erase): Tile at %s has house ID %u, but house not found in manager. Cannot create command to update house's tile list correctly.")
-                .arg(pos.toString()).arg(currentTileHouseId);
-            // Not pushing command because SetHouseTileCommand requires a valid House* to update its tile list.
+            qWarning() << "HouseBrush::apply (erase): Tile at" << pos.toString() << "has house ID" << currentTileHouseId << ", but house not found in manager. Cannot create command to update house's tile list correctly.";
+            // Not pushing command because SetHouseTileCommand requires a valid house ID to update its tile list.
             return;
         }
 
         if (m_currentHouseId == 0) { // Generic erase: remove any house assignment
-            controller->pushCommand(new RME_COMMANDS::SetHouseTileCommand(houseOfTile, tile, false, controller));
+            controller->pushCommand(new RME::core::actions::SetHouseTileCommand(currentTileHouseId, tile, false, controller));
         } else { // Specific erase: only remove if tile belongs to m_currentHouseId
             if (currentTileHouseId == m_currentHouseId) {
-                // houseOfTile is the same as housesManager->getHouse(m_currentHouseId) here.
-                controller->pushCommand(new RME_COMMANDS::SetHouseTileCommand(houseOfTile, tile, false, controller));
+                // Use the current house ID for the command
+                controller->pushCommand(new RME::core::actions::SetHouseTileCommand(m_currentHouseId, tile, false, controller));
             } else {
-                qDebug("HouseBrush::apply (specific erase): Tile at %s (house %u) does not match brush's target house ID %u. No action.")
-                    .arg(pos.toString()).arg(currentTileHouseId).arg(m_currentHouseId);
+                qDebug() << "HouseBrush::apply (specific erase): Tile at" << pos.toString() << "(house" << currentTileHouseId << ") does not match brush's target house ID" << m_currentHouseId << ". No action.";
             }
         }
     }
 }
 
-} // namespace brush
 } // namespace core
 } // namespace RME
