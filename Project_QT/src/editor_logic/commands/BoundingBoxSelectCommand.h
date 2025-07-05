@@ -1,11 +1,10 @@
 #ifndef RME_BOUNDINGBOXSELECTCOMMAND_H
 #define RME_BOUNDINGBOXSELECTCOMMAND_H
 
-#include "BaseCommand.h"
+#include <QUndoCommand>
 #include <QList>
 #include <QSet> // For efficient unique union
 #include <QString>     // For command text
-#include "core/actions/CommandIds.h"
 
 // Forward declarations
 namespace RME {
@@ -15,13 +14,11 @@ namespace core {
 }
 }
 
-namespace RME {
-namespace core {
-namespace actions {
+namespace RME_COMMANDS {
 
-constexpr int BoundingBoxSelectCommandId = toInt(CommandId::BoundingBoxSelect);
+const int BoundingBoxSelectCommandId = 1012; // Choose a unique ID
 
-class BoundingBoxSelectCommand : public BaseCommand {
+class BoundingBoxSelectCommand : public QUndoCommand {
 public:
     BoundingBoxSelectCommand(
         RME::core::selection::SelectionManager* selectionManager,
@@ -56,7 +53,5 @@ private:
     bool m_firstRun;
 };
 
-} // namespace actions
-} // namespace core
-} // namespace RME
+} // namespace RME_COMMANDS
 #endif // RME_BOUNDINGBOXSELECTCOMMAND_H

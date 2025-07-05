@@ -113,8 +113,7 @@ uint8_t DiskNodeFileReadHandle::readByteUnsafe() {
             m_error = RME_OTBM_IO_ERROR_UNEXPECTED_EOF;
         }
         // qWarning() << "DiskNodeFileReadHandle: Failed to read byte. Stream status:" << m_stream.status();
-        // Return 0 to indicate end of file or read error
-        return 0;
+        return 0; // Return dummy value
     }
     return static_cast<uint8_t>(byte_char);
 }

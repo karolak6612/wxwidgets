@@ -89,7 +89,7 @@ struct ClientProfile {
     QString userConfiguredClientPath;
 
     // Helper to get a specific signature by type string (e.g., "7.60")
-    // Implementation detail: 'type' field in ClientSignature uses the profile's versionString value
+    // Note: 'type' in ClientSignature is currently set to profile's versionString.
     // This helper might need adjustment if 'type' needs to be more specific from XML.
     const ClientSignature* getSignatureByType(const QString& type) const {
         for (const auto& sig : signatures) {

@@ -1,38 +1,32 @@
 #ifndef RME_BRUSHSTROKECOMMAND_H
 #define RME_BRUSHSTROKECOMMAND_H
 
-#include "BaseCommand.h"
+#include <QUndoCommand>
 #include <QList>
 #include <QMap>
 #include <QSet> // For QSet<RME::Position>
 #include <memory> // For std::unique_ptr
 #include "core/Position.h"
 #include "core/brush/BrushSettings.h" // Assuming RME::BrushSettings
-#include "core/actions/CommandIds.h"
 // Forward declarations
 namespace RME {
-namespace core {
-    namespace map { class Map; }
+    class Map;
     class Brush;
     class Tile;
 }
-}
 
-namespace RME {
-namespace core {
-namespace actions {
+namespace RME_COMMANDS { // Or RME::Commands, or just RME
 
-constexpr int BrushStrokeCommandId = toInt(CommandId::BrushStroke);
+const int BrushStrokeCommandId = 1001; // Unique ID for this command type
 
-class BrushStrokeCommand : public BaseCommand {
+class BrushStrokeCommand : public QUndoCommand {
 public:
     BrushStrokeCommand(
-        RME::core::map::Map* map,
-        RME::core::Brush* brush,
-        const QList<RME::core::Position>& positions,
-        const RME::core::BrushSettings& settings,
+        RME::Map* map,
+        RME::Brush* brush,
+        const QList<RME::Position>& positions,
+        const RME::BrushSettings& settings,
         bool isErase,
-        RME::core::editor::EditorControllerInterface* controller,
         QUndoCommand* parent = nullptr
     );
     ~BrushStrokeCommand() override;
@@ -46,20 +40,18 @@ public:
     bool mergeWith(const QUndoCommand* command) override;
 
 private:
-    RME::core::map::Map* m_map;
-    RME::core::Brush* m_brush; // Non-owning, managed by BrushManagerService
-    QList<RME::core::Position> m_positions;
-    RME::core::BrushSettings m_settings;
+    RME::Map* m_map;
+    RME::Brush* m_brush; // Non-owning, managed by BrushManagerService
+    QList<RME::Position> m_positions;
+    RME::BrushSettings m_settings;
     bool m_isErase;
 
     // Stores the state of tiles *before* redo() modified them.
     // Key: Position, Value: unique_ptr to the original Tile (or nullptr if tile was created)
-    QMap<RME::core::Position, std::unique_ptr<RME::core::Tile>> m_originalTiles;
+    QMap<RME::Position, std::unique_ptr<RME::Tile>> m_originalTiles;
     // Stores whether a tile was newly created by this command's redo()
-    QSet<RME::core::Position> m_createdTiles;
+    QSet<RME::Position> m_createdTiles;
 };
 
-} // namespace actions
-} // namespace core
-} // namespace RME
+} // namespace RME_COMMANDS
 #endif // RME_BRUSHSTROKECOMMAND_H

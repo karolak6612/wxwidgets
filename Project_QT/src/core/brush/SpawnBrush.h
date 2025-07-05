@@ -22,8 +22,9 @@ class TestSpawnBrush;
 
 namespace RME {
 namespace core {
+namespace brush { // Place SpawnBrush in the brush namespace
 
-class SpawnBrush : public Brush {
+class SpawnBrush : public RME::core::Brush {
     friend class ::TestSpawnBrush; // Friend class for testing
 
 public:
@@ -48,6 +49,7 @@ private:
     // and it doesn't have variations like material brushes.
 };
 
+} // namespace brush
 } // namespace core
 } // namespace RME
 

@@ -23,7 +23,7 @@ BrushManagerService::BrushManagerService(QObject *parent) : QObject(parent) {
     auto creatureBrush = std::make_unique<CreatureBrush>();
     if (creatureBrush) { // Check if make_unique succeeded (it should)
         registerBrush(std::move(creatureBrush));
-        qDebug() << "BrushManagerService: CreatureBrush registered successfully";
+        qDebug() << "Registered CreatureBrush"; // Temporary debug output
     } else {
         qWarning() << "Failed to create and register CreatureBrush";
     }
@@ -32,7 +32,7 @@ BrushManagerService::BrushManagerService(QObject *parent) : QObject(parent) {
     auto groundBrush = std::make_unique<RME::core::GroundBrush>();
     if (groundBrush) {
         registerBrush(std::move(groundBrush));
-        qDebug() << "BrushManagerService: GroundBrush registered successfully";
+        qDebug() << "Registered GroundBrush"; // Temporary debug output
     } else {
         qWarning() << "Failed to create and register GroundBrush";
     }
@@ -41,7 +41,7 @@ BrushManagerService::BrushManagerService(QObject *parent) : QObject(parent) {
     auto carpetBrush = std::make_unique<RME::core::CarpetBrush>();
     if (carpetBrush) {
         registerBrush(std::move(carpetBrush));
-        qDebug() << "BrushManagerService: CarpetBrush registered successfully";
+        qDebug() << "Registered CarpetBrush"; // Temporary debug output
     } else {
         qWarning() << "Failed to create and register CarpetBrush";
     }
@@ -52,22 +52,7 @@ BrushManagerService::~BrushManagerService() = default;
 void BrushManagerService::registerBrush(std::unique_ptr<Brush> brush) {
     if (brush) {
         QString name = brush->getName();
-        QString brushId = generateBrushId(brush.get());
-        
         m_brushes[name] = std::move(brush);
-        
-        // Initialize default metadata
-        if (!m_brushCategories.contains(brushId)) {
-            m_brushCategories[brushId] = "General";
-        }
-        if (!m_brushDescriptions.contains(brushId)) {
-            m_brushDescriptions[brushId] = QString("Brush: %1").arg(name);
-        }
-        if (!m_brushTags.contains(brushId)) {
-            m_brushTags[brushId] = QStringList();
-        }
-        
-        emit brushRegistered(m_brushes[name].get());
     }
 }
 
@@ -124,255 +109,6 @@ void BrushManagerService::setIsEraseMode(bool isErase) {
 
 const BrushSettings& BrushManagerService::getCurrentSettings() const {
     return m_currentSettings;
-}
-
-QList<Brush*> BrushManagerService::getAllBrushes() const {
-    QList<Brush*> brushes;
-    for (const auto& brush : m_brushes) {
-        brushes.append(brush.get());
-    }
-    return brushes;
-}
-
-// Phase 4.1: Brush categorization methods
-QStringList BrushManagerService::getBrushCategories() const {
-    QStringList categories = m_brushCategories.values();
-    categories.removeDuplicates();
-    categories.sort();
-    return categories;
-}
-
-QList<Brush*> BrushManagerService::getBrushesByCategory(const QString& category) const {
-    QList<Brush*> result;
-    for (auto it = m_brushCategories.constBegin(); it != m_brushCategories.constEnd(); ++it) {
-        if (it.value() == category) {
-            QString brushId = it.key();
-            // Find brush by ID
-            for (const auto& brush : m_brushes) {
-                if (generateBrushId(brush.get()) == brushId) {
-                    result.append(brush.get());
-                    break;
-                }
-            }
-        }
-    }
-    return result;
-}
-
-QString BrushManagerService::getBrushCategory(Brush* brush) const {
-    if (!brush) return QString();
-    QString brushId = generateBrushId(brush);
-    return m_brushCategories.value(brushId, "General");
-}
-
-void BrushManagerService::setBrushCategory(Brush* brush, const QString& category) {
-    if (!brush) return;
-    QString brushId = generateBrushId(brush);
-    if (m_brushCategories.value(brushId) != category) {
-        m_brushCategories[brushId] = category;
-        emit brushCategoryChanged(brush, category);
-        emit brushMetadataChanged(brush);
-    }
-}
-
-// Phase 4.1: Brush metadata (description, category, tags)
-QString BrushManagerService::getBrushDescription(Brush* brush) const {
-    if (!brush) return QString();
-    QString brushId = generateBrushId(brush);
-    return m_brushDescriptions.value(brushId, QString("Brush: %1").arg(brush->getName()));
-}
-
-void BrushManagerService::setBrushDescription(Brush* brush, const QString& description) {
-    if (!brush) return;
-    QString brushId = generateBrushId(brush);
-    if (m_brushDescriptions.value(brushId) != description) {
-        m_brushDescriptions[brushId] = description;
-        emit brushMetadataChanged(brush);
-    }
-}
-
-QStringList BrushManagerService::getBrushTags(Brush* brush) const {
-    if (!brush) return QStringList();
-    QString brushId = generateBrushId(brush);
-    return m_brushTags.value(brushId, QStringList());
-}
-
-void BrushManagerService::setBrushTags(Brush* brush, const QStringList& tags) {
-    if (!brush) return;
-    QString brushId = generateBrushId(brush);
-    if (m_brushTags.value(brushId) != tags) {
-        m_brushTags[brushId] = tags;
-        emit brushTagsChanged(brush, tags);
-        emit brushMetadataChanged(brush);
-    }
-}
-
-void BrushManagerService::addBrushTag(Brush* brush, const QString& tag) {
-    if (!brush || tag.isEmpty()) return;
-    QString brushId = generateBrushId(brush);
-    QStringList currentTags = m_brushTags.value(brushId, QStringList());
-    if (!currentTags.contains(tag)) {
-        currentTags.append(tag);
-        m_brushTags[brushId] = currentTags;
-        emit brushTagsChanged(brush, currentTags);
-        emit brushMetadataChanged(brush);
-    }
-}
-
-void BrushManagerService::removeBrushTag(Brush* brush, const QString& tag) {
-    if (!brush || tag.isEmpty()) return;
-    QString brushId = generateBrushId(brush);
-    QStringList currentTags = m_brushTags.value(brushId, QStringList());
-    if (currentTags.removeOne(tag)) {
-        m_brushTags[brushId] = currentTags;
-        emit brushTagsChanged(brush, currentTags);
-        emit brushMetadataChanged(brush);
-    }
-}
-
-// Phase 4.1: Recently used brushes tracking
-QList<Brush*> BrushManagerService::getRecentlyUsedBrushes(int maxCount) const {
-    QList<Brush*> result;
-    int count = 0;
-    for (const QString& brushId : m_recentBrushIds) {
-        if (count >= maxCount) break;
-        
-        // Find brush by ID
-        for (const auto& brush : m_brushes) {
-            if (generateBrushId(brush.get()) == brushId) {
-                result.append(brush.get());
-                count++;
-                break;
-            }
-        }
-    }
-    return result;
-}
-
-void BrushManagerService::recordBrushUsage(Brush* brush) {
-    if (!brush) return;
-    
-    QString brushId = generateBrushId(brush);
-    QDateTime now = QDateTime::currentDateTime();
-    
-    // Remove from current position if exists
-    m_recentBrushIds.removeAll(brushId);
-    
-    // Add to front
-    m_recentBrushIds.prepend(brushId);
-    
-    // Limit size
-    while (m_recentBrushIds.size() > m_maxRecentBrushes) {
-        m_recentBrushIds.removeLast();
-    }
-    
-    // Update usage statistics
-    m_brushUsageCount[brushId] = m_brushUsageCount.value(brushId, 0) + 1;
-    m_lastBrushUsage[brushId] = now;
-    
-    emit brushUsageRecorded(brush);
-    emit recentBrushesChanged();
-}
-
-void BrushManagerService::clearRecentBrushes() {
-    if (!m_recentBrushIds.isEmpty()) {
-        m_recentBrushIds.clear();
-        emit recentBrushesChanged();
-    }
-}
-
-int BrushManagerService::getBrushUsageCount(Brush* brush) const {
-    if (!brush) return 0;
-    QString brushId = generateBrushId(brush);
-    return m_brushUsageCount.value(brushId, 0);
-}
-
-QDateTime BrushManagerService::getLastBrushUsage(Brush* brush) const {
-    if (!brush) return QDateTime();
-    QString brushId = generateBrushId(brush);
-    return m_lastBrushUsage.value(brushId, QDateTime());
-}
-
-// Phase 4.1: Search/filtering capabilities
-QList<Brush*> BrushManagerService::searchBrushes(const QString& searchText) const {
-    QList<Brush*> result;
-    QString lowerSearchText = searchText.toLower();
-    
-    for (const auto& brush : m_brushes) {
-        Brush* brushPtr = brush.get();
-        QString brushId = generateBrushId(brushPtr);
-        
-        // Search in name
-        if (brushPtr->getName().toLower().contains(lowerSearchText)) {
-            result.append(brushPtr);
-            continue;
-        }
-        
-        // Search in description
-        QString description = m_brushDescriptions.value(brushId, "");
-        if (description.toLower().contains(lowerSearchText)) {
-            result.append(brushPtr);
-            continue;
-        }
-        
-        // Search in tags
-        QStringList tags = m_brushTags.value(brushId, QStringList());
-        for (const QString& tag : tags) {
-            if (tag.toLower().contains(lowerSearchText)) {
-                result.append(brushPtr);
-                break;
-            }
-        }
-        
-        // Search in category
-        QString category = m_brushCategories.value(brushId, "");
-        if (category.toLower().contains(lowerSearchText)) {
-            result.append(brushPtr);
-        }
-    }
-    
-    return result;
-}
-
-QList<Brush*> BrushManagerService::filterBrushesByTags(const QStringList& tags) const {
-    QList<Brush*> result;
-    
-    for (const auto& brush : m_brushes) {
-        Brush* brushPtr = brush.get();
-        QString brushId = generateBrushId(brushPtr);
-        QStringList brushTags = m_brushTags.value(brushId, QStringList());
-        
-        // Check if brush has all required tags
-        bool hasAllTags = true;
-        for (const QString& requiredTag : tags) {
-            if (!brushTags.contains(requiredTag, Qt::CaseInsensitive)) {
-                hasAllTags = false;
-                break;
-            }
-        }
-        
-        if (hasAllTags) {
-            result.append(brushPtr);
-        }
-    }
-    
-    return result;
-}
-
-QList<Brush*> BrushManagerService::filterBrushesByCategory(const QString& category) const {
-    return getBrushesByCategory(category);
-}
-
-// Helper methods
-QString BrushManagerService::generateBrushId(Brush* brush) const {
-    if (!brush) return QString();
-    // Use brush name as ID for now - could be enhanced with type info
-    return brush->getName();
-}
-
-void BrushManagerService::updateBrushMetadata(Brush* brush) {
-    if (!brush) return;
-    emit brushMetadataChanged(brush);
 }
 
 } // namespace core

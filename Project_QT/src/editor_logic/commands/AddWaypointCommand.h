@@ -1,10 +1,9 @@
 #ifndef RME_ADDWAYPOINTCOMMAND_H
 #define RME_ADDWAYPOINTCOMMAND_H
 
-#include "BaseCommand.h"
+#include <QUndoCommand>
 #include <QString>
 #include "core/Position.h" // RME::core::Position
-#include "core/actions/CommandIds.h"
 #include <memory> // For std::unique_ptr
 
 // Forward declarations
@@ -13,19 +12,16 @@ namespace RME { namespace core {
     struct Waypoint; // The actual Waypoint struct/class
 }}
 
-namespace RME {
-namespace core {
-namespace actions {
+namespace RME_COMMANDS {
 
-constexpr int AddWaypointCommandId = toInt(CommandId::AddWaypoint);
+const int AddWaypointCommandId = 1003; // Unique ID for this command type
 
-class AddWaypointCommand : public BaseCommand {
+class AddWaypointCommand : public QUndoCommand {
 public:
     AddWaypointCommand(
         RME::core::WaypointManager* waypointManager,
         const QString& waypointName,
         const RME::core::Position& position,
-        RME::core::EditorControllerInterface* editorController,
         QUndoCommand* parent = nullptr
     );
     ~AddWaypointCommand() override = default; // unique_ptr for m_replacedWaypoint handled automatically
@@ -47,7 +43,5 @@ private:
     bool m_wasReplacement = false;
 };
 
-} // namespace actions
-} // namespace core
-} // namespace RME
+} // namespace RME_COMMANDS
 #endif // RME_ADDWAYPOINTCOMMAND_H

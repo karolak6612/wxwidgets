@@ -16,7 +16,7 @@ namespace core {
 
 namespace creatures {
 
-// Based on original wxWidgets creature.h CreatureFlags
+// Based on wxwidgets/creature.h CreatureFlags
 enum class CreatureFlag : uint32_t {
     NONE = 0,
     UNPASSABLE = 1 << 0,       // Creature blocks movement
@@ -67,27 +67,6 @@ public:
     // Position
     const Position& getPosition() const { return m_position; }
     void setPosition(const Position& pos) { m_position = pos; }
-    
-    // Direction (from original wxWidgets implementation)
-    Direction getDirection() const { return m_direction; }
-    void setDirection(Direction dir) { m_direction = dir; }
-    
-    // Spawn time (from original wxWidgets implementation)
-    int getSpawnTime() const { return m_spawnTime; }
-    void setSpawnTime(int spawnTime) { m_spawnTime = spawnTime; }
-    
-    // Save/selection state (from original wxWidgets implementation)
-    bool isSaved() const { return m_saved; }
-    void save() { m_saved = true; }
-    void reset() { m_saved = false; }
-    
-    bool isSelected() const { return m_selected; }
-    void select() { m_selected = true; }
-    void deselect() { m_selected = false; }
-    
-    // Static direction conversion methods (from original wxWidgets)
-    static QString directionIdToName(uint16_t id);
-    static uint16_t directionNameToId(const QString& name);
 
     // Outfit
     const Outfit& getOutfit() const { return m_outfit; }
@@ -118,10 +97,6 @@ private:
     Position m_position;
     Outfit m_outfit;         // Instance-specific outfit
     CreatureFlag m_flags = CreatureFlag::NONE;
-    Direction m_direction = Direction::SOUTH; // Default direction from original wxWidgets
-    int m_spawnTime = 0;     // Spawn time in seconds
-    bool m_saved = false;    // Save state tracking
-    bool m_selected = false; // Selection state tracking
 };
 
 } // namespace creatures

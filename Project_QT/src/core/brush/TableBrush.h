@@ -24,7 +24,7 @@ class TestTableBrush;
 namespace RME {
 namespace core {
 
-class TableBrush : public Brush {
+class TableBrush : public RME::core::Brush {
     friend class ::TestTableBrush; // Friend class for testing
 
 public:

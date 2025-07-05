@@ -58,11 +58,11 @@ public:
     // Note: Spawn time is part of SpawnData, not the creature instance here.
 
     // For SpawnData changes
-    virtual void recordAddSpawn(const RME::core::spawns::Spawn& spawn) = 0;
+    virtual void recordAddSpawn(const RME::core::SpawnData& spawnData) = 0;
     virtual void recordRemoveSpawn(const RME::core::Position& spawnCenterPos) = 0;
     virtual void recordUpdateSpawn(const RME::core::Position& spawnCenterPos,
-                                   const RME::core::spawns::Spawn& oldSpawn,
-                                   const RME::core::spawns::Spawn& newSpawn) = 0;
+                                   const RME::core::SpawnData& oldSpawnData,
+                                   const RME::core::SpawnData& newSpawnData) = 0;
 
     // --- Tile Content Specific Actions ---
     virtual void recordSetGroundItem(const RME::core::Position& pos, uint16_t newGroundItemId, uint16_t oldGroundItemId) = 0;

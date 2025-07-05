@@ -15,6 +15,7 @@
 
 namespace RME {
 namespace core {
+namespace brush {
 
 RawBrush::RawBrush(uint16_t itemId) : m_itemId(itemId) {
     // Constructor
@@ -81,37 +82,37 @@ void RawBrush::apply(RME::core::editor::EditorControllerInterface* controller,
                        const RME::core::Position& pos,
                        const RME::core::BrushSettings& settings) {
     if (m_itemId == 0) {
-        qDebug() << "RawBrush::apply: No item ID selected for the brush.";
+        qDebug("RawBrush::apply: No item ID selected for the brush.");
         return;
     }
 
     Map* map = controller->getMap();
     if (!map || !map->isPositionValid(pos)) {
-        qWarning() << "RawBrush::apply: Invalid map or position.";
+        qWarning("RawBrush::apply: Invalid map or position.");
         return;
     }
 
     AssetManager* assetManager = controller->getAssetManager();
     if (!assetManager) {
-        qWarning() << "RawBrush::apply: AssetManager not available via controller.";
+        qWarning("RawBrush::apply: AssetManager not available via controller.");
         return;
     }
     const ItemDatabase& itemDb = assetManager->getItemDatabase();
     if (!itemDb.isValidId(m_itemId)) {
-        qWarning() << "RawBrush::apply: Item ID" << m_itemId << "is invalid or does not exist.";
+        qWarning("RawBrush::apply: Item ID %1 is invalid or does not exist.").arg(m_itemId);
         return;
     }
     const ItemData& itemData = itemDb.getItemData(m_itemId);
 
     Tile* tile = map->getTileForEditing(pos);
     if (!tile) {
-        qWarning() << "RawBrush::apply: Failed to get tile for editing at" << pos.toString();
+        qWarning("RawBrush::apply: Failed to get tile for editing at %s").arg(qUtf8Printable(pos.toString()));
         return;
     }
 
     // Ensure there's ground if we are not placing a ground item itself on an empty tile
     if (!tile->getGround() && !itemData.isGround && !settings.isEraseMode) {
-        qDebug() << "RawBrush::apply: Cannot place non-ground item on a tile without ground.";
+        qDebug("RawBrush::apply: Cannot place non-ground item on a tile without ground.");
         return;
     }
 
@@ -120,11 +121,11 @@ void RawBrush::apply(RME::core::editor::EditorControllerInterface* controller,
             // Try to erase if it's the ground item
             if (tile->getGround() && tile->getGround()->getID() == m_itemId) {
                 std::unique_ptr<Item> oldGround = tile->popGround();
-                auto cmd = std::make_unique<RME::core::actions::RecordSetGroundCommand>(
+                auto cmd = std::make_unique<RME_COMMANDS::RecordSetGroundCommand>(
                     tile, nullptr, std::move(oldGround), controller);
                 controller->pushCommand(std::move(cmd));
             } else {
-                qDebug() << "RawBrush::apply (erase): Ground item ID" << m_itemId << "not found as ground on tile.";
+                qDebug("RawBrush::apply (erase): Ground item ID %1 not found as ground on tile.").arg(m_itemId);
             }
         } else {
             // Erase non-ground item: find topmost item with this ID
@@ -141,37 +142,38 @@ void RawBrush::apply(RME::core::editor::EditorControllerInterface* controller,
             if (itemToRemove) {
                 // itemToRemove is a raw pointer to an item managed by tile->getItems()
                 // RecordAddRemoveItemCommand for remove takes Item*
-                auto cmd = std::make_unique<RME::core::actions::RecordAddRemoveItemCommand>(
+                auto cmd = std::make_unique<RME_COMMANDS::RecordAddRemoveItemCommand>(
                     tile, itemToRemove, controller);
                 controller->pushCommand(std::move(cmd));
             } else {
-                qDebug() << "RawBrush::apply (erase): Item ID" << m_itemId << "not found on tile.";
+                qDebug("RawBrush::apply (erase): Item ID %1 not found on tile.").arg(m_itemId);
             }
         }
     } else { // Drawing mode
         std::unique_ptr<Item> newItem = Item::create(m_itemId); // Assumes Item::create uses its own means to get ItemData if needed beyond ID
         if (!newItem) {
-            qWarning() << "RawBrush::apply: Failed to create item with ID" << m_itemId << ".";
+            qWarning("RawBrush::apply: Failed to create item with ID %1.").arg(m_itemId);
             return;
         }
 
         if (itemData.isGround) {
             std::unique_ptr<Item> oldGround = tile->popGround();
-            auto cmd = std::make_unique<RME::core::actions::RecordSetGroundCommand>(
+            auto cmd = std::make_unique<RME_COMMANDS::RecordSetGroundCommand>(
                 tile, std::move(newItem), std::move(oldGround), controller);
             controller->pushCommand(std::move(cmd));
         } else {
             // Before adding a non-ground item, ensure there is ground.
             if (!tile->getGround()) {
-                qDebug() << "RawBrush::apply (draw): Cannot place non-ground item ID" << m_itemId << "as there is no ground.";
+                qDebug("RawBrush::apply (draw): Cannot place non-ground item ID %1 as there is no ground.").arg(m_itemId);
                 return; // Or handle by placing a default ground first, if that's desired behavior.
             }
-            auto cmd = std::make_unique<RME::core::actions::RecordAddRemoveItemCommand>(
+            auto cmd = std::make_unique<RME_COMMANDS::RecordAddRemoveItemCommand>(
                 tile, std::move(newItem), controller);
             controller->pushCommand(std::move(cmd));
         }
     }
 }
 
+} // namespace brush
 } // namespace core
 } // namespace RME

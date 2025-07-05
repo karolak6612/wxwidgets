@@ -30,9 +30,6 @@ public:
 
     // Main loading function
     bool loadDatSpr(const QString& datPath, const QString& sprPath, const ClientProfile& clientProfile);
-    
-    // Convenience method for loading sprites
-    bool loadSprites(const QString& datPath, const QString& sprPath);
 
     // Optional: Load OTFI to override paths or sprite properties
     bool loadOtfi(const QString& otfiPath, OtfiData& otfiDataResult); // Parses OTFI into struct

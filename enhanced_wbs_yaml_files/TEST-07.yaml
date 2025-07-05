@@ -1,0 +1,144 @@
+id: TEST-07 # Changed from wbs_item_id for consistency
+section: Testing # Added section for clarity
+title: "Develop Integration Tests for Map Rendering System"
+original_task_id: TEST-07 # Assuming this is the original ID
+description: Create integration tests to verify that the map rendering system correctly displays the map data. This involves loading various test maps, rendering them to an offscreen buffer or image, and comparing the output against reference images or expected visual features to ensure visual correctness.
+dependencies:
+  - "RENDER-01"  # MapView (OpenGL viewport setup)
+  - "RENDER-02"  # Basic Tile Rendering (colored quads)
+  - "RENDER-03"  # Sprite Rendering (textured quads, atlases)
+  - "RENDER-04-LightingSystem"  # Lighting System (if lighting affects visual output for tests)
+  - "CORE-07-MapIO"    # IOMapOTBM for loading test map files
+  - "TEST-01"    # Unit tests for core data structures
+  - "CORE-01"    # mapcore::Map, mapcore::Tile, etc.
+  - "CORE-02"    # mapcore::Item, mapcore::Creature, mapcore::ItemType, etc.
+  - "CORE-14-MaterialSystem"    # mapcore::MaterialManager (for brush definitions affecting borders)
+  - "BUILD-01"   # For CMake setup to build and run tests
+input_files: [] # No wxWidgets files to port for this task
+analyzed_input_files: [] # No legacy files to analyze for this task
+documentation_references:
+  - 'Qt Test Framework: https://doc.qt.io/qt-6/qttest-index.html'
+  - 'QOffscreenSurface: https://doc.qt.io/qt-6/qoffscreensurface.html'
+  - 'QOpenGLFramebufferObject: https://doc.qt.io/qt-6/qopenglframebufferobject.html'
+  - 'QImage Class: https://doc.qt.io/qt-6/qimage.html (for pixel manipulation and comparison)'
+  - 'ImageMagick Compare (example of command-line tool for image comparison, for context): https://imagemagick.org/script/compare.php'
+current_functionality_summary: |
+  This task is focused on creating new integration tests for the Qt6 map rendering pipeline. The rendering system, developed across 'RENDER-01' (OpenGL Viewport), 'RENDER-02' (Basic Tile Quads), and 'RENDER-03' (Sprite Rendering), is responsible for visually representing the 'mapcore::Map' data. These integration tests will load specifically designed test maps, render them (typically to an offscreen buffer to avoid UI dependencies during automated testing), and then validate the resulting images to ensure that the rendering output is visually correct and accurately reflects the map's data and the defined rendering rules (e.g., item stacking, border logic, outfit colors).
+definition_of_done:
+  - Integration tests using the Qt Test framework are created for the map rendering system.
+  - "A suite of small, focused OTBM test map files ('testdata/maps/*.otbm') is created, each designed to test specific rendering scenarios. Examples include: 'map_empty.otbm' (Tests rendering of an empty map area), 'map_ground_borders.otbm' (Tests various ground tile types and their auto-generated borders), 'map_item_stacking.otbm' (Tests correct visual stacking order of multiple items on a single tile), 'map_item_attributes.otbm' (Tests rendering of items with various visual attributes), 'map_creatures.otbm' (Tests rendering of different creatures with default appearances), 'map_outfitted_creatures_and_items.otbm' (Tests correct sprite rendering for creatures and items with applied outfits), 'map_always_on_top.otbm' (Tests items with the 'always on top' property correctly occluding others), 'map_special_markers.otbm' (Tests visual indicators for spawn areas, waypoints, house tiles, and PZ/NoLogout/PvP zones), 'map_multi_floor.otbm' (Tests rendering with multiple floors visible), and 'map_lighting_effects.otbm' (If 'RENDER-04' is complete, tests basic lighting visuals)."
+  - Tests are capable of initializing the application's rendering components ('MapView', 'TextureManager', 'ShaderManager') and rendering a loaded test map to an offscreen 'QImage' (e.g., via 'QOpenGLFramebufferObject').
+  - "Validation of the rendered 'QImage' is performed using one or both of these methods: Reference Image Comparison (For each test map and view configuration, a pre-approved 'golden' reference PNG image is stored. The test renders the map and compares the output 'QImage' pixel-by-pixel against the golden image, allowing for a small, defined tolerance for minor pixel differences), and Programmatic Feature Verification (For certain tests, specific visual features are checked programmatically within the rendered 'QImage', such as checking the predominant pixel color(s) at the expected screen coordinates of a known map element, verifying that a border between two ground types has the expected color pattern along its edge, and confirming that an 'always on top' item's pixels are not overwritten by other items on the same tile that should be beneath it)."
+  - "Test Coverage Includes: Correct rendering of different ground tile types and their automatic borders based on 'mapcore::MaterialManager' logic, accurate visual representation and Z-order/stacking order of multiple items on a single tile, correct rendering of creature sprites including outfit colorization, correct rendering of items that use creature-like outfit properties, items with the 'always on top' property visually occluding other items as expected, visual indicators for spawns (e.g., radius visualization if implemented), waypoints, house tile overlays, and zone markers (PZ, etc.), correct visual differentiation of floors (e.g., ghosting/alpha blending for floors not currently active), and basic lighting effects are rendered correctly if 'RENDER-04' is a dependency and included in tests."
+  - All created integration tests pass successfully (reference images match, or programmatic checks pass).
+  - Tests are integrated into the CMake build system for automated execution (e.g., 'ctest').
+  - A clear process for updating golden images is defined if that validation method is used.
+estimation_effort:
+  - "Very High (30-40 developer days). Creating diverse test maps, setting up robust offscreen rendering for testing, implementing reliable image comparison (with tolerance) or feature detection logic, and generating/maintaining golden images is a substantial effort. Testing all visual aspects of a complex map editor is very demanding."
+known_missing_files: [] # Not applicable
+boilerplate_coder_ai_prompt: >
+  Your task is to create integration tests for the map rendering pipeline of the Qt6 Remere's Map Editor. This involves loading test maps, rendering them offscreen using the application's 'MapView' and related components, and then validating the visual output. Use the Qt Test framework and target components from 'RENDER-01', 'RENDER-02', 'RENDER-03'.
+
+  I. Test Data Setup:
+  1.  Create a 'testdata/maps/' directory.
+  2.  Inside, create several small OTBM files, each designed to test specific rendering features. Examples:
+      - 'test_empty_map.otbm'
+      - 'test_ground_borders_A.otbm' (e.g., grass next to dirt)
+      - 'test_item_stacking_order.otbm' (e.g., tall item, flat item, small item on one tile)
+      - 'test_creature_outfit.otbm' (creature with specific head/body/legs/feet colors)
+      - 'test_always_on_top.otbm' (item with this flag over another item)
+      - 'test_spawn_waypoint.otbm' (tile with a spawn radius and a waypoint marker)
+      - 'test_multi_floor_ghosting.otbm' (content on floor 7, 6, 5; view from floor 6)
+  3.  For tests involving reference image comparison, create a corresponding 'testdata/expected_renders/' directory to store "golden" PNG images.
+
+  II. Test Class Structure (e.g., 'TestMapRendering' in 'tests/integration/'):
+  ```cpp
+  #include <QtTest>
+  #include <QImage>
+  #include <QOpenGLFramebufferObject>
+  #include <QOffscreenSurface>
+  #include <QOpenGLContext>
+  #include "mapcore/map.h"
+  #include "mapcore/iomap_otbm.h"
+  #include "mapview.h" // Your Qt6 MapView class from RENDER-01
+  #include "texturemanagerqt.h" // From RENDER-03
+  #include "mapcore/graphicmanager.h" // From CORE-02
+  #include "mapcore/itemmanager.h"   // From LOGIC-02
+  // ... other necessary includes ...
+
+  class TestMapRendering : public QObject {
+      Q_OBJECT
+  public:
+      TestMapRendering();
+      ~TestMapRendering();
+
+  private slots:
+      void: initTestCase();    // One-time setup (e.g., QSurfaceFormat, QOpenGLContext)
+      void: cleanupTestCase(); // One-time cleanup
+
+      void: init();    // Setup before each test function (e.g., create MapView, load map)
+      void: cleanup(); // Cleanup after each test function
+
+      // Example test functions
+      void: testRenderGroundBorders();
+      void: testRenderItemStacking();
+      void: testRenderCreatureOutfit();
+      // ... more test functions for each scenario ...
+
+  private:
+      QImage renderMapToImage(mapcore::Map* map, const QSize& imageSize, const mapcore::Position& viewCenter, qreal zoomFactor, int currentFloor);
+      bool: compareImages(const QImage& img1, const QImage& img2, int tolerance = 5, double* diffPercentage = nullptr);
+
+      QOpenGLContext* m_context = nullptr;
+      QOffscreenSurface* m_surface = nullptr;
+      mapcore::GraphicManager* m_graphicManager = nullptr;
+      mapcore::ItemManager* m_itemManager = nullptr;
+      // ... other managers if needed by TextureManager or MapView ...
+      TextureManagerQt* m_textureManager = nullptr;
+      MapView* m_mapView = nullptr; // The MapView widget itself for rendering
+      mapcore::Map* m_testMap = nullptr;
+  };
+  ```
+
+  III. Test Implementation Details:
+
+  'initTestCase()':
+      - Set a 'QSurfaceFormat' with required OpenGL version.
+      - 'm_context = new QOpenGLContext(); m_context->setFormat(format); m_context->create();'
+      - 'm_surface = new QOffscreenSurface(); m_surface->setFormat(m_context->format()); m_surface->create();'
+      - Load global assets: 'm_graphicManager = new mapcore::GraphicManager(); /* ... load client version data ... */'
+      - 'm_itemManager = new mapcore::ItemManager(); /* ... load items ... */'
+      - 'm_textureManager = new TextureManagerQt(m_graphicManager); m_textureManager->initialize(currentClientVersionID);'
+
+  'init()':
+      - 'm_testMap = new mapcore::Map();'
+      - 'm_mapView = new MapView(/* pass necessary services/managers if refactored, or use globals if still in that phase */);'
+      - 'm_mapView->setTextureManager(m_textureManager);' // Assuming MapView needs it
+      - 'm_mapView->setMap(m_testMap);'
+      - 'm_mapView->setGeometry(0, 0, 640, 480); // Consistent render size'
+      - 'm_context->makeCurrent(m_surface);'
+      - 'm_mapView->initOpenGLState(); // A helper to do initializeGL essentials if needed offscreen'
+
+
+  'renderMapToImage(...)' Helper Function:
+      - 'm_mapView->setCurrentFloor(currentFloor);'
+      - 'm_mapView->setViewCenter(viewCenter);'
+      - 'm_mapView->setZoomFactor(zoomFactor);'
+      - 'QOpenGLFramebufferObject fbo(imageSize);'
+      - 'fbo.bind();'
+      - 'm_context->makeCurrent(m_surface);' // Ensure context is current
+      - 'm_mapView->forcePaintGL(); // A new public method in MapView that directly calls its paintGL contents'
+      - 'QImage image = fbo.toImage();'
+      - 'fbo.release();'
+      - Return 'image'.
+
+  Test Function (e.g., 'testRenderGroundBorders()'):
+      - 'mapcore::IOMapOTBM::loadMap(*m_testMap, "testdata/maps/test_ground_borders_A.otbm");'
+      - 'QImage renderedImage = renderMapToImage(m_testMap, QSize(320, 240), mapcore::Position(100,100,7), 1.0, 7);'
+      - 'QImage goldenImage("testdata/expected_renders/test_ground_borders_A.png");'
+      - 'QVERIFY2(compareImages(renderedImage, goldenImage, 5), "Rendered ground borders do not match golden image.");'
+      OR Programmatic Check: 'QColor pixel = renderedImage.pixelColor(160, 120); QCOMPARE(pixel, Qt::green);'
+
+  'compareImages(...)' Helper: Iterate pixels, count differences. If diffs > tolerance * totalPixels, return false.
+
+  Ensure: all test maps and golden images are added to resources or copied to build directory for tests to find them. Add tests to CMake.

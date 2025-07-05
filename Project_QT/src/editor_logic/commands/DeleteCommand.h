@@ -1,7 +1,7 @@
 #ifndef RME_DELETECOMMAND_H
 #define RME_DELETECOMMAND_H
 
-#include "BaseCommand.h"
+#include <QUndoCommand>
 #include <QMap>
 #include <QList>
 #include <memory>      // For std::unique_ptr within TileData
@@ -9,7 +9,6 @@
 
 #include "core/Position.h"
 #include "core/data_transfer/TileData.h" // For RME::core::data_transfer::TileData
-#include "core/actions/CommandIds.h"
 
 // Forward declarations
 namespace RME {
@@ -21,13 +20,11 @@ namespace core {
 }
 }
 
-namespace RME {
-namespace core {
-namespace actions {
+namespace RME_COMMANDS {
 
-constexpr int DeleteCommandId = toInt(CommandId::Delete);
+const int DeleteCommandId = 1013; // Choose a unique ID
 
-class DeleteCommand : public BaseCommand {
+class DeleteCommand : public QUndoCommand {
 public:
     DeleteCommand(
         RME::core::Map* map,
@@ -54,13 +51,12 @@ public:
 private:
     RME::core::Map* m_map;
     RME::core::selection::SelectionManager* m_selectionManager;
+    RME::core::editor::EditorControllerInterface* m_controller;
 
     QMap<RME::core::Position, RME::core::data_transfer::TileData> m_originalTileData;
     QList<RME::core::Tile*> m_previouslySelectedTiles; // Raw pointers, tile objects must persist
     bool m_hadSelectionToDelete;
 };
 
-} // namespace actions
-} // namespace core
-} // namespace RME
+} // namespace RME_COMMANDS
 #endif // RME_DELETECOMMAND_H

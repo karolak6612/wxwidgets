@@ -1,9 +1,9 @@
 #include "Map.h"
-#include "core/Tile.h" // Needed for removeHouse to update tiles
+#include "Project_QT/src/core/Tile.h" // Needed for removeHouse to update tiles
 #include "core/world/TownData.h" // For RME::TownData
 #include <algorithm> // For std::max, std::find_if, std::remove_if
 #include <QDebug> // For qWarning, qCritical
-#include "core/spawns/Spawn.h"
+#include "core/spawns/SpawnData.h"
 // No need to include AssetManager.h directly if BaseMap handles it and it's not used otherwise
 
 namespace RME {
@@ -347,75 +347,41 @@ void Map::clearWaypoints() {
 }
 
 // --- Spawns ---
-void Map::addSpawn(RME::core::spawns::Spawn&& spawn) {
-    m_spawns.append(std::move(spawn));
+void Map::addSpawn(RME::SpawnData&& spawnData) {
+    m_spawns.append(std::move(spawnData));
     setChanged(true);
 }
 
-bool Map::addSpawn(const RME::core::spawns::Spawn& spawn) {
-    m_spawns.append(spawn);
-    setChanged(true);
-    return true;
-}
-
-QList<RME::core::spawns::Spawn>& Map::getSpawns() {
+QList<RME::SpawnData>& Map::getSpawns() {
     return m_spawns;
 }
 
-const QList<RME::core::spawns::Spawn>& Map::getSpawns() const {
+const QList<RME::SpawnData>& Map::getSpawns() const {
     return m_spawns;
 }
 
-bool Map::removeSpawn(const RME::core::spawns::Spawn& spawn) {
+bool Map::removeSpawn(const RME::SpawnData& spawnData) {
     // QList::removeOne requires the type to have operator==
-    bool removed = m_spawns.removeOne(spawn);
+    bool removed = m_spawns.removeOne(spawnData);
     if (removed) {
         setChanged(true);
     }
     return removed;
 }
 
-bool Map::removeSpawnAt(const Position& pos) {
-    auto it = std::find_if(m_spawns.begin(), m_spawns.end(),
-                          [&pos](const RME::core::spawns::Spawn& spawn) {
-                              return spawn.getCenter() == pos;
-                          });
-    if (it != m_spawns.end()) {
-        m_spawns.erase(it);
-        setChanged(true);
-        return true;
-    }
-    return false;
-}
-
-RME::core::spawns::Spawn* Map::getSpawnAt(const Position& pos) {
-    auto it = std::find_if(m_spawns.begin(), m_spawns.end(),
-                          [&pos](const RME::core::spawns::Spawn& spawn) {
-                              return spawn.getCenter() == pos;
-                          });
-    return (it != m_spawns.end()) ? &(*it) : nullptr;
-}
-
-const RME::core::spawns::Spawn* Map::getSpawnAt(const Position& pos) const {
-    auto it = std::find_if(m_spawns.begin(), m_spawns.end(),
-                          [&pos](const RME::core::spawns::Spawn& spawn) {
-                              return spawn.getCenter() == pos;
-                          });
-    return (it != m_spawns.end()) ? &(*it) : nullptr;
-}
-
-void Map::clearSpawns() {
-    if (!m_spawns.isEmpty()) {
-        m_spawns.clear();
-        setChanged(true);
-    }
-}
-
 // --- Advanced Queries / Tile Property Queries ---
 int Map::getSpawnOverlapCount(const Position& pos) const {
     int count = 0;
-    for (const RME::core::spawns::Spawn& spawn : m_spawns) {
-        if (spawn.containsPosition(pos)) {
+    for (const SpawnData& spawn : m_spawns) {
+        // Check Z-level first
+        if (spawn.getCenter().z != pos.z) {
+            continue;
+        }
+        // Simple circular distance check in XY plane
+        // (dx*dx + dy*dy) <= radius*radius
+        int dx = pos.x - spawn.getCenter().x;
+        int dy = pos.y - spawn.getCenter().y;
+        if ((dx * dx + dy * dy) <= (spawn.getRadius() * spawn.getRadius())) {
             count++;
         }
     }

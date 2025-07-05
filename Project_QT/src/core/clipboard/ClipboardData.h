@@ -1,7 +1,7 @@
 #ifndef CLIPBOARDDATA_H
 #define CLIPBOARDDATA_H
 
-#include "core/Position.h" // Assuming Position is defined here or accessible
+#include "Project_QT/src/core/Position.h" // Assuming Position is defined here or accessible
 #include <QString>
 #include <QList>
 #include <QDataStream>
@@ -27,56 +27,23 @@ QDataStream& operator>>(QDataStream& in, ClipboardItemData& data);
 // Basic data for a creature on the clipboard
 struct ClipboardCreatureData {
     QString name;
-    
-    // Outfit data
-    uint16_t lookType;
-    uint8_t head;
-    uint8_t body;
-    uint8_t legs;
-    uint8_t feet;
-    uint8_t addons;
-    uint16_t mount;
-    
-    // Direction and other properties
-    uint8_t direction; // 0=North, 1=East, 2=South, 3=West
-    bool isNpc;
-    
-    // Additional creature attributes
-    QVariantMap attributes; // For custom properties, scripts, etc.
+    // Add other relevant creature properties: outfit, flags, etc.
+    // For simplicity, starting with name.
+    // int lookType;
+    // int lookHead, lookBody, lookLegs, lookFeet, lookAddons;
 
-    ClipboardCreatureData() : lookType(0), head(0), body(0), legs(0), feet(0), addons(0), mount(0), direction(2), isNpc(false) {}
+    ClipboardCreatureData() = default;
 };
 QDataStream& operator<<(QDataStream& out, const ClipboardCreatureData& data);
 QDataStream& operator>>(QDataStream& in, ClipboardCreatureData& data);
-
-// Forward declaration for unified spawn class
-namespace core { namespace spawns { class Spawn; } }
 
 // Basic data for a spawn on the clipboard
 struct ClipboardSpawnData {
     uint16_t radius;
     QList<QString> creatureNames; // List of creature names in this spawn
-    
-    // Spawn timing and behavior
-    uint32_t spawnTime; // Respawn time in seconds
-    uint32_t despawnRange; // Despawn range
-    uint32_t despawnRadius; // Despawn radius
-    
-    // Creature spawn data with chances
-    struct CreatureSpawnEntry {
-        QString name;
-        uint32_t chance; // Spawn chance (0-100000)
-        uint32_t max; // Maximum number of this creature type
-        
-        CreatureSpawnEntry() : chance(100), max(1) {}
-        CreatureSpawnEntry(const QString& n, uint32_t c = 100, uint32_t m = 1) : name(n), chance(c), max(m) {}
-    };
-    QList<CreatureSpawnEntry> creatures;
-    
-    // Additional spawn attributes
-    QVariantMap attributes; // For custom properties, scripts, etc.
+    // Add other spawn properties
 
-    ClipboardSpawnData() : radius(1), spawnTime(60), despawnRange(2), despawnRadius(1) {}
+    ClipboardSpawnData() : radius(1) {}
 };
 QDataStream& operator<<(QDataStream& out, const ClipboardSpawnData& data);
 QDataStream& operator>>(QDataStream& in, ClipboardSpawnData& data);

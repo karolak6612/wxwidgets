@@ -1,27 +1,97 @@
 #include "HouseData.h"
-#include "core/map/Map.h" // Fixed include path
-#include "core/Tile.h"   // Fixed include path
+#include "Project_QT/src/core/map/Map.h" // For calculateSizeSqms (needs Tile definition too)
+#include "Project_QT/src/core/Tile.h"   // For calculateSizeSqms
 #include <QTextStream>
 
 namespace RME {
-namespace core {
-namespace houses {
 
-// Note: HouseData is now a simple data structure as declared in header
-// The implementation with m_id, m_name etc. was inconsistent with header
-// Header declares: id, name, entryPoint, exits, townId, rent, sizeInSqms
-// Implementation should match header declaration
+HouseData::HouseData() :
+    m_id(0),
+    m_townId(0),
+    m_rent(0),
+    m_sizeInSqms(0),
+    m_isGuildhall(false)
+{
+}
 
-// Constructor is already defined inline in header
-// HouseData(uint32_t houseId, const QString& houseName, const Position& entry)
+HouseData::HouseData(uint32_t houseId, const QString& houseName) :
+    m_id(houseId),
+    m_name(houseName),
+    m_townId(0),
+    m_rent(0),
+    m_sizeInSqms(0),
+    m_isGuildhall(false)
+{
+}
 
-// This method is not needed - HouseData is a simple data structure
-// Entry point manipulation should be handled by House class or Houses manager
-// HouseData should only store data, not manipulate map state
+void HouseData::setEntryPoint(const Position& newEntryPoint, Map* map) {
+    if (!map) {
+        // qWarning("HouseData::setEntryPoint called with null Map context. Tile flags will not be updated.");
+        m_entryPoint = newEntryPoint; // Update internal position anyway
+        return;
+    }
 
-// These methods are already defined inline in the header
-// addExit() and removeExit() work with the 'exits' QList
-// No need for separate tile position management in HouseData
+    Position oldEntryPoint = m_entryPoint;
+
+    // If new entry point is same as old, nothing to do for flags or position.
+    if (oldEntryPoint == newEntryPoint) {
+        return;
+    }
+
+    // Clear flag on old entry point tile
+    if (oldEntryPoint.isValid()) {
+        Tile* oldTile = map->getTile(oldEntryPoint);
+        if (oldTile) {
+            oldTile->setIsHouseExit(false);
+            map->notifyTileChanged(oldEntryPoint);
+        } else {
+            // qWarning("HouseData::setEntryPoint: Could not find old entry point tile at (%d,%d,%d) to clear exit flag.",
+            //          oldEntryPoint.x, oldEntryPoint.y, oldEntryPoint.z);
+        }
+    }
+
+    // Update the entry point
+    m_entryPoint = newEntryPoint;
+
+    // Set flag on new entry point tile
+    if (m_entryPoint.isValid()) {
+        bool created = false;
+        Tile* newTile = map->getOrCreateTile(m_entryPoint, created); // Ensure tile exists
+        if (newTile) {
+            newTile->setIsHouseExit(true);
+            map->notifyTileChanged(m_entryPoint);
+        } else {
+            // qWarning("HouseData::setEntryPoint: Could not get/create new entry point tile at (%d,%d,%d) to set exit flag.",
+            //          m_entryPoint.x, m_entryPoint.y, m_entryPoint.z);
+        }
+    }
+    // The HouseData object itself might be considered "changed" for saving purposes
+    // if it's managed by a system that tracks changes.
+}
+
+// --- Exits Management ---
+void HouseData::addExit(const Position& pos) {
+    if (!m_exits.contains(pos)) {
+        m_exits.append(pos);
+    }
+}
+
+bool HouseData::removeExit(const Position& pos) {
+    return m_exits.removeOne(pos);
+}
+
+// --- Tile Positions Management ---
+void HouseData::addTilePosition(const Position& pos) {
+    m_tiles.insert(pos);
+}
+
+bool HouseData::removeTilePosition(const Position& pos) {
+    return m_tiles.remove(pos);
+}
+
+bool HouseData::containsTile(const Position& pos) const {
+    return m_tiles.contains(pos);
+}
 
 // --- Utility Methods ---
 /*
@@ -46,14 +116,12 @@ int HouseData::calculateSizeSqms(const Map& map) const {
 QString HouseData::getDescription() const {
     QString desc;
     QTextStream ss(&desc);
-    ss << name << " (ID:" << id << "; Rent: " << rent;
-    if (isGuildhall) {
+    ss << m_name << " (ID:" << m_id << "; Rent: " << m_rent;
+    if (m_isGuildhall) {
         ss << "; Guildhall";
     }
     ss << ")";
     return desc;
 }
 
-} // namespace houses
-} // namespace core
 } // namespace RME

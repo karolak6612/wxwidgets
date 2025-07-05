@@ -1,7 +1,7 @@
 #include "core/brush/SpawnBrush.h"
 #include "core/map/Map.h"
 #include "core/Tile.h"
-#include "core/spawns/Spawn.h" // Updated to use unified Spawn class
+#include "core/spawns/SpawnData.h" // Changed from core/Spawn.h
 #include "core/editor/EditorControllerInterface.h"
 #include "core/settings/BrushSettings.h"
 
@@ -13,6 +13,7 @@ const int DEFAULT_SPAWN_INTERVAL_SECONDS = 60;
 
 namespace RME {
 namespace core {
+namespace brush {
 
 SpawnBrush::SpawnBrush() {
     // Constructor
@@ -44,7 +45,7 @@ void SpawnBrush::apply(RME::core::editor::EditorControllerInterface* controller,
                          const RME::core::Position& pos,
                          const RME::core::BrushSettings& settings) {
     if (!controller) {
-        qWarning() << "SpawnBrush::apply: Null controller.";
+        qWarning("SpawnBrush::apply: Null controller.");
         return;
     }
     Map* map = controller->getMap(); // Get Map from controller
@@ -59,12 +60,12 @@ void SpawnBrush::apply(RME::core::editor::EditorControllerInterface* controller,
     // If canApply's check `!tile || !tile->getGround()` is sufficient, tile won't be null.
 
     if (settings.isEraseMode) {
-        if (tile->hasSpawn()) {
-            RME::core::spawns::Spawn existingSpawn = tile->getSpawn();
-            qDebug() << "SpawnBrush::apply (erase): Requesting removal of spawn at" << pos.toString();
-            controller->recordRemoveSpawn(pos); // Controller handles spawn removal
+        RME::core::SpawnData* existingSpawnRef = tile->getSpawnDataRef();
+        if (existingSpawnRef != nullptr) {
+            qDebug("SpawnBrush::apply (erase): Requesting removal of spawn at %s", qUtf8Printable(pos.toString()));
+            controller->recordRemoveSpawn(pos); // Controller handles Tile::setSpawnDataRef(nullptr) and map list removal
         } else {
-            qDebug() << "SpawnBrush::apply (erase): No spawn centered on tile" << pos.toString() << "to erase.";
+            qDebug("SpawnBrush::apply (erase): No spawn centered on tile %s to erase.", qUtf8Printable(pos.toString()));
         }
     } else { // Drawing mode
         int radius = settings.getSize();
@@ -72,32 +73,34 @@ void SpawnBrush::apply(RME::core::editor::EditorControllerInterface* controller,
             radius = 1; // Ensure a minimum radius of 1 for spawns
         }
 
-        if (tile->hasSpawn()) { // Spawn center already exists on this tile
-            RME::core::spawns::Spawn existingSpawn = tile->getSpawn();
-            if (existingSpawn.getRadius() != radius) {
-                qDebug() << "SpawnBrush::apply (update): Updating spawn radius at" << pos.toString() 
-                       << "from" << existingSpawn.getRadius() << "to" << radius;
-                RME::core::spawns::Spawn oldState = existingSpawn; // Copy old state
-                RME::core::spawns::Spawn newState = oldState;
-                newState.setRadius(radius);
+        RME::core::SpawnData* existingSpawnRef = tile->getSpawnDataRef();
+
+        if (existingSpawnRef != nullptr) { // Spawn center already exists on this tile
+            if (existingSpawnRef->getRadius() != static_cast<uint16_t>(radius)) { // Cast radius for comparison
+                qDebug("SpawnBrush::apply (update): Updating spawn radius at %s from %d to %d",
+                       qUtf8Printable(pos.toString()), existingSpawnRef->getRadius(), radius);
+                RME::core::SpawnData oldState = *existingSpawnRef; // Copy old state
+                RME::core::SpawnData newState = oldState;
+                newState.setRadius(static_cast<uint16_t>(radius)); // Cast radius for setting
                 // This brush does not modify creature list or interval from BrushSettings.
                 controller->recordUpdateSpawn(pos, oldState, newState);
             } else {
-                qDebug() << "SpawnBrush::apply (draw): Spawn already exists at" << pos.toString() 
-                       << "with same radius" << radius << ". No change.";
+                qDebug("SpawnBrush::apply (draw): Spawn already exists at %s with same radius %d. No change.",
+                       qUtf8Printable(pos.toString()), radius);
             }
         } else { // No spawn center on this tile yet, create a new one.
-            qDebug() << "SpawnBrush::apply (draw): Requesting new spawn at" << pos.toString() 
-                   << "with radius" << radius;
+            qDebug("SpawnBrush::apply (draw): Requesting new spawn at %s with radius %d",
+                   qUtf8Printable(pos.toString()), radius);
             // Use default interval and empty creature list as this brush doesn't configure them.
-            RME::core::spawns::Spawn newSpawn(pos, radius, DEFAULT_SPAWN_INTERVAL_SECONDS);
-            newSpawn.setAutoCreated(true); // This brush "auto-creates" the basic spawn area.
-            controller->recordAddSpawn(newSpawn);
+            RME::core::SpawnData newSpawnData(pos, static_cast<uint16_t>(radius), DEFAULT_SPAWN_INTERVAL_SECONDS, QStringList());
+            newSpawnData.setIsAutoCreated(true); // This brush "auto-creates" the basic spawn area.
+            controller->recordAddSpawn(newSpawnData);
         }
     }
     // Tile notifications (notifyTileChanged) should be handled by the commands
     // generated by recordAddSpawn, recordRemoveSpawn, recordUpdateSpawn.
 }
 
+} // namespace brush
 } // namespace core
 } // namespace RME

@@ -21,8 +21,9 @@ class TestRawBrush;
 
 namespace RME {
 namespace core {
+namespace brush {
 
-class RawBrush : public Brush {
+class RawBrush : public RME::core::Brush {
     friend class ::TestRawBrush; // Friend class for testing
 
 public:
@@ -52,6 +53,7 @@ private:
     uint16_t m_itemId;
 };
 
+} // namespace brush
 } // namespace core
 } // namespace RME
 

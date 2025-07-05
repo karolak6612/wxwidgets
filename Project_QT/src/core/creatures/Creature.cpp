@@ -9,20 +9,21 @@ namespace core {
 namespace creatures {
 
 Creature::Creature(const RME::core::assets::CreatureData* type, const Position& pos)
-    : m_type(type), m_position(pos), m_flags(CreatureFlag::NONE), 
-      m_direction(Direction::SOUTH), m_spawnTime(0), m_saved(false), m_selected(false)
+    : m_type(type), m_position(pos), m_flags(CreatureFlag::NONE) // Default flags to NONE
 {
     if (m_type) {
         m_outfit = m_type->defaultOutfit; // Initialize instance outfit from type's default
-        // Set default flags based on type
-        if (m_type->isNpc) {
+        // Potentially set default flags based on type, e.g., if type is inherently an NPC
+        if (m_type->isNpc) { // Assuming CreatureData has an isNpc field or similar
              m_flags |= CreatureFlag::NPC;
         }
-        if (!m_type->isPassable) {
+        if (!m_type->isPassable) { // Assuming CreatureData has an isPassable field
             m_flags |= CreatureFlag::UNPASSABLE;
         }
     } else {
         // Handle null type - this is an error condition.
+        // Consider logging a warning or throwing an exception.
+        // For now, outfit will be default-constructed (all zeros), flags are NONE.
         // qWarning() << "Creature created with null CreatureData type!";
     }
 }
@@ -32,11 +33,7 @@ Creature::Creature(const Creature& other)
     : m_type(other.m_type), // Copy pointer/reference, non-owning
       m_position(other.m_position),
       m_outfit(other.m_outfit),
-      m_flags(other.m_flags),
-      m_direction(other.m_direction),
-      m_spawnTime(other.m_spawnTime),
-      m_saved(other.m_saved),
-      m_selected(other.m_selected)
+      m_flags(other.m_flags)
 {}
 
 // Copy assignment operator
@@ -48,10 +45,6 @@ Creature& Creature::operator=(const Creature& other) {
     m_position = other.m_position;
     m_outfit = other.m_outfit;
     m_flags = other.m_flags;
-    m_direction = other.m_direction;
-    m_spawnTime = other.m_spawnTime;
-    m_saved = other.m_saved;
-    m_selected = other.m_selected;
     return *this;
 }
 
@@ -60,12 +53,10 @@ Creature::Creature(Creature&& other) noexcept
     : m_type(other.m_type),
       m_position(std::move(other.m_position)),
       m_outfit(std::move(other.m_outfit)),
-      m_flags(other.m_flags),
-      m_direction(other.m_direction),
-      m_spawnTime(other.m_spawnTime),
-      m_saved(other.m_saved),
-      m_selected(other.m_selected)
+      m_flags(other.m_flags)
 {
+    // For a move, the source's pointer to non-owned data (m_type) can be copied,
+    // and then other.m_type set to nullptr if Creature was responsible for it (which it's not).
     // Since m_type is non-owning, just copying is fine. No need to null out other.m_type.
 }
 
@@ -78,10 +69,7 @@ Creature& Creature::operator=(Creature&& other) noexcept {
     m_position = std::move(other.m_position);
     m_outfit = std::move(other.m_outfit);
     m_flags = other.m_flags;
-    m_direction = other.m_direction;
-    m_spawnTime = other.m_spawnTime;
-    m_saved = other.m_saved;
-    m_selected = other.m_selected;
+    // Similar to move constructor, no need to null out other.m_type for non-owning pointer.
     return *this;
 }
 
@@ -110,14 +98,8 @@ bool Creature::isNpc() const {
     return hasFlag(CreatureFlag::NPC);
 }
 
-// Static direction conversion methods (from original wxWidgets implementation)
-QString Creature::directionIdToName(uint16_t id) {
-    return DirectionUtils::directionToName(static_cast<Direction>(id));
-}
-
-uint16_t Creature::directionNameToId(const QString& name) {
-    return static_cast<uint16_t>(DirectionUtils::nameToDirection(name));
-}
+// Other methods (getters/setters for position, outfit, flags) are inline in the header or simple enough
+// not to need separate implementation here unless they become more complex.
 
 } // namespace creatures
 } // namespace core

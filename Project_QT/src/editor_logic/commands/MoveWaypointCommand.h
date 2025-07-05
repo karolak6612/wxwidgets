@@ -1,31 +1,26 @@
 #ifndef RME_MOVEWAYPOINTCOMMAND_H
 #define RME_MOVEWAYPOINTCOMMAND_H
 
-#include "BaseCommand.h"
+#include <QUndoCommand>
 #include <QString>
 #include "core/Position.h" // RME::core::Position
-#include "core/actions/CommandIds.h"
 
 // Forward declarations
 namespace RME { namespace core {
     class WaypointManager;
-    namespace editor { class EditorControllerInterface; }
 }}
 
-namespace RME {
-namespace core {
-namespace actions {
+namespace RME_COMMANDS {
 
-constexpr int MoveWaypointCommandId = toInt(CommandId::MoveWaypoint);
+const int MoveWaypointCommandId = 1004; // Unique ID for this command type
 
-class MoveWaypointCommand : public BaseCommand {
+class MoveWaypointCommand : public QUndoCommand {
 public:
     MoveWaypointCommand(
         RME::core::WaypointManager* waypointManager,
         const QString& waypointName,
         const RME::core::Position& oldPosition,
         const RME::core::Position& newPosition,
-        RME::core::EditorControllerInterface* controller,
         QUndoCommand* parent = nullptr
     );
     ~MoveWaypointCommand() override = default;
@@ -44,7 +39,5 @@ private:
                                      // If merged, this becomes the final new position of the sequence.
 };
 
-} // namespace actions
-} // namespace core
-} // namespace RME
+} // namespace RME_COMMANDS
 #endif // RME_MOVEWAYPOINTCOMMAND_H

@@ -19,8 +19,9 @@ class TestEraserBrush;
 
 namespace RME {
 namespace core {
+namespace brush {
 
-class EraserBrush : public Brush {
+class EraserBrush : public RME::core::Brush {
     friend class ::TestEraserBrush; // Friend class for testing
 
 public:
@@ -46,6 +47,7 @@ private:
     // and driven by BrushSettings and global AppSettings.
 };
 
+} // namespace brush
 } // namespace core
 } // namespace RME
 

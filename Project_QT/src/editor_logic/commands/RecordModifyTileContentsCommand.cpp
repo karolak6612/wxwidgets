@@ -12,9 +12,7 @@
 #include <QDebug>  // For qWarning, Q_ASSERT
 #include <sstream> // For std::ostringstream
 
-namespace RME {
-namespace core {
-namespace actions {
+namespace RME_COMMANDS {
 
 RecordModifyTileContentsCommand::RecordModifyTileContentsCommand(
     RME::core::Tile* tile,
@@ -24,10 +22,12 @@ RecordModifyTileContentsCommand::RecordModifyTileContentsCommand(
     std::unique_ptr<RME::core::Spawn> previouslyExistingSpawn,
     std::unique_ptr<RME::core::Creature> previouslyExistingCreature,
     QUndoCommand* parent
-) : BaseCommand(controller, QObject::tr("Modify Tile Contents"), parent),
-    m_tile(tile)
+) : QUndoCommand(parent),
+    m_tile(tile),
+    m_controller(controller)
 {
     Q_ASSERT(m_tile);
+    Q_ASSERT(m_controller);
 
     m_tilePosition = m_tile->getPosition();
 
@@ -57,8 +57,8 @@ RecordModifyTileContentsCommand::RecordModifyTileContentsCommand(
 }
 
 void RecordModifyTileContentsCommand::undo() {
-    if (!validateMembers() || !m_tile) {
-        setErrorText("undo modify tile contents");
+    if (!m_tile || !m_controller || !m_controller->getMap()) {
+        qWarning("RecordModifyTileContentsCommand::undo: Critical objects missing.");
         return;
     }
 
@@ -81,12 +81,12 @@ void RecordModifyTileContentsCommand::undo() {
         m_tile->setCreature(m_undoneCreature->deepCopy()); // Add back a copy
     }
 
-    notifyMapChanged(m_tilePosition);
+    m_controller->getMap()->notifyTileChanged(m_tilePosition);
 }
 
 void RecordModifyTileContentsCommand::redo() {
-    if (!validateMembers() || !m_tile) {
-        setErrorText("redo modify tile contents");
+    if (!m_tile || !m_controller || !m_controller->getMap()) {
+        qWarning("RecordModifyTileContentsCommand::redo: Critical objects missing.");
         return;
     }
 
@@ -135,9 +135,7 @@ void RecordModifyTileContentsCommand::redo() {
         m_tile->setCreature(nullptr); // Assuming Tile::setCreature(nullptr) is the way to clear.
     }
 
-    notifyMapChanged(m_tilePosition);
+    m_controller->getMap()->notifyTileChanged(m_tilePosition);
 }
 
-} // namespace actions
-} // namespace core
-} // namespace RME
+} // namespace RME_COMMANDS

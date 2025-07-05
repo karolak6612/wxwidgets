@@ -23,7 +23,7 @@ class TestDoodadBrush;
 namespace RME {
 namespace core {
 
-class DoodadBrush : public Brush {
+class DoodadBrush : public RME::core::Brush {
     friend class ::TestDoodadBrush; // Friend class for testing
 
 public:

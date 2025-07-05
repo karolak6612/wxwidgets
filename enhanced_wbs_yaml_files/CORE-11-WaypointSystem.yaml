@@ -1,0 +1,121 @@
+id: CORE-11-WaypointSystem
+section: Core Migration Tasks
+title: Port Waypoint System Data Structures
+original_input_files:
+  - wxwidgets/waypoints.h
+  - wxwidgets/waypoints.cpp
+  # Contextual files:
+  # - wxwidgets/map.h (Map stores collection of Waypoints) - CORE-03
+  # - wxwidgets/iomap_otbm.cpp (Map loading/saving includes waypoint data) - CORE-07-MapIO
+analyzed_input_files:
+  - file_path: wxwidgets/waypoints.h
+    description: |
+      Defines the `Waypoint` class and `Waypoints` (likely a typedef for a collection like `std::map<std::string, Waypoint*>`).
+      - `Waypoint` class: Represents a named navigation point on the map.
+        - Stores a unique name (string) as its identifier.
+        - Stores its `Position` on the map.
+        - May store a list of connections to other waypoint names (`std::vector<std::string>`).
+      - The `Map` class (in `map.h`) likely contains a `Waypoints` collection to manage all waypoints in the map.
+  - file_path: wxwidgets/waypoints.cpp
+    description: |
+      Implementation of the `Waypoint` class.
+      - Constructor likely takes name and `Position`.
+      - Methods to manage connections (add/remove connection to another waypoint name).
+      - Accessors for name and position.
+dependencies:
+  - BUILD-01
+  - CORE-01  # For Position
+  - CORE-03  # For Map (stores Waypoints collection)
+  # CORE-07-MapIO is related for loading/saving waypoint data.
+current_functionality_summary: |
+  - The `Waypoint` class (`waypoints.h/cpp`) defines a named navigation point with a `Position` and potentially connections to other waypoints by their names.
+  - The main `Map` object manages a collection of all waypoints, likely mapping unique waypoint names to `Waypoint` objects.
+  - Map I/O operations (e.g., OTBM parsing) read and write waypoint data.
+qt6_migration_steps: |
+  1.  **Define `WaypointData` Class (in `mapcore/navigation/WaypointData.h/cpp`):**
+      -   Create `WaypointData.h` and `WaypointData.cpp`. This class represents a single waypoint.
+      -   Store members: `QString name;` (unique identifier), `Position position;`.
+      -   Store connections: `QSet<QString> connectedWaypointNames;` (using a QSet for efficient add/remove/lookup of connections).
+      -   Implement constructor: `WaypointData(const QString& name, const Position& pos);`.
+      -   Implement methods: `addConnection(const QString& otherName)`, `removeConnection(const QString& otherName)`, `isConnectedTo(const QString& otherName) const`.
+      -   Implement accessors for name, position, and the set of connections.
+
+  2.  **Integrate with `Map` Class:**
+      -   `Map` class (from `CORE-03`):
+          -   Add a member like `QMap<QString, WaypointData> waypointsByName;`.
+          -   Implement methods in `Map` like:
+              -   `bool addWaypoint(WaypointData&& waypoint);` (returns false if name exists)
+              -   `WaypointData* getWaypoint(const QString& name);`
+              -   `const WaypointData* getWaypoint(const QString& name) const;`
+              -   `bool removeWaypoint(const QString& name);`
+              -   `const QMap<QString, WaypointData>& getWaypoints() const { return waypointsByName; }`
+              -   Consider helper methods for managing connections between waypoints if logic is complex (e.g., ensuring bidirectional connections if required by design).
+
+  3.  **Update Map I/O (`CORE-07-MapIO` - `OtbmMapIO`):**
+      -   Modify `OtbmMapIO::loadMap` to parse OTBM waypoint nodes:
+          -   Read waypoint attributes (name, position).
+          -   Read connection data if stored per waypoint.
+          -   Create `WaypointData` objects and add them to `Map::waypointsByName`.
+          -   After all waypoints are loaded, resolve and set connections if they are stored as references.
+      -   Modify `OtbmMapIO::saveMap` to serialize `WaypointData` from `Map::waypointsByName` into OTBM waypoint nodes, including connection information.
+
+  4.  **Unit Tests:**
+      -   Test `WaypointData` construction, property management, and connection management.
+      -   Test `Map`'s ability to add, retrieve, and remove `WaypointData` objects.
+      -   Test connection logic (adding, removing, checking connections).
+      -   Test (conceptually, or as part of `CORE-07`'s tests) that waypoint data is correctly loaded and saved with maps.
+definition_of_done: |
+  - A `WaypointData` class is implemented in `mapcore/navigation/` to store properties of a waypoint (unique name, position, connections to other waypoint names).
+  - The `Map` class (from `CORE-03`) is updated to manage a collection of `WaypointData` objects (e.g., `QMap<QString, WaypointData>`).
+  - The OTBM map I/O system (`CORE-07-MapIO`) is extended to correctly load and save waypoint definitions and their connections.
+  - Unit tests are created for `WaypointData` and for the `Map` class's waypoint management capabilities, including connection logic.
+  - The new classes compile successfully within the `mapcore` library.
+boilerplate_coder_ai_prompt: |
+  You are to port the Waypoint system data structures from a legacy C++ codebase (based on `waypoints.h/cpp`) to a modern C++/Qt6 environment within the `mapcore` library. This includes defining the `WaypointData` class and integrating it with the `Map` class.
+
+  **1. `WaypointData` Class (`mapcore/navigation/WaypointData.h/cpp`):**
+     - Define class `WaypointData`.
+     - Members:
+       ```cpp
+       #include <QString>
+       #include <QSet>
+       #include "core/position.h" // Or your Position header
+
+       class WaypointData {
+       public:
+           QString name;          // Unique name
+           Position position;
+           QSet<QString> connectedWaypointNames;
+
+           WaypointData(const QString& n = QString(), const Position& pos = Position()) : name(n), position(pos) {}
+
+           void addConnection(const QString& otherName) { connectedWaypointNames.insert(otherName); }
+           void removeConnection(const QString& otherName) { connectedWaypointNames.remove(otherName); }
+           bool isConnectedTo(const QString& otherName) const { return connectedWaypointNames.contains(otherName); }
+           // Add other constructors, getters, setters as needed
+       };
+       ```
+
+  **2. Update `Map` Class (Modify `mapcore/map/Map.h/cpp` from `CORE-03`):**
+     - Add a member: `QMap<QString, WaypointData> waypointsByName;`.
+     - Implement public methods:
+       - `bool addWaypoint(WaypointData&& waypointData);` // Store waypointData by name, ensure name is unique
+       - `WaypointData* getWaypoint(const QString& name);`
+       - `const WaypointData* getWaypoint(const QString& name) const;`
+       - `bool removeWaypoint(const QString& name);`
+       - `const QMap<QString, WaypointData>& getWaypoints() const { return waypointsByName; }`
+
+  **3. Integration with Map I/O (`CORE-07-MapIO`):**
+     - This task defines the data structures. The actual loading/saving logic will be implemented as part of `CORE-07-MapIO`'s `OtbmMapIO` class. Ensure that `OtbmMapIO` is updated to:
+        - Read waypoint data (name, position, connections) from OTBM waypoint nodes and populate `Map::waypointsByName`.
+        - Write `WaypointData` from `Map::waypointsByName` back to OTBM.
+
+  **General Requirements:**
+     - Use C++17/Qt6 types and practices.
+     - Provide header and source files.
+     - Write basic Qt Test unit tests for `WaypointData` (including connection management) and `Map`'s waypoint management.
+documentation_references:
+  - "QMap: https://doc.qt.io/qt-6/qmap.html"
+  - "QSet: https://doc.qt.io/qt-6/qset.html"
+  - "QString: https://doc.qt.io/qt-6/qstring.html"
+estimation_effort: Medium

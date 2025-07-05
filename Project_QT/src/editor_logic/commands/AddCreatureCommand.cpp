@@ -16,14 +16,18 @@ AddCreatureCommand::AddCreatureCommand(
     const RME::core::assets::CreatureData* creatureData,
     RME::editor_logic::EditorControllerInterface* editorController,
     QUndoCommand* parent
-) : BaseCommand(editorController, QObject::tr("Add Creature"), parent),
+) : QUndoCommand(parent),
     m_tile(tile),
     m_creatureData(creatureData),
+    m_editorController(editorController),
     m_previousCreature(nullptr),
     m_addedCreature(nullptr)
 {
-    if (!m_tile || !m_creatureData) {
-        setErrorText("add creature - invalid parameters");
+    if (!m_tile || !m_creatureData || !m_editorController) {
+        qWarning("AddCreatureCommand: Initialization with null tile, creatureData, or editorController.");
+        setText("Invalid Add Creature Command");
+        // Set an internal error flag or make the command non-functional if possible
+        // For QUndoCommand, often the best is to make undo/redo no-ops if invalid.
         return;
     }
     setText(QString("Add Creature: %1 to (%2,%3,%4)")
@@ -41,8 +45,8 @@ AddCreatureCommand::~AddCreatureCommand() {
 }
 
 void AddCreatureCommand::redo() {
-    if (!validateMembers() || !m_tile || !m_creatureData) {
-        setErrorText("redo add creature");
+    if (!m_tile || !m_creatureData || !m_editorController) {
+        qWarning("AddCreatureCommand::redo: Command is invalid or not properly initialized.");
         return;
     }
 
@@ -68,12 +72,12 @@ void AddCreatureCommand::redo() {
     }
 
     m_tile->setCreature(std::move(m_addedCreature)); // Place the new/re-added creature. m_addedCreature is now null.
-    notifyMapChanged(m_tile->getPosition());
+    m_editorController->notifyTileChanged(m_tile->getPosition());
 }
 
 void AddCreatureCommand::undo() {
-    if (!validateMembers() || !m_tile) {
-        setErrorText("undo add creature");
+    if (!m_tile || !m_editorController) {
+        qWarning("AddCreatureCommand::undo: Command is invalid or not properly initialized.");
         return;
     }
 
@@ -82,7 +86,7 @@ void AddCreatureCommand::undo() {
     // Then, we restore m_previousCreature (which was captured before the first redo) to the tile.
     m_addedCreature = m_tile->popCreature(); // Take back the creature that redo() placed.
     m_tile->setCreature(std::move(m_previousCreature)); // Restore original. m_previousCreature is now null.
-    notifyMapChanged(m_tile->getPosition());
+    m_editorController->notifyTileChanged(m_tile->getPosition());
 }
 
 } // namespace commands

@@ -4,15 +4,10 @@
 #include "Position.h"
 #include "Item.h"     // For std::unique_ptr<Item> and IItemTypeProvider for addItem logic
 #include "core/creatures/Creature.h" // For std::unique_ptr<Creature>
-
-// Forward declaration for SpawnData
-namespace RME {
-namespace core {
-namespace spawns {
-    class SpawnData;
-}
-}
-}
+#include "Spawn.h"    // For std::unique_ptr<Spawn> - This will be removed if Spawn class is obsolete
+                      // If SpawnData is directly embedded, this include might not be needed,
+                      // or replaced by an include for SpawnData if it's a complex type.
+                      // For now, assuming direct embedding of properties.
 
 #include <QList>
 #include <QStringList> // For m_spawnCreatureList
@@ -21,6 +16,8 @@ namespace spawns {
 #include <QFlags> // Required for Q_DECLARE_FLAGS
 
 namespace RME {
+
+class SpawnData; // Forward declaration
 
 // Tile flags matching original RME concepts, potentially with some Qt-ification
 // These might be a combination of original mapflags and statflags
@@ -105,7 +102,7 @@ public:
     std::unique_ptr<RME::core::creatures::Creature> popCreature();
     bool hasCreature() const { return creature != nullptr; }
 
-    // --- Spawn Data (Legacy - for OTBM compatibility) ---
+    // --- Spawn Data ---
     bool isSpawnTile() const;
     int getSpawnRadius() const;
     void setSpawnRadius(int radius);
@@ -119,14 +116,7 @@ public:
     int getSpawnIntervalSeconds() const;
     void setSpawnIntervalSeconds(int seconds);
 
-    void clearSpawn(); // Clears spawn data
-    void clearSpawnData(); // Legacy compatibility - Clears radius, list, and interval
-    
-    // --- SpawnData Integration ---
-    void setSpawn(const RME::core::spawns::Spawn& spawn);
-    RME::core::spawns::Spawn getSpawn() const;
-    bool hasSpawn() const;
-    bool hasSpawnData() const; // Legacy compatibility
+    void clearSpawnData(); // Clears radius, list, and interval
 
     // House ID
     uint32_t getHouseId() const { return m_houseId; }
@@ -157,17 +147,10 @@ public:
 
     void update();
 
-    void borderize(const Tile* neighbors[8]);
-    void wallize();
-    void tableize();
-    void carpetize();
-    
-    // Advanced tile operations
-    void optimizeItemStack();
-    void validateTileState();
-    bool needsUpdate() const;
-    void markDirty();
-    void clearDirty();
+    void borderize(const Tile* neighbors[8]) { /* TODO */ }
+    void wallize() { /* TODO */ }
+    void tableize() { /* TODO */ }
+    void carpetize() { /* TODO */ }
 
     void increaseWaypointCount();
     void decreaseWaypointCount();

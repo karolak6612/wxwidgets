@@ -1,0 +1,440 @@
+functionality_map:
+  - category: "UI/Framework"
+    features:
+      - name: "Generic Dialogs & Windows"
+        files:
+          - "wxwidgets/extension_window.cpp"
+          - "wxwidgets/extension_window.h"
+      - name: "Application Core & Main Loop"
+        files:
+          - "wxwidgets/application.cpp"
+          - "wxwidgets/application.h"
+          - "wxwidgets/gui.cpp"
+          - "wxwidgets/gui.h"
+      - name: "Art & Icon Management"
+        files:
+          - "wxwidgets/artprovider.cpp"
+          - "wxwidgets/artprovider.h"
+      - name: "Tab Controls"
+        files: []
+      - name: "General UI Components"
+        files:
+          - "wxwidgets/dcbutton.cpp"
+          - "wxwidgets/dcbutton.h"
+          - "wxwidgets/gui_ids.h"
+          - "wxwidgets/numbertextctrl.cpp"
+          - "wxwidgets/numbertextctrl.h"
+          - "wxwidgets/positionctrl.cpp"
+          - "wxwidgets/positionctrl.h"
+      - name: "Main Window & Application UI"
+        files:
+          - "wxwidgets/about_window.cpp"
+          - "wxwidgets/about_window.h"
+          - "wxwidgets/editor_tabs.cpp"
+          - "wxwidgets/editor_tabs.h"
+          - "wxwidgets/main.h"
+          - "wxwidgets/main_menubar.cpp"
+          - "wxwidgets/main_menubar.h"
+          - "wxwidgets/main_toolbar.cpp"
+          - "wxwidgets/main_toolbar.h"
+          - "wxwidgets/welcome_dialog.cpp"
+          - "wxwidgets/welcome_dialog.h"
+      - name: "Editor Specific Windows"
+        files:
+          - "wxwidgets/dat_debug_view.cpp"
+          - "wxwidgets/dat_debug_view.h"
+          - "wxwidgets/map_window.cpp"
+          - "wxwidgets/map_window.h"
+          - "wxwidgets/minimap_window.cpp"
+          - "wxwidgets/minimap_window.h"
+          - "wxwidgets/old_properties_window.cpp"
+          - "wxwidgets/old_properties_window.h"
+          - "wxwidgets/properties_window.cpp"
+          - "wxwidgets/properties_window.h"
+          - "wxwidgets/result_window.cpp"
+          - "wxwidgets/result_window.h"
+          - "wxwidgets/tileset_window.cpp"
+          - "wxwidgets/tileset_window.h"
+      - name: "Common UI Windows/Dialogs"
+        files:
+          - "wxwidgets/common_windows.cpp"
+          - "wxwidgets/common_windows.h"
+      - name: "Menu Definition"
+        files:
+          - "XML/menubar.xml"
+  - category: "Palettes"
+    features:
+      - name: "Palette Infrastructure"
+        files:
+          - "wxwidgets/palette_common.cpp"
+          - "wxwidgets/palette_common.h"
+          - "wxwidgets/palette_window.cpp"
+          - "wxwidgets/palette_window.h"
+      - name: "Brush List Palette"
+        files:
+          - "wxwidgets/palette_brushlist.cpp"
+          - "wxwidgets/palette_brushlist.h"
+      - name: "Creature Palette"
+        files:
+          - "wxwidgets/palette_creature.cpp"
+          - "wxwidgets/palette_creature.h"
+      - name: "House Palette"
+        files:
+          - "wxwidgets/palette_house.cpp"
+          - "wxwidgets/palette_house.h"
+      - name: "Waypoint Palette"
+        files:
+          - "wxwidgets/palette_waypoints.cpp"
+          - "wxwidgets/palette_waypoints.h"
+      - name: "Palette Definitions (XML)"
+        files:
+          - "XML/760/creature_palette.xml"
+          - "XML/760/item_palette.xml"
+          - "XML/760/raw_palette.xml"
+      - name: "Brush Collections (XML)"
+        files:
+          - "XML/760/collections.xml"
+  - category: "Core Data Models"
+    features:
+      - name: "Item System"
+        files:
+          - "wxwidgets/item.cpp"
+          - "wxwidgets/item.h"
+          - "wxwidgets/item_attributes.cpp"
+          - "wxwidgets/item_attributes.h"
+          - "wxwidgets/items.cpp"
+          - "wxwidgets/items.h"
+      - name: "Tile System"
+        files:
+          - "wxwidgets/tile.cpp"
+          - "wxwidgets/tile.h"
+      - name: "Map Structure"
+        files:
+          - "wxwidgets/basemap.cpp"
+          - "wxwidgets/basemap.h"
+          - "wxwidgets/map.cpp"
+          - "wxwidgets/map.h"
+          - "wxwidgets/map_allocator.h"
+          - "wxwidgets/map_region.cpp"
+          - "wxwidgets/map_region.h"
+      - name: "Creature System"
+        files:
+          - "wxwidgets/creature.cpp"
+          - "wxwidgets/creature.h"
+          - "wxwidgets/creatures.cpp"
+          - "wxwidgets/creatures.h"
+          - "wxwidgets/outfit.h"
+      - name: "Positioning System"
+        files:
+          - "wxwidgets/position.h"
+      - name: "House System"
+        files:
+          - "wxwidgets/house.cpp"
+          - "wxwidgets/house.h"
+      - name: "Spawn System"
+        files:
+          - "wxwidgets/spawn.cpp"
+          - "wxwidgets/spawn.h"
+      - name: "Waypoint System"
+        files:
+          - "wxwidgets/waypoints.cpp"
+          - "wxwidgets/waypoints.h"
+      - name: "Complex Item System"
+        files:
+          - "wxwidgets/complexitem.cpp"
+          - "wxwidgets/complexitem.h"
+      - name: "Town System"
+        files:
+          - "wxwidgets/town.cpp"
+          - "wxwidgets/town.h"
+      - name: "Material System (Data)"
+        files:
+          - "wxwidgets/materials.cpp"
+          - "wxwidgets/materials.h"
+      - name: "Item Definitions (Binary OTB)"
+        files:
+          - "XML/760/items.otb"
+      - name: "Item Definitions (XML)"
+        files:
+          - "XML/760/items.xml"
+      - name: "Creature Definitions (XML)"
+        files:
+          - "XML/760/creatures.xml"
+  - category: "Editor Logic & Tools"
+    features:
+      - name: "Tool Windows & Dialogs"
+        files:
+          - "wxwidgets/add_item_window.cpp"
+          - "wxwidgets/add_item_window.h"
+          - "wxwidgets/add_tileset_window.cpp"
+          - "wxwidgets/add_tileset_window.h"
+          - "wxwidgets/automagic_settings.cpp"
+          - "wxwidgets/automagic_settings.h"
+          - "wxwidgets/border_editor_window.cpp"
+          - "wxwidgets/border_editor_window.h"
+          - "wxwidgets/borderize_window.cpp"
+          - "wxwidgets/borderize_window.h"
+          - "wxwidgets/browse_tile_window.cpp"
+          - "wxwidgets/browse_tile_window.h"
+          - "wxwidgets/container_properties_window.cpp"
+          - "wxwidgets/container_properties_window.h"
+          - "wxwidgets/find_creature_window.cpp"
+          - "wxwidgets/find_creature_window.h"
+          - "wxwidgets/find_item_window.cpp"
+          - "wxwidgets/find_item_window.h"
+          - "enhanced_wbs_XML_files/UI-11-ItemFinderDialog.XML"
+          - "Project_QT/src/ui/dialogs/ItemFinderDialogQt.cpp"
+          - "Project_QT/src/ui/dialogs/ItemFinderDialogQt.h"
+          - "wxwidgets/ground_validation_dialog.cpp"
+          - "wxwidgets/ground_validation_dialog.h"
+          - "wxwidgets/island_generator_dialog.cpp"
+          - "wxwidgets/island_generator_dialog.h"
+          - "wxwidgets/monster_generator_dialog.cpp"
+          - "wxwidgets/monster_generator_dialog.h"
+          - "wxwidgets/replace_items_window.cpp"
+          - "wxwidgets/replace_items_window.h"
+      - name: "Main Editor Logic"
+        files:
+          - "wxwidgets/editor.cpp"
+          - "wxwidgets/editor.h"
+      - name: "Brush System Core"
+        files:
+          - "wxwidgets/brush.cpp"
+          - "wxwidgets/brush.h"
+          - "wxwidgets/brush_enums.h"
+          - "wxwidgets/brush_tables.cpp"
+      - name: "Specific Brushes"
+        files:
+          - "wxwidgets/carpet_brush.cpp"
+          - "wxwidgets/carpet_brush.h"
+          - "wxwidgets/creature_brush.cpp"
+          - "wxwidgets/creature_brush.h"
+          - "wxwidgets/doodad_brush.cpp"
+          - "wxwidgets/doodad_brush.h"
+          - "wxwidgets/eraser_brush.cpp"
+          - "wxwidgets/ground_brush.cpp"
+          - "wxwidgets/ground_brush.h"
+          - "wxwidgets/house_brush.cpp"
+          - "wxwidgets/house_brush.h"
+          - "wxwidgets/house_exit_brush.cpp"
+          - "wxwidgets/house_exit_brush.h"
+          - "wxwidgets/raw_brush.cpp"
+          - "wxwidgets/raw_brush.h"
+          - "wxwidgets/spawn_brush.cpp"
+          - "wxwidgets/spawn_brush.h"
+          - "wxwidgets/table_brush.cpp"
+          - "wxwidgets/table_brush.h"
+          - "wxwidgets/wall_brush.cpp"
+          - "wxwidgets/wall_brush.h"
+          - "wxwidgets/waypoint_brush.cpp"
+          - "wxwidgets/waypoint_brush.h"
+      - name: "Action & Undo System"
+        files:
+          - "wxwidgets/action.cpp"
+          - "wxwidgets/action.h"
+      - name: "Selection System"
+        files:
+          - "wxwidgets/selection.cpp"
+          - "wxwidgets/selection.h"
+      - name: "Copy/Paste Buffer"
+        files:
+          - "wxwidgets/copybuffer.cpp"
+          - "wxwidgets/copybuffer.h"
+      - name: "Hotkey Management"
+        files:
+          - "wxwidgets/hotkey_manager.cpp"
+          - "wxwidgets/hotkey_manager.h"
+      - name: "Plugin/Extension System"
+        files:
+          - "wxwidgets/extension.cpp"
+          - "wxwidgets/extension.h"
+  - category: "File I/O & Serialization"
+    features:
+      - name: "OTBM Map Format I/O"
+        files:
+          - "wxwidgets/iomap_otbm.cpp"
+          - "wxwidgets/iomap_otbm.h"
+      - name: "OTMM Map Format I/O (proprietary)"
+        files:
+          - "wxwidgets/iomap_otmm.cpp"
+          - "wxwidgets/iomap_otmm.h"
+      - name: "Generic Map I/O"
+        files:
+          - "wxwidgets/iomap.cpp"
+          - "wxwidgets/iomap.h"
+      - name: "Low-level File Handling"
+        files:
+          - "wxwidgets/filehandle.cpp"
+          - "wxwidgets/filehandle.h"
+      - name: "Settings Load/Save"
+        files:
+          - "wxwidgets/settings.cpp"
+          - "wxwidgets/settings.h"
+      - name: "JSON Parsing Utilities"
+        files:
+          - "wxwidgets/json.h"
+          - "wxwidgets/json/json_spirit.h"
+          - "wxwidgets/json/json_spirit_error_position.h"
+          - "wxwidgets/json/json_spirit_reader.cpp"
+          - "wxwidgets/json/json_spirit_reader.h"
+          - "wxwidgets/json/json_spirit_reader_template.h"
+          - "wxwidgets/json/json_spirit_stream_reader.h"
+          - "wxwidgets/json/json_spirit_utils.h"
+          - "wxwidgets/json/json_spirit_value.cpp"
+          - "wxwidgets/json/json_spirit_value.h"
+          - "wxwidgets/json/json_spirit_writer.cpp"
+          - "wxwidgets/json/json_spirit_writer.h"
+          - "wxwidgets/json/json_spirit_writer_template.h"
+      - name: "PNG File Handling"
+        files:
+          - "wxwidgets/pngfiles.cpp"
+          - "wxwidgets/pngfiles.h"
+      - name: "OTML (OTMaker Language) Handling"
+        files:
+          - "wxwidgets/otml.h"
+      - name: "XML Parsing Logic (pugixml)"
+        files:
+          - "wxwidgets/ext/pugixml.cpp"
+      - name: "Tibia File Information (OTFI)"
+        files:
+          - "XML/760/Tibia.otfi"
+  - category: "Rendering & Graphics"
+    features:
+      - name: "Map Display Area"
+        files:
+          - "wxwidgets/map_display.cpp"
+          - "wxwidgets/map_display.h"
+      - name: "Map Drawing Logic"
+        files:
+          - "wxwidgets/map_drawer.cpp"
+          - "wxwidgets/map_drawer.h"
+      - name: "Graphics Utilities"
+        files:
+          - "wxwidgets/graphics.cpp"
+          - "wxwidgets/graphics.h"
+      - name: "Sprite Handling"
+        files:
+          - "wxwidgets/sprites.h"
+      - name: "Creature Sprite Management"
+        files:
+          - "wxwidgets/creature_sprite_manager.cpp"
+          - "wxwidgets/creature_sprite_manager.h"
+      - name: "Level of Detail (LOD) Management"
+        files:
+          - "wxwidgets/lod_manager.h"
+      - name: "Light Drawing"
+        files:
+          - "wxwidgets/light_drawer.cpp"
+          - "wxwidgets/light_drawer.h"
+      - name: "Color Utilities"
+        files:
+          - "wxwidgets/color_utils.h"
+  - category: "Networking"
+    features:
+      - name: "Live Client (Collaboration)"
+        files:
+          - "wxwidgets/live_client.cpp"
+          - "wxwidgets/live_client.h"
+      - name: "Live Server (Collaboration)"
+        files:
+          - "wxwidgets/live_server.cpp"
+          - "wxwidgets/live_server.h"
+      - name: "Live P2P Base"
+        files:
+          - "wxwidgets/live_peer.cpp"
+          - "wxwidgets/live_peer.h"
+      - name: "Live Socket"
+        files:
+          - "wxwidgets/live_socket.cpp"
+          - "wxwidgets/live_socket.h"
+      - name: "Live Actions Sync"
+        files:
+          - "wxwidgets/live_action.cpp"
+          - "wxwidgets/live_action.h"
+      - name: "Live Packet Definitions"
+        files:
+          - "wxwidgets/live_packets.h"
+      - name: "Live Feature UI Tab"
+        files:
+          - "wxwidgets/live_tab.cpp"
+          - "wxwidgets/live_tab.h"
+      - name: "Network Connection Management"
+        files:
+          - "wxwidgets/net_connection.cpp"
+          - "wxwidgets/net_connection.h"
+      - name: "General Network Utilities"
+        files:
+          - "wxwidgets/rme_net.cpp"
+          - "wxwidgets/rme_net.h"
+  - category: "Configuration & Miscellaneous"
+    features:
+      - name: "User Preferences"
+        files:
+          - "wxwidgets/preferences.cpp"
+          - "wxwidgets/preferences.h"
+      - name: "Client Version Handling"
+        files:
+          - "wxwidgets/client_version.cpp"
+          - "wxwidgets/client_version.h"
+      - name: "Application Updater"
+        files:
+          - "wxwidgets/updater.cpp"
+          - "wxwidgets/updater.h"
+      - name: "Threading Utilities"
+        files:
+          - "wxwidgets/threads.h"
+      - name: "Common Utilities & Definitions"
+        files:
+          - "wxwidgets/common.cpp"
+          - "wxwidgets/common.h"
+      - name: "Core Definitions"
+        files:
+          - "wxwidgets/definitions.h"
+      - name: "String Utilities"
+        files:
+          - "wxwidgets/string_utils.cpp"
+          - "wxwidgets/string_utils.h"
+      - name: "Random Number Generation"
+        files:
+          - "wxwidgets/mt_rand.cpp"
+          - "wxwidgets/mt_rand.h"
+      - name: "Dark Mode Management"
+        files:
+          - "wxwidgets/dark_mode_manager.cpp"
+          - "wxwidgets/dark_mode_manager.h"
+      - name: "Inter-process Communication"
+        files:
+          - "wxwidgets/process_com.cpp"
+          - "wxwidgets/process_com.h"
+      - name: "Generic Utilities"
+        files:
+          - "wxwidgets/con_vector.h"
+          - "wxwidgets/rme_forward_declarations.h"
+      - name: "Client Definitions (XML)"
+        files:
+          - "XML/clients.xml"
+      - name: "Material Definitions (XML)"
+        files:
+          - "XML/760/materials.xml"
+  - category: "Terrain & Brushes"
+    features:
+      - name: "Tileset Definitions (Code)"
+        files:
+          - "wxwidgets/tileset.cpp"
+          - "wxwidgets/tileset.h"
+      - name: "Border Definitions (XML)"
+        files:
+          - "XML/760/borders.xml"
+      - name: "Doodad Definitions (XML)"
+        files:
+          - "XML/760/doodads.xml"
+      - name: "Ground Definitions (XML)"
+        files:
+          - "XML/760/grounds.xml"
+      - name: "Tileset Definitions (XML)"
+        files:
+          - "XML/760/tilesets.xml"
+      - name: "Wall Definitions (XML)"
+        files:
+          - "XML/760/walls.xml"
+          - "XML/760/walls_extra.xml"

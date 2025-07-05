@@ -10,25 +10,22 @@
 #include <QObject> // For tr()
 #include <QDebug>  // For qWarning, Q_ASSERT
 
-namespace RME {
-namespace core {
-namespace actions {
+namespace RME_COMMANDS {
 
 DeleteCommand::DeleteCommand(
     RME::core::Map* map,
     RME::core::selection::SelectionManager* selectionManager,
     RME::core::editor::EditorControllerInterface* controller,
     QUndoCommand* parent
-) : BaseCommand(controller, QString(), parent),
+) : QUndoCommand(parent),
     m_map(map),
     m_selectionManager(selectionManager),
+    m_controller(controller),
     m_hadSelectionToDelete(false)
 {
-    if (!m_map || !m_selectionManager) {
-        qWarning("DeleteCommand: Initialization with null map or selection manager.");
-        setErrorText("Delete");
-        return;
-    }
+    Q_ASSERT(m_map);
+    Q_ASSERT(m_selectionManager);
+    Q_ASSERT(m_controller);
     // Text set in redo based on whether action is performed.
 }
 
@@ -58,7 +55,8 @@ void DeleteCommand::redo() {
         tile->setCreature(nullptr);
 
         // Notify that the tile has changed
-        notifyMapChanged(pos);
+        // The map pointer for notify is obtained via controller to ensure consistency
+        m_controller->getMap()->notifyTileChanged(pos);
     }
 
     // After deleting contents, the selection should be cleared.
@@ -80,7 +78,7 @@ void DeleteCommand::undo() {
         RME::core::Tile* tileOnMap = m_map->getOrCreateTile(pos); // Ensure tile exists
         if (tileOnMap) {
             dataToRestore.applyToTile(tileOnMap); // Restore contents
-            notifyMapChanged(pos);
+            m_controller->getMap()->notifyTileChanged(pos);
         }
     }
 
@@ -90,6 +88,4 @@ void DeleteCommand::undo() {
     setText(QObject::tr("Undo Delete Selection (%1 tile(s))").arg(m_previouslySelectedTiles.size()));
 }
 
-} // namespace actions
-} // namespace core
-} // namespace RME
+} // namespace RME_COMMANDS

@@ -86,9 +86,7 @@ ChangeSetCommand::~ChangeSetCommand() {
  * - If `tc.oldTileState` is null (meaning the tile originally didn't exist), `m_map->removeTile()` is called.
  */
 void ChangeSetCommand::undo() {
-    if (!m_map) {
-        return;
-    }
+    if (!m_map) return;
 
     // Iterate in reverse to correctly restore states if changes overlap (e.g. tile move)
     // For independent tile changes, order doesn't strictly matter but reverse is safer.
@@ -112,9 +110,7 @@ void ChangeSetCommand::undo() {
  * - If `tc.newTileState` is null (meaning the tile is intended to be removed), `m_map->removeTile()` is called.
  */
 void ChangeSetCommand::redo() {
-    if (!m_map) {
-        return;
-    }
+    if (!m_map) return;
 
     for (const auto& tc : m_changes) {
         if (tc.newTileState) {
@@ -179,7 +175,7 @@ int ChangeSetCommand::cost() const {
 
     // Add approximate cost of the QList structure itself (overhead + capacity for pointers)
     calculatedCost += m_changes.capacity() * sizeof(TileChange); // Cost of the list's buffer for TileChange structs
-                                                                 // Important: TileChange contains unique_ptrs to tile data, not direct Tile references
+                                                                 // Note: TileChange itself contains unique_ptrs, not the Tiles.
                                                                  // sizeof(m_changes) would give QList object overhead.
 
     for (const auto& tc : m_changes) {

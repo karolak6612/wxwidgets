@@ -1,0 +1,142 @@
+id: UI-MapViewWidget
+section: UI Elements
+title: Implement Map View Widget (Interactive UI Shell)
+original_input_files:
+  - wxwidgets/map_display.h
+  - wxwidgets/map_display.cpp
+analyzed_input_files:
+  - file_path: wxwidgets/map_display.h
+    description: |
+      Declares `MapCanvas` (derived from `wxGLCanvas`), the core map rendering area.
+      Manages mouse/keyboard event handling for map navigation (pan, zoom, floor changes),
+      drawing operations (delegating to brushes), and selection.
+      Interfaces with `MapDrawer` for rendering and `Editor` for game logic.
+      Includes logic for scrollbars, focus handling, and context menus.
+  - file_path: wxwidgets/map_display.cpp
+    description: |
+      Implements `MapCanvas`. Contains detailed event handlers for mouse clicks, motion,
+      wheel, key presses. Translates screen coordinates to map coordinates.
+      Initiates drawing actions, selection changes, and context menu displays.
+      Manages visual feedback for dragging, selection rectangles, paste previews.
+dependencies:
+  - RENDER-01           # The core OpenGL rendering canvas/logic this widget will host/use
+  - UI-01               # MainWindow (as potential parent or for context)
+  - LOGIC-01            # EditorController (to send user actions like brush strokes, selections)
+  - REFACTOR-01         # For services like BrushStateService, EditorStateService to get current tool/mode
+  - CORE-06             # AppSettings (for view preferences like scroll speed, zoom levels)
+  - LOGIC-01
+current_functionality_summary: |
+  The `MapCanvas` in wxWidgets is a `wxGLCanvas` that not only renders the map
+  (via `MapDrawer`) but also handles all mouse and keyboard input for interacting
+  with the map: panning, zooming, changing floors, initiating brush strokes,
+  making selections, and showing context menus.
+qt6_migration_steps: |
+  1. Create `MapViewWidget.h/.cpp` inheriting `QWidget` (or a more specialized Qt base if appropriate, like directly from the class created in `RENDER-01` if that's a QWidget).
+  2. This widget will either directly be the `QOpenGLWidget` from `RENDER-01` or will contain an instance of it.
+  3. Implement mouse event handlers: `mousePressEvent`, `mouseMoveEvent`, `mouseReleaseEvent`, `wheelEvent`.
+     - Translate screen coordinates to map coordinates (respecting zoom, scroll, current floor).
+     - Based on current editor mode/tool (from `EditorStateService`) and mouse buttons/modifiers:
+       - Initiate panning (middle mouse drag, or space+drag).
+       - Initiate zoom (wheel, or specific key+drag).
+       - Initiate drawing actions (left click/drag with a brush tool) by calling `EditorController::applyBrushStroke()`.
+       - Initiate selection actions (Shift+drag for bounding box, click for single select) by calling `EditorController`.
+       - Initiate drag-and-drop of selection.
+  4. Implement keyboard event handlers: `keyPressEvent`, `keyReleaseEvent`.
+     - Handle floor changes (e.g., PageUp/PageDown).
+     - Handle shortcuts for tools, zoom, navigation if not handled globally by `MainWindow`.
+  5. Implement context menu: `contextMenuEvent`.
+     - Build `QMenu` with relevant actions (Cut, Copy, Paste, Delete, Properties for selected item/tile) based on context.
+     - Connect actions to `EditorController` or other relevant handlers.
+  6. Manage scrollbars (if map is larger than view and not using purely drag-to-pan). `QScrollArea` could be a container, or custom scrollbar logic interacting with the viewport's center position.
+  7. Display visual feedback:
+     - Current brush cursor preview (delegated to `RENDER-01`'s drawing logic but triggered by mouse moves).
+     - Selection marquee/rectangle.
+     - Paste preview.
+  8. Interact with `EditorStateService` to get current floor, mode, etc., and with `BrushStateService` for current brush info.
+definition_of_done: |
+  - A `MapViewWidget` Qt class is implemented.
+  - It successfully hosts and displays the map rendered by the component from `RENDER-01`.
+  - Mouse interactions (click, drag, wheel) on the widget correctly trigger:
+    - Panning of the map view.
+    - Zooming of the map view.
+    - Drawing actions (using the active brush from `BrushStateService`) via `EditorController`.
+    - Selection actions (e.g., bounding box) via `EditorController`.
+  - Keyboard interactions correctly trigger floor changes and other relevant navigation/actions.
+  - A context menu appears on right-click with appropriate actions (e.g., Copy, Paste, Properties).
+  - Visual feedback for current brush, selection marquee, and paste previews is displayed correctly.
+  - Scrollbars are functional if implemented.
+boilerplate_coder_ai_prompt: |
+  Implement the `MapViewWidget.h` and `MapViewWidget.cpp` Qt classes. This widget is the primary user interface for interacting with the map. It will host the OpenGL rendering canvas from `RENDER-01` (or be that canvas itself if `RENDER-01` produces a QOpenGLWidget subclass) and handle all user input.
+
+  **MapViewWidget.h:**
+  ```cpp
+  #include <QWidget> // Or your RENDER-01 QOpenGLWidget base class
+  // Forward declarations
+  class EditorController;
+  class EditorStateService;
+  class BrushStateService;
+  class AppSettings;
+  class QMenu;
+  // If RENDER-01 is a separate canvas class:
+  // class MapOpenGLCanvas; // from RENDER-01
+
+  class MapViewWidget : public QWidget { // Or public MapOpenGLCanvas from RENDER-01
+      Q_OBJECT
+  public:
+      MapViewWidget(EditorController* editorController, EditorStateService* editorState, BrushStateService* brushState, AppSettings* settings, QWidget* parent = nullptr);
+      // Methods to set current map, floor, zoom, etc., if not handled by services
+      // void setMap(mapcore::Map* map); // Likely handled by EditorController/Session
+
+  protected:
+      void mousePressEvent(QMouseEvent* event) override;
+      void mouseMoveEvent(QMouseEvent* event) override;
+      void mouseReleaseEvent(QMouseEvent* event) override;
+      void wheelEvent(QWheelEvent* event) override;
+      void keyPressEvent(QKeyEvent* event) override;
+      void contextMenuEvent(QContextMenuEvent* event) override;
+      // If this IS the QOpenGLWidget from RENDER-01, it will have initializeGL, resizeGL, paintGL.
+      // If it CONTAINS the RENDER-01 widget, it will just manage it.
+
+  private:
+      EditorController* m_editorController;
+      EditorStateService* m_editorStateService;
+      BrushStateService* m_brushStateService;
+      AppSettings* m_appSettings;
+      // MapOpenGLCanvas* m_glCanvas; // If RENDER-01 is a separate contained widget
+
+      // State for dragging, selecting, panning
+      bool m_isPanning = false;
+      bool m_isSelecting = false;
+      bool m_isDrawing = false;
+      QPoint m_lastMousePos;
+      mapcore::Position m_selectionStartMapPos;
+
+      QMenu* m_contextMenu;
+      void createContextMenu();
+      mapcore::Position screenToMapCoords(const QPoint& screenPos); // Essential helper
+  };
+  ```
+
+  **MapViewWidget.cpp:**
+  - Constructor: Store service pointers. `createContextMenu()`. Enable mouse tracking.
+  - `mousePressEvent`: Based on `m_editorStateService->getCurrentMode()`, `event->button()`, `event->modifiers()`:
+    - Start panning (e.g., middle button or space+left). Store `m_lastMousePos`.
+    - Start drawing: `m_isDrawing = true; m_editorController->startBrushStroke(); ... m_editorController->applyBrushStrokeAt(mapPos, ...);`.
+    - Start selection: `m_isSelecting = true; m_selectionStartMapPos = mapPos;`.
+  - `mouseMoveEvent`:
+    - If panning: Calculate delta from `m_lastMousePos`, tell `RENDER-01` component to scroll. Update `m_lastMousePos`.
+    - If drawing: `m_editorController->applyBrushStrokeAt(mapPos, ...);`.
+    - If selecting: Update selection marquee display.
+    - Update status bar with current map coordinates.
+    - Trigger repaint of brush cursor preview.
+  - `mouseReleaseEvent`:
+    - If drawing: `m_editorController->finishBrushStroke(); m_isDrawing = false;`.
+    - If selecting: `m_editorController->finalizeBoundingBoxSelection(m_selectionStartMapPos, currentMapPos); m_isSelecting = false;`.
+    - If panning: `m_isPanning = false;`.
+  - `wheelEvent`: Adjust zoom via `EditorController` or directly tell `RENDER-01` component, then `update()`.
+  - `keyPressEvent`: Handle floor changes (PageUp/Down -> `m_editorStateService->changeFloor(delta)`), tool shortcuts.
+  - `contextMenuEvent`: `m_contextMenu->popup(event->globalPos());`. Update enabled state of actions in `m_contextMenu` based on selection/context.
+  - `createContextMenu()`: Create `QAction`s for "Cut", "Copy", "Paste", "Delete", "Tile Properties...", "Item Properties...". Connect to `EditorController` slots.
+  - `screenToMapCoords()`: Implement robust conversion.
+documentation_references: ["QWidget", "QMouseEvent", "QWheelEvent", "QKeyEvent", "QMenu", "RENDER-01", "LOGIC-01", "REFACTOR-01"]
+estimation_effort: X-Large

@@ -1,0 +1,50 @@
+id: BRUSH-LOGIC-HouseExit
+section: Editor Behavior & Logic
+title: Port House Exit Brush/Tool Logic
+original_input_files:
+  - wxwidgets/house_exit_brush.cpp
+  - wxwidgets/house_exit_brush.h
+analyzed_input_files:
+  - file_path: wxwidgets/house_exit_brush.h
+    description: Defines 'HouseExitBrush' (inherits 'Brush'). Stores 'uint32_t draw_house' (ID). 'draw'/'undraw' assert false; main function is 'canDraw' and holding target house ID.
+  - file_path: wxwidgets/house_exit_brush.cpp
+    description: Implements 'HouseExitBrush'. 'setHouse' stores house ID. 'canDraw' checks if exit can be placed (tile exists, ground, not house tile, not blocking). Actual exit setting is a targeted UI action.
+dependencies:
+  - CORE-BRUSH-FRAMEWORK # Or this might be a "Tool" not a brush.
+  - CORE-01
+  - CORE-09-HouseSystem # For mapcore::House and HouseManager logic to set an exit
+  - LOGIC-01
+  - CORE-04
+current_functionality_summary: |
+  The 'HouseExitBrush' isn't a typical drawing brush. It's used to select a target tile that will become the exit for a pre-selected house. The main logic involves checking if a tile is a valid exit location. The actual `house->setExit()` call is made by a UI action.
+qt6_migration_steps: |
+  1. Determine if this remains a "Brush" or becomes a "Tool" mode in Qt6. Assume "Tool" behavior for now, activated by palette.
+  2. The `EditorController` will have a mode for "SetHouseExit".
+  3. When this mode is active and a house is selected (from `HousePalette` / `UI-07`):
+     - On map click at `targetPos`:
+       - Call `mapcore::HouseManager::isValidExitLocation(map, targetPos)`.
+       - If valid, create `SetHouseExitCommand(selectedHouse, targetPos, oldExitPos)`.
+       - Command's `redo()`: `selectedHouse->setExit(targetPos);` (this method in `mapcore::House` updates tile flags on old/new exit tiles).
+       - Command's `undo()`: `selectedHouse->setExit(oldExitPos);`.
+       - Push command to `QUndoStack`.
+definition_of_done: |
+  - Logic for setting a house exit is implemented via `EditorController` and `QUndoCommands`.
+  - `mapcore::HouseManager` (or `House`) provides `isValidExitLocation()`.
+  - `mapcore::House::setExit()` correctly updates tile states for old and new exits.
+  - Operation is undoable.
+  - Unit tests for `isValidExitLocation` and `SetHouseExitCommand` pass.
+boilerplate_coder_ai_prompt: |
+  Implement the logic for setting a House Exit, likely as a tool mode in `EditorController`.
+  1. `mapcore::House` (from `CORE-09-HouseSystem`) needs a method: `bool setExit(const Position& newExitPos);` This method should:
+     - Store `newExitPos`.
+     - Update flags on the old exit tile (if any) to remove exit status.
+     - Update flags on the new exit tile to mark it as an exit.
+     - Return true if successful.
+  2. `EditorController` needs a method: `void setHouseExit(mapcore::House* house, const Position& targetPos);`
+     - Check `map->isValidExitLocation(targetPos)` (helper needed).
+     - If valid, create `SetHouseExitCommand` storing `house`, `targetPos`, and `house->getExit()` (old exit).
+     - `redo()` calls `house->setExit(targetPos)`. `undo()` calls `house->setExit(oldExitPos)`.
+     - Push to `QUndoStack`.
+  The UI (`HousePalette` / `UI-07`) will activate this tool mode and provide the selected house and target position to `EditorController`.
+documentation_references: ["CORE-09-HouseSystem", "mapcore::Tile", "LOGIC-01 EditorController"]
+estimation_effort: Medium

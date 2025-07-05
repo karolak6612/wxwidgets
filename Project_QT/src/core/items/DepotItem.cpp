@@ -23,23 +23,15 @@ void DepotItem::copyDerivedMembersTo(DepotItem& target) const {
 
 // OTBM Attribute Handling
 bool DepotItem::deserializeOtbmAttribute(uint8_t attributeId, RME::core::io::BinaryNode* node, RME::core::assets::AssetManager* assetManager) {
-    if (attributeId == OTBM_ATTR_DEPOT_ID) {
-        uint16_t depotId;
-        if (node->getU16(depotId)) {
-            m_depotId = depotId;
-            return true;
-        }
-        return false;
-    }
+    // TODO: Implement actual deserialization for DepotItem (e.g., m_depotId)
+    // Example: if (attributeId == OTBM_ATTR_DEPOT_ID) { /* set m_depotId from node */ return true; }
     return Item::deserializeOtbmAttribute(attributeId, node, assetManager);
 }
 
 void DepotItem::serializeOtbmAttributes(RME::core::io::NodeFileWriteHandle& writer, RME::core::assets::AssetManager* assetManager) const {
     Item::serializeOtbmAttributes(writer, assetManager);
-    if (m_depotId != 0) {
-        writer.addU8(OTBM_ATTR_DEPOT_ID);
-        writer.addU16(m_depotId);
-    }
+    // TODO: Implement actual serialization for DepotItem (e.g., m_depotId)
+    // Example: if (m_depotId != 0) { writer.writeU8(OTBM_ATTR_DEPOT_ID); writer.writeU8(m_depotId); }
 }
 
 } // namespace RME

@@ -41,8 +41,7 @@ MapIterator::pointer MapIterator::operator->() const {
 
 MapIterator::reference MapIterator::operator*() const {
     // Dereferencing an end iterator is undefined behavior.
-    // Validate tile pointer for debugging builds
-    Q_ASSERT(currentTile != nullptr);
+    // Q_ASSERT(currentTile != nullptr); // Good practice for debugging
     return *currentTile;
 }
 

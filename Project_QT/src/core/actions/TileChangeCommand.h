@@ -2,7 +2,6 @@
 #define RME_TILE_CHANGE_COMMAND_H
 
 #include "core/actions/AppUndoCommand.h"
-#include "core/actions/CommandIds.h"
 #include "core/Position.h"
 #include "core/Tile.h" // For std::unique_ptr<Tile>
 #include <memory>      // For std::unique_ptr
@@ -30,7 +29,7 @@ public:
     /**
      * @brief Unique identifier for TileChangeCommand, used for merging.
      */
-    constexpr static int CommandID = toInt(CommandId::TileChange);
+    constexpr static int CommandID = 123;
 
     /**
      * @brief Constructs a TileChangeCommand.

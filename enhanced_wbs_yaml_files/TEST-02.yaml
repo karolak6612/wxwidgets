@@ -1,0 +1,121 @@
+id: TEST-02 # Changed from wbs_item_id for consistency
+section: Testing # Added section for clarity
+title: "Develop Unit Tests for Asset Loading and Parsing Logic"
+original_task_id: TEST-02 # Assuming this is the original ID
+description: Create unit tests for the asset loading and parsing logic. This involves testing the correct parsing of data files (e.g., items.xml, creatures.xml, materials.xml and its includes, client version files) and ensuring the data is correctly populated into the relevant mapcore data structures.
+dependencies:
+  - "CORE-02"  # Defines mapcore::ItemType, mapcore::CreatureType, mapcore::ClientProfile, mapcore::GraphicManager, and potentially their parsers/loaders.
+  - "CORE-14-MaterialSystem"  # Defines mapcore::MaterialManager, mapcore::Brush types (GroundBrush, WallBrush etc.) and their parsers/loaders.
+  - "TEST-01"  # Ensures the basic data structures being populated are themselves tested.
+  - "BUILD-01" # For CMake setup to build and run tests.
+# The input_files list below represents *examples* of the file types whose parsers need testing.
+# Unit tests should use small, focused mock XML snippets, not these full files.
+input_files:
+  - "conceptual_example: wxwidgets/XML/760/items.xml"
+  - "conceptual_example: wxwidgets/XML/760/creatures.xml"
+  - "conceptual_example: wxwidgets/XML/clients.xml"
+  - "conceptual_example: wxwidgets/XML/760/materials.xml"
+  - "conceptual_example: wxwidgets/XML/760/grounds.xml"
+  - "conceptual_example: wxwidgets/XML/760/walls.xml"
+  - "conceptual_example: wxwidgets/XML/760/doodads.xml"
+  - "conceptual_example: wxwidgets/XML/760/borders.xml"
+  - "conceptual_example: wxwidgets/XML/760/creature_palette.xml"
+  - "conceptual_example: wxwidgets/XML/760/item_palette.xml"
+  - "conceptual_example: wxwidgets/XML/760/raw_palette.xml"
+  - "conceptual_example: wxwidgets/XML/760/tilesets.xml"
+  - "conceptual_example: wxwidgets/XML/760/collections.xml"
+analyzed_input_files: [] # No legacy files to analyze for this task, new tests are created.
+documentation_references:
+  - 'Qt Test Framework: https://doc.qt.io/qt-6/qttest-index.html'
+  - 'Qt Test Tutorial: https://doc.qt.io/qt-6/qttestlib-tutorial1.html'
+  - 'Effective Unit Testing with Mock Objects: General best practices for using mocks.'
+current_functionality_summary: |
+  This task focuses on creating new unit tests for the Qt6-based asset parsers. These parsers, developed as part of 'CORE-02' (for items, creatures, client versions, graphics/sprites) and 'CORE-04' (for materials, brushes, palettes, tilesets), are responsible for reading various XML and potentially binary (like OTB for items, SPR/DAT for graphics) data files. The unit tests will validate that these parsers correctly interpret the input data and accurately populate the corresponding C++ data structures within the 'mapcore' library (e.g., 'mapcore::ItemManager', 'mapcore::CreatureManager', 'mapcore::MaterialManager'). This ensures the integrity of game and editor asset data from the point of loading.
+definition_of_done:
+  - "Unit tests using the Qt Test framework are developed for each key asset parser/loader within 'mapcore', including: 'mapcore::ItemManager' (for items from OTB and/or XML), 'mapcore::CreatureManager' (for creatures.xml), 'mapcore::ClientVersionManager' (for clients.xml), 'mapcore::GraphicManager' (for .dat/.spr sprite metadata and data, and .otfi), and 'mapcore::MaterialManager' (for the entire materials system including 'materials.xml', 'grounds.xml', 'walls.xml', 'doodads.xml', 'borders.xml', palette files, 'tilesets.xml', 'collections.xml')."
+  - Test cases utilize small, focused mock data snippets (e.g., XML strings, small binary arrays) or dedicated small, valid example files. These mock inputs are designed to cover:
+    - Correct parsing of all relevant attributes and elements into their corresponding C++ object fields (e.g., 'ItemType' attributes, 'GroundBrush' border rules, 'CreatureType' outfits).
+    - Handling of optional attributes and elements, ensuring default values are correctly applied or fields remain appropriately uninitialized.
+    - Parsing of different valid data variations and value types (integers, strings, booleans, enums).
+    - Robust error handling for malformed input data (e.g., incorrect XML structure, invalid binary format), missing required data, incorrect data types, and invalid references (e.g., a ground brush referencing a non-existent border ID in a controlled test setup using mock data).
+  - For the 'MaterialManager' (materials system), tests verify:
+    - Correct parsing and aggregation of data from individual material component files (grounds, walls, etc.).
+    - Successful handling of hierarchical loading if 'materials.xml' includes other files.
+    - Correct linking of data between related definitions (e.g., a ground brush definition using a border definition by ID from a mocked 'borders.xml' snippet).
+  - Tests confirm that 'mapcore' data structures (e.g., 'ItemType', 'GroundBrush', 'WallBrush', 'DoodadBrush', palette groups within 'MaterialManager') are accurately populated based on the provided mock input.
+  - All created unit tests pass successfully.
+  - The tests are integrated into the CMake build system (e.g., using 'qt_add_test') for automated execution via 'ctest'.
+  - Code coverage for the parsing logic within the tested manager classes is measured, aiming for a high level of coverage for parsing paths and error handling.
+estimation_effort:
+  - "Very High (25-35 developer days). This involves creating many test cases for diverse and complex file formats (especially the materials system with its interdependencies). Crafting precise mock XML/binary data to test specific parsing paths and error conditions for each format requires significant effort. Testing hierarchical includes and data linking in the materials system adds further complexity."
+known_missing_files: [] # Not applicable
+boilerplate_coder_ai_prompt: |
+  Your task is to write unit tests for the asset loading and parsing logic within the 'mapcore' library of the Qt6 Remere's Map Editor. Use the Qt Test framework. For each parser/manager, create a dedicated test class. Use small, focused mock data (XML strings or binary arrays) to test various scenarios.
+
+  **General Approach for Each Test Class:**
+  1.  Create test class in 'tests/mapcore/' (e.g., 'TestItemManagerParser.h/.cpp', 'TestMaterialManagerParser.h/.cpp').
+  2.  Inherit 'QObject', use 'QTEST_MAIN' or integrate into a test runner.
+  3.  Private slots for test cases (e.g., 'void testParseBasicItem();', 'void testParseGroundBrushWithBorders();').
+  4.  Use 'QVERIFY', 'QCOMPARE', 'QVERIFY2', 'QTest::addColumn', 'QTest::newRow'.
+
+  **Target Parsers and Test Considerations:**
+
+  **1. 'mapcore::ItemManager' (and 'ItemType' population):**
+      - Test with mock OTB data (if applicable) and/or mock 'items.xml' data.
+      - **Attributes:** 'id', 'name', 'serverLookId', 'clientLookId', 'speed', 'pattern (x,y,z)', 'animationLength', 'flags (isBlocking, isPickupable, etc.)'.
+      - **Light Properties:** 'lightLevel', 'lightColor'.
+      - **Stacking, Corpse ID, Weapon/Armor values, Charges, etc.**
+      - **Error Cases:** Invalid item ID, missing name, malformed flags.
+
+  **2. 'mapcore::CreatureManager' (and 'CreatureType' population):**
+      - Test with mock 'creatures.xml' data.
+      - **Attributes:** 'name', 'health', 'mana', 'speed'.
+      - **Outfit:** 'lookType', 'head', 'body', 'legs', 'feet', 'addons', 'mountLookType'. Test various combinations.
+      - **Error Cases:** Missing name, invalid looktype.
+
+  **3. 'mapcore::ClientVersionManager' (and 'ClientProfile' population):**
+      - Test with mock 'clients.xml' data.
+      - **Attributes:** 'id', 'name', 'versionString', 'datSignature', 'sprSignature'.
+      - **Extensions:** Parsing of '<extension name=\"...\" enabled=\"...\"/>'.
+
+  **4. 'mapcore::GraphicManager' (for '.dat'/'.spr'/'.otfi' parsing):**
+      - Test with mock (small) '.dat' and '.spr' binary data, and mock '.otfi' content.
+      - **'.dat':** Correct parsing of sprite metadata (dimensions, layers, patterns, frames, animation details from 'CORE-02').
+      - **'.spr':** Correct reading of sprite pixel data addresses and sizes. (Actual pixel loading might be harder to unit test here, focus on metadata association).
+      - **'.otfi':** Correct parsing of file paths for '.dat' and '.spr', and flags like 'extended', 'transparency'.
+      - **Error Cases:** Corrupt/truncated binary data, OTFI pointing to non-existent files (mocked).
+
+  **5. 'mapcore::MaterialManager' (Comprehensive testing for materials system):**
+      - **Individual Component Parsers (e.g., for 'borders.xml', 'grounds.xml', 'walls.xml', 'doodads.xml' snippets):**
+          - **Borders:** Test '<border id="...">' with various '<edge item="..."/>' types.
+          - **Grounds:** Test '<brush name="...">' with '<item id="..." chance="..."/>', 'z-order', '<border id="..." to="..." ground_equivalent="..." super="..."/>', '<friend name="..."/>', specific conditional borders.
+          - **Walls:** Test various alignments ('type="vertical"`, etc.), '<item id="..." chance="..."/>', embedded '<door id="..." type="..." open="..." locked="..."/>', '<friend name="..." redirect="..."/>'.
+          - **Doodads:** Test '<brush name="...">' attributes ('server_lookid', 'thickness', etc.), '<alternate>', '<composite>' with '<tile x="..." y="..." [z="..."]>' and nested '<item id="..."/>'.
+      - **Palette Parsers (e.g., for 'item_palette.xml', 'raw_palette.xml', 'creature_palette.xml' snippets):**
+          - Test '<tileset name="...">' with '<items>', '<doodad>', '<raw>' sections.
+          - Test '<item id="..."/>', '<item fromid="..." toid="..."/>'.
+          - Test '<doodad itemid="..."/>', '<doodad brush="..."/>'.
+          - Test '<raw itemid="..."/>', '<raw brush="..."/>'.
+      - **'tilesets.xml' Parser (Aggregator):**
+          - Test parsing of '<tileset name="...">' that correctly references brushes/items defined in (mocked) component XMLs. Verify correct aggregation of different material types under one tileset.
+      - **'collections.xml' Parser:**
+          - Test '<tileset name="...">' containing '<collections>' with '<brush name="..."/>' and '<item id="..."/>' (and ranges).
+      - **'materials.xml' (Main Include File):**
+          - Test its ability to correctly include and process other (mocked) material XML files.
+      - **Error Handling Across Materials:**
+          - Test malformed XML in any of the material files.
+          - Test invalid references (e.g., a ground brush referencing a non-existent border ID, a tileset referencing a non-existent brush name).
+          - Test missing required attributes.
+
+  **Example Mock XML Snippet (for testing a ground brush):**
+  ```xml
+  <grounds>
+    <brush name="test_grass">
+      <item id="101" chance="100"/>
+      <border id="1" to="test_dirt" ground_equivalent="101"/> <!-- Assume border '1' is mocked elsewhere -->
+    </brush>
+  </grounds>
+  ```
+  Use: 'QTemporaryFile' or string literals for mock XML data passed to parsers.
+
+

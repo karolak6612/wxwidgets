@@ -28,44 +28,15 @@ void PodiumItem::copyDerivedMembersTo(PodiumItem& target) const {
 
 // OTBM Attribute Handling
 bool PodiumItem::deserializeOtbmAttribute(uint8_t attributeId, RME::core::io::BinaryNode* node, RME::core::assets::AssetManager* assetManager) {
-    switch (attributeId) {
-        case OTBM_ATTR_PODIUM_DIRECTION: {
-            uint8_t direction;
-            if (node->getU8(direction)) {
-                m_direction = static_cast<Direction>(direction);
-                return true;
-            }
-            return false;
-        }
-        case OTBM_ATTR_PODIUM_FLAGS: {
-            uint8_t flags;
-            if (node->getU8(flags)) {
-                m_showFlags = flags;
-                return true;
-            }
-            return false;
-        }
-        // TODO: Implement OTBM_ATTR_PODIUM_OUTFIT when outfit serialization format is defined
-        default:
-            return Item::deserializeOtbmAttribute(attributeId, node, assetManager);
-    }
+    // TODO: Implement actual deserialization for PodiumItem (outfit, direction, flags)
+    // Example: if (attributeId == OTBM_ATTR_PODIUM_OUTFIT) { /* read outfit from node */ return true; }
+    return Item::deserializeOtbmAttribute(attributeId, node, assetManager);
 }
 
 void PodiumItem::serializeOtbmAttributes(RME::core::io::NodeFileWriteHandle& writer, RME::core::assets::AssetManager* assetManager) const {
     Item::serializeOtbmAttributes(writer, assetManager);
-    // Serialize podium direction
-    if (m_direction != Direction::SOUTH) { // Only serialize if not default
-        writer.addU8(OTBM_ATTR_PODIUM_DIRECTION);
-        writer.addU8(static_cast<uint8_t>(m_direction));
-    }
-    
-    // Serialize podium display flags
-    if (m_showFlags != 0) {
-        writer.addU8(OTBM_ATTR_PODIUM_FLAGS);
-        writer.addU8(m_showFlags);
-    }
-    
-    // TODO: Implement OTBM_ATTR_PODIUM_OUTFIT when outfit serialization format is defined
+    // TODO: Implement actual serialization for PodiumItem (outfit, direction, flags)
+    // Example: writer.writeU8(OTBM_ATTR_PODIUM_OUTFIT); /* write m_outfit */
 }
 
 } // namespace RME

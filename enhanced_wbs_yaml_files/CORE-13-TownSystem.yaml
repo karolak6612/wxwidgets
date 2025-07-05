@@ -1,0 +1,123 @@
+id: CORE-13-TownSystem
+section: Core Migration Tasks
+title: Port Town System Data Structures
+original_input_files:
+  - wxwidgets/town.h
+  - wxwidgets/town.cpp
+  # Contextual files:
+  # - wxwidgets/map.h (Map stores collection of Towns) - CORE-03
+  # - wxwidgets/house.h (House has a town_id) - CORE-09
+  # - wxwidgets/iomap_otbm.cpp (Map loading/saving includes town data) - CORE-07-MapIO
+analyzed_input_files:
+  - file_path: wxwidgets/town.h
+    description: |
+      Defines the `Town` class and `Towns` (likely a typedef for a collection like `std::map<uint32_t, Town*>`).
+      - `Town` class: Represents a town on the map.
+        - Stores a unique ID (uint32_t).
+        - Stores its name (string).
+        - Stores its temple or central `Position`.
+        - May store a list of house IDs belonging to this town, or this could be inferred.
+      - The `Map` class (in `map.h`) likely contains a `Towns` collection to manage all towns.
+  - file_path: wxwidgets/town.cpp
+    description: |
+      Implementation of the `Town` class.
+      - Constructor likely takes ID, name, and temple `Position`.
+      - Accessors for its properties.
+dependencies:
+  - BUILD-01
+  - CORE-01  # For Position
+  - CORE-03  # For Map (stores Towns collection)
+  # CORE-07-MapIO is related for loading/saving town data.
+  # CORE-09-HouseSystem is related as Houses have a town_id.
+current_functionality_summary: |
+  - The `Town` class (`town.h/cpp`) defines a town, storing its ID, name, and temple/central position.
+  - The main `Map` object manages a collection of all towns, likely mapping unique town IDs to `Town` objects.
+  - Houses (`CORE-09`) are associated with towns via a `town_id`.
+  - Map I/O operations (e.g., OTBM parsing) read and write town data.
+qt6_migration_steps: |
+  1.  **Define `TownData` Class (in `mapcore/world/TownData.h/cpp`):**
+      -   Create `TownData.h` and `TownData.cpp`. This class represents a single town.
+      -   Store members: `uint32_t id;`, `QString name;`, `Position templePosition;`.
+      -   Implement constructor: `TownData(uint32_t id = 0, const QString& name = QString(), const Position& templePos = Position());`.
+      -   Implement accessors for these properties.
+      -   Implement comparison operators (`operator==`, `operator!=`) if useful for management.
+
+  2.  **Integrate with `Map` Class:**
+      -   `Map` class (from `CORE-03`):
+          -   Add a member like `QMap<uint32_t, TownData> townsById;`.
+          -   Implement methods in `Map` like:
+              -   `bool addTown(TownData&& town);` (returns false if ID exists)
+              -   `TownData* getTown(uint32_t townId);`
+              -   `const TownData* getTown(uint32_t townId) const;`
+              -   `bool removeTown(uint32_t townId);`
+              -   `const QMap<uint32_t, TownData>& getTowns() const { return townsById; }`
+
+  3.  **Relate to `HouseData`:**
+      -   The `HouseData` class (from `CORE-09`) already has a `uint32_t townId;`. This ID will correspond to a key in `Map::townsById`.
+
+  4.  **Update Map I/O (`CORE-07-MapIO` - `OtbmMapIO`):**
+      -   Modify `OtbmMapIO::loadMap` to parse OTBM town nodes (if towns are stored as distinct entities in OTBM, which is common):
+          -   Read town attributes (ID, name, temple position).
+          -   Create `TownData` objects and add them to `Map::townsById`.
+      -   Modify `OtbmMapIO::saveMap` to serialize `TownData` from `Map::townsById` into OTBM town nodes.
+      -   If towns are not distinct OTBM entities but are part of map metadata, adjust I/O accordingly.
+
+  5.  **Unit Tests:**
+      -   Test `TownData` construction and property management.
+      -   Test `Map`'s ability to add, retrieve, and remove `TownData` objects.
+      -   Test (conceptually, or as part of `CORE-07`'s tests) that town data is correctly loaded and saved with maps.
+definition_of_done: |
+  - A `TownData` class is implemented in `mapcore/world/` to store properties of a town (ID, name, temple position).
+  - The `Map` class (from `CORE-03`) is updated to manage a collection of `TownData` objects (e.g., `QMap<uint32_t, TownData>`).
+  - The `HouseData` class (from `CORE-09`) correctly uses `townId` to refer to towns managed by the `Map`.
+  - The OTBM map I/O system (`CORE-07-MapIO`) is extended to correctly load and save town definitions.
+  - Unit tests are created for `TownData` and for the `Map` class's town management capabilities.
+  - The new classes compile successfully within the `mapcore` library.
+boilerplate_coder_ai_prompt: |
+  You are to port the Town system data structures from a legacy C++ codebase (based on `town.h/cpp`) to a modern C++/Qt6 environment within the `mapcore` library. This includes defining the `TownData` class and integrating it with the `Map` class.
+
+  **1. `TownData` Class (`mapcore/world/TownData.h/cpp`):**
+     - Define class `TownData`.
+     - Members:
+       ```cpp
+       #include <QString>
+       #include "core/position.h" // Or your Position header
+
+       class TownData {
+       public:
+           uint32_t id = 0;
+           QString name;
+           Position templePosition;
+
+           TownData(uint32_t id_ = 0, const QString& name_ = QString(), const Position& templePos_ = Position())
+               : id(id_), name(name_), templePosition(templePos_) {}
+
+           // Add getters, setters, operator== if needed
+       };
+       ```
+
+  **2. Update `Map` Class (Modify `mapcore/map/Map.h/cpp` from `CORE-03`):**
+     - Add a member: `QMap<uint32_t, TownData> townsById;`.
+     - Implement public methods:
+       - `bool addTown(TownData&& townData);` // Store townData by ID, ensure ID is unique
+       - `TownData* getTown(uint32_t townId);`
+       - `const TownData* getTown(uint32_t townId) const;`
+       - `bool removeTown(uint32_t townId);`
+       - `const QMap<uint32_t, TownData>& getTowns() const { return townsById; }`
+
+  **3. Update `HouseData` (Verify `mapcore/houses/HouseData.h` from `CORE-09`):**
+     - Ensure `HouseData` has a `uint32_t townId;` member that can be used to link to a `TownData` object via `Map::townsById`.
+
+  **4. Integration with Map I/O (`CORE-07-MapIO`):**
+     - This task defines the data structures. The actual loading/saving logic will be implemented as part of `CORE-07-MapIO`'s `OtbmMapIO` class. Ensure that `OtbmMapIO` is updated to:
+        - Read town data (ID, name, temple position) from OTBM (likely from dedicated town nodes or map metadata) and populate `Map::townsById`.
+        - Write `TownData` from `Map::townsById` back to OTBM.
+
+  **General Requirements:**
+     - Use C++17/Qt6 types and practices.
+     - Provide header and source files.
+     - Write basic Qt Test unit tests for `TownData` and `Map`'s town management.
+documentation_references:
+  - "QMap: https://doc.qt.io/qt-6/qmap.html"
+  - "QString: https://doc.qt.io/qt-6/qstring.html"
+estimation_effort: Small-Medium

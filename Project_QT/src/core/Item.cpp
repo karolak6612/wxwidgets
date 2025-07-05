@@ -5,23 +5,22 @@
 #include "items/DepotItem.h"
 #include "items/PodiumItem.h"
 #include <stdexcept> // For potential errors if provider is null
-#include <QDebug>    // For qWarning() logging
 
 namespace RME {
 
 Item::Item(uint16_t item_id, IItemTypeProvider* provider, uint16_t item_subtype)
     : id(item_id), subtype(item_subtype), itemTypeProvider(provider) {
     if (!itemTypeProvider) {
-        qWarning() << "Item created with null IItemTypeProvider for item ID" << item_id;
-        // Note: We allow null provider but warn about it for debugging
+        // Depending on policy, this could throw or log an error.
+        // For now, assume provider is always valid when an Item is constructed.
         // Consider a global default provider or a null object provider pattern if needed.
     }
 }
 
 std::unique_ptr<Item> Item::create(uint16_t id, IItemTypeProvider* provider, uint16_t subtype) {
     if (!provider) {
-        qWarning() << "Item::create called with null provider for item ID" << id 
-                   << "- creating base Item without specialized functionality";
+        // Fallback or error if no provider, though Item constructor might also handle this.
+        // For safety, if provider is null, creating a base Item might be the only option.
         return std::make_unique<Item>(id, provider, subtype);
     }
 
@@ -176,19 +175,6 @@ bool Item::isPodium() const {
 }
 bool Item::isDepot() const {
     return PROVIDER_CALL(isDepot, false, id);
-}
-
-// Lighting support
-bool Item::hasLight() const {
-    return PROVIDER_CALL(hasLight, false, id);
-}
-
-uint8_t Item::getLightIntensity() const {
-    return PROVIDER_CALL(getLightIntensity, 0, id);
-}
-
-uint8_t Item::getLightColor() const {
-    return PROVIDER_CALL(getLightColor, 0, id);
 }
 
 /**

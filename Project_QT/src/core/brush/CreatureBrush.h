@@ -19,11 +19,11 @@ namespace core {
 // Forward declare again inside RME::core if EditorControllerInterface is in RME::core::editor
 namespace editor { class EditorControllerInterface; }
 
-class CreatureBrush : public Brush {
+class CreatureBrush : public RME::core::brush::Brush { // Explicitly use RME::core::brush::Brush
 public:
-    // Constructor takes CreatureData for this brush
-    CreatureBrush(RME::core::editor::EditorControllerInterface* controller = nullptr,
-                  const RME::core::assets::CreatureData* creatureData = nullptr);
+    // Constructor takes controller for base class and CreatureData for this brush
+    CreatureBrush(RME::core::editor::EditorControllerInterface* controller,
+                  const RME::core::assets::CreatureData* creatureData);
     ~CreatureBrush() override = default;
 
     // Renamed from setCreatureType to align with constructor setting, or keep if dynamic changes are needed
@@ -42,10 +42,6 @@ public:
     bool canApply(const RME::core::map::Map* map,
                   const RME::core::Position& pos,
                   const RME::core::BrushSettings& settings) const override;
-
-    // Legacy compatibility methods for direct map manipulation
-    void draw(RME::core::map::Map* map, RME::core::Tile* tile, const RME::core::BrushSettings* settings) override;
-    void undraw(RME::core::map::Map* map, RME::core::Tile* tile, const RME::core::BrushSettings* settings = nullptr) override;
 
 private:
     const RME::core::assets::CreatureData* m_creatureData = nullptr; // Changed from m_creatureType

@@ -28,14 +28,13 @@ namespace RME {
 namespace core {
 namespace network {
 
-NetworkMessage::NetworkMessage(size_t initialCapacity) : m_readPos(0), m_errorState(false) {
+NetworkMessage::NetworkMessage(size_t initialCapacity) : m_readPos(0) {
     m_buffer.reserve(initialCapacity);
 }
 
 void NetworkMessage::clear() {
     m_buffer.clear();
     m_readPos = 0;
-    m_errorState = false;
 }
 
 void NetworkMessage::resetRead() {
@@ -224,69 +223,6 @@ bool NetworkMessage::peekU8(uint8_t& value) const {
     }
     value = *(m_buffer.data() + m_readPos);
     return true;
-}
-
-// State checking methods
-bool NetworkMessage::isEmpty() const {
-    return m_buffer.empty();
-}
-
-bool NetworkMessage::isInErrorState() const {
-    return m_errorState;
-}
-
-// Alias for getBytes
-bool NetworkMessage::readBytes(uint8_t* buffer, size_t length) {
-    return getBytes(buffer, length);
-}
-
-// Convenience methods for reading without output parameters
-uint8_t NetworkMessage::readU8() {
-    uint8_t value = 0;
-    if (!getU8(value)) {
-        m_errorState = true;
-    }
-    return value;
-}
-
-uint16_t NetworkMessage::readU16() {
-    uint16_t value = 0;
-    if (!getU16(value)) {
-        m_errorState = true;
-    }
-    return value;
-}
-
-uint32_t NetworkMessage::readU32() {
-    uint32_t value = 0;
-    if (!getU32(value)) {
-        m_errorState = true;
-    }
-    return value;
-}
-
-uint64_t NetworkMessage::readU64() {
-    uint64_t value = 0;
-    if (!getU64(value)) {
-        m_errorState = true;
-    }
-    return value;
-}
-
-std::string NetworkMessage::readString() {
-    std::string value;
-    if (!getString(value)) {
-        m_errorState = true;
-    }
-    return value;
-}
-
-RME::core::Position NetworkMessage::readPosition() {
-    RME::core::Position value;
-    if (!getPosition(value)) {
-        m_errorState = true;
-    }
-    return value;
 }
 
 } // namespace network

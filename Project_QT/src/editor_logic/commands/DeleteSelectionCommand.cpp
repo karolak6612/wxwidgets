@@ -8,27 +8,23 @@
 #include <QDebug>  // For qWarning, Q_ASSERT
 #include <set>     // For std::set to get unique positions from selection
 
-namespace RME {
-namespace core {
-namespace actions {
+namespace RME_COMMANDS {
 
 DeleteSelectionCommand::DeleteSelectionCommand(
     RME::core::Map* map,
     const QList<RME::core::Position>& selectedPositions,
     RME::core::editor::EditorControllerInterface* controller,
     QUndoCommand* parent
-) : BaseCommand(controller, QString(), parent),
+) : QUndoCommand(parent),
     m_map(map),
     // m_selectionManager(selectionManager), // Removed
     m_controller(controller),
     m_affectedPositions(selectedPositions), // Store selected positions
     m_firstRun(true) // Still useful for one-time state capture in redo if needed
 {
-    if (!m_map) {
-        qWarning("DeleteSelectionCommand: Initialization with null map.");
-        setErrorText("Delete Selection");
-        return;
-    }
+    Q_ASSERT(m_map);
+    // Q_ASSERT(m_selectionManager); // Removed
+    Q_ASSERT(m_controller);
 
     // Text will be set more accurately in redo based on actual affected tiles
     setText(QObject::tr("Delete Selection"));
@@ -82,8 +78,9 @@ void DeleteSelectionCommand::redo() {
             tile->clearItems();
             tile->setSpawn(nullptr);
             tile->setCreature(nullptr);
-            // Notify map about the change
-            notifyMapChanged(pos);
+            if (m_controller && m_controller->getMap()) { // Ensure controller and map are valid
+                m_controller->getMap()->notifyTileChanged(pos);
+            }
         }
     }
     setText(QObject::tr("Delete Selection (%1 tile(s))").arg(m_affectedPositions.size()));
@@ -112,8 +109,9 @@ void DeleteSelectionCommand::undo() {
             tileOnMap->setSpawn(originalTileStateCopy->getSpawn() ? originalTileStateCopy->getSpawn()->deepCopy() : nullptr);
             tileOnMap->setCreature(originalTileStateCopy->getCreature() ? originalTileStateCopy->getCreature()->deepCopy() : nullptr);
 
-            // Notify map about the change
-            notifyMapChanged(pos);
+            if (m_controller && m_controller->getMap()) {
+                 m_controller->getMap()->notifyTileChanged(pos);
+            }
         }
     }
     setText(QObject::tr("Undo Delete Selection (%1 tile(s))").arg(m_undoneTileStates.size()));
@@ -139,6 +137,4 @@ bool DeleteSelectionCommand::mergeWith(const QUndoCommand *other) {
     return false;
 }
 
-} // namespace actions
-} // namespace core
-} // namespace RME
+} // namespace RME_COMMANDS

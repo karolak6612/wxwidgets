@@ -7,7 +7,7 @@
 #include "MapElements.h" // Assuming this is for TownData etc. and does NOT define HouseData
 #include "core/world/TownData.h" // New TownData location
 #include "core/navigation/WaypointData.h" // New WaypointData location
-#include "core/spawns/Spawn.h" // Provides RME::core::spawns::Spawn
+#include "core/spawns/SpawnData.h" // Provides RME::SpawnData
 
 #include <QString>
 #include <QList>
@@ -114,15 +114,10 @@ public:
     void clearWaypoints(); // Useful for new map or closing map
 
     // --- Spawns ---
-    void addSpawn(RME::core::spawns::Spawn&& spawn);
-    bool addSpawn(const RME::core::spawns::Spawn& spawn); // Copy version
-    QList<RME::core::spawns::Spawn>& getSpawns(); // Non-const
-    const QList<RME::core::spawns::Spawn>& getSpawns() const; // Const
-    bool removeSpawn(const RME::core::spawns::Spawn& spawn); // Returns true if found and removed
-    bool removeSpawnAt(const Position& pos); // Remove spawn at specific position
-    RME::core::spawns::Spawn* getSpawnAt(const Position& pos); // Get spawn at position
-    const RME::core::spawns::Spawn* getSpawnAt(const Position& pos) const;
-    void clearSpawns(); // Remove all spawns
+    void addSpawn(RME::SpawnData&& spawnData);
+    QList<RME::SpawnData>& getSpawns(); // Non-const
+    const QList<RME::SpawnData>& getSpawns() const; // Const
+    bool removeSpawn(const RME::SpawnData& spawnData); // Returns true if found and removed
 
     // --- Advanced Queries / Tile Property Queries ---
     /**
@@ -183,7 +178,7 @@ private:
     QMap<uint32_t, RME::core::houses::HouseData> m_housesById; // Explicitly namespaced
     uint32_t m_maxHouseId = 0; // Tracks the highest ID ever used
     QMap<QString, RME::core::navigation::WaypointData> m_waypoints;
-    QList<RME::core::spawns::Spawn> m_spawns; // Updated to use unified Spawn class
+    QList<RME::SpawnData> m_spawns; // Changed to RME::SpawnData
 };
 
 } // namespace RME

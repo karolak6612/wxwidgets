@@ -23,23 +23,15 @@ void DoorItem::copyDerivedMembersTo(DoorItem& target) const {
 
 // OTBM Attribute Handling
 bool DoorItem::deserializeOtbmAttribute(uint8_t attributeId, RME::core::io::BinaryNode* node, RME::core::assets::AssetManager* assetManager) {
-    if (attributeId == OTBM_ATTR_DOOR_ID) {
-        uint8_t doorId;
-        if (node->getU8(doorId)) {
-            m_doorId = doorId;
-            return true;
-        }
-        return false;
-    }
+    // TODO: Implement actual deserialization for DoorItem (e.g., m_doorId)
+    // Example: if (attributeId == OTBM_ATTR_DOOR_ID) { /* set m_doorId from node */ return true; }
     return Item::deserializeOtbmAttribute(attributeId, node, assetManager);
 }
 
 void DoorItem::serializeOtbmAttributes(RME::core::io::NodeFileWriteHandle& writer, RME::core::assets::AssetManager* assetManager) const {
     Item::serializeOtbmAttributes(writer, assetManager);
-    if (m_doorId != 0) {
-        writer.addU8(OTBM_ATTR_DOOR_ID);
-        writer.addU8(m_doorId);
-    }
+    // TODO: Implement actual serialization for DoorItem (e.g., m_doorId)
+    // Example: if (m_doorId != 0) { writer.writeU8(OTBM_ATTR_DOOR_ID); writer.writeU8(m_doorId); }
 }
 
 } // namespace RME

@@ -34,19 +34,9 @@ QMap<QString, CreatureData> CreatureDatabase::getAllCreatures() const {
 }
 
 bool CreatureDatabase::loadFromXML(const QString& filePath) {
-    if (filePath.isEmpty()) {
-        qWarning() << "CreatureDatabase::loadFromXML: Empty file path provided";
-        return false;
-    }
-    
     QFile file(filePath);
-    if (!file.exists()) {
-        qWarning() << "CreatureDatabase::loadFromXML: File does not exist:" << filePath;
-        return false;
-    }
-    
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qWarning() << "CreatureDatabase::loadFromXML: Could not open RME creatures.xml file:" << filePath << "Error:" << file.errorString();
+        qWarning() << "CreatureDatabase: Could not open RME creatures.xml file:" << filePath;
         return false;
     }
     // For RME's main creatures.xml, we typically clear existing data.
@@ -112,19 +102,9 @@ bool CreatureDatabase::loadFromXML(const QString& filePath) {
 }
 
 bool CreatureDatabase::importFromOtServerXml(const QString& filePath) {
-    if (filePath.isEmpty()) {
-        qWarning() << "CreatureDatabase::importFromOtServerXml: Empty file path provided";
-        return false;
-    }
-    
     QFile file(filePath);
-    if (!file.exists()) {
-        qWarning() << "CreatureDatabase::importFromOtServerXml: File does not exist:" << filePath;
-        return false;
-    }
-    
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qWarning() << "CreatureDatabase::importFromOtServerXml: Could not open OT server creature XML file:" << filePath << "Error:" << file.errorString();
+        qWarning() << "CreatureDatabase: Could not open OT server creature XML file:" << filePath;
         return false;
     }
 

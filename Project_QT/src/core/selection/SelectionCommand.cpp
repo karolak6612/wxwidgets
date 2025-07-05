@@ -1,9 +1,9 @@
 #include "SelectionCommand.h"
-#include "core/Tile.h"
-#include "core/Item.h"
-#include "core/Creature.h"
-#include "core/spawns/Spawn.h"
-#include "core/map/Map.h" // If Map class methods are needed
+#include "Project_QT/src/core/Tile.h"
+#include "Project_QT/src/core/Item.h"
+#include "Project_QT/src/core/Creature.h"
+#include "Project_QT/src/core/Spawn.h"
+#include "Project_QT/src/core/map/Map.h" // If Map class methods are needed
 #include <QDebug>
 
 namespace RME {
@@ -35,40 +35,22 @@ void SelectionCommand::applyChanges(bool applyCurrentState) {
         switch (change.type) {
             case SelectionManager::SelectionChange::TargetType::TILE:
                 if (change.tile) {
-                    bool newState = applyCurrentState ? change.currentState : change.previousState;
-                    if (newState) {
-                        change.tile->addStateFlag(RME::TileStateFlag::SELECTED);
-                    } else {
-                        change.tile->removeStateFlag(RME::TileStateFlag::SELECTED);
-                    }
+                    change.tile->setSelected(applyCurrentState ? change.currentState : change.previousState);
                 }
                 break;
             case SelectionManager::SelectionChange::TargetType::ITEM:
                 if (change.item) {
-                    // TODO: Implement item selection when Item class supports it
-                    // For now, items are selected as part of tile selection
+                    change.item->setSelected(applyCurrentState ? change.currentState : change.previousState);
                 }
                 break;
             case SelectionManager::SelectionChange::TargetType::CREATURE:
                 if (change.creature) {
-                    // Implement creature selection using existing Creature class support
-                    bool newState = applyCurrentState ? change.currentState : change.previousState;
-                    if (newState) {
-                        change.creature->select();
-                    } else {
-                        change.creature->deselect();
-                    }
+                    change.creature->setSelected(applyCurrentState ? change.currentState : change.previousState);
                 }
                 break;
             case SelectionManager::SelectionChange::TargetType::SPAWN:
                 if (change.spawn) {
-                    // Implement spawn selection using existing Spawn class support
-                    bool newState = applyCurrentState ? change.currentState : change.previousState;
-                    if (newState) {
-                        change.spawn->select();
-                    } else {
-                        change.spawn->deselect();
-                    }
+                    change.spawn->setSelected(applyCurrentState ? change.currentState : change.previousState);
                 }
                 break;
         }
@@ -83,28 +65,25 @@ void SelectionCommand::applyChanges(bool applyCurrentState) {
     // Let's assume SelectionManager has a method like:
     // void SelectionManager::resyncSelectedTilesSet(const QSet<Tile*>& involvedTiles);
 
-    // Collect all tiles that were affected by changes
-    QList<RME::Tile*> tilesToUpdate;
-    QList<RME::Tile*> tilesToRemove;
-    
+    QSet<Tile*> involvedTiles;
     for (const auto& change : m_changes) {
         if (change.tile) {
-            // Check if tile should be selected based on its current state
-            if (change.tile->hasStateFlag(RME::TileStateFlag::SELECTED)) {
-                tilesToUpdate.append(change.tile);
-            } else {
-                tilesToRemove.append(change.tile);
-            }
+            involvedTiles.insert(change.tile);
         }
     }
 
-    // Update SelectionManager's internal state using public methods
-    if (!tilesToUpdate.isEmpty()) {
-        m_selectionManager->addTilesToSelectionInternal(tilesToUpdate);
+    // Directly manipulate m_selectedTiles for now. This is a bit of a hack.
+    // Ideally, SelectionManager would have a method to rebuild/update this.
+    // For each involved tile, check if it should be in the set.
+    for (Tile* tile : involvedTiles) {
+        if (tile->hasSelectedElements()) { // Assumes Tile::hasSelectedElements() checks self + children
+            m_selectionManager->m_selectedTiles.insert(tile);
+        } else {
+            m_selectionManager->m_selectedTiles.remove(tile);
+        }
     }
-    if (!tilesToRemove.isEmpty()) {
-        m_selectionManager->removeTilesFromSelectionInternal(tilesToRemove);
-    }
+    // Emitting a signal from SelectionManager that selection changed might be good practice here.
+    // e.g., m_selectionManager->emitSelectionChanged();
 }
 
 void SelectionCommand::undo() {

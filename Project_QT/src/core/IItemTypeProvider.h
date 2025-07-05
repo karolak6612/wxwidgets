@@ -4,9 +4,8 @@
 #include <cstdint>
 #include <QString> // For item name, description etc.
 
-// Forward declarations
+// Forward declaration
 namespace RME { class Item; }
-namespace RME { namespace core { namespace assets { struct ItemData; } } }
 
 namespace RME {
 
@@ -42,14 +41,6 @@ public:
     virtual bool isDoor(uint16_t id) const = 0;
     virtual bool isPodium(uint16_t id) const = 0;
     virtual bool isDepot(uint16_t id) const = 0;
-
-    // Lighting properties
-    virtual bool hasLight(uint16_t id) const = 0;
-    virtual uint8_t getLightIntensity(uint16_t id) const = 0;
-    virtual uint8_t getLightColor(uint16_t id) const = 0;
-
-    // Get the complete item data structure for the given item ID
-    virtual const RME::core::assets::ItemData* getItemData(uint16_t id) const = 0;
 
     // Add more property queries as needed from the original g_items or Item class.
     // For example, light properties, specific attributes like 'charges', etc.

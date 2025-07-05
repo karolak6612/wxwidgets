@@ -1,11 +1,10 @@
 #ifndef RME_CLEARSELECTIONCOMMAND_H
 #define RME_CLEARSELECTIONCOMMAND_H
 
-#include "BaseCommand.h"
+#include <QUndoCommand>
 #include <QList>
 #include <memory>      // For std::unique_ptr if Tile objects were owned, but here raw Tile*
 #include <QString>     // For command text
-#include "core/actions/CommandIds.h"
 
 // Forward declarations
 namespace RME {
@@ -15,13 +14,11 @@ namespace core {
 }
 }
 
-namespace RME {
-namespace core {
-namespace actions {
+namespace RME_COMMANDS {
 
-constexpr int ClearSelectionCommandId = toInt(CommandId::ClearSelection);
+const int ClearSelectionCommandId = 1011; // Choose a unique ID
 
-class ClearSelectionCommand : public BaseCommand {
+class ClearSelectionCommand : public QUndoCommand {
 public:
     ClearSelectionCommand(
         RME::core::selection::SelectionManager* selectionManager,
@@ -46,7 +43,5 @@ private:
     bool m_hadSelectionToClear; // To optimize text and potentially redo/undo calls
 };
 
-} // namespace actions
-} // namespace core
-} // namespace RME
+} // namespace RME_COMMANDS
 #endif // RME_CLEARSELECTIONCOMMAND_H

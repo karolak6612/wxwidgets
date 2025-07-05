@@ -17,10 +17,10 @@ namespace RME {
 
 struct AssetManager::AssetManagerData {
     ClientVersionManager clientVersionManager;
-    ItemDatabase itemDatabase;
-    CreatureDatabase creatureDatabase;
-    SpriteManager spriteManager;
-    RME::core::assets::MaterialManager materialManager; // Consistent namespace
+    ItemDatabase itemDatabase; // Assuming RME::ItemDatabase or RME::core::assets::ItemDatabase
+    CreatureDatabase creatureDatabase; // Assuming RME::CreatureDatabase or RME::core::assets::CreatureDatabase
+    SpriteManager spriteManager; // Assuming RME::core::sprites::SpriteManager
+    core::assets::MaterialManager materialManager; // New member
 
     const ClientProfile* currentClientProfile = nullptr; // Cached pointer
     QString currentDataPath;
@@ -64,7 +64,7 @@ bool AssetManager::loadAllAssets(const QString& dataPath, const QString& clientV
         return false;
     }
 
-    d->currentClientProfile = d->clientVersionManager.getClientProfileByVersionString(clientVersionString);
+    d->currentClientProfile = d->clientVersionManager.getClientProfile(clientVersionString);
     if (!d->currentClientProfile) {
         qCritical() << "AssetManager: Client profile for version" << clientVersionString << "not found in clients.xml.";
         return false;
@@ -72,7 +72,7 @@ bool AssetManager::loadAllAssets(const QString& dataPath, const QString& clientV
     qInfo() << "AssetManager: Successfully loaded client profile for" << clientVersionString << ":" << d->currentClientProfile->name;
 
     // 2. Load Items (OTB and/or XML)
-    const OtbVersionInfo* otbInfo = d->clientVersionManager.getOtbVersionInfoByName(QString::number(d->currentClientProfile->clientOtbmVersionId));
+    const OtbVersion* otbInfo = d->clientVersionManager.getOtbVersionById(d->currentClientProfile->clientOtbmVersionId);
     QString otbPathToLoad;
 
     if (otbInfo) {
@@ -82,7 +82,7 @@ bool AssetManager::loadAllAssets(const QString& dataPath, const QString& clientV
             otbPathToLoad = resolvePath(dataPath, "items.otb"); // Fallback to generic items.otb
         }
     } else {
-        qWarning() << "AssetManager: No specific OTB version info found for client profile:" << clientVersionString;
+        qWarning() << "AssetManager: No specific OTB version info found for client profile" << clientVersionString
                    << "(OTB ID:" << d->currentClientProfile->clientOtbmVersionId << "). Trying generic items.otb.";
         otbPathToLoad = resolvePath(dataPath, "items.otb");
     }
@@ -90,10 +90,10 @@ bool AssetManager::loadAllAssets(const QString& dataPath, const QString& clientV
     qInfo() << "AssetManager: Attempting to load items from OTB:" << otbPathToLoad;
     if (QFile::exists(otbPathToLoad)) {
         if (!d->itemDatabase.loadFromOTB(otbPathToLoad)) {
-            qWarning() << "AssetManager: Failed to load items from OTB file:" << otbPathToLoad << ". Continuing with items.xml if available.";
+            qWarning() << "AssetManager: Failed to load items from OTB file:" << otbPathToLoad << "Continuing with items.xml if available.";
         }
     } else {
-        qWarning() << "AssetManager: OTB file not found at:" << otbPathToLoad;
+        qWarning() << "AssetManager: OTB file not found at" << otbPathToLoad;
     }
 
     QString itemsXmlPath = resolvePath(dataPath, "items.xml");
@@ -118,7 +118,7 @@ bool AssetManager::loadAllAssets(const QString& dataPath, const QString& clientV
             qWarning() << "AssetManager: Failed to load creatures from RME creatures.xml:" << creaturesXmlPath;
         }
     } else {
-        qWarning() << "AssetManager: RME creatures.xml not found at:" << creaturesXmlPath;
+        qWarning() << "AssetManager: RME creatures.xml not found at" << creaturesXmlPath;
     }
     // Example for loading individual monster files (optional, adapt path as needed)
     QDir monsterDir(resolvePath(dataPath, "monsters"));
@@ -233,17 +233,11 @@ const RME::core::assets::MaterialData* AssetManager::getMaterialData(const QStri
 
 // --- IItemTypeProvider Implementation ---
 QString AssetManager::getName(quint16 id) const {
-    if (id == 0) {
-        return "Empty"; // Standard name for empty/null items
-    }
-    const RME::core::assets::ItemData* data = getItemData(id);
-    return (data && data->serverID != 0) ? data->name : QString("Unknown Item %1").arg(id);
+    const ItemData* data = getItemData(id);
+    return (data && data->serverID != 0) ? data->name : "Unknown";
 }
 QString AssetManager::getDescription(quint16 id) const {
-    if (id == 0) {
-        return ""; // Empty items have no description
-    }
-    const RME::core::assets::ItemData* data = getItemData(id);
+    const ItemData* data = getItemData(id);
     return (data && data->serverID != 0) ? data->description : "";
 }
 quint32 AssetManager::getFlags(quint16 id) const {

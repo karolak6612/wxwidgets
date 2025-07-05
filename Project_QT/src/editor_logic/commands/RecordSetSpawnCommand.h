@@ -6,7 +6,6 @@
 #include <QString> // For command text
 
 #include "core/Position.h" // For RME::core::Position
-#include "core/actions/CommandIds.h"
 
 // Forward declare RME::core::Spawn and RME::Tile to avoid full includes in header
 namespace RME {
@@ -20,11 +19,9 @@ namespace core {
 } // namespace RME
 
 
-namespace RME {
-namespace core {
-namespace actions {
+namespace RME_COMMANDS { // Using the namespace from previous examples
 
-constexpr int RecordSetSpawnCommandId = toInt(CommandId::RecordSetSpawn);
+const int RecordSetSpawnCommandId = 1006; // Choose a unique ID
 
 class RecordSetSpawnCommand : public QUndoCommand {
 public:
@@ -56,7 +53,5 @@ private:
     RME::core::Position m_tilePosition;
 };
 
-} // namespace actions
-} // namespace core
-} // namespace RME
+} // namespace RME_COMMANDS
 #endif // RME_RECORDSETSPAWNCOMMAND_H

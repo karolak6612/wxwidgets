@@ -5,7 +5,7 @@ set(RME_CORE_LIB_SOURCES
     # CORE-01 files
     Position.cpp
     Item.cpp          # Uses IItemTypeProvider.h
-    ItemTypeProvider.cpp  # Concrete implementation of IItemTypeProvider
+    Spawn.cpp         # Stub
     Tile.cpp          # Uses Item.h, Creature.h, Spawn.h, Position.h
 
     # CORE-08 files
@@ -28,10 +28,6 @@ set(RME_CORE_LIB_SOURCES
     map/QTreeNode.cpp
     map/BaseMap.cpp
     map/MapIterator.cpp
-    
-    # Utility files
-    utils/ResourcePathManager.cpp
-    utils/ProgressTracker.cpp
     map/Map.cpp
 
     # CORE-06 settings system files
@@ -40,16 +36,6 @@ set(RME_CORE_LIB_SOURCES
     # CORE-BRUSH-FRAMEWORK files
     brush/Brush.cpp
     brush/BrushManagerService.cpp
-    
-    # Service architecture files
-    services/ClientDataService.cpp
-    services/WindowManagerService.cpp
-    services/ApplicationSettingsService.cpp
-    services/ServiceContainer.cpp
-    services/BrushPaletteService.cpp
-    services/BrushStateService.cpp
-    services/EditorStateService.cpp
-    services/LightCalculatorService.cpp
 
     # LOGIC-04 Waypoint System files (This is WaypointManager, distinct from WaypointData)
     waypoints/WaypointManager.cpp
@@ -142,11 +128,11 @@ list(APPEND RME_CORE_LIB_HEADERS ${CORE_HOUSES_HDRS})
 
 # Spawn System
 set(CORE_SPAWNS_HDRS
-    ${CMAKE_CURRENT_SOURCE_DIR}/spawns/Spawn.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/spawns/SpawnData.h
 )
 
 set(CORE_SPAWNS_SRCS
-    ${CMAKE_CURRENT_SOURCE_DIR}/spawns/Spawn.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/spawns/SpawnData.cpp
 )
 
 list(APPEND RME_CORE_LIB_SOURCES ${CORE_SPAWNS_SRCS})
@@ -226,9 +212,6 @@ add_library(rme_core_lib STATIC ${RME_CORE_LIB_SOURCES})
 target_include_directories(rme_core_lib PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR} # Exposes Project_QT/src/core/ and its subdirectories
 )
-
-# Add subdirectories for components with their own CMakeLists.txt
-add_subdirectory(lighting) # RENDER-04 Lighting System
 
 # Link against Qt6 Core and Widgets
 target_link_libraries(rme_core_lib PRIVATE

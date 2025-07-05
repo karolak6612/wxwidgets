@@ -108,15 +108,17 @@ int WallBrush::getLookID(const RME::core::BrushSettings& settings) const {
             serverItemId = getItemIdForSegment(RME::BorderType::WALL_HORIZONTAL, settings, wallSpecifics);
         }
         if (serverItemId != 0) {
-             qWarning() << "WallBrush 'getLookID': Material" << m_materialData->id << "has no client lookId. Attempting to use server ID" << serverItemId << ". THIS REQUIRES CONVERSION.";
+             qWarning("WallBrush 'getLookID': Material %s has no client lookId. Attempting to use server ID %u. THIS REQUIRES CONVERSION.",
+                      qUtf8Printable(m_materialData->id), serverItemId);
             return 0;
         }
     }
     if (m_materialData->serverLookId != 0) {
-        qWarning() << "WallBrush 'getLookID': Material" << m_materialData->id << "has serverLookId" << m_materialData->serverLookId << "but no client lookId. THIS REQUIRES CONVERSION.";
+        qWarning("WallBrush 'getLookID': Material %s has serverLookId %u but no client lookId. THIS REQUIRES CONVERSION.",
+                 qUtf8Printable(m_materialData->id), m_materialData->serverLookId);
         return 0;
     }
-    qWarning() << "WallBrush 'getLookID': Material" << m_materialData->id << "has no lookId, serverLookId, or default items to derive a look from.";
+    qWarning("WallBrush 'getLookID': Material %s has no lookId, serverLookId, or default items to derive a look from.", qUtf8Printable(m_materialData->id));
     return 0;
 }
 
@@ -126,7 +128,7 @@ bool WallBrush::canApply(const RME::core::map::Map* map,
     if (!m_materialData) return false;
     const auto* specifics = getCurrentWallSpecifics();
     if (!specifics || specifics->parts.empty()) {
-         qWarning() << "WallBrush::canApply: No wall parts defined for material" << m_materialData->id;
+         qWarning("WallBrush::canApply: No wall parts defined for material %s", qUtf8Printable(m_materialData->id));
         return false;
     }
     if (!map || !map->isPositionValid(pos)) return false;
@@ -137,11 +139,7 @@ void WallBrush::initializeStaticData() {
     if (s_staticDataInitialized) {
         return;
     }
-    // Use specific namespace qualifiers for better code clarity
-    using RME::core::TILE_WALL_NORTH;
-    using RME::core::TILE_WALL_SOUTH;
-    using RME::core::TILE_WALL_EAST;
-    using RME::core::TILE_WALL_WEST;
+    using namespace RME;
     using BT = RME::BorderType;
 
     for (int i = 0; i < 16; ++i) {
@@ -208,7 +206,7 @@ QString WallBrush::wallSegmentTypeToOrientationString(RME::BorderType segmentTyp
         case RME::BorderType::WALL_SOUTHEAST_DIAGONAL: return QStringLiteral("southeast_diagonal");
         case RME::BorderType::WALL_UNTOUCHABLE: return QStringLiteral("untouchable");
         default:
-            qWarning() << "WallBrush::wallSegmentTypeToOrientationString: Unknown segment type" << static_cast<int>(segmentType);
+            qWarning("WallBrush::wallSegmentTypeToOrientationString: Unknown segment type %d", static_cast<int>(segmentType));
             return QStringLiteral("pole");
     }
 }
@@ -357,7 +355,7 @@ void WallBrush::apply(RME::core::editor::EditorControllerInterface* controller,
     if(!wallSpecifics) return;
 
     const RME::core::assets::ItemDatabase* itemDb = controller->getAssetManager() ? controller->getAssetManager()->getItemDatabase() : nullptr;
-    if(!itemDb) { qWarning() << "WallBrush::apply: ItemDatabase not available."; return; }
+    if(!itemDb) { qWarning("WallBrush::apply: ItemDatabase not available."); return; }
 
 
     if (settings.isEraseMode) {
@@ -398,7 +396,7 @@ void WallBrush::apply(RME::core::editor::EditorControllerInterface* controller,
         if (initialItemId != 0) {
             controller->recordAddItem(pos, initialItemId);
         } else {
-            qWarning() << "WallBrush::apply: No item ID found for default WALL_POLE for material" << m_materialData->id;
+            qWarning("WallBrush::apply: No item ID found for default WALL_POLE for material %s.", qUtf8Printable(m_materialData->id));
         }
     }
 

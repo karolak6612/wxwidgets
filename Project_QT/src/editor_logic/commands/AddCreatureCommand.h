@@ -1,7 +1,7 @@
 #ifndef RME_ADD_CREATURE_COMMAND_H
 #define RME_ADD_CREATURE_COMMAND_H
 
-#include "BaseCommand.h"
+#include <QUndoCommand>
 #include <memory> // For std::unique_ptr
 
 // Forward declarations
@@ -21,7 +21,7 @@ class EditorControllerInterface; // For notifying tile changed
 
 namespace commands {
 
-class AddCreatureCommand : public BaseCommand {
+class AddCreatureCommand : public QUndoCommand {
 public:
     AddCreatureCommand(
         RME::core::Tile* tile,
@@ -38,6 +38,7 @@ public:
 private:
     RME::core::Tile* m_tile;
     const RME::core::assets::CreatureData* m_creatureData; // The type of creature to add
+    RME::editor_logic::EditorControllerInterface* m_editorController;
 
     // Store the creature that was on the tile before this command (if any)
     // and the creature that this command places, to manage their lifecycle.

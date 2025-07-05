@@ -2,8 +2,8 @@
 #define PASTECOMMAND_H
 
 #include <QUndoCommand>
-#include "core/clipboard/ClipboardData.h" // For ClipboardContent
-#include "core/Position.h"
+#include "Project_QT/src/core/clipboard/ClipboardData.h" // For ClipboardContent
+#include "Project_QT/src/core/Position.h"
 
 namespace RME {
 class Map;

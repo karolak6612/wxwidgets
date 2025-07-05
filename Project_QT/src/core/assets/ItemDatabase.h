@@ -19,11 +19,6 @@ public:
 
     bool loadFromOTB(const QString& filePath);
     bool loadFromXML(const QString& filePath); // For items.xml
-    
-    // Convenience methods for combined loading
-    bool loadFromFiles(const QString& otbPath, const QString& xmlPath);
-    bool loadItemsOtb(const QString& filePath);  // Alias for loadFromOTB
-    bool loadItemsXml(const QString& filePath);  // Alias for loadFromXML
 
     const ItemData* getItemData(quint16 serverID) const;
     const ItemData& getDefaultItemData() const; // Returns a default/invalid ItemData

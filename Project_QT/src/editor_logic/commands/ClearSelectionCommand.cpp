@@ -5,22 +5,16 @@
 #include <QObject> // For tr()
 #include <QDebug>  // For qWarning, Q_ASSERT
 
-namespace RME {
-namespace core {
-namespace actions {
+namespace RME_COMMANDS {
 
 ClearSelectionCommand::ClearSelectionCommand(
     RME::core::selection::SelectionManager* selectionManager,
     QUndoCommand* parent
-) : BaseCommand(nullptr, QString(), parent),
+) : QUndoCommand(parent),
     m_selectionManager(selectionManager),
     m_hadSelectionToClear(false)
 {
-    if (!m_selectionManager) {
-        qWarning("ClearSelectionCommand: Initialization with null selection manager.");
-        setErrorText("Clear Selection");
-        return;
-    }
+    Q_ASSERT(m_selectionManager);
     // Text will be set in redo()
 }
 
@@ -72,6 +66,4 @@ void ClearSelectionCommand::undo() {
 }
 
 
-} // namespace actions
-} // namespace core
-} // namespace RME
+} // namespace RME_COMMANDS

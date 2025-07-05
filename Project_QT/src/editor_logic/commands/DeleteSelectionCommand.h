@@ -1,13 +1,12 @@
 #ifndef RME_DELETESELECTIONCOMMAND_H
 #define RME_DELETESELECTIONCOMMAND_H
 
-#include "BaseCommand.h"
+#include <QUndoCommand>
 #include <QMap>
 #include <memory>      // For std::unique_ptr
 #include <QString>     // For command text
 
 #include "core/Position.h" // For RME::core::Position
-#include "core/actions/CommandIds.h"
 
 // Forward declarations
 namespace RME {
@@ -19,13 +18,11 @@ namespace core {
 }
 }
 
-namespace RME {
-namespace core {
-namespace actions {
+namespace RME_COMMANDS {
 
-constexpr int DeleteSelectionCommandId = toInt(CommandId::DeleteSelection);
+const int DeleteSelectionCommandId = 1010; // Choose a unique ID
 
-class DeleteSelectionCommand : public BaseCommand {
+class DeleteSelectionCommand : public QUndoCommand {
 public:
     DeleteSelectionCommand(
         RME::core::Map* map,
@@ -56,7 +53,5 @@ private:
     bool m_firstRun;
 };
 
-} // namespace actions
-} // namespace core
-} // namespace RME
+} // namespace RME_COMMANDS
 #endif // RME_DELETESELECTIONCOMMAND_H

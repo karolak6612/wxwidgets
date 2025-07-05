@@ -4,34 +4,25 @@
 #include <QDebug>
 #include <QObject> // For QObject::tr
 
-namespace RME {
-namespace core {
-namespace actions {
+namespace RME_COMMANDS {
 
 AddWaypointCommand::AddWaypointCommand(
     RME::core::WaypointManager* waypointManager,
     const QString& waypointName,
     const RME::core::Position& position,
-    RME::core::EditorControllerInterface* editorController,
     QUndoCommand* parent
-) : BaseCommand(editorController, QString(), parent),
+) : QUndoCommand(parent),
     m_waypointManager(waypointManager),
     m_waypointName(waypointName),
     m_position(position),
     m_replacedWaypoint(nullptr),
     m_wasReplacement(false) {
-    
-    if (!m_waypointManager) {
-        qWarning("AddWaypointCommand: Initialization with null waypoint manager.");
-        setErrorText("Add Waypoint");
-        return;
-    }
     // setText will be set in redo()
 }
 
 void AddWaypointCommand::undo() {
     if (!m_waypointManager) {
-        qWarning() << "AddWaypointCommand::undo: WaypointManager is null.";
+        qWarning("AddWaypointCommand::undo: WaypointManager is null.");
         return;
     }
 
@@ -40,7 +31,7 @@ void AddWaypointCommand::undo() {
     if (!removed) {
         // This might happen if undo is called without a successful redo, or other error
         // It's also possible the waypoint was already removed by another operation if commands are not managed carefully.
-        qWarning() << "AddWaypointCommand::undo: Failed to remove waypoint" << m_waypointName << ". It might have been already removed or name changed.";
+        qWarning("AddWaypointCommand::undo: Failed to remove waypoint '%s'. It might have been already removed or name changed.", qPrintable(m_waypointName));
     }
 
     // If this add operation replaced an existing waypoint, restore the old one.
@@ -57,9 +48,8 @@ void AddWaypointCommand::undo() {
 }
 
 void AddWaypointCommand::redo() {
-    if (!validateMembers() || !m_waypointManager) {
-        qWarning() << "AddWaypointCommand::redo: WaypointManager or controller is null.";
-        setErrorText("Add Waypoint");
+    if (!m_waypointManager) {
+        qWarning("AddWaypointCommand::redo: WaypointManager is null.");
         return;
     }
 
@@ -101,10 +91,8 @@ void AddWaypointCommand::redo() {
         setText(QObject::tr("Add Waypoint '%1' Failed").arg(m_waypointName));
         m_wasReplacement = false;
         m_replacedWaypoint.reset();
-        qWarning() << "AddWaypointCommand::redo: m_waypointManager->addWaypoint failed for" << m_waypointName;
+        qWarning("AddWaypointCommand::redo: m_waypointManager->addWaypoint failed for '%s'.", qPrintable(m_waypointName));
     }
 }
 
-} // namespace actions
-} // namespace core
-} // namespace RME
+} // namespace RME_COMMANDS

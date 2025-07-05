@@ -10,8 +10,6 @@ set(RME_EDITOR_LOGIC_LIB_SOURCES
     commands/DeleteCommand.cpp
     commands/DeleteSelectionCommand.cpp      # Added
     commands/MoveWaypointCommand.cpp
-    commands/RemoveWaypointCommand.cpp   # Added for LOGIC-04 completion
-    commands/RenameWaypointCommand.cpp   # Added for LOGIC-04 completion
     commands/RecordAddRemoveItemCommand.cpp # Added
     commands/RecordModifyTileContentsCommand.cpp # Added
     commands/RecordSetGroundCommand.cpp     # Added
@@ -31,8 +29,6 @@ set(RME_EDITOR_LOGIC_LIB_HEADERS
     commands/DeleteCommand.h
     commands/DeleteSelectionCommand.h        # Added
     commands/MoveWaypointCommand.h
-    commands/RemoveWaypointCommand.h     # Added for LOGIC-04 completion
-    commands/RenameWaypointCommand.h     # Added for LOGIC-04 completion
     commands/RecordAddRemoveItemCommand.h   # Added
     commands/RecordModifyTileContentsCommand.h # Added
     commands/RecordSetGroundCommand.h       # Added

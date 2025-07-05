@@ -6,9 +6,7 @@
 #include <QDebug>  // For qWarning, Q_ASSERT
 #include <QSet>    // For efficient union of tile lists
 
-namespace RME {
-namespace core {
-namespace actions {
+namespace RME_COMMANDS {
 
 BoundingBoxSelectCommand::BoundingBoxSelectCommand(
     RME::core::selection::SelectionManager* selectionManager,
@@ -16,18 +14,14 @@ BoundingBoxSelectCommand::BoundingBoxSelectCommand(
     bool isAdditive,
     const QList<RME::core::Tile*>& selectionStateBeforeThisCommand,
     QUndoCommand* parent
-) : BaseCommand(nullptr, QString(), parent),
+) : QUndoCommand(parent),
     m_selectionManager(selectionManager),
     m_calculatedTilesInBox(calculatedTilesInBox),
     m_isAdditive(isAdditive),
     m_selectionStateBeforeCommand(selectionStateBeforeThisCommand),
     m_firstRun(true)
 {
-    if (!m_selectionManager) {
-        qWarning("BoundingBoxSelectCommand: Initialization with null selection manager.");
-        setErrorText("Bounding Box Selection");
-        return;
-    }
+    Q_ASSERT(m_selectionManager);
     // Command text will be set in redo()
 }
 
@@ -88,6 +82,4 @@ void BoundingBoxSelectCommand::undo() {
     setText(QObject::tr("Undo Bounding Box Selection"));
 }
 
-} // namespace actions
-} // namespace core
-} // namespace RME
+} // namespace RME_COMMANDS

@@ -32,17 +32,12 @@ public:
                const RME::core::BrushSettings& settings) override;
 
     QString getName() const override;
-    QString getType() const override;
 
     int getLookID(const RME::core::BrushSettings& settings) const override;
 
     bool canApply(const RME::core::map::Map* map,
                   const RME::core::Position& pos,
                   const RME::core::BrushSettings& settings) const override;
-
-    // Legacy compatibility methods for direct map manipulation
-    void draw(RME::core::map::Map* map, RME::core::Tile* tile, const RME::core::BrushSettings* settings) override;
-    void undraw(RME::core::map::Map* map, RME::core::Tile* tile, const RME::core::BrushSettings* settings = nullptr) override;
 
     static void initializeStaticData();
 

@@ -1,0 +1,122 @@
+id: TEST-09 # Changed from wbs_item_id for consistency
+section: Testing # Added section for clarity
+title: "Develop UI Tests for Key Editor Features and Workflows"
+original_task_id: TEST-09 # Assuming this is the original ID
+description: Develop UI tests for key editor features using the Qt Test framework. This involves simulating user interactions (mouse clicks, keyboard input) with various UI elements (buttons, menus, map canvas, dialogs) and verifying the application's response, data changes, and overall workflow integrity.
+dependencies:
+  - "UI-01"    # MainWindow
+  - "UI-02"    # EditorController
+  - RENDER-01  # MapViewWidget (Map Canvas)
+  - UI-01      # (MainWindow context for MapViewWidget)
+  - "UI-04"    # Palette UIs (Item, Terrain, Doodad, etc.)
+  - "UI-05"    # Main Toolbars
+  - "UI-06"    # Status Bar
+  - "UI-07"    # Common Dialogs (File, Preferences, Properties)
+  - "UI-08"    # Specific Brush Palettes (House, Waypoint, Creature)
+  - "UI-09"    # Specialized Editor Windows (Town, House, Waypoint, etc.)
+  - "UI-10"    # Scripting Interface Window
+  - "CORE-01"  # Map data structures (Map, Tile, Item)
+  - "CORE-02"  # Item/Creature definitions
+  - "CORE-03"  # Map I/O (for loading/saving test maps)
+  - CORE-14-MaterialSystem  # Material system
+  - CORE-BRUSH-FRAMEWORK  # Brush system
+  - "CORE-05"  # ActionQueue/Undo system
+  - "LOGIC-01" # Editor Initialization / Map loading
+  - "CORE-02" # Item Management logic
+  - "CORE-05" # Selection & Copy/Paste logic
+  - "CORE-11-WaypointSystem" # Waypoint system logic
+  - "CORE-09-HouseSystem" # House system logic
+  - CORE-10-SpawnSystem     # Spawn system logic
+  - CORE-08-CreatureOutfit  # Creature instance logic
+  - "TEST-01"  # Unit tests for core data structures
+  - "BUILD-01" # For CMake setup
+input_files: [] # No wxWidgets files to port for this task.
+analyzed_input_files: [] # No legacy files to analyze for this task.
+documentation_references:
+  - "Qt Test Framework - Simulating GUI Events: https://doc.qt.io/qt-6/qttest-index.html#simulating-gui-events"
+  - "QTest Namespace: https://doc.qt.io/qt-6/qtest.html (for mouseClick, keyClicks, keyPress, qWait etc.)"
+  - "Widget Accessibility for Testing: Ensure 'objectName' is set on key widgets."
+current_functionality_summary: |
+  This task involves creating new UI-level tests for the fully integrated Qt6 Remere's Map Editor. These tests will simulate user interactions with the graphical interface, including menus, toolbars, palettes, the map canvas, and various dialogs. The goal is to ensure that key editor features and user workflows function correctly from an end-user perspective. This involves verifying not only that UI elements respond as expected (e.g., dialogs open, buttons become enabled/disabled) but also that these UI actions result in the correct modifications to the underlying map data and application state, including undo/redo functionality.
+definition_of_done:
+  - A suite of UI tests using the Qt Test framework is created, targeting essential editor features and user workflows.
+  - "Tests successfully simulate user interactions: Menu selections (e.g., File > New/Open/Save/Save As, Edit > Undo/Redo, Edit > Cut/Copy/Paste, View > Zoom/Floor changes). Toolbar button clicks for major tools (e.g., select mode, draw mode, specific brush types if on toolbar). Interactions with palettes (e.g., selecting a terrain brush, an item, a doodad, a creature). Basic map canvas operations (e.g., clicking to paint a tile with the selected brush, dragging to create a selection rectangle). Interactions with key dialogs (e.g., New Map Dialog, Preferences Dialog, Map Properties Dialog, simple Find Item Dialog)."
+  - "Verification steps assert both UI responses and data integrity: UI Response - Dialogs appear/close as expected, widgets change state (enabled/disabled, checked/unchecked), status bar messages update correctly, map tab titles change on save/load. Data Integrity - User actions performed through the UI lead to correct modifications in the 'mapcore::Map' data structures (e.g., a tile's ground item ID changing after a ground brush is used via palette and map click, items being added to a tile, selection state in 'mapcore::Selection' updating, 'mapcore::CopyBuffer' being populated)."
+  - "Key User Workflows Covered: File Operations - Creating a new map via the 'New Map' dialog (testing various dimension inputs), Opening an existing OTBM map (using a small, valid test map file) and verifying basic rendering or data presence, Saving a modified map (Save/Save As), including verifying file creation and content if feasible (e.g., by reloading and checking a key attribute). Basic Editing with Brushes - Selecting a ground brush from a palette and painting a few tiles on the map canvas. Verify tile ground IDs change, Selecting an item brush and placing an item. Verify item appears on the tile, Selecting an eraser brush and clearing some tiles. Verify elements are removed. Selection and Clipboard - Making a rectangular selection on the map canvas. Verify selection object is updated, Performing Copy, then Paste to a new location. Verify pasted content matches original, Performing Cut, then Paste. Verify original area is cleared and content is pasted. Undo/Redo - For several distinct editing actions (e.g., paint ground, place item, delete selection), verify that Undo reverts the change and Redo re-applies it, checking the 'mapcore::Map' data. Simple Dialog Interaction - Open a simple dialog (e.g., Map Properties). Change a value (e.g., map description). Click OK. Verify the change is reflected in the 'mapcore::Map' data. Test dialog cancellation."
+  - "Widgets crucial for testing (buttons, menu actions, specific input fields in dialogs, palette elements) are assigned unique and consistent 'objectName' properties in the UI C++ code to facilitate reliable interaction via 'QTest::keyClick', 'QTest::mouseClick', and widget lookup."
+  - "All created UI tests pass successfully in a test environment (may require a display server)."
+  - "Tests are integrated into the CMake build system (e.g., using 'qt_add_test') and can be run automatically as part of CI, if the environment supports GUI tests."
+estimation_effort:
+  - "Very High (40-50 developer days). UI testing is inherently complex and can be brittle. Setting up testable UI states, robustly simulating user interactions, and verifying both UI feedback and underlying data changes for numerous features is a large undertaking. Ensuring tests are stable and can run in CI environments adds further complexity. Interactions with file dialogs often require mocking or specific test strategies."
+known_missing_files: [] # Not applicable
+boilerplate_coder_ai_prompt: |
+  Your task is to create UI tests for key features and user workflows of the Qt6 Remere's Map Editor using the Qt Test framework. These tests will simulate user interactions with the GUI (MainWindow, dialogs, palettes, map canvas) and verify both UI responses and resulting data changes in 'mapcore::Map'.
+
+  **General UI Testing Approach with Qt Test:**
+  1.  Create test classes inheriting from 'QObject' (e.g., 'TestFileOperations', 'TestBasicEditing') in 'tests/ui/'.
+  2.  In 'initTestCase()' or 'init()' of each test class:
+      - Instantiate the 'MainWindow' of the application. Call 'mainWindow->show()' if necessary for widget interactions.
+      - Obtain pointers to key UI elements: 'MapViewWidget* mapView = mainWindow->findChild<MapViewWidget*>("mapViewObjectName");', menu actions, toolbar buttons, palette widgets, using their 'objectName'.
+      - Prepare a known state (e.g., load a simple test map into 'mapView->getMap()' or create a new map).
+  3.  Use 'QTest::mouseClick()', 'QTest::mouseDClick()', 'QTest::mouseMove()', 'QTest::keyClicks()', 'QTest::keyPress()' to simulate user input.
+  4.  Use 'QTest::qWait()' for brief, unavoidable UI update delays. Prefer 'QSignalSpy' for more complex asynchronous operations if signals are available (e.g., waiting for a file to load if it emits a signal).
+  5.  Assert UI changes ('QVERIFY(dialog->isVisible())', 'QCOMPARE(button->isEnabled(), true)') and 'mapcore::Map' data changes.
+
+  **Key User Workflows to Test:**
+
+  **1. 'TestFileOperations':**
+      - 'testNewMap()':
+          - 'QTest::mouseClick(fileMenu->menuAction()); QTest::mouseClick(newMapAction);'
+          - Find "New Map Dialog" widgets by 'objectName'.
+          - 'QTest::keyClicks(dialog->findChild<QLineEdit*>("mapNameInput"), "test_map");'
+          - 'QTest::keyClicks(dialog->findChild<QSpinBox*>("mapWidthSpinBox"), "50");'
+          - 'QTest::mouseClick(dialog->findChild<QPushButton*>("okButtonNewMapDialog"));'
+          - 'QCOMPARE(mainWindow->getActiveMap()->getName(), "test_map");'
+          - 'QCOMPARE(mainWindow->getActiveMap()->getWidth(), 50);'
+      - 'testOpenMap()':
+          - (Requires mocking 'QFileDialog::getOpenFileName' or having a fixed test file path).
+          - Simulate File > Open.
+          - Verify map is loaded: 'QVERIFY(mainWindow->getActiveMap() != nullptr); QCOMPARE(mainWindow->getActiveMap()->getWidth(), expectedWidthFromTestFile);'
+      - 'testSaveAndSaveAsMap()':
+          - Create new map, make a change (e.g., set a ground tile via simulated brush use).
+          - Simulate File > Save As (mock 'QFileDialog::getSaveFileName'). Verify file exists.
+          - Make another change. Simulate File > Save. Verify file is updated.
+
+  **2. 'TestBasicEditing':**
+      - 'init()': Load a simple test map. Get 'MapViewWidget* mapView'. Get brush palette widgets.
+      - 'testPaintGround()':
+          - Simulate selecting "GrassBrush" from terrain palette.
+          - 'QPoint targetScreenPos = mapView->mapCoordsToScreen(mapcore::Position(10,10,7));'
+          - 'QTest::mouseClick(mapView, Qt::LeftButton, Qt::NoModifier, targetScreenPos);'
+          - 'mapcore::Tile* tile = mapView->getMap()->getTile(10,10,7); QVERIFY(tile && tile->getGroundItem()->getID() == ID_GRASS);'
+          - Verify surrounding tile borders are updated (requires checking multiple tiles).
+      - 'testPlaceItem()': Select item brush, click on map, verify item on tile.
+      - 'testUndoRedoPaint()':
+          - Get initial ground ID of a tile.
+          - Paint ground as above. Verify change.
+          - Simulate Edit > Undo. Verify ground ID reverts to initial.
+          - Simulate Edit > Redo. Verify ground ID is the new one again.
+
+  **3. 'TestSelectionAndClipboard':**
+      - 'testRectangularSelection()':
+          - 'QPoint startDrag = mapView->mapCoordsToScreen(mapcore::Position(5,5,7));'
+          - 'QPoint endDrag = mapView->mapCoordsToScreen(mapcore::Position(10,10,7));'
+          - 'QTest::mousePress(mapView, Qt::LeftButton, Qt::NoModifier, startDrag);'
+          - 'QTest::mouseMove(mapView, endDrag);'
+          - 'QTest::mouseRelease(mapView, Qt::LeftButton, Qt::NoModifier, endDrag);'
+          - 'QVERIFY(mapView->getSelection()->getRectangle().contains(mapcore::Position(7,7,7)));'
+      - 'testCopyPaste()':
+          - Populate an area. Select it. Simulate Edit > Copy.
+          - Simulate Edit > Paste to a new 'targetPos'.
+          - Verify map content at 'targetPos' matches copied content. Check a few key tiles/items.
+
+  **Widget Naming for Testability:**
+  - In your Qt UI code (MainWindow, Dialogs, Palettes), assign unique 'objectName' properties to all interactable widgets:
+    - Menu actions: 'fileNewAction->setObjectName("fileNewAction");'
+    - Toolbar buttons: 'drawModeButton->setObjectName("toolbarDrawModeButton");'
+    - Dialog buttons: 'okButton->setObjectName("myDialogOkButton");'
+    - Key input fields: 'mapNameLineEdit->setObjectName("newMapDialogNameLineEdit");'
+    - Palette brush buttons: 'grassBrushButton->setObjectName("terrainPaletteGrassBrush");'
+
+  This allows 'mainWindow->findChild<QPushButton*>("myDialogOkButton")' for reliable widget access in tests.
+  Handle asynchronous operations carefully, using 'QSignalSpy' or 'QTest::qWait()' when UI updates or data processing might not be instantaneous.

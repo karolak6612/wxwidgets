@@ -98,7 +98,7 @@ QList<Position> ChangeTileCommand::getChangedPositions() const
     return {m_position}; // Return a list containing the single position that changed.
 }
 
-// undo() and redo() implementations use standard tile state restoration
+// ... undo() and redo() implementations remain the same ...
 // (Copied from previous step for completeness if running this subtask standalone)
 void ChangeTileCommand::undo()
 {

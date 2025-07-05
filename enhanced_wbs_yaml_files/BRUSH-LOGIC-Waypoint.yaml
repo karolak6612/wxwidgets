@@ -1,0 +1,44 @@
+id: BRUSH-LOGIC-Waypoint
+section: Editor Behavior & Logic
+title: Port Waypoint Brush/Tool Logic
+original_input_files:
+  - wxwidgets/waypoint_brush.cpp
+  - wxwidgets/waypoint_brush.h
+analyzed_input_files:
+  - file_path: wxwidgets/waypoint_brush.h
+    description: Defines 'WaypointBrush' (inherits 'Brush'). Stores 'std::string waypoint_name'. 'draw'/'undraw' assert false. Main function is 'canDraw' and holding target waypoint name.
+  - file_path: wxwidgets/waypoint_brush.cpp
+    description: Implements 'WaypointBrush'. 'setWaypoint' stores name. 'canDraw' checks if tile exists. Actual placement/move is a targeted UI action.
+dependencies:
+  - CORE-BRUSH-FRAMEWORK # Or this might be a "Tool" not a brush.
+  - CORE-01
+  - CORE-11-WaypointSystem # For mapcore::Waypoint and WaypointManager
+  - LOGIC-01
+  - CORE-04
+current_functionality_summary: |
+  The 'WaypointBrush' is used to place or move waypoints. It holds a waypoint name. A click on the map moves the selected waypoint or creates a new one if the name is new.
+qt6_migration_steps: |
+  1. Determine if this remains a "Brush" or becomes a "Tool" mode in Qt6. Assume "Tool" for now.
+  2. `EditorController` will have a mode for "PlaceWaypoint", taking a waypoint name (or new name).
+  3. On map click at `targetPos`:
+     - If waypoint with name exists, create `MoveWaypointCommand(waypoint, targetPos, oldPos)`.
+     - If new name, create `AddWaypointCommand(name, targetPos)`.
+     - Commands interact with `WaypointManager` to update waypoint's position or add new one. This includes updating tile waypoint counts.
+     - Push command to `QUndoStack`.
+definition_of_done: |
+  - Logic for placing/moving waypoints is implemented via `EditorController` and `QUndoCommands`.
+  - `WaypointManager` handles waypoint data and tile associations.
+  - Operations are undoable.
+  - Unit tests for waypoint placement/move commands pass.
+boilerplate_coder_ai_prompt: |
+  Implement logic for placing/moving Waypoints, likely as a tool mode in `EditorController`.
+  1. `WaypointManager` (from `CORE-11-WaypointSystem`) needs methods like `addWaypoint(name, pos)`, `moveWaypoint(name, newPos)`, `removeWaypoint(name)`. These should handle `Tile` waypoint counts.
+  2. `EditorController` method `void placeOrMoveWaypoint(const QString& name, const Position& targetPos)`:
+     - Check if waypoint 'name' exists via `WaypointManager`.
+     - If exists, create `MoveWaypointCommand`.
+     - If not, create `AddWaypointCommand`.
+     - Commands call appropriate `WaypointManager` methods in `redo()`/`undo()`.
+     - Push to `QUndoStack`.
+  The UI (`WaypointPalette` / `UI-07`) activates this tool mode.
+documentation_references: ["CORE-11-WaypointSystem", "mapcore::Tile", "LOGIC-01 EditorController"]
+estimation_effort: Medium
