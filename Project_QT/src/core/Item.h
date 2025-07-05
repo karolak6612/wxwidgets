@@ -97,6 +97,11 @@ public:
     bool isPodium() const;
     bool isDepot() const;
 
+    // Lighting support
+    bool hasLight() const;
+    uint8_t getLightIntensity() const;
+    uint8_t getLightColor() const;
+
     // Selection state (if managed by Item itself, though often by editor/tile)
     // bool isSelected() const;
     // void setSelected(bool selected);

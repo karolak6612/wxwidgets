@@ -49,8 +49,9 @@ void BatchCommand::redo()
 bool BatchCommand::mergeWith(const QUndoCommand *other)
 {
     const BatchCommand *otherBatch = dynamic_cast<const BatchCommand *>(other);
-    if (!otherBatch)
+    if (!otherBatch) {
         return false;
+    }
 
     // Example: Only merge if this batch is not too large yet
     if (m_commands.size() > 10) // Arbitrary limit
@@ -106,6 +107,13 @@ bool BatchCommand::mergeWith(const QUndoCommand *other)
         // If merging is important, usually one would check command IDs and specific conditions.
     }
     // setText(new combined text);
-    return false; // Placeholder
+    // Check if any child commands can be merged
+    if (childCount() < 2) {
+        return false;
+    }
+    
+    // For now, batch commands don't merge with each other
+    // TODO: Implement intelligent merging logic for similar batch operations
+    return false;
 }
 */

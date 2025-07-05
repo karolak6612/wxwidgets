@@ -18,11 +18,15 @@ class QLabel;
 class QScrollArea;
 class QTimer;
 
-// Forward declarations for mapcore classes
-namespace mapcore {
-    class ItemManager;
-    class ItemType;
-    class SpriteManager; // Assuming it's a separate class, though prompt suggests itemManager->getSpriteManager()
+// Forward declarations for RME classes
+namespace RME {
+namespace core {
+namespace assets {
+    class ItemDatabase;
+    class ItemData;
+    class SpriteManager;
+}
+}
 }
 
 // Define SLOTP constants if not available elsewhere (example values)
@@ -45,10 +49,10 @@ class ItemFinderDialogQt : public QDialog
     Q_OBJECT
 
 public:
-    ItemFinderDialogQt(QWidget* parent, mapcore::ItemManager* itemManager, bool onlyPickupable = false);
+    ItemFinderDialogQt(QWidget* parent, RME::core::assets::ItemDatabase* itemDatabase, bool onlyPickupable = false);
     ~ItemFinderDialogQt() override;
 
-    mapcore::ItemType* getSelectedItemType() const;
+    const RME::core::assets::ItemData* getSelectedItemType() const;
 
 private slots:
     void onSearchModeChanged();
@@ -151,17 +155,16 @@ private:
     QDialogButtonBox* m_buttonBox;
 
     // Data
-    mapcore::ItemManager* m_itemManager;
+    RME::core::assets::ItemDatabase* m_itemDatabase;
     bool m_onlyPickupableInitial;
-    mapcore::ItemType* m_selectedItemType;
+    const RME::core::assets::ItemData* m_selectedItemType;
     QTimer* m_refreshTimer;
 
     // Helper structure for property checkboxes
     struct PropertyCheck {
         QCheckBox* checkBox;
-        // Could add a lambda or function pointer here for checking the property on ItemType
-        // For example: std::function<bool(const mapcore::ItemType*)> checkFunc;
-        // Or map to specific item flags/methods directly in performSearch
+        // Function to check if an ItemData has this property
+        std::function<bool(const RME::core::assets::ItemData*)> checkFunc;
         enum class PropertyType {
             IsUnpassable, IsUnmovable, IsPickupable, SlotHead // etc.
         };

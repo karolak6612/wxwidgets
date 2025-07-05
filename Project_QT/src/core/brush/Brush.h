@@ -5,6 +5,7 @@
 // Forward declarations
 namespace RME { namespace core {
 class Position;
+class Tile;
 struct BrushSettings;
 namespace map { class Map; }
 namespace editor { class EditorControllerInterface; }
@@ -20,6 +21,11 @@ public:
     // Pure virtual methods
     virtual void apply(editor::EditorControllerInterface* controller, const Position& pos, const BrushSettings& settings) = 0;
     virtual QString getName() const = 0;
+    virtual QString getType() const = 0;
+    
+    // Legacy compatibility methods for direct map manipulation
+    virtual void draw(map::Map* map, Tile* tile, const BrushSettings* settings) = 0;
+    virtual void undraw(map::Map* map, Tile* tile, const BrushSettings* settings = nullptr) = 0;
 
     // Virtual methods with default implementations
     virtual int getLookID(const BrushSettings& settings) const;

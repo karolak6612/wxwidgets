@@ -33,10 +33,17 @@ public:
     // Adds a new waypoint. If a waypoint with the same (normalized) name exists, it's replaced.
     // Returns true if waypoint was successfully added/replaced, false otherwise (e.g., invalid position if map requires tiles).
     bool addWaypoint(const QString& name, const RME::core::Position& pos);
+    
+    // Adds a waypoint from a unique_ptr. Used by commands for undo/redo operations.
+    // Returns true if waypoint was successfully added/replaced, false otherwise.
+    bool addWaypoint(std::unique_ptr<Waypoint> waypoint);
 
     // Retrieves a waypoint by its name (case-insensitive).
     // Returns nullptr if not found.
     Waypoint* getWaypointByName(const QString& name) const;
+    
+    // Alias for getWaypointByName for compatibility with commands
+    Waypoint* getWaypoint(const QString& name) const { return getWaypointByName(name); }
 
     // Retrieves all waypoints at a specific map position.
     QList<Waypoint*> getWaypointsAt(const RME::core::Position& pos) const;
@@ -44,6 +51,10 @@ public:
     // Removes a waypoint by its name (case-insensitive).
     // Returns true if a waypoint was found and removed, false otherwise.
     bool removeWaypoint(const QString& name);
+    
+    // Updates the position of an existing waypoint.
+    // Returns true if the waypoint was found and updated, false otherwise.
+    bool updateWaypointPosition(const QString& name, const RME::core::Position& newPos);
 
     // Returns a list of all managed waypoints.
     QList<Waypoint*> getAllWaypoints() const;

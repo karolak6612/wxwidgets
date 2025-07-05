@@ -6,6 +6,78 @@ add_subdirectory(widgets)
 # Consolidate all UI sources
 set(RME_UI_LIB_SOURCES
     MainWindow.cpp  # Added MainWindow source directly
+    MainWindowActions.cpp
+    MainToolBar.cpp
+    MainToolBar.h
+    dialogs/ItemFinderDialogQt.cpp
+    dialogs/ItemFinderDialogQt.h
+    dialogs/ItemPropertiesDialog.cpp
+    dialogs/ItemPropertiesDialog.h
+    dialogs/CreaturePropertiesDialog.cpp
+    dialogs/CreaturePropertiesDialog.h
+    dialogs/SpawnPropertiesDialog.cpp
+    dialogs/SpawnPropertiesDialog.h
+    dialogs/BrushMaterialEditorDialog.cpp
+    dialogs/BrushMaterialEditorDialog.h
+    dialogs/NewTilesetDialog.cpp
+    dialogs/NewTilesetDialog.h
+    dialogs/AddItemToTilesetDialog.cpp
+    dialogs/AddItemToTilesetDialog.h
+    palettes/BasePalettePanel.cpp
+    palettes/BasePalettePanel.h
+    palettes/CreaturePalettePanel.h
+    palettes/DockManager.cpp
+    palettes/DockManager.h
+    palettes/ItemPalettePanel.cpp
+    palettes/ItemPalettePanel.h
+    palettes/PropertiesPanel.h
+    
+    # PALETTE-BrushList: Brush Palette Implementation
+    palettes/BrushPalettePanel.cpp
+    palettes/BrushPalettePanel.h
+    palettes/BrushCategoryTab.cpp
+    palettes/BrushCategoryTab.h
+    palettes/BrushListWidget.cpp
+    palettes/BrushListWidget.h
+    palettes/BrushGridWidget.cpp
+    palettes/BrushGridWidget.h
+    palettes/BrushIconWidget.cpp
+    palettes/BrushIconWidget.h
+    palettes/BrushPreviewGenerator.cpp
+    palettes/BrushPreviewGenerator.h
+    palettes/BrushTooltipWidget.cpp
+    palettes/BrushTooltipWidget.h
+    
+    # PALETTE-BrushList Phase 3: Advanced Features
+    palettes/BrushFilterManager.cpp
+    palettes/BrushFilterManager.h
+    palettes/BrushOrganizer.cpp
+    palettes/BrushOrganizer.h
+    palettes/AdvancedSearchWidget.cpp
+    palettes/AdvancedSearchWidget.h
+    palettes/BrushContextMenu.cpp
+    palettes/BrushContextMenu.h
+    
+    # NET-03: Live Collaboration UI Components
+    dialogs/LiveConnectionDialog.cpp
+    dialogs/LiveConnectionDialog.h
+    widgets/LiveCollaborationPanel.cpp
+    widgets/LiveCollaborationPanel.h
+    
+    # FINAL-03: Preferences Dialog
+    dialogs/PreferencesDialog.cpp
+    dialogs/PreferencesDialog.h
+    
+    # FINAL-06: About and Welcome Dialogs
+    dialogs/AboutDialog.cpp
+    dialogs/AboutDialog.h
+    dialogs/WelcomeDialog.cpp
+    dialogs/WelcomeDialog.h
+    
+    # Missing Implementation: Map Properties Dialog
+    dialogs/MapPropertiesDialog.cpp
+    dialogs/MapPropertiesDialog.h
+    
     ${RME_UI_WIDGETS_SOURCES}
     # Add other UI component sources here if defined in this directory
     # or from other subdirectories like 'dialogs', 'palettes', etc.
@@ -35,7 +107,9 @@ target_link_libraries(rme_ui_lib PRIVATE
     Qt6::OpenGL     # For QOpenGLWidget
     Qt6::Widgets    # For QWidget, and general Qt Widgets module
     Qt6::Xml        # Added Qt6::Xml for QXmlStreamReader
+    Qt6::Network    # For network dialogs and widgets
     rme_core_lib    # For mapcore::Position and other core data structures
+    rme_network_lib # For QtLiveClient and network components
 )
 
 # Optional: If using .ui files that need uic processing

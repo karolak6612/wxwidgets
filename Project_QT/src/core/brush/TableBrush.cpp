@@ -67,19 +67,17 @@ int TableBrush::getLookID(const RME::core::BrushSettings& /*settings*/) const {
         QString defaultAlignStr = tableSegmentTypeToAlignString(RME::BorderType::TABLE_ALONE);
         uint16_t serverItemId = getRandomItemIdForAlignString(defaultAlignStr, specifics);
         if (serverItemId != 0) {
-            qWarning("TableBrush 'getLookID': Material %s has no client lookId. Attempting to use server ID %u from '%s' segment. THIS REQUIRES CONVERSION by MaterialManager or caller.",
-                     qUtf8Printable(m_materialData->id), serverItemId, qUtf8Printable(defaultAlignStr) );
+            qWarning() << "TableBrush 'getLookID': Material" << m_materialData->id << "has no client lookId. Attempting to use server ID" << serverItemId << "from" << defaultAlignStr << "segment. THIS REQUIRES CONVERSION by MaterialManager or caller.";
             return 0;
         }
     }
 
     if (m_materialData->serverLookId != 0) {
-         qWarning("TableBrush 'getLookID': Material %s has serverLookId %u but no client lookId. THIS REQUIRES CONVERSION by MaterialManager or caller.",
-                     qUtf8Printable(m_materialData->id), m_materialData->serverLookId );
+         qWarning() << "TableBrush 'getLookID': Material" << m_materialData->id << "has serverLookId" << m_materialData->serverLookId << "but no client lookId. THIS REQUIRES CONVERSION by MaterialManager or caller.";
         return 0;
     }
 
-    qWarning("TableBrush 'getLookID': Material %s has no lookId, serverLookId, or default items to derive a look from.", qUtf8Printable(m_materialData->id));
+    qWarning() << "TableBrush 'getLookID': Material" << m_materialData->id << "has no lookId, serverLookId, or default items to derive a look from.";
     return 0;
 }
 
@@ -89,7 +87,7 @@ bool TableBrush::canApply(const RME::core::map::Map* map,
     if (!m_materialData) return false;
     const auto* specifics = getCurrentTableSpecifics();
     if (!specifics || specifics->parts.empty()) {
-        qWarning("TableBrush::canApply: No table parts defined for material %s", qUtf8Printable(m_materialData->id));
+        qWarning() << "TableBrush::canApply: No table parts defined for material" << m_materialData->id;
         return false;
     }
     if (!map || !map->isPositionValid(pos)) return false;
@@ -101,7 +99,11 @@ void TableBrush::initializeStaticData() {
         return;
     }
 
-    using namespace RME;
+    // Use specific namespace qualifiers for better code clarity
+    using RME::core::TILE_TABLE_NORTH;
+    using RME::core::TILE_TABLE_SOUTH;
+    using RME::core::TILE_TABLE_EAST;
+    using RME::core::TILE_TABLE_WEST;
     using BT = RME::BorderType;
 
     for (int i = 0; i < 256; ++i) {
@@ -360,7 +362,7 @@ void TableBrush::initializeStaticData() {
     s_table_types[TILE_S | TILE_SE | TILE_SW | TILE_E | TILE_W | TILE_NE | TILE_N | TILE_NW] = static_cast<uint32_t>(BT::TABLE_HORIZONTAL);
 
 
-    qInfo("TableBrush::s_table_types table has been initialized by porting static assignments from wxwidgets/brush_tables.cpp.");
+    qInfo("TableBrush::s_table_types table has been initialized by porting static assignments from original wxWidgets brush_tables.cpp.");
     s_staticDataInitialized = true;
 }
 
@@ -374,7 +376,7 @@ QString TableBrush::tableSegmentTypeToAlignString(RME::BorderType segmentType) c
         case RME::BorderType::TABLE_NORTH_END: return QStringLiteral("north");
         case RME::BorderType::TABLE_WEST_END: return QStringLiteral("west");
         default:
-            qWarning("TableBrush::tableSegmentTypeToAlignString: Unknown table segment type %d", static_cast<int>(segmentType));
+            qWarning() << "TableBrush::tableSegmentTypeToAlignString: Unknown table segment type" << static_cast<int>(segmentType);
             return QStringLiteral("alone");
     }
 }
@@ -466,8 +468,7 @@ void TableBrush::updateTableAppearance(RME::core::editor::EditorControllerInterf
     uint16_t newItemId = getRandomItemIdForAlignString(alignStr, tableSpecifics);
 
     if (newItemId == 0) {
-        qWarning("TableBrush::updateTableAppearance: No item ID found for align '%s' (tiledata 0x%X) for material %s on tile %s.",
-                 qUtf8Printable(alignStr), tiledata, qUtf8Printable(m_materialData->id), qUtf8Printable(pos.toString()));
+        qWarning() << "TableBrush::updateTableAppearance: No item ID found for align" << alignStr << "(tiledata 0x" << QString::number(tiledata, 16) << ") for material" << m_materialData->id << "on tile" << pos.toString();
         return;
     }
 
@@ -497,7 +498,7 @@ void TableBrush::apply(RME::core::editor::EditorControllerInterface* controller,
 
     const RME::core::assets::ItemDatabase* itemDb = controller->getAssetManager() ? controller->getAssetManager()->getItemDatabase() : nullptr;
     if(!itemDb) {
-        qWarning("TableBrush::apply: ItemDatabase not available.");
+        qWarning() << "TableBrush::apply: ItemDatabase not available.";
         return;
     }
 
@@ -543,8 +544,7 @@ void TableBrush::apply(RME::core::editor::EditorControllerInterface* controller,
             controller->recordAddItem(pos, initialItemId);
             qDebug("TableBrush::apply: Drawing initial table item %u (align: %s) at %s", initialItemId, qUtf8Printable(defaultAlignStr), qUtf8Printable(pos.toString()));
         } else {
-            qWarning("TableBrush::apply: No item ID found for default alignment '%s' for material %s.",
-                     qUtf8Printable(defaultAlignStr), qUtf8Printable(m_materialData->id));
+            qWarning() << "TableBrush::apply: No item ID found for default alignment" << defaultAlignStr << "for material" << m_materialData->id;
             return;
         }
     }

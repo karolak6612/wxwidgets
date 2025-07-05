@@ -14,9 +14,8 @@ RemoveCreatureCommand::RemoveCreatureCommand(
     RME::core::Tile* tile,
     RME::editor_logic::EditorControllerInterface* editorController,
     QUndoCommand* parent
-) : QUndoCommand(parent),
+) : BaseCommand(editorController, QString(), parent),
     m_tile(tile),
-    m_editorController(editorController),
     m_removedCreature(nullptr),
     m_wasCreaturePresent(false) // Set by the first redo if a creature is found
 {

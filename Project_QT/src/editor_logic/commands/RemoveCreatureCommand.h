@@ -1,7 +1,7 @@
 #ifndef RME_REMOVE_CREATURE_COMMAND_H
 #define RME_REMOVE_CREATURE_COMMAND_H
 
-#include <QUndoCommand>
+#include "BaseCommand.h"
 #include <memory> // For std::unique_ptr
 
 // Forward declarations
@@ -19,7 +19,7 @@ class EditorControllerInterface; // For notifying tile changed
 
 namespace commands {
 
-class RemoveCreatureCommand : public QUndoCommand {
+class RemoveCreatureCommand : public BaseCommand {
 public:
     RemoveCreatureCommand(
         RME::core::Tile* tile,

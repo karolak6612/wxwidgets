@@ -1,11 +1,12 @@
 #ifndef RME_RECORDSETGROUNDCOMMAND_H
 #define RME_RECORDSETGROUNDCOMMAND_H
 
-#include <QUndoCommand>
+#include "BaseCommand.h"
 #include <memory> // For std::unique_ptr
 #include <QString>  // For command text
 
 #include "core/Position.h" // For RME::core::Position
+#include "core/actions/CommandIds.h"
 
 // Forward declare RME::core::Item and RME::core::Tile
 namespace RME {
@@ -18,12 +19,13 @@ namespace core {
 }
 }
 
-namespace RME_COMMANDS { // Consistent namespace
+namespace RME {
+namespace core {
+namespace actions {
 
-// Choose a unique ID, assuming RecordSetSpawnCommandId was 1006
-const int RecordSetGroundCommandId = 1007;
+constexpr int RecordSetGroundCommandId = toInt(CommandId::RecordSetGround);
 
-class RecordSetGroundCommand : public QUndoCommand {
+class RecordSetGroundCommand : public BaseCommand {
 public:
     RecordSetGroundCommand(
         RME::core::Tile* tile,
@@ -44,10 +46,11 @@ private:
     RME::core::Tile* m_tile;
     std::unique_ptr<RME::core::Item> m_groundStateForRedo; // Stores the state to apply on redo
     std::unique_ptr<RME::core::Item> m_groundStateForUndo; // Stores the state to apply on undo
-    RME::core::editor::EditorControllerInterface* m_controller;
     RME::core::Position m_tilePosition;
     QString m_commandTextBase;
 };
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME
 #endif // RME_RECORDSETGROUNDCOMMAND_H

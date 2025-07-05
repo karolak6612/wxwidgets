@@ -14,21 +14,45 @@ QDataStream& operator>>(QDataStream& in, ClipboardItemData& data) {
 
 // --- ClipboardCreatureData ---
 QDataStream& operator<<(QDataStream& out, const ClipboardCreatureData& data) {
-    out << data.name; // Add other fields
+    out << data.name << data.lookType << data.head << data.body << data.legs 
+        << data.feet << data.addons << data.mount << data.direction << data.isNpc << data.attributes;
     return out;
 }
 QDataStream& operator>>(QDataStream& in, ClipboardCreatureData& data) {
-    in >> data.name; // Add other fields
+    in >> data.name >> data.lookType >> data.head >> data.body >> data.legs 
+       >> data.feet >> data.addons >> data.mount >> data.direction >> data.isNpc >> data.attributes;
     return in;
 }
 
 // --- ClipboardSpawnData ---
 QDataStream& operator<<(QDataStream& out, const ClipboardSpawnData& data) {
-    out << data.radius << data.creatureNames; // Add other fields
+    out << data.radius << data.creatureNames << data.spawnTime << data.despawnRange 
+        << data.despawnRadius << data.attributes;
+    
+    // Serialize creature spawn entries
+    out << static_cast<quint32>(data.creatures.size());
+    for (const auto& creature : data.creatures) {
+        out << creature.name << creature.chance << creature.max;
+    }
+    
     return out;
 }
 QDataStream& operator>>(QDataStream& in, ClipboardSpawnData& data) {
-    in >> data.radius >> data.creatureNames; // Add other fields
+    in >> data.radius >> data.creatureNames >> data.spawnTime >> data.despawnRange 
+       >> data.despawnRadius >> data.attributes;
+    
+    // Deserialize creature spawn entries
+    quint32 creatureCount;
+    in >> creatureCount;
+    data.creatures.clear();
+    data.creatures.reserve(creatureCount);
+    
+    for (quint32 i = 0; i < creatureCount; ++i) {
+        ClipboardSpawnData::CreatureSpawnEntry entry;
+        in >> entry.name >> entry.chance >> entry.max;
+        data.creatures.append(entry);
+    }
+    
     return in;
 }
 

@@ -3,17 +3,14 @@
 
 #include <QHash>       // For QHash
 #include <QList>       // For QList
-#include <QString>     // For QString (potentially in House names, though not directly used by Houses.h)
-#include <memory>      // For std::unique_ptr
+#include <QString>     // For QString
 #include <QtGlobal>    // For quint32
+#include "HouseData.h" // Use HouseData as primary house class
 
 // Forward declarations
 namespace RME {
 namespace core {
     class Map;
-    namespace houses {
-        class House;
-    }
 }
 }
 
@@ -30,42 +27,41 @@ class Houses {
 
 public:
     explicit Houses(RME::core::Map* map);
-    // Destructor will be default, relying on unique_ptr to manage House objects
     ~Houses() = default;
 
-    // Prevent copying, allow moving if needed (though Houses manager usually has one instance per map)
+    // Prevent copying, allow moving if needed
     Houses(const Houses&) = delete;
     Houses& operator=(const Houses&) = delete;
     Houses(Houses&&) = default;
     Houses& operator=(Houses&&) = default;
 
-    // Creates a new House object with a unique ID (either desiredId if available, or next available).
-    // Adds it to the manager and returns a raw pointer to the new House.
+    // Creates a new HouseData with a unique ID (either desiredId if available, or next available).
+    // Adds it to the manager and returns a pointer to the new HouseData.
     // Returns nullptr if a house with desiredId (and desiredId != 0) already exists.
-    House* createNewHouse(quint32 desiredId = 0);
+    HouseData* createNewHouse(quint32 desiredId = 0);
 
-    // Adds an existing House object (e.g., from loading) to the manager.
-    // Takes ownership of the House via std::unique_ptr.
+    // Adds an existing HouseData object (e.g., from loading) to the manager.
     // Returns true if successfully added (ID not already taken), false otherwise.
-    // If false, the passed unique_ptr is not consumed and caller retains ownership.
-    bool addExistingHouse(std::unique_ptr<House> house);
+    bool addExistingHouse(const HouseData& houseData);
 
-    // Removes a house by its ID. This will also trigger house->cleanAllTileLinks().
+    // Removes a house by its ID. This will also clean tile links on the map.
     // Returns true if the house was found and removed, false otherwise.
     bool removeHouse(quint32 houseId);
 
     // Retrieves a house by its ID. Returns nullptr if not found.
-    House* getHouse(quint32 houseId) const;
+    HouseData* getHouse(quint32 houseId);
+    const HouseData* getHouse(quint32 houseId) const;
 
-    // Returns a list of all managed houses (as raw pointers).
-    QList<House*> getAllHouses() const;
+    // Returns a list of all managed houses.
+    QList<HouseData*> getAllHouses();
+    QList<const HouseData*> getAllHouses() const;
 
     // Finds the next available unique house ID.
     quint32 getNextAvailableHouseID() const;
 
     // Changes the ID of an existing house.
     // Returns true if successful (old ID exists, new ID is not taken or is same as old), false otherwise.
-    // This will also update the house object's internal ID.
+    // This will also update tiles on the map to use the new house ID.
     bool changeHouseID(quint32 oldId, quint32 newId);
 
     // Removes all houses from the manager and ensures their tile links are cleaned.
@@ -73,12 +69,24 @@ public:
 
     // Gets the total count of houses managed.
     int getHouseCount() const { return m_housesById.size(); }
+    
+    // Tile management methods (moved from House class)
+    void linkTileToHouse(quint32 houseId, const Position& tilePos);
+    void unlinkTileFromHouse(quint32 houseId, const Position& tilePos);
+    void setHouseExit(quint32 houseId, const Position& exitPos);
+    
+    // Door management methods (from original wxWidgets)
+    quint8 getEmptyDoorID(quint32 houseId) const;
+    Position getDoorPositionByID(quint32 houseId, quint8 doorId) const;
+    
+    // Additional utility methods
+    int calculateHouseSizeInSqms(quint32 houseId) const;
+    QList<Position> getHouseTilePositions(quint32 houseId) const;
 
 private:
     RME::core::Map* m_map; // Non-owning pointer to the map context
-    // Stores House objects, keyed by their ID.
-    // std::unique_ptr ensures automatic memory management of House objects.
-    QHash<quint32, std::unique_ptr<House>> m_housesById;
+    // Stores HouseData objects, keyed by their ID.
+    QHash<quint32, HouseData> m_housesById;
 };
 
 } // namespace houses

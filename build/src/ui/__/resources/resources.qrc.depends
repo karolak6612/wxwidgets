@@ -1,5 +1,0 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource prefix="/">
-    <file alias="menubar.xml">menubar.xml</file>
-</qresource>
-</RCC>

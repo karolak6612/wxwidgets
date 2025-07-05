@@ -3,15 +3,18 @@
 #include <QDebug>
 #include <QObject> // For QObject::tr
 
-namespace RME_COMMANDS {
+namespace RME {
+namespace core {
+namespace actions {
 
 MoveWaypointCommand::MoveWaypointCommand(
     RME::core::WaypointManager* waypointManager,
     const QString& waypointName,
     const RME::core::Position& oldPosition,
     const RME::core::Position& newPosition,
+    RME::core::EditorControllerInterface* controller,
     QUndoCommand* parent
-) : QUndoCommand(parent),
+) : BaseCommand(controller, QObject::tr("Move Waypoint"), parent),
     m_waypointManager(waypointManager),
     m_waypointName(waypointName),
     m_oldPosition(oldPosition),
@@ -25,15 +28,14 @@ MoveWaypointCommand::MoveWaypointCommand(
 }
 
 void MoveWaypointCommand::undo() {
-    if (!m_waypointManager) {
-        qWarning("MoveWaypointCommand::undo: WaypointManager is null.");
+    if (!validateMembers() || !m_waypointManager) {
+        setErrorText("undo waypoint move");
         return;
     }
 
     bool success = m_waypointManager->updateWaypointPosition(m_waypointName, m_oldPosition);
     if (!success) {
-        qWarning("MoveWaypointCommand::undo: Failed to move waypoint '%s' back to original position (%d,%d,%d). Waypoint might not exist anymore.",
-                 qPrintable(m_waypointName), m_oldPosition.x, m_oldPosition.y, m_oldPosition.z);
+        qWarning() << "MoveWaypointCommand::undo: Failed to move waypoint" << m_waypointName << "back to original position" << m_oldPosition.toString() << ". Waypoint might not exist anymore.";
         // Consider how to handle this failure. If the waypoint was deleted by another command,
         // this command should ideally be invalidated or handled by the command stack.
         // For now, just log. The state might become inconsistent if this happens.
@@ -45,15 +47,14 @@ void MoveWaypointCommand::undo() {
 }
 
 void MoveWaypointCommand::redo() {
-    if (!m_waypointManager) {
-        qWarning("MoveWaypointCommand::redo: WaypointManager is null.");
+    if (!validateMembers() || !m_waypointManager) {
+        setErrorText("redo waypoint move");
         return;
     }
 
     bool success = m_waypointManager->updateWaypointPosition(m_waypointName, m_newPosition);
     if (!success) {
-        qWarning("MoveWaypointCommand::redo: Failed to move waypoint '%s' to new position (%d,%d,%d). Waypoint might not exist.",
-                 qPrintable(m_waypointName), m_newPosition.x, m_newPosition.y, m_newPosition.z);
+        qWarning() << "MoveWaypointCommand::redo: Failed to move waypoint" << m_waypointName << "to new position" << m_newPosition.toString() << ". Waypoint might not exist.";
         // Similar to undo, if waypoint doesn't exist, command might be stale.
     }
     // Text was set in constructor for the initial redo.
@@ -83,4 +84,6 @@ bool MoveWaypointCommand::mergeWith(const QUndoCommand* command) {
     return false;
 }
 
-} // namespace RME_COMMANDS
+} // namespace actions
+} // namespace core
+} // namespace RME

@@ -45,6 +45,10 @@ public:
     size_t getReadPosition() const;
     void setReadPosition(size_t pos);
     size_t getBytesReadable() const;
+    
+    // State checking
+    bool isEmpty() const;
+    bool isInErrorState() const;
 
     // Adding data (write operations) - these append to the buffer
     void addU8(uint8_t value);
@@ -66,6 +70,15 @@ public:
     bool getPosition(RME::core::Position& value);
     bool getBytes(uint8_t* buffer, size_t length); // Reads 'length' bytes into provided buffer
     bool peekU8(uint8_t& value) const; // Reads without advancing read position
+    bool readBytes(uint8_t* buffer, size_t length); // Alias for getBytes
+    
+    // Convenience methods for reading without output parameters
+    uint8_t readU8();
+    uint16_t readU16();
+    uint32_t readU32();
+    uint64_t readU64();
+    std::string readString();
+    RME::core::Position readPosition();
 
     // Methods to directly prepare a message with a header for its own length
     // (optional, can be done externally too)
@@ -80,6 +93,7 @@ private:
 
     std::vector<uint8_t> m_buffer;
     size_t m_readPos;
+    mutable bool m_errorState;
     // Write position is implicitly m_buffer.size()
 };
 
