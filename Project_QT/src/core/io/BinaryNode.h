@@ -6,6 +6,10 @@
 #include <cstdint>
 #include <memory> // Required if BinaryNode manages children with unique_ptr, though original uses raw with custom pool
 
+#include <QString>    // Added
+#include <QByteArray> // Added
+#include <QtGlobal>   // Added for qsizetype
+
 // Forward declaration
 namespace RME {
 namespace core {
