@@ -141,31 +141,112 @@ private slots:  // Correct syntax
 -   **Impact Assessment**: Before applying a fix, consider if it might resolve multiple related errors (e.g., adding a missing header file).
 -   **CMakeLists.txt**: Do not modify the `CMakeLists.txt` file unless you identify a clear problem, such as a source file not being listed or a required Qt module being missing from `find_package` or `target_link_libraries`.
 
-## 5. Workflow
+## 5. Session Management and Progress Tracking
 
-### 5.1. No-Compilation Constraint
+### 5.1. Multi-Session Workflow
+Given the large scope of errors across 147 `src_errors` components and numerous `compiler_errors`, work will be conducted across multiple sessions. A robust tracking system is essential to maintain progress continuity.
+
+### 5.2. Simplified Progress Tracking System
+
+#### 5.2.1. Folder Status Markers
+Create simple status marker files directly in each error directory:
+
+**Status Files:**
+- `COMPLETED.txt` - All errors in this directory resolved
+- `BLOCKED.txt` - Issues requiring user input or design decisions
+- `PARTIAL.txt` - Some errors resolved, work in progress
+
+**Status File Contents (Human Readable):**
+```
+COMPLETED.txt example:
+===================
+Status: COMPLETED
+Date: 2024-01-15
+Session: 2
+Fixes applied: 8
+Notes: All include path errors resolved. Fixed namespace issues.
+
+BLOCKED.txt example:
+==================
+Status: BLOCKED
+Date: 2024-01-15
+Session: 1
+Issue: Missing AssetManager.h file - core dependency not found
+Action needed: User must provide missing file or confirm removal
+Errors remaining: 12
+
+PARTIAL.txt example:
+==================
+Status: PARTIAL
+Date: 2024-01-15
+Session: 1
+Progress: 3 of 7 errors fixed
+Remaining: 4 namespace resolution errors
+Notes: Fixed missing includes, still need to resolve RME::core namespace issues
+```
+
+#### 5.2.2. Session Initialization Protocol
+At the start of each session:
+1. **Status Check**: Scan all error directories for status marker files
+2. **Skip Completed**: Ignore directories with `COMPLETED.txt`
+3. **Resume Partial**: Continue from directories with `PARTIAL.txt`
+4. **Address Blocked**: Review `BLOCKED.txt` items with user
+
+### 5.3. Simplified Workflow with Progress Tracking
+
+#### 5.3.1. Session Start Protocol
+1. **Quick Status Scan**: Look for `COMPLETED.txt`, `BLOCKED.txt`, `PARTIAL.txt` files in error directories
+2. **Skip Completed**: Don't process directories with `COMPLETED.txt`
+3. **Priority List**: Focus on `PARTIAL.txt` directories first, then unmarked directories
+4. **Review Blocked**: Check `BLOCKED.txt` items to see if user has resolved them
+
+#### 5.3.2. During Session Process
+1. **Error Processing**: Handle errors as per existing workflow
+2. **Create Status Files**: When directory is completed, create `COMPLETED.txt`
+3. **Mark Blocking Issues**: Create `BLOCKED.txt` for issues needing user input
+4. **Partial Progress**: Create `PARTIAL.txt` if session ends mid-directory
+
+#### 5.3.3. Session End Protocol
+1. **Mark Completions**: Create `COMPLETED.txt` for fully resolved directories
+2. **Document Blocks**: Create `BLOCKED.txt` for items needing user action
+3. **Partial Work**: Create `PARTIAL.txt` for directories with remaining errors
+4. **Session Summary**: Provide brief summary of progress to user
+
+### 5.4. No-Compilation Constraint
 -   **CRITICAL**: You are **not permitted** to compile the code. You cannot run a compiler to verify your fixes.
 -   **Implication**: You must rely entirely on the provided JSON error logs and your static analysis of the source code. This makes precision essential. Your fixes must be syntactically correct and logically sound based on your analysis alone.
 
-### 5.2. Systematic Process
-1.  **Full Error Scan**: Parse all `.json` files in the `errors` directory and deduplicate identical errors.
-2.  **Pattern Recognition**: Group errors by type using the common patterns guide above.
-3.  **Create a Work Plan**: Generate a prioritized list of fixes, starting with high-impact issues (missing includes, namespace problems).
-4.  **Fix by Priority**:
-    a.  Address high-impact errors first (missing includes, major syntax errors)
-    b.  Apply fixes that resolve multiple downstream errors
-    c.  Handle remaining individual errors
-5.  **Handle Cascading Effects**: After each significant fix category, reassess which remaining errors might have been resolved.
-6.  **Documentation**: Keep track of fixes applied and their expected impact on downstream errors.
+### 5.5. Systematic Process with Simple Tracking
+1. **Session Initialization**: Scan for status files and create work priority list
+2. **Full Error Scan**: Parse `.json` files from non-completed directories only
+3. **Pattern Recognition**: Group errors by type using the common patterns guide
+4. **Create Work Plan**: Generate prioritized list based on:
+   - Directories marked as `PARTIAL.txt` (highest priority)
+   - High-impact issues (missing includes, namespace problems)
+   - Unmarked directories
+5. **Fix by Priority**:
+   a. Address high-impact errors first
+   b. Apply fixes that resolve multiple downstream errors
+   c. Handle remaining individual errors
+   d. Create status files as directories are completed/blocked
+6. **Handle Cascading Effects**: After fixes, reassess remaining errors
+7. **Session Wrap-up**: Create status files and provide progress summary
 
-### 5.3. Escalation Protocol
-**Ask for Clarification** if you encounter:
-- Ambiguous errors that could have multiple valid solutions
-- Errors that would require significant design changes
+### 5.6. Escalation Protocol
+**Mark as BLOCKED** and create `BLOCKED.txt` file if you encounter:
+- Ambiguous errors requiring design decisions
 - Missing files that seem to be core components
-- Inconsistent namespace structures that suggest architectural issues
+- Inconsistent namespace structures suggesting architectural issues
+- Errors that would require significant code changes
 
-Present the problem clearly with your analysis and proposed solution(s) for user guidance.
+**BLOCKED.txt should contain**: Clear description of the issue and what user action is needed.
+
+### 5.7. Simple Progress Benefits
+- **No complex JSON**: Just simple text files that are easy to read/edit
+- **Clear resumption**: AI can instantly see what's done and what needs work
+- **User-friendly**: You can easily check progress and edit status files if needed
+- **No duplicate work**: Completed directories are automatically skipped
+- **Flexible**: You can manually mark directories as completed or blocked as needed
 
 ## 6. Expected Outcomes
 
@@ -174,5 +255,12 @@ Following this systematic approach should result in:
 - **Consistent codebase**: Systematic namespace resolution and include management
 - **Maintainable solutions**: Minimal changes that preserve existing architecture
 - **Clear documentation**: Record of what was fixed and why
+
+## 6. Jules tools specific
+
+For each errors fixed
+- **Use your build in submit() tool**: Submit changes to a branch, so we have version controll
+- **Chat summary**: Create a summary in chat when done fixing a problem.
+
 
 The key to success is methodical analysis, pattern recognition, and strategic prioritization of fixes based on their downstream impact.
