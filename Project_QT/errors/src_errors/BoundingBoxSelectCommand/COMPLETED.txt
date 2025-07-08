@@ -1,0 +1,11 @@
+===================
+Status: COMPLETED
+Date: 2024-03-15
+Session: 1
+Fixes applied: Multiple namespace and inheritance corrections.
+Notes:
+1. Corrected `BaseCommand` inheritance in `BoundingBoxSelectCommand.h` to use the full namespace `RME::editor_logic::commands::BaseCommand`. This resolved 'base class undefined' and subsequent 'override' and 'identifier not found' errors for BaseCommand methods.
+2. Corrected the namespace for `SelectionManager` to `RME::SelectionManager` (based on its definition in `SelectionManager.h`) in both the forward declaration and usages within `BoundingBoxSelectCommand.h` and `BoundingBoxSelectCommand.cpp`.
+3. Ensured `Tile` is consistently referred to as `RME::core::Tile`.
+These changes are expected to resolve all errors in `BoundingBoxSelectCommand.json`, including cascading errors related to incorrect type recognition (e.g., `RME::RME::core` prefixes) and undeclared members.
+===================

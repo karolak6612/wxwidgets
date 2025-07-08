@@ -9,11 +9,11 @@
 
 // Forward declarations
 namespace RME {
+    class SelectionManager; // SelectionManager is in RME namespace
 namespace core {
-    class Tile;
-    namespace selection { class SelectionManager; }
-}
-}
+    class Tile;             // Tile is in RME::core namespace
+} // namespace core
+} // namespace RME
 
 namespace RME {
 namespace core {
@@ -21,10 +21,10 @@ namespace actions {
 
 constexpr int BoundingBoxSelectCommandId = toInt(CommandId::BoundingBoxSelect);
 
-class BoundingBoxSelectCommand : public BaseCommand {
+class BoundingBoxSelectCommand : public RME::editor_logic::commands::BaseCommand { // Corrected BaseCommand namespace
 public:
     BoundingBoxSelectCommand(
-        RME::core::selection::SelectionManager* selectionManager,
+        RME::SelectionManager* selectionManager, // Corrected namespace
         const QList<RME::core::Tile*>& calculatedTilesInBox,
         bool isAdditive, // True if Ctrl was held (add to current selection)
         const QList<RME::core::Tile*>& selectionStateBeforeThisCommand,
@@ -46,7 +46,7 @@ public:
     bool getIsAdditive() const { return m_isAdditive; }
 
 private:
-    RME::core::selection::SelectionManager* m_selectionManager;
+    RME::SelectionManager* m_selectionManager; // Corrected namespace
     QList<RME::core::Tile*> m_calculatedTilesInBox; // Tiles identified within the drawn rectangle
     bool m_isAdditive;
 

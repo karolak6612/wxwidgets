@@ -11,12 +11,12 @@ namespace core {
 namespace actions {
 
 BoundingBoxSelectCommand::BoundingBoxSelectCommand(
-    RME::core::selection::SelectionManager* selectionManager,
+    RME::SelectionManager* selectionManager, // Corrected namespace
     const QList<RME::core::Tile*>& calculatedTilesInBox,
     bool isAdditive,
     const QList<RME::core::Tile*>& selectionStateBeforeThisCommand,
     QUndoCommand* parent
-) : BaseCommand(nullptr, QString(), parent),
+) : RME::editor_logic::commands::BaseCommand(nullptr, QString(), parent), // Corrected BaseCommand namespace
     m_selectionManager(selectionManager),
     m_calculatedTilesInBox(calculatedTilesInBox),
     m_isAdditive(isAdditive),
