@@ -54,7 +54,7 @@ void BrushIconWidget::setSelected(bool selected)
         updateSelectionState();
         
         if (selected) {
-            emit this->selected(m_brush);
+            Q_EMIT this->selected(m_brush); // Changed
         }
     }
 }
@@ -354,7 +354,7 @@ void BrushIconWidget::mouseDoubleClickEvent(QMouseEvent* event)
 {
     if (event->button() == Qt::LeftButton) {
         setSelected(true);
-        emit activated(m_brush);
+        Q_EMIT activated(m_brush); // Changed
     }
     
     QWidget::mouseDoubleClickEvent(event);

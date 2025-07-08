@@ -44,7 +44,7 @@ public:
     void setShowLabel(bool show);
     bool getShowLabel() const;
 
-signals:
+Q_SIGNALS: // Changed
     void selected(RME::core::Brush* brush);
     void activated(RME::core::Brush* brush);
 
@@ -68,8 +68,14 @@ protected:
     void paintEvent(QPaintEvent* event) override;
 
 private:
-    // Brush data
+    // Members moved earlier
     RME::core::Brush* m_brush = nullptr;
+    bool m_selected = false;
+    QSize m_iconSize = QSize(48, 48);
+    bool m_showLabel = true;
+
+    // Brush data
+    // RME::core::Brush* m_brush = nullptr; // Moved
     
     // UI Components
     QVBoxLayout* m_layout = nullptr;
@@ -77,10 +83,10 @@ private:
     QLabel* m_textLabel = nullptr;
     
     // State
-    bool m_selected = false;
+    // bool m_selected = false; // Moved
     bool m_hovered = false;
-    bool m_showLabel = true;
-    QSize m_iconSize = QSize(48, 48);
+    // bool m_showLabel = true; // Moved
+    // QSize m_iconSize = QSize(48, 48); // Moved
     
     // Styling
     static const QString SELECTED_STYLE;
