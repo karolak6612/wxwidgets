@@ -79,7 +79,7 @@ public:
     RME::core::brush::HouseExitBrush* getHouseExitBrush();
     RME::core::brush::WaypointBrush* getWaypointBrush();
 
-public slots:
+public Q_SLOTS: // Changed
     // Slots for UI integration
     void onHouseSelected(quint32 houseId);
     void onHouseDeselected();
@@ -87,7 +87,7 @@ public slots:
     void onWaypointDeselected();
     void onBrushModeRequested();
 
-signals:
+Q_SIGNALS: // Changed
     // Signals for UI feedback
     void brushActivated(RME::core::brush::Brush* brush);
     void toolModeChanged(int toolMode); // EditorController::ToolMode as int
