@@ -1,0 +1,12 @@
+===================
+Status: COMPLETED
+Date: 2024-03-15
+Session: 1
+Fixes applied: Multiple related namespace corrections.
+Notes:
+1. Corrected `BaseCommand` inheritance in `AddWaypointCommand.h` to use full namespace `RME::editor_logic::commands::BaseCommand`. This resolved 'base class undefined' and subsequent 'override' and 'identifier not found' errors for BaseCommand methods.
+2. Changed `RME::core::Position` to `RME::Position` in `AddWaypointCommand.h` and `AddWaypointCommand.cpp` to match `Position.h` definition.
+3. Updated `EditorControllerInterface` type to `RME::core::editor::EditorControllerInterface` in `AddWaypointCommand.h` and `AddWaypointCommand.cpp` for consistency.
+4. Corrected forward declarations and usage of `WaypointManager` and `Waypoint` to use the `RME::core::waypoints` namespace in `AddWaypointCommand.h` and `AddWaypointCommand.cpp`. This resolved 'undefined type' and `std::make_unique` errors.
+All errors in `AddWaypointCommand.json` are expected to be resolved.
+===================

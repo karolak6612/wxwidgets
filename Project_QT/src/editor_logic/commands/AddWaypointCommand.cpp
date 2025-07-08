@@ -9,12 +9,12 @@ namespace core {
 namespace actions {
 
 AddWaypointCommand::AddWaypointCommand(
-    RME::core::WaypointManager* waypointManager,
+    RME::core::waypoints::WaypointManager* waypointManager, // Corrected namespace
     const QString& waypointName,
-    const RME::core::Position& position,
-    RME::core::EditorControllerInterface* editorController,
+    const RME::Position& position, // Corrected namespace
+    RME::core::editor::EditorControllerInterface* editorController, // Corrected namespace for consistency
     QUndoCommand* parent
-) : BaseCommand(editorController, QString(), parent),
+) : RME::editor_logic::commands::BaseCommand(editorController, QString(), parent), // Ensure BaseCommand is fully namespaced here too
     m_waypointManager(waypointManager),
     m_waypointName(waypointName),
     m_position(position),
@@ -69,7 +69,7 @@ void AddWaypointCommand::redo() {
         m_wasReplacement = true;
         // Create a copy of the existing waypoint for undo.
         // This copy stores its state *before* it's implicitly removed by the addWaypoint call below.
-        m_replacedWaypoint = std::make_unique<RME::core::Waypoint>(existingWp->name, existingWp->position);
+        m_replacedWaypoint = std::make_unique<RME::core::waypoints::Waypoint>(existingWp->name, existingWp->position); // Corrected namespace
         // Note: WaypointManager::addWaypoint is expected to handle the removal of 'existingWp'
         // (including decrementing its tile count) before adding the new one.
     } else {
@@ -77,7 +77,7 @@ void AddWaypointCommand::redo() {
         m_replacedWaypoint.reset(); // Ensure no old data is kept
     }
 
-    auto newWaypoint = std::make_unique<RME::core::Waypoint>(m_waypointName, m_position);
+    auto newWaypoint = std::make_unique<RME::core::waypoints::Waypoint>(m_waypointName, m_position); // Corrected namespace
     bool added = m_waypointManager->addWaypoint(std::move(newWaypoint)); // This might replace an existing one
 
     if (added) {

@@ -8,10 +8,10 @@
 #include <memory> // For std::unique_ptr
 
 // Forward declarations
-namespace RME { namespace core {
+namespace RME { namespace core { namespace waypoints { // Added ::waypoints
     class WaypointManager;
     struct Waypoint; // The actual Waypoint struct/class
-}}
+}}}
 
 namespace RME {
 namespace core {
@@ -19,13 +19,13 @@ namespace actions {
 
 constexpr int AddWaypointCommandId = toInt(CommandId::AddWaypoint);
 
-class AddWaypointCommand : public BaseCommand {
+class AddWaypointCommand : public RME::editor_logic::commands::BaseCommand { // Added full namespace
 public:
     AddWaypointCommand(
-        RME::core::WaypointManager* waypointManager,
+        RME::core::waypoints::WaypointManager* waypointManager, // Corrected namespace
         const QString& waypointName,
-        const RME::core::Position& position,
-        RME::core::EditorControllerInterface* editorController,
+        const RME::Position& position, // Corrected namespace
+        RME::core::editor::EditorControllerInterface* editorController, // Corrected namespace for consistency from previous fixes
         QUndoCommand* parent = nullptr
     );
     ~AddWaypointCommand() override = default; // unique_ptr for m_replacedWaypoint handled automatically
@@ -37,13 +37,13 @@ public:
     // bool mergeWith(const QUndoCommand* command) override; // Merging add likely not needed
 
 private:
-    RME::core::WaypointManager* m_waypointManager;
+    RME::core::waypoints::WaypointManager* m_waypointManager; // Corrected namespace
     QString m_waypointName;
-    RME::core::Position m_position;
+    RME::Position m_position; // Corrected namespace
 
     // To handle cases where an existing waypoint with the same name might be replaced by addWaypoint
     // and needs to be restored on undo.
-    std::unique_ptr<RME::core::Waypoint> m_replacedWaypoint;
+    std::unique_ptr<RME::core::waypoints::Waypoint> m_replacedWaypoint; // Corrected namespace
     bool m_wasReplacement = false;
 };
 
