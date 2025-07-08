@@ -35,11 +35,11 @@ public:
     RME::core::Brush* getSelectedBrush() const;
     void setSelectedBrush(RME::core::Brush* brush);
 
-public slots:
+public Q_SLOTS: // Changed
     void onItemSelectionChanged();
     void onItemActivated(QListWidgetItem* item);
 
-signals:
+Q_SIGNALS: // Changed
     void brushSelected(RME::core::Brush* brush);
     void brushActivated(RME::core::Brush* brush);
 

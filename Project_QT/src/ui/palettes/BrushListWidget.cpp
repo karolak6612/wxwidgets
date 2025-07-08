@@ -3,6 +3,7 @@
 #include <QListWidgetItem>
 #include <QPainter>
 #include <QDebug>
+#include <QVariant> // Added for QVariant::fromValue
 
 namespace RME {
 namespace ui {
@@ -74,7 +75,7 @@ void BrushListWidget::onItemSelectionChanged()
     
     if (m_selectedBrush != brush) {
         m_selectedBrush = brush;
-        emit brushSelected(brush);
+        Q_EMIT brushSelected(brush); // Changed
     }
 }
 
@@ -84,7 +85,7 @@ void BrushListWidget::onItemActivated(QListWidgetItem* item)
         RME::core::Brush* brush = item->data(Qt::UserRole).value<RME::core::Brush*>();
         if (brush) {
             m_selectedBrush = brush;
-            emit brushActivated(brush);
+            Q_EMIT brushActivated(brush); // Changed
         }
     }
 }
