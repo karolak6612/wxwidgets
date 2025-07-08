@@ -147,24 +147,36 @@ protected:
     QStringList getBrushSearchableText(RME::core::Brush* brush) const;
 
 private:
-    // Search settings
+    // Members moved earlier due to use in inline getters
     QString m_searchText;
     SearchMode m_searchMode = ContainsSearch;
-    bool m_caseSensitive = false;
-
-    // Filter settings
     QStringList m_categoryFilter;
     QStringList m_tagFilter;
     QStringList m_typeFilter;
     bool m_showRecentOnly = false;
     bool m_showFavoritesOnly = false;
+    QList<RME::core::Brush*> m_recentBrushes;
+    QSet<RME::core::Brush*> m_favoriteBrushes;
+    // End of moved members
+
+    // Search settings
+    // QString m_searchText; // Moved
+    // SearchMode m_searchMode = ContainsSearch; // Moved
+    bool m_caseSensitive = false;
+
+    // Filter settings
+    // QStringList m_categoryFilter; // Moved
+    // QStringList m_tagFilter; // Moved
+    // QStringList m_typeFilter; // Moved
+    // bool m_showRecentOnly = false; // Moved
+    // bool m_showFavoritesOnly = false; // Moved
 
     // Recent brushes
-    QList<RME::core::Brush*> m_recentBrushes;
+    // QList<RME::core::Brush*> m_recentBrushes; // Moved
     int m_maxRecentBrushes = 20;
 
     // Favorite brushes
-    QSet<RME::core::Brush*> m_favoriteBrushes;
+    // QSet<RME::core::Brush*> m_favoriteBrushes; // Moved
 
     // Brush tags
     QMap<RME::core::Brush*, QStringList> m_brushTags;

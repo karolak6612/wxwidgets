@@ -27,8 +27,8 @@ void BrushFilterManager::setSearchText(const QString& text)
         // Clear cached regex when search text changes
         m_cachedRegexPattern.clear();
         
-        emit searchTextChanged(text);
-        emit filtersChanged();
+        Q_EMIT searchTextChanged(text); // Changed
+        Q_EMIT filtersChanged(); // Changed
         
         qDebug() << "BrushFilterManager: Search text set to" << text;
     }
@@ -42,7 +42,7 @@ void BrushFilterManager::setSearchMode(SearchMode mode)
         // Clear cached regex when search mode changes
         m_cachedRegexPattern.clear();
         
-        emit filtersChanged();
+        Q_EMIT filtersChanged(); // Changed
         
         qDebug() << "BrushFilterManager: Search mode changed to" << static_cast<int>(mode);
     }
@@ -52,7 +52,7 @@ void BrushFilterManager::setCategoryFilter(const QStringList& categories)
 {
     if (m_categoryFilter != categories) {
         m_categoryFilter = categories;
-        emit filtersChanged();
+        Q_EMIT filtersChanged(); // Changed
         
         qDebug() << "BrushFilterManager: Category filter set to" << categories;
     }
@@ -62,14 +62,14 @@ void BrushFilterManager::addCategoryFilter(const QString& category)
 {
     if (!m_categoryFilter.contains(category)) {
         m_categoryFilter.append(category);
-        emit filtersChanged();
+        Q_EMIT filtersChanged(); // Changed
     }
 }
 
 void BrushFilterManager::removeCategoryFilter(const QString& category)
 {
     if (m_categoryFilter.removeAll(category) > 0) {
-        emit filtersChanged();
+        Q_EMIT filtersChanged(); // Changed
     }
 }
 
@@ -77,7 +77,7 @@ void BrushFilterManager::clearCategoryFilter()
 {
     if (!m_categoryFilter.isEmpty()) {
         m_categoryFilter.clear();
-        emit filtersChanged();
+        Q_EMIT filtersChanged(); // Changed
     }
 }
 
@@ -85,7 +85,7 @@ void BrushFilterManager::setTagFilter(const QStringList& tags)
 {
     if (m_tagFilter != tags) {
         m_tagFilter = tags;
-        emit filtersChanged();
+        Q_EMIT filtersChanged(); // Changed
         
         qDebug() << "BrushFilterManager: Tag filter set to" << tags;
     }
@@ -95,14 +95,14 @@ void BrushFilterManager::addTagFilter(const QString& tag)
 {
     if (!m_tagFilter.contains(tag)) {
         m_tagFilter.append(tag);
-        emit filtersChanged();
+        Q_EMIT filtersChanged(); // Changed
     }
 }
 
 void BrushFilterManager::removeTagFilter(const QString& tag)
 {
     if (m_tagFilter.removeAll(tag) > 0) {
-        emit filtersChanged();
+        Q_EMIT filtersChanged(); // Changed
     }
 }
 
@@ -110,7 +110,7 @@ void BrushFilterManager::clearTagFilter()
 {
     if (!m_tagFilter.isEmpty()) {
         m_tagFilter.clear();
-        emit filtersChanged();
+        Q_EMIT filtersChanged(); // Changed
     }
 }
 
@@ -118,7 +118,7 @@ void BrushFilterManager::setTypeFilter(const QStringList& types)
 {
     if (m_typeFilter != types) {
         m_typeFilter = types;
-        emit filtersChanged();
+        Q_EMIT filtersChanged(); // Changed
         
         qDebug() << "BrushFilterManager: Type filter set to" << types;
     }
@@ -128,14 +128,14 @@ void BrushFilterManager::addTypeFilter(const QString& type)
 {
     if (!m_typeFilter.contains(type)) {
         m_typeFilter.append(type);
-        emit filtersChanged();
+        Q_EMIT filtersChanged(); // Changed
     }
 }
 
 void BrushFilterManager::removeTypeFilter(const QString& type)
 {
     if (m_typeFilter.removeAll(type) > 0) {
-        emit filtersChanged();
+        Q_EMIT filtersChanged(); // Changed
     }
 }
 
@@ -143,7 +143,7 @@ void BrushFilterManager::clearTypeFilter()
 {
     if (!m_typeFilter.isEmpty()) {
         m_typeFilter.clear();
-        emit filtersChanged();
+        Q_EMIT filtersChanged(); // Changed
     }
 }
 
@@ -151,7 +151,7 @@ void BrushFilterManager::setShowRecentOnly(bool recentOnly)
 {
     if (m_showRecentOnly != recentOnly) {
         m_showRecentOnly = recentOnly;
-        emit filtersChanged();
+        Q_EMIT filtersChanged(); // Changed
         
         qDebug() << "BrushFilterManager: Show recent only set to" << recentOnly;
     }
@@ -161,7 +161,7 @@ void BrushFilterManager::setShowFavoritesOnly(bool favoritesOnly)
 {
     if (m_showFavoritesOnly != favoritesOnly) {
         m_showFavoritesOnly = favoritesOnly;
-        emit filtersChanged();
+        Q_EMIT filtersChanged(); // Changed
         
         qDebug() << "BrushFilterManager: Show favorites only set to" << favoritesOnly;
     }
@@ -210,7 +210,7 @@ void BrushFilterManager::clearAllFilters()
     m_cachedRegexPattern.clear();
     
     if (hadFilters) {
-        emit filtersChanged();
+        Q_EMIT filtersChanged(); // Changed
         qDebug() << "BrushFilterManager: All filters cleared";
     }
 }
@@ -277,14 +277,14 @@ void BrushFilterManager::addRecentBrush(RME::core::Brush* brush)
         m_recentBrushes.removeLast();
     }
     
-    emit recentBrushesChanged();
+    Q_EMIT recentBrushesChanged(); // Changed
 }
 
 void BrushFilterManager::clearRecentBrushes()
 {
     if (!m_recentBrushes.isEmpty()) {
         m_recentBrushes.clear();
-        emit recentBrushesChanged();
+        Q_EMIT recentBrushesChanged(); // Changed
         qDebug() << "BrushFilterManager: Recent brushes cleared";
     }
 }
@@ -300,7 +300,7 @@ void BrushFilterManager::setMaxRecentBrushes(int max)
         }
         
         if (m_recentBrushes.size() != max) {
-            emit recentBrushesChanged();
+            Q_EMIT recentBrushesChanged(); // Changed
         }
     }
 }
@@ -309,7 +309,7 @@ void BrushFilterManager::addFavoriteBrush(RME::core::Brush* brush)
 {
     if (brush && !m_favoriteBrushes.contains(brush)) {
         m_favoriteBrushes.insert(brush);
-        emit favoriteBrushesChanged();
+        Q_EMIT favoriteBrushesChanged(); // Changed
         qDebug() << "BrushFilterManager: Added favorite brush" << brush->getName();
     }
 }
@@ -317,7 +317,7 @@ void BrushFilterManager::addFavoriteBrush(RME::core::Brush* brush)
 void BrushFilterManager::removeFavoriteBrush(RME::core::Brush* brush)
 {
     if (brush && m_favoriteBrushes.remove(brush)) {
-        emit favoriteBrushesChanged();
+        Q_EMIT favoriteBrushesChanged(); // Changed
         qDebug() << "BrushFilterManager: Removed favorite brush" << brush->getName();
     }
 }
@@ -326,7 +326,7 @@ void BrushFilterManager::clearFavoriteBrushes()
 {
     if (!m_favoriteBrushes.isEmpty()) {
         m_favoriteBrushes.clear();
-        emit favoriteBrushesChanged();
+        Q_EMIT favoriteBrushesChanged(); // Changed
         qDebug() << "BrushFilterManager: Favorite brushes cleared";
     }
 }
@@ -371,8 +371,8 @@ void BrushFilterManager::setTagsForBrush(RME::core::Brush* brush, const QStringL
             m_brushTags[brush] = tags;
         }
         
-        emit tagsChanged();
-        emit filtersChanged(); // Tags might affect current filtering
+        Q_EMIT tagsChanged(); // Changed
+        Q_EMIT filtersChanged(); // Changed // Tags might affect current filtering
         
         qDebug() << "BrushFilterManager: Tags for brush" << brush->getName() << "set to" << tags;
     }

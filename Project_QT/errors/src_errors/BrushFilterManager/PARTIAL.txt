@@ -1,0 +1,14 @@
+===================
+Status: PARTIAL
+Date: 2024-03-15
+Session: 1
+Fixes applied: 2 (logical fix types: member reordering, Q_EMIT)
+Notes:
+1. In `BrushFilterManager.h`:
+   - Ensured `Q_SLOTS` and `Q_SIGNALS` are used (were fixed previously).
+   - Reordered member variable declarations (e.g., `m_searchText`, `m_searchMode`, etc.) to appear before their use in inline getter methods. This should resolve 'undeclared identifier' errors for these members within the header.
+2. In `BrushFilterManager.cpp`:
+   - Changed all instances of `emit` to `Q_EMIT` to comply with `QT_NO_KEYWORDS`.
+
+These changes are expected to resolve many errors. However, the error "'RME::QObject': base class undefined" from `BrushFilterManager.h` (line 25) is concerning. While the source code `class BrushFilterManager : public QObject` appears correct and `<QObject>` is included, this error suggests a potential deeper parsing or include path issue if it persists. Other errors in the .cpp file are likely cascades from header problems.
+===================
