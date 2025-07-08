@@ -46,11 +46,11 @@ public:
     void setColumnsPerRow(int columns);
     int getColumnsPerRow() const;
 
-public slots:
+public Q_SLOTS: // Changed
     void onBrushIconSelected(RME::core::Brush* brush);
     void onBrushIconActivated(RME::core::Brush* brush);
 
-signals:
+Q_SIGNALS: // Changed
     void brushSelected(RME::core::Brush* brush);
     void brushActivated(RME::core::Brush* brush);
 
