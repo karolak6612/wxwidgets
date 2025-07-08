@@ -4,7 +4,7 @@
 #include "QTreeNode.h"
 #include "MapIterator.h" // Include for MapIterator return type
 #include "../Position.h"
-#include "../../assets/AssetManager.h"
+#include "assets/AssetManager.h" // Corrected path
 #include <memory>
 
 namespace RME {

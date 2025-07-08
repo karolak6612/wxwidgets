@@ -1,0 +1,7 @@
+===================
+Status: COMPLETED
+Date: 2024-03-15
+Session: 1
+Fixes applied: 1
+Notes: Corrected the include path for `AssetManager.h` in `Project_QT/src/core/map/BaseMap.h` from `../../assets/AssetManager.h` to `assets/AssetManager.h`. This change reflects the correct location of AssetManager.h within the project structure and the configured include paths (src/core/ is an include path). This is expected to resolve all 'Cannot open include file' errors for this component.
+===================
