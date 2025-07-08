@@ -116,10 +116,10 @@ public:
     QStringList getTagsForBrush(RME::core::Brush* brush) const;
     void setTagsForBrush(RME::core::Brush* brush, const QStringList& tags);
 
-public slots:
+public Q_SLOTS: // Changed
     void onBrushUsed(RME::core::Brush* brush);
 
-signals:
+Q_SIGNALS: // Changed
     void filtersChanged();
     void searchTextChanged(const QString& text);
     void recentBrushesChanged();

@@ -52,7 +52,7 @@ public:
     void setExpanded(bool expanded);
     bool isExpanded() const { return m_expanded; }
 
-public slots:
+public Q_SLOTS: // Changed
     void onSearchTextChanged();
     void onSearchModeChanged();
     void onCategoryFilterChanged();
@@ -63,7 +63,7 @@ public slots:
     void onToggleExpandedClicked();
     void onSearchTimer();
 
-signals:
+Q_SIGNALS: // Changed
     void searchChanged();
     void filtersChanged();
     void expandedChanged(bool expanded);

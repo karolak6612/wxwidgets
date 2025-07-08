@@ -109,7 +109,7 @@ void AdvancedSearchWidget::setExpanded(bool expanded)
     if (m_expanded != expanded) {
         m_expanded = expanded;
         updateExpandedState();
-        emit expandedChanged(expanded);
+        Q_EMIT expandedChanged(expanded); // Changed
     }
 }
 
