@@ -1,0 +1,11 @@
+===================
+Status: COMPLETED
+Date: 2024-03-15
+Session: 1
+Fixes applied: 4 (1 logical fix to Tile.h namespace, 3 related fixes to AddCreatureCommand.h and BaseCommand.h for type consistency)
+Notes:
+1. Corrected namespace for `Tile` class in `Tile.h` to `RME::core::Tile`. This resolved 'undefined type' errors for `RME::core::Tile`.
+2. Corrected `EditorControllerInterface` type in `AddCreatureCommand.h` constructor to `RME::core::editor::EditorControllerInterface*`.
+3. Corrected forward declaration and member/parameter types for `EditorControllerInterface` in `BaseCommand.h` to `RME::core::editor::EditorControllerInterface*`. This resolved the BaseCommand constructor mismatch.
+4. The `QString::arg` error is believed to be a cascading error from the Tile type issue and is expected to be resolved.
+===================

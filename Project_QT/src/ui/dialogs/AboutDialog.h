@@ -29,7 +29,7 @@ public:
     explicit AboutDialog(QWidget* parent = nullptr);
     ~AboutDialog() override = default;
 
-private slots:
+private Q_SLOTS:
     void onLicenseButtonClicked();
     void onCreditsButtonClicked();
 

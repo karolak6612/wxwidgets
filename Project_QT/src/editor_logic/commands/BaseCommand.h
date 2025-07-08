@@ -8,9 +8,11 @@
 
 namespace RME {
 namespace core {
+namespace editor { // Corrected forward declaration
     class EditorControllerInterface;
-}
-}
+} // namespace editor
+} // namespace core
+} // namespace RME
 
 namespace RME {
 namespace editor_logic {
@@ -40,7 +42,7 @@ public:
      * @param parent Parent command for command grouping
      */
     explicit BaseCommand(
-        RME::core::EditorControllerInterface* controller,
+        RME::core::editor::EditorControllerInterface* controller, // Corrected namespace
         const QString& description = QString(),
         QUndoCommand* parent = nullptr
     );
@@ -96,12 +98,12 @@ protected:
     /**
      * @brief Get the editor controller
      * 
-     * @return RME::core::EditorControllerInterface* Controller interface
+     * @return RME::core::editor::EditorControllerInterface* Controller interface
      */
-    RME::core::EditorControllerInterface* getController() const { return m_controller; }
+    RME::core::editor::EditorControllerInterface* getController() const { return m_controller; }
 
 private:
-    RME::core::EditorControllerInterface* m_controller;
+    RME::core::editor::EditorControllerInterface* m_controller; // Corrected namespace
 };
 
 } // namespace commands

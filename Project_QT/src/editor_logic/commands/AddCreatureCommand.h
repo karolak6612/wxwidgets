@@ -14,10 +14,13 @@ class Creature;
 namespace assets {
 struct CreatureData;
 }
+namespace editor { // Added forward declaration for RME::core::editor
+class EditorControllerInterface;
+}
 } // namespace core
 
 namespace editor_logic {
-class EditorControllerInterface; // For notifying tile changed
+// class EditorControllerInterface; // This local forward declaration is no longer needed / potentially conflicting
 
 namespace commands {
 
@@ -26,7 +29,7 @@ public:
     AddCreatureCommand(
         RME::core::Tile* tile,
         const RME::core::assets::CreatureData* creatureData,
-        RME::editor_logic::EditorControllerInterface* editorController, // To notify tile changes
+        RME::core::editor::EditorControllerInterface* editorController, // To notify tile changes - CORRECTED NAMESPACE
         QUndoCommand* parent = nullptr
     );
 

@@ -1,0 +1,7 @@
+===================
+Status: COMPLETED
+Date: 2024-03-15
+Session: 1
+Fixes applied: 1
+Notes: Changed `private slots:` to `private Q_SLOTS:` in `Project_QT/src/ui/dialogs/AboutDialog.h` to comply with `QT_NO_KEYWORDS` defined in `CMakeLists.txt`. This should resolve all errors in `AboutDialog.json`.
+===================

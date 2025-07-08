@@ -13,6 +13,16 @@ namespace spawns {
 }
 }
 }
+} // Closing the outer RME::core::spawns, then RME::core, then RME for SpawnData forward decl.
+// It seems the original forward declaration was not fully closed.
+// Assuming the intent was:
+// namespace RME {
+// namespace core {
+// namespace spawns {
+//    class SpawnData;
+// } // spawns
+// } // core
+// } // RME
 
 #include <QList>
 #include <QStringList> // For m_spawnCreatureList
@@ -21,6 +31,7 @@ namespace spawns {
 #include <QFlags> // Required for Q_DECLARE_FLAGS
 
 namespace RME {
+namespace core { // Added core namespace here
 
 // Tile flags matching original RME concepts, potentially with some Qt-ification
 // These might be a combination of original mapflags and statflags
@@ -201,6 +212,7 @@ private:
     void copyMembersTo(Tile& target) const;
 };
 
+} // namespace core
 } // namespace RME
 
 #endif // RME_TILE_H
