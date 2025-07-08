@@ -29,7 +29,7 @@ public:
     ~SpriteManager();
 
     // Main loading function
-    bool loadDatSpr(const QString& datPath, const QString& sprPath, const ClientProfile& clientProfile);
+    bool loadDatSpr(const QString& datPath, const QString& sprPath, const RME::Assets::ClientProfile& clientProfile); // Corrected namespace
     
     // Convenience method for loading sprites
     bool loadSprites(const QString& datPath, const QString& sprPath);

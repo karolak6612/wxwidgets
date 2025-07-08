@@ -15,14 +15,17 @@
 namespace RME {
 
 // Forward declare data types for accessors
-struct ClientProfile;
+namespace Assets { struct ClientProfile; } // Corrected namespace
+namespace core { // Added core here
 namespace assets { // Assuming ItemData, CreatureData, SpriteData are in RME::core::assets
     class ItemData;
     class CreatureData;
-    class SpriteData;
+    // SpriteData is not in core::assets, it's in RME
     class MaterialManager; // Forward declare for getMaterialManager()
     class MaterialData;
 } // namespace assets
+} // namespace core
+class SpriteData; // Moved SpriteData forward declaration to RME namespace
 
 
 // The AssetManager will also implement IItemTypeProvider for the new Item/Tile classes
@@ -41,18 +44,18 @@ public:
     bool loadAllAssets(const QString& dataPath, const QString& clientVersionString);
 
     // Accessors for the loaded data managers
-    const ClientVersionManager& getClientVersionManager() const;
-    const ItemDatabase& getItemDatabase() const;
-    const CreatureDatabase& getCreatureDatabase() const;
-    const SpriteManager& getSpriteManager() const;
+    const RME::Assets::ClientVersionManager& getClientVersionManager() const; // Corrected namespace
+    const RME::ItemDatabase& getItemDatabase() const; // Corrected namespace
+    const RME::CreatureDatabase& getCreatureDatabase() const; // Corrected namespace
+    const RME::SpriteManager& getSpriteManager() const; // Corrected namespace
     const RME::core::assets::MaterialManager& getMaterialManager() const; // New accessor
 
     // Convenience accessors for specific data
-    const ClientProfile* getCurrentClientProfile() const;
-    const assets::ItemData* getItemData(quint16 itemId) const; // From ItemDatabase, use namespaced type
-    const assets::CreatureData* getCreatureData(const QString& name) const; // From CreatureDatabase, use namespaced type
-    const assets::SpriteData* getSpriteData(quint32 spriteId) const; // From SpriteManager, use namespaced type
-    const assets::MaterialData* getMaterialData(const QString& id) const; // Delegates to MaterialManager
+    const RME::Assets::ClientProfile* getCurrentClientProfile() const; // Corrected namespace
+    const RME::core::assets::ItemData* getItemData(quint16 itemId) const; // Corrected namespace
+    const RME::core::assets::CreatureData* getCreatureData(const QString& name) const; // Corrected namespace
+    const RME::SpriteData* getSpriteData(quint32 spriteId) const; // Corrected namespace to RME::SpriteData
+    const RME::core::assets::MaterialData* getMaterialData(const QString& id) const; // Corrected namespace
 
     // --- IItemTypeProvider Implementation ---
     // These methods will delegate to the ItemDatabase instance.

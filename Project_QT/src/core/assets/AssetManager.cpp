@@ -21,7 +21,7 @@ struct AssetManager::AssetManagerData {
     SpriteManager spriteManager;
     RME::core::assets::MaterialManager materialManager; // Consistent namespace
 
-    const ClientProfile* currentClientProfile = nullptr; // Cached pointer
+    const RME::Assets::ClientProfile* currentClientProfile = nullptr; // Cached pointer - Corrected namespace
     QString currentDataPath;
 };
 
@@ -205,14 +205,14 @@ bool AssetManager::loadAllAssets(const QString& dataPath, const QString& clientV
     return true;
 }
 
-const ClientVersionManager& AssetManager::getClientVersionManager() const { return d->clientVersionManager; }
-const ItemDatabase& AssetManager::getItemDatabase() const { return d->itemDatabase; } // Assuming RME::ItemDatabase
-const CreatureDatabase& AssetManager::getCreatureDatabase() const { return d->creatureDatabase; } // Assuming RME::CreatureDatabase
-const SpriteManager& AssetManager::getSpriteManager() const { return d->spriteManager; } // Assuming RME::core::sprites::SpriteManager
+const RME::Assets::ClientVersionManager& AssetManager::getClientVersionManager() const { return d->clientVersionManager; }
+const RME::ItemDatabase& AssetManager::getItemDatabase() const { return d->itemDatabase; }
+const RME::CreatureDatabase& AssetManager::getCreatureDatabase() const { return d->creatureDatabase; }
+const RME::SpriteManager& AssetManager::getSpriteManager() const { return d->spriteManager; }
 const RME::core::assets::MaterialManager& AssetManager::getMaterialManager() const { return d->materialManager; }
 
 
-const ClientProfile* AssetManager::getCurrentClientProfile() const { return d->currentClientProfile; }
+const RME::Assets::ClientProfile* AssetManager::getCurrentClientProfile() const { return d->currentClientProfile; } // Corrected based on header change
 
 const RME::core::assets::ItemData* AssetManager::getItemData(quint16 itemId) const {
     return d->itemDatabase.getItemData(itemId);
@@ -220,7 +220,7 @@ const RME::core::assets::ItemData* AssetManager::getItemData(quint16 itemId) con
 const RME::core::assets::CreatureData* AssetManager::getCreatureData(const QString& name) const {
     return d->creatureDatabase.getCreatureData(name);
 }
-const RME::core::assets::SpriteData* AssetManager::getSpriteData(quint32 spriteId) const {
+const RME::SpriteData* AssetManager::getSpriteData(quint32 spriteId) const { // Corrected namespace
     return d->spriteManager.getSpriteData(spriteId);
 }
 

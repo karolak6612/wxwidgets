@@ -9,13 +9,7 @@
 // Forward declare AssetManager to break potential circular dependency / reduce header load
 // AssetManager will include MaterialManager.h for its member.
 // MaterialManager needs AssetManager& for context during loading (e.g., item ID validation).
-namespace RME {
-namespace core {
-namespace assets {
-    class AssetManager;
-} // namespace assets
-} // namespace core
-} // namespace RME
+namespace RME { class AssetManager; } // Corrected forward declaration
 
 namespace RME {
 namespace core {
@@ -33,7 +27,7 @@ public:
      * @param assetManager Reference to the asset manager for context (e.g., item validation).
      * @return True if loading was successful (or partially successful with warnings), false on critical failure.
      */
-    bool loadMaterialsFromDirectory(const QString& baseDir, const QString& mainXmlFile, AssetManager& assetManager);
+    bool loadMaterialsFromDirectory(const QString& baseDir, const QString& mainXmlFile, RME::AssetManager& assetManager); // Corrected type
 
     /**
      * @brief Retrieves a material by its ID (brush name).
