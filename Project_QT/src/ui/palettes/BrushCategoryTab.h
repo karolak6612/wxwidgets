@@ -86,13 +86,13 @@ public:
     int getTotalBrushCount() const;
     int getVisibleBrushCount() const;
 
-public slots:
+public Q_SLOTS: // Changed
     void onBrushSelected(RME::core::Brush* brush);
     void onBrushActivated(RME::core::Brush* brush);
     void onViewModeChanged();
     void onFilterChanged();
 
-signals:
+Q_SIGNALS: // Changed
     void brushSelected(RME::core::Brush* brush);
     void brushActivated(RME::core::Brush* brush);
     void viewModeChanged(ViewMode mode);
@@ -109,9 +109,14 @@ protected:
     bool matchesFilter(RME::core::Brush* brush) const;
 
 private:
-    // Category and state
+    // Moved these members earlier to be declared before use in inline getters
     BrushCategory m_category;
     ViewMode m_viewMode = GridView;
+    QString m_searchFilter;
+
+    // Category and state
+    // BrushCategory m_category; // Will be removed in next step
+    // ViewMode m_viewMode = GridView; // Will be removed in next step
     QString m_searchFilter;
 
     // Services
