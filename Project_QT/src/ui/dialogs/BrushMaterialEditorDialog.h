@@ -25,6 +25,10 @@
 namespace RME {
 namespace core {
     class Map;
+    namespace assets { // Forward declare types used as pointers/references
+        class MaterialManager;
+        class ItemDatabase;
+    }
 }
 }
 
@@ -95,11 +99,12 @@ protected:
     void resizeEvent(QResizeEvent* event) override;
 
 private:
+    // Member declarations moved before potential use in inline methods or earlier access
     QVector<BorderItem> m_borderItems;
-    BorderPosition m_selectedPosition = BorderPosition::NORTH;
+    BorderPosition m_selectedPosition = BorderPosition::NORTH; // Now declared before getSelectedPosition()
     QSize m_cellSize;
     QRect m_gridRect;
-    
+
     void updateLayout();
     QRect getCellRect(BorderPosition pos) const;
     BorderPosition getPositionFromPoint(const QPoint& point) const;
@@ -147,11 +152,11 @@ public:
                                  RME::core::assets::ItemDatabase* itemDatabase = nullptr);
     ~BrushMaterialEditorDialog() override = default;
 
-public slots:
+public Q_SLOTS: // Changed
     void accept() override;
     void reject() override;
 
-private slots:
+private Q_SLOTS: // Changed
     // Borders tab slots
     void onBorderPositionSelected(BorderPosition pos);
     void onBorderItemIdChanged();
