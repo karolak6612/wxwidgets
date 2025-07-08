@@ -8,6 +8,7 @@
 using RME::core::assets::ItemData;
 using RME::core::assets::CreatureData;
 using RME::core::assets::MaterialData;
+using RME::Assets::ClientProfile; // Added for ClientProfile
 
 namespace RME {
 // If AssetManager.h declares AssetManager in RME::core::assets, this should match.
@@ -81,7 +82,7 @@ bool AssetManager::loadAllAssets(const QString& dataPath, const QString& clientV
             otbPathToLoad = resolvePath(dataPath, "items.otb"); // Fallback to generic items.otb
         }
     } else {
-        qWarning() << "AssetManager: No specific OTB version info found for client profile:" << clientVersionString;
+        qWarning() << "AssetManager: No specific OTB version info found for client profile:" << clientVersionString
                    << "(OTB ID:" << d->currentClientProfile->clientOtbmVersionId << "). Trying generic items.otb.";
         otbPathToLoad = resolvePath(dataPath, "items.otb");
     }

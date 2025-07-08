@@ -9,6 +9,41 @@
 // Forward declaration for ClientProfile if it's complex and only used by pointer/reference
 // namespace RME { namespace core { namespace assets { class ClientProfile; }}}
 
+// Define ItemFlag enum for item properties
+// Based on usage in ItemDatabase.cpp and AssetManager.cpp
+// The values are examples and might need adjustment if specific bit values are required.
+enum class ItemFlag : quint32 {
+    NONE             = 0,
+    BLOCK_SOLID      = 1 << 0,
+    BLOCK_PROJECTILE = 1 << 1,
+    BLOCK_PATHFIND   = 1 << 2,
+    HAS_HEIGHT       = 1 << 3,
+    PICKUPABLE       = 1 << 4,
+    STACKABLE        = 1 << 5,
+    MOVEABLE         = 1 << 6,
+    ALWAYSONTOP      = 1 << 7,
+    READABLE         = 1 << 8,
+    ROTATABLE        = 1 << 9,
+    HANGABLE         = 1 << 10,
+    VERTICAL         = 1 << 11,
+    HORIZONTAL       = 1 << 12,
+    ANIMATION        = 1 << 13,
+    ALLOWDISTREAD    = 1 << 14,
+    LOOKTHROUGH      = 1 << 15,
+    WALKSTACK        = 1 << 16, // Also known as fullground
+    WALL             = 1 << 17
+    // Add other flags as needed from OTB/XML parsing in ItemDatabase.cpp
+};
+
+inline ItemFlag operator|(ItemFlag a, ItemFlag b) {
+    return static_cast<ItemFlag>(static_cast<quint32>(a) | static_cast<quint32>(b));
+}
+
+inline ItemFlag& operator|=(ItemFlag& a, ItemFlag b) {
+    a = a | b;
+    return a;
+}
+
 namespace RME {
 namespace core {
 namespace assets {
@@ -72,9 +107,18 @@ struct ItemData {
     // For complex items like doors, beds, podiums - specific data might be needed
     // Or handled by specialized Item subclasses that use this ItemData.
 
+    // Fields required by IItemTypeProvider and used in ItemDatabase/AssetManager
+    QString description;
+    quint32 flags = 0; // Combined bitmask of item properties, corresponds to ItemFlag enum
+
     QVariantMap genericAttributes; // For any other properties from XML/OTB
 
     ItemData() = default; // Ensure materialId is default constructed (empty QString)
+
+    // Method to check flags, required by IItemTypeProvider implementation in AssetManager
+    bool hasFlag(ItemFlag flag_value) const {
+        return (flags & static_cast<quint32>(flag_value)) != 0;
+    }
 };
 
 // Helper structure to group item types by category for palette display

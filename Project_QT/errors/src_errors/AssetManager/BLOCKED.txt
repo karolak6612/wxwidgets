@@ -1,0 +1,18 @@
+===================
+Status: BLOCKED
+Date: 2024-07-24
+Session: 2
+Issue: Assumption made regarding `ItemFlags(rawFlags)` in `ItemDatabase.cpp`.
+Action needed: Clarification on `ItemFlags` and `rawFlags`.
+Details:
+In `ItemDatabase.cpp`, the line `itemData.flags = ItemFlags(rawFlags);` caused an "'ItemFlags': identifier not found" error.
+I changed this to `itemData.flags = rawFlags;` based on the assumption that `rawFlags` (read from QDataStream as quint32) could be directly assigned to `itemData.flags` (which I changed to quint32 in `ItemData.h`).
+
+This was an assumption because:
+1. The exact type and meaning of `rawFlags` after `stream >> rawFlags;` (though likely quint32) is not definitively proven without seeing more context of the OTB format.
+2. The intended purpose of the original `ItemFlags(...)` call is unknown. It could have been a type conversion, a function performing specific transformations, or a constructor.
+
+The previous commit `fix/assetmanager-itemdata-types` includes this potentially incorrect change in `ItemDatabase.cpp`. Other changes in that commit (to `ItemData.h`, `AssetManager.h`, `AssetManager.cpp`) are likely valid fixes for other identified issues.
+
+To proceed correctly with `ItemDatabase.cpp` and ensure the OTB parsing is accurate, the nature of `rawFlags` from the OTB stream and the intended logic of `ItemFlags()` needs to be understood. User input or further documentation on the OTB format/original `ItemFlags` utility is required.
+===================

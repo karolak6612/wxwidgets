@@ -67,7 +67,7 @@ void BrushManagerService::registerBrush(std::unique_ptr<Brush> brush) {
             m_brushTags[brushId] = QStringList();
         }
         
-        emit brushRegistered(m_brushes[name].get());
+        Q_EMIT brushRegistered(m_brushes[name].get());
     }
 }
 
@@ -89,36 +89,36 @@ Brush* BrushManagerService::getActiveBrush() const {
 void BrushManagerService::setActiveBrushName(const QString& name) {
     if (m_currentSettings.activeBrushName != name) {
         m_currentSettings.activeBrushName = name;
-        emit brushSettingsChanged(m_currentSettings); // Emit general settings change
-        emit activeBrushChanged(getActiveBrush());     // Emit specific active brush change
+        Q_EMIT brushSettingsChanged(m_currentSettings); // Emit general settings change
+        Q_EMIT activeBrushChanged(getActiveBrush());     // Emit specific active brush change
     }
 }
 
 void BrushManagerService::setCurrentShape(BrushShape shape) {
     if (m_currentSettings.shape != shape) {
         m_currentSettings.shape = shape;
-        emit brushSettingsChanged(m_currentSettings);
+        Q_EMIT brushSettingsChanged(m_currentSettings);
     }
 }
 
 void BrushManagerService::setCurrentSize(int size) {
     if (m_currentSettings.size != size && size > 0) { // Assuming size must be positive
         m_currentSettings.size = size;
-        emit brushSettingsChanged(m_currentSettings);
+        Q_EMIT brushSettingsChanged(m_currentSettings);
     }
 }
 
 void BrushManagerService::setCurrentVariation(int variation) {
     if (m_currentSettings.variation != variation) {
         m_currentSettings.variation = variation;
-        emit brushSettingsChanged(m_currentSettings);
+        Q_EMIT brushSettingsChanged(m_currentSettings);
     }
 }
 
 void BrushManagerService::setIsEraseMode(bool isErase) {
     if (m_currentSettings.isEraseMode != isErase) {
         m_currentSettings.isEraseMode = isErase;
-        emit brushSettingsChanged(m_currentSettings);
+        Q_EMIT brushSettingsChanged(m_currentSettings);
     }
 }
 
@@ -170,8 +170,8 @@ void BrushManagerService::setBrushCategory(Brush* brush, const QString& category
     QString brushId = generateBrushId(brush);
     if (m_brushCategories.value(brushId) != category) {
         m_brushCategories[brushId] = category;
-        emit brushCategoryChanged(brush, category);
-        emit brushMetadataChanged(brush);
+        Q_EMIT brushCategoryChanged(brush, category);
+        Q_EMIT brushMetadataChanged(brush);
     }
 }
 
@@ -187,7 +187,7 @@ void BrushManagerService::setBrushDescription(Brush* brush, const QString& descr
     QString brushId = generateBrushId(brush);
     if (m_brushDescriptions.value(brushId) != description) {
         m_brushDescriptions[brushId] = description;
-        emit brushMetadataChanged(brush);
+        Q_EMIT brushMetadataChanged(brush);
     }
 }
 
@@ -202,8 +202,8 @@ void BrushManagerService::setBrushTags(Brush* brush, const QStringList& tags) {
     QString brushId = generateBrushId(brush);
     if (m_brushTags.value(brushId) != tags) {
         m_brushTags[brushId] = tags;
-        emit brushTagsChanged(brush, tags);
-        emit brushMetadataChanged(brush);
+        Q_EMIT brushTagsChanged(brush, tags);
+        Q_EMIT brushMetadataChanged(brush);
     }
 }
 
@@ -214,8 +214,8 @@ void BrushManagerService::addBrushTag(Brush* brush, const QString& tag) {
     if (!currentTags.contains(tag)) {
         currentTags.append(tag);
         m_brushTags[brushId] = currentTags;
-        emit brushTagsChanged(brush, currentTags);
-        emit brushMetadataChanged(brush);
+        Q_EMIT brushTagsChanged(brush, currentTags);
+        Q_EMIT brushMetadataChanged(brush);
     }
 }
 
@@ -225,8 +225,8 @@ void BrushManagerService::removeBrushTag(Brush* brush, const QString& tag) {
     QStringList currentTags = m_brushTags.value(brushId, QStringList());
     if (currentTags.removeOne(tag)) {
         m_brushTags[brushId] = currentTags;
-        emit brushTagsChanged(brush, currentTags);
-        emit brushMetadataChanged(brush);
+        Q_EMIT brushTagsChanged(brush, currentTags);
+        Q_EMIT brushMetadataChanged(brush);
     }
 }
 
@@ -270,14 +270,14 @@ void BrushManagerService::recordBrushUsage(Brush* brush) {
     m_brushUsageCount[brushId] = m_brushUsageCount.value(brushId, 0) + 1;
     m_lastBrushUsage[brushId] = now;
     
-    emit brushUsageRecorded(brush);
-    emit recentBrushesChanged();
+    Q_EMIT brushUsageRecorded(brush);
+    Q_EMIT recentBrushesChanged();
 }
 
 void BrushManagerService::clearRecentBrushes() {
     if (!m_recentBrushIds.isEmpty()) {
         m_recentBrushIds.clear();
-        emit recentBrushesChanged();
+        Q_EMIT recentBrushesChanged();
     }
 }
 

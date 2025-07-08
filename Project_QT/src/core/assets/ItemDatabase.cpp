@@ -216,7 +216,7 @@ bool ItemDatabase::parseOtbItem(QDataStream& stream, quint16 serverID, ItemGroup
     quint32 rawFlags;
     stream >> rawFlags;
     if (stream.status() != QDataStream::Ok) return false;
-    itemData.flags = ItemFlags(rawFlags);
+    itemData.flags = rawFlags; // Assuming rawFlags is quint32 and ItemData.flags is quint32
 
     if (!parseOtbAttributes(stream, itemData)) return false;
 

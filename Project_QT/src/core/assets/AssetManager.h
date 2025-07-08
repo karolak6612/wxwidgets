@@ -5,6 +5,7 @@
 #include "ItemDatabase.h"
 #include "CreatureDatabase.h"
 #include "../sprites/SpriteManager.h" // SpriteManager is in sprites subdir
+#include "MaterialManager.h"          // Include full definition
 #include "../IItemTypeProvider.h"     // For ItemDatabase to provide to Item instances
 
 #include <QString>
