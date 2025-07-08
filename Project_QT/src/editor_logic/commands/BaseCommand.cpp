@@ -46,7 +46,8 @@ void BaseCommand::notifyMapChanged(const Position& position) {
 }
 
 void BaseCommand::logRedo(const QString& action, const Position& position, const QString& additionalInfo) {
-    QString logMessage = QString("%1 at %2").arg(action, position.toString());
+    QString posStr = QString("(%1,%2,%3)").arg(position.x).arg(position.y).arg(position.z);
+    QString logMessage = QString("%1 at %2").arg(action, posStr);
     
     if (!additionalInfo.isEmpty()) {
         logMessage += QString(" - %1").arg(additionalInfo);
@@ -57,15 +58,15 @@ void BaseCommand::logRedo(const QString& action, const Position& position, const
 
 void BaseCommand::logUndo(const QString& action, const Position& position) {
     qDebug() << QString("%1::undo:").arg(metaObject()->className()) 
-             << QString("Undoing %1 at %2").arg(action, position.toString());
+             << QString("Undoing %1 at (%2,%3,%4)").arg(action).arg(position.x).arg(position.y).arg(position.z);
 }
 
 void BaseCommand::setUndoText(const QString& originalAction, const Position& position) {
     setText(QObject::tr("Undo: %1 at (%2, %3, %4)")
                 .arg(originalAction)
-                .arg(position.x())
-                .arg(position.y())
-                .arg(position.z()));
+                .arg(position.x)  // Changed from x()
+                .arg(position.y)  // Changed from y()
+                .arg(position.z)); // Changed from z()
 }
 
 void BaseCommand::setErrorText(const QString& operation) {
