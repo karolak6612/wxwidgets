@@ -56,12 +56,12 @@ public:
     void setSearchEnabled(bool enabled);
     bool isSearchEnabled() const;
 
-public slots:
+public Q_SLOTS: // Changed
     virtual void onSearchTextChanged(const QString& text);
     virtual void onClearSearch();
     virtual void onRefreshRequested();
 
-signals:
+Q_SIGNALS: // Changed
     void selectionChanged();
     void itemActivated();
     void searchTextChanged(const QString& text);
