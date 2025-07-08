@@ -1,0 +1,7 @@
+===================
+Status: COMPLETED
+Date: 2024-03-15
+Session: 1
+Fixes applied: 1
+Notes: Corrected the usage of `Position` in `Project_QT/src/core/actions/appundocommand.h` to `RME::Position` to match its definition in `Position.h`. The `getChangedPositions()` method now returns `QList<RME::Position>`. This is expected to resolve all 'undeclared identifier' and subsequent template argument errors for `Position` in this file.
+===================

@@ -58,7 +58,7 @@ public:
      * areas they modified, allowing for optimized UI updates.
      * @return A QList of Position objects. Default implementation returns an empty list.
      */
-    virtual QList<Position> getChangedPositions() const;
+    virtual QList<RME::Position> getChangedPositions() const; // Corrected namespace for Position
 
 protected:
     Map* m_map; ///< Non-owning pointer to the map data.
