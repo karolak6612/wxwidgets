@@ -64,7 +64,7 @@ public:
     QList<Brush*> filterBrushesByTags(const QStringList& tags) const;
     QList<Brush*> filterBrushesByCategory(const QString& category) const;
 
-signals:
+Q_SIGNALS: // Changed
     void activeBrushChanged(Brush* activeBrush);
     void brushSettingsChanged(const BrushSettings& newSettings);
     
