@@ -39,7 +39,7 @@ public:
     void showForBrush(RME::core::Brush* brush, const QPoint& position);
     void showForMultipleBrushes(const QList<RME::core::Brush*>& brushes, const QPoint& position);
 
-public slots:
+public Q_SLOTS: // Changed
     void onActivateBrush();
     void onToggleFavorite();
     void onAddToCategory();
@@ -53,7 +53,7 @@ public slots:
     void onExportBrush();
     void onShowUsageStatistics();
 
-signals:
+Q_SIGNALS: // Changed
     void brushActivated(RME::core::Brush* brush);
     void favoriteToggled(RME::core::Brush* brush, bool isFavorite);
     void categoryChanged(RME::core::Brush* brush, const QString& category);
