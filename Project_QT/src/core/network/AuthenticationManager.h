@@ -88,7 +88,7 @@ public:
     void setSessionTimeout(int timeoutMinutes) { m_sessionTimeoutMinutes = timeoutMinutes; }
     int getSessionTimeout() const { return m_sessionTimeoutMinutes; }
 
-signals:
+Q_SIGNALS: // Changed
     void userLoggedIn(uint32_t userId, const QString& username);
     void userLoggedOut(uint32_t userId, const QString& username);
     void userBanned(const QString& username, const QString& reason);
@@ -103,6 +103,10 @@ private:
     
     // User ID generation
     uint32_t generateUserId();
+
+    // Moved these declarations earlier to fix undeclared identifier errors
+    int m_maxUsers = 0; // Initialize to a sensible default
+    int m_sessionTimeoutMinutes = 30; // Initialize to a sensible default
     
     // Data structures
     struct UserData {
@@ -131,8 +135,8 @@ private:
     QMap<QString, QDateTime> m_bannedIPs; // IP -> ban time
     
     uint32_t m_nextUserId;
-    int m_maxUsers;
-    int m_sessionTimeoutMinutes;
+    // int m_maxUsers; // Moved earlier
+    // int m_sessionTimeoutMinutes; // Moved earlier
     
     // Default permissions by role
     QMap<UserRole, QStringList> m_rolePermissions;
