@@ -1,0 +1,137 @@
+[
+  {
+    "Compile error": "Cannot open include file: 'core/Map.h': No such file or directory",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.cpp",
+    "Code line error": 7
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'RME::Tile': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'std::unique_ptr': 'RME::Tile' is not a valid template type argument for parameter '_Ty'",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'std::unique_ptr': too few template arguments",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'std::unique_ptr': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'RME::Tile': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'std::unique_ptr': 'RME::Tile' is not a valid template type argument for parameter '_Ty'",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'std::unique_ptr': too few template arguments",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'std::unique_ptr': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'RME::Tile': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'std::unique_ptr': 'RME::Tile' is not a valid template type argument for parameter '_Ty'",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'std::unique_ptr': too few template arguments",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'QPair': 'RME::Position' is not a valid template type argument for parameter 'T1'",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'unique_ptr': unspecialized class template can't be used as a template argument for template parameter 'T2', expected a real type",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'QList': 'RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'RME::core::actions::ChangeSetCommand::getAffectedPositions': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'RME::core::actions::ChangeSetCommand::cost': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\actions\\ChangeSetCommand.h",
+    "Code line error": 130
+  }
+]

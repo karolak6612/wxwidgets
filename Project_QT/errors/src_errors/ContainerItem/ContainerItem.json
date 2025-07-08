@@ -1,0 +1,12 @@
+[
+  {
+    "Compile error": "'OTBM_ATTR_CONTAINER_ITEMS': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\ContainerItem.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'OTBM_ATTR_CONTAINER_ITEMS': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\ContainerItem.cpp",
+    "Code line error": 78
+  }
+]

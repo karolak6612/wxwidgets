@@ -1,0 +1,17 @@
+[
+  {
+    "Compile error": "'RME::QObject': base class undefined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qtimer.h",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "'RME::QTimer::timerEvent': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qtimer.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'d_ptr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qtimer.h",
+    "Code line error": 152
+  }
+]

@@ -181,10 +181,10 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 void MainWindow::loadWindowSettings() {
     if (!m_settings) return;
     if (m_settings->contains("geometry")) {
-        restoreGeometry(m_settings->value("geometry").toByteArray());
+        restoreGeometry(m_settings->value("geometry").value<QByteArray>());
     }
     if (m_settings->contains("windowState")) {
-        restoreState(m_settings->value("windowState").toByteArray());
+        restoreState(m_settings->value("windowState").value<QByteArray>());
     }
 }
 
@@ -1627,3 +1627,5 @@ void MainWindow::onAbout() {
 
 } // namespace ui
 } // namespace RME
+
+// #include "MainWindow.moc" // Removed - Q_OBJECT is in header

@@ -1,0 +1,92 @@
+[
+  {
+    "Compile error": "'RME::core::actions::RemoveWaypointCommand': illegal member initialization: 'BaseCommand' is not a base or member",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.cpp",
+    "Code line error": 14
+  },
+  {
+    "Compile error": "'setErrorText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'getPosition': is not a member of 'RME::core::waypoints::Waypoint'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.cpp",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'setText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.cpp",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'setText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.cpp",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'getName': is not a member of 'RME::core::waypoints::Waypoint'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'getPosition': is not a member of 'RME::core::waypoints::Waypoint'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'std::make_unique': no matching overloaded function found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'getName': is not a member of 'RME::core::waypoints::Waypoint'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.cpp",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'getPosition': is not a member of 'RME::core::waypoints::Waypoint'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.cpp",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'std::make_unique': no matching overloaded function found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.cpp",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'restoredWaypoint': cannot be used before it is initialized",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.cpp",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'BaseCommand': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'RME::core::actions::RemoveWaypointCommand::~RemoveWaypointCommand': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'RME::core::actions::RemoveWaypointCommand::undo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.h",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'RME::core::actions::RemoveWaypointCommand::redo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.h",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'RME::core::actions::RemoveWaypointCommand::id': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveWaypointCommand.h",
+    "Code line error": 38
+  }
+]

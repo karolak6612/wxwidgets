@@ -1,0 +1,42 @@
+[
+  {
+    "Compile error": "term does not evaluate to a function taking 0 arguments",
+    "File": "Project_QT\\src\\core\\spawns\\Spawn.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "term does not evaluate to a function taking 0 arguments",
+    "File": "Project_QT\\src\\core\\spawns\\Spawn.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "term does not evaluate to a function taking 0 arguments",
+    "File": "Project_QT\\src\\core\\spawns\\Spawn.cpp",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "term does not evaluate to a function taking 0 arguments",
+    "File": "Project_QT\\src\\core\\spawns\\Spawn.cpp",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "term does not evaluate to a function taking 0 arguments",
+    "File": "Project_QT\\src\\core\\spawns\\Spawn.cpp",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "term does not evaluate to a function taking 0 arguments",
+    "File": "Project_QT\\src\\core\\spawns\\Spawn.cpp",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'toString': is not a member of 'RME::Position'",
+    "File": "Project_QT\\src\\core\\spawns\\Spawn.cpp",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'QString::arg': no matching overloaded function found",
+    "File": "Project_QT\\src\\core\\spawns\\Spawn.cpp",
+    "Code line error": 87
+  }
+]

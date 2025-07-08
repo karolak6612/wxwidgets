@@ -1,0 +1,137 @@
+[
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'TestWaypointManager': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'unique_ptr': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "syntax error: identifier 'unique_ptr'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'unique_ptr': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'unique_ptr': undeclared identifier",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'RME::RME::core::waypoints::Waypoint': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'QHash': invalid template argument for 'T', type expected",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\WaypointManager.h",
+    "Code line error": 57
+  }
+]

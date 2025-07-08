@@ -1,0 +1,877 @@
+[
+  {
+    "Compile error": "'MapVersion': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'clientMapVersion': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'color': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'color': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 122
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 131
+  },
+  {
+    "Compile error": "'color': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 161
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 161
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 176
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 177
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 179
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 180
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 181
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 183
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 184
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 185
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 186
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 187
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 188
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 190
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 191
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 192
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 193
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 194
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 196
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 196
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 199
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 199
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 200
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 200
+  },
+  {
+    "Compile error": "'MapVersion': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'clientMapVersion': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'color': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'color': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 122
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 131
+  },
+  {
+    "Compile error": "'color': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 161
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 161
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 176
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 177
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 179
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 180
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 181
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 183
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 184
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 185
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 186
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 187
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 188
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 190
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 191
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 192
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 193
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 194
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 196
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 196
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 199
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 199
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 200
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 200
+  },
+  {
+    "Compile error": "'MapVersion': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'clientMapVersion': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'color': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'color': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 122
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 131
+  },
+  {
+    "Compile error": "'color': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 161
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 161
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 176
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 177
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 179
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 180
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 181
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 183
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 184
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 185
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 186
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 187
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 188
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 190
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 191
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 192
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 193
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 194
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 196
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 196
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 199
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 199
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 200
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 200
+  },
+  {
+    "Compile error": "'MapVersion': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'clientMapVersion': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'color': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'color': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 122
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 131
+  },
+  {
+    "Compile error": "'color': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 161
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 161
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 176
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 177
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 179
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 180
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 181
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 183
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 184
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 185
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 186
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 187
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 188
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 190
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 191
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 192
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 193
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 194
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 196
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 196
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 199
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 199
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 200
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 200
+  },
+  {
+    "Compile error": "'MapVersion': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'clientMapVersion': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'color': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'color': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 122
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 131
+  },
+  {
+    "Compile error": "'color': unknown override specifier",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 161
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 161
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 176
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 177
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 179
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 180
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 181
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 183
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 184
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 185
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 186
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 187
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 188
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 190
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 191
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 192
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 193
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 194
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 196
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 196
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 199
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 199
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 200
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\network\\live_packets.h",
+    "Code line error": 200
+  }
+]

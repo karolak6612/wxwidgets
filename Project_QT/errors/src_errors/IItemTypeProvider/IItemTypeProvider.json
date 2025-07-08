@@ -1,0 +1,92 @@
+[
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 9
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 9
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 11
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 11
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\IItemTypeProvider.h",
+    "Code line error": 8
+  }
+]

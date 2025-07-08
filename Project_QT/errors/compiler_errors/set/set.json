@@ -1,0 +1,57 @@
+[
+  {
+    "Compile error": "syntax error: identifier '_Node_handle'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\set",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'void_pointer': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\set",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\set",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "syntax error: identifier '_In_place_key_extract_set'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\set",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\set",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\set",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "syntax error: 'return'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\set",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\set",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\set",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\set",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\set",
+    "Code line error": 48
+  }
+]

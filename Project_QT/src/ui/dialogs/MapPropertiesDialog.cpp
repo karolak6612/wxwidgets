@@ -210,3 +210,5 @@ void MapPropertiesDialog::onCalculateStatistics() {
 } // namespace dialogs
 } // namespace ui
 } // namespace RME
+
+// #include "MapPropertiesDialog.moc" // Removed - Q_OBJECT is in header

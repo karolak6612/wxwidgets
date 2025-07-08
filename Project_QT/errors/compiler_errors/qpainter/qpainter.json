@@ -1,0 +1,257 @@
+[
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 500
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 500
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 510
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 510
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 520
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 520
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 572
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 572
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QBrush'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 674
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function takes 1 arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 674
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QBrush'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 679
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function takes 1 arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 679
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QBrush'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 684
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function takes 1 arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 684
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function could convert all the argument types",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 689
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function could convert all the argument types",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 694
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function could convert all the argument types",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 699
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 500
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 500
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 510
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 510
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 520
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 520
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 572
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 572
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QBrush'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 674
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function takes 1 arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 674
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QBrush'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 679
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function takes 1 arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 679
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QBrush'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 684
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function takes 1 arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 684
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function could convert all the argument types",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 689
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function could convert all the argument types",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 694
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function could convert all the argument types",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 699
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 500
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 500
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 510
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 510
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 520
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 520
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 572
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QPolygon'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 572
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QBrush'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 674
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function takes 1 arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 674
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QBrush'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 679
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function takes 1 arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 679
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QBrush'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 684
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function takes 1 arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 684
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function could convert all the argument types",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 689
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function could convert all the argument types",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 694
+  },
+  {
+    "Compile error": "'RME::QPainter::fillRect': no overloaded function could convert all the argument types",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpainter.h",
+    "Code line error": 699
+  }
+]

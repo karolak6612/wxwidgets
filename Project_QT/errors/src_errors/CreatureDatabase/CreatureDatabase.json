@@ -1,0 +1,4132 @@
+[
+  {
+    "Compile error": "illegal reference to non-static member 'RME::CreatureDatabase::CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 9
+  },
+  {
+    "Compile error": "'QMap': 'RME::CreatureDatabase::CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 9
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 9
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': an object of const-qualified type must be initialized",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 12
+  },
+  {
+    "Compile error": "'invalidCreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'getCreatureData': is not a member of 'RME::CreatureDatabase'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'getCreatureData': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "syntax error: '{'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'const int RME::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'getDefaultCreatureData': is not a member of 'RME::CreatureDatabase'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'getDefaultCreatureData': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "syntax error: '{'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'QMap<Key,T>::size_type QMap<Key,T>::size(void) const': cannot convert 'this' pointer from 'QMap' to 'const QMap<Key,T> &'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'QMap': 'RME::CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::getAllCreatures' uses undefined class 'QMap'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'return': cannot convert from 'QMap' to 'QMap'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "binary '[': no operator found which takes a left-hand operand of type 'QMap' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'CreatureTypeFlag': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'IS_NPC': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'CreatureTypeFlag': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'IS_NPC': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'QMap<Key,T>::size_type QMap<Key,T>::size(void) const': cannot convert 'this' pointer from 'QMap' to 'const QMap<Key,T> &'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "built-in operator '<<' cannot be applied to an operand of type 'QDebug'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 141
+  },
+  {
+    "Compile error": "binary '[': no operator found which takes a left-hand operand of type 'QMap' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 141
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 149
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 152
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 156
+  },
+  {
+    "Compile error": "'CreatureTypeFlag': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 156
+  },
+  {
+    "Compile error": "'IS_NPC': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 156
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 158
+  },
+  {
+    "Compile error": "'CreatureTypeFlag': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 158
+  },
+  {
+    "Compile error": "'IS_NPC': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 158
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 161
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 179
+  },
+  {
+    "Compile error": "'isServerFormat': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 185
+  },
+  {
+    "Compile error": "'isServerFormat': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 185
+  },
+  {
+    "Compile error": "'isServerFormat': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 185
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 186
+  },
+  {
+    "Compile error": "'isServerFormat': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 186
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 187
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 188
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 189
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 190
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 191
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 192
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 193
+  },
+  {
+    "Compile error": "'isServerFormat': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 193
+  },
+  {
+    "Compile error": "'isServerFormat': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 194
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 194
+  },
+  {
+    "Compile error": "'isServerFormat': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 196
+  },
+  {
+    "Compile error": "'creatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 197
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.cpp",
+    "Code line error": 197
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::RME::RME::RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'const int RME::CreatureDatabase::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'CreatureData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': 'CreatureData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: identifier 'CreatureData'",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::CreatureDatabase::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'invalidCreatureData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\CreatureDatabase.h",
+    "Code line error": 33
+  }
+]

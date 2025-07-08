@@ -1,0 +1,72 @@
+[
+  {
+    "Compile error": "'RME::ItemFinderDialogQt::QObject': base class undefined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qinputmethod.h",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::QObject': base class undefined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qinputmethod.h",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::QObject': base class undefined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qinputmethod.h",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::QObject': base class undefined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qinputmethod.h",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'RME::QObject': base class undefined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qinputmethod.h",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'d_ptr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qinputmethod.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::QObject': base class undefined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qinputmethod.h",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'d_ptr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qinputmethod.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::QObject': base class undefined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qinputmethod.h",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'d_ptr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qinputmethod.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::RME::QObject': base class undefined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qinputmethod.h",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'d_ptr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qinputmethod.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::QWindow': class template has already been declared as a non-class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qinputmethod.h",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'RME::QTransform': class template has already been declared as a non-class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qinputmethod.h",
+    "Code line error": 15
+  }
+]

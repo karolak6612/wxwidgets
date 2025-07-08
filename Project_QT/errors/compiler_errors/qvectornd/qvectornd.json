@@ -1,0 +1,482 @@
+[
+  {
+    "Compile error": "'tuple_size': symbol is not a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'QVector2D'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_size' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "syntax error: 'public'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "'tuple_element': symbol is not a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'constant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "syntax error: 'constant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1058
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_size' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1063
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1065
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1067
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1069
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_size' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1074
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1076
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1078
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1080
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1082
+  },
+  {
+    "Compile error": "'tuple_size': symbol is not a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'QVector2D'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::ui::RME::RME::std::tuple_size' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "syntax error: 'public'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "'tuple_element': symbol is not a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'constant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::ui::RME::RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "syntax error: 'constant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::ui::RME::RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1058
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::ui::RME::RME::std::tuple_size' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1063
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::ui::RME::RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1065
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::ui::RME::RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1067
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::ui::RME::RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1069
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::ui::RME::RME::std::tuple_size' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1074
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::ui::RME::RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1076
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::ui::RME::RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1078
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::ui::RME::RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1080
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::ui::RME::RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1082
+  },
+  {
+    "Compile error": "'tuple_size': symbol is not a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'QVector2D'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::RME::RME::RME::ui::std::tuple_size' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "syntax error: 'public'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "'tuple_element': symbol is not a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'constant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::RME::RME::RME::ui::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "syntax error: 'constant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::RME::RME::RME::ui::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1058
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::RME::RME::RME::ui::std::tuple_size' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1063
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::RME::RME::RME::ui::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1065
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::RME::RME::RME::ui::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1067
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::RME::RME::RME::ui::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1069
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::RME::RME::RME::ui::std::tuple_size' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1074
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::RME::RME::RME::ui::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1076
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::RME::RME::RME::ui::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1078
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::RME::RME::RME::ui::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1080
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::RME::RME::RME::ui::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1082
+  },
+  {
+    "Compile error": "'tuple_size': symbol is not a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'QVector2D'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_size' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "syntax error: 'public'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1054
+  },
+  {
+    "Compile error": "'tuple_element': symbol is not a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'constant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "syntax error: 'constant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1056
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1058
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_size' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1063
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1065
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1067
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1069
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_size' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1074
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1076
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1078
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1080
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qvectornd.h",
+    "Code line error": 1082
+  }
+]

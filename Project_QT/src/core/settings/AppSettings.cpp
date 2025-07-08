@@ -299,17 +299,17 @@ AppSettings::~AppSettings() {
 
 // --- Typed Getters & Setters (Full List) ---
 // Version Group
-bool AppSettings::isUseCustomDataDirectory() const { return getValue(Config::USE_CUSTOM_DATA_DIRECTORY).toBool(); }
+bool AppSettings::isUseCustomDataDirectory() const { return getValue(Config::USE_CUSTOM_DATA_DIRECTORY).value<bool>(); }
 void AppSettings::setUseCustomDataDirectory(bool val) { setValue(Config::USE_CUSTOM_DATA_DIRECTORY, val); }
-QString AppSettings::getDataDirectory() const { return getValue(Config::DATA_DIRECTORY).toString(); }
+QString AppSettings::getDataDirectory() const { return getValue(Config::DATA_DIRECTORY).value<QString>(); }
 void AppSettings::setDataDirectory(const QString& val) { setValue(Config::DATA_DIRECTORY, val); }
-QString AppSettings::getExtensionsDirectory() const { return getValue(Config::EXTENSIONS_DIRECTORY).toString(); }
+QString AppSettings::getExtensionsDirectory() const { return getValue(Config::EXTENSIONS_DIRECTORY).value<QString>(); }
 void AppSettings::setExtensionsDirectory(const QString& val) { setValue(Config::EXTENSIONS_DIRECTORY, val); }
-QString AppSettings::getAssetsDataDirs() const { return getValue(Config::ASSETS_DATA_DIRS).toString(); }
+QString AppSettings::getAssetsDataDirs() const { return getValue(Config::ASSETS_DATA_DIRS).value<QString>(); }
 void AppSettings::setAssetsDataDirs(const QString& val) { setValue(Config::ASSETS_DATA_DIRS, val); }
-int AppSettings::getDefaultClientVersion() const { return getValue(Config::DEFAULT_CLIENT_VERSION).toInt(); }
+int AppSettings::getDefaultClientVersion() const { return getValue(Config::DEFAULT_CLIENT_VERSION).value<int>(); }
 void AppSettings::setDefaultClientVersion(int val) { setValue(Config::DEFAULT_CLIENT_VERSION, val); }
-bool AppSettings::isCheckSignaturesEnabled() const { return getValue(Config::CHECK_SIGNATURES).toBool(); }
+bool AppSettings::isCheckSignaturesEnabled() const { return getValue(Config::CHECK_SIGNATURES).value<bool>(); }
 void AppSettings::setCheckSignaturesEnabled(bool val) { setValue(Config::CHECK_SIGNATURES, val); }
 
 // Graphics Group

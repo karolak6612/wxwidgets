@@ -1,0 +1,2017 @@
+[
+  {
+    "Compile error": "'clientVersionManager': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'RME::AssetManager::ClientVersionManager': an object of const-qualified type must be initialized",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::AssetManager::MaterialManager': an object of const-qualified type must be initialized",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'clientVersionManager': is not a member of 'RME::AssetManager::AssetManagerData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'clientVersionManager': is not a member of 'RME::AssetManager::AssetManagerData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "use of undefined type 'RME::ClientProfile'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'otbInfo': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'clientVersionManager': is not a member of 'RME::AssetManager::AssetManagerData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "use of undefined type 'RME::ClientProfile'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'otbInfo': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'otbInfo': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'QString::arg': no matching overloaded function found",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'RME::AssetManager::resolvePath': function does not take 1 arguments",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "syntax error: '<<'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "use of undefined type 'RME::ClientProfile'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 136
+  },
+  {
+    "Compile error": "use of undefined type 'RME::ClientProfile'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'RME::AssetManager::resolvePath': function does not take 1 arguments",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "use of undefined type 'RME::ClientProfile'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 141
+  },
+  {
+    "Compile error": "'QString::arg': no matching overloaded function found",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 141
+  },
+  {
+    "Compile error": "'RME::AssetManager::resolvePath': function does not take 1 arguments",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 141
+  },
+  {
+    "Compile error": "use of undefined type 'RME::ClientProfile'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 159
+  },
+  {
+    "Compile error": "'RME::AssetManager::resolvePath': function does not take 1 arguments",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 159
+  },
+  {
+    "Compile error": "use of undefined type 'RME::ClientProfile'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 160
+  },
+  {
+    "Compile error": "'RME::AssetManager::resolvePath': function does not take 1 arguments",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 160
+  },
+  {
+    "Compile error": "use of undefined type 'RME::ClientProfile'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'bool RME::SpriteManager::loadDatSpr(const QString &,const QString &,const int)': cannot convert argument 3 from 'const RME::ClientProfile' to 'const int'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 165
+  },
+  {
+    "Compile error": "use of undefined type 'RME::ClientProfile'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 176
+  },
+  {
+    "Compile error": "'QString::arg': no matching overloaded function found",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 176
+  },
+  {
+    "Compile error": "'RME::AssetManager::resolvePath': function does not take 1 arguments",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 176
+  },
+  {
+    "Compile error": "'bool RME::core::assets::MaterialManager::loadMaterialsFromDirectory(const QString &,const QString &,RME::core::assets::AssetManager &)': cannot convert argument 3 from 'RME::AssetManager' to 'RME::core::assets::AssetManager &'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 193
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 208
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 208
+  },
+  {
+    "Compile error": "'getClientVersionManager': is not a member of 'RME::AssetManager'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 208
+  },
+  {
+    "Compile error": "'getClientVersionManager': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 208
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 208
+  },
+  {
+    "Compile error": "syntax error: '{'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 208
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 208
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 208
+  },
+  {
+    "Compile error": "'getMaterialManager': is not a member of 'RME::AssetManager'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 212
+  },
+  {
+    "Compile error": "'getMaterialManager': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 212
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 212
+  },
+  {
+    "Compile error": "'const RME::core::assets::ItemData *RME::AssetManager::getItemData(quint16) const': overloaded function differs only by return type from 'const RME::assets::ItemData *RME::AssetManager::getItemData(quint16) const'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 217
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': redefinition; different basic types",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 217
+  },
+  {
+    "Compile error": "'getItemData': is not a member of 'RME::ItemDatabase'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 218
+  },
+  {
+    "Compile error": "'const RME::core::assets::CreatureData *RME::AssetManager::getCreatureData(const QString &) const': overloaded function differs only by return type from 'const RME::assets::CreatureData *RME::AssetManager::getCreatureData(const QString &) const'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "'RME::AssetManager::getCreatureData': redefinition; different basic types",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "'getCreatureData': is not a member of 'RME::CreatureDatabase'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 221
+  },
+  {
+    "Compile error": "'SpriteData': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 223
+  },
+  {
+    "Compile error": "'const RME::SpriteData *RME::AssetManager::getSpriteData(quint32) const': overloaded function differs only by return type from 'const RME::assets::SpriteData *RME::AssetManager::getSpriteData(quint32) const'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 223
+  },
+  {
+    "Compile error": "'RME::AssetManager::getSpriteData': redefinition; different basic types",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 223
+  },
+  {
+    "Compile error": "'const RME::core::assets::MaterialData *RME::AssetManager::getMaterialData(const QString &) const': overloaded function differs only by return type from 'const RME::assets::MaterialData *RME::AssetManager::getMaterialData(const QString &) const'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 227
+  },
+  {
+    "Compile error": "'RME::AssetManager::getMaterialData': redefinition; different basic types",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 227
+  },
+  {
+    "Compile error": "'initializing': cannot convert from 'const RME::assets::ItemData *(__cdecl RME::AssetManager::* )(quint16) const' to 'const RME::core::assets::ItemData *'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 238
+  },
+  {
+    "Compile error": "'initializing': cannot convert from 'const RME::assets::ItemData *(__cdecl RME::AssetManager::* )(quint16) const' to 'const RME::core::assets::ItemData *'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 245
+  },
+  {
+    "Compile error": "'description': is not a member of 'RME::core::assets::ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 246
+  },
+  {
+    "Compile error": "'initializing': cannot convert from 'const RME::assets::ItemData *(__cdecl RME::AssetManager::* )(quint16) const' to 'const RME::core::assets::ItemData *'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 249
+  },
+  {
+    "Compile error": "'flags': is not a member of 'RME::core::assets::ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 250
+  },
+  {
+    "Compile error": "'initializing': cannot convert from 'const RME::assets::ItemData *(__cdecl RME::AssetManager::* )(quint16) const' to 'const RME::core::assets::ItemData *'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'hasFlag': is not a member of 'RME::core::assets::ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 255
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.cpp",
+    "Code line error": 255
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core::assets'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::AssetManager::getItemData': overriding virtual function return type differs and is not covariant from 'RME::IItemTypeProvider::getItemData'",
+    "File": "Project_QT\\src\\core\\assets\\AssetManager.h",
+    "Code line error": 52
+  }
+]

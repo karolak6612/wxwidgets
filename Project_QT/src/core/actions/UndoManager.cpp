@@ -209,3 +209,5 @@ void UndoManager::handleIndexChanged(int idx) {
 } // namespace actions
 } // namespace core
 } // namespace RME
+
+// #include "UndoManager.moc" // Removed - Q_OBJECT is in header

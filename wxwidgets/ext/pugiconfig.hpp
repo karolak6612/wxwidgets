@@ -1,1 +1,0 @@
-{/* placeholder. This needs to be simplier. It should be a better C++ XML processing library parser or included in QT6 framewoprk */}

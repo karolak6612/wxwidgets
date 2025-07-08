@@ -2,7 +2,7 @@
 #define RME_PODIUMITEM_H
 
 #include "core/Item.h"
-#include "core/assets/Outfit.h" // For RME::Outfit
+#include "core/creatures/Outfit.h" // For RME::Outfit
 #include <cstdint> // For uint8_t
 
 namespace RME {

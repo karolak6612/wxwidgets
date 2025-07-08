@@ -1,0 +1,577 @@
+[
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'clientProfile': undeclared identifier",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'DatFormat': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'V_780_792': undeclared identifier",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'clientProfile': undeclared identifier",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'DatFormat': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'V_760': undeclared identifier",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'clientProfile': undeclared identifier",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'DatFormat': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'V_755': undeclared identifier",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'clientProfile': undeclared identifier",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'clientProfile': undeclared identifier",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 167
+  },
+  {
+    "Compile error": "'clientProfile': undeclared identifier",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 168
+  },
+  {
+    "Compile error": "'ClientProfile': undeclared identifier",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 295
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'defaultProfile'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 295
+  },
+  {
+    "Compile error": "'defaultProfile': undeclared identifier",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 295
+  },
+  {
+    "Compile error": "'defaultProfile': undeclared identifier",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 296
+  },
+  {
+    "Compile error": "'DatFormat': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 296
+  },
+  {
+    "Compile error": "'V_760': undeclared identifier",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 296
+  },
+  {
+    "Compile error": "'defaultProfile': undeclared identifier",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 297
+  },
+  {
+    "Compile error": "'defaultProfile': undeclared identifier",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 298
+  },
+  {
+    "Compile error": "'defaultProfile': undeclared identifier",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.cpp",
+    "Code line error": 302
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\sprites\\SpriteManager.h",
+    "Code line error": 32
+  }
+]

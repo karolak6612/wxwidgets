@@ -1,0 +1,57 @@
+[
+  {
+    "Compile error": "Cannot open include file: 'core/Spawn.h': No such file or directory",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordModifyTileContentsCommand.cpp",
+    "Code line error": 4
+  },
+  {
+    "Compile error": "'CommandId': is not a class or namespace name",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordModifyTileContentsCommand.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'RecordModifyTileContents': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordModifyTileContentsCommand.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'toInt': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordModifyTileContentsCommand.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordModifyTileContentsCommand.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'BaseCommand': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordModifyTileContentsCommand.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordModifyTileContentsCommand.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'RME::core::actions::RecordModifyTileContentsCommand::~RecordModifyTileContentsCommand': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordModifyTileContentsCommand.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'RME::core::actions::RecordModifyTileContentsCommand::undo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordModifyTileContentsCommand.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'RME::core::actions::RecordModifyTileContentsCommand::redo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordModifyTileContentsCommand.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'RME::core::actions::RecordModifyTileContentsCommand::id': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordModifyTileContentsCommand.h",
+    "Code line error": 46
+  }
+]

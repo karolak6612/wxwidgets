@@ -301,4 +301,4 @@ Brush* BrushIntegrationManager::getCurrentBrush() const
 } // namespace core
 } // namespace RME
 
-#include "BrushIntegrationManager.moc"
+// #include "BrushIntegrationManager.moc" // Removed - Q_OBJECT is in header

@@ -1,0 +1,17 @@
+[
+  {
+    "Compile error": "explicit specialization 'int RME::qRegisterNormalizedMetaType<RME::QTextOption::Tab>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qtextoption.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::qRegisterNormalizedMetaType<RME::QTextOption::Tab>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qtextoption.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::qRegisterNormalizedMetaType<RME::QTextOption::Tab>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qtextoption.h",
+    "Code line error": 120
+  }
+]

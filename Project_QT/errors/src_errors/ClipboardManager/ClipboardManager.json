@@ -1,0 +1,7 @@
+[
+  {
+    "Compile error": "'ClipboardManager::ClipboardStats::boundingBox' uses undefined class 'QSize'",
+    "File": "Project_QT\\src\\core\\clipboard\\ClipboardManager.h",
+    "Code line error": 53
+  }
+]

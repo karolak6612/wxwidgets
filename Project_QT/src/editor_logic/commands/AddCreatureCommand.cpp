@@ -2,7 +2,7 @@
 #include "core/Tile.h"
 #include "core/creatures/Creature.h"
 #include "core/assets/CreatureData.h"
-#include "editor_logic/EditorControllerInterface.h" // For notifyTileChanged
+#include "core/editor/EditorControllerInterface.h" // For notifyTileChanged
 
 #include <QString> // For setText
 #include <QDebug> // For potential qWarning/qDebug

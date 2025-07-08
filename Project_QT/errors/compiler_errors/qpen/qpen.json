@@ -1,0 +1,447 @@
+[
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QPenPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'PenStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'RME::QPen::PenStyle': uses 'RME::QPen', which is being defined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'PenStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'RME::QPen::PenStyle': is not a type name, static, or enumerator",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "syntax error: identifier 'PenStyle'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'PenStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'RME::QPen::PenStyle': is not a type name, static, or enumerator",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "syntax error: identifier 'PenStyle'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "binary operator '=' has too few parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'PenStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'RME::QPen::PenStyle': is not a type name, static, or enumerator",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'style': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'PenStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::QPen::PenStyle': is not a type name, static, or enumerator",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: identifier 'PenStyle'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'PenCapStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'capStyle': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'PenCapStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "syntax error: identifier 'PenCapStyle'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'PenJoinStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'joinStyle': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'PenJoinStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "syntax error: identifier 'PenJoinStyle'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'PenStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'RME::QPen::PenStyle': is not a type name, static, or enumerator",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "syntax error: identifier 'PenStyle'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'PenStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 102
+  },
+  {
+    "Compile error": "syntax error: identifier 'PenStyle'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 102
+  },
+  {
+    "Compile error": "'PenStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "syntax error: identifier 'PenStyle'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "binary operator '==' has too few parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'f': a non-static data member cannot have a type that contains 'auto'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'RME::QPen::f' cannot be declared with 'constexpr' specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "term does not evaluate to a function taking 0 arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "illegal expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'lhs': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'rhs': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'comparesEqual': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "syntax error: 'return'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'friend': not allowed outside of a class definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'RME::QPen' followed by 'bool' is illegal (did you forget a ';'?)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "binary operator '!=' has too few parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'d': is not a member of 'RME::QPen'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'rhs': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'operator ==': looks like a function definition, but there is no parameter list.",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'RME::operator ==': redefinition; previous definition was 'function'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'PenStyle': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QPenPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QPenPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QPenPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'PenStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'RME::QPen::PenStyle': uses 'RME::QPen', which is being defined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'PenStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'RME::QPen::PenStyle': is not a type name, static, or enumerator",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "syntax error: identifier 'PenStyle'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'PenStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'RME::QPen::PenStyle': is not a type name, static, or enumerator",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "syntax error: identifier 'PenStyle'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "binary operator '=' has too few parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'PenStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'RME::QPen::PenStyle': is not a type name, static, or enumerator",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'style': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'PenStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::QPen::PenStyle': is not a type name, static, or enumerator",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: identifier 'PenStyle'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'PenCapStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'capStyle': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'PenCapStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "syntax error: identifier 'PenCapStyle'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'PenJoinStyle': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'joinStyle': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QPenPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qpen.h",
+    "Code line error": 25
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\memory_resource",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\memory_resource",
+    "Code line error": 30
+  }
+]

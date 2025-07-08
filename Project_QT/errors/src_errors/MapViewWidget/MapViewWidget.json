@@ -1,0 +1,37 @@
+[
+  {
+    "Compile error": "'IBrushStateService': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\ui\\widgets\\MapViewWidget.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "syntax error: identifier 'IBrushStateService'",
+    "File": "Project_QT\\src\\ui\\widgets\\MapViewWidget.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\widgets\\MapViewWidget.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\widgets\\MapViewWidget.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\widgets\\MapViewWidget.h",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\widgets\\MapViewWidget.h",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'m_mapView': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\MapViewWidget.h",
+    "Code line error": 63
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "Compile error": "'d_ptr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qapplication.h",
+    "Code line error": 147
+  },
+  {
+    "Compile error": "'d_ptr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qapplication.h",
+    "Code line error": 147
+  },
+  {
+    "Compile error": "'d_ptr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qapplication.h",
+    "Code line error": 147
+  },
+  {
+    "Compile error": "'d_ptr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qapplication.h",
+    "Code line error": 147
+  }
+]

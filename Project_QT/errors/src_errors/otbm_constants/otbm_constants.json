@@ -1,0 +1,142 @@
+[
+  {
+    "Compile error": "'RME::core::io::OTBM_ATTR_DURATION': redefinition; multiple initialization",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'const uint8_t RME::core::io::OTBM_ATTR_DURATION': redefinition",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'RME::core::io::OTBM_ATTR_DURATION': redefinition; multiple initialization",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'const uint8_t RME::core::io::OTBM_ATTR_DURATION': redefinition",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'RME::core::io::OTBM_ATTR_DURATION': redefinition; multiple initialization",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'const uint8_t RME::core::io::OTBM_ATTR_DURATION': redefinition",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'RME::core::io::OTBM_ATTR_DURATION': redefinition; multiple initialization",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'const uint8_t RME::core::io::OTBM_ATTR_DURATION': redefinition",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'RME::core::io::OTBM_ATTR_DURATION': redefinition; multiple initialization",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'const uint8_t RME::core::io::OTBM_ATTR_DURATION': redefinition",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'RME::core::io::OTBM_ATTR_DURATION': redefinition; multiple initialization",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'const uint8_t RME::core::io::OTBM_ATTR_DURATION': redefinition",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'RME::core::io::OTBM_ATTR_DURATION': redefinition; multiple initialization",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'const uint8_t RME::core::io::OTBM_ATTR_DURATION': redefinition",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'RME::core::io::OTBM_ATTR_DURATION': redefinition; multiple initialization",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'const uint8_t RME::core::io::OTBM_ATTR_DURATION': redefinition",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'RME::core::io::OTBM_ATTR_DURATION': redefinition; multiple initialization",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'const uint8_t RME::core::io::OTBM_ATTR_DURATION': redefinition",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'RME::core::io::OTBM_ATTR_DURATION': redefinition; multiple initialization",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'const uint8_t RME::core::io::OTBM_ATTR_DURATION': redefinition",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'RME::core::io::OTBM_ATTR_DURATION': redefinition; multiple initialization",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'const uint8_t RME::core::io::OTBM_ATTR_DURATION': redefinition",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'RME::core::io::OTBM_ATTR_DURATION': redefinition; multiple initialization",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'const uint8_t RME::core::io::OTBM_ATTR_DURATION': redefinition",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'RME::core::io::OTBM_ATTR_DURATION': redefinition; multiple initialization",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'const uint8_t RME::core::io::OTBM_ATTR_DURATION': redefinition",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'RME::core::io::OTBM_ATTR_DURATION': redefinition; multiple initialization",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'const uint8_t RME::core::io::OTBM_ATTR_DURATION': redefinition",
+    "File": "Project_QT\\src\\core\\io\\otbm_constants.h",
+    "Code line error": 101
+  }
+]

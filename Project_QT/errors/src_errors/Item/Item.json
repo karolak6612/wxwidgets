@@ -1,0 +1,12 @@
+[
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "Project_QT\\src\\core\\Item.h",
+    "Code line error": 14
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\Item.h",
+    "Code line error": 14
+  }
+]

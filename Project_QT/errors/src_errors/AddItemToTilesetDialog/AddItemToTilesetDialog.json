@@ -1,0 +1,57 @@
+[
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\AddItemToTilesetDialog.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "Project_QT\\src\\ui\\dialogs\\AddItemToTilesetDialog.cpp",
+    "Code line error": 6
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\AddItemToTilesetDialog.cpp",
+    "Code line error": 6
+  },
+  {
+    "Compile error": "unexpected end-of-file found",
+    "File": "Project_QT\\src\\ui\\dialogs\\AddItemToTilesetDialog.cpp",
+    "Code line error": 374
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\AddItemToTilesetDialog.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\AddItemToTilesetDialog.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\AddItemToTilesetDialog.h",
+    "Code line error": 128
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\AddItemToTilesetDialog.h",
+    "Code line error": 128
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\AddItemToTilesetDialog.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\AddItemToTilesetDialog.h",
+    "Code line error": 128
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\AddItemToTilesetDialog.h",
+    "Code line error": 128
+  }
+]

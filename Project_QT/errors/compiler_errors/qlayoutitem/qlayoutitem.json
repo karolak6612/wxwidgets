@@ -1,0 +1,22 @@
+[
+  {
+    "Compile error": "'RME::QWidgetItemV2::q_cachedMinimumSize' uses undefined class 'RME::QSize'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlayoutitem.h",
+    "Code line error": 131
+  },
+  {
+    "Compile error": "'RME::QWidgetItemV2::q_cachedSizeHint' uses undefined class 'RME::QSize'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlayoutitem.h",
+    "Code line error": 132
+  },
+  {
+    "Compile error": "'RME::QWidgetItemV2::q_cachedMaximumSize' uses undefined class 'RME::QSize'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlayoutitem.h",
+    "Code line error": 133
+  },
+  {
+    "Compile error": "'RME::QWidgetItemV2::q_cachedHfws' uses undefined class 'RME::QSize'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlayoutitem.h",
+    "Code line error": 134
+  }
+]

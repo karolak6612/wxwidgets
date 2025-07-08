@@ -1,0 +1,37 @@
+[
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\quuid.h",
+    "Code line error": 338
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\quuid.h",
+    "Code line error": 338
+  },
+  {
+    "Compile error": "'RME::RME::QUuid': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\quuid.h",
+    "Code line error": 338
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\quuid.h",
+    "Code line error": 338
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\quuid.h",
+    "Code line error": 338
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\quuid.h",
+    "Code line error": 338
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\quuid.h",
+    "Code line error": 338
+  }
+]

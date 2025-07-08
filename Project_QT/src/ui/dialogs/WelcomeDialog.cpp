@@ -355,3 +355,5 @@ void WelcomeDialog::onShowOnStartupToggled(bool checked) {
 } // namespace dialogs
 } // namespace ui
 } // namespace RME
+
+// #include "WelcomeDialog.moc" // Removed - Q_OBJECT is in header

@@ -1,0 +1,97 @@
+[
+  {
+    "Compile error": "'RME::core::actions::ModifyHousePropertiesCommand': illegal member initialization: 'BaseCommand' is not a base or member",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.cpp",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "'setErrorText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.cpp",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'setText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'validateMembers': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.cpp",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'setErrorText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.cpp",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'setText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'setText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'setText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.cpp",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'newEntryPoint' uses undefined struct 'RME::core::Position'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.cpp",
+    "Code line error": 133
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Position'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.cpp",
+    "Code line error": 133
+  },
+  {
+    "Compile error": "'oldEntryPoint' uses undefined struct 'RME::core::Position'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.cpp",
+    "Code line error": 134
+  },
+  {
+    "Compile error": "binary '=': no operator found which takes a right-hand operand of type '<error type>' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.cpp",
+    "Code line error": 135
+  },
+  {
+    "Compile error": "'void RME::core::houses::Houses::setHouseExit(quint32,const RME::Position &)': cannot convert argument 2 from '<error type>' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.cpp",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "'BaseCommand': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'RME::core::actions::ModifyHousePropertiesCommand::~ModifyHousePropertiesCommand': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.h",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'RME::core::actions::ModifyHousePropertiesCommand::undo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'RME::core::actions::ModifyHousePropertiesCommand::redo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.h",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'RME::core::actions::ModifyHousePropertiesCommand::id': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'RME::core::actions::ModifyHousePropertiesCommand::mergeWith': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ModifyHousePropertiesCommand.h",
+    "Code line error": 44
+  }
+]

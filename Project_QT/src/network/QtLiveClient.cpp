@@ -648,3 +648,5 @@ void QtLiveClient::onMapChanged(const QList<RME::core::network::TileChange>& cha
 
 } // namespace network
 } // namespace RME
+
+// #include "QtLiveClient.moc" // Removed - Q_OBJECT is in header

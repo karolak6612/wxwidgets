@@ -1,0 +1,22 @@
+[
+  {
+    "Compile error": "'writeEscapedBytesInternal': member function not declared in 'RME::core::io::MemoryNodeFileWriteHandle'",
+    "File": "Project_QT\\src\\core\\io\\MemoryNodeFileWriteHandle.cpp",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "'writeRawBytesInternal': member function not declared in 'RME::core::io::MemoryNodeFileWriteHandle'",
+    "File": "Project_QT\\src\\core\\io\\MemoryNodeFileWriteHandle.cpp",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'RME::core::io::MemoryNodeFileWriteHandle::writeEscapedBytes': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\io\\MemoryNodeFileWriteHandle.h",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'RME::core::io::MemoryNodeFileWriteHandle::writeEscapedBytes': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\io\\MemoryNodeFileWriteHandle.h",
+    "Code line error": 23
+  }
+]

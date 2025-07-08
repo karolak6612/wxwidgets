@@ -1,0 +1,62 @@
+[
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\Waypoint.h",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\Waypoint.h",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\Waypoint.h",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\Waypoint.h",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\Waypoint.h",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\Waypoint.h",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\Waypoint.h",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\Waypoint.h",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\Waypoint.h",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\Waypoint.h",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\Waypoint.h",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\waypoints\\Waypoint.h",
+    "Code line error": 16
+  }
+]

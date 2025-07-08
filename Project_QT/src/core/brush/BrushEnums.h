@@ -29,6 +29,21 @@ enum class BrushShape {
     // Other shapes can be added later if needed (e.g., Diamond)
 };
 
+enum class BrushType {
+    GROUND,
+    WALL,
+    CARPET,
+    TABLE,
+    DOODAD,
+    CREATURE,
+    SPAWN,
+    HOUSE,
+    HOUSE_EXIT,
+    WAYPOINT,
+    RAW,
+    ERASER
+};
+
 // Other general brush-related enums can be added here later.
 // For example, BrushFlags if there are common flags applicable to many brushes.
 // enum class BrushFlag : quint32 {

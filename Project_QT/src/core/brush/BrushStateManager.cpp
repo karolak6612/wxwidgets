@@ -193,4 +193,4 @@ void BrushStateManager::updateActiveBrush(RME::core::brush::Brush* brush, const 
 } // namespace core
 } // namespace RME
 
-#include "BrushStateManager.moc"
+// #include "BrushStateManager.moc" // Removed - Q_OBJECT is in header

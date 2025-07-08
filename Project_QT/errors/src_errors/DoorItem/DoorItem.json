@@ -1,0 +1,12 @@
+[
+  {
+    "Compile error": "'OTBM_ATTR_DOOR_ID': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\DoorItem.cpp",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'OTBM_ATTR_DOOR_ID': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\DoorItem.cpp",
+    "Code line error": 40
+  }
+]

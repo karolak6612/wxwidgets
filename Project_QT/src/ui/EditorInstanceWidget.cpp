@@ -180,3 +180,5 @@ void EditorInstanceWidget::onUndoStackCleanChanged(bool clean)
 
 } // namespace ui
 } // namespace RME
+
+// #include "EditorInstanceWidget.moc" // Removed - Q_OBJECT is in header

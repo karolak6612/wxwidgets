@@ -1,0 +1,1267 @@
+[
+  {
+    "Compile error": "explicit specialization 'int RME::qRegisterNormalizedMetaType<RME::QDeadlineTimer>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 182
+  },
+  {
+    "Compile error": "'RME::ItemFinderDialogQt': class contains explicit override 'deadline' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'deadline': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'RME::ItemFinderDialogQt': class contains explicit override 'setDeadline' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'setDeadline': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'QTypeInfo<RME::ItemFinderDialogQt::QDeadlineTimer>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::ItemFinderDialogQt::qRegisterNormalizedMetaType(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 182
+  },
+  {
+    "Compile error": "'QMetaTypeId<RME::ItemFinderDialogQt::QDeadlineTimer>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 182
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'deadline' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'deadline': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'setDeadline' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'setDeadline': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'QTypeInfo<RME::ui::ItemFinderDialogQt::QDeadlineTimer>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::ui::ItemFinderDialogQt::qRegisterNormalizedMetaType(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 182
+  },
+  {
+    "Compile error": "'QMetaTypeId<RME::ui::ItemFinderDialogQt::QDeadlineTimer>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 182
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'deadline' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'deadline': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'setDeadline' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'setDeadline': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'QTypeInfo<RME::ui::ItemFinderDialogQt::QDeadlineTimer>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::ui::ItemFinderDialogQt::qRegisterNormalizedMetaType(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 182
+  },
+  {
+    "Compile error": "'QMetaTypeId<RME::ui::ItemFinderDialogQt::QDeadlineTimer>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 182
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'deadline' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'deadline': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'setDeadline' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'setDeadline': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'QTypeInfo<RME::ui::ItemFinderDialogQt::QDeadlineTimer>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::ui::ItemFinderDialogQt::qRegisterNormalizedMetaType(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 182
+  },
+  {
+    "Compile error": "'QMetaTypeId<RME::ui::ItemFinderDialogQt::QDeadlineTimer>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 182
+  },
+  {
+    "Compile error": "'ItemFinderDialogQt': class contains explicit override 'deadline' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'deadline': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'ItemFinderDialogQt': class contains explicit override 'setDeadline' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'setDeadline': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'QTypeInfo<ItemFinderDialogQt::QDeadlineTimer>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "explicit specialization 'int ItemFinderDialogQt::qRegisterNormalizedMetaType(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 182
+  },
+  {
+    "Compile error": "'QMetaTypeId<ItemFinderDialogQt::QDeadlineTimer>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 182
+  },
+  {
+    "Compile error": "'deadlineNSecs': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 154
+  },
+  {
+    "Compile error": "'rawRemainingTimeNSecs': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "'Forever': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 167
+  },
+  {
+    "Compile error": "'type': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 168
+  },
+  {
+    "Compile error": "'Forever': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 167
+  },
+  {
+    "Compile error": "'type': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 168
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::qRegisterNormalizedMetaType<RME::QDeadlineTimer>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 182
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::qRegisterNormalizedMetaType<RME::QDeadlineTimer>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 182
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::RME::qRegisterNormalizedMetaType<RME::RME::QDeadlineTimer>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 182
+  },
+  {
+    "Compile error": "'TimerType': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: identifier 'TimerType'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::QDeadlineTimer::QDeadlineTimer(void) noexcept': member function already defined or declared",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'TimerType': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "syntax error: identifier 'TimerType'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'TimerType': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "syntax error: identifier 'TimerType'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'TimerType': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'timerType': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'TimerType': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: identifier 'TimerType'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'TimerType': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: identifier 'TimerType'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'TimerType': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "syntax error: identifier 'TimerType'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'TimerType': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "syntax error: identifier 'TimerType'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'TimerType': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "syntax error: identifier 'TimerType'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'TimerType': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "syntax error: identifier 'TimerType'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'TimerType': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "syntax error: identifier 'TimerType'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'TimerType': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "syntax error: identifier 'TimerType'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'TimerType': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "syntax error: identifier 'TimerType'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'TimerType': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "syntax error: identifier 'TimerType'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 133
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 133
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 133
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 135
+  },
+  {
+    "Compile error": "'type_': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'type_': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'type_': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'type_': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'type_': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 102
+  },
+  {
+    "Compile error": "'type_': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'type_': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 102
+  },
+  {
+    "Compile error": "'type_': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::qRegisterNormalizedMetaType<RME::QDeadlineTimer>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 182
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'time_point': is not a member of 'RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "syntax error: identifier 'time_point'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "'time_point': is not a member of 'RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "syntax error: identifier 'time_point'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "binary operator '=' has too few parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'time_point': is not a member of 'RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "syntax error: identifier 'time_point'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'time_point': is not a member of 'RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "syntax error: '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'nanoseconds': is not a member of 'RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'remainingTimeAsDuration': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "operator '+' has no parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "binary operator '+=' has too few parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "'deadline_': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'type_': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'deadline_': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'type_': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'deadline_': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'RME::RME::RME::QDeadlineTimer::operator =': static member functions do not have 'this' pointers",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'deadline_': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'remaining': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'type_': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'remaining': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'type_': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'remaining': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'RME::RME::RME::QDeadlineTimer::operator =': static member functions do not have 'this' pointers",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'remaining': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'remaining': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::RME::RME::qRegisterNormalizedMetaType<RME::RME::RME::QDeadlineTimer>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 182
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'time_point': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "syntax error: identifier 'time_point'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "'time_point': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "syntax error: identifier 'time_point'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "binary operator '=' has too few parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'time_point': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "syntax error: identifier 'time_point'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'time_point': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "syntax error: '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'nanoseconds': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'remainingTimeAsDuration': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "operator '+' has no parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "binary operator '+=' has too few parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "'deadline_': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'type_': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'deadline_': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'type_': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'deadline_': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::QDeadlineTimer::operator =': static member functions do not have 'this' pointers",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'deadline_': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'remaining': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'type_': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'remaining': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'type_': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'remaining': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'time_point': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "syntax error: identifier 'time_point'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "'time_point': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "syntax error: identifier 'time_point'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "binary operator '=' has too few parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'time_point': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "syntax error: identifier 'time_point'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'time_point': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "syntax error: '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'nanoseconds': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'remainingTimeAsDuration': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "operator '+' has no parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "'duration': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "syntax error: identifier 'duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "binary operator '+=' has too few parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "'deadline_': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'type_': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'deadline_': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'type_': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'deadline_': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::qRegisterNormalizedMetaType<RME::QDeadlineTimer>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdeadlinetimer.h",
+    "Code line error": 182
+  }
+]

@@ -49,16 +49,12 @@ struct Position {
 
 // qHash overload for RME::Position, enabling its use as a key in QHash, QMap, QSet, etc.
 inline uint qHash(const Position& key, uint seed = 0) {
-    // A common way to combine hashes for struct members
-    uint h1 = qHash(key.x, seed);
-    uint h2 = qHash(key.y, seed);
-    uint h3 = qHash(key.z, seed);
-    // Simple XOR combination, can be made more sophisticated if needed
+    // Use global qHash for basic types to avoid recursive calls
+    uint h1 = ::qHash(key.x, seed);
+    uint h2 = ::qHash(key.y, seed);
+    uint h3 = ::qHash(key.z, seed);
+    // Simple XOR combination with bit shifting for better distribution
     return h1 ^ (h2 << 1) ^ (h3 << 2);
-    // Alternative from example:
-    // return qHash(key.x, seed) ^ qHash(key.y, seed << 1) ^ qHash(key.z, seed << 2);
-    // Or a more robust combination to better distribute hash values:
-    // return ((h1 << 16) | (h1 >> 16)) ^ h2 ^ ((h3 << 8) | (h3 >> 8)) ;
 }
 
 } // namespace RME
@@ -67,7 +63,11 @@ inline uint qHash(const Position& key, uint seed = 0) {
 namespace std {
     template <>
     struct hash<RME::Position> {
-        size_t operator()(const RME::Position& pos) const noexcept;
+        size_t operator()(const RME::Position& pos) const noexcept {
+            return std::hash<int>{}(pos.x) ^ 
+                   (std::hash<int>{}(pos.y) << 1) ^ 
+                   (std::hash<int>{}(pos.z) << 2);
+        }
     };
 }
 

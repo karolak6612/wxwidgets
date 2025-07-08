@@ -428,3 +428,5 @@ bool SelectionManager::hasSelection() const {
 }
 
 } // namespace RME
+
+// #include "SelectionManager.moc" // Removed - Q_OBJECT is in header

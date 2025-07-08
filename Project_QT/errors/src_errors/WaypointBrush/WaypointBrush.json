@@ -1,0 +1,72 @@
+[
+  {
+    "Compile error": "'TestWaypointBrush': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\brush\\WaypointBrush.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'RME::RME::core::WaypointBrush::hasMaterial': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\WaypointBrush.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'RME::RME::core::WaypointBrush::canDrag': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\WaypointBrush.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'RME::RME::core::WaypointBrush::canSmear': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\WaypointBrush.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::RME::core::WaypointBrush::oneSizeFitsAll': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\WaypointBrush.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'RME::core::WaypointBrush::hasMaterial': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\WaypointBrush.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'RME::core::WaypointBrush::canDrag': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\WaypointBrush.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'RME::core::WaypointBrush::canSmear': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\WaypointBrush.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::core::WaypointBrush::oneSizeFitsAll': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\WaypointBrush.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'TestWaypointBrush': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\brush\\WaypointBrush.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'RME::RME::RME::core::WaypointBrush::hasMaterial': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\WaypointBrush.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'RME::RME::RME::core::WaypointBrush::canDrag': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\WaypointBrush.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'RME::RME::RME::core::WaypointBrush::canSmear': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\WaypointBrush.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::RME::RME::core::WaypointBrush::oneSizeFitsAll': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\WaypointBrush.h",
+    "Code line error": 49
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushTooltipWidget.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushTooltipWidget.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushTooltipWidget.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushTooltipWidget.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'m_brush': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushTooltipWidget.h",
+    "Code line error": 37
+  }
+]

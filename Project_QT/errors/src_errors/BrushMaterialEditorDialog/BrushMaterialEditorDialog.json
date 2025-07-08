@@ -1,0 +1,262 @@
+[
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "'assets': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "syntax error: identifier 'MaterialManager'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 324
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 324
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 324
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 325
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 325
+  },
+  {
+    "Compile error": "'m_selectedPosition': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "'assets': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "syntax error: identifier 'MaterialManager'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 324
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 324
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 324
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 325
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 325
+  },
+  {
+    "Compile error": "'m_selectedPosition': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "'assets': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "syntax error: identifier 'MaterialManager'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 324
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 324
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 324
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 325
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 325
+  },
+  {
+    "Compile error": "'m_selectedPosition': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "'assets': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "'MaterialManager': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "syntax error: identifier 'MaterialManager'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 324
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 324
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 324
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 325
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 325
+  },
+  {
+    "Compile error": "'m_selectedPosition': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\BrushMaterialEditorDialog.h",
+    "Code line error": 85
+  }
+]

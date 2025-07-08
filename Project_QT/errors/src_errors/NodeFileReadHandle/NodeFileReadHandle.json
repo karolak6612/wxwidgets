@@ -1,0 +1,27 @@
+[
+  {
+    "Compile error": "Cannot open include file: 'QtZlib/qtzlib.h': No such file or directory",
+    "File": "Project_QT\\src\\core\\io\\NodeFileReadHandle.cpp",
+    "Code line error": 4
+  },
+  {
+    "Compile error": "'RME_OTBM_IO_NO_ERROR': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\NodeFileReadHandle.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'RME_OTBM_IO_NO_ERROR': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\NodeFileReadHandle.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'RME_OTBM_IO_NO_ERROR': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\NodeFileReadHandle.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'RME_OTBM_IO_NO_ERROR': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\NodeFileReadHandle.h",
+    "Code line error": 38
+  }
+]

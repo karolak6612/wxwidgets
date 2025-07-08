@@ -1,0 +1,182 @@
+[
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'RME::QItemSelectionRange': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 194
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 194
+  },
+  {
+    "Compile error": "'RME::QItemSelection': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 194
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 194
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 194
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 194
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 194
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::qRegisterNormalizedMetaType<RME::QItemSelectionRange>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 202
+  },
+  {
+    "Compile error": "'checkTypeIsSuitableForMetaType': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 202
+  },
+  {
+    "Compile error": "'checkTypeIsSuitableForMetaType': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 202
+  },
+  {
+    "Compile error": "'RME::QItemSelectionRange': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 202
+  },
+  {
+    "Compile error": "syntax error: ')'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 202
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 202
+  },
+  {
+    "Compile error": "'typenameHelper': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 202
+  },
+  {
+    "Compile error": "'typenameHelper': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 202
+  },
+  {
+    "Compile error": "'arr': cannot be used before it is initialized",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 202
+  },
+  {
+    "Compile error": "'name': cannot be used before it is initialized",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 202
+  },
+  {
+    "Compile error": "'id': const object must be initialized",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 202
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::qRegisterNormalizedMetaType<RME::QItemSelection>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 203
+  },
+  {
+    "Compile error": "'checkTypeIsSuitableForMetaType': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 203
+  },
+  {
+    "Compile error": "'checkTypeIsSuitableForMetaType': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 203
+  },
+  {
+    "Compile error": "'RME::QItemSelection': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 203
+  },
+  {
+    "Compile error": "syntax error: ')'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 203
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 203
+  },
+  {
+    "Compile error": "'typenameHelper': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 203
+  },
+  {
+    "Compile error": "'typenameHelper': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 203
+  },
+  {
+    "Compile error": "'arr': cannot be used before it is initialized",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 203
+  },
+  {
+    "Compile error": "'name': cannot be used before it is initialized",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 203
+  },
+  {
+    "Compile error": "'id': const object must be initialized",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qitemselectionmodel.h",
+    "Code line error": 203
+  }
+]

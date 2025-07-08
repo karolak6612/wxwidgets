@@ -1,0 +1,7 @@
+[
+  {
+    "Compile error": "'TestDoodadBrush': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\brush\\DoodadBrush.h",
+    "Code line error": 27
+  }
+]

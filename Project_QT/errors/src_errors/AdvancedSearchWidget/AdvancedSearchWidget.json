@@ -1,0 +1,507 @@
+[
+  {
+    "Compile error": "'AdvancedSearchWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 10
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 10
+  },
+  {
+    "Compile error": "'RME::RME::RME::ui::palettes::AdvancedSearchWidget': constructor initializer lists are only allowed on constructor definitions",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 12
+  },
+  {
+    "Compile error": "'setObjectName': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'m_searchTimer': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'m_searchTimer': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "'m_searchTimer': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'SEARCH_DELAY_MS': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'setupUI': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 20
+  },
+  {
+    "Compile error": "'setupConnections': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::RME::RME::ui::palettes::AdvancedSearchWidget': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'AdvancedSearchWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'RME::RME::RME::ui::palettes::{dtor}': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'AdvancedSearchWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'setFilterManager': this use of 'void' is not valid",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'BrushFilterManager': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'filterManager': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'AdvancedSearchWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'getSearchText': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'m_searchEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'m_searchEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'AdvancedSearchWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'m_searchEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'m_searchEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'m_searchEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'AdvancedSearchWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'m_searchEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'m_searchEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "'AdvancedSearchWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'m_filterManager': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "'m_filterManager': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'m_searchEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'m_searchEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'m_searchModeCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'m_searchModeCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'m_terrainCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'m_terrainCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'m_objectsCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'m_objectsCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'m_entitiesCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'m_entitiesCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'m_specialCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "'m_specialCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "'m_tagEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'m_tagEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'m_tagList': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'m_tagList': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'m_typeList': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'m_typeList': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'m_recentOnlyCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'m_recentOnlyCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'m_favoritesOnlyCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'m_favoritesOnlyCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'m_caseSensitiveCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'m_caseSensitiveCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'AdvancedSearchWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "'hasActiveFilters': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "'m_filterManager': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "'m_filterManager': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "'AdvancedSearchWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 102
+  },
+  {
+    "Compile error": "'getFilterSummary': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 102
+  },
+  {
+    "Compile error": "'m_filterManager': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'m_filterManager': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'AdvancedSearchWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'m_expanded': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 109
+  },
+  {
+    "Compile error": "'!=': unsafe mix of type '<error type>' and type 'bool' in operation",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 109
+  },
+  {
+    "Compile error": "'m_expanded': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'updateExpandedState': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 112
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'expandedChanged'",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 112
+  },
+  {
+    "Compile error": "'expandedChanged': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 112
+  },
+  {
+    "Compile error": "'AdvancedSearchWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 116
+  },
+  {
+    "Compile error": "'m_searchTimer': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'m_searchTimer': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'AdvancedSearchWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 123
+  },
+  {
+    "Compile error": "'m_filterManager': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 125
+  },
+  {
+    "Compile error": "'m_searchModeCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 125
+  },
+  {
+    "Compile error": "'BrushFilterManager': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: identifier 'SearchMode'",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'m_filterManager': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'mode': cannot be used before it is initialized",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'AdvancedSearchWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 131
+  },
+  {
+    "Compile error": "'m_filterManager': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 133
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.cpp",
+    "Code line error": 133
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.h",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.h",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "'m_filterManager': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.h",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'m_expanded': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::QWidget': base class undefined",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.h",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.h",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::RME::RME::QString'",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.h",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\ui\\palettes\\AdvancedSearchWidget.h",
+    "Code line error": 31
+  }
+]

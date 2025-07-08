@@ -1,0 +1,117 @@
+[
+  {
+    "Compile error": "'BaseCommand': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QList': 'RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'editor': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'QList': 'RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'QMap': 'RME::Position' is not a valid template type argument for parameter 'Key'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'QSet': 'RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'QSet': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'RME::core::actions::BrushStrokeCommand::~BrushStrokeCommand': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'RME::core::actions::BrushStrokeCommand::undo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'RME::core::actions::BrushStrokeCommand::redo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'RME::core::actions::BrushStrokeCommand::id': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'RME::core::actions::BrushStrokeCommand::mergeWith': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BrushStrokeCommand.h",
+    "Code line error": 46
+  }
+]

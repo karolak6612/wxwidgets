@@ -1,0 +1,7 @@
+[
+  {
+    "Compile error": "use of undefined type 'RME::RME::RME::RME::QString'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qcheckbox.h",
+    "Code line error": 20
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "Compile error": "'BasePalettePanel': base class undefined",
+    "File": "Project_QT\\src\\ui\\palettes\\CreaturePalettePanel.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'IBrushStateService': is not a member of 'RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\ui\\palettes\\CreaturePalettePanel.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "syntax error: identifier 'IBrushStateService'",
+    "File": "Project_QT\\src\\ui\\palettes\\CreaturePalettePanel.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\palettes\\CreaturePalettePanel.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\CreaturePalettePanel.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::ui::palettes::CreaturePalettePanel::~CreaturePalettePanel': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\ui\\palettes\\CreaturePalettePanel.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::ui::palettes::CreaturePalettePanel::refreshContent': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\ui\\palettes\\CreaturePalettePanel.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::ui::palettes::CreaturePalettePanel::clearSelection': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\ui\\palettes\\CreaturePalettePanel.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\CreaturePalettePanel.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\CreaturePalettePanel.h",
+    "Code line error": 119
+  }
+]

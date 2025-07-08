@@ -1,0 +1,232 @@
+[
+  {
+    "Compile error": "binary operator '|' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ItemFinderDialogQt::operator |': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '&' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ItemFinderDialogQt::operator &': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '^' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ItemFinderDialogQt::operator ^': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '+' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '-' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::QMessageBox::event': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 302
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::QMessageBox::changeEvent': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 307
+  },
+  {
+    "Compile error": "binary operator '|' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator |': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '&' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator &': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '^' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator ^': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '+' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '-' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::QMessageBox::event': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 302
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::QMessageBox::changeEvent': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 307
+  },
+  {
+    "Compile error": "binary operator '|' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator |': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '&' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator &': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '^' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator ^': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '+' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '-' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::QMessageBox::event': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 302
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::QMessageBox::changeEvent': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 307
+  },
+  {
+    "Compile error": "binary operator '|' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator |': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '&' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator &': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '^' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator ^': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '+' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '-' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '|' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ItemFinderDialogQt::operator |': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '&' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ItemFinderDialogQt::operator &': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '^' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'RME::ItemFinderDialogQt::operator ^': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '+' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "binary operator '-' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qmessagebox.h",
+    "Code line error": 314
+  }
+]

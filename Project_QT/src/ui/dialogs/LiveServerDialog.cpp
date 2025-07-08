@@ -93,3 +93,5 @@ void LiveServerDialog::onServerStateChanged(bool isRunning)
 } // namespace dialogs
 } // namespace ui
 } // namespace RME
+
+// #include "LiveServerDialog.moc" // Removed - Q_OBJECT is in header

@@ -4,11 +4,10 @@
 #include <QFileInfo> // For path operations
 #include <QCoreApplication> // For applicationDirPath fallback, already in .h but good for .cpp too
 
-// Assuming types like ItemData, CreatureData, MaterialData are in RME::core::assets
-// This using directive might simplify the implementation if these types are used frequently.
-// However, it's often clearer to use fully qualified names or specific 'using' declarations.
-// For now, I will use qualified names in new/changed code for clarity.
-// using namespace RME::core::assets;
+// Using declarations for commonly used types to reduce namespace verbosity
+using RME::core::assets::ItemData;
+using RME::core::assets::CreatureData;
+using RME::core::assets::MaterialData;
 
 namespace RME {
 // If AssetManager.h declares AssetManager in RME::core::assets, this should match.

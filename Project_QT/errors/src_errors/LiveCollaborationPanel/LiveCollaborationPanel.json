@@ -1,0 +1,72 @@
+[
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\ui\\widgets\\LiveCollaborationPanel.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\ui\\widgets\\LiveCollaborationPanel.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'network': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\widgets\\LiveCollaborationPanel.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'QtLiveClient': is not a member of 'RME'",
+    "File": "Project_QT\\src\\ui\\widgets\\LiveCollaborationPanel.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "syntax error: identifier 'QtLiveClient'",
+    "File": "Project_QT\\src\\ui\\widgets\\LiveCollaborationPanel.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'Map': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\ui\\widgets\\LiveCollaborationPanel.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "syntax error: identifier 'Map'",
+    "File": "Project_QT\\src\\ui\\widgets\\LiveCollaborationPanel.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'editor': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\widgets\\LiveCollaborationPanel.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'EditorControllerInterface': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\ui\\widgets\\LiveCollaborationPanel.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "syntax error: identifier 'EditorControllerInterface'",
+    "File": "Project_QT\\src\\ui\\widgets\\LiveCollaborationPanel.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\widgets\\LiveCollaborationPanel.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\widgets\\LiveCollaborationPanel.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\widgets\\LiveCollaborationPanel.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\widgets\\LiveCollaborationPanel.h",
+    "Code line error": 145
+  }
+]

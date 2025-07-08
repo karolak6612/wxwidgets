@@ -1,0 +1,57 @@
+[
+  {
+    "Compile error": "'BasePalettePanel': base class undefined",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushPalettePanel.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushPalettePanel.h",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushPalettePanel.h",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "'RME::RME::ui::palettes::BrushPalettePanel::setServiceContainer': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushPalettePanel.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'RME::RME::ui::palettes::BrushPalettePanel::refreshContent': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushPalettePanel.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'RME::RME::ui::palettes::BrushPalettePanel::updateFromSettings': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushPalettePanel.h",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushPalettePanel.h",
+    "Code line error": 181
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushPalettePanel.h",
+    "Code line error": 181
+  },
+  {
+    "Compile error": "'m_viewMode': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushPalettePanel.h",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "'m_filterManager': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushPalettePanel.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'m_brushOrganizer': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushPalettePanel.h",
+    "Code line error": 94
+  }
+]

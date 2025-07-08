@@ -1,0 +1,72 @@
+[
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushCategoryTab.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushCategoryTab.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushCategoryTab.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushCategoryTab.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'m_category': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushCategoryTab.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'m_viewMode': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushCategoryTab.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'m_searchFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushCategoryTab.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushCategoryTab.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushCategoryTab.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushCategoryTab.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushCategoryTab.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'m_category': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushCategoryTab.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'m_viewMode': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushCategoryTab.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'m_searchFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushCategoryTab.h",
+    "Code line error": 81
+  }
+]

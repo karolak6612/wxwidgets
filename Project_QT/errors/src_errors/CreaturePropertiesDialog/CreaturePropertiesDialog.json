@@ -1,0 +1,497 @@
+[
+  {
+    "Compile error": "'CreaturePropertiesDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 12
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 12
+  },
+  {
+    "Compile error": "'RME::RME::ui::dialogs::CreaturePropertiesDialog': constructor initializer lists are only allowed on constructor definitions",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 15
+  },
+  {
+    "Compile error": "'m_creatureCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'setWindowTitle': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'setModal': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "'setFixedSize': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 20
+  },
+  {
+    "Compile error": "'createBackup': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'setupUI': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'loadCreatureData': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'connectSignals': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'RME::RME::ui::dialogs::CreaturePropertiesDialog': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'CreaturePropertiesDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'m_mainLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'m_creatureNameLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QLabel'",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'m_creatureNameLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'m_creatureNameLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'m_mainLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'m_creatureNameLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'m_positionLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QLabel'",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'m_positionLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'m_positionLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'m_mainLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'m_positionLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'m_spawnIntervalSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'m_spawnIntervalSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'m_spawnIntervalSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'m_spawnIntervalSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'m_spawnIntervalSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'m_spawnIntervalSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'m_spawnIntervalSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'m_directionCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'m_directionCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'setupDirectionCombo': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'m_directionCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'m_directionCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'m_mainLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'m_buttonBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'m_mainLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'m_buttonBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'CreaturePropertiesDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'m_directionCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'Direction': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'NORTH': is not a member of 'RME::RME'",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'NORTH': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'m_directionCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "'Direction': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "'EAST': is not a member of 'RME::RME'",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "'EAST': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "'m_directionCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'Direction': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'SOUTH': is not a member of 'RME::RME'",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'SOUTH': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'m_directionCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'Direction': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'WEST': is not a member of 'RME::RME'",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'WEST': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'m_directionCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'Direction': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'NORTHEAST': is not a member of 'RME::RME'",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'NORTHEAST': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'m_directionCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'Direction': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'NORTHWEST': is not a member of 'RME::RME'",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'NORTHWEST': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'m_directionCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'Direction': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.cpp",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'m_wasModified': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.h",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'m_creatureCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'m_wasModified': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.h",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'m_creatureCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\CreaturePropertiesDialog.h",
+    "Code line error": 40
+  }
+]

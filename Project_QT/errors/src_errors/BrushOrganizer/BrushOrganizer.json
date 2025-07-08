@@ -1,0 +1,62 @@
+[
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushOrganizer.h",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushOrganizer.h",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushOrganizer.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushOrganizer.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'m_sortOrder': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushOrganizer.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'RME::QObject': base class undefined",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushOrganizer.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushOrganizer.h",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushOrganizer.h",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushOrganizer.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushOrganizer.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::RME::RME::QString'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushOrganizer.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'m_sortOrder': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushOrganizer.h",
+    "Code line error": 76
+  }
+]

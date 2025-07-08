@@ -1,0 +1,207 @@
+[
+  {
+    "Compile error": "'RME::QObject': base class undefined",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveServerControlPanelQt.cpp",
+    "Code line error": 9
+  },
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveServerControlPanelQt.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveServerControlPanelQt.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveServerControlPanelQt.cpp",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveServerControlPanelQt.cpp",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'RME::QtLiveServer': illegal member initialization: 'QObject' is not a base or member",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveServerControlPanelQt.cpp",
+    "Code line error": 12
+  },
+  {
+    "Compile error": "unexpected end-of-file found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveServerControlPanelQt.cpp",
+    "Code line error": 436
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveServerControlPanelQt.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveServerControlPanelQt.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveServerControlPanelQt.h",
+    "Code line error": 143
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveServerControlPanelQt.h",
+    "Code line error": 143
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'qt_meta_tag_ZN12QtLiveServerE_t': undeclared identifier",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'qt_create_metaobjectdata': illegal qualified name in member declaration",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "explicit specialization 'auto RME::QtLiveServer::qt_create_metaobjectdata(void)' is not a specialization of a function template",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'staticMetaObject': illegal qualified name in member declaration",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'const QMetaObject RME::QtLiveServer::staticMetaObject': redefinition",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'qt_static_metacall': illegal qualified name in member declaration",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "cannot overload static and non-static member functions with the same parameter types",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'_t': a non-static data member cannot have a type that contains 'auto'",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "type 'void' unexpected",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "type 'void' unexpected",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "type 'void' unexpected",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "type 'void' unexpected",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "constexpr function 'RME::QtLiveServer::qt_create_metaobjectdata' cannot result in a constant expression",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'_o': undeclared identifier",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'const QMetaObject *RME::QtLiveServer::metaObject(void) const': redeclaration of member is not allowed",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "syntax error: '{'",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "'qt_meta_tag_ZN12QtLiveServerE_t': undeclared identifier",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'RME::QtLiveServer::qt_staticMetaObjectStaticContent': 'qt_meta_tag_ZN12QtLiveServerE_t' is not a valid template type argument for parameter 'MetaObjectTagType'",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "type '<error type>' unexpected",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QObject'",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QObject'",
+    "File": "Project_QT\\build\\src\\RME_Qt6_autogen\\include_Debug\\LiveServerControlPanelQt.moc",
+    "Code line error": 86
+  }
+]

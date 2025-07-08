@@ -1,0 +1,62 @@
+[
+  {
+    "Compile error": "'RME::QSpan': too few template arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qiodevice.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'RME::QSpan': use of class template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qiodevice.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'RME::QSpan': too few template arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qiodevice.h",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "'RME::QSpan': use of class template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qiodevice.h",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "'QByteArrayView RME::QIODevice::readLineInto(RME::QSpan)': member function already defined or declared",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qiodevice.h",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "'RME::QSpan': too few template arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qiodevice.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'RME::QSpan': use of class template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qiodevice.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'QByteArrayView RME::QIODevice::readLineInto(RME::QSpan)': member function already defined or declared",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qiodevice.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'as_writable_bytes': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qiodevice.h",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qiodevice.h",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'RME::QObject': base class undefined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qiodevice.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'d_ptr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qiodevice.h",
+    "Code line error": 146
+  }
+]

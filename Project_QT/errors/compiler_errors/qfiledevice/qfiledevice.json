@@ -1,0 +1,112 @@
+[
+  {
+    "Compile error": "'RME::QIODevice': base class undefined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'RME::QFileDevice::close': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'RME::QFileDevice::isSequential': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'RME::QFileDevice::pos': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'RME::QFileDevice::seek': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'RME::QFileDevice::atEnd': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'RME::QFileDevice::size': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'RME::QFileDevice::readData': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 122
+  },
+  {
+    "Compile error": "'RME::QFileDevice::writeData': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 123
+  },
+  {
+    "Compile error": "'RME::QFileDevice::readLineData': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "'d_ptr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'RME::RME::QIODevice': base class undefined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'RME::RME::QFileDevice::close': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'RME::RME::QFileDevice::isSequential': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'RME::RME::QFileDevice::pos': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'RME::RME::QFileDevice::seek': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'RME::RME::QFileDevice::atEnd': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'RME::RME::QFileDevice::size': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'RME::RME::QFileDevice::readData': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 122
+  },
+  {
+    "Compile error": "'RME::RME::QFileDevice::writeData': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 123
+  },
+  {
+    "Compile error": "'RME::RME::QFileDevice::readLineData': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "'d_ptr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfiledevice.h",
+    "Code line error": 36
+  }
+]

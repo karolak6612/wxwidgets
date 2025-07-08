@@ -1,0 +1,82 @@
+[
+  {
+    "Compile error": "'_Is_constant_evaluated': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\__msvc_int128.hpp",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "syntax error: identifier 'enable_if_t'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\__msvc_int128.hpp",
+    "Code line error": 305
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\__msvc_int128.hpp",
+    "Code line error": 305
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\__msvc_int128.hpp",
+    "Code line error": 305
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\__msvc_int128.hpp",
+    "Code line error": 306
+  },
+  {
+    "Compile error": "'numeric_limits': symbol is not a class template",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\__msvc_int128.hpp",
+    "Code line error": 980
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier '_Unsigned128'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\__msvc_int128.hpp",
+    "Code line error": 980
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::numeric_limits' is not a specialization of a class template",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\__msvc_int128.hpp",
+    "Code line error": 980
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\__msvc_int128.hpp",
+    "Code line error": 980
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\__msvc_int128.hpp",
+    "Code line error": 980
+  },
+  {
+    "Compile error": "'_Is_constant_evaluated': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\__msvc_int128.hpp",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'_Is_constant_evaluated': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\__msvc_int128.hpp",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'_Is_constant_evaluated': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\__msvc_int128.hpp",
+    "Code line error": 128
+  },
+  {
+    "Compile error": "'_Is_constant_evaluated': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\__msvc_int128.hpp",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'_Is_constant_evaluated': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\__msvc_int128.hpp",
+    "Code line error": 180
+  },
+  {
+    "Compile error": "unable to recover from previous error(s); stopping compilation",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\__msvc_int128.hpp",
+    "Code line error": 234
+  }
+]

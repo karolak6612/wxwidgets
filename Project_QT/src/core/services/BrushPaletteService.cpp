@@ -478,3 +478,5 @@ QString BrushPaletteService::getSettingsKey(const QString& key) const {
 
 } // namespace core
 } // namespace RME
+
+// #include "BrushPaletteService.moc" // Removed - Q_OBJECT is in header

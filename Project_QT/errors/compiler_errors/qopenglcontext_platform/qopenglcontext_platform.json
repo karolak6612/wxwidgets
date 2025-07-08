@@ -1,0 +1,27 @@
+[
+  {
+    "Compile error": "'Private': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qopenglcontext_platform.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'has_type_info': is not a member of 'RME::QNativeInterface'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qopenglcontext_platform.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'hasTypeInfo': is not a member of 'RME::QNativeInterface'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qopenglcontext_platform.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'TypeInfo': is not a member of 'RME::QNativeInterface'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qopenglcontext_platform.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'RME::QNativeInterface::QWGLContext::TypeInfo ': symbol is not a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qopenglcontext_platform.h",
+    "Code line error": 57
+  }
+]

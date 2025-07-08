@@ -1,0 +1,132 @@
+[
+  {
+    "Compile error": "'isDoor': is not a member of 'RME::core::assets::ItemData'",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'isTeleport': is not a member of 'RME::core::assets::ItemData'",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.cpp",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'isBed': is not a member of 'RME::core::assets::ItemData'",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.cpp",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'isDepot': is not a member of 'RME::core::assets::ItemData'",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.cpp",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'isHangable': is not a member of 'RME::core::assets::ItemData'",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.cpp",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'isVertical': is not a member of 'RME::core::assets::ItemData'",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.cpp",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'isHorizontal': is not a member of 'RME::core::assets::ItemData'",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.cpp",
+    "Code line error": 123
+  },
+  {
+    "Compile error": "'isDecoration': is not a member of 'RME::core::assets::ItemData'",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.cpp",
+    "Code line error": 138
+  },
+  {
+    "Compile error": "'speed': is not a member of 'RME::core::assets::ItemData'",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.cpp",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'maxReadWriteChars': is not a member of 'RME::core::assets::ItemData'",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.cpp",
+    "Code line error": 166
+  },
+  {
+    "Compile error": "'maxItems': is not a member of 'RME::core::assets::ItemData'",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.cpp",
+    "Code line error": 171
+  },
+  {
+    "Compile error": "'weight': is not a member of 'RME::core::assets::ItemData'",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.cpp",
+    "Code line error": 176
+  },
+  {
+    "Compile error": "'description': is not a member of 'RME::core::assets::ItemData'",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.cpp",
+    "Code line error": 186
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::assets::ItemDatabase'",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.cpp",
+    "Code line error": 207
+  },
+  {
+    "Compile error": "'RME::core::ItemTypeProvider::isBed': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'RME::core::ItemTypeProvider::isPickupable': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'RME::core::ItemTypeProvider::isRotatable': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::core::ItemTypeProvider::isHangable': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'RME::core::ItemTypeProvider::isVertical': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'RME::core::ItemTypeProvider::isHorizontal': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'RME::core::ItemTypeProvider::isDecoration': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'RME::core::ItemTypeProvider::getSpeed': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'RME::core::ItemTypeProvider::getLightLevel': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'RME::core::ItemTypeProvider::getMaxReadWriteChars': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'RME::core::ItemTypeProvider::getMaxItems': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'RME::core::ItemTypeProvider::getWeight': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\ItemTypeProvider.h",
+    "Code line error": 61
+  }
+]

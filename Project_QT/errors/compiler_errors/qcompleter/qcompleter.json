@@ -1,0 +1,32 @@
+[
+  {
+    "Compile error": "'RME::QObject': base class undefined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qcompleter.h",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::QCompleter::~QCompleter': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qcompleter.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::QCompleter::eventFilter': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qcompleter.h",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::QCompleter::event': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qcompleter.h",
+    "Code line error": 112
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::RME::RME::QString'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qcompleter.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'d_ptr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qcompleter.h",
+    "Code line error": 122
+  }
+]

@@ -6,57 +6,41 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>
+#include <QPalette>
 
-// Qlementine includes (FINAL-07)
-#include <oclero/qlementine.hpp>
+// Qlementine removed - using default Qt styling
 
 #include "core/utils/ResourcePathManager.h"
 #include "ui/MainWindow.h"
 #include "ui/dialogs/WelcomeDialog.h"
 #include "core/settings/AppSettings.h"
 
-// Function to initialize Qlementine theme (FINAL-07)
-void initializeQlementineTheme(QApplication& app, RME::core::settings::AppSettings& settings) {
-    // Get theme preference from settings (default to light theme)
-    QString themeName = settings.getString("ui/theme", "light");
+// Function to initialize Qt theme (simplified - no Qlementine)
+void initializeQtTheme(QApplication& app, RME::core::settings::AppSettings& settings) {
+    // Get theme preference from settings (default to system theme)
+    QString themeName = settings.getString("ui/theme", "system");
     
-    // Load theme from resources
-    QString themeResourcePath = QString(":/themes/%1.json").arg(themeName);
-    QFile themeFile(themeResourcePath);
-    
-    if (!themeFile.open(QIODevice::ReadOnly)) {
-        qWarning() << "Failed to open theme file:" << themeResourcePath;
-        qWarning() << "Falling back to default light theme";
-        themeResourcePath = ":/themes/light.json";
-        themeFile.setFileName(themeResourcePath);
-        if (!themeFile.open(QIODevice::ReadOnly)) {
-            qWarning() << "Failed to open fallback theme file, using default Qlementine theme";
-            // Apply default Qlementine theme without custom JSON
-            oclero::qlementine::installTheme(&app);
-            return;
-        }
-    }
-    
-    // Parse theme JSON
-    QByteArray themeData = themeFile.readAll();
-    QJsonParseError parseError;
-    QJsonDocument themeDoc = QJsonDocument::fromJson(themeData, &parseError);
-    
-    if (parseError.error != QJsonParseError::NoError) {
-        qWarning() << "Failed to parse theme JSON:" << parseError.errorString();
-        qWarning() << "Using default Qlementine theme";
-        oclero::qlementine::installTheme(&app);
-        return;
-    }
-    
-    // Apply Qlementine theme with custom JSON
-    try {
-        oclero::qlementine::installTheme(&app, themeDoc.object());
-        qInfo() << "Successfully applied Qlementine theme:" << themeName;
-    } catch (const std::exception& e) {
-        qWarning() << "Failed to apply Qlementine theme:" << e.what();
-        qWarning() << "Using default Qlementine theme";
-        oclero::qlementine::installTheme(&app);
+    if (themeName == "dark") {
+        // Apply dark palette
+        QPalette darkPalette;
+        darkPalette.setColor(QPalette::Window, QColor(53, 53, 53));
+        darkPalette.setColor(QPalette::WindowText, Qt::white);
+        darkPalette.setColor(QPalette::Base, QColor(25, 25, 25));
+        darkPalette.setColor(QPalette::AlternateBase, QColor(53, 53, 53));
+        darkPalette.setColor(QPalette::ToolTipBase, Qt::white);
+        darkPalette.setColor(QPalette::ToolTipText, Qt::white);
+        darkPalette.setColor(QPalette::Text, Qt::white);
+        darkPalette.setColor(QPalette::Button, QColor(53, 53, 53));
+        darkPalette.setColor(QPalette::ButtonText, Qt::white);
+        darkPalette.setColor(QPalette::BrightText, Qt::red);
+        darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
+        darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+        darkPalette.setColor(QPalette::HighlightedText, Qt::black);
+        app.setPalette(darkPalette);
+        qInfo() << "Applied dark theme";
+    } else {
+        // Use system default theme
+        qInfo() << "Using system default theme";
     }
 }
 
@@ -75,8 +59,8 @@ int main(int argc, char *argv[])
     // Initialize settings early for theme loading
     RME::core::settings::AppSettings settings;
     
-    // Apply Qlementine theme (FINAL-07)
-    initializeQlementineTheme(app, settings);
+    // Apply Qt theme (simplified - no Qlementine)
+    initializeQtTheme(app, settings);
     
     // Create the main window
     MainWindow mainWindow;

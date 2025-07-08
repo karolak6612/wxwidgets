@@ -1,0 +1,22 @@
+[
+  {
+    "Compile error": "syntax error: 'string'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocnum",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocnum",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocnum",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocnum",
+    "Code line error": 38
+  }
+]

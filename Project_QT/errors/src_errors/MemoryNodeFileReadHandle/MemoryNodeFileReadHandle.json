@@ -1,0 +1,32 @@
+[
+  {
+    "Compile error": "'RME::core::io::NodeFileReadHandle::m_rootNode': cannot access private member declared in class 'RME::core::io::NodeFileReadHandle'",
+    "File": "Project_QT\\src\\core\\io\\MemoryNodeFileReadHandle.cpp",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'RME::core::io::NodeFileReadHandle::m_nodePool': cannot access private member declared in class 'RME::core::io::NodeFileReadHandle'",
+    "File": "Project_QT\\src\\core\\io\\MemoryNodeFileReadHandle.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'RME::core::io::NodeFileReadHandle::m_recycledNodes': cannot access private member declared in class 'RME::core::io::NodeFileReadHandle'",
+    "File": "Project_QT\\src\\core\\io\\MemoryNodeFileReadHandle.cpp",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::core::io::NodeFileReadHandle::m_recycledNodes': cannot access private member declared in class 'RME::core::io::NodeFileReadHandle'",
+    "File": "Project_QT\\src\\core\\io\\MemoryNodeFileReadHandle.cpp",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::core::io::NodeFileReadHandle::m_rootNode': cannot access private member declared in class 'RME::core::io::NodeFileReadHandle'",
+    "File": "Project_QT\\src\\core\\io\\MemoryNodeFileReadHandle.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'RME::core::io::NodeFileReadHandle::m_lastByteWasStart': cannot access private member declared in class 'RME::core::io::NodeFileReadHandle'",
+    "File": "Project_QT\\src\\core\\io\\MemoryNodeFileReadHandle.cpp",
+    "Code line error": 45
+  }
+]

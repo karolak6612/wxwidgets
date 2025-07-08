@@ -1,0 +1,357 @@
+[
+  {
+    "Compile error": "'ServerHostingDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 12
+  },
+  {
+    "Compile error": "'ServerHostingDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 14
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 14
+  },
+  {
+    "Compile error": "'RME::RME::ui::dialogs::ServerHostingDialog': constructor initializer lists are only allowed on constructor definitions",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "'setWindowTitle': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "'setModal': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 20
+  },
+  {
+    "Compile error": "'setMinimumSize': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'setupUI': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'loadSettings': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'updateUI': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'RME::RME::ui::dialogs::ServerHostingDialog': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'ServerHostingDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'m_mainLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'m_settingsGroup': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QGroupBox::QGroupBox(const QGroupBox &)': attempting to reference a deleted function",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'m_settingsLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'m_settingsGroup': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'m_serverNameEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'m_serverNameEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'m_settingsLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'m_serverNameEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'m_portSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'m_portSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'m_portSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'DEFAULT_PORT': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'m_settingsLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'m_portSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'m_requirePasswordCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QCheckBox'",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'m_settingsLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'m_requirePasswordCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'m_passwordEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'m_passwordEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'m_passwordEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'m_settingsLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'m_passwordEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'m_maxClientsSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'m_maxClientsSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'m_maxClientsSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'DEFAULT_MAX_CLIENTS': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'m_settingsLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'m_maxClientsSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'m_allowGuestsCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QCheckBox'",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'m_allowGuestsCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'m_settingsLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'m_allowGuestsCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'m_welcomeMessageEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'m_welcomeMessageEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'m_welcomeMessageEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'m_settingsLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'m_welcomeMessageEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'m_mainLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.cpp",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\ServerHostingDialog.h",
+    "Code line error": 114
+  }
+]

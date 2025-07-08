@@ -341,3 +341,5 @@ QColor MinimapViewWidget::getItemMinimapColor(uint16_t itemId) const
 } // namespace widgets
 } // namespace ui
 } // namespace RME
+
+// #include "MinimapViewWidget.moc" // Removed - Q_OBJECT is in header

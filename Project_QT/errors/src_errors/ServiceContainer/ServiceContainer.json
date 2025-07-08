@@ -1,0 +1,22 @@
+[
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\core\\services\\ServiceContainer.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\services\\ServiceContainer.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\services\\ServiceContainer.h",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\services\\ServiceContainer.h",
+    "Code line error": 87
+  }
+]

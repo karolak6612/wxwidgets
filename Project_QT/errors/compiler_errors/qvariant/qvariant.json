@@ -1,0 +1,482 @@
+[
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "syntax error: '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'RME::QVariant': class template has already been declared as a non-class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 713
+  },
+  {
+    "Compile error": "'isValid': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 713
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 715
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 726
+  },
+  {
+    "Compile error": "syntax error: identifier 'Type'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 726
+  },
+  {
+    "Compile error": "binary operator '>>' has too few parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 726
+  },
+  {
+    "Compile error": "binary '>>': no operator found which takes a right-hand operand of type 'quint32' (or there is no acceptable conversion)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 729
+  },
+  {
+    "Compile error": "'p': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 730
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 730
+  },
+  {
+    "Compile error": "syntax error: identifier 'Type'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 730
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 734
+  },
+  {
+    "Compile error": "syntax error: missing ')' before identifier 'p'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 734
+  },
+  {
+    "Compile error": "'p': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 734
+  },
+  {
+    "Compile error": "syntax error: ')'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 734
+  },
+  {
+    "Compile error": "'p': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 736
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 744
+  },
+  {
+    "Compile error": "'isDetached': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 744
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 745
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 745
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 748
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 755
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 756
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 760
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 761
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 765
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 765
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 772
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 773
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 773
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 774
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 776
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 776
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 777
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 779
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 789
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 790
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 794
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 794
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 799
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 802
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 814
+  },
+  {
+    "Compile error": "'RME::QtPrivate::QVariantTypeCoercer::converted' uses undefined class 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 828
+  },
+  {
+    "Compile error": "'RME::QVariantConstPointer::m_variant' uses undefined class 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 860
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "syntax error: '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'RME::QVariant': class template has already been declared as a non-class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 713
+  },
+  {
+    "Compile error": "'isValid': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 713
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 715
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 726
+  },
+  {
+    "Compile error": "syntax error: identifier 'Type'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 726
+  },
+  {
+    "Compile error": "binary operator '>>' has too few parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 726
+  },
+  {
+    "Compile error": "binary '>>': no operator found which takes a right-hand operand of type 'quint32' (or there is no acceptable conversion)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 729
+  },
+  {
+    "Compile error": "'p': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 730
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 730
+  },
+  {
+    "Compile error": "syntax error: identifier 'Type'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 730
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 734
+  },
+  {
+    "Compile error": "syntax error: missing ')' before identifier 'p'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 734
+  },
+  {
+    "Compile error": "'p': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 734
+  },
+  {
+    "Compile error": "syntax error: ')'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 734
+  },
+  {
+    "Compile error": "'p': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 736
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 744
+  },
+  {
+    "Compile error": "'isDetached': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 744
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 745
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 745
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 748
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 755
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 756
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 760
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 761
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 765
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 765
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 772
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 773
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 773
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 774
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 776
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 776
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 777
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 779
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 789
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 790
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 794
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 794
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 799
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 802
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 814
+  },
+  {
+    "Compile error": "'RME::QtPrivate::QVariantTypeCoercer::converted' uses undefined class 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 828
+  },
+  {
+    "Compile error": "'RME::QVariantConstPointer::m_variant' uses undefined class 'RME::QVariant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qvariant.h",
+    "Code line error": 860
+  }
+]

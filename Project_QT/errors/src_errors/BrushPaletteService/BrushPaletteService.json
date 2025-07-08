@@ -1,0 +1,547 @@
+[
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "'RME::RME::core::BrushPaletteService': constructor initializer lists are only allowed on constructor definitions",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 9
+  },
+  {
+    "Compile error": "'initializeDefaults': identifier not found",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 10
+  },
+  {
+    "Compile error": "'loadSettings': identifier not found",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 11
+  },
+  {
+    "Compile error": "'RME::RME::core::BrushPaletteService': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 12
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 14
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 14
+  },
+  {
+    "Compile error": "'saveSettings': identifier not found",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 15
+  },
+  {
+    "Compile error": "'RME::RME::core::{dtor}': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'m_viewMode': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "'ViewMode': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "'Grid': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "'m_sortMode': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 20
+  },
+  {
+    "Compile error": "'SortMode': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 20
+  },
+  {
+    "Compile error": "'Category': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 20
+  },
+  {
+    "Compile error": "'m_filterMode': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'FilterMode': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'All': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'m_currentFilter': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'m_searchText': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'m_favoriteBrushes': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'m_recentBrushes': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'m_maxRecentBrushes': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'m_visibleCategories': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'m_iconSize': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'m_showTooltips': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'m_showPreview': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'m_gridColumns': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'m_autoResizeColumns': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'m_activeTagFilters': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'m_customBrushOrder': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'m_brushUsageStats': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'m_lastBrushUsage': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'getViewMode'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'setViewMode': this use of 'void' is not valid",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "syntax error: missing ')' before identifier 'mode'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'getSortMode'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'setSortMode': this use of 'void' is not valid",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "syntax error: missing ')' before identifier 'mode'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'getFilterMode'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'setFilterMode': this use of 'void' is not valid",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "syntax error: missing ')' before identifier 'mode'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'getCurrentFilter': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'m_currentFilter': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'m_currentFilter': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'m_currentFilter': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'currentFilterChanged'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "'currentFilterChanged': identifier not found",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'getSearchText': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'m_searchText': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "'m_searchText': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'m_searchText': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'searchTextChanged'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "'searchTextChanged': identifier not found",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 109
+  },
+  {
+    "Compile error": "'getFavoriteBrushes': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 109
+  },
+  {
+    "Compile error": "'m_favoriteBrushes': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'isBrushFavorite': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'m_favoriteBrushes': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 117
+  },
+  {
+    "Compile error": "'m_favoriteBrushes': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'m_favoriteBrushes': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'favoriteBrushesChanged'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'m_favoriteBrushes': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'favoriteBrushesChanged': identifier not found",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'brushFavoriteToggled'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'brushFavoriteToggled': identifier not found",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'BrushPaletteService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 125
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.cpp",
+    "Code line error": 125
+  },
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.h",
+    "Code line error": 134
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.h",
+    "Code line error": 134
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.h",
+    "Code line error": 206
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\services\\BrushPaletteService.h",
+    "Code line error": 206
+  }
+]

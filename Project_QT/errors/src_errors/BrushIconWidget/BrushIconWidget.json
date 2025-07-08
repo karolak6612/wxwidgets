@@ -1,0 +1,447 @@
+[
+  {
+    "Compile error": "'BrushIconWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 11
+  },
+  {
+    "Compile error": "'BrushIconWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'BrushIconWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 15
+  },
+  {
+    "Compile error": "'BrushIconWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'RME::RME::ui::palettes::BrushIconWidget': constructor initializer lists are only allowed on constructor definitions",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'setObjectName': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'setupUI': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'updateIcon': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'updateLabel': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'updateSelectionState': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'setMouseTracking': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::RME::ui::palettes::BrushIconWidget': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'BrushIconWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'RME::RME::ui::palettes::{dtor}': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'BrushIconWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'m_brush': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'m_brush': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'updateIcon': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'updateLabel': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'BrushIconWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'m_selected': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'!=': unsafe mix of type '<error type>' and type 'bool' in operation",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'m_selected': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'updateSelectionState': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'this'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'m_brush': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'BrushIconWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'m_iconSize': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'m_iconSize': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'m_iconLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'m_iconLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'updateIcon': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'adjustSize': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "'BrushIconWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'getIconSize': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'m_iconSize': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "'BrushIconWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'m_showLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'!=': unsafe mix of type '<error type>' and type 'bool' in operation",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'m_showLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'m_textLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'m_textLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'adjustSize': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'BrushIconWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'getShowLabel': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'m_showLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "'BrushIconWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "'m_layout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 102
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 102
+  },
+  {
+    "Compile error": "'m_layout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'m_layout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'m_layout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'m_iconLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'m_iconLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 109
+  },
+  {
+    "Compile error": "'m_iconLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'m_iconSize': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'m_iconLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "'m_layout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 112
+  },
+  {
+    "Compile error": "'m_iconLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 112
+  },
+  {
+    "Compile error": "'m_textLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 115
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 115
+  },
+  {
+    "Compile error": "'m_textLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 116
+  },
+  {
+    "Compile error": "'m_textLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 117
+  },
+  {
+    "Compile error": "'m_textLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'m_iconSize': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'m_textLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'m_layout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'m_textLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'m_iconSize': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 123
+  },
+  {
+    "Compile error": "'m_iconSize': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 123
+  },
+  {
+    "Compile error": "'setFixedSize': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 123
+  },
+  {
+    "Compile error": "'BrushIconWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'m_iconLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 128
+  },
+  {
+    "Compile error": "'m_iconSize': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 132
+  },
+  {
+    "Compile error": "'m_brush': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 135
+  },
+  {
+    "Compile error": "'RME::QPainter::QPainter': no overloaded function could convert all the argument types",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 136
+  },
+  {
+    "Compile error": "'m_brush': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.cpp",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'m_brush': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'m_selected': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushIconWidget.h",
+    "Code line error": 37
+  }
+]

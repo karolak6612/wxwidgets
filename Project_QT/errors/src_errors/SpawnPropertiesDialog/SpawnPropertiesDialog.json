@@ -1,0 +1,492 @@
+[
+  {
+    "Compile error": "'SpawnPropertiesDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 11
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 11
+  },
+  {
+    "Compile error": "'RME::RME::ui::dialogs::SpawnPropertiesDialog': constructor initializer lists are only allowed on constructor definitions",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 14
+  },
+  {
+    "Compile error": "'m_spawn': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 15
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "'setWindowTitle': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "'setModal': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'setFixedSize': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "'createBackup': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'setupUI': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'loadSpawnData': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'connectSignals': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'RME::RME::ui::dialogs::SpawnPropertiesDialog': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'SpawnPropertiesDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'m_mainLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'m_infoLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QLabel'",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'m_infoLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'m_mainLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'m_infoLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'m_mainLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'m_buttonBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'m_mainLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'m_buttonBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'SpawnPropertiesDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'m_spawn': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'m_spawn': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'m_spawn': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'m_infoLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'SpawnPropertiesDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'m_spawn': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'m_spawn': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'SpawnPropertiesDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpin': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'SpawnPropertiesDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'spawnModified'",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'m_spawn': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'spawnModified': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'QDialog::accept': a call of a non-static member function requires an object",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'SpawnPropertiesDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "'m_wasModified': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "'restoreBackup': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'QDialog::reject': a call of a non-static member function requires an object",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'SpawnPropertiesDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'markAsModified': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "'SpawnPropertiesDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 117
+  },
+  {
+    "Compile error": "'m_wasModified': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'m_wasModified': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'setWindowTitle': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'SpawnPropertiesDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "'m_spawn': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 125
+  },
+  {
+    "Compile error": "'m_originalSpawn': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'m_spawn': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'SpawnPropertiesDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 130
+  },
+  {
+    "Compile error": "'m_originalSpawn': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 131
+  },
+  {
+    "Compile error": "'m_spawn': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 131
+  },
+  {
+    "Compile error": "'m_spawn': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 132
+  },
+  {
+    "Compile error": "'m_originalSpawn': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 132
+  },
+  {
+    "Compile error": "'SpawnPropertiesDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'m_buttonBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "'SpawnPropertiesDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "'connect': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "'m_buttonBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "'SpawnPropertiesDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "'connect': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.cpp",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'m_wasModified': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'m_spawn': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\SpawnPropertiesDialog.h",
+    "Code line error": 39
+  }
+]

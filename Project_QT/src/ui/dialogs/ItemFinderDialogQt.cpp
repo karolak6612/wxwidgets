@@ -717,3 +717,5 @@ void ItemFinderDialogQt::handleCancel()
     m_selectedItemType = nullptr;
     reject();
 }
+
+// #include "ItemFinderDialogQt.moc" // Removed - Q_OBJECT is in header

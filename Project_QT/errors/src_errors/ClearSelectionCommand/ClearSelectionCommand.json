@@ -1,0 +1,192 @@
+[
+  {
+    "Compile error": "'ClearSelectionCommand': is not a class or namespace name",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 12
+  },
+  {
+    "Compile error": "'selection': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'SelectionManager': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 12
+  },
+  {
+    "Compile error": "'RME::RME::core::actions::ClearSelectionCommand': constructor initializer lists are only allowed on constructor definitions",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'m_selectionManager': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "'setErrorText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::RME::core::actions::ClearSelectionCommand': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::RME::core::actions::ClearSelectionCommand': inconsistent return statement",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'ClearSelectionCommand': is not a class or namespace name",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'m_oldSelectedTiles': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "'m_selectionManager': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "'m_oldSelectedTiles': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'m_selectionManager': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'m_hadSelectionToClear': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'m_oldSelectedTiles': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'m_hadSelectionToClear': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'m_selectionManager': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'m_selectionManager': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'m_selectionManager': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'m_oldSelectedTiles': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'QString::arg': no matching overloaded function found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'setText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'m_hadSelectionToClear': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'m_oldSelectedTiles': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'QString::arg': no matching overloaded function found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'setText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'setText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'ClearSelectionCommand': is not a class or namespace name",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'m_hadSelectionToClear': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'setText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'m_selectionManager': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'BaseCommand': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.h",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'RME::core::actions::ClearSelectionCommand::~ClearSelectionCommand': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.h",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'RME::core::actions::ClearSelectionCommand::undo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'RME::core::actions::ClearSelectionCommand::redo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.h",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'RME::core::actions::ClearSelectionCommand::id': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\ClearSelectionCommand.h",
+    "Code line error": 36
+  }
+]

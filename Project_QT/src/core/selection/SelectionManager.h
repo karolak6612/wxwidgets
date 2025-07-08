@@ -31,7 +31,7 @@ class SelectionManager : public QObject {
     Q_OBJECT
     friend class SelectionCommand; // Allow SelectionCommand to access private members like m_selectedTiles
 
-signals: // Added signals section
+signals:
     void selectionChanged();
 
 public:

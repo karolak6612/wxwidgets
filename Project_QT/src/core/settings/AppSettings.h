@@ -103,6 +103,9 @@ enum Key {
     WALLS_REPEL_BORDERS,       // int (bool)
     LAYER_CARPETS,             // int (bool)
     CUSTOM_BORDER_ENABLED,     // int (bool)
+    WORKER_THREADS,            // int
+    MERGE_MOVE,                // int (bool)
+    SHOW_TILESET_EDITOR,       // int (bool)
     CUSTOM_BORDER_ID,          // int (item id)
     HOUSE_BRUSH_REMOVE_ITEMS,  // int (bool)
     AUTO_ASSIGN_DOORID,        // int (bool)

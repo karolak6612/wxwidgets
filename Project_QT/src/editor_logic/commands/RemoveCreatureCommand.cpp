@@ -1,7 +1,7 @@
 #include "editor_logic/commands/RemoveCreatureCommand.h"
 #include "core/Tile.h"
 #include "core/creatures/Creature.h" // For std::unique_ptr<Creature>
-#include "editor_logic/EditorControllerInterface.h" // For notifyTileChanged
+#include "core/editor/EditorControllerInterface.h" // For notifyTileChanged
 
 #include <QString> // For setText
 #include <QDebug>  // For qWarning (if needed later)

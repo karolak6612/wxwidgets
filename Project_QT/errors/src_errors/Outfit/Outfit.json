@@ -1,0 +1,122 @@
+[
+  {
+    "Compile error": "'directionToName': unknown override specifier",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'RME::core::creatures::Direction': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: missing ')' before identifier 'dir'",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'directionToString': unknown override specifier",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'RME::core::creatures::Direction': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "syntax error: missing ')' before identifier 'dir'",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'directionToName': unknown override specifier",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'RME::core::creatures::Direction': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: missing ')' before identifier 'dir'",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'directionToString': unknown override specifier",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'RME::core::creatures::Direction': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "syntax error: missing ')' before identifier 'dir'",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\creatures\\Outfit.h",
+    "Code line error": 28
+  }
+]

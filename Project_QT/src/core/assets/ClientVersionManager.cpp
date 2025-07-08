@@ -330,7 +330,7 @@ DatFormat ClientVersionManager::datFormatFromString(const QString& formatStr) co
     if (formatStr == "V_910") return DatFormat::V_910;
     if (formatStr == "V_940_946") return DatFormat::V_940_946;
     if (formatStr == "V_950_954") return DatFormat::V_950_954;
-    if (format_str == "V_960_963") return DatFormat::V_960_963; // Typo: format_str -> formatStr
+    if (formatStr == "V_960_963") return DatFormat::V_960_963;
     if (formatStr == "V_970") return DatFormat::V_970;
     if (formatStr == "V_980_986") return DatFormat::V_980_986;
     if (formatStr == "V_1000_1001") return DatFormat::V_1000_1001;

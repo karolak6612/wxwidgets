@@ -1,0 +1,77 @@
+[
+  {
+    "Compile error": "'IClientDataService': base class undefined",
+    "File": "Project_QT\\src\\core\\services\\ClientDataService.h",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\core\\services\\ClientDataService.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\services\\ClientDataService.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'RME::RME::core::ClientDataService::loadClientVersion': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\services\\ClientDataService.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'RME::RME::core::ClientDataService::unloadClientVersion': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\services\\ClientDataService.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'RME::RME::core::ClientDataService::getClientVersion': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\services\\ClientDataService.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'RME::RME::core::ClientDataService::getItemDatabase': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\services\\ClientDataService.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'RME::RME::core::ClientDataService::getSpriteManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\services\\ClientDataService.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'RME::RME::core::ClientDataService::getMaterialManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\services\\ClientDataService.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'RME::RME::core::ClientDataService::getCreatureDatabase': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\services\\ClientDataService.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'RME::RME::core::ClientDataService::getAssetManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\services\\ClientDataService.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::RME::core::ClientDataService::isClientVersionLoaded': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\services\\ClientDataService.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'RME::RME::core::ClientDataService::getCurrentVersionId': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\services\\ClientDataService.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\services\\ClientDataService.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\services\\ClientDataService.h",
+    "Code line error": 75
+  }
+]

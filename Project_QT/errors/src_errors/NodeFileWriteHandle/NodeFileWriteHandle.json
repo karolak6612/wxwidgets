@@ -1,0 +1,7 @@
+[
+  {
+    "Compile error": "Cannot open include file: 'QtZlib/qtzlib.h': No such file or directory",
+    "File": "Project_QT\\src\\core\\io\\NodeFileWriteHandle.cpp",
+    "Code line error": 4
+  }
+]

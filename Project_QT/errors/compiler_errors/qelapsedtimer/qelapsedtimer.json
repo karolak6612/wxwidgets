@@ -1,0 +1,262 @@
+[
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'compareThreeWay': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'is_gt': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'compareThreeWay': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'is_lteq': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'compareThreeWay': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'is_gteq': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'nanoseconds': is not a member of 'RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "syntax error: identifier 'nanoseconds'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'time_point': is not a member of 'RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: identifier 'time_point'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'steady_clock': is not a member of 'RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'durationElapsed': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'durationTo': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'nanoseconds': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "syntax error: identifier 'nanoseconds'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'time_point': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: identifier 'time_point'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'steady_clock': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'durationElapsed': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'durationTo': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'nanoseconds': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "syntax error: identifier 'nanoseconds'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'time_point': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: identifier 'time_point'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'steady_clock': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'durationElapsed': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'durationTo': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qelapsedtimer.h",
+    "Code line error": 46
+  }
+]

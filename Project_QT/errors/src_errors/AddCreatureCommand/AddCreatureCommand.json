@@ -1,0 +1,67 @@
+[
+  {
+    "Compile error": "'RME::editor_logic::commands::BaseCommand::BaseCommand': no overloaded function could convert all the argument types",
+    "File": "Project_QT\\src\\editor_logic\\commands\\AddCreatureCommand.cpp",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\AddCreatureCommand.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'QString::arg': no matching overloaded function found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\AddCreatureCommand.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\AddCreatureCommand.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\AddCreatureCommand.cpp",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\AddCreatureCommand.cpp",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\AddCreatureCommand.cpp",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\AddCreatureCommand.cpp",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\AddCreatureCommand.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\AddCreatureCommand.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\AddCreatureCommand.cpp",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\AddCreatureCommand.cpp",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\AddCreatureCommand.cpp",
+    "Code line error": 85
+  }
+]

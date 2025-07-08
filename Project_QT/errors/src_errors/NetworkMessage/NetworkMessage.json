@@ -1,0 +1,82 @@
+[
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\NetworkMessage.cpp",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\NetworkMessage.cpp",
+    "Code line error": 197
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\NetworkMessage.cpp",
+    "Code line error": 284
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\NetworkMessage.cpp",
+    "Code line error": 285
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\NetworkMessage.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\NetworkMessage.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\NetworkMessage.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\NetworkMessage.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\NetworkMessage.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\NetworkMessage.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::core'",
+    "File": "Project_QT\\src\\core\\network\\NetworkMessage.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::core'",
+    "File": "Project_QT\\src\\core\\network\\NetworkMessage.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::core'",
+    "File": "Project_QT\\src\\core\\network\\NetworkMessage.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\NetworkMessage.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\NetworkMessage.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\NetworkMessage.h",
+    "Code line error": 81
+  }
+]

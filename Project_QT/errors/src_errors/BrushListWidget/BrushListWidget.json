@@ -1,0 +1,432 @@
+[
+  {
+    "Compile error": "'BrushListWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 11
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 11
+  },
+  {
+    "Compile error": "'RME::RME::ui::palettes::BrushListWidget': constructor initializer lists are only allowed on constructor definitions",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'setObjectName': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 14
+  },
+  {
+    "Compile error": "'setupUI': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 15
+  },
+  {
+    "Compile error": "'setupConnections': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'RME::RME::ui::palettes::BrushListWidget': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "'BrushListWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::RME::ui::palettes::{dtor}': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'BrushListWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'m_brushes': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'m_brushes': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'populateList': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "'BrushListWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'getBrushes': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'m_brushes': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'BrushListWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'getSelectedBrush': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'m_selectedBrush': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'BrushListWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'m_selectedBrush': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'m_selectedBrush': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'count': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'setCurrentItem': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'clearSelection': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'BrushListWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'m_selectedBrush': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'m_selectedBrush': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'brushSelected'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'brushSelected': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'BrushListWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'m_selectedBrush': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'brushActivated'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'brushActivated': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'BrushListWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'setSelectionMode': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'setAlternatingRowColors': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "'setUniformItemSizes': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "'setIconSize': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "'setDragDropMode': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'setVerticalScrollMode': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'setHorizontalScrollBarPolicy': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'setVerticalScrollBarPolicy': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'setSpacing': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "'setMouseTracking': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "'setMinimumWidth': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 117
+  },
+  {
+    "Compile error": "'setSelectionBehavior': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'setFocusPolicy': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'BrushListWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'BrushListWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'connect': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 128
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 129
+  },
+  {
+    "Compile error": "'BrushListWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 129
+  },
+  {
+    "Compile error": "'connect': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 128
+  },
+  {
+    "Compile error": "'BrushListWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 132
+  },
+  {
+    "Compile error": "'clear': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 135
+  },
+  {
+    "Compile error": "'m_brushes': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 138
+  },
+  {
+    "Compile error": "syntax error: missing ';' before ':'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 138
+  },
+  {
+    "Compile error": "syntax error: missing ';' before ')'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 138
+  },
+  {
+    "Compile error": "'createBrushItem': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "'addItem': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 141
+  },
+  {
+    "Compile error": "'m_selectedBrush': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "'m_selectedBrush': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 147
+  },
+  {
+    "Compile error": "'BrushListWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QVariant'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 160
+  },
+  {
+    "Compile error": "'fromValue': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 160
+  },
+  {
+    "Compile error": "'getBrushTypePrefix': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 169
+  },
+  {
+    "Compile error": "'createBrushTooltip': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 177
+  },
+  {
+    "Compile error": "'createBrushIcon': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 181
+  },
+  {
+    "Compile error": "'BrushListWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 193
+  },
+  {
+    "Compile error": "'getBrushTypePrefix': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 193
+  },
+  {
+    "Compile error": "'BrushListWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 213
+  },
+  {
+    "Compile error": "'createBrushTooltip': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 213
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.cpp",
+    "Code line error": 213
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushListWidget.h",
+    "Code line error": 65
+  }
+]

@@ -55,10 +55,10 @@ void ApplicationSettingsService::loadSettings()
     }
     
     // Load UI-related settings
-    m_doorLocked = m_settings->value("ui/doorLocked", m_doorLocked).toBool();
-    m_pasting = m_settings->value("ui/pasting", m_pasting).toBool();
-    m_autoSaveEnabled = m_settings->value("ui/autoSaveEnabled", m_autoSaveEnabled).toBool();
-    m_autoSaveInterval = m_settings->value("ui/autoSaveInterval", m_autoSaveInterval).toInt();
+    m_doorLocked = m_settings->value("ui/doorLocked", m_doorLocked).value<bool>();
+    m_pasting = m_settings->value("ui/pasting", m_pasting).value<bool>();
+    m_autoSaveEnabled = m_settings->value("ui/autoSaveEnabled", m_autoSaveEnabled).value<bool>();
+    m_autoSaveInterval = m_settings->value("ui/autoSaveInterval", m_autoSaveInterval).value<int>();
     
     // Load view settings
     m_gridVisible = m_settings->value("view/gridVisible", m_gridVisible).toBool();

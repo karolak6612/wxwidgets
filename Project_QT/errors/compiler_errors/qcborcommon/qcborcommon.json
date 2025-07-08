@@ -1,0 +1,82 @@
+[
+  {
+    "Compile error": "'size_t RME::RME::qHash(RME::RME::QCborSimpleType,size_t)': cannot convert argument 1 from 'quint8' to 'RME::RME::QCborSimpleType'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qcborcommon.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'RME::RME::qHash': no overloaded function could convert all the argument types",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qcborcommon.h",
+    "Code line error": 112
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::RME::qRegisterNormalizedMetaType<RME::RME::QCborTag>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qcborcommon.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'checkTypeIsSuitableForMetaType': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qcborcommon.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'checkTypeIsSuitableForMetaType': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qcborcommon.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'RME::RME::QCborTag': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qcborcommon.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "syntax error: ')'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qcborcommon.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qcborcommon.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'typenameHelper': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qcborcommon.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'typenameHelper': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qcborcommon.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'arr': cannot be used before it is initialized",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qcborcommon.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'name': cannot be used before it is initialized",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qcborcommon.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'id': const object must be initialized",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qcborcommon.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'size_t RME::RME::RME::RME::qHash(RME::RME::RME::RME::QCborSimpleType,size_t)': cannot convert argument 1 from 'quint8' to 'RME::RME::RME::RME::QCborSimpleType'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qcborcommon.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::qHash': no overloaded function could convert all the argument types",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qcborcommon.h",
+    "Code line error": 112
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::RME::RME::RME::qRegisterNormalizedMetaType<RME::RME::RME::RME::QCborTag>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qcborcommon.h",
+    "Code line error": 119
+  }
+]

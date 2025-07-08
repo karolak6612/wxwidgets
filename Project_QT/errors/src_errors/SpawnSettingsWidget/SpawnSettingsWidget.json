@@ -1,0 +1,522 @@
+[
+  {
+    "Compile error": "'SpawnSettingsWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "'RME::RME::ui::widgets::SpawnSettingsWidget': constructor initializer lists are only allowed on constructor definitions",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 10
+  },
+  {
+    "Compile error": "'setupUI': identifier not found",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 11
+  },
+  {
+    "Compile error": "'connectSignals': identifier not found",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 12
+  },
+  {
+    "Compile error": "'loadSettings': identifier not found",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'RME::RME::ui::widgets::SpawnSettingsWidget': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 14
+  },
+  {
+    "Compile error": "'SpawnSettingsWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'getSpawnRadius': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'SpawnSettingsWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'m_updatingUI': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'m_updatingUI': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'SpawnSettingsWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "'getSpawnTime': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "'m_spawnTimeSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'SpawnSettingsWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'m_spawnTimeSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'m_updatingUI': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'m_spawnTimeSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'m_updatingUI': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'SpawnSettingsWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'isSpawnModeEnabled': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'m_enableSpawnModeCheckBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'SpawnSettingsWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'m_enableSpawnModeCheckBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'m_updatingUI': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'m_enableSpawnModeCheckBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'m_updatingUI': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'updateUI': identifier not found",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'SpawnSettingsWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'core': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'settings': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'getInstance': is not a member of 'RME::RME::AppSettings'",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'getInstance': identifier not found",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "cannot deduce type for 'auto *' from '<error type>'",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'SpawnSettingsWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'core': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'settings': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'getInstance': is not a member of 'RME::RME::AppSettings'",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'getInstance': identifier not found",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "cannot deduce type for 'auto *' from '<error type>'",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'SpawnSettingsWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'m_enableSpawnModeCheckBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'m_enableSpawnModeCheckBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'m_enableSpawnModeCheckBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'m_enableSpawnModeCheckBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 102
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'m_spawnTimeSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'m_spawnTimeSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'m_spawnTimeSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'m_spawnTimeSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 109
+  },
+  {
+    "Compile error": "'m_spawnTimeSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'m_spawnTimeSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "'m_spawnTimeSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 112
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'m_spawnTimeSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'m_helpLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 116
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 116
+  },
+  {
+    "Compile error": "'m_helpLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 117
+  },
+  {
+    "Compile error": "'m_helpLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'m_helpLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'m_helpLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 122
+  },
+  {
+    "Compile error": "'m_helpLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 122
+  },
+  {
+    "Compile error": "'updateUI': identifier not found",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "'SpawnSettingsWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'m_enableSpawnModeCheckBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 129
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 130
+  },
+  {
+    "Compile error": "'SpawnSettingsWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 130
+  },
+  {
+    "Compile error": "'onSpawnModeToggled': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 130
+  },
+  {
+    "Compile error": "'connect': identifier not found",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 129
+  },
+  {
+    "Compile error": "'m_spawnRadiusSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 132
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 133
+  },
+  {
+    "Compile error": "'SpawnSettingsWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 133
+  },
+  {
+    "Compile error": "'onSpawnRadiusChanged': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 133
+  },
+  {
+    "Compile error": "'connect': identifier not found",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 132
+  },
+  {
+    "Compile error": "'m_spawnTimeSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 135
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 136
+  },
+  {
+    "Compile error": "'SpawnSettingsWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 136
+  },
+  {
+    "Compile error": "'onSpawnTimeChanged': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 136
+  },
+  {
+    "Compile error": "'connect': identifier not found",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 135
+  },
+  {
+    "Compile error": "'SpawnSettingsWidget': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.cpp",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\widgets\\SpawnSettingsWidget.h",
+    "Code line error": 71
+  }
+]

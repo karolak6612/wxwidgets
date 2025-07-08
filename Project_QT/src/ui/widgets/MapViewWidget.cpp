@@ -20,62 +20,6 @@ namespace ui {
 namespace widgets {
 
 // Placeholder service classes removed - using real services now
-    Q_OBJECT
-public:
-    explicit EditorStateService(QObject* parent = nullptr) : QObject(parent) {}
-    
-    enum class Mode {
-        Brush,
-        Selection,
-        Panning
-    };
-    
-    Mode getCurrentMode() const { return m_currentMode; }
-    void setCurrentMode(Mode mode) { 
-        if (m_currentMode != mode) {
-            m_currentMode = mode;
-            emit currentModeChanged(mode);
-        }
-    }
-    
-    int getCurrentFloor() const { return m_currentFloor; }
-    void setCurrentFloor(int floor) {
-        if (m_currentFloor != floor) {
-            m_currentFloor = floor;
-            emit currentFloorChanged(floor);
-        }
-    }
-    
-    void changeFloor(int delta) {
-        setCurrentFloor(qBound(0, m_currentFloor + delta, 15));
-    }
-
-signals:
-    void currentModeChanged(Mode mode);
-    void currentFloorChanged(int floor);
-
-private:
-    Mode m_currentMode = Mode::Brush;
-    int m_currentFloor = 7;
-};
-
-class BrushStateService : public QObject {
-    Q_OBJECT
-public:
-    explicit BrushStateService(QObject* parent = nullptr) : QObject(parent) {}
-    
-    const RME::core::BrushSettings& getCurrentBrushSettings() const { return m_currentBrushSettings; }
-    void setCurrentBrushSettings(const RME::core::BrushSettings& settings) {
-        m_currentBrushSettings = settings;
-        emit currentBrushChanged(settings);
-    }
-
-signals:
-    void currentBrushChanged(const RME::core::BrushSettings& settings);
-
-private:
-    RME::core::BrushSettings m_currentBrushSettings;
-};
 
 MapViewWidget::MapViewWidget(
     RME::core::IBrushStateService* brushStateService,
@@ -559,4 +503,4 @@ void MapViewWidget::centerOnPosition(const RME::core::Position& position)
 } // namespace ui
 } // namespace RME
 
-#include "MapViewWidget.moc"
+// #include "MapViewWidget.moc" // Removed - Q_OBJECT is in header

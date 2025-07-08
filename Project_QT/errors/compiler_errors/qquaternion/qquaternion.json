@@ -1,0 +1,647 @@
+[
+  {
+    "Compile error": "'is_trivial_v': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_trivial_v': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'RME::QQuaternion': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_pointer_v': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_integral': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'value': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'isRelocatable': is not a member of 'QTypeInfo<RME::QQuaternion>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_copy_constructible_v': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_copy_constructible_v': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "syntax error: '||'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_move_constructible_v': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 144
+  },
+  {
+    "Compile error": "'{ctor}': constructor initializer lists are only allowed on constructor definitions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 144
+  },
+  {
+    "Compile error": "constexpr function '{ctor}' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 144
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "'{ctor}': constructor initializer lists are only allowed on constructor definitions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 147
+  },
+  {
+    "Compile error": "constexpr function '{ctor}' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 152
+  },
+  {
+    "Compile error": "'isNull': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 152
+  },
+  {
+    "Compile error": "'wp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 154
+  },
+  {
+    "Compile error": "'xp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 154
+  },
+  {
+    "Compile error": "'yp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 154
+  },
+  {
+    "Compile error": "'zp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 154
+  },
+  {
+    "Compile error": "constexpr function 'isNull' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 152
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "'isIdentity': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "'wp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 159
+  },
+  {
+    "Compile error": "'xp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 159
+  },
+  {
+    "Compile error": "'yp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 159
+  },
+  {
+    "Compile error": "'zp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 159
+  },
+  {
+    "Compile error": "constexpr function 'isIdentity' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'x': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'xp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "constexpr function 'x' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 164
+  },
+  {
+    "Compile error": "'y': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 164
+  },
+  {
+    "Compile error": "'yp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 164
+  },
+  {
+    "Compile error": "constexpr function 'y' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 164
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 165
+  },
+  {
+    "Compile error": "'z': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 165
+  },
+  {
+    "Compile error": "'zp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 165
+  },
+  {
+    "Compile error": "constexpr function 'z' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 165
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 166
+  },
+  {
+    "Compile error": "'scalar': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 166
+  },
+  {
+    "Compile error": "'wp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 166
+  },
+  {
+    "Compile error": "constexpr function 'scalar' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 166
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 168
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 168
+  },
+  {
+    "Compile error": "'is_trivial_v': is not a member of 'RME::ui::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_trivial_v': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'RME::ui::RME::RME::QQuaternion': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_pointer_v': is not a member of 'RME::ui::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_integral': is not a member of 'RME::ui::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'value': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'isRelocatable': is not a member of 'QTypeInfo<RME::ui::RME::RME::QQuaternion>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_copy_constructible_v': is not a member of 'RME::ui::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_copy_constructible_v': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "syntax error: '||'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_move_constructible_v': is not a member of 'RME::ui::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 144
+  },
+  {
+    "Compile error": "'RME::ui::RME::{ctor}': constructor initializer lists are only allowed on constructor definitions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 144
+  },
+  {
+    "Compile error": "constexpr function 'RME::ui::RME::{ctor}' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 144
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "'RME::ui::RME::{ctor}': constructor initializer lists are only allowed on constructor definitions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 147
+  },
+  {
+    "Compile error": "constexpr function 'RME::ui::RME::{ctor}' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 152
+  },
+  {
+    "Compile error": "'isNull': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 152
+  },
+  {
+    "Compile error": "'wp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 154
+  },
+  {
+    "Compile error": "'xp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 154
+  },
+  {
+    "Compile error": "'yp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 154
+  },
+  {
+    "Compile error": "'zp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 154
+  },
+  {
+    "Compile error": "constexpr function 'RME::ui::RME::isNull' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 152
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "'isIdentity': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "'wp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 159
+  },
+  {
+    "Compile error": "'xp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 159
+  },
+  {
+    "Compile error": "'yp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 159
+  },
+  {
+    "Compile error": "'zp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 159
+  },
+  {
+    "Compile error": "constexpr function 'RME::ui::RME::isIdentity' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'x': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'is_trivial_v': is not a member of 'RME::RME::RME::RME::RME::ui::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_trivial_v': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::ui::QQuaternion': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_pointer_v': is not a member of 'RME::RME::RME::RME::RME::ui::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_integral': is not a member of 'RME::RME::RME::RME::RME::ui::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'value': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'isRelocatable': is not a member of 'QTypeInfo<RME::RME::RME::RME::RME::ui::QQuaternion>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_copy_constructible_v': is not a member of 'RME::RME::RME::RME::RME::ui::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_copy_constructible_v': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "syntax error: '||'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'is_move_constructible_v': is not a member of 'RME::RME::RME::RME::RME::ui::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 144
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::{ctor}': constructor initializer lists are only allowed on constructor definitions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 144
+  },
+  {
+    "Compile error": "constexpr function 'RME::RME::RME::RME::RME::{ctor}' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 144
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::{ctor}': constructor initializer lists are only allowed on constructor definitions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 147
+  },
+  {
+    "Compile error": "constexpr function 'RME::RME::RME::RME::RME::{ctor}' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 152
+  },
+  {
+    "Compile error": "'isNull': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 152
+  },
+  {
+    "Compile error": "'wp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 154
+  },
+  {
+    "Compile error": "'xp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 154
+  },
+  {
+    "Compile error": "'yp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 154
+  },
+  {
+    "Compile error": "'zp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 154
+  },
+  {
+    "Compile error": "constexpr function 'RME::RME::RME::RME::RME::isNull' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 152
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "'isIdentity': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "'wp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 159
+  },
+  {
+    "Compile error": "'xp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 159
+  },
+  {
+    "Compile error": "'yp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 159
+  },
+  {
+    "Compile error": "'zp': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 159
+  },
+  {
+    "Compile error": "constexpr function 'RME::RME::RME::RME::RME::isIdentity' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "use of undefined type 'QQuaternion'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'x': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qquaternion.h",
+    "Code line error": 163
+  }
+]

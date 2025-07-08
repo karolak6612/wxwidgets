@@ -1,0 +1,12 @@
+[
+  {
+    "Compile error": "'Tile': undeclared identifier",
+    "File": "Project_QT\\src\\core\\actions\\PasteCommand.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "Project_QT\\src\\core\\actions\\PasteCommand.h",
+    "Code line error": 38
+  }
+]

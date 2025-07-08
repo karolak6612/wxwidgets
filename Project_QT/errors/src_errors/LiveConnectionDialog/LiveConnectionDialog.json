@@ -1,0 +1,397 @@
+[
+  {
+    "Compile error": "'LiveConnectionDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'LiveConnectionDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 15
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 15
+  },
+  {
+    "Compile error": "'RME::RME::ui::dialogs::LiveConnectionDialog': constructor initializer lists are only allowed on constructor definitions",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 20
+  },
+  {
+    "Compile error": "'setWindowTitle': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 20
+  },
+  {
+    "Compile error": "'setModal': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'setMinimumSize': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'setupUI': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'setupConnections': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'loadSettings': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'updateUI': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'RME::RME::ui::dialogs::LiveConnectionDialog': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'LiveConnectionDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "'LiveConnectionDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'getConnectionSettings'",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'LiveConnectionDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'m_hostnameEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'settings': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'m_portSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'settings': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'m_usernameEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'settings': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'m_passwordEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'settings': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'m_rememberSettingsCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'settings': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'settings': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'LiveConnectionDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'m_isConnecting': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'updateUI': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'m_progressBar': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'setConnectionProgress': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'m_progressBar': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'m_progressBar': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'m_statusLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'LiveConnectionDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'m_statusLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'LiveConnectionDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'m_statusLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'tr': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'m_statusLabel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'LiveConnectionDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "'validateInput': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'getConnectionSettings': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'saveSettings': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'connectRequested'",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'connectRequested': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'LiveConnectionDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'m_isConnecting': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'cancelRequested'",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "'cancelRequested': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "'reject': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "'LiveConnectionDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'updateUI': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'LiveConnectionDialog': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'m_mainLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 112
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 112
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.cpp",
+    "Code line error": 112
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\LiveConnectionDialog.h",
+    "Code line error": 118
+  }
+]

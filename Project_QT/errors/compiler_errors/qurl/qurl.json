@@ -1,0 +1,102 @@
+[
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 287
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 287
+  },
+  {
+    "Compile error": "'RME::QUrl': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 287
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 287
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 287
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 287
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 287
+  },
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 287
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 287
+  },
+  {
+    "Compile error": "'RME::RME::QUrl': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 287
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 287
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 287
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 287
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 287
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QByteArray'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 245
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QByteArray'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 244
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QByteArray'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 245
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QByteArray'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 244
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QByteArray'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 245
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QByteArray'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qurl.h",
+    "Code line error": 244
+  }
+]

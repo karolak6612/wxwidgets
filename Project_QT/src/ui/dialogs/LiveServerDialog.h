@@ -48,6 +48,9 @@ private slots:
 private:
     void setupUI();
     void connectSignals();
+    
+    // Member variables
+    QWidget* m_controlPanel;
 
     // UI components
     QVBoxLayout* m_mainLayout = nullptr;

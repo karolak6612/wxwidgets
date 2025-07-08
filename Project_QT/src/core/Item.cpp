@@ -95,19 +95,19 @@ void Item::setUniqueID(uint16_t uid) {
     setAttribute("uid", uid);
 }
 uint16_t Item::getUniqueID() const {
-    return getAttribute("uid").toUInt(); // QVariant handles conversion
+    return getAttribute("uid").value<uint16_t>(); // Qt6 QVariant API
 }
 void Item::setActionID(uint16_t aid) {
     setAttribute("aid", aid);
 }
 uint16_t Item::getActionID() const {
-    return getAttribute("aid").toUInt();
+    return getAttribute("aid").value<uint16_t>();
 }
 void Item::setText(const QString& text) {
     setAttribute("text", text);
 }
 QString Item::getText() const {
-    return getAttribute("text").toString();
+    return getAttribute("text").value<QString>();
 }
 
 // Item Properties (delegated to itemTypeProvider)

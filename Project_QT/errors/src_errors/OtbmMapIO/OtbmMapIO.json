@@ -1,0 +1,57 @@
+[
+  {
+    "Compile error": "Cannot open include file: 'core/Map.h': No such file or directory",
+    "File": "Project_QT\\src\\core\\io\\OtbmMapIO.cpp",
+    "Code line error": 7
+  },
+  {
+    "Compile error": "syntax error: identifier 'Tile'",
+    "File": "Project_QT\\src\\core\\io\\OtbmMapIO.h",
+    "Code line error": 135
+  },
+  {
+    "Compile error": "syntax error: identifier 'Tile'",
+    "File": "Project_QT\\src\\core\\io\\OtbmMapIO.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\OtbmMapIO.h",
+    "Code line error": 155
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '*'",
+    "File": "Project_QT\\src\\core\\io\\OtbmMapIO.h",
+    "Code line error": 155
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\OtbmMapIO.h",
+    "Code line error": 156
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '*'",
+    "File": "Project_QT\\src\\core\\io\\OtbmMapIO.h",
+    "Code line error": 156
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\io\\OtbmMapIO.h",
+    "Code line error": 169
+  },
+  {
+    "Compile error": "'SpawnData': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\io\\OtbmMapIO.h",
+    "Code line error": 169
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\OtbmMapIO.h",
+    "Code line error": 169
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\io\\OtbmMapIO.h",
+    "Code line error": 169
+  }
+]

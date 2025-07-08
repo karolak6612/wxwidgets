@@ -1,0 +1,202 @@
+[
+  {
+    "Compile error": "Cannot open include file: 'core/Map.h': No such file or directory",
+    "File": "Project_QT\\src\\network\\QtLiveClient.cpp",
+    "Code line error": 2
+  },
+  {
+    "Compile error": "'TileChange': is not a member of 'RME::RME::RME::core::network'",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'TileChange': undeclared identifier",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'QList': 'TileChange' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::core'",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::core'",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::core'",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'QMap': 'RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 191
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 191
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::QString'",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'m_connectionState': undeclared identifier",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'m_connectionState': undeclared identifier",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'QMap': 'RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 191
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 191
+  },
+  {
+    "Compile error": "'m_connectionState': undeclared identifier",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'m_connectionState': undeclared identifier",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'m_lastError': undeclared identifier",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'m_clientId': undeclared identifier",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'m_clientName': undeclared identifier",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'m_clientColor': undeclared identifier",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'m_connectedPeers': undeclared identifier",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'m_peerColors': undeclared identifier",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'m_peerCursors': undeclared identifier",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'m_cursorTrackingEnabled': undeclared identifier",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "'m_cursorUpdateIntervalMs': undeclared identifier",
+    "File": "Project_QT\\src\\network\\QtLiveClient.h",
+    "Code line error": 90
+  }
+]

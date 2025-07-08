@@ -1,0 +1,82 @@
+[
+  {
+    "Compile error": "'CompactStorage': is not a member of 'QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qobjectdefs_impl.h",
+    "Code line error": 523
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qobjectdefs_impl.h",
+    "Code line error": 523
+  },
+  {
+    "Compile error": "'CompactStorage': is not a member of 'QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qobjectdefs_impl.h",
+    "Code line error": 526
+  },
+  {
+    "Compile error": "syntax error: identifier 'CompactStorage'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qobjectdefs_impl.h",
+    "Code line error": 526
+  },
+  {
+    "Compile error": "'Storage': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qobjectdefs_impl.h",
+    "Code line error": 561
+  },
+  {
+    "Compile error": "'Storage': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qobjectdefs_impl.h",
+    "Code line error": 561
+  },
+  {
+    "Compile error": "'Storage': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qobjectdefs_impl.h",
+    "Code line error": 562
+  },
+  {
+    "Compile error": "'Storage': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qobjectdefs_impl.h",
+    "Code line error": 562
+  },
+  {
+    "Compile error": "'CompactStorage': is not a member of 'QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qobjectdefs_impl.h",
+    "Code line error": 523
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qobjectdefs_impl.h",
+    "Code line error": 523
+  },
+  {
+    "Compile error": "'CompactStorage': is not a member of 'QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qobjectdefs_impl.h",
+    "Code line error": 526
+  },
+  {
+    "Compile error": "syntax error: identifier 'CompactStorage'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qobjectdefs_impl.h",
+    "Code line error": 526
+  },
+  {
+    "Compile error": "'Storage': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qobjectdefs_impl.h",
+    "Code line error": 561
+  },
+  {
+    "Compile error": "'Storage': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qobjectdefs_impl.h",
+    "Code line error": 561
+  },
+  {
+    "Compile error": "'Storage': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qobjectdefs_impl.h",
+    "Code line error": 562
+  },
+  {
+    "Compile error": "'Storage': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qobjectdefs_impl.h",
+    "Code line error": 562
+  }
+]

@@ -1,0 +1,97 @@
+[
+  {
+    "Compile error": "'RME::editor_logic::commands::BaseCommand::BaseCommand': no overloaded function could convert all the argument types",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "'QString::arg': no matching overloaded function found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'QString::arg': no matching overloaded function found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'QString::arg': no matching overloaded function found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "use of undefined type 'RME::editor_logic::EditorControllerInterface'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "use of undefined type 'RME::editor_logic::EditorControllerInterface'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Tile'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveCreatureCommand.cpp",
+    "Code line error": 97
+  }
+]

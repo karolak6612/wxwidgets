@@ -1,0 +1,1977 @@
+[
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'getSpawn': unknown override specifier",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileMapFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "binary '~': no operator found which takes a left-hand operand of type 'RME::TileStateFlag' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\Tile.h",
+    "Code line error": 151
+  }
+]

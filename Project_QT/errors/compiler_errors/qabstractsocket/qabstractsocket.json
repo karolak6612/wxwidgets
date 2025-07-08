@@ -1,0 +1,182 @@
+[
+  {
+    "Compile error": "'RME::QIODevice': base class undefined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: identifier 'OpenMode'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "syntax error: identifier 'OpenMode'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "syntax error: identifier 'OpenMode'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 161
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::bytesAvailable': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::bytesToWrite': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::close': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 171
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::isSequential': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 172
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::waitForReadyRead': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 177
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::waitForBytesWritten': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::readData': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 199
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::readLineData': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 200
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::skipData': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 201
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::writeData': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 202
+  },
+  {
+    "Compile error": "'d_ptr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 215
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::qRegisterNormalizedMetaType<RME::QAbstractSocket::SocketState>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 235
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::qRegisterNormalizedMetaType<RME::QAbstractSocket::SocketError>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 237
+  },
+  {
+    "Compile error": "'RME::QIODevice': base class undefined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: identifier 'OpenMode'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "syntax error: identifier 'OpenMode'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "syntax error: identifier 'OpenMode'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 161
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::bytesAvailable': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::bytesToWrite': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::close': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 171
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::isSequential': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 172
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::waitForReadyRead': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 177
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::waitForBytesWritten': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::readData': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 199
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::readLineData': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 200
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::skipData': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 201
+  },
+  {
+    "Compile error": "'RME::QAbstractSocket::writeData': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 202
+  },
+  {
+    "Compile error": "'d_ptr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 215
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::qRegisterNormalizedMetaType<RME::QAbstractSocket::SocketState>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 235
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::qRegisterNormalizedMetaType<RME::QAbstractSocket::SocketError>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 237
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::RME::qRegisterNormalizedMetaType<RME::RME::QAbstractSocket::SocketState>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 235
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::RME::qRegisterNormalizedMetaType<RME::RME::QAbstractSocket::SocketError>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qabstractsocket.h",
+    "Code line error": 237
+  }
+]

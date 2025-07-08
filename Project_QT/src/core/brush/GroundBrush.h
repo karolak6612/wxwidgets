@@ -18,7 +18,7 @@ namespace core {
 class ::TestGroundBrush; // Forward declaration
 
 class GroundBrush : public RME::core::Brush {
-    friend class ::TestGroundBrush;
+    
 public:
     GroundBrush();
     ~GroundBrush() override = default;

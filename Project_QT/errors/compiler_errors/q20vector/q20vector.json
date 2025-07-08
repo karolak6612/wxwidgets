@@ -1,0 +1,12 @@
+[
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20vector.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20vector.h",
+    "Code line error": 33
+  }
+]

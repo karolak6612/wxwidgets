@@ -1,0 +1,42 @@
+[
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qguiapplication_platform.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qguiapplication_platform.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qguiapplication_platform.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qguiapplication_platform.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qguiapplication_platform.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qguiapplication_platform.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qguiapplication_platform.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtGui\\qguiapplication_platform.h",
+    "Code line error": 54
+  }
+]

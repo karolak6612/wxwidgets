@@ -1,0 +1,232 @@
+[
+  {
+    "Compile error": "binary operator '|' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'RME::ItemFinderDialogQt::operator |': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '&' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'RME::ItemFinderDialogQt::operator &': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '^' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'RME::ItemFinderDialogQt::operator ^': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '+' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '-' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '|' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator |': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '&' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator &': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '^' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator ^': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '+' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '-' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '|' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator |': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '&' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator &': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '^' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator ^': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '+' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '-' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '|' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator |': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '&' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator &': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '^' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::operator ^': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '+' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '-' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '|' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'ItemFinderDialogQt::operator |': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '&' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'ItemFinderDialogQt::operator &': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '^' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'ItemFinderDialogQt::operator ^': error in function declaration; skipping function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '+' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "binary operator '-' has too many parameters",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'exchange': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'exchange': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'move': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'move': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'swap': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::QEventLoopLocker::swap': function does not take 2 arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qeventloop.h",
+    "Code line error": 70
+  }
+]

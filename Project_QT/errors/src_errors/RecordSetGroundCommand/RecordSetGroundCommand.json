@@ -1,0 +1,32 @@
+[
+  {
+    "Compile error": "'BaseCommand': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordSetGroundCommand.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordSetGroundCommand.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'RME::core::actions::RecordSetGroundCommand::~RecordSetGroundCommand': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordSetGroundCommand.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'RME::core::actions::RecordSetGroundCommand::undo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordSetGroundCommand.h",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'RME::core::actions::RecordSetGroundCommand::redo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordSetGroundCommand.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'RME::core::actions::RecordSetGroundCommand::id': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordSetGroundCommand.h",
+    "Code line error": 42
+  }
+]

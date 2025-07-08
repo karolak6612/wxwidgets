@@ -1,0 +1,102 @@
+[
+  {
+    "Compile error": "'QTypeInfo<RME::ItemFinderDialogQt::QBasicTimer>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'RME::ItemFinderDialogQt': class contains explicit override 'start' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'start': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'RME::ItemFinderDialogQt': class contains explicit override 'start' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'start': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'QTypeInfo<RME::ui::ItemFinderDialogQt::QBasicTimer>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'start' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'start': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'start' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'start': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'QTypeInfo<RME::ui::ItemFinderDialogQt::QBasicTimer>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'start' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'start': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'start' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'start': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'QTypeInfo<RME::ui::ItemFinderDialogQt::QBasicTimer>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'start' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'start': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'start' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'start': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qbasictimer.h",
+    "Code line error": 63
+  }
+]

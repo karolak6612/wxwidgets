@@ -1,0 +1,52 @@
+[
+  {
+    "Compile error": "'BasePalettePanel': base class undefined",
+    "File": "Project_QT\\src\\ui\\palettes\\ItemPalettePanel.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'IBrushStateService': is not a member of 'RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\ui\\palettes\\ItemPalettePanel.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "syntax error: identifier 'IBrushStateService'",
+    "File": "Project_QT\\src\\ui\\palettes\\ItemPalettePanel.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\palettes\\ItemPalettePanel.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\ItemPalettePanel.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::ui::palettes::ItemPalettePanel::~ItemPalettePanel': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\ui\\palettes\\ItemPalettePanel.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::ui::palettes::ItemPalettePanel::refreshContent': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\ui\\palettes\\ItemPalettePanel.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::ui::palettes::ItemPalettePanel::clearSelection': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\ui\\palettes\\ItemPalettePanel.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\ItemPalettePanel.h",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\ItemPalettePanel.h",
+    "Code line error": 137
+  }
+]

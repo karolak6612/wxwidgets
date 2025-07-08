@@ -1,0 +1,1162 @@
+[
+  {
+    "Compile error": "function 'size_t std::hash<RME::Position>::operator ()(const RME::Position &) noexcept const' already has a body",
+    "File": "Project_QT\\src\\core\\Position.cpp",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'hash': symbol is not a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'RME::RME::Position'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::hash' is not a specialization of a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'hash': symbol is not a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'RME::RME::Position'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::hash' is not a specialization of a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'qHash': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'uint RME::qHash(const RME::Position &,uint)': cannot convert argument 1 from 'const int' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'size_t qHash(const QByteArray::FromBase64Result &,size_t) noexcept': cannot convert argument 1 from 'const int' to 'const QByteArray::FromBase64Result &'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'hash': symbol is not a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'RME::RME::Position'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::hash' is not a specialization of a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'hash': symbol is not a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'RME::RME::Position'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::hash' is not a specialization of a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'hash': symbol is not a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'RME::RME::Position'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::hash' is not a specialization of a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'hash': symbol is not a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'RME::RME::Position'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::hash' is not a specialization of a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'hash': symbol is not a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'RME::RME::Position'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::hash' is not a specialization of a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'hash': symbol is not a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'RME::RME::RME::RME::RME::RME::Position'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::RME::RME::RME::std::hash' is not a specialization of a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'hash': symbol is not a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'RME::RME::RME::Position'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::std::hash' is not a specialization of a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'hash': symbol is not a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'RME::RME::RME::RME::RME::Position'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::RME::RME::std::hash' is not a specialization of a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'hash': symbol is not a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'RME::RME::RME::RME::RME::Position'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::RME::RME::std::hash' is not a specialization of a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'hash': symbol is not a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'RME::RME::RME::RME::RME::Position'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::RME::RME::std::hash' is not a specialization of a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'hash': symbol is not a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'RME::RME::Position'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::hash' is not a specialization of a class template",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\Position.h",
+    "Code line error": 65
+  }
+]

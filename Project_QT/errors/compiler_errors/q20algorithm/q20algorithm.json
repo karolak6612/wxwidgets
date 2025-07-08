@@ -1,0 +1,52 @@
+[
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20algorithm.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20algorithm.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20algorithm.h",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "'ranges': is not a member of 'q20'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20algorithm.h",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20algorithm.h",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20algorithm.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20algorithm.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20algorithm.h",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "'ranges': is not a member of 'q20'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20algorithm.h",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20algorithm.h",
+    "Code line error": 140
+  }
+]

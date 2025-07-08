@@ -183,3 +183,5 @@ void SpawnSettingsWidget::onSpawnModeToggled(bool enabled)
 } // namespace widgets
 } // namespace ui
 } // namespace RME
+
+// #include "SpawnSettingsWidget.moc" // Removed - Q_OBJECT is in header

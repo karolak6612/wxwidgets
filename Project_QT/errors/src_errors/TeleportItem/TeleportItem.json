@@ -1,0 +1,92 @@
+[
+  {
+    "Compile error": "'OTBM_ATTR_TELE_DEST_X': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'setX': is not a member of 'RME::Position'",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "'OTBM_ATTR_TELE_DEST_Y': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'setY': is not a member of 'RME::Position'",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'OTBM_ATTR_TELE_DEST_Z': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'setZ': is not a member of 'RME::Position'",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "case expression not constant",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "case expression not constant",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "case expression not constant",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'OTBM_ATTR_TELE_DEST_X': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "term does not evaluate to a function taking 0 arguments",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'OTBM_ATTR_TELE_DEST_Y': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "term does not evaluate to a function taking 0 arguments",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'OTBM_ATTR_TELE_DEST_Z': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "term does not evaluate to a function taking 0 arguments",
+    "File": "Project_QT\\src\\core\\items\\TeleportItem.cpp",
+    "Code line error": 67
+  }
+]

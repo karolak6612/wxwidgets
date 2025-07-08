@@ -1,0 +1,1817 @@
+[
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 115
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 122
+  },
+  {
+    "Compile error": "'totally_ordered_wrapper': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'totally_ordered_wrapper': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 210
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 211
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 211
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 213
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 218
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 219
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 219
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 225
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 226
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 226
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 227
+  },
+  {
+    "Compile error": "'totally_ordered_wrapper': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 232
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 232
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 232
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 138
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 138
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 115
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 122
+  },
+  {
+    "Compile error": "'totally_ordered_wrapper': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'totally_ordered_wrapper': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 210
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 211
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 211
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 213
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 218
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 219
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 219
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 225
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 226
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 226
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 227
+  },
+  {
+    "Compile error": "'totally_ordered_wrapper': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 232
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 232
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 232
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 138
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 138
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 115
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 122
+  },
+  {
+    "Compile error": "'totally_ordered_wrapper': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'totally_ordered_wrapper': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 210
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 211
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 211
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 213
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 218
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 219
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 219
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 225
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 226
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 226
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 227
+  },
+  {
+    "Compile error": "'totally_ordered_wrapper': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 232
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 232
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 232
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 138
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 138
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 115
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 122
+  },
+  {
+    "Compile error": "'totally_ordered_wrapper': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'totally_ordered_wrapper': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'d': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'d': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 210
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 211
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 211
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 213
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 218
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 219
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 219
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 225
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 226
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 226
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 227
+  },
+  {
+    "Compile error": "'totally_ordered_wrapper': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 232
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qshareddata.h",
+    "Code line error": 232
+  }
+]

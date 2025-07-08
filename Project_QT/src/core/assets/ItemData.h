@@ -4,7 +4,7 @@
 #include <QString>
 #include <QList>
 #include <QVariantMap> // For generic attributes
-#include "core/assets/Outfit.h" // For ItemType equivalent of default outfit/look
+#include "core/creatures/Outfit.h" // For ItemType equivalent of default outfit/look
 
 // Forward declaration for ClientProfile if it's complex and only used by pointer/reference
 // namespace RME { namespace core { namespace assets { class ClientProfile; }}}

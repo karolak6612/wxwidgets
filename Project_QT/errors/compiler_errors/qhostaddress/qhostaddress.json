@@ -1,0 +1,17 @@
+[
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QHostAddressPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qhostaddress.h",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QHostAddressPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qhostaddress.h",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::RME::QHostAddressPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qhostaddress.h",
+    "Code line error": 23
+  }
+]

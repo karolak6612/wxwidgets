@@ -1,0 +1,57 @@
+[
+  {
+    "Compile error": "'size_t': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsize.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'enable_if_t': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsize.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "syntax error: identifier 'enable_if_t'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsize.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsize.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsize.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'enable_if_t': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsize.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'is_same_v': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsize.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsize.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'is_trivial_v': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsize.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'is_trivial_v': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsize.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsize.h",
+    "Code line error": 101
+  }
+]

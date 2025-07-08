@@ -1,0 +1,72 @@
+[
+  {
+    "Compile error": "'BaseCommand': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MapWideOperationCommand.h",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MapWideOperationCommand.h",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MapWideOperationCommand.h",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MapWideOperationCommand.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MapWideOperationCommand.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'QList': 'RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MapWideOperationCommand.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MapWideOperationCommand.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MapWideOperationCommand.h",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MapWideOperationCommand.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MapWideOperationCommand.h",
+    "Code line error": 115
+  },
+  {
+    "Compile error": "'RME::core::actions::MapWideOperationCommand::~MapWideOperationCommand': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MapWideOperationCommand.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'RME::core::actions::MapWideOperationCommand::undo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MapWideOperationCommand.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'RME::core::actions::MapWideOperationCommand::redo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MapWideOperationCommand.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'RME::core::actions::MapWideOperationCommand::id': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MapWideOperationCommand.h",
+    "Code line error": 62
+  }
+]

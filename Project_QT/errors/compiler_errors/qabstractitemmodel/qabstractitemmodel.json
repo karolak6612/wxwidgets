@@ -1,0 +1,322 @@
+[
+  {
+    "Compile error": "'QTypeInfo<ItemFinderDialogQt::QModelRoleData>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'IsContainerCompatibleWithModelRoleDataSpan': is not a member of 'QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "'IsContainerCompatibleWithModelRoleDataSpan': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "syntax error: identifier 'value'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "'QModelRoleDataSpan': only a constructor can have a base/member initializer list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'ItemFinderDialogQt': constructors not allowed a return type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "'QModelRoleDataSpan': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'QTypeInfo': 'QModelRoleDataSpan' is not a valid template type argument for parameter 'T'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "explicit specialization; 'QTypeInfo' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 128
+  },
+  {
+    "Compile error": "syntax error: identifier 'QModelRoleDataSpan'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "syntax error: 'return'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'QModelIndex' followed by 'bool' is illegal (did you forget a ';'?)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 143
+  },
+  {
+    "Compile error": "'isValid': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 143
+  },
+  {
+    "Compile error": "'r': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 143
+  },
+  {
+    "Compile error": "'c': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 143
+  },
+  {
+    "Compile error": "'m': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 143
+  },
+  {
+    "Compile error": "constexpr function 'isValid' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 143
+  },
+  {
+    "Compile error": "syntax error: 'private'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "'friend': not allowed outside of a class definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "'r': is not a member of 'QModelIndex'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'r': is not a member of 'QModelIndex'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'c': is not a member of 'QModelIndex'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'c': is not a member of 'QModelIndex'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'RME::QModelRoleDataSpan': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 172
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 172
+  },
+  {
+    "Compile error": "'RME::QModelIndex': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 172
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 172
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 172
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 172
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 172
+  },
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 240
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 240
+  },
+  {
+    "Compile error": "'RME::QPersistentModelIndex': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 240
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 240
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 240
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 240
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 240
+  },
+  {
+    "Compile error": "'size_t RME::qHash(const RME::QPersistentModelIndex &,size_t) noexcept': cannot convert argument 1 from 'RME::QPersistentModelIndexData *const ' to 'const RME::QPersistentModelIndex &'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 243
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::qRegisterNormalizedMetaType<RME::QModelIndexList>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 537
+  },
+  {
+    "Compile error": "'checkTypeIsSuitableForMetaType': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 537
+  },
+  {
+    "Compile error": "'checkTypeIsSuitableForMetaType': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 537
+  },
+  {
+    "Compile error": "'RME::QModelIndexList': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 537
+  },
+  {
+    "Compile error": "syntax error: ')'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 537
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 537
+  },
+  {
+    "Compile error": "'typenameHelper': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 537
+  },
+  {
+    "Compile error": "'typenameHelper': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 537
+  },
+  {
+    "Compile error": "'arr': cannot be used before it is initialized",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 537
+  },
+  {
+    "Compile error": "'name': cannot be used before it is initialized",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 537
+  },
+  {
+    "Compile error": "'id': const object must be initialized",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstractitemmodel.h",
+    "Code line error": 537
+  }
+]

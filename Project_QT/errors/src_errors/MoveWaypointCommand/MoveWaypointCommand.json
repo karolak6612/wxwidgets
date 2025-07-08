@@ -1,0 +1,122 @@
+[
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.cpp",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.cpp",
+    "Code line error": 14
+  },
+  {
+    "Compile error": "'RME::core::actions::MoveWaypointCommand': illegal member initialization: 'BaseCommand' is not a base or member",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.cpp",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "'setText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.cpp",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'validateMembers': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'setErrorText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::WaypointManager'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.cpp",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'toString': is not a member of 'RME::Position'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.cpp",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'validateMembers': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'setErrorText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.cpp",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::WaypointManager'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.cpp",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'toString': is not a member of 'RME::Position'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'static_cast': cannot convert from 'const QUndoCommand *' to 'const RME::core::actions::MoveWaypointCommand *'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.cpp",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'setText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.cpp",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'BaseCommand': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'RME::core::actions::MoveWaypointCommand::~MoveWaypointCommand': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.h",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'RME::core::actions::MoveWaypointCommand::undo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.h",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'RME::core::actions::MoveWaypointCommand::redo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.h",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'RME::core::actions::MoveWaypointCommand::id': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.h",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'RME::core::actions::MoveWaypointCommand::mergeWith': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\MoveWaypointCommand.h",
+    "Code line error": 37
+  }
+]

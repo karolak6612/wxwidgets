@@ -1,0 +1,37 @@
+[
+  {
+    "Compile error": "'at': is not a member of 'QMap<QString,RME::core::assets::BorderSetData>'",
+    "File": "Project_QT\\src\\core\\assets\\MaterialManager.cpp",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'QStringView::toString': function does not take 1 arguments",
+    "File": "Project_QT\\src\\core\\assets\\MaterialManager.cpp",
+    "Code line error": 252
+  },
+  {
+    "Compile error": "'affectedItemId': is not a member of 'RME::core::assets::SpecificAction'",
+    "File": "Project_QT\\src\\core\\assets\\MaterialManager.cpp",
+    "Code line error": 327
+  },
+  {
+    "Compile error": "'void RME::core::assets::MaterialManager::parseCompositeTile(QXmlStreamReader &,RME::core::assets::MaterialCompositeTile &)': cannot convert argument 2 from 'QList<RME::core::assets::MaterialCompositeTile>' to 'RME::core::assets::MaterialCompositeTile &'",
+    "File": "Project_QT\\src\\core\\assets\\MaterialManager.cpp",
+    "Code line error": 430
+  },
+  {
+    "Compile error": "'void RME::core::assets::MaterialManager::parseCompositeTile(QXmlStreamReader &,RME::core::assets::MaterialCompositeTile &)': cannot convert argument 2 from 'QList<RME::core::assets::MaterialCompositeTile>' to 'RME::core::assets::MaterialCompositeTile &'",
+    "File": "Project_QT\\src\\core\\assets\\MaterialManager.cpp",
+    "Code line error": 442
+  },
+  {
+    "Compile error": "'void RME::core::assets::MaterialManager::parseCompositeTile(QXmlStreamReader &,QList<RME::core::assets::MaterialCompositeTile> &)': overloaded member function not found in 'RME::core::assets::MaterialManager'",
+    "File": "Project_QT\\src\\core\\assets\\MaterialManager.cpp",
+    "Code line error": 447
+  },
+  {
+    "Compile error": "binary '<<': no operator found which takes a left-hand operand of type 'QDebug' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\core\\assets\\MaterialManager.cpp",
+    "Code line error": 546
+  }
+]

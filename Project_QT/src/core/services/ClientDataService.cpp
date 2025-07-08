@@ -222,3 +222,5 @@ void ClientDataService::onClientVersionLoadFailed(const QString& error)
 
 } // namespace core
 } // namespace RME
+
+// #include "ClientDataService.moc" // Removed - Q_OBJECT is in header

@@ -1,0 +1,37 @@
+[
+  {
+    "Compile error": "Cannot open include file: 'core/Map.h': No such file or directory",
+    "File": "Project_QT\\src\\ui\\dialogs\\ItemPropertiesDialog.cpp",
+    "Code line error": 4
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\ItemPropertiesDialog.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\ItemPropertiesDialog.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\ItemPropertiesDialog.h",
+    "Code line error": 207
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\ItemPropertiesDialog.h",
+    "Code line error": 207
+  },
+  {
+    "Compile error": "'m_wasModified': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ItemPropertiesDialog.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'m_itemCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\ItemPropertiesDialog.h",
+    "Code line error": 62
+  }
+]

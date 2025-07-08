@@ -4,7 +4,7 @@
 #include "Floor.h" // For std::unique_ptr<Floor>
 #include "../Position.h"
 #include "../map_constants.h" // For MAP_MAX_WIDTH, etc. for MAX_DEPTH calculation
-#include "../../assets/AssetManager.h" // For IItemTypeProvider
+#include "../assets/AssetManager.h" // For IItemTypeProvider
 #include <array>
 #include <memory> // For std::unique_ptr
 #include <QMap>   // For z_floors if leaf node stores multiple floors per Z

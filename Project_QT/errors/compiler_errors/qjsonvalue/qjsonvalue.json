@@ -1,0 +1,77 @@
+[
+  {
+    "Compile error": "use of undefined type 'RME::RME::RME::RME::QString'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonvalue.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'fromUtf8': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonvalue.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'default argument': cannot convert from 'initializer list' to 'const RME::RME::RME::RME::QString &'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonvalue.h",
+    "Code line error": 166
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::RME::RME::QString'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonvalue.h",
+    "Code line error": 166
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::RME::RME::QString'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonvalue.h",
+    "Code line error": 167
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::RME::RME::QString'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonvalue.h",
+    "Code line error": 202
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::RME::RME::QString'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonvalue.h",
+    "Code line error": 202
+  },
+  {
+    "Compile error": "'default argument': cannot convert from 'initializer list' to 'const RME::RME::RME::RME::QString &'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonvalue.h",
+    "Code line error": 286
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::RME::RME::QString'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonvalue.h",
+    "Code line error": 286
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::RME::RME::QString'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonvalue.h",
+    "Code line error": 286
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::QJsonValue RME::RME::RME::RME::QCborValueConstRef::toJsonValue(void) const': overloaded function differs only by return type from 'QJsonValue RME::RME::RME::RME::QCborValueConstRef::toJsonValue(void) const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonvalue.h",
+    "Code line error": 327
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::QCborValueConstRef::toJsonValue': redefinition; different basic types",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonvalue.h",
+    "Code line error": 327
+  },
+  {
+    "Compile error": "use of undefined type 'QJsonValue'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonvalue.h",
+    "Code line error": 327
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::QCborValueConstRef::toJsonValue' uses undefined class 'QJsonValue'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonvalue.h",
+    "Code line error": 327
+  },
+  {
+    "Compile error": "use of undefined type 'QJsonValue'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonvalue.h",
+    "Code line error": 329
+  }
+]

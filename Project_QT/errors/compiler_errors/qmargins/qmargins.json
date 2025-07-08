@@ -1,0 +1,587 @@
+[
+  {
+    "Compile error": "'tuple_size': symbol is not a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 525
+  },
+  {
+    "Compile error": "'QMargins': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 525
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'QMargins'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 525
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_size' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 525
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 525
+  },
+  {
+    "Compile error": "syntax error: 'public'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 525
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 525
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 525
+  },
+  {
+    "Compile error": "'tuple_element': symbol is not a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 527
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 527
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'constant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 527
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 527
+  },
+  {
+    "Compile error": "syntax error: 'constant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 527
+  },
+  {
+    "Compile error": "'QMargins': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 527
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 527
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 527
+  },
+  {
+    "Compile error": "'QMargins': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 529
+  },
+  {
+    "Compile error": "'RME::QMargins': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 529
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 529
+  },
+  {
+    "Compile error": "'QMargins': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 531
+  },
+  {
+    "Compile error": "'RME::QMargins': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 531
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 531
+  },
+  {
+    "Compile error": "'QMargins': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 533
+  },
+  {
+    "Compile error": "'RME::QMargins': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 533
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 533
+  },
+  {
+    "Compile error": "'QMarginsF': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 536
+  },
+  {
+    "Compile error": "'RME::QMarginsF': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 536
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_size' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 536
+  },
+  {
+    "Compile error": "'QMarginsF': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 538
+  },
+  {
+    "Compile error": "'RME::QMarginsF': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 538
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 538
+  },
+  {
+    "Compile error": "'QMarginsF': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 540
+  },
+  {
+    "Compile error": "'RME::QMarginsF': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 540
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 540
+  },
+  {
+    "Compile error": "'QMarginsF': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 542
+  },
+  {
+    "Compile error": "'RME::QMarginsF': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 542
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 542
+  },
+  {
+    "Compile error": "'QMarginsF': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 544
+  },
+  {
+    "Compile error": "'RME::QMarginsF': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 544
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 544
+  },
+  {
+    "Compile error": "'size_t': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'enable_if_t': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "syntax error: identifier 'enable_if_t'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'enable_if_t': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'is_same_v': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'is_trivial_v': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'is_trivial_v': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'RME::QMargins': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'is_pointer_v': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'is_integral': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'value': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'qIsValueInitializationBitwiseZero<RME::QMargins>': is not a member of 'QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'isRelocatable': is not a member of 'QTypeInfo<RME::QMargins>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'is_copy_constructible_v': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'is_copy_constructible_v': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "syntax error: '||'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'is_move_constructible_v': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "syntax error: identifier 'QMargins'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'QMargins': is not a class or namespace name",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "'QMargins': constructor initializer lists are only allowed on constructor definitions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "constexpr function 'QMargins' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "'QMargins': is not a class or namespace name",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'QMargins': constructor initializer lists are only allowed on constructor definitions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 102
+  },
+  {
+    "Compile error": "constexpr function 'QMargins' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'QMargins': is not a class or namespace name",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'isNull': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'m_left': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'m_top': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'m_right': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'m_bottom': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "constexpr function 'isNull' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'QMargins': is not a class or namespace name",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'left': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'m_left': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "constexpr function 'left' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'QMargins': is not a class or namespace name",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'top': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'m_top': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "constexpr function 'top' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'QMargins': is not a class or namespace name",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'right': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'m_right': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "constexpr function 'right' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'QMargins': is not a class or namespace name",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 116
+  },
+  {
+    "Compile error": "'bottom': modifiers not allowed on nonmember functions",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 116
+  },
+  {
+    "Compile error": "'m_bottom': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 117
+  },
+  {
+    "Compile error": "constexpr function 'bottom' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 116
+  },
+  {
+    "Compile error": "'QMargins': is not a class or namespace name",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'m_left': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'QMargins': is not a class or namespace name",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 123
+  },
+  {
+    "Compile error": "'m_top': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "'QMargins': is not a class or namespace name",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'m_right': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'QMargins': is not a class or namespace name",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 129
+  },
+  {
+    "Compile error": "'m_bottom': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 130
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '+'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 132
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 132
+  },
+  {
+    "Compile error": "operator '+' must have at least one parameter of class type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 132
+  },
+  {
+    "Compile error": "'m1': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 134
+  },
+  {
+    "Compile error": "'m2': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 134
+  },
+  {
+    "Compile error": "'m1': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 134
+  },
+  {
+    "Compile error": "'m2': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 134
+  },
+  {
+    "Compile error": "'m1': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 135
+  },
+  {
+    "Compile error": "'m2': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 135
+  },
+  {
+    "Compile error": "'m1': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 135
+  },
+  {
+    "Compile error": "'m2': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 135
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '-'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 138
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 138
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmargins.h",
+    "Code line error": 138
+  }
+]

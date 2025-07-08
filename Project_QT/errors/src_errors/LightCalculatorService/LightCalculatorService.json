@@ -1,0 +1,32 @@
+[
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\core\\lighting\\LightCalculatorService.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\lighting\\LightCalculatorService.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\lighting\\LightCalculatorService.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\lighting\\LightCalculatorService.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'m_globalLightColor': undeclared identifier",
+    "File": "Project_QT\\src\\core\\lighting\\LightCalculatorService.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'m_dynamicLights': undeclared identifier",
+    "File": "Project_QT\\src\\core\\lighting\\LightCalculatorService.h",
+    "Code line error": 52
+  }
+]

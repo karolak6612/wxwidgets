@@ -255,8 +255,16 @@ bool ItemDatabase::parseOtbAttributes(QDataStream& stream, ItemData& itemData) {
             case OtbAttribute::OTB_ATTR_PLURALNAME: itemData.pluralName = QString::fromLatin1(dataBuffer); break;
             case OtbAttribute::OTB_ATTR_ARTICLE: itemData.article = QString::fromLatin1(dataBuffer); break;
             case OtbAttribute::OTB_ATTR_TEXT: itemData.genericAttributes["text"] = QString::fromLatin1(dataBuffer); break;
-            case OtbAttribute::OTB_ATTR_UNIQUE_ID: attrStream >> itemData.genericAttributes["uid"].setValue<quint16>(); break;
-            case OtbAttribute::OTB_ATTR_ACTION_ID: attrStream >> itemData.genericAttributes["aid"].setValue<quint16>(); break;
+            case OtbAttribute::OTB_ATTR_UNIQUE_ID: { 
+                quint16 uid; 
+                attrStream >> uid; 
+                itemData.genericAttributes["uid"] = uid; 
+            } break;
+            case OtbAttribute::OTB_ATTR_ACTION_ID: { 
+                quint16 aid; 
+                attrStream >> aid; 
+                itemData.genericAttributes["aid"] = aid; 
+            } break;
             case OtbAttribute::OTB_ATTR_TELE_DEST: { // RME stores x,y,z as quint16
                 quint16 x,y,z; attrStream >> x >> y >> z;
                 itemData.genericAttributes["teleDestX"] = x;

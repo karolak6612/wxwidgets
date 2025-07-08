@@ -1,0 +1,147 @@
+[
+  {
+    "Compile error": "'QList': no appropriate default constructor available",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'RME::core::actions::RemoveHouseCommand': illegal member initialization: 'BaseCommand' is not a base or member",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'setErrorText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'setText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'setText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'validateMembers': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'setErrorText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'setText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "binary '=': no operator found which takes a left-hand operand of type 'QList' (or there is no acceptable conversion)",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'operator =' function is unavailable in 'QList'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'qsizetype QList<T>::size(void) noexcept const': cannot convert 'this' pointer from 'QList' to 'const QList<T> &'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "built-in operator '<<' cannot be applied to an operand of type 'QDebug'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'setText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'QList<T>::begin': no overloaded function has valid conversion for 'this' pointer",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "'initializing': cannot convert from 'QList<T>::iterator' to 'QList<T>::iterator'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "'QList<T>::end': no overloaded function has valid conversion for 'this' pointer",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "'void RME::core::houses::Houses::linkTileToHouse(quint32,const RME::Position &)': cannot convert argument 2 from 'const RME::core::Position' to 'const RME::Position &'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'setText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'qsizetype QList<T>::size(void) noexcept const': cannot convert 'this' pointer from 'QList' to 'const QList<T> &'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "built-in operator '<<' cannot be applied to an operand of type 'QDebug'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.cpp",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'BaseCommand': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'QList': 'RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'RME::core::actions::RemoveHouseCommand::~RemoveHouseCommand': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.h",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'RME::core::actions::RemoveHouseCommand::undo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'RME::core::actions::RemoveHouseCommand::redo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'RME::core::actions::RemoveHouseCommand::id': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveHouseCommand.h",
+    "Code line error": 40
+  }
+]

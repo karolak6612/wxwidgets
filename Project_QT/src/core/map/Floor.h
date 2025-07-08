@@ -3,7 +3,7 @@
 
 #include "../Tile.h" // For std::unique_ptr<Tile>
 #include "../Position.h"
-#include "../../assets/AssetManager.h" // For IItemTypeProvider
+#include "core/assets/AssetManager.h" // For IItemTypeProvider
 #include <QVector>
 #include <memory> // For std::unique_ptr
 

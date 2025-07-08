@@ -1,0 +1,67 @@
+[
+  {
+    "Compile error": "'BaseCommand': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\commands\\SetHouseExitCommand.h",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\SetHouseExitCommand.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\editor_logic\\commands\\SetHouseExitCommand.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\SetHouseExitCommand.h",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\SetHouseExitCommand.h",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'m_newExitPos': unknown override specifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\SetHouseExitCommand.h",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\editor_logic\\commands\\SetHouseExitCommand.h",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\SetHouseExitCommand.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'m_oldExitPos': unknown override specifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\SetHouseExitCommand.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\editor_logic\\commands\\SetHouseExitCommand.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'SetHouseExitCommand::~SetHouseExitCommand': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\SetHouseExitCommand.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'SetHouseExitCommand::undo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\SetHouseExitCommand.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'SetHouseExitCommand::redo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\SetHouseExitCommand.h",
+    "Code line error": 29
+  }
+]

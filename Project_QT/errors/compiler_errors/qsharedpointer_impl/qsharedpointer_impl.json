@@ -1,0 +1,422 @@
+[
+  {
+    "Compile error": "'Initialization': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'RME::QtSharedPointer::ExternalRefCountData::Initialization': uses 'RME::QtSharedPointer::ExternalRefCountData', which is being defined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'inline' specifier cannot appear on a block-scope declaration or non-static data member",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '~'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 122
+  },
+  {
+    "Compile error": "syntax error: '~'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 122
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 122
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 122
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "'destroyer': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "'getAndRef': must have external linkage in order to be exported/imported",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: '<L_GRAMMAR_end_class>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 144
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 482
+  },
+  {
+    "Compile error": "'strong_ordering': 'friend' not permitted on data declarations",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 482
+  },
+  {
+    "Compile error": "syntax error: identifier 'compareThreeWay'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 483
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 484
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 495
+  },
+  {
+    "Compile error": "'strong_ordering': 'friend' not permitted on data declarations",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 495
+  },
+  {
+    "Compile error": "syntax error: identifier 'compareThreeWay'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 495
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 496
+  },
+  {
+    "Compile error": "'strong_ordering': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 501
+  },
+  {
+    "Compile error": "'compareThreeWay': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 502
+  },
+  {
+    "Compile error": "syntax error: 'const'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 502
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 503
+  },
+  {
+    "Compile error": "'Initialization': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 507
+  },
+  {
+    "Compile error": "syntax error: 'void' was unexpected here; expected ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 509
+  },
+  {
+    "Compile error": "'RME::QSharedPointer<T>::Initialization' cannot be declared with 'explicit' specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 507
+  },
+  {
+    "Compile error": "'totally_ordered_wrapper': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 586
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 586
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 586
+  },
+  {
+    "Compile error": "'value': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 283
+  },
+  {
+    "Compile error": "'value': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 283
+  },
+  {
+    "Compile error": "'value': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 284
+  },
+  {
+    "Compile error": "'value': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 284
+  },
+  {
+    "Compile error": "'value': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 292
+  },
+  {
+    "Compile error": "'deref': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 293
+  },
+  {
+    "Compile error": "'value': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 296
+  },
+  {
+    "Compile error": "'value': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 300
+  },
+  {
+    "Compile error": "'value': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 305
+  },
+  {
+    "Compile error": "'value': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 310
+  },
+  {
+    "Compile error": "'value': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 314
+  },
+  {
+    "Compile error": "'value': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 324
+  },
+  {
+    "Compile error": "'value': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 334
+  },
+  {
+    "Compile error": "'value': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 350
+  },
+  {
+    "Compile error": "'value': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 363
+  },
+  {
+    "Compile error": "'Uninitialized': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 444
+  },
+  {
+    "Compile error": "'deref': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 583
+  },
+  {
+    "Compile error": "'IsPointerToTypeDerivedFromQObject': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1008
+  },
+  {
+    "Compile error": "'IsPointerToTypeDerivedFromQObject': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1008
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1008
+  },
+  {
+    "Compile error": "type '<error type>' unexpected",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1008
+  },
+  {
+    "Compile error": "'Value': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1008
+  },
+  {
+    "Compile error": "'type': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1008
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1008
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1008
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1010
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1010
+  },
+  {
+    "Compile error": "'IsPointerToTypeDerivedFromQObject': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1014
+  },
+  {
+    "Compile error": "'IsPointerToTypeDerivedFromQObject': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1014
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1014
+  },
+  {
+    "Compile error": "type '<error type>' unexpected",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1014
+  },
+  {
+    "Compile error": "'Value': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1014
+  },
+  {
+    "Compile error": "'type': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1014
+  },
+  {
+    "Compile error": "'RME::type': redefinition; multiple initialization",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1014
+  },
+  {
+    "Compile error": "'<error type> RME::type': redefinition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1014
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1014
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1014
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1016
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1016
+  },
+  {
+    "Compile error": "syntax error: missing '}' before '!'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1060
+  },
+  {
+    "Compile error": "'RME::QTypeInfo<RME::QWeakPointer<T>>::!isComplex': finalizer tag mismatch",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1060
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '||'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1060
+  },
+  {
+    "Compile error": "'RME::QTypeInfo<RME::QWeakPointer<T>>': a finalizer must have a 'void' parameter list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1060
+  },
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1060
+  },
+  {
+    "Compile error": "'qIsValueInitializationBitwiseZero': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1060
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1060
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1060
+  },
+  {
+    "Compile error": "syntax error: missing '}' before '!'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1061
+  },
+  {
+    "Compile error": "'RME::QTypeInfo<RME::QSharedPointer<T>>::!isComplex': finalizer tag mismatch",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1061
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '||'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1061
+  },
+  {
+    "Compile error": "'RME::QTypeInfo<RME::QSharedPointer<T>>': a finalizer must have a 'void' parameter list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1061
+  },
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1061
+  },
+  {
+    "Compile error": "'qIsValueInitializationBitwiseZero': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1061
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1061
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qsharedpointer_impl.h",
+    "Code line error": 1061
+  }
+]

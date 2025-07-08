@@ -375,4 +375,4 @@ void MainToolBar::onValidateGroundsClicked() {
 } // namespace ui
 } // namespace RME
 
-#include "MainToolBar.moc"
+// #include "MainToolBar.moc" // Removed - Q_OBJECT is in header

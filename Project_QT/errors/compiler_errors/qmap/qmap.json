@@ -1,0 +1,917 @@
+[
+  {
+    "Compile error": "'QHashMultiReturnType': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "'QHashMultiReturnType': 'friend' not permitted on data declarations",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "syntax error: '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 808
+  },
+  {
+    "Compile error": "'associative_erase_if': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 322
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 623
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 624
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 625
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 626
+  },
+  {
+    "Compile error": "'IfIteratorCanMoveBackwards': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: identifier 'IfIteratorCanMoveBackwards'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: missing ')' before '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: 'while'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: 'return'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: missing ';' before ''template<''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "'IfIteratorCanMoveBackwards': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "syntax error: identifier 'IfIteratorCanMoveBackwards'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "syntax error: 'if'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "syntax error: 'void' should be preceded by ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "'associative_erase_if': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 824
+  },
+  {
+    "Compile error": "'associative_erase_if': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1033
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1356
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1357
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1358
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1359
+  },
+  {
+    "Compile error": "'IfIteratorCanMoveBackwards': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "syntax error: identifier 'IfIteratorCanMoveBackwards'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "'QHashMultiReturnType': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "'QHashMultiReturnType': 'friend' not permitted on data declarations",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "syntax error: '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 808
+  },
+  {
+    "Compile error": "'associative_erase_if': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 322
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 623
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 624
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 625
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 626
+  },
+  {
+    "Compile error": "'IfIteratorCanMoveBackwards': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: identifier 'IfIteratorCanMoveBackwards'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: missing ')' before '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: 'while'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: 'return'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: missing ';' before ''template<''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "'IfIteratorCanMoveBackwards': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "syntax error: identifier 'IfIteratorCanMoveBackwards'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "syntax error: 'if'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "syntax error: 'void' should be preceded by ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "'associative_erase_if': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 824
+  },
+  {
+    "Compile error": "'associative_erase_if': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1033
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1356
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1357
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1358
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1359
+  },
+  {
+    "Compile error": "'IfIteratorCanMoveBackwards': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "syntax error: identifier 'IfIteratorCanMoveBackwards'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "syntax error: missing ')' before '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "syntax error: '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "'QHashMultiReturnType': is not a member of 'RME::RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "'QHashMultiReturnType': 'friend' not permitted on data declarations",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "syntax error: '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 808
+  },
+  {
+    "Compile error": "'associative_erase_if': is not a member of 'RME::RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 322
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 623
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 624
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 625
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 626
+  },
+  {
+    "Compile error": "'IfIteratorCanMoveBackwards': is not a member of 'RME::RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: identifier 'IfIteratorCanMoveBackwards'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: missing ')' before '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: 'while'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: 'return'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: missing ';' before ''template<''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "'IfIteratorCanMoveBackwards': is not a member of 'RME::RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "syntax error: identifier 'IfIteratorCanMoveBackwards'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "syntax error: 'if'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "syntax error: 'void' should be preceded by ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "'associative_erase_if': is not a member of 'RME::RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 824
+  },
+  {
+    "Compile error": "'associative_erase_if': is not a member of 'RME::RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1033
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1356
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1357
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1358
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1359
+  },
+  {
+    "Compile error": "'IfIteratorCanMoveBackwards': is not a member of 'RME::RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "syntax error: identifier 'IfIteratorCanMoveBackwards'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "'QHashMultiReturnType': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "'QHashMultiReturnType': 'friend' not permitted on data declarations",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "syntax error: '<'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 801
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 808
+  },
+  {
+    "Compile error": "'associative_erase_if': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 322
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 623
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 624
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 625
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 626
+  },
+  {
+    "Compile error": "'IfIteratorCanMoveBackwards': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: identifier 'IfIteratorCanMoveBackwards'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: missing ')' before '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: 'while'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: 'return'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "syntax error: missing ';' before ''template<''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 818
+  },
+  {
+    "Compile error": "'IfIteratorCanMoveBackwards': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "syntax error: identifier 'IfIteratorCanMoveBackwards'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "syntax error: 'if'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "syntax error: 'void' should be preceded by ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 819
+  },
+  {
+    "Compile error": "'associative_erase_if': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 824
+  },
+  {
+    "Compile error": "'associative_erase_if': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1033
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1356
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1357
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1358
+  },
+  {
+    "Compile error": "'QKeyValueRange': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1359
+  },
+  {
+    "Compile error": "'IfIteratorCanMoveBackwards': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "syntax error: identifier 'IfIteratorCanMoveBackwards'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "syntax error: missing ')' before '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "syntax error: '?'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qmap.h",
+    "Code line error": 1598
+  }
+]

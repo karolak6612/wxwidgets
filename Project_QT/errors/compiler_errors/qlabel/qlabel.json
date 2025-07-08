@@ -1,0 +1,337 @@
+[
+  {
+    "Compile error": "'WindowFlags': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'WindowFlags'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'WindowFlags': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'WindowFlags'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'ReturnByValueConstant': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: identifier 'ReturnByValueConstant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'QPixmap RME::QLabel::pixmap(void) const': member function already defined or declared",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'ReturnByValueConstant': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "syntax error: identifier 'ReturnByValueConstant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'RME::QPicture RME::QLabel::picture(void) const': member function already defined or declared",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'TextFormat': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'textFormat': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'TextFormat': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "syntax error: identifier 'TextFormat'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'Alignment': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'alignment': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Alignment': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: identifier 'Alignment'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'TextInteractionFlags': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "syntax error: identifier 'TextInteractionFlags'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'TextInteractionFlags': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'textInteractionFlags': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'WindowFlags': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'WindowFlags'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'WindowFlags': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'WindowFlags'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'ReturnByValueConstant': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: identifier 'ReturnByValueConstant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'QPixmap RME::QLabel::pixmap(void) const': member function already defined or declared",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'ReturnByValueConstant': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "syntax error: identifier 'ReturnByValueConstant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'RME::QPicture RME::QLabel::picture(void) const': member function already defined or declared",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'TextFormat': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'textFormat': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'TextFormat': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "syntax error: identifier 'TextFormat'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'Alignment': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'alignment': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Alignment': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: identifier 'Alignment'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'TextInteractionFlags': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "syntax error: identifier 'TextInteractionFlags'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'TextInteractionFlags': is not a member of 'RME::Qt'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'textInteractionFlags': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'RME::QLabel::minimumSizeHint': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'RME::QLabel::heightForWidth': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'RME::QLabel::keyPressEvent': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 116
+  },
+  {
+    "Compile error": "'RME::QLabel::mousePressEvent': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'RME::QLabel::mouseMoveEvent': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'RME::QLabel::mouseReleaseEvent': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'RME::QLabel::contextMenuEvent': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 123
+  },
+  {
+    "Compile error": "'RME::QLabel::focusInEvent': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 125
+  },
+  {
+    "Compile error": "'RME::QLabel::focusOutEvent': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'RME::QLabel::focusNextPrevChild': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'d_ptr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlabel.h",
+    "Code line error": 132
+  }
+]

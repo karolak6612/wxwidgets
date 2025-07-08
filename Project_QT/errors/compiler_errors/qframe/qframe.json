@@ -1,0 +1,32 @@
+[
+  {
+    "Compile error": "'RME::QWidget': base class undefined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qframe.h",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'RME::QFrame::sizeHint': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qframe.h",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'RME::QFrame::event': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qframe.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'RME::QFrame::paintEvent': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qframe.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'RME::QFrame::changeEvent': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qframe.h",
+    "Code line error": 77
+  },
+  {
+    "Compile error": "'d_ptr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qframe.h",
+    "Code line error": 87
+  }
+]

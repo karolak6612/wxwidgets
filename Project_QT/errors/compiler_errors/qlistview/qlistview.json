@@ -1,0 +1,22 @@
+[
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::QListView::event': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistview.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::QListView::timerEvent': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistview.h",
+    "Code line error": 128
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::QListView::event': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistview.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt::QListView::timerEvent': method with override specifier 'override' did not override any base class methods",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistview.h",
+    "Code line error": 128
+  }
+]

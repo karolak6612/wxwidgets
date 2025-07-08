@@ -1,0 +1,137 @@
+[
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'QNativeInterface': is not a class or namespace name",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'QNativeInterface': is not a class or namespace name",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'QNativeInterface': is not a class or namespace name",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'QNativeInterface': is not a class or namespace name",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'false_type': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'void_t': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'void_t': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "syntax error: unexpected type 'NativeInterface::TypeInfo'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'struct': missing tag name",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'RME::QNativeInterface::Private::<unnamed-tag>': unnamed class template is not allowed",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'true_type': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: unexpected token ',' following 'typename-specifier'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "syntax error: ',' was unexpected here; expected ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "syntax error: unexpected token ',' following 'jump-statement'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "syntax error: '>' was unexpected here; expected ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "syntax error: unexpected token 'else' following 'statement-seq'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qnativeinterface.h",
+    "Code line error": 91
+  }
+]

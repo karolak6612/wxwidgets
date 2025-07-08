@@ -1,0 +1,217 @@
+[
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QRegularExpressionPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QRegularExpressionMatchPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 195
+  },
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QRegularExpressionMatchIteratorPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 284
+  },
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "'RME::QRegularExpressionMatchIterator': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QRegularExpressionPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QRegularExpressionMatchPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 195
+  },
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QRegularExpressionMatchIteratorPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 284
+  },
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "'RME::QRegularExpressionMatchIterator': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QRegularExpressionPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 179
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 179
+  },
+  {
+    "Compile error": "'RME::QRegularExpression': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 179
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 179
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 179
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 179
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 179
+  },
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QRegularExpressionMatchPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 195
+  },
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 272
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 272
+  },
+  {
+    "Compile error": "'RME::QRegularExpressionMatch': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 272
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 272
+  },
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QRegularExpressionPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QRegularExpressionMatchPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 195
+  },
+  {
+    "Compile error": "'QExplicitlySharedDataPointer<RME::QRegularExpressionMatchIteratorPrivate>::~QExplicitlySharedDataPointer(void)': symbol cannot be defined within namespace 'RME'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 284
+  },
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "'RME::QRegularExpressionMatchIterator': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qregularexpression.h",
+    "Code line error": 398
+  }
+]

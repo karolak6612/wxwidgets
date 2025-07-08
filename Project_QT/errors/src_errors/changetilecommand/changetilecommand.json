@@ -1,0 +1,77 @@
+[
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\actions\\changetilecommand.h",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\actions\\changetilecommand.h",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'Position': undeclared identifier",
+    "File": "Project_QT\\src\\core\\actions\\changetilecommand.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'QList': 'Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\actions\\changetilecommand.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\actions\\changetilecommand.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'m_position': unknown override specifier",
+    "File": "Project_QT\\src\\core\\actions\\changetilecommand.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\actions\\changetilecommand.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'Tile': undeclared identifier",
+    "File": "Project_QT\\src\\core\\actions\\changetilecommand.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'std::unique_ptr': 'Tile' is not a valid template type argument for parameter '_Ty'",
+    "File": "Project_QT\\src\\core\\actions\\changetilecommand.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'std::unique_ptr': too few template arguments",
+    "File": "Project_QT\\src\\core\\actions\\changetilecommand.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'std::unique_ptr': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\actions\\changetilecommand.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'Tile': undeclared identifier",
+    "File": "Project_QT\\src\\core\\actions\\changetilecommand.h",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'std::unique_ptr': 'Tile' is not a valid template type argument for parameter '_Ty'",
+    "File": "Project_QT\\src\\core\\actions\\changetilecommand.h",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'std::unique_ptr': too few template arguments",
+    "File": "Project_QT\\src\\core\\actions\\changetilecommand.h",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'std::unique_ptr': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\actions\\changetilecommand.h",
+    "Code line error": 87
+  }
+]

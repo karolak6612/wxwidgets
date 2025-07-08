@@ -1,0 +1,17 @@
+[
+  {
+    "Compile error": "'RME::core::RawBrush::hasMaterial': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\RawBrush.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'TestRawBrush': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\brush\\RawBrush.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::core::RawBrush::hasMaterial': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\RawBrush.h",
+    "Code line error": 49
+  }
+]

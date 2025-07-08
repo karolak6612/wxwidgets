@@ -1,0 +1,512 @@
+[
+  {
+    "Compile error": "'EditHouseDialogQt': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 10
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 10
+  },
+  {
+    "Compile error": "'RME::RME::ui::dialogs::EditHouseDialogQt': constructor initializer lists are only allowed on constructor definitions",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'m_houseCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "'m_originalHouseId': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'m_houseCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'setWindowTitle': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'setModal': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'setupUI': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'connectSignals': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'loadData': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'RME::RME::ui::dialogs::EditHouseDialogQt': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'EditHouseDialogQt': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'m_nameEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'m_nameEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'m_nameEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'m_townCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'populateTownCombo': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'m_townCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'m_rentSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'m_rentSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'m_rentSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'m_rentSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'m_rentSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'m_idSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'m_idSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'m_idSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'m_idSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'m_guildhallCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'m_guildhallCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'m_buttonBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'m_formLayout': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'m_buttonBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'m_nameEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'EditHouseDialogQt': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'m_buttonBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'EditHouseDialogQt': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'onAccepted': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'connect': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'m_buttonBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'EditHouseDialogQt': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'onRejected': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'connect': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'EditHouseDialogQt': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'m_houseCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'m_nameEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'m_houseCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'m_rentSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "'m_houseCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "'m_idSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'m_houseCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'m_guildhallCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'m_houseCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'m_houseCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'m_townCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'m_townCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'m_townCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "'EditHouseDialogQt': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'validateInputs': identifier not found",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "'m_houseCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "'m_houseCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'m_nameEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'m_houseCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'m_rentSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'m_houseCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'m_idSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'m_houseCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'m_guildhallCheck': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'m_townCombo': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 109
+  },
+  {
+    "Compile error": "'m_houseCopy': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'EditHouseDialogQt': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 115
+  },
+  {
+    "Compile error": "'m_nameEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'m_nameEdit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'m_rentSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'m_rentSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 128
+  },
+  {
+    "Compile error": "'m_idSpinBox': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 133
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.cpp",
+    "Code line error": 133
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\EditHouseDialogQt.h",
+    "Code line error": 69
+  }
+]

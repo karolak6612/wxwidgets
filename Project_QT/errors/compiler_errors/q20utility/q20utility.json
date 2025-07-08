@@ -1,0 +1,192 @@
+[
+  {
+    "Compile error": "syntax error: 'std' was unexpected here",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "syntax error: unexpected token '<' following 'alias-declaration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "syntax error: '>' was unexpected here; expected ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "syntax error: 'std' was unexpected here",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: unexpected token '<' following 'alias-declaration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: '>' was unexpected here; expected ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'simple-type-specifier'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'expression'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'simple-type-specifier'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'expression'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: 'std' was unexpected here",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "syntax error: unexpected token '<' following 'alias-declaration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "syntax error: '>' was unexpected here; expected ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "syntax error: 'std' was unexpected here",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "syntax error: unexpected token '<' following 'alias-declaration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "syntax error: '>' was unexpected here; expected ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'simple-type-specifier'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'expression'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'simple-type-specifier'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'expression'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'simple-type-specifier'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'expression'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "syntax error: ')' was unexpected here; expected ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "syntax error: unexpected token ')' following 'jump-statement'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "syntax error: ')' was unexpected here; expected 'expression'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "syntax error: ')' was unexpected here; expected ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "syntax error: unexpected token ')' following 'expression-statement'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'simple-type-specifier'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 115
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'expression'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 115
+  },
+  {
+    "Compile error": "syntax error: ')' was unexpected here; expected ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 115
+  },
+  {
+    "Compile error": "syntax error: unexpected token ')' following 'expression-statement'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 115
+  },
+  {
+    "Compile error": "syntax error: ')' was unexpected here; expected 'expression'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 115
+  },
+  {
+    "Compile error": "syntax error: ')' was unexpected here; expected ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 115
+  },
+  {
+    "Compile error": "syntax error: unexpected token ')' following 'expression-statement'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 115
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'simple-type-specifier'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 130
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'expression'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 130
+  },
+  {
+    "Compile error": "syntax error: ')' was unexpected here; expected ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 130
+  },
+  {
+    "Compile error": "syntax error: unexpected token ')' following 'expression-statement'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\q20utility.h",
+    "Code line error": 130
+  }
+]

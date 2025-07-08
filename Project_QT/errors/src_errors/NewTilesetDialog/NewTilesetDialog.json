@@ -1,0 +1,67 @@
+[
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "Project_QT\\src\\ui\\dialogs\\NewTilesetDialog.cpp",
+    "Code line error": 7
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\NewTilesetDialog.cpp",
+    "Code line error": 7
+  },
+  {
+    "Compile error": "unexpected end-of-file found",
+    "File": "Project_QT\\src\\ui\\dialogs\\NewTilesetDialog.cpp",
+    "Code line error": 283
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\NewTilesetDialog.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\NewTilesetDialog.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\NewTilesetDialog.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\NewTilesetDialog.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'m_categoryType': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\NewTilesetDialog.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\dialogs\\NewTilesetDialog.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\dialogs\\NewTilesetDialog.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\NewTilesetDialog.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\dialogs\\NewTilesetDialog.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'m_categoryType': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\dialogs\\NewTilesetDialog.h",
+    "Code line error": 56
+  }
+]

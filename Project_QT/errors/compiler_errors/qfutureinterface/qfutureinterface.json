@@ -1,0 +1,22 @@
+[
+  {
+    "Compile error": "'QSlotObjectBase': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfutureinterface.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "syntax error: identifier 'QSlotObjectBase'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfutureinterface.h",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'QSlotObjectBase': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfutureinterface.h",
+    "Code line error": 185
+  },
+  {
+    "Compile error": "syntax error: identifier 'QSlotObjectBase'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qfutureinterface.h",
+    "Code line error": 185
+  }
+]

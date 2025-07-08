@@ -1,0 +1,47 @@
+[
+  {
+    "Compile error": "unexpected token 'class'. Did you forget a ';'?",
+    "File": "Project_QT\\src\\core\\selection\\SelectionCommand.h",
+    "Code line error": 10
+  },
+  {
+    "Compile error": "'SelectionChange': is not a member of 'RME::SelectionManager'",
+    "File": "Project_QT\\src\\core\\selection\\SelectionCommand.h",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "'SelectionChange': undeclared identifier",
+    "File": "Project_QT\\src\\core\\selection\\SelectionCommand.h",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "'QList': 'SelectionChange' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\selection\\SelectionCommand.h",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\selection\\SelectionCommand.h",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "'SelectionChange': is not a member of 'RME::SelectionManager'",
+    "File": "Project_QT\\src\\core\\selection\\SelectionCommand.h",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'SelectionChange': undeclared identifier",
+    "File": "Project_QT\\src\\core\\selection\\SelectionCommand.h",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'QList': 'SelectionChange' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\selection\\SelectionCommand.h",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\selection\\SelectionCommand.h",
+    "Code line error": 34
+  }
+]

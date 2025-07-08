@@ -1,0 +1,127 @@
+[
+  {
+    "Compile error": "Cannot open include file: 'core/Map.h': No such file or directory",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.cpp",
+    "Code line error": 2
+  },
+  {
+    "Compile error": "'Map': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'RME::Tile': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'std::unique_ptr': 'RME::Tile' is not a valid template type argument for parameter '_Ty'",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'std::unique_ptr': too few template arguments",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'std::unique_ptr': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'QList': 'RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'RME::Tile': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'std::unique_ptr': 'RME::Tile' is not a valid template type argument for parameter '_Ty'",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'std::unique_ptr': too few template arguments",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'std::unique_ptr': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'RME::Tile': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'std::unique_ptr': 'RME::Tile' is not a valid template type argument for parameter '_Ty'",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'std::unique_ptr': too few template arguments",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'std::unique_ptr': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'RME::core::actions::TileChangeCommand::getAffectedPositions': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'RME::core::actions::TileChangeCommand::cost': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\actions\\TileChangeCommand.h",
+    "Code line error": 100
+  }
+]

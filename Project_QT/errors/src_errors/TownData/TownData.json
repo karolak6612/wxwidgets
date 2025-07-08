@@ -1,0 +1,32 @@
+[
+  {
+    "Compile error": "function 'RME::core::world::TownData::TownData(void)' already has a body",
+    "File": "Project_QT\\src\\core\\world\\TownData.cpp",
+    "Code line error": 7
+  },
+  {
+    "Compile error": "function 'RME::core::world::TownData::TownData(uint32_t,const QString &,const RME::Position &)' already has a body",
+    "File": "Project_QT\\src\\core\\world\\TownData.cpp",
+    "Code line error": 14
+  },
+  {
+    "Compile error": "function 'bool RME::core::world::TownData::operator ==(const RME::core::world::TownData &) const' already has a body",
+    "File": "Project_QT\\src\\core\\world\\TownData.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "function 'bool RME::core::world::TownData::operator !=(const RME::core::world::TownData &) const' already has a body",
+    "File": "Project_QT\\src\\core\\world\\TownData.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'RME::core::world::TownData::operator ==': error in function definition or declaration; function not called",
+    "File": "Project_QT\\src\\core\\world\\TownData.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "built-in operator '==' cannot be applied to an operand of type 'const RME::core::world::TownData'",
+    "File": "Project_QT\\src\\core\\world\\TownData.cpp",
+    "Code line error": 25
+  }
+]

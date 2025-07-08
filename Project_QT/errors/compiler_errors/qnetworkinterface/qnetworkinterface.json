@@ -1,0 +1,12 @@
+[
+  {
+    "Compile error": "explicit specialization 'int RME::qRegisterNormalizedMetaType<RME::QNetworkAddressEntry>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qnetworkinterface.h",
+    "Code line error": 149
+  },
+  {
+    "Compile error": "explicit specialization 'int RME::qRegisterNormalizedMetaType<RME::QNetworkInterface>(const QByteArray &)' is not a specialization of a function template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtNetwork\\qnetworkinterface.h",
+    "Code line error": 150
+  }
+]

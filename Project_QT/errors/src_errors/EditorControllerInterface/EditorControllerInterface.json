@@ -1,0 +1,622 @@
+[
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'unique_ptr': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "syntax error: identifier 'unique_ptr'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'unique_ptr': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "syntax error: identifier 'unique_ptr'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core::spawns'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\editor\\EditorControllerInterface.h",
+    "Code line error": 64
+  }
+]

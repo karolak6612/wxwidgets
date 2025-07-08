@@ -1,6 +1,6 @@
 #pragma once // Using pragma once for include guard
 
-#include <QOpenGLWidget>
+#include <QtOpenGLWidgets/QOpenGLWidget>
 #include <QOpenGLFunctions_4_3_Core> // Or your chosen version from RENDER-00, default 4.3
 #include <QPointF>
 #include <QMatrix4x4>

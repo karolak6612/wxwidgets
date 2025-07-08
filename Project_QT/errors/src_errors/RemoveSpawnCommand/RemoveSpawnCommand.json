@@ -1,0 +1,12 @@
+[
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveSpawnCommand.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RemoveSpawnCommand.h",
+    "Code line error": 41
+  }
+]

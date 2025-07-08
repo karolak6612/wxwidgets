@@ -1,66 +1,94 @@
-# Add subdirectories for different modules/libraries
-add_subdirectory(core)
-add_subdirectory(network) # NET-03: Live collaboration client
-add_subdirectory(editor_logic) # New line
-add_subdirectory(ui)
-add_subdirectory(profiling) # REFACTOR-02 Visual Studio profiling
-
-# Define application source files
-# Qt6-only implementation - no wxWidgets dependencies
-set(APP_SOURCES
-    main.cpp
+# Collect all source files
+file(GLOB_RECURSE CORE_SOURCES
+    "core/*.cpp"
 )
 
-# Define the executable
-if(WIN32)
-    add_executable(rme_qt_app WIN32 ${APP_SOURCES})
-elseif(APPLE)
-    add_executable(rme_qt_app MACOSX_BUNDLE ${APP_SOURCES})
-else()
-    add_executable(rme_qt_app ${APP_SOURCES})
-endif()
+file(GLOB_RECURSE UI_SOURCES
+    "ui/*.cpp"
+)
 
-# macOS specific bundle properties
-if(APPLE)
-    set_target_properties(rme_qt_app PROPERTIES
-        MACOSX_BUNDLE_ICON_FILE "${CMAKE_PROJECT_SOURCE_DIR}/packaging/icons/RME-Qt.icns" # Path relative to root project
-        MACOSX_BUNDLE_BUNDLE_NAME "RME-Qt"
-        # MACOSX_BUNDLE_INFO_PLIST "${CMAKE_PROJECT_SOURCE_DIR}/packaging/macos/Info.plist.in" # Optional custom Info.plist
-    )
-endif()
+file(GLOB_RECURSE EDITOR_LOGIC_SOURCES
+    "editor_logic/*.cpp"
+)
 
-# Link against Qt6 modules, Qlementine, and our libraries
-target_link_libraries(rme_qt_app PRIVATE
+file(GLOB_RECURSE NETWORK_SOURCES
+    "network/*.cpp"
+)
+
+# Remove any incomplete/test files that shouldn't be compiled
+list(FILTER CORE_SOURCES EXCLUDE REGEX ".*_missing_parts\\.cpp$")
+list(FILTER UI_SOURCES EXCLUDE REGEX ".*_missing_parts\\.cpp$")
+list(FILTER EDITOR_LOGIC_SOURCES EXCLUDE REGEX ".*_missing_parts\\.cpp$")
+
+# Create the main executable
+add_executable(RME_Qt6
+    main.cpp
+    resources/resources.qrc
+    ${CORE_SOURCES}
+    ${UI_SOURCES}
+    ${EDITOR_LOGIC_SOURCES}
+    ${NETWORK_SOURCES}
+)
+
+# Link Qt6 components
+target_link_libraries(RME_Qt6 PRIVATE
     Qt6::Core
     Qt6::Gui
     Qt6::Widgets
     Qt6::OpenGL
+    Qt6::Network
     Qt6::Concurrent
-    oclero::qlementine # Qlementine library target
-    rme_core_lib       # Our core library
-    rme_network_lib    # Our network library
-    rme_editor_logic_lib # Our new editor logic library
-    rme_ui_lib         # Our new UI library
 )
 
-# Include directories for the application
-target_include_directories(rme_qt_app PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR} # For main.cpp etc. in Project_QT/src/
-    # ../../XML                 # If C++ code needs to include files relative to XML structure
+# Set include directories
+target_include_directories(RME_Qt6 PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/core
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui
+    ${CMAKE_CURRENT_SOURCE_DIR}/editor_logic
+    ${CMAKE_CURRENT_SOURCE_DIR}/network
+    ${Qt6Core_INCLUDE_DIRS}
+    ${Qt6Widgets_INCLUDE_DIRS}
+    ${Qt6OpenGL_INCLUDE_DIRS}
+    ${Qt6Network_INCLUDE_DIRS}
+    ${Qt6Concurrent_INCLUDE_DIRS}
 )
 
-# Source groups for IDE organization
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} PREFIX "Source Files/App" FILES main.cpp)
-
-# Qt resource files
-target_sources(rme_qt_app PRIVATE
-    resources/resources.qrc
+# Set target properties
+set_target_properties(RME_Qt6 PROPERTIES
+    WIN32_EXECUTABLE TRUE
+    MACOSX_BUNDLE TRUE
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED ON
+    AUTOMOC ON
+    AUTORCC ON
+    AUTOUIC ON
 )
 
-# Install the application executable
-install(TARGETS rme_qt_app
-    RUNTIME DESTINATION bin    # For Windows, Linux executables
-    BUNDLE DESTINATION .      # For macOS .app bundle (installs to RME-Qt.app directly in install root)
-    LIBRARY DESTINATION lib    # If it were a shared library
-    ARCHIVE DESTINATION lib    # If it were a static library
+# Add compiler definitions
+target_compile_definitions(RME_Qt6 PRIVATE
+    QT_NO_KEYWORDS  # Avoid conflicts with Qt keywords
 )
+
+# Platform-specific settings
+if(WIN32)
+    # Windows-specific settings
+    target_compile_definitions(RME_Qt6 PRIVATE WIN32_LEAN_AND_MEAN)
+    
+    # Add icon resource if available
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../app_icons/editor_icon.rc")
+        target_sources(RME_Qt6 PRIVATE "../app_icons/editor_icon.rc")
+    endif()
+endif()
+
+if(APPLE)
+    # macOS-specific settings
+    set_target_properties(RME_Qt6 PROPERTIES
+        MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/Info.plist.in"
+    )
+endif()
+
+# Add tests subdirectory if it exists
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests")
+    add_subdirectory(tests)
+endif()

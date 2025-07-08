@@ -1,0 +1,197 @@
+[
+  {
+    "Compile error": "'RME::PodiumItem::Outfit': an object of const-qualified type must be initialized",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.cpp",
+    "Code line error": 10
+  },
+  {
+    "Compile error": "'m_outfit': is not a member of 'RME::PodiumItem'",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.cpp",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'m_outfit': is not a member of 'RME::PodiumItem'",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.cpp",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'OTBM_ATTR_PODIUM_DIRECTION': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'Direction'",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.cpp",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'OTBM_ATTR_PODIUM_FLAGS': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.cpp",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.cpp",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'m_showFlags': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "case expression not constant",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "case expression not constant",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.cpp",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'Direction': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'SOUTH': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'OTBM_ATTR_PODIUM_DIRECTION': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.cpp",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'m_showFlags': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.cpp",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'OTBM_ATTR_PODIUM_FLAGS': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.cpp",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'m_showFlags': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.cpp",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'RME::PodiumItem::Outfit': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "'RME::PodiumItem::Outfit': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'m_outfit': unknown override specifier",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'m_outfit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "'outfit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'RME::PodiumItem::Outfit': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "'RME::PodiumItem::Outfit': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'m_outfit': unknown override specifier",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'m_outfit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "'outfit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\items\\PodiumItem.h",
+    "Code line error": 17
+  }
+]

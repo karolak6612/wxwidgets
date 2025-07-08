@@ -1,0 +1,287 @@
+[
+  {
+    "Compile error": "'remove_cvref_t': is not a member of 'RME::q20'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'remove_cvref_t': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'RME::QSpanPrivate::is_qspan_helper': invalid template argument for 'T', type expected",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'remove_cvref_t': is not a member of 'RME::q20'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'remove_cvref_t': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'RME::QSpanPrivate::is_std_span_helper': invalid template argument for 'T', type expected",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'remove_cvref_t': is not a member of 'RME::q20'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'remove_cvref_t': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'RME::QSpanPrivate::is_std_array_helper': invalid template argument for 'T', type expected",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'is_qspan': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "'std::negation': invalid template argument for '_Trait', type expected",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "'negation': unspecialized class template can't be used as a template argument for template parameter '_Traits', expected a real type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "'is_std_span': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 141
+  },
+  {
+    "Compile error": "'std::negation': invalid template argument for '_Trait', type expected",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 141
+  },
+  {
+    "Compile error": "'is_std_array': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'std::negation': invalid template argument for '_Trait', type expected",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'remove_cvref_t': is not a member of 'RME::q20'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 143
+  },
+  {
+    "Compile error": "'remove_cvref_t': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 143
+  },
+  {
+    "Compile error": "'std::is_array': invalid template argument for '_Ty', type expected",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 143
+  },
+  {
+    "Compile error": "'is_array': unspecialized class template can't be used as a template argument for template parameter '_Trait', expected a real type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 143
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "'is_compatible_range': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "syntax error: identifier 'value'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "'type_identity_t': is not a member of 'RME::q20'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 202
+  },
+  {
+    "Compile error": "syntax error: identifier 'type_identity_t'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 202
+  },
+  {
+    "Compile error": "'to_address': is not a member of 'RME::q20'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 192
+  },
+  {
+    "Compile error": "'arr': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 203
+  },
+  {
+    "Compile error": "'arr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 203
+  },
+  {
+    "Compile error": "'type_identity_t': is not a member of 'RME::q20'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 274
+  },
+  {
+    "Compile error": "syntax error: identifier 'type_identity_t'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 274
+  },
+  {
+    "Compile error": "'to_address': is not a member of 'RME::q20'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 267
+  },
+  {
+    "Compile error": "'arr': identifier not found",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 275
+  },
+  {
+    "Compile error": "'arr': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 275
+  },
+  {
+    "Compile error": "'RME::QSpan': too few template arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 426
+  },
+  {
+    "Compile error": "'RME::QSpan': too few template arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 427
+  },
+  {
+    "Compile error": "'RME::QSpan': too few template arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 428
+  },
+  {
+    "Compile error": "'RME::QSpan': too few template arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 429
+  },
+  {
+    "Compile error": "'RME::QSpan': too few template arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 434
+  },
+  {
+    "Compile error": "'RME::QSpan': too few template arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 435
+  },
+  {
+    "Compile error": "'RME::QSpan': too few template arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 436
+  },
+  {
+    "Compile error": "'RME::QSpan': too few template arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 486
+  },
+  {
+    "Compile error": "'RME::QSpan': use of class template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 486
+  },
+  {
+    "Compile error": "'RME::QSpan': use of class template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 486
+  },
+  {
+    "Compile error": "trailing return type 'RME::QSpan' of deduction guide should be a specialization of 'RME::QSpan'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 486
+  },
+  {
+    "Compile error": "'RME::QSpan': too few template arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 494
+  },
+  {
+    "Compile error": "'RME::QSpan': use of class template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 494
+  },
+  {
+    "Compile error": "'RME::QSpan': use of class template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 494
+  },
+  {
+    "Compile error": "trailing return type 'RME::QSpan' of deduction guide should be a specialization of 'RME::QSpan'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qspan.h",
+    "Code line error": 494
+  }
+]

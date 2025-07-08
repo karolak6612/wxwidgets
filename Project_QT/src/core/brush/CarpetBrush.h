@@ -22,7 +22,7 @@ namespace core {
 class ::TestCarpetBrush; // Forward declaration
 
 class CarpetBrush : public RME::core::Brush {
-    friend class ::TestCarpetBrush;
+    
 public:
     CarpetBrush();
     ~CarpetBrush() override = default;

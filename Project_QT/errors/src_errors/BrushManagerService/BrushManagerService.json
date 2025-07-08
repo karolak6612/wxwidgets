@@ -1,0 +1,477 @@
+[
+  {
+    "Compile error": "'BrushManagerService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 12
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 12
+  },
+  {
+    "Compile error": "'RME::RME::core::BrushManagerService': constructor initializer lists are only allowed on constructor definitions",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 12
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 14
+  },
+  {
+    "Compile error": "'Square': illegal qualified name in member declaration",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 14
+  },
+  {
+    "Compile error": "'Square': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 14
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 15
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'make_unique': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'make_unique': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'RME::RME::core::CreatureBrush': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "syntax error: ')'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'creatureBrush': cannot be used before it is initialized",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'move': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'move': identifier not found",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'registerBrush': identifier not found",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'make_unique': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'make_unique': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'RME::RME::core::GroundBrush': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: ')'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'groundBrush': cannot be used before it is initialized",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 33
+  },
+  {
+    "Compile error": "'move': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'move': identifier not found",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'registerBrush': identifier not found",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'make_unique': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'make_unique': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'RME::RME::core::CarpetBrush': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: ')'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'carpetBrush': cannot be used before it is initialized",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'move': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'move': identifier not found",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'registerBrush': identifier not found",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'RME::RME::core::BrushManagerService': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'BrushManagerService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'int RME::RME::core::{dtor}(void)': is not a special member function or comparison operator which can be defaulted",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'BrushManagerService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'unique_ptr': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'registerBrush': this use of 'void' is not valid",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'unique_ptr': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'RME::RME::core::Brush': expected an expression instead of a type",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'brush': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'BrushManagerService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'getBrush': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'m_brushes': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'it': cannot be used before it is initialized",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'m_brushes': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'BrushManagerService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'getActiveBrush': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'BrushManagerService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 89
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'brushSettingsChanged'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'brushSettingsChanged': identifier not found",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'activeBrushChanged'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'activeBrushChanged': identifier not found",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'BrushManagerService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'brushSettingsChanged'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "'brushSettingsChanged': identifier not found",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "'BrushManagerService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'brushSettingsChanged'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'brushSettingsChanged': identifier not found",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'BrushManagerService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 112
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'brushSettingsChanged'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "'brushSettingsChanged': identifier not found",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "'BrushManagerService': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'m_currentSettings': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.cpp",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.h",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\brush\\BrushManagerService.h",
+    "Code line error": 101
+  }
+]

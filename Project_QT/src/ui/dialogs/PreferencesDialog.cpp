@@ -411,7 +411,7 @@ void PreferencesDialog::saveSettings() {
     m_settings.setString("general/clientDirectory", m_clientDirectoryEdit->text());
     
     // Display settings
-    QString selectedTheme = m_themeCombo->currentData().toString();
+    QString selectedTheme = m_themeCombo->currentData().value<QString>();
     m_settings.setString("ui/theme", selectedTheme);
     
     m_settings.setBool("display/showGrid", m_showGridCheck->isChecked());
@@ -454,7 +454,7 @@ void PreferencesDialog::saveSettings() {
 void PreferencesDialog::accept() {
     // Check if theme changed
     QString currentTheme = m_settings.getString("ui/theme", "light");
-    QString selectedTheme = m_themeCombo->currentData().toString();
+    QString selectedTheme = m_themeCombo->currentData().value<QString>();
     bool themeChanged = (currentTheme != selectedTheme);
     
     saveSettings();
@@ -582,3 +582,5 @@ void PreferencesDialog::updateColorButton(QPushButton* button, const QColor& col
 } // namespace dialogs
 } // namespace ui
 } // namespace RME
+
+// #include "PreferencesDialog.moc" // Removed - Q_OBJECT is in header

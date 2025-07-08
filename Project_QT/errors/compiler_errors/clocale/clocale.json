@@ -1,0 +1,102 @@
+[
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 20
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 20
+  },
+  {
+    "Compile error": "'lconv': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'lconv': symbol cannot be used in a using-declaration",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'localeconv': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'localeconv': symbol cannot be used in a using-declaration",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'setlocale': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'setlocale': symbol cannot be used in a using-declaration",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'lconv': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'lconv': symbol cannot be used in a using-declaration",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'localeconv': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'localeconv': symbol cannot be used in a using-declaration",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'setlocale': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'setlocale': symbol cannot be used in a using-declaration",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'lconv': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'lconv': symbol cannot be used in a using-declaration",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'localeconv': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'localeconv': symbol cannot be used in a using-declaration",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'setlocale': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'setlocale': symbol cannot be used in a using-declaration",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\clocale",
+    "Code line error": 23
+  }
+]

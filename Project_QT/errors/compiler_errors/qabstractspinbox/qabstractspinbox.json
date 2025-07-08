@@ -1,0 +1,7 @@
+[
+  {
+    "Compile error": "'RME::QAbstractSpinBox::inputMethodQuery': overriding virtual function return type differs and is not covariant from 'QWidget::inputMethodQuery'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qabstractspinbox.h",
+    "Code line error": 88
+  }
+]

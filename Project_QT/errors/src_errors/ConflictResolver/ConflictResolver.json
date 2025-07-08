@@ -1,0 +1,382 @@
+[
+  {
+    "Compile error": "'ConflictResolver': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 9
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 9
+  },
+  {
+    "Compile error": "'ResolutionStrategy': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 11
+  },
+  {
+    "Compile error": "'LastWriteWins': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 11
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'RME::RME::core::network::ConflictResolver': constructor initializer lists are only allowed on constructor definitions",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 14
+  },
+  {
+    "Compile error": "'m_timeoutTimer': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 15
+  },
+  {
+    "Compile error": "'m_timeoutTimer': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 16
+  },
+  {
+    "Compile error": "'m_timeoutTimer': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "'this': can only be referenced inside non-static member functions or non-static data member initializers",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "'ConflictResolver': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "'onConflictTimeout': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "'connect': identifier not found",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "'m_timeoutTimer': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 18
+  },
+  {
+    "Compile error": "'RME::RME::core::network::ConflictResolver': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "'ConflictResolver': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'int RME::RME::core::network::{dtor}(void)': is not a special member function or comparison operator which can be defaulted",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'ConflictResolver': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'setResolutionStrategy': this use of 'void' is not valid",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'ResolutionStrategy': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "syntax error: missing ')' before identifier 'strategy'",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'ConflictResolver': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'m_conflictTimeoutMs': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'ConflictResolver': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'m_pendingChanges': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'incomingChange': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'it': cannot be used before it is initialized",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'m_pendingChanges': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'pendingChange': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'pendingChange': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'peerId': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'pendingChange': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'incomingChange': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'isConflicting': identifier not found",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'ConflictInfo': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'conflict'",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'conflict': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'conflict': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'ConflictType': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'SimultaneousEdit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'conflict': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'incomingChange': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'conflict': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'pendingChange': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'conflict': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'peerId': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'conflict': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'pendingChange': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'conflict': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'incomingChange': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'conflict': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'conflict': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'m_activeConflicts': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'conflict': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'conflictDetected'",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'conflict': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'conflictDetected': identifier not found",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'incomingChange': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'incomingChange': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'pendingChange': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.h",
+    "Code line error": 115
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.h",
+    "Code line error": 115
+  },
+  {
+    "Compile error": "'m_strategy': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'m_conflictTimeoutMs': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.h",
+    "Code line error": 58
+  },
+  {
+    "Compile error": "'m_conflictHistory': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\ConflictResolver.h",
+    "Code line error": 70
+  }
+]

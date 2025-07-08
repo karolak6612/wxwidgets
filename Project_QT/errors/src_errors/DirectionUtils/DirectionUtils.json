@@ -1,0 +1,27 @@
+[
+  {
+    "Compile error": "'directionToName': is not a member of 'RME::core::creatures::DirectionUtils'",
+    "File": "Project_QT\\src\\core\\creatures\\DirectionUtils.cpp",
+    "Code line error": 8
+  },
+  {
+    "Compile error": "'RME::core::creatures::Direction RME::core::creatures::DirectionUtils::nameToDirection(const QString &)': overloaded member function not found in 'RME::core::creatures::DirectionUtils'",
+    "File": "Project_QT\\src\\core\\creatures\\DirectionUtils.cpp",
+    "Code line error": 23
+  },
+  {
+    "Compile error": "'directionToString': is not a member of 'RME::core::creatures::DirectionUtils'",
+    "File": "Project_QT\\src\\core\\creatures\\DirectionUtils.cpp",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'RME::core::creatures::Direction RME::core::creatures::DirectionUtils::stringToDirection(const QString &)': overloaded member function not found in 'RME::core::creatures::DirectionUtils'",
+    "File": "Project_QT\\src\\core\\creatures\\DirectionUtils.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'RME::core::creatures::Direction RME::core::creatures::DirectionUtils::nameToDirection(const int)': cannot convert argument 1 from 'const QString' to 'const int'",
+    "File": "Project_QT\\src\\core\\creatures\\DirectionUtils.cpp",
+    "Code line error": 45
+  }
+]

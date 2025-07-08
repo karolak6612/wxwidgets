@@ -1,0 +1,112 @@
+[
+  {
+    "Compile error": "'BaseCommand': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QList': 'RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'QMap': 'RME::Position' is not a valid template type argument for parameter 'Key'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'QMap': 'RME::Position' is not a valid template type argument for parameter 'Key'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'QList': 'RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'RME::core::actions::DeleteSelectionCommand::~DeleteSelectionCommand': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'RME::core::actions::DeleteSelectionCommand::undo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'RME::core::actions::DeleteSelectionCommand::redo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'RME::core::actions::DeleteSelectionCommand::id': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::core::actions::DeleteSelectionCommand::mergeWith': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\DeleteSelectionCommand.h",
+    "Code line error": 43
+  }
+]

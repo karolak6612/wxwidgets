@@ -1,0 +1,52 @@
+[
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\palettes\\DockManager.h",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\DockManager.h",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\DockManager.h",
+    "Code line error": 129
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\DockManager.h",
+    "Code line error": 129
+  },
+  {
+    "Compile error": "'m_itemPalette': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\DockManager.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'m_creaturePalette': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\DockManager.h",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "'m_housePalette': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\DockManager.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'m_waypointPalette': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\DockManager.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'m_propertiesPanel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\DockManager.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'m_minimapPanel': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\DockManager.h",
+    "Code line error": 76
+  }
+]

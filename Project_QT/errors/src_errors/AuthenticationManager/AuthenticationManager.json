@@ -1,0 +1,42 @@
+[
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\core\\network\\AuthenticationManager.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\network\\AuthenticationManager.h",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\core\\network\\AuthenticationManager.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\core\\network\\AuthenticationManager.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "'m_maxUsers': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\AuthenticationManager.h",
+    "Code line error": 85
+  },
+  {
+    "Compile error": "'m_maxUsers': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\AuthenticationManager.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'m_sessionTimeoutMinutes': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\AuthenticationManager.h",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "'m_sessionTimeoutMinutes': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\AuthenticationManager.h",
+    "Code line error": 89
+  }
+]

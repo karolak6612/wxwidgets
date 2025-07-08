@@ -1,0 +1,52 @@
+[
+  {
+    "Compile error": "Cannot open include file: 'ui/dialogs/EditHouseDialog.h': No such file or directory",
+    "File": "Project_QT\\src\\ui\\palettes\\HousePalettePanel.cpp",
+    "Code line error": 2
+  },
+  {
+    "Compile error": "'BasePalettePanel': base class undefined",
+    "File": "Project_QT\\src\\ui\\palettes\\HousePalettePanel.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'core': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\ui\\palettes\\HousePalettePanel.h",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'IBrushStateService': is not a member of 'RME::RME::RME::RME'",
+    "File": "Project_QT\\src\\ui\\palettes\\HousePalettePanel.h",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "syntax error: identifier 'IBrushStateService'",
+    "File": "Project_QT\\src\\ui\\palettes\\HousePalettePanel.h",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\ui\\palettes\\HousePalettePanel.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\HousePalettePanel.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::ui::HousePalettePanel::setupUI': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\ui\\palettes\\HousePalettePanel.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\HousePalettePanel.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\HousePalettePanel.h",
+    "Code line error": 103
+  }
+]

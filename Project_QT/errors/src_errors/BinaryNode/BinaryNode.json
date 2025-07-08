@@ -1,0 +1,747 @@
+[
+  {
+    "Compile error": "'RME::core::io::BinaryNode::QByteArray': an object of const-qualified type must be initialized",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 21
+  },
+  {
+    "Compile error": "'RME::core::io::BinaryNode': illegal member initialization: 'm_readOffset' is not a base or member",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'m_properties': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'propsData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 44
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'m_properties': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'m_readOffset': identifier not found",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'m_properties': identifier not found",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'m_properties': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'m_properties': identifier not found",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'m_readOffset': identifier not found",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'m_readOffset': identifier not found",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'m_properties': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'m_properties': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'m_properties': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'m_properties': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'m_properties': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 102
+  },
+  {
+    "Compile error": "'m_properties': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 102
+  },
+  {
+    "Compile error": "'m_properties': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'memcpy': function does not take 2 arguments",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 116
+  },
+  {
+    "Compile error": "'m_properties': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 116
+  },
+  {
+    "Compile error": "'m_properties': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'memcpy': function does not take 2 arguments",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 131
+  },
+  {
+    "Compile error": "'m_properties': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 131
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 132
+  },
+  {
+    "Compile error": "'m_properties': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 135
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 135
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 136
+  },
+  {
+    "Compile error": "'bool RME::core::io::BinaryNode::getString(QString &)': overloaded member function not found in 'RME::core::io::BinaryNode'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'RME::core::io::BinaryNode::getU16': a call of a non-static member function requires an object",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 143
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "'m_properties': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 147
+  },
+  {
+    "Compile error": "'m_properties': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'m_readOffset': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.cpp",
+    "Code line error": 152
+  },
+  {
+    "Compile error": "syntax error: identifier 'QString'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'getReadOffset': unknown override specifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'const int RME::core::io::BinaryNode::QByteArray': redefinition",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'m_nodeData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'m_properties': unknown override specifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "'m_readOffset': unknown override specifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'m_nodeData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'data': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "syntax error: identifier 'QString'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'getReadOffset': unknown override specifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'const int RME::core::io::BinaryNode::QByteArray': redefinition",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'m_nodeData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'m_properties': unknown override specifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "'m_readOffset': unknown override specifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'m_nodeData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'data': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "syntax error: identifier 'QString'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'getReadOffset': unknown override specifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'const int RME::core::io::BinaryNode::QByteArray': redefinition",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'m_nodeData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'m_properties': unknown override specifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "'m_readOffset': unknown override specifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'m_nodeData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'data': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "syntax error: identifier 'QString'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'getReadOffset': unknown override specifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'const int RME::core::io::BinaryNode::QByteArray': redefinition",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'m_nodeData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'m_properties': unknown override specifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "'m_readOffset': unknown override specifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 81
+  },
+  {
+    "Compile error": "'m_nodeData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'data': undeclared identifier",
+    "File": "Project_QT\\src\\core\\io\\BinaryNode.h",
+    "Code line error": 71
+  }
+]

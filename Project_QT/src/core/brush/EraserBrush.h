@@ -14,14 +14,10 @@ namespace core {
 }
 }
 
-// Forward declaration for potential test class
-class TestEraserBrush;
-
 namespace RME {
 namespace core {
 
 class EraserBrush : public Brush {
-    friend class ::TestEraserBrush; // Friend class for testing
 
 public:
     EraserBrush();

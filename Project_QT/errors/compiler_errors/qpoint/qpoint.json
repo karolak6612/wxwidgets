@@ -1,0 +1,647 @@
+[
+  {
+    "Compile error": "'size_t': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'enable_if_t': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "syntax error: identifier 'enable_if_t'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "'enable_if_t': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'is_same_v': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'remove_cvref_t': is not a member of 'RME::RME::q20'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const RME::RME::QPoint' to 'RME::RME::QPoint'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "'tuple_size': symbol is not a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 422
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'QPoint'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 422
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_size' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 422
+  },
+  {
+    "Compile error": "syntax error: '>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 422
+  },
+  {
+    "Compile error": "syntax error: 'public'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 422
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 422
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 422
+  },
+  {
+    "Compile error": "'tuple_element': symbol is not a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 424
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 424
+  },
+  {
+    "Compile error": "syntax error: missing ';' before 'constant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 424
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 424
+  },
+  {
+    "Compile error": "syntax error: 'constant'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 424
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 424
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 424
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 426
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_size' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 429
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 431
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::std::tuple_element' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 433
+  },
+  {
+    "Compile error": "'remove_cvref_t': is not a member of 'RME::RME::q20'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'remove_cvref_t': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'std::is_same_v': invalid template argument for '<unnamed-symbol>', type expected",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'std::is_same_v': too few template arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'<error type>': is not a valid type for non-type template parameter '_Test'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const RME::RME::QPoint' to 'RME::RME::QPoint'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "'std::is_trivial_v': use of a variable template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "illegal expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'QtPrivate::qIsRelocatable': use of a variable template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'std::is_pointer_v': use of a variable template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'QtPrivate::qIsValueInitializationBitwiseZero': use of a variable template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "syntax error: 'return'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 233
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 233
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 235
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 245
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 245
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 245
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 245
+  },
+  {
+    "Compile error": "constexpr function 'RME::RME::dotProduct' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 243
+  },
+  {
+    "Compile error": "syntax error: 'private'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 248
+  },
+  {
+    "Compile error": "'friend': not allowed outside of a class definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 251
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 254
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 254
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 254
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 254
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 254
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 254
+  },
+  {
+    "Compile error": "constexpr function 'RME::RME::qFuzzyCompare' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 251
+  },
+  {
+    "Compile error": "'friend': not allowed outside of a class definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 257
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 259
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 259
+  },
+  {
+    "Compile error": "'friend': not allowed outside of a class definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 261
+  },
+  {
+    "Compile error": "'friend': not allowed outside of a class definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 263
+  },
+  {
+    "Compile error": "'friend': not allowed outside of a class definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 264
+  },
+  {
+    "Compile error": "'friend': not allowed outside of a class definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 266
+  },
+  {
+    "Compile error": "'friend': not allowed outside of a class definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 267
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 268
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 268
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 268
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 268
+  },
+  {
+    "Compile error": "unable to recover from previous error(s); stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 268
+  },
+  {
+    "Compile error": "'remove_cvref_t': is not a member of 'RME::q20'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'remove_cvref_t': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'std::is_same_v': invalid template argument for '<unnamed-symbol>', type expected",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'std::is_same_v': too few template arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'<error type>': is not a valid type for non-type template parameter '_Test'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const RME::QPoint' to 'RME::QPoint'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "'std::is_trivial_v': use of a variable template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "illegal expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'QtPrivate::qIsRelocatable': use of a variable template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'std::is_pointer_v': use of a variable template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "'QtPrivate::qIsValueInitializationBitwiseZero': use of a variable template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 108
+  },
+  {
+    "Compile error": "syntax error: 'return'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 233
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 233
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 235
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 245
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 245
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 245
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 245
+  },
+  {
+    "Compile error": "constexpr function 'RME::dotProduct' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 243
+  },
+  {
+    "Compile error": "syntax error: 'private'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 248
+  },
+  {
+    "Compile error": "'friend': not allowed outside of a class definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 251
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 254
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 254
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 254
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 254
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 254
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 254
+  },
+  {
+    "Compile error": "constexpr function 'RME::qFuzzyCompare' cannot result in a constant expression",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 251
+  },
+  {
+    "Compile error": "'friend': not allowed outside of a class definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 257
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 259
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 259
+  },
+  {
+    "Compile error": "'friend': not allowed outside of a class definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 261
+  },
+  {
+    "Compile error": "'friend': not allowed outside of a class definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 263
+  },
+  {
+    "Compile error": "'friend': not allowed outside of a class definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 264
+  },
+  {
+    "Compile error": "'friend': not allowed outside of a class definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 266
+  },
+  {
+    "Compile error": "'friend': not allowed outside of a class definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 267
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 268
+  },
+  {
+    "Compile error": "'xp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 268
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 268
+  },
+  {
+    "Compile error": "'yp': is not a member of 'RME::QPointF'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 268
+  },
+  {
+    "Compile error": "unable to recover from previous error(s); stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qpoint.h",
+    "Code line error": 268
+  }
+]

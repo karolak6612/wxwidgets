@@ -1,0 +1,82 @@
+[
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'setText' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistwidget.h",
+    "Code line error": 134
+  },
+  {
+    "Compile error": "'setText': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistwidget.h",
+    "Code line error": 134
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'setIcon' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistwidget.h",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'setIcon': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistwidget.h",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'setStatusTip' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistwidget.h",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "'setStatusTip': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistwidget.h",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'setToolTip' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistwidget.h",
+    "Code line error": 144
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistwidget.h",
+    "Code line error": 144
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'setText' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistwidget.h",
+    "Code line error": 134
+  },
+  {
+    "Compile error": "'setText': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistwidget.h",
+    "Code line error": 134
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'setIcon' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistwidget.h",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'setIcon': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistwidget.h",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'setStatusTip' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistwidget.h",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "'setStatusTip': illegal qualified name in member declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistwidget.h",
+    "Code line error": 140
+  },
+  {
+    "Compile error": "'RME::ui::ItemFinderDialogQt': class contains explicit override 'setToolTip' but does not derive from an interface that contains the function declaration",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistwidget.h",
+    "Code line error": 144
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtWidgets\\qlistwidget.h",
+    "Code line error": 144
+  }
+]

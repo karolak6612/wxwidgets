@@ -1,0 +1,12 @@
+[
+  {
+    "Compile error": "syntax error: 'string'",
+    "File": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\ucrt\\corecrt_startup.h",
+    "Code line error": 19
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\ucrt\\corecrt_startup.h",
+    "Code line error": 19
+  }
+]

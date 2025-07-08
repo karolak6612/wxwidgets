@@ -1,0 +1,467 @@
+[
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'nothrow': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'_Xbad_alloc': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'_Myrefs': unknown override specifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '<'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "'RME::std::locale::_Uninitialized': uses 'RME::std::locale', which is being defined",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 265
+  },
+  {
+    "Compile error": "'_Left': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 224
+  },
+  {
+    "Compile error": "'_Right': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 225
+  },
+  {
+    "Compile error": "'_Left': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 226
+  },
+  {
+    "Compile error": "'_Right': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 226
+  },
+  {
+    "Compile error": "'_Left': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 224
+  },
+  {
+    "Compile error": "'_Right': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 225
+  },
+  {
+    "Compile error": "'_Left': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 226
+  },
+  {
+    "Compile error": "'_Right': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 226
+  },
+  {
+    "Compile error": "'_Xruntime_error': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 236
+  },
+  {
+    "Compile error": "'_Myrefs': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'_Myrefs': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 131
+  },
+  {
+    "Compile error": "syntax error: identifier '_Atomic_counter_t'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 143
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'locale'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 268
+  },
+  {
+    "Compile error": "'unique_ptr': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'simple-type-specifier'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'expression'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: ')' was unexpected here; expected ';'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: unexpected token ')' following 'expression-statement'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: unexpected token ')' following 'statement'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: unexpected token ')' following 'statement-seq'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: ')' was unexpected here; expected '}'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: unexpected token ')' following 'compound-statement'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: unexpected token ')' following 'selection-statement'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "'_Pfmod': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 458
+  },
+  {
+    "Compile error": "'_Pfmod': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 461
+  },
+  {
+    "Compile error": "'_Psave_guard': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 465
+  },
+  {
+    "Compile error": "'_Cvtvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 474
+  },
+  {
+    "Compile error": "'_Cvtvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 480
+  },
+  {
+    "Compile error": "'_Cvtvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 490
+  },
+  {
+    "Compile error": "'_Cvtvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 500
+  },
+  {
+    "Compile error": "'_Cvtvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 506
+  },
+  {
+    "Compile error": "'_Cvtvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 516
+  },
+  {
+    "Compile error": "'_Cvtvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 526
+  },
+  {
+    "Compile error": "'_Xbad_alloc': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 533
+  },
+  {
+    "Compile error": "'_Cvtvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 544
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 544
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'nothrow': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'_Xbad_alloc': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'_Myrefs': unknown override specifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 139
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '<'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "'RME::std::locale::_Uninitialized': uses 'RME::std::locale', which is being defined",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 265
+  },
+  {
+    "Compile error": "'_Left': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 224
+  },
+  {
+    "Compile error": "'_Right': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 225
+  },
+  {
+    "Compile error": "'_Left': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 226
+  },
+  {
+    "Compile error": "'_Right': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 226
+  },
+  {
+    "Compile error": "'_Left': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 224
+  },
+  {
+    "Compile error": "'_Right': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 225
+  },
+  {
+    "Compile error": "'_Left': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 226
+  },
+  {
+    "Compile error": "'_Right': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 226
+  },
+  {
+    "Compile error": "'_Xruntime_error': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 236
+  },
+  {
+    "Compile error": "'_Myrefs': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'_Myrefs': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 131
+  },
+  {
+    "Compile error": "syntax error: identifier '_Atomic_counter_t'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 143
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'locale'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 268
+  },
+  {
+    "Compile error": "'unique_ptr': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'simple-type-specifier'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: unexpected token '>' following 'expression'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: ')' was unexpected here; expected ';'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: unexpected token ')' following 'expression-statement'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: unexpected token ')' following 'statement'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: unexpected token ')' following 'statement-seq'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: ')' was unexpected here; expected '}'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: unexpected token ')' following 'compound-statement'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "syntax error: unexpected token ')' following 'selection-statement'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 453
+  },
+  {
+    "Compile error": "'_Pfmod': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 458
+  },
+  {
+    "Compile error": "'_Pfmod': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 461
+  },
+  {
+    "Compile error": "'_Psave_guard': undeclared identifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 465
+  },
+  {
+    "Compile error": "'_Cvtvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 474
+  },
+  {
+    "Compile error": "'_Cvtvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 480
+  },
+  {
+    "Compile error": "'_Cvtvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 490
+  },
+  {
+    "Compile error": "'_Cvtvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 500
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocale",
+    "Code line error": 500
+  }
+]

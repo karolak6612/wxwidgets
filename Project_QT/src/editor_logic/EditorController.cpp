@@ -1862,3 +1862,5 @@ void EditorController::setMapModified(bool modified) {
 
 } // namespace editor_logic
 } // namespace RME
+
+// #include "EditorController.moc" // Removed - Q_OBJECT is in header

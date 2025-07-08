@@ -1,0 +1,2102 @@
+[
+  {
+    "Compile error": "'editor': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'EditorControllerInterface': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'EditorControllerInterface': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'IBrushStateService': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: identifier 'IBrushStateService'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'QList': 'RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'QList': 'RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'quint32 RME::RME::RME::RME::RME::editor_logic::EditorController::createHouse(const QString &,const RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::editor_logic::EditorController::assignTileToHouse(const RME::Position &,quint32)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::editor_logic::EditorController::removeHouseAssignment(const RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::editor_logic::EditorController::setHouseProperty(quint32,const QString &,const QVariant &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::editor_logic::EditorController::removeHouse(quint32)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::editor_logic::EditorController::moveSelection(const RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 136
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 164
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 170
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 173
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 174
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 176
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 177
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 180
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 181
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 184
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 185
+  },
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 187
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 187
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getHousesManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getHousesManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 147
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getWaypointManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getWaypointManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 149
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getMap': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 152
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getMap': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getUndoStack': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 153
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getAssetManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 155
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getAssetManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 154
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getAppSettings': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getAppSettings': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 156
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::pushCommand': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 160
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::notifyTileChanged': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getTileForEditing': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 164
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::recordAction': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 169
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::recordTileChange': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 170
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::recordAddCreature': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 173
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::recordRemoveCreature': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 174
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::recordAddSpawn': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "'editor': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'EditorControllerInterface': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'EditorControllerInterface': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'IBrushStateService': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: identifier 'IBrushStateService'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'RME::RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'QList': 'RME::RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'RME::RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'QList': 'RME::RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'quint32 RME::RME::RME::RME::RME::RME::editor_logic::EditorController::createHouse(const QString &,const RME::RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::RME::editor_logic::EditorController::assignTileToHouse(const RME::RME::Position &,quint32)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::RME::editor_logic::EditorController::removeHouseAssignment(const RME::RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::RME::editor_logic::EditorController::setHouseProperty(quint32,const QString &,const QVariant &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::RME::editor_logic::EditorController::removeHouse(quint32)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::RME::editor_logic::EditorController::moveSelection(const RME::RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 136
+  },
+  {
+    "Compile error": "'unique_ptr': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 160
+  },
+  {
+    "Compile error": "syntax error: identifier 'unique_ptr'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 160
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 164
+  },
+  {
+    "Compile error": "'unique_ptr': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 169
+  },
+  {
+    "Compile error": "syntax error: identifier 'unique_ptr'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 169
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 170
+  },
+  {
+    "Compile error": "'unique_ptr': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 171
+  },
+  {
+    "Compile error": "syntax error: identifier 'unique_ptr'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 171
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 173
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 174
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 176
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 177
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 180
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 181
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 184
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 185
+  },
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 187
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 187
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::RME::editor_logic::EditorController::getHousesManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::RME::editor_logic::EditorController::getHousesManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 147
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::RME::editor_logic::EditorController::getWaypointManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'editor': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'EditorControllerInterface': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'EditorControllerInterface': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'IBrushStateService': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: identifier 'IBrushStateService'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'QList': 'RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'QList': 'RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'quint32 RME::RME::RME::RME::RME::editor_logic::EditorController::createHouse(const QString &,const RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::editor_logic::EditorController::assignTileToHouse(const RME::Position &,quint32)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::editor_logic::EditorController::removeHouseAssignment(const RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::editor_logic::EditorController::setHouseProperty(quint32,const QString &,const QVariant &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::editor_logic::EditorController::removeHouse(quint32)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::editor_logic::EditorController::moveSelection(const RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 136
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 164
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 170
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 173
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 174
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 176
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 177
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 180
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 181
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 184
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 185
+  },
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 187
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 187
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getHousesManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getHousesManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 147
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getWaypointManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getWaypointManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 149
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getMap': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 152
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getMap': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getUndoStack': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 153
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getAssetManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 155
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getAssetManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 154
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getAppSettings': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getAppSettings': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 156
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::pushCommand': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 160
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::notifyTileChanged': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getTileForEditing': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 164
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::recordAction': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 169
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::recordTileChange': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 170
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::recordAddCreature': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 173
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::recordRemoveCreature': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 174
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::recordAddSpawn': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "'editor': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'EditorControllerInterface': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'EditorControllerInterface': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'IBrushStateService': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: identifier 'IBrushStateService'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'RME::RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'QList': 'RME::RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'RME::RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'QList': 'RME::RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'quint32 RME::RME::RME::RME::RME::RME::editor_logic::EditorController::createHouse(const QString &,const RME::RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::RME::editor_logic::EditorController::assignTileToHouse(const RME::RME::Position &,quint32)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::RME::editor_logic::EditorController::removeHouseAssignment(const RME::RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::RME::editor_logic::EditorController::setHouseProperty(quint32,const QString &,const QVariant &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::RME::editor_logic::EditorController::removeHouse(quint32)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::RME::editor_logic::EditorController::moveSelection(const RME::RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 136
+  },
+  {
+    "Compile error": "'unique_ptr': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 160
+  },
+  {
+    "Compile error": "syntax error: identifier 'unique_ptr'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 160
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 164
+  },
+  {
+    "Compile error": "'unique_ptr': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 169
+  },
+  {
+    "Compile error": "syntax error: identifier 'unique_ptr'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 169
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 170
+  },
+  {
+    "Compile error": "'unique_ptr': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 171
+  },
+  {
+    "Compile error": "syntax error: identifier 'unique_ptr'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 171
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 173
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 174
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 176
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 177
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 180
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 181
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 184
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 185
+  },
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 187
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 187
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::RME::editor_logic::EditorController::getHousesManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::RME::editor_logic::EditorController::getHousesManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 147
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::RME::editor_logic::EditorController::getWaypointManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'editor': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'EditorControllerInterface': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'EditorControllerInterface': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'IBrushStateService': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: identifier 'IBrushStateService'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'QList': 'RME::RME::RME::RME::RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'QList': 'RME::RME::RME::RME::RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'quint32 RME::RME::RME::RME::RME::RME::RME::editor_logic::EditorController::createHouse(const QString &,const RME::RME::RME::RME::RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::RME::RME::editor_logic::EditorController::assignTileToHouse(const RME::RME::RME::RME::RME::Position &,quint32)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::RME::RME::editor_logic::EditorController::removeHouseAssignment(const RME::RME::RME::RME::RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::RME::RME::editor_logic::EditorController::setHouseProperty(quint32,const QString &,const QVariant &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::RME::RME::editor_logic::EditorController::removeHouse(quint32)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::RME::RME::editor_logic::EditorController::moveSelection(const RME::RME::RME::RME::RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 136
+  },
+  {
+    "Compile error": "'unique_ptr': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 160
+  },
+  {
+    "Compile error": "syntax error: identifier 'unique_ptr'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 160
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 164
+  },
+  {
+    "Compile error": "'unique_ptr': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 169
+  },
+  {
+    "Compile error": "syntax error: identifier 'unique_ptr'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 169
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 170
+  },
+  {
+    "Compile error": "'unique_ptr': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 171
+  },
+  {
+    "Compile error": "syntax error: identifier 'unique_ptr'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 171
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 173
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 174
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 176
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 177
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "'editor': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'EditorControllerInterface': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'EditorControllerInterface': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "'IBrushStateService': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "syntax error: identifier 'IBrushStateService'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'QList': 'RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'RME::Position': expected an expression instead of a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'QList': 'RME::Position' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 70
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 74
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 82
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'quint32 RME::RME::RME::RME::RME::editor_logic::EditorController::createHouse(const QString &,const RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::editor_logic::EditorController::assignTileToHouse(const RME::Position &,quint32)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::editor_logic::EditorController::removeHouseAssignment(const RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::editor_logic::EditorController::setHouseProperty(quint32,const QString &,const QVariant &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::editor_logic::EditorController::removeHouse(quint32)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'void RME::RME::RME::RME::RME::editor_logic::EditorController::moveSelection(const RME::Position &)': member function already defined or declared",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 136
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 164
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 170
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 173
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 174
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 176
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 177
+  },
+  {
+    "Compile error": "'spawns': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "'Spawn': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 180
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 181
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 184
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 185
+  },
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 187
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 187
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getHousesManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getHousesManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 147
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getWaypointManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getWaypointManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 149
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getMap': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 152
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getMap': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getUndoStack': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 153
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getAssetManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 155
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getAssetManager': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 154
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getAppSettings': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getAppSettings': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 156
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::pushCommand': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 160
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::notifyTileChanged': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 163
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::getTileForEditing': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 164
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::recordAction': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 169
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::recordTileChange': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 170
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::recordAddCreature': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 173
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::recordRemoveCreature': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 174
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::editor_logic::EditorController::recordAddSpawn': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\editor_logic\\EditorController.h",
+    "Code line error": 175
+  }
+]

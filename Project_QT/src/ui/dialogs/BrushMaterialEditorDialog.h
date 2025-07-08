@@ -17,7 +17,7 @@
 #include <QGroupBox>
 #include <QDialogButtonBox>
 #include <QSplitter>
-#include <QDomDocument>
+#include <QtXml/QDomDocument>
 #include <QFile>
 #include <QTextStream>
 

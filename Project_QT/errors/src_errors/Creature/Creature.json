@@ -1,0 +1,422 @@
+[
+  {
+    "Compile error": "'RME::core::creatures::Creature::m_position' uses undefined class 'RME::core::Position'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const <error type>' to 'const RME::core::Position &'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'RME::core::creatures::Creature::m_position' uses undefined class 'RME::core::Position'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const <error type>' to 'const RME::core::Position &'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'RME::core::creatures::Creature::m_position' uses undefined class 'RME::core::Position'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const <error type>' to 'const RME::core::Position &'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'RME::core::creatures::Creature::m_position' uses undefined class 'RME::core::Position'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const <error type>' to 'const RME::core::Position &'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'RME::core::creatures::Creature::m_position' uses undefined class 'RME::core::Position'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const <error type>' to 'const RME::core::Position &'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'RME::core::creatures::Creature::m_position' uses undefined class 'RME::core::Position'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const <error type>' to 'const RME::core::Position &'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'RME::core::creatures::Creature::m_position' uses undefined class 'RME::core::Position'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const <error type>' to 'const RME::core::Position &'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'RME::core::creatures::Creature::m_position' uses undefined class 'RME::core::Position'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const <error type>' to 'const RME::core::Position &'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'RME::core::creatures::Creature::m_position' uses undefined class 'RME::core::Position'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const <error type>' to 'const RME::core::Position &'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'RME::core::creatures::Creature::m_position' uses undefined class 'RME::core::Position'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const <error type>' to 'const RME::core::Position &'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'RME::core::creatures::Creature::m_position' uses undefined class 'RME::core::Position'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const <error type>' to 'const RME::core::Position &'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'RME::core::creatures::Creature::m_position' uses undefined class 'RME::core::Position'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const <error type>' to 'const RME::core::Position &'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'RME::core::creatures::Creature::m_position' uses undefined class 'RME::core::Position'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const <error type>' to 'const RME::core::Position &'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'unique_ptr': is not a member of 'RME::std'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'assets': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'CreatureData': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '*'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'unique_ptr': is not a member of 'RME::RME::RME::RME::RME::std'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '<'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 60
+  },
+  {
+    "Compile error": "'getDirection': unknown override specifier",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "syntax error: identifier 'Direction'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::RME::core::creatures::Creature::Outfit': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'assets': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "'CreatureData': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "'assets': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 117
+  },
+  {
+    "Compile error": "'CreatureData': is not a member of 'RME::RME::RME::RME::RME::RME::core'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 117
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::RME::core::creatures::Creature::CreatureData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 117
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 117
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 117
+  },
+  {
+    "Compile error": "'const int RME::RME::RME::RME::RME::RME::core::creatures::Creature::CreatureData': redefinition",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 117
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 117
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::RME::RME::core::creatures::Creature::Outfit': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'m_outfit': unknown override specifier",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'m_direction': unknown override specifier",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'Direction': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'m_direction': undeclared identifier",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'dir': undeclared identifier",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'m_outfit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'outfit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'m_outfit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "'m_outfit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "'m_outfit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'m_outfit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "'m_outfit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 100
+  },
+  {
+    "Compile error": "'m_outfit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 101
+  },
+  {
+    "Compile error": "'m_outfit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 102
+  },
+  {
+    "Compile error": "'m_outfit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'m_outfit': undeclared identifier",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'RME::core::creatures::Creature::m_position' uses undefined struct 'RME::core::Position'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const <error type>' to 'const RME::core::Position &'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 68
+  },
+  {
+    "Compile error": "'RME::core::creatures::Creature::m_position' uses undefined struct 'RME::core::Position'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 118
+  },
+  {
+    "Compile error": "'return': cannot convert from 'const <error type>' to 'const RME::core::Position &'",
+    "File": "Project_QT\\src\\core\\creatures\\Creature.h",
+    "Code line error": 68
+  }
+]

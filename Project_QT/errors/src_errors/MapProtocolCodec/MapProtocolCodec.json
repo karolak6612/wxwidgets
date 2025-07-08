@@ -1,0 +1,757 @@
+[
+  {
+    "Compile error": "Cannot open include file: 'core/map/MapVersionInfo.h': No such file or directory",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.cpp",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '*'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "syntax error: identifier 'Tile'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'Item': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'Item': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'std::unique_ptr': 'Item' is not a valid template type argument for parameter '_Ty'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'std::unique_ptr': too few template arguments",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'map': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'MapVersionInfo': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'std::unique_ptr': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'Item': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '*'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'map': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'QTreeNode': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '*'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'map': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'QTreeNode': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "syntax error: identifier 'QTreeNode'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'map': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'MapVersionInfo': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'map': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'MapVersionInfo': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'map': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'MapVersionInfo': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'map': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'MapVersionInfo': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'Tile': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'std::unique_ptr': 'Tile' is not a valid template type argument for parameter '_Ty'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'std::unique_ptr': too few template arguments",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'Map': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "syntax error: identifier 'Map'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'std::unique_ptr': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::RME::RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'RME::RME::RME::core::network::LiveCursor::userName' uses undefined class 'RME::RME::QString'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 43
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 95
+  },
+  {
+    "Compile error": "syntax error: identifier 'ClientHelloClientData'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::serializeData(const int)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "syntax error: identifier 'MapNodeRequestClientData'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::deserializeData(RME::RME::RME::core::network::NetworkMessage &)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::serializeData(const int)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "syntax error: identifier 'MapChangesClientData'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::deserializeData(RME::RME::RME::core::network::NetworkMessage &)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::serializeData(const int)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "syntax error: identifier 'ChatMessageClientData'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::deserializeData(RME::RME::RME::core::network::NetworkMessage &)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 107
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::serializeData(const int)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "syntax error: identifier 'ServerHelloServerData'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::deserializeData(RME::RME::RME::core::network::NetworkMessage &)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::serializeData(const int)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "syntax error: identifier 'YourIdColorData'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::deserializeData(RME::RME::RME::core::network::NetworkMessage &)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 114
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 116
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 116
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::serializeData(const int)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 116
+  },
+  {
+    "Compile error": "syntax error: identifier 'PeerListServerData'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 117
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::deserializeData(RME::RME::RME::core::network::NetworkMessage &)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 117
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::serializeData(const int)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "syntax error: identifier 'MapChangesServerData'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::deserializeData(RME::RME::RME::core::network::NetworkMessage &)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 123
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 123
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::serializeData(const int)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 123
+  },
+  {
+    "Compile error": "syntax error: identifier 'ChatMessageServerData'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::deserializeData(RME::RME::RME::core::network::NetworkMessage &)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 124
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::serializeData(const int)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 126
+  },
+  {
+    "Compile error": "syntax error: identifier 'KickClientData'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'bool RME::RME::RME::core::network::MapProtocolCodec::deserializeData(RME::RME::RME::core::network::NetworkMessage &)': member function already defined or declared",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '*'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "syntax error: identifier 'Tile'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'Item': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'Item': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'std::unique_ptr': 'Item' is not a valid template type argument for parameter '_Ty'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'std::unique_ptr': too few template arguments",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'map': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'MapVersionInfo': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'std::unique_ptr': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'Item': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '*'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'map': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'QTreeNode': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '*'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'map': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'QTreeNode': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "syntax error: identifier 'QTreeNode'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 75
+  },
+  {
+    "Compile error": "'map': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'MapVersionInfo': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 103
+  },
+  {
+    "Compile error": "'map': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'MapVersionInfo': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'map': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'MapVersionInfo': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'map': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'MapVersionInfo': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "syntax error: missing ',' before '&'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'Tile': undeclared identifier",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'std::unique_ptr': 'Tile' is not a valid template type argument for parameter '_Ty'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'std::unique_ptr': too few template arguments",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 148
+  },
+  {
+    "Compile error": "'Map': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "syntax error: identifier 'Map'",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 150
+  },
+  {
+    "Compile error": "'std::unique_ptr': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\network\\MapProtocolCodec.h",
+    "Code line error": 148
+  }
+]

@@ -1,0 +1,227 @@
+[
+  {
+    "Compile error": "use of undefined type 'RME::RME::QLocale'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "'DefaultTwoDigitBaseYear': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 151
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::QLocale'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "'DefaultTwoDigitBaseYear': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 157
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::QLocale'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 161
+  },
+  {
+    "Compile error": "'DefaultTwoDigitBaseYear': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 161
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::QLocale'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'DefaultTwoDigitBaseYear': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::QLocale'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "'DefaultTwoDigitBaseYear': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::QLocale'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 470
+  },
+  {
+    "Compile error": "'DefaultTwoDigitBaseYear': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 470
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::QLocale'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 476
+  },
+  {
+    "Compile error": "'DefaultTwoDigitBaseYear': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 476
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::QLocale'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 480
+  },
+  {
+    "Compile error": "'DefaultTwoDigitBaseYear': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 480
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::QLocale'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 461
+  },
+  {
+    "Compile error": "'DefaultTwoDigitBaseYear': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 461
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::QLocale'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 465
+  },
+  {
+    "Compile error": "'DefaultTwoDigitBaseYear': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 465
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::QLocale'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 675
+  },
+  {
+    "Compile error": "'DefaultTwoDigitBaseYear': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 675
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::QLocale'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 680
+  },
+  {
+    "Compile error": "'DefaultTwoDigitBaseYear': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 680
+  },
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 219
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 219
+  },
+  {
+    "Compile error": "'RME::RME::QDate': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 219
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 219
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 219
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 219
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 219
+  },
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 285
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 285
+  },
+  {
+    "Compile error": "'RME::RME::QTime': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 285
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 285
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 285
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 285
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 285
+  },
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 649
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 649
+  },
+  {
+    "Compile error": "'RME::RME::QDateTime': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 649
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 649
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 649
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 649
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qdatetime.h",
+    "Code line error": 649
+  }
+]

@@ -22,7 +22,7 @@ namespace core {
 namespace houses {
 
 class Houses {
-    friend class ::TestHouses;
+    
     friend class RME::core::Map; // Allow Map to potentially access/modify houses during load/save or complex ops
 
 public:

@@ -264,3 +264,5 @@ void AboutDialog::onCreditsButtonClicked() {
 } // namespace dialogs
 } // namespace ui
 } // namespace RME
+
+// #include "AboutDialog.moc" // Removed - Q_OBJECT is in header

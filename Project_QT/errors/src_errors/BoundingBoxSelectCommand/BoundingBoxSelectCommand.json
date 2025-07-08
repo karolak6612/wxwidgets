@@ -1,0 +1,192 @@
+[
+  {
+    "Compile error": "'BoundingBoxSelectCommand': is not a class or namespace name",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'selection': the symbol to the left of a '::' must be a type",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 14
+  },
+  {
+    "Compile error": "'SelectionManager': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 14
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 15
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'RME::RME::core::actions::BoundingBoxSelectCommand': constructor initializer lists are only allowed on constructor definitions",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'m_selectionManager': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'setErrorText': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::RME::core::actions::BoundingBoxSelectCommand': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::RME::core::actions::BoundingBoxSelectCommand': inconsistent return statement",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'BoundingBoxSelectCommand': is not a class or namespace name",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'m_firstRun': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "'m_isAdditive': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'fromList': is not a member of 'QSet<RME::RME::Tile *>'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'m_selectionStateBeforeCommand': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'fromList': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 39
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "syntax error: missing ';' before ':'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'m_calculatedTilesInBox': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "syntax error: missing ';' before ')'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 40
+  },
+  {
+    "Compile error": "'m_selectionStateAfterCommand': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'Tile': is not a member of 'RME::RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "syntax error: missing ';' before ':'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "syntax error: missing ';' before ')'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "a conditional expression of type 'QSet<RME::RME::Tile *>' is not valid",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'m_selectionStateAfterCommand': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'m_selectionStateAfterCommand': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'m_calculatedTilesInBox': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'m_firstRun': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.cpp",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "'BaseCommand': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.h",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'RME::core::actions::BoundingBoxSelectCommand::~BoundingBoxSelectCommand': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.h",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "'RME::core::actions::BoundingBoxSelectCommand::undo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.h",
+    "Code line error": 36
+  },
+  {
+    "Compile error": "'RME::core::actions::BoundingBoxSelectCommand::redo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'RME::core::actions::BoundingBoxSelectCommand::id': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\BoundingBoxSelectCommand.h",
+    "Code line error": 39
+  }
+]

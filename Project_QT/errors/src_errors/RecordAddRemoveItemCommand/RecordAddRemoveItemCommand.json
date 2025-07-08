@@ -1,0 +1,62 @@
+[
+  {
+    "Compile error": "'CommandId': is not a class or namespace name",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordAddRemoveItemCommand.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'RecordAddRemoveItem': undeclared identifier",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordAddRemoveItemCommand.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'toInt': identifier not found",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordAddRemoveItemCommand.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordAddRemoveItemCommand.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'BaseCommand': base class undefined",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordAddRemoveItemCommand.h",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "'Position': is not a member of 'RME::core'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordAddRemoveItemCommand.h",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "'RME::core::actions::RecordAddRemoveItemCommand::~RecordAddRemoveItemCommand': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordAddRemoveItemCommand.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::core::actions::RecordAddRemoveItemCommand::undo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordAddRemoveItemCommand.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'RME::core::actions::RecordAddRemoveItemCommand::redo': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordAddRemoveItemCommand.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'RME::core::actions::RecordAddRemoveItemCommand::id': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordAddRemoveItemCommand.h",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::Item'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordAddRemoveItemCommand.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'getID': is not a member of 'std::unique_ptr<RME::core::Item,std::default_delete<RME::core::Item>>'",
+    "File": "Project_QT\\src\\editor_logic\\commands\\RecordAddRemoveItemCommand.h",
+    "Code line error": 62
+  }
+]

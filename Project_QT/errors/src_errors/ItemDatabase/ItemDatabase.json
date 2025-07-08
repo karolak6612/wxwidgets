@@ -1,0 +1,4987 @@
+[
+  {
+    "Compile error": "'analyzeItemType': this use of 'void' is not valid",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'itemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "illegal reference to non-static member 'RME::ItemDatabase::ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'QMap': 'RME::ItemDatabase::ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "'QMap': no appropriate default constructor available",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': an object of const-qualified type must be initialized",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'invalidItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "'invalidItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "'invalidItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'getItemData': is not a member of 'RME::ItemDatabase'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'getItemData': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "syntax error: '{'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 56
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'const int RME::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'getDefaultItemData': is not a member of 'RME::ItemDatabase'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'getDefaultItemData': modifiers not allowed on nonmember functions",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: '{'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'QMap<Key,T>::size_type QMap<Key,T>::size(void) const': cannot convert 'this' pointer from 'QMap' to 'const QMap<Key,T> &'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'QMap': 'RME::ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'void QMap<Key,T>::clear(void)': cannot convert 'this' pointer from 'QMap' to 'QMap<Key,T> &'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 91
+  },
+  {
+    "Compile error": "'ItemGroup': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 169
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'currentGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 169
+  },
+  {
+    "Compile error": "'currentGroup': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 169
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 169
+  },
+  {
+    "Compile error": "'currentGroup': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 170
+  },
+  {
+    "Compile error": "'ItemGroup': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 170
+  },
+  {
+    "Compile error": "'LAST': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 170
+  },
+  {
+    "Compile error": "'currentGroup': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 170
+  },
+  {
+    "Compile error": "'currentGroup': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 197
+  },
+  {
+    "Compile error": "'currentGroup': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 200
+  },
+  {
+    "Compile error": "'QMap<Key,T>::size_type QMap<Key,T>::size(void) const': cannot convert 'this' pointer from 'QMap' to 'const QMap<Key,T> &'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 206
+  },
+  {
+    "Compile error": "built-in operator '<<' cannot be applied to an operand of type 'QDebug'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 206
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 210
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'itemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 211
+  },
+  {
+    "Compile error": "'itemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 211
+  },
+  {
+    "Compile error": "'itemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 212
+  },
+  {
+    "Compile error": "'itemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 213
+  },
+  {
+    "Compile error": "'itemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 214
+  },
+  {
+    "Compile error": "'group': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 214
+  },
+  {
+    "Compile error": "'itemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 219
+  },
+  {
+    "Compile error": "'ItemFlags': identifier not found",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 219
+  },
+  {
+    "Compile error": "'itemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 221
+  },
+  {
+    "Compile error": "'itemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 223
+  },
+  {
+    "Compile error": "'itemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 224
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 228
+  },
+  {
+    "Compile error": "syntax error: identifier 'OtbAttribute'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 251
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 251
+  },
+  {
+    "Compile error": "'OtbAttribute': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 252
+  },
+  {
+    "Compile error": "'OTB_ATTR_ITEM': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 252
+  },
+  {
+    "Compile error": "illegal case",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 252
+  },
+  {
+    "Compile error": "'itemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 252
+  },
+  {
+    "Compile error": "'OtbAttribute': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "illegal case",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'itemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'OtbAttribute': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 254
+  },
+  {
+    "Compile error": "'OTB_ATTR_DESCRIPTION': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 254
+  },
+  {
+    "Compile error": "illegal case",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 254
+  },
+  {
+    "Compile error": "'itemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 254
+  },
+  {
+    "Compile error": "'OtbAttribute': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 255
+  },
+  {
+    "Compile error": "'OTB_ATTR_PLURALNAME': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 255
+  },
+  {
+    "Compile error": "illegal case",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 255
+  },
+  {
+    "Compile error": "'itemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 255
+  },
+  {
+    "Compile error": "'OtbAttribute': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 256
+  },
+  {
+    "Compile error": "'OTB_ATTR_ARTICLE': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 256
+  },
+  {
+    "Compile error": "illegal case",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 256
+  },
+  {
+    "Compile error": "'itemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 256
+  },
+  {
+    "Compile error": "'OtbAttribute': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 257
+  },
+  {
+    "Compile error": "'OTB_ATTR_TEXT': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 257
+  },
+  {
+    "Compile error": "illegal case",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 257
+  },
+  {
+    "Compile error": "'itemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 257
+  },
+  {
+    "Compile error": "'OtbAttribute': is not a class or namespace name",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 258
+  },
+  {
+    "Compile error": "'OTB_ATTR_UNIQUE_ID': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 258
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.cpp",
+    "Code line error": 258
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::RME::RME::RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '&'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'const int RME::ItemDatabase::ItemData': redefinition",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 29
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'ItemData': undeclared identifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': 'ItemData' is not a valid template type argument for parameter 'T'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "'QMap': use of class template requires template argument list",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 32
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemGroup'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 41
+  },
+  {
+    "Compile error": "syntax error: identifier 'ItemData'",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 42
+  },
+  {
+    "Compile error": "'RME::ItemDatabase::ItemData': is not a type name, static, or enumerator",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'invalidItemData': unknown override specifier",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\core\\assets\\ItemDatabase.h",
+    "Code line error": 47
+  }
+]

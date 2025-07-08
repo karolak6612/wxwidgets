@@ -1,0 +1,472 @@
+[
+  {
+    "Compile error": "'remove_cvref_t': is not a member of 'RME::q20'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 822
+  },
+  {
+    "Compile error": "'remove_cvref_t': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 822
+  },
+  {
+    "Compile error": "'std::is_same_v': invalid template argument for '<unnamed-symbol>', type expected",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 822
+  },
+  {
+    "Compile error": "'<error type>': is not a valid type for non-type template parameter '_Test'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 821
+  },
+  {
+    "Compile error": "'std::conditional_t': too few template arguments",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 821
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 822
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 822
+  },
+  {
+    "Compile error": "'if_heterogeneously_searchable_with': is not a member of 'RME::RME::QHashPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1527
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable_with'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1527
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1527
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1533
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1533
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1533
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1535
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1538
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1538
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1538
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1540
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1543
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1543
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1543
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1545
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1548
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1548
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1548
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1550
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1553
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1553
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1553
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1555
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1561
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1561
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1561
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1563
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1569
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1569
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1569
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1571
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1574
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1574
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1574
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1576
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1579
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1579
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1579
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1582
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1585
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1585
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1585
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1588
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1591
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1591
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1591
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1593
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1596
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1596
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1596
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1598
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1601
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1601
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1601
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1603
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1606
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1606
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1606
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1608
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1611
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1611
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1611
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1613
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1616
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1616
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1616
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1618
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1621
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1621
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1621
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1623
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1626
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1626
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1626
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1628
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1631
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1631
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1631
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1633
+  },
+  {
+    "Compile error": "syntax error: identifier 'if_heterogeneously_searchable'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1636
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1636
+  },
+  {
+    "Compile error": "syntax error: '='",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1636
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1638
+  },
+  {
+    "Compile error": "syntax error: '<' was unexpected here; expected ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1455
+  },
+  {
+    "Compile error": "syntax error: ',' was unexpected here; expected ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1455
+  },
+  {
+    "Compile error": "syntax error: '>' was unexpected here; expected ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1455
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qhash.h",
+    "Code line error": 1455
+  }
+]

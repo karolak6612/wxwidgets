@@ -21,7 +21,8 @@ namespace dialogs {
  * This dialog shows the application name, version, Qt version, credits,
  * license information, and optionally includes easter egg games.
  */
-class AboutDialog : public QDialog {
+class AboutDialog : public QDialog
+{
     Q_OBJECT
 
 public:

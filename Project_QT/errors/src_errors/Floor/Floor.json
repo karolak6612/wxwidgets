@@ -1,0 +1,12 @@
+[
+  {
+    "Compile error": "'std::make_unique': no matching overloaded function found",
+    "File": "Project_QT\\src\\core\\map\\Floor.cpp",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'std::make_unique': no matching overloaded function found",
+    "File": "Project_QT\\src\\core\\map\\Floor.cpp",
+    "Code line error": 61
+  }
+]

@@ -1,0 +1,527 @@
+[
+  {
+    "Compile error": "syntax error: 'string'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: 'string'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 83
+  },
+  {
+    "Compile error": "syntax error: 'namespace'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "syntax error: identifier '_Collvec'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "'_Ctypevec': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 221
+  },
+  {
+    "Compile error": "syntax error: identifier '_Ctypevec'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 221
+  },
+  {
+    "Compile error": "'_Cvtvec': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 222
+  },
+  {
+    "Compile error": "syntax error: identifier '_Cvtvec'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 222
+  },
+  {
+    "Compile error": "'_Timevec': is not a member of 'std'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 223
+  },
+  {
+    "Compile error": "syntax error: identifier '_Timevec'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 223
+  },
+  {
+    "Compile error": "'_Lock': unknown override specifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 378
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 378
+  },
+  {
+    "Compile error": "'RME::std::_Locinfo': illegal member initialization: '_Lock' is not a base or member",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 232
+  },
+  {
+    "Compile error": "'_Xruntime_error': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 240
+  },
+  {
+    "Compile error": "'RME::std::_Locinfo': illegal member initialization: '_Lock' is not a base or member",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 245
+  },
+  {
+    "Compile error": "'_Xruntime_error': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'_Xruntime_error': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 265
+  },
+  {
+    "Compile error": "'_Getcoll': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 273
+  },
+  {
+    "Compile error": "'_Getctype': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 277
+  },
+  {
+    "Compile error": "'_Getcvt': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 281
+  },
+  {
+    "Compile error": "'_Gettnames': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 289
+  },
+  {
+    "Compile error": "'_Getdays': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 293
+  },
+  {
+    "Compile error": "'_Getmonths': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 305
+  },
+  {
+    "Compile error": "'_Getdateorder': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 327
+  },
+  {
+    "Compile error": "'_W_Gettnames': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 331
+  },
+  {
+    "Compile error": "'_W_Getdays': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 335
+  },
+  {
+    "Compile error": "'initializing': cannot convert from 'const unsigned short *' to 'const wchar_t *'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 335
+  },
+  {
+    "Compile error": "'_W_Getmonths': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 353
+  },
+  {
+    "Compile error": "'initializing': cannot convert from 'const unsigned short *' to 'const wchar_t *'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 353
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 391
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 405
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 412
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 418
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 430
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 437
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "syntax error: identifier '_Collvec'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "'_Ctypevec': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 221
+  },
+  {
+    "Compile error": "syntax error: identifier '_Ctypevec'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 221
+  },
+  {
+    "Compile error": "'_Cvtvec': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 222
+  },
+  {
+    "Compile error": "syntax error: identifier '_Cvtvec'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 222
+  },
+  {
+    "Compile error": "'_Timevec': is not a member of 'std'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 223
+  },
+  {
+    "Compile error": "syntax error: identifier '_Timevec'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 223
+  },
+  {
+    "Compile error": "'_Lock': unknown override specifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 378
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 378
+  },
+  {
+    "Compile error": "'RME::std::_Locinfo': illegal member initialization: '_Lock' is not a base or member",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 232
+  },
+  {
+    "Compile error": "'_Xruntime_error': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 240
+  },
+  {
+    "Compile error": "'RME::std::_Locinfo': illegal member initialization: '_Lock' is not a base or member",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 245
+  },
+  {
+    "Compile error": "'_Xruntime_error': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'_Xruntime_error': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 265
+  },
+  {
+    "Compile error": "'_Getcoll': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 273
+  },
+  {
+    "Compile error": "'_Getctype': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 277
+  },
+  {
+    "Compile error": "'_Getcvt': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 281
+  },
+  {
+    "Compile error": "'_Gettnames': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 289
+  },
+  {
+    "Compile error": "'_Getdays': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 293
+  },
+  {
+    "Compile error": "'_Getmonths': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 305
+  },
+  {
+    "Compile error": "'_Getdateorder': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 327
+  },
+  {
+    "Compile error": "'_W_Gettnames': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 331
+  },
+  {
+    "Compile error": "'_W_Getdays': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 335
+  },
+  {
+    "Compile error": "'initializing': cannot convert from 'const unsigned short *' to 'const wchar_t *'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 335
+  },
+  {
+    "Compile error": "'_W_Getmonths': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 353
+  },
+  {
+    "Compile error": "'initializing': cannot convert from 'const unsigned short *' to 'const wchar_t *'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 353
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 391
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 405
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 412
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 418
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 430
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of 'RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 437
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "syntax error: identifier '_Collvec'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 220
+  },
+  {
+    "Compile error": "'_Ctypevec': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 221
+  },
+  {
+    "Compile error": "syntax error: identifier '_Ctypevec'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 221
+  },
+  {
+    "Compile error": "'_Cvtvec': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 222
+  },
+  {
+    "Compile error": "syntax error: identifier '_Cvtvec'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 222
+  },
+  {
+    "Compile error": "'_Timevec': is not a member of 'std'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 223
+  },
+  {
+    "Compile error": "syntax error: identifier '_Timevec'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 223
+  },
+  {
+    "Compile error": "'_Lock': unknown override specifier",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 378
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 378
+  },
+  {
+    "Compile error": "'RME::RME::std::_Locinfo': illegal member initialization: '_Lock' is not a base or member",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 232
+  },
+  {
+    "Compile error": "'_Xruntime_error': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 240
+  },
+  {
+    "Compile error": "'RME::RME::std::_Locinfo': illegal member initialization: '_Lock' is not a base or member",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 245
+  },
+  {
+    "Compile error": "'_Xruntime_error': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 253
+  },
+  {
+    "Compile error": "'_Xruntime_error': identifier not found",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 265
+  },
+  {
+    "Compile error": "'_Getcoll': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 273
+  },
+  {
+    "Compile error": "'_Getctype': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 277
+  },
+  {
+    "Compile error": "'_Getcvt': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 281
+  },
+  {
+    "Compile error": "'_Gettnames': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 289
+  },
+  {
+    "Compile error": "'_Getdays': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 293
+  },
+  {
+    "Compile error": "'_Getmonths': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 305
+  },
+  {
+    "Compile error": "'_Getdateorder': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 327
+  },
+  {
+    "Compile error": "'_W_Gettnames': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 331
+  },
+  {
+    "Compile error": "'_W_Getdays': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 335
+  },
+  {
+    "Compile error": "'initializing': cannot convert from 'const unsigned short *' to 'const wchar_t *'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 335
+  },
+  {
+    "Compile error": "'_W_Getmonths': is not a member of '`global namespace''",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 353
+  },
+  {
+    "Compile error": "'initializing': cannot convert from 'const unsigned short *' to 'const wchar_t *'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 353
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of 'RME::RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 391
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of 'RME::RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 405
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of 'RME::RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 412
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of 'RME::RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 418
+  },
+  {
+    "Compile error": "'_Collvec': is not a member of 'RME::RME::std::_Locinfo'",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 430
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\xlocinfo",
+    "Code line error": 430
+  }
+]

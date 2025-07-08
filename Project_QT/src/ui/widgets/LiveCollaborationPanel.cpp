@@ -482,3 +482,5 @@ void LiveCollaborationPanel::onUpdateTimer()
 } // namespace widgets
 } // namespace ui
 } // namespace RME
+
+// #include "LiveCollaborationPanel.moc" // Removed - Q_OBJECT is in header

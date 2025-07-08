@@ -1,0 +1,257 @@
+[
+  {
+    "Compile error": "'QTypeInfo<RME::ItemFinderDialogQt::QAbstractEventDispatcher::TimerInfo>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'QTypeInfo<RME::ItemFinderDialogQt::QAbstractEventDispatcher::TimerInfoV2>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'QTypeInfo<RME::ui::ItemFinderDialogQt::QAbstractEventDispatcher::TimerInfo>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'QTypeInfo<RME::ui::ItemFinderDialogQt::QAbstractEventDispatcher::TimerInfoV2>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'QTypeInfo<RME::ui::ItemFinderDialogQt::QAbstractEventDispatcher::TimerInfo>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'QTypeInfo<RME::ui::ItemFinderDialogQt::QAbstractEventDispatcher::TimerInfoV2>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'QTypeInfo<RME::ui::ItemFinderDialogQt::QAbstractEventDispatcher::TimerInfo>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'QTypeInfo<RME::ui::ItemFinderDialogQt::QAbstractEventDispatcher::TimerInfoV2>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'QTypeInfo<ItemFinderDialogQt::QAbstractEventDispatcher::TimerInfo>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'QTypeInfo<ItemFinderDialogQt::QAbstractEventDispatcher::TimerInfoV2>': cannot specialize template in current scope",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'chrono': the symbol to the left of a '::' must be a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'nanoseconds': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "syntax error: identifier 'nanoseconds'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'interval': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 34
+  },
+  {
+    "Compile error": "syntax error: identifier 'Duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 49
+  },
+  {
+    "Compile error": "syntax error: identifier 'Duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'remainingTime': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "syntax error: '('",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'is_trivial_v': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'is_trivial_v': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::QAbstractEventDispatcher::TimerInfo': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'is_pointer_v': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'is_integral': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'value': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'isRelocatable': is not a member of 'QTypeInfo<RME::RME::RME::RME::QAbstractEventDispatcher::TimerInfo>'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'is_copy_constructible_v': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'is_copy_constructible_v': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "syntax error: '||'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'is_move_constructible_v': is not a member of 'RME::RME::RME::RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "'QAbstractEventDispatcher': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'QAbstractEventDispatcher': is not a class or namespace name",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'TimerInfoV2': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'QTypeInfo': 'TimerInfoV2' is not a valid template type argument for parameter 'T'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "explicit specialization; 'RME::RME::RME::QTypeInfo' is not a specialization of a class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 93
+  },
+  {
+    "Compile error": "'QAbstractEventDispatcher': base class undefined",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '*'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "'inline' specifier cannot appear on a block-scope declaration or non-static data member",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 99
+  },
+  {
+    "Compile error": "syntax error: identifier 'Duration'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 106
+  },
+  {
+    "Compile error": "'TimerInfoV2': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 109
+  },
+  {
+    "Compile error": "'QList': 'TimerInfoV2' is not a valid template type argument for parameter 'T'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 109
+  },
+  {
+    "Compile error": "'QList': use of class template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 109
+  },
+  {
+    "Compile error": "'remainingTime': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "'Qt::TimerId': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "syntax error: missing ')' before identifier 'timerId'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 110
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qabstracteventdispatcher.h",
+    "Code line error": 110
+  }
+]

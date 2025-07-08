@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include "BrushEnums.h"
 #include <QtGlobal>
 #include <memory>
 #include "BrushEnums.h"

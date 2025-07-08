@@ -1,0 +1,97 @@
+[
+  {
+    "Compile error": "'enable_if': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "syntax error: identifier 'enable_if'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'is_unsigned': is not a member of 'RME::std'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'value': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'type': is not a member of '`global namespace''",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "syntax error: ':'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 27
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "syntax error: 'return'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'RME::std::_Base128::QRandomGenerator': failed to select a destructor for the class",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 20
+  },
+  {
+    "Compile error": "'generate': unknown override specifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "syntax error: ')'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 50
+  },
+  {
+    "Compile error": "unexpected token(s) preceding '{'; skipping apparent function body",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "unrecognizable template declaration/definition",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "syntax error: 'return'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 57
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ';'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qrandom.h",
+    "Code line error": 57
+  }
+]

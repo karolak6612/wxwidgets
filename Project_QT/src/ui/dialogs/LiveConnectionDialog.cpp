@@ -366,3 +366,5 @@ void LiveConnectionDialog::onShowPasswordToggled(bool show)
 } // namespace dialogs
 } // namespace ui
 } // namespace RME
+
+// #include "LiveConnectionDialog.moc" // Removed - Q_OBJECT is in header

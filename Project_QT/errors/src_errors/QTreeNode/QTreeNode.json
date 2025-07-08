@@ -1,0 +1,62 @@
+[
+  {
+    "Compile error": "'std::make_unique': no matching overloaded function found",
+    "File": "Project_QT\\src\\core\\map\\QTreeNode.cpp",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'std::make_unique': no matching overloaded function found",
+    "File": "Project_QT\\src\\core\\map\\QTreeNode.cpp",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'std::make_unique': no matching overloaded function found",
+    "File": "Project_QT\\src\\core\\map\\QTreeNode.cpp",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'std::make_unique': no matching overloaded function found",
+    "File": "Project_QT\\src\\core\\map\\QTreeNode.cpp",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'std::make_unique': no matching overloaded function found",
+    "File": "Project_QT\\src\\core\\map\\QTreeNode.cpp",
+    "Code line error": 125
+  },
+  {
+    "Compile error": "'QMap<int,std::unique_ptr<RME::Floor,std::default_delete<RME::Floor>>>::insert': no overloaded function could convert all the argument types",
+    "File": "Project_QT\\src\\core\\map\\QTreeNode.cpp",
+    "Code line error": 125
+  },
+  {
+    "Compile error": "'allChildrenAreEmptyLeaves': undeclared identifier",
+    "File": "Project_QT\\src\\core\\map\\QTreeNode.cpp",
+    "Code line error": 179
+  },
+  {
+    "Compile error": "'allChildrenAreEmptyLeaves': undeclared identifier",
+    "File": "Project_QT\\src\\core\\map\\QTreeNode.cpp",
+    "Code line error": 185
+  },
+  {
+    "Compile error": "'allChildrenAreEmptyLeaves': undeclared identifier",
+    "File": "Project_QT\\src\\core\\map\\QTreeNode.cpp",
+    "Code line error": 189
+  },
+  {
+    "Compile error": "'second': is not a member of 'std::unique_ptr<RME::Floor,std::default_delete<RME::Floor>>'",
+    "File": "Project_QT\\src\\core\\map\\QTreeNode.cpp",
+    "Code line error": 222
+  },
+  {
+    "Compile error": "'second': is not a member of 'std::unique_ptr<RME::Floor,std::default_delete<RME::Floor>>'",
+    "File": "Project_QT\\src\\core\\map\\QTreeNode.cpp",
+    "Code line error": 222
+  },
+  {
+    "Compile error": "'std::make_unique': no matching overloaded function found",
+    "File": "Project_QT\\src\\core\\map\\QTreeNode.cpp",
+    "Code line error": 259
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\palettes\\WaypointPaletteTab.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\WaypointPaletteTab.h",
+    "Code line error": 52
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\WaypointPaletteTab.h",
+    "Code line error": 92
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\WaypointPaletteTab.h",
+    "Code line error": 92
+  }
+]

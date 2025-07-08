@@ -1091,3 +1091,5 @@ void MapView::updateDynamicLights() {
 } // namespace widgets
 } // namespace ui
 } // namespace RME
+
+// #include "MapView.moc" // Removed - Q_OBJECT is in header

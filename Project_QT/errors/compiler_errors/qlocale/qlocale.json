@@ -1,0 +1,137 @@
+[
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "'RME::QLocale': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "'RME::QLocale': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "'qIsRelocatable': is not a member of 'RME::QtPrivate'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "'qIsRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "'RME::RME::QLocale': expected an expression instead of a type",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "syntax error: ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "',': unexpected token, expected either '}' or a ','",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "'isRelocatable': undeclared identifier",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "expression did not evaluate to a constant",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "'RME::QDataStream': class template has already been declared as a non-class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 15
+  },
+  {
+    "Compile error": "'RME::QVariant': class template has already been declared as a non-class template",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 20
+  },
+  {
+    "Compile error": "'RME::QLocale': use of class template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 26
+  },
+  {
+    "Compile error": "'RME::QLocale': use of class template requires template argument list",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "use of undefined type 'RME::QLocale'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qlocale.h",
+    "Code line error": 1191
+  }
+]

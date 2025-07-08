@@ -1,0 +1,22 @@
+[
+  {
+    "Compile error": "use of undefined type 'RME::RME::RME::RME::QString'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonobject.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::RME::RME::QString'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonobject.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::RME::RME::QString'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonobject.h",
+    "Code line error": 217
+  },
+  {
+    "Compile error": "use of undefined type 'RME::RME::RME::RME::QString'",
+    "File": "C:\\Qt\\6.9.1\\msvc2022_64\\include\\QtCore\\qjsonobject.h",
+    "Code line error": 217
+  }
+]

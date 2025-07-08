@@ -1,0 +1,72 @@
+[
+  {
+    "Compile error": "'TestHouseExitBrush': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\brush\\HouseExitBrush.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'RME::RME::core::HouseExitBrush::hasMaterial': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\HouseExitBrush.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'RME::RME::core::HouseExitBrush::canDrag': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\HouseExitBrush.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'RME::RME::core::HouseExitBrush::canSmear': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\HouseExitBrush.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'RME::RME::core::HouseExitBrush::oneSizeFitsAll': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\HouseExitBrush.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'RME::core::HouseExitBrush::hasMaterial': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\HouseExitBrush.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'RME::core::HouseExitBrush::canDrag': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\HouseExitBrush.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'RME::core::HouseExitBrush::canSmear': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\HouseExitBrush.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'RME::core::HouseExitBrush::oneSizeFitsAll': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\HouseExitBrush.h",
+    "Code line error": 48
+  },
+  {
+    "Compile error": "'TestHouseExitBrush': is not a member of '`global namespace''",
+    "File": "Project_QT\\src\\core\\brush\\HouseExitBrush.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::core::HouseExitBrush::hasMaterial': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\HouseExitBrush.h",
+    "Code line error": 45
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::core::HouseExitBrush::canDrag': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\HouseExitBrush.h",
+    "Code line error": 46
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::core::HouseExitBrush::canSmear': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\HouseExitBrush.h",
+    "Code line error": 47
+  },
+  {
+    "Compile error": "'RME::RME::RME::RME::core::HouseExitBrush::oneSizeFitsAll': method with override specifier 'override' did not override any base class methods",
+    "File": "Project_QT\\src\\core\\brush\\HouseExitBrush.h",
+    "Code line error": 48
+  }
+]

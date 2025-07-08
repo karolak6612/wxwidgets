@@ -1,0 +1,732 @@
+[
+  {
+    "Compile error": "'BrushFilterManager': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 11
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 11
+  },
+  {
+    "Compile error": "'RME::RME::ui::palettes::BrushFilterManager': constructor initializer lists are only allowed on constructor definitions",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 13
+  },
+  {
+    "Compile error": "'RME::RME::ui::palettes::BrushFilterManager': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 15
+  },
+  {
+    "Compile error": "'BrushFilterManager': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "missing type specifier - int assumed. Note: C++ does not support default-int",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 17
+  },
+  {
+    "Compile error": "'RME::RME::ui::palettes::{dtor}': function should return a value; 'void' return type assumed",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 20
+  },
+  {
+    "Compile error": "'BrushFilterManager': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 22
+  },
+  {
+    "Compile error": "'m_searchText': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 24
+  },
+  {
+    "Compile error": "'m_searchText': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "'m_cachedRegexPattern': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 28
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'searchTextChanged'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "'searchTextChanged': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 30
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'filtersChanged'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'filtersChanged': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 31
+  },
+  {
+    "Compile error": "'BrushFilterManager': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'setSearchMode': this use of 'void' is not valid",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "'SearchMode': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: missing ')' before identifier 'mode'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 37
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '{'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'{': missing function header (old-style formal list?)",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 38
+  },
+  {
+    "Compile error": "'BrushFilterManager': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 51
+  },
+  {
+    "Compile error": "'m_categoryFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 53
+  },
+  {
+    "Compile error": "'m_categoryFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 54
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'filtersChanged'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'filtersChanged': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 55
+  },
+  {
+    "Compile error": "'BrushFilterManager': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 61
+  },
+  {
+    "Compile error": "'m_categoryFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 63
+  },
+  {
+    "Compile error": "'m_categoryFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 64
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'filtersChanged'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'filtersChanged': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 65
+  },
+  {
+    "Compile error": "'BrushFilterManager': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 69
+  },
+  {
+    "Compile error": "'m_categoryFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 71
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'filtersChanged'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "'filtersChanged': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 72
+  },
+  {
+    "Compile error": "'BrushFilterManager': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 76
+  },
+  {
+    "Compile error": "'m_categoryFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 78
+  },
+  {
+    "Compile error": "'m_categoryFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 79
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'filtersChanged'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "'filtersChanged': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "'BrushFilterManager': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 84
+  },
+  {
+    "Compile error": "'m_tagFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 86
+  },
+  {
+    "Compile error": "'m_tagFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'filtersChanged'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "'filtersChanged': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 88
+  },
+  {
+    "Compile error": "'BrushFilterManager': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 94
+  },
+  {
+    "Compile error": "'m_tagFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 96
+  },
+  {
+    "Compile error": "'m_tagFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 97
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'filtersChanged'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'filtersChanged': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 98
+  },
+  {
+    "Compile error": "'BrushFilterManager': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 102
+  },
+  {
+    "Compile error": "'m_tagFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'filtersChanged'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'filtersChanged': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 105
+  },
+  {
+    "Compile error": "'BrushFilterManager': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 109
+  },
+  {
+    "Compile error": "'m_tagFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "'m_tagFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 112
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'filtersChanged'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'filtersChanged': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 113
+  },
+  {
+    "Compile error": "'BrushFilterManager': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 117
+  },
+  {
+    "Compile error": "'m_typeFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "'m_typeFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 120
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'filtersChanged'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'filtersChanged': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 121
+  },
+  {
+    "Compile error": "'BrushFilterManager': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 127
+  },
+  {
+    "Compile error": "'m_typeFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 129
+  },
+  {
+    "Compile error": "'m_typeFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 130
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 131
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'filtersChanged'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 131
+  },
+  {
+    "Compile error": "'filtersChanged': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 131
+  },
+  {
+    "Compile error": "'BrushFilterManager': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 135
+  },
+  {
+    "Compile error": "'m_typeFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 137
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 138
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'filtersChanged'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 138
+  },
+  {
+    "Compile error": "'filtersChanged': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 138
+  },
+  {
+    "Compile error": "'BrushFilterManager': is not a class or namespace name",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 142
+  },
+  {
+    "Compile error": "'m_typeFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 144
+  },
+  {
+    "Compile error": "'m_typeFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 145
+  },
+  {
+    "Compile error": "'emit': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "syntax error: missing ';' before identifier 'filtersChanged'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "'filtersChanged': identifier not found",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "error count exceeds 100; stopping compilation",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.cpp",
+    "Code line error": 146
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "'m_searchText': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'m_searchMode': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'m_categoryFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'m_tagFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'m_typeFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "'m_showRecentOnly': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'m_showFavoritesOnly': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'m_recentBrushes': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'m_favoriteBrushes': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "'m_searchText': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'m_searchMode': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'m_categoryFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'m_tagFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'m_typeFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "'m_showRecentOnly': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'m_showFavoritesOnly': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'m_recentBrushes': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'m_favoriteBrushes': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "'m_searchText': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'m_searchMode': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'m_categoryFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'m_tagFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'m_typeFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "'m_showRecentOnly': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'m_showFavoritesOnly': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'m_recentBrushes': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'m_favoriteBrushes': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 111
+  },
+  {
+    "Compile error": "'RME::QObject': base class undefined",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 25
+  },
+  {
+    "Compile error": "syntax error: missing ':' before identifier 'slots'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "unexpected token(s) preceding ':'; skipping apparent function body",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 119
+  },
+  {
+    "Compile error": "syntax error: '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "syntax error: missing ';' before '}'",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 178
+  },
+  {
+    "Compile error": "'m_searchText': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 59
+  },
+  {
+    "Compile error": "'m_searchMode': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 62
+  },
+  {
+    "Compile error": "'m_categoryFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 66
+  },
+  {
+    "Compile error": "'m_tagFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 73
+  },
+  {
+    "Compile error": "'m_typeFilter': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 80
+  },
+  {
+    "Compile error": "'m_showRecentOnly': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 87
+  },
+  {
+    "Compile error": "'m_showFavoritesOnly': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 90
+  },
+  {
+    "Compile error": "'m_recentBrushes': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 104
+  },
+  {
+    "Compile error": "'m_favoriteBrushes': undeclared identifier",
+    "File": "Project_QT\\src\\ui\\palettes\\BrushFilterManager.h",
+    "Code line error": 111
+  }
+]

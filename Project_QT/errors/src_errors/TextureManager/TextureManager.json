@@ -1,0 +1,27 @@
+[
+  {
+    "Compile error": "operator '!' cannot be applied to an operand of type 'void'",
+    "File": "Project_QT\\src\\core\\sprites\\TextureManager.cpp",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "a conditional expression of type 'void' is not valid",
+    "File": "Project_QT\\src\\core\\sprites\\TextureManager.cpp",
+    "Code line error": 35
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::sprites::SpriteManager'",
+    "File": "Project_QT\\src\\core\\sprites\\TextureManager.cpp",
+    "Code line error": 67
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::sprites::SpriteManager'",
+    "File": "Project_QT\\src\\core\\sprites\\TextureManager.cpp",
+    "Code line error": 155
+  },
+  {
+    "Compile error": "use of undefined type 'RME::core::sprites::SpriteManager'",
+    "File": "Project_QT\\src\\core\\sprites\\TextureManager.cpp",
+    "Code line error": 191
+  }
+]
