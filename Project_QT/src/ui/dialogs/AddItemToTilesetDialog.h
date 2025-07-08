@@ -57,10 +57,10 @@ public:
     QString getSelectedTileset() const;
     QList<uint16_t> getSelectedItemIds() const;
 
-public slots:
+public Q_SLOTS: // Added Q_
     void accept() override;
 
-private slots:
+private Q_SLOTS: // Added Q_
     void onItemIdChanged();
     void onBrowseItem();
     void onRangeToggled(bool enabled);

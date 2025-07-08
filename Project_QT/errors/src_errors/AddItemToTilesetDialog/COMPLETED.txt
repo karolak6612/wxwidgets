@@ -1,0 +1,7 @@
+===================
+Status: COMPLETED
+Date: 2024-03-15
+Session: 1
+Fixes applied: 1 (logical fix type, applied in 2 places)
+Notes: Changed `public slots:` to `public Q_SLOTS:` and `private slots:` to `private Q_SLOTS:` in `Project_QT/src/ui/dialogs/AddItemToTilesetDialog.h`. This is required due to `QT_NO_KEYWORDS` being defined. This fix is expected to resolve all errors in `AddItemToTilesetDialog.json` for both the .h and .cpp files.
+===================
